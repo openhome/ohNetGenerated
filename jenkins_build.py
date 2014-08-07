@@ -249,7 +249,7 @@ def main():
     Build.get_platform()
     Build.set_platform_args()
     Build.get_build_args()
-    Build.do_build()
+    #Build.do_build()
     Build.do_postAction()
 
 if __name__ == "__main__":
