@@ -1,5 +1,3 @@
-#Makefile for linux
-# Could be extended to support Mac in future
 
 rsync ?= yes
 
@@ -48,8 +46,10 @@ ifeq ($(MACHINE),Darwin)
     detected_openhome_system = Mac
     ifeq ($(mac-64),1)
       detected_openhome_architecture = x64
+      depsPlatform = Mac-x64
     else
       detected_openhome_architecture = x86
+      depsPlatform = Mac-x86
     endif
   endif
 else ifneq (, $(findstring powerpc, $(gcc_machine)))
@@ -79,21 +79,27 @@ else
     endif
     ifneq (,$(findstring i686,$(gcc_machine)))
       detected_openhome_architecture = x86
+      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring i586,$(gcc_machine)))
       detected_openhome_architecture = x86
+      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring i486,$(gcc_machine)))
       detected_openhome_architecture = x86
+      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring i386,$(gcc_machine)))
       detected_openhome_architecture = x86
+      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring amd64,$(gcc_machine)))
       detected_openhome_architecture = x64
+      depsPlatform = Linux-x64
     endif
     ifneq (,$(findstring x86_64,$(gcc_machine)))
       detected_openhome_architecture = x64
+      depsPlatform = Linux-x64
     endif
 
 
@@ -125,33 +131,6 @@ ifeq ($(platform),Android)
 endif
 
 
-ifeq ($(platform),iOS)
-	linkopts_ohNet =
-	platform_prefix=iPhoneOS
-	platform_compiler=arm-apple-darwin10
-	platform_arch=$(detected_openhome_architecture)
-	ifeq ($(detected_openhome_architecture),x86)
-		platform_prefix=iPhoneSimulator
-		platform_compiler=i686-apple-darwin10
-		platform_arch=i386
-	endif
-	devroot=/Applications/Xcode.app/Contents/Developer
-	toolroot=$(devroot)/Toolchains/XcodeDefault.xctoolchain/usr/bin
-	sdkroot=$(devroot)/Platforms/$(platform_prefix).platform/Developer/SDKs/$(platform_prefix)7.1.sdk
-	platform_cflags = -I$(sdkroot)/usr/lib/gcc/$(platform_compiler)/4.2.1/include/ -I$(sdkroot)/usr/include/ -miphoneos-version-min=2.2 -pipe -no-cpp-precomp -isysroot $(sdkroot) -DPLATFORM_MACOSX_GNU -DPLATFORM_IOS
-	# TODO: Support armv6 for old devices
-	osbuilddir = $(platform)-$(detected_openhome_architecture)
-	objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
-	platform_linkflags = -L$(sdkroot)/usr/lib/ -arch $(platform_arch)  -L$(sdkroot)/usr/lib/system
-	compiler = $(toolroot)/clang -arch $(platform_arch) -isysroot $(sdkroot) -o $(objdir)
-	# No support for linking Shared Objects for ARM MAC
-	# link = $(devroot)/usr/bin/llvm-gcc-4.2  -pthread -Wl $(platform_linkflags)
-	ar = $(toolroot)/ar rc $(objdir)
-    mono_lib_dir=/Developer/MonoTouch/usr/lib/mono/2.1
-	csharpdefines = /define:IOS /r:$(mono_lib_dir)/monotouch.dll /r:$(mono_lib_dir)/System.dll /r:$(mono_lib_dir)/System.Core.dll 
-	no_shared_objects = yes
-endif
-
 ifeq ($(platform),IntelMac)
 	# Darwin, not ARM -> Intel Mac
 	platform ?= IntelMac
@@ -173,57 +152,6 @@ ifeq ($(platform),IntelMac)
 	link = ${CROSS_COMPILE}g++ -pthread $(platform_linkflags)
 	ar = ${CROSS_COMPILE}ar rc $(objdir)
 	openhome_system = Mac
-endif
-
-ifeq ($(platform), Core-ppc32)
-    # platform == Core1
-    openhome_system = Core
-    openhome_architecture = ppc32
-    endian = BIG
-    platform_cflags = -mcpu=403
-    platform_linkflags = -mcpu=403 ${CROSS_LINKFLAGS}
-    linkopts_ohNet =
-    osdir = Core
-    osbuilddir = Core-ppc32
-    objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
-    native_only = yes
-    compiler = ${CROSS_COMPILE}gcc -o $(objdir)
-    link = ${CROSS_COMPILE}g++ $(platform_linkflags)
-    ar = ${CROSS_COMPILE}ar rc $(objdir)
-endif
-
-ifeq ($(platform), Core-armv5)
-    # platform == Core2
-    openhome_system = Core
-    openhome_architecture = armv5
-    endian = LITTLE
-    platform_cflags = -mcpu=arm926ej-s -Wno-psabi -fexceptions -marm -mapcs -fno-omit-frame-pointer
-    platform_linkflags = -mcpu=arm926ej-s ${CROSS_LINKFLAGS}
-    linkopts_ohNet =
-    osdir = Core
-    osbuilddir = Core-armv5
-    objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
-    native_only = yes
-    compiler = ${CROSS_COMPILE}gcc -o $(objdir)
-    link = ${CROSS_COMPILE}g++ $(platform_linkflags)
-    ar = ${CROSS_COMPILE}ar rc $(objdir)
-endif
-
-ifeq ($(platform), Core-armv6)
-    # platform == Core2
-    openhome_system = Core
-    openhome_architecture = armv6
-    endian = LITTLE
-    platform_cflags = -mcpu=arm926ej-s -Wno-psabi
-    platform_linkflags = -mcpu=arm926ej-s ${CROSS_LINKFLAGS}
-    linkopts_ohNet =
-    osdir = Core
-    osbuilddir = Core-armv6
-    objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
-    native_only = yes
-    compiler = ${CROSS_COMPILE}gcc -o $(objdir)
-    link = ${CROSS_COMPILE}g++ $(platform_linkflags)
-    ar = ${CROSS_COMPILE}ar rc $(objdir)
 endif
 
 ifneq (,$(findstring $(platform),Vanilla Linux-ppc32))
@@ -290,8 +218,8 @@ else
     cppflags = $(cflags_base) -std=c++0x -D__STDC_VERSION__=199901L -Werror
 endif
 cflags = $(cflags_base) -Werror
-inc_build = Build/Include
-includes = -IBuild/Include/ $(version_specific_includes)
+inc_build = dependencies/$(depsPlatform)/ohNet-$(depsPlatform)-Release/include/ohnet
+includes = -I$(inc_build)/ $(version_specific_includes)
 bundle_build = Build/Bundles
 osdir ?= Posix
 objext = o
@@ -309,7 +237,6 @@ exeext = elf
 linkoutput = -o 
 dllprefix = lib
 link_dll = $(version_specific_library_path) ${CROSS_COMPILE}g++ -pthread  $(platform_linkflags) -shared -shared-libgcc
-link_dll_service = $(version_specific_library_path) ${CROSS_COMPILE}g++ -pthread  $(platform_linkflags) -shared -shared-libgcc -lohNet -L$(objdir)
 ifeq ($(platform), iOS)
 	csharp = /Developer/MonoTouch/usr/bin/smcs /nologo $(debug_csharp)
 else
@@ -398,126 +325,6 @@ include UserTargets.mak
 make_obj_dir:
 	$(mkdir) $(objdir)
 
-copy_build_includes:
-	$(mkdir) $(inc_build)
-	$(mkdir) $(inc_build)/OpenHome
-	$(mkdir) $(inc_build)/OpenHome/Private
-	$(mkdir) $(inc_build)/OpenHome/Net
-	$(mkdir) $(inc_build)/OpenHome/Net/Private
-	$(mkdir) $(inc_build)/OpenHome/Net/Core
-	$(mkdir) $(inc_build)/OpenHome/Net/C
-	$(mkdir) $(inc_build)/OpenHome/Net/Cpp
-	$(mkdir) $(inc_build)/OpenHome/Net/Private/Js
-	$(mkdir) $(inc_build)/OpenHome/Net/Private/Js/Tests
-	$(mkdir) $(inc_build)/OpenHome/Net/Private/Js/Tests/lib
-	$(mkdir) $(inc_build)/OpenHome/Net/Private/Js/Tests/proxies
-	$(cp) OpenHome/*.h $(inc_build)/OpenHome/Private
-	$(cp) OpenHome/Buffer.inl $(inc_build)/OpenHome
-	rm $(inc_build)/OpenHome/Private/Buffer.h
-	rm $(inc_build)/OpenHome/Private/Exception.h
-	rm $(inc_build)/OpenHome/Private/Functor*.h
-	rm $(inc_build)/OpenHome/Private/MimeTypes.h
-	rm $(inc_build)/OpenHome/Private/OhNetDefines.h
-	rm $(inc_build)/OpenHome/Private/Defines.h
-	rm $(inc_build)/OpenHome/Private/OsTypes.h
-	rm $(inc_build)/OpenHome/Private/OhNetTypes.h
-	rm $(inc_build)/OpenHome/Private/Types.h
-	$(cp) OpenHome/Buffer.h $(inc_build)/OpenHome
-	$(cp) OpenHome/Exception.h $(inc_build)/OpenHome
-	$(cp) OpenHome/Functor*.h $(inc_build)/OpenHome
-	$(cp) OpenHome/MimeTypes.h $(inc_build)/OpenHome
-	$(cp) OpenHome/OhNetDefines.h $(inc_build)/OpenHome
-	$(cp) OpenHome/Defines.h $(inc_build)/OpenHome
-	$(cp) OpenHome/OsTypes.h $(inc_build)/OpenHome
-	$(cp) OpenHome/OhNetTypes.h $(inc_build)/OpenHome
-	$(cp) OpenHome/Types.h $(inc_build)/OpenHome
-	$(cp) OpenHome/TestFramework/*.h $(inc_build)/OpenHome/Private
-	$(cp) OpenHome/Net/*.h $(inc_build)/OpenHome/Net/Private
-	rm $(inc_build)/OpenHome/Net/Private/FunctorAsync.h
-	rm $(inc_build)/OpenHome/Net/Private/OhNet.h
-	$(cp) OpenHome/Net/FunctorAsync.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/FunctorAsync.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/OhNet.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/OhNet.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/Shell/*.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/ControlPoint/AsyncPrivate.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/ControlPoint/CpStack.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/ControlPoint/CpDevice.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/ControlPoint/CpDeviceDv.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/ControlPoint/CpDeviceUpnp.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/ControlPoint/CpProxy.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/ControlPoint/CpProxy.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/ControlPoint/FunctorCpDevice.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/ControlPoint/Cpi*.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/ControlPoint/FunctorCpiDevice.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/ControlPoint/Dv/CpiDeviceDv.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/ControlPoint/Lpec/CpiDeviceLpec.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/ControlPoint/Proxies/*.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/ControlPoint/Upnp/*.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/DvStack.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/Device/DvDevice.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/Device/DvInvocationResponse.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/Device/DvProvider.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/Device/DvProvider.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/Device/DvResourceWriter.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/Device/DvResourceWriter.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/Device/DvServerUpnp.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/Device/DvServerUpnp.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/Device/DviDevice.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/DviServer.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/DviService.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/DviStack.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/DviSubscription.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/DviPropertyUpdateCollection.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/FunctorDviInvocation.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/DviProviderSubscriptionLongPoll.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/Bonjour/*.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/Bonjour/mDNSCore/*.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/Providers/*.h $(inc_build)/OpenHome/Net/Core
-	$(cp) OpenHome/Net/Device/Upnp/*.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Device/Lpec/*.h $(inc_build)/OpenHome/Net/Private
-	$(cp) OpenHome/Net/Bindings/C/*.h $(inc_build)/OpenHome/Net/C
-	$(cp) OpenHome/Net/Bindings/C/ControlPoint/*.h $(inc_build)/OpenHome/Net/C
-	$(cp) OpenHome/Net/Bindings/C/ControlPoint/Proxies/*.h $(inc_build)/OpenHome/Net/C
-	$(cp) OpenHome/Net/Bindings/C/Device/*.h $(inc_build)/OpenHome/Net/C
-	$(cp) OpenHome/Net/Bindings/C/Device/Providers/*.h $(inc_build)/OpenHome/Net/C
-	$(cp) OpenHome/Net/Bindings/Cpp/ControlPoint/*.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/*.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/Bindings/Cpp/Device/*.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) OpenHome/Net/Bindings/Cpp/Device/Providers/*.h $(inc_build)/OpenHome/Net/Cpp
-	$(cp) -r OpenHome/Net/Bindings/Js/ControlPoint/Tests/*.* $(inc_build)/OpenHome/Net/Private/Js/Tests
-	$(cp) OpenHome/Net/Bindings/Js/ControlPoint/lib/*.js $(inc_build)/OpenHome/Net/Private/Js/Tests/lib
-	$(cp) OpenHome/Net/Bindings/Js/ControlPoint/Proxies/CpOpenhomeOrgTestBasic1.js $(inc_build)/OpenHome/Net/Private/Js/Tests/proxies
-	$(cp) OpenHome/Net/Bindings/Js/ControlPoint/Proxies/CpOpenhomeOrgSubscriptionLongPoll1.js $(inc_build)/OpenHome/Net/Private/Js/Tests/proxies
-	$(cp) Os/*.h $(inc_build)/OpenHome
-	$(cp) Os/*.inl $(inc_build)/OpenHome
-
-install : install-pkgconf install-libs install-includes
-
-uninstall : uninstall-pkgconf uninstall-libs uninstall-includes
-
-install-pkgconf : tt
-	@echo "ERROR: no support for (un)install-pckconf yet"
-	#@echo "see http://www.mono-project.com/Guidelines:Application_Deployment for an example of how to implement this"
-
-install-libs :
-	$(mkdir) $(installlibdir)
-	$(cp) $(objdir)* $(installlibdir) 
-
-install-includes :
-	$(mkdir) $(installincludedir)
-	$(cp) -r $(inc_build)/* $(installincludedir) 
-
-uninstall-pkgconf :
-	@echo "ERROR: no support for (un)install-pckconf yet"
-	#@echo "see http://www.mono-project.com/Guidelines:Application_Deployment for an example of how to implement this"
-
-uninstall-libs :
-	$(rmdir) $(installlibdir)
-
-uninstall-includes :
-	$(rmdir) $(installincludedir)
-
 java_packages = ohnet \
 				openhome.net.controlpoint \
 				openhome.net.controlpoint.proxies \
@@ -548,11 +355,3 @@ bundle-after-build: $(build_targets)
 bundle:
 	$(mkdir) $(bundle_build)
 	python bundle_binaries.py --system $(openhome_system) --architecture $(openhome_architecture) --configuration $(openhome_configuration)
-
-ifeq ($(platform),iOS)
-ohNet.net.dll :  $(objdir)ohNet.net.dll
-else ifeq ($(platform),Android)
-ohNet.net.dll : $(objdir)ohNet.net.dll ohNetAndroidNative
-else
-ohNet.net.dll :  $(objdir)ohNet.net.dll ohNetDll
-endif

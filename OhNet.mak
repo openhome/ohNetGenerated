@@ -16,7 +16,7 @@ openhome_architecture=x86
 !message Cannot tell if compiler is 32-bit or 64-bit. Please specify openhome_architecture=x64 or openhome_architecture=x86.
 !endif
 
-platform = Windows-$(openhome_architecture)
+depsPlatform = Windows-$(openhome_architecture)
 csplatform = $(openhome_architecture)
 
 !if "$(debug)"=="1"
@@ -46,7 +46,7 @@ cflags = $(cflags_third_party) /WX
 cppflags = $(cflags)
 objdirbare = Build\Obj\Windows\$(build_dir)
 objdir = $(objdirbare)^\
-inc_build = dependencies\$(platform)\ohNet-$(platform)-Release\include\ohnet
+inc_build = dependencies\$(depsPlatform)\ohNet-$(depsPlatform)-Release\include\ohnet
 includes = -I$(inc_build)
 bundle_build = Build\Bundles
 osdir = Windows
@@ -63,8 +63,6 @@ dllprefix =
 dllext = dll
 linkopts_ohNet =
 link_dll = link /nologo $(link_flag_debug_dll) /map Ws2_32.lib Iphlpapi.lib Dbghelp.lib /dll
-ohNetLibDir = dependencies$(dirsep)$(platform)$(dirsep)ohNet-$(platform)-Release$(dirsep)lib$(dirsep)
-link_dll_service = link /nologo $(link_flag_debug_dll)  /map $(ohNetLibDir)ohNet.lib Ws2_32.lib Iphlpapi.lib Dbghelp.lib /dll
 csharp = csc /nologo /platform:$(csplatform)
 csharpdefines = 
 publicjavadir = OpenHome\Net\Bindings\Java^\
@@ -96,11 +94,7 @@ build_targets = $(all_targets)
 !endif
 
 !if "$(uset4)"=="yes"
-!if exist (Generated\GenerateSourceFiles.mak)
 !include Generated\GenerateSourceFiles.mak
-!else
-!message Note: Generated\GenerateSourceFiles.mak does not yet exist. Try "make generate-makefiles".
-!endif
 !endif
 
 !include Generated\Proxies.mak
