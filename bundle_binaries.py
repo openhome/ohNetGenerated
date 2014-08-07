@@ -130,9 +130,9 @@ def main():
     #    builddir = os.path.join(builddir, 'Release')
 
     if options.managed_only:
-        bundle_fileprefix = "ohNet.net-AnyPlatform-{target.configuration}".format(target=target)
+        bundle_fileprefix = "ohNetGenerated.net-AnyPlatform-{target.configuration}".format(target=target)
     else:
-        bundle_fileprefix = "ohNet-{target.system}-{target.architecture}-{target.configuration}".format(target=target)
+        bundle_fileprefix = "ohNetGenerated-{target.system}-{target.architecture}-{target.configuration}".format(target=target)
     bundle_filename = bundle_fileprefix + ".tar.gz"
     bundle_path = path.join(outputdir, bundle_filename)
     if os.path.exists(bundle_path):
@@ -144,13 +144,6 @@ def main():
         recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_managed)
     else:
         recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_binary)
-        #tf.add(builddir, bundle_fileprefix + "/lib", exclude=exclude_non_binary)
-        recursively_add_directory(tf, includedir, bundle_fileprefix + "/include/ohnet")
-        #tf.add(includedir, bundle_fileprefix + "/include/ohnet")
-        recursively_add_directory(tf, t4dir, bundle_fileprefix + "/lib/t4")
-        recursively_add_directory(tf, templateDir, bundle_fileprefix + "/lib/t4")
-        recursively_add_directory(tf, uisdkDir, bundle_fileprefix + "/lib/ui")
-        recursively_add_directory(tf, pyDir, bundle_fileprefix + "/lib/PyOhNet")
 
 if __name__ == "__main__":
     main()

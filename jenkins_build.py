@@ -9,20 +9,11 @@ import sys
 from os import path
 
 class PostActions():
-    def valgrind_parse(self):
-        val = valgrindParser()
-        val.get_files('vgout')
-        val.parse_file()
-
-    def valgrind_stub(self):
-        val = valgrindParser()
-        val.put_dummy('vgout')
-
     def do_release(self,platform):
         rem = remote()
         release_targets = []
         release_targets.append('release')
-        release_targets.append('debug')
+        #release_targets.append('debug')
 
     def gen_docs(self):
         rem = remote()
@@ -31,31 +22,6 @@ class PostActions():
             print ret
             sys.exit(10)
         ret = rem.rsync_gc('hudson-rsync','openhome.org','Build/Docs/','~/build/nightly/docs')
-        if ret != 0:
-            print ret
-            sys.exit(10)
-
-    def arm_tests(self,type,release):
-        # type will be either 'nightly' or 'commit'
-        # release will be either '0' or '1'
-        rem = remote()
-        ret = rem.rsync('root','sheeva010.linn.co.uk','Build','~/', excludes=['*.o', '*.a', 'Bundles'])
-        if ret != 0:
-            print ret
-            sys.exit(10)
-        ret = rem.rsync('root','sheeva010.linn.co.uk','AllTests.py','~/')
-        if ret != 0:
-            print ret
-            sys.exit(10)
-
-        alltests_cmd = 'python AllTests.py -t' # Setup AllTests cmd line to run tests only.
-
-        if type == 'nightly':
-            alltests_cmd += ' -f'        # Add 'full test' flag if in nightly-mode
-        if release == '0':
-            alltests_cmd += ' --debug'   # Run binaries residing in Build/Debug instead of Build/Release
-
-        ret = rem.rssh('root','sheeva010.linn.co.uk', alltests_cmd)
         if ret != 0:
             print ret
             sys.exit(10)
@@ -149,50 +115,10 @@ class JenkinsBuild():
         arch = self.platform['arch']
         os_platform = self.platform['os']
         args=[]
-        args.append('python')
-        args.append('AllTests.py')
-        args.append('--silent')
-
-        self.platform_make_args = []
-
-        if (arch in ['armel', 'armhf', 'armv7', 'armv5', 'armv6']) or (arch == 'ppc32' and os_platform == 'Core') or (os_platform == 'Android'):
-            args.append('--buildonly')
-        elif arch == 'x64':
-            args.append('--native')
-        if os_platform == 'windows' and arch == 'x86':
-            args.append('--js')
-            args.append('--java')
-        if os_platform == 'linux' and arch == 'x86':
-            args.append('--java')
-        if os_platform == 'macos':
-            if arch == 'x64':
-                args.append('--mac-64')
-                self.platform_make_args.append('mac-64=1')
-        if os_platform == 'iOs':
-            if arch == 'x86':
-                args.append('--iOs-x86')
-                self.platform_make_args.append('iOs-x86=1')
-            elif arch == 'armv7':
-                args.append('--iOs-armv7')
-                self.platform_make_args.append('iOs-armv7=1')
-            # 32 and 64-bit builds run in parallel on the same slave.
-            # Overlapping test instances interfere with each other so only run tests for the (assumed more useful) 32-bit build.
-            # Temporarily disable all tests on mac as publish jobs hang otherwise
-            args.append('--buildonly')
-        if os_platform == 'Android':
-            args.append('--Android-anycpu')
-            self.platform_make_args.append('Android-anycpu=1')
-        if os_platform == 'Qnap':
-            args.append('--Qnap-anycpu')
-            self.platform_make_args.append('Qnap-anycpu=1')
-        if os_platform == 'Core':
-            args.append('--core')
-        if nightly == '1':
-            args.append('--full')
-            if os_platform == 'linux' and arch == 'x86':
-                args.append('--valgrind')    
-        if self.options.parallel:
-            args.append('--parallel')
+        args.append('make')
+        args.append('all')
+        if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
+            args.append('JavaAll')
         self.build_args = args
 
     def do_build(self):
@@ -218,10 +144,6 @@ class JenkinsBuild():
 
         for build_t in build_targets:
             build = list(common_args)
-            if build_t == 'debug':
-                build.append('--debug')
-            if build_t == 'release':
-                build.append('--incremental')
 
             print 'running build with %s' %(build,)
 
@@ -243,7 +165,6 @@ class JenkinsBuild():
         
         release_targets = []
         release_targets.append('release')
-        release_targets.append('debug')
 
         # clean slate so as not to upload random junk inadvertently
         shutil.rmtree(os.path.join('Build', 'Bundles'), ignore_errors=True)
@@ -284,12 +205,12 @@ class JenkinsBuild():
                 print ret
                 sys.exit(10)
 
-            native_bundle_name = os.path.join('Build/Bundles',"ohNet-%s-%s-%s.tar.gz" %(openhome_system, openhome_architecture, openhome_configuration))
-            native_dest = os.path.join('Build/Bundles',"ohNet-%s-%s-%s-%s.tar.gz" %(version, openhome_system, openhome_architecture, openhome_configuration))
+            native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s.tar.gz" %(openhome_system, openhome_architecture, openhome_configuration))
+            native_dest = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s-%s.tar.gz" %(version, openhome_system, openhome_architecture, openhome_configuration))
             if os.path.exists(native_dest):
                 os.remove(native_dest)
             os.rename(native_bundle_name, native_dest)
-        rem.check_rsync('releases','www.openhome.org','Build/Bundles/','~/www/artifacts/ohNet/')
+        rem.check_rsync('releases','www.openhome.org','Build/Bundles/','~/www/artifacts/ohNetGenerated/')
                         
     
     def do_postAction(self):
@@ -304,14 +225,8 @@ class JenkinsBuild():
 
         if nightly == '1':
             if os_platform == 'linux' and arch == 'x86':
-                postAction.valgrind_parse()
                 postAction.gen_docs()
 
-            if os_platform == 'linux' and arch in ['armel', 'armhf']:
-                postAction.arm_tests('nightly', release)
-        else:
-            if os_platform == 'linux' and arch in ['armel', 'armhf']:
-                postAction.arm_tests('commit', release)
         if self.platform['publish'] and release == '1':
             self.do_release()
 
