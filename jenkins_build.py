@@ -3,7 +3,6 @@
 import os, subprocess
 import shutil
 from optparse import OptionParser
-from Helpers.valgrind_parser import *
 from Helpers.remote import *
 import sys
 from os import path
