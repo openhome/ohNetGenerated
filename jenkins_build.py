@@ -197,6 +197,14 @@ class JenkinsBuild():
             os.remove(native_dest)
         os.rename(native_bundle_name, native_dest)
 
+        # Add a version to AnyPlatform on Windows-x86 only (arbitrarily chosen platform)
+        if openhome_system == 'Windows' and openhome_architecture == 'x86':
+            native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated.net-AnyPlatform-Release.tar.gz")
+            native_dest = os.path.join('Build/Bundles',"ohNetGenerated.net-%s-AnyPlatform-Release.tar.gz" %(version))
+            if os.path.exists(native_dest):
+                os.remove(native_dest)
+            os.rename(native_bundle_name, native_dest)
+
         rem.check_rsync('releases','www.openhome.org','Build/Bundles/','~/www/artifacts/ohNetGenerated/')
                         
     
