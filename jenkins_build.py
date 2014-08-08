@@ -112,6 +112,7 @@ class JenkinsBuild():
     def do_build(self):
         os_platform = self.platform['os']
         args=[]
+        print 'cwd is ' + os.getcwd()
         if self.platform['os'] == 'windows':
             args.append('ohNetGenerated/go')
         else:
