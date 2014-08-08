@@ -157,7 +157,7 @@ class JenkinsBuild():
         # clean slate so as not to upload random junk inadvertently
         shutil.rmtree(os.path.join('Build', 'Bundles'), ignore_errors=True)
         
-        openhome_configuration = release.title()
+        openhome_configuration = 'Release'
         build = []
         if platform_args != []:
             build.extend(platform_args)
