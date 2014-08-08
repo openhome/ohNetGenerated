@@ -113,6 +113,7 @@ class JenkinsBuild():
         os_platform = self.platform['os']
         args=[]
         print 'cwd is ' + os.getcwd()
+        print os.listdir(os.getcwd())
         if self.platform['os'] == 'windows':
             args.append('ohNetGenerated/go')
         else:
