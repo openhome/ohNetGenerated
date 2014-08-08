@@ -109,47 +109,29 @@ class JenkinsBuild():
 
         self.platform_args = args
 
-    def get_build_args(self):
-        nightly = self.options.nightly
-        arch = self.platform['arch']
+    def do_build(self):
         os_platform = self.platform['os']
+        args=[]
+        if self.platform['os'] == 'windows':
+            args.append('go')
+        else:
+            args.append('./go')
+        args.append('fetch')
+        args.append('--all')
+        ret = subprocess.check_call(args)
+        if ret != 0:
+            print ret
+            sys.exit(10)
+
         args=[]
         args.append('make')
         args.append('all')
         if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
             args.append('JavaAll')
-        self.build_args = args
-
-    def do_build(self):
-        nightly = self.options.nightly
-        release = self.options.release
-        os_platform = self.platform['os']
-        build_args = self.build_args
-        platform_args = self.platform_args
-        common_args = []
-            
-        if platform_args == []:
-            common_args.extend(build_args)
-        else:
-            common_args.extend(platform_args)
-            common_args.append('&&')
-            common_args.extend(build_args)
-            
-        build_targets = []
-        build_targets.append('debug')
-
-        if release == '1':
-            build_targets.append('release')
-
-        for build_t in build_targets:
-            build = list(common_args)
-
-            print 'running build with %s' %(build,)
-
-            ret = subprocess.check_call(build)            
-            if ret != 0:
-                print ret
-                sys.exit(10)
+        ret = subprocess.check_call(args)
+        if ret != 0:
+            print ret
+            sys.exit(10)
 
     def do_release(self):
         rem = remote()
@@ -168,56 +150,45 @@ class JenkinsBuild():
         # clean slate so as not to upload random junk inadvertently
         shutil.rmtree(os.path.join('Build', 'Bundles'), ignore_errors=True)
         
-        for release in release_targets:
-            openhome_configuration = release.title()
-            build = []
-            build.append('go')
-            build.append('fetch')
-            build.append('--all')
-            ret = subprocess.check_call(build)
-            if ret != 0:
-                print ret
-                sys.exit(10)
+        openhome_configuration = release.title()
+        build = []
+        if platform_args != []:
+            build.extend(platform_args)
+            build.append('&&')
+        build.append('make')
+        build.append('tt')
+        build.append('uset4=yes')
+        ret = subprocess.check_call(build)
+        if ret != 0:
+            print ret
+            sys.exit(10)
 
-            build = []
-            if platform_args != []:
-                build.extend(platform_args)
-                build.append('&&')
-            build.append('make')
-            build.append('tt')
-            build.append('uset4=yes')
-            ret = subprocess.check_call(build)
-            if ret != 0:
-                print ret
-                sys.exit(10)
+        build = []
+        if platform_args != []:
+            build.extend(platform_args)
+            build.append('&&')
 
-            build = []
-            if platform_args != []:
-                build.extend(platform_args)
-                build.append('&&')
+        build.append('make')
+        build.append('bundle')
+        build.append('uset4=yes')
+        build.append('openhome_system=' + openhome_system)
+        build.append('openhome_architecture=' + openhome_architecture)
+        build.append('openhome_configuration=' + openhome_configuration)
+        build.extend(self.platform_make_args)
 
-            build.append('make')
-            build.append('bundle')
-            #build.append('targetplatform=%s' %(platform,))
-            #build.append('releasetype=%s' %(release,))
-            build.append('uset4=yes')
-            build.append('openhome_system=' + openhome_system)
-            build.append('openhome_architecture=' + openhome_architecture)
-            build.append('openhome_configuration=' + openhome_configuration)
-            build.extend(self.platform_make_args)
+        print "doing release with bundle %s" %(build,)
 
-            print "doing release with bundle %s" %(build,)
+        ret = subprocess.check_call(build)
+        if ret != 0:
+            print ret
+            sys.exit(10)
 
-            ret = subprocess.check_call(build)
-            if ret != 0:
-                print ret
-                sys.exit(10)
+        native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s.tar.gz" %(openhome_system, openhome_architecture, openhome_configuration))
+        native_dest = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s-%s.tar.gz" %(version, openhome_system, openhome_architecture, openhome_configuration))
+        if os.path.exists(native_dest):
+            os.remove(native_dest)
+        os.rename(native_bundle_name, native_dest)
 
-            native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s.tar.gz" %(openhome_system, openhome_architecture, openhome_configuration))
-            native_dest = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s-%s.tar.gz" %(version, openhome_system, openhome_architecture, openhome_configuration))
-            if os.path.exists(native_dest):
-                os.remove(native_dest)
-            os.rename(native_bundle_name, native_dest)
         rem.check_rsync('releases','www.openhome.org','Build/Bundles/','~/www/artifacts/ohNetGenerated/')
                         
     
@@ -227,9 +198,6 @@ class JenkinsBuild():
         os_platform = self.platform['os']
         arch = self.platform['arch']
         postAction = PostActions()
-
-        # generate dummy XML even on on-commit tests
-        postAction.valgrind_stub()
 
         if nightly == '1':
             if os_platform == 'linux' and arch == 'x86':
@@ -249,7 +217,7 @@ def main():
     Build.get_platform()
     Build.set_platform_args()
     Build.get_build_args()
-    #Build.do_build()
+    Build.do_build()
     Build.do_postAction()
 
 if __name__ == "__main__":
