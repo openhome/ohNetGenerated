@@ -112,6 +112,7 @@ class JenkinsBuild():
     def do_build(self):
         os_platform = self.platform['os']
         arch = self.platform['arch']
+        platform_args = self.platform_args
         args=[]
         if self.platform['os'] == 'windows':
             args.append('go.bat')
@@ -119,16 +120,21 @@ class JenkinsBuild():
             args.append('./go')
         args.append('fetch')
         args.append('--all')
+        print "do_build: fetch dependencies with cmd %s" %(args,)
         ret = subprocess.check_call(args)
         if ret != 0:
             print ret
             sys.exit(10)
 
         args=[]
+        if platform_args != []:
+            args.extend(platform_args)
+            args.append('&&')
         args.append('make')
         args.append('all')
         if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
             args.append('JavaAll')
+        print "do_build: build with cmd %s" %(args,)
         ret = subprocess.check_call(args)
         if ret != 0:
             print ret
