@@ -112,12 +112,10 @@ class JenkinsBuild():
     def do_build(self):
         os_platform = self.platform['os']
         args=[]
-        print 'cwd is ' + os.getcwd()
-        print os.listdir(os.getcwd())
         if self.platform['os'] == 'windows':
-            args.append('ohNetGenerated/go')
+            args.append('go.bat')
         else:
-            args.append('./ohNetGenerated/go')
+            args.append('./go')
         args.append('fetch')
         args.append('--all')
         ret = subprocess.check_call(args)
