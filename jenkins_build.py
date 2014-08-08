@@ -111,6 +111,7 @@ class JenkinsBuild():
 
     def do_build(self):
         os_platform = self.platform['os']
+        arch = self.platform['arch']
         args=[]
         if self.platform['os'] == 'windows':
             args.append('go.bat')
