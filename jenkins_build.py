@@ -113,9 +113,9 @@ class JenkinsBuild():
         os_platform = self.platform['os']
         args=[]
         if self.platform['os'] == 'windows':
-            args.append('go')
+            args.append('ohNetGenerated/go')
         else:
-            args.append('./go')
+            args.append('./ohNetGenerated/go')
         args.append('fetch')
         args.append('--all')
         ret = subprocess.check_call(args)
