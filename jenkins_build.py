@@ -120,6 +120,7 @@ class JenkinsBuild():
             args.append('./go')
         args.append('fetch')
         args.append('--all')
+        args.append('--platform=' + self.platform['system'] + '-' + arch)
         print "do_build: fetch dependencies with cmd %s" %(args,)
         ret = subprocess.check_call(args)
         if ret != 0:
