@@ -181,7 +181,7 @@ class JenkinsBuild():
         build.append('openhome_system=' + openhome_system)
         build.append('openhome_architecture=' + openhome_architecture)
         build.append('openhome_configuration=' + openhome_configuration)
-        build.extend(self.platform_make_args)
+        #build.extend(self.platform_make_args)
 
         print "doing release with bundle %s" %(build,)
 
