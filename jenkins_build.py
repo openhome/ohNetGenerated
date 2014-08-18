@@ -109,6 +109,15 @@ class JenkinsBuild():
 
         self.platform_args = args
 
+    def set_make_args(self):
+        os_platform = self.platform['os']
+        args=[]
+        if (os_platform == 'Core'):
+            args.append('platform=' + self.platform['system'] + '-' + self.platform['arch'])
+        if (os_platform == 'Qnap'):
+            args.append('Qnap-anycpu=1')
+        self.make_args = args
+
     def do_build(self):
         os_platform = self.platform['os']
         arch = self.platform['arch']
@@ -135,10 +144,7 @@ class JenkinsBuild():
         args.append('all')
         if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
             args.append('JavaAll')
-        if (os_platform == 'Core'):
-            args.append('platform=' + self.platform['system'] + '-' + arch)
-        if (os_platform == 'Qnap'):
-            args.append('Qnap-anycpu=1')
+        args.extend(self.make_args)
         print "do_build: build with cmd %s" %(args,)
         ret = subprocess.check_call(args)
         if ret != 0:
@@ -170,6 +176,7 @@ class JenkinsBuild():
         build.append('make')
         build.append('tt')
         build.append('uset4=yes')
+        build.extend(self.make_args)
         ret = subprocess.check_call(build)
         if ret != 0:
             print ret
@@ -236,6 +243,7 @@ def main():
     Build.get_options()
     Build.get_platform()
     Build.set_platform_args()
+    Build.set_make_args()
     Build.do_build()
     Build.do_postAction()
 
