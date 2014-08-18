@@ -46,10 +46,8 @@ ifeq ($(MACHINE),Darwin)
     detected_openhome_system = Mac
     ifeq ($(mac-64),1)
       detected_openhome_architecture = x64
-      depsPlatform = Mac-x64
     else
       detected_openhome_architecture = x86
-      depsPlatform = Mac-x86
     endif
   endif
 else ifneq (, $(findstring powerpc, $(gcc_machine)))
@@ -79,27 +77,21 @@ else
     endif
     ifneq (,$(findstring i686,$(gcc_machine)))
       detected_openhome_architecture = x86
-      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring i586,$(gcc_machine)))
       detected_openhome_architecture = x86
-      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring i486,$(gcc_machine)))
       detected_openhome_architecture = x86
-      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring i386,$(gcc_machine)))
       detected_openhome_architecture = x86
-      depsPlatform = Linux-x86
     endif
     ifneq (,$(findstring amd64,$(gcc_machine)))
       detected_openhome_architecture = x64
-      depsPlatform = Linux-x64
     endif
     ifneq (,$(findstring x86_64,$(gcc_machine)))
       detected_openhome_architecture = x64
-      depsPlatform = Linux-x64
     endif
 
 
@@ -178,6 +170,40 @@ ifneq (,$(findstring $(platform),Vanilla Linux-ppc32))
   ar = $(version_specific_library_path) ${CROSS_COMPILE}ar rc $(objdir)
 endif
 
+ifeq ($(platform), Core-ppc32)
+    # platform == Core1
+    openhome_system = Core
+    openhome_architecture = ppc32
+    endian = BIG
+    platform_cflags = -mcpu=403
+    platform_linkflags = -mcpu=403 ${CROSS_LINKFLAGS}
+    linkopts_ohNet =
+    osdir = Core
+    osbuilddir = Core-ppc32
+    objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
+    native_only = yes
+    compiler = ${CROSS_COMPILE}gcc -o $(objdir)
+    link = ${CROSS_COMPILE}g++ $(platform_linkflags)
+    ar = ${CROSS_COMPILE}ar rc $(objdir)
+endif
+
+ifeq ($(platform), Core-armv5)
+    # platform == Core2
+    openhome_system = Core
+    openhome_architecture = armv5
+    endian = LITTLE
+    platform_cflags = -mcpu=arm926ej-s -Wno-psabi -fexceptions -marm -mapcs -fno-omit-frame-pointer
+    platform_linkflags = -mcpu=arm926ej-s ${CROSS_LINKFLAGS}
+    linkopts_ohNet =
+    osdir = Core
+    osbuilddir = Core-armv5
+    objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
+    native_only = yes
+    compiler = ${CROSS_COMPILE}gcc -o $(objdir)
+    link = ${CROSS_COMPILE}g++ $(platform_linkflags)
+    ar = ${CROSS_COMPILE}ar rc $(objdir)
+endif
+
 ifeq ($(platform), Linux-ppc32)
     # platform == Linux-ppc32
     endian = BIG
@@ -218,6 +244,7 @@ else
     cppflags = $(cflags_base) -std=c++0x -D__STDC_VERSION__=199901L -Werror
 endif
 cflags = $(cflags_base) -Werror
+depsPlatform = ${openhome_system}-${openhome_architecture}
 inc_build = dependencies/$(depsPlatform)/ohNet-$(depsPlatform)-Release/include/ohnet
 includes = -I$(inc_build)/ $(version_specific_includes)
 bundle_build = Build/Bundles

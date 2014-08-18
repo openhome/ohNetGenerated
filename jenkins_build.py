@@ -135,6 +135,10 @@ class JenkinsBuild():
         args.append('all')
         if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
             args.append('JavaAll')
+        if (os_platform == 'Core'):
+            args.append('platform=' + self.platform['system'] + '-' + arch)
+        if (os_platform == 'Qnap'):
+            args.append('Qnap-anycpu=1')
         print "do_build: build with cmd %s" %(args,)
         ret = subprocess.check_call(args)
         if ret != 0:
