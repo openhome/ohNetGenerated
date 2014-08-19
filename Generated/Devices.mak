@@ -181,7 +181,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgSubscriptionLongPoll1.class \
 
 devices : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_devices)
-	$(ar)$(libprefix)ohNetDevices.$(libext) $(objects_devices)
+	$(ar)$(libprefix)ohNetGeneratedDevices.$(libext) $(objects_devices)
 $(objdir)DvUpnpOrgAVTransport1.$(objext) : $(deviceCppCore)DvUpnpOrgAVTransport1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvUpnpOrgAVTransport1.h
 	$(compiler)DvUpnpOrgAVTransport1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvUpnpOrgAVTransport1.cpp
 $(objdir)DvUpnpOrgAVTransport1Std.$(objext) : $(deviceCppStd)DvUpnpOrgAVTransport1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvUpnpOrgAVTransport1.h

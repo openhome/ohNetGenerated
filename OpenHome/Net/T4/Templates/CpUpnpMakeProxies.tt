@@ -52,7 +52,7 @@ proxy_java_classes_with_path = \
 
 
 proxies : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_proxies)
-	$(ar)$(libprefix)ohNetProxies.$(libext) $(objects_proxies)
+	$(ar)$(libprefix)ohNetGeneratedProxies.$(libext) $(objects_proxies)
 <#  foreach (Service s in u.iServices) #>
 <#  { #>
 $(objdir)Cp<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>.$(objext) : $(proxyCppCore)Cp<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/Cp<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>.h

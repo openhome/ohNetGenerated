@@ -45,7 +45,7 @@ device_java_classes_with_path = \
 <#  } #>
 
 devices : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_devices)
-	$(ar)$(libprefix)ohNetDevices.$(libext) $(objects_devices)
+	$(ar)$(libprefix)ohNetGeneratedDevices.$(libext) $(objects_devices)
 <#  foreach (Service s in u.iServices) #>
 <#  { #>
 $(objdir)Dv<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>.$(objext) : $(deviceCppCore)Dv<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>.cpp $(headers_device) OpenHome/Net/Device/Providers/Dv<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>.h

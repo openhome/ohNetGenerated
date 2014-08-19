@@ -188,7 +188,7 @@ proxy_java_classes_with_path = \
 
 
 proxies : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_proxies)
-	$(ar)$(libprefix)ohNetProxies.$(libext) $(objects_proxies)
+	$(ar)$(libprefix)ohNetGeneratedProxies.$(libext) $(objects_proxies)
 $(objdir)CpUpnpOrgAVTransport1.$(objext) : $(proxyCppCore)CpUpnpOrgAVTransport1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpUpnpOrgAVTransport1.h
 	$(compiler)CpUpnpOrgAVTransport1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpUpnpOrgAVTransport1.cpp
 $(objdir)CpUpnpOrgAVTransport1C.$(objext) : $(proxyC)CpUpnpOrgAVTransport1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpUpnpOrgAVTransport1.h
