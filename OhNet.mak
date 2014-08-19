@@ -46,6 +46,7 @@ cflags = $(cflags_third_party) /WX
 cppflags = $(cflags)
 objdirbare = Build\Obj\Windows\$(build_dir)
 objdir = $(objdirbare)^\
+header_install = Build\Include
 inc_build = dependencies\$(depsPlatform)\ohNet-$(depsPlatform)-Release\include\ohnet
 includes = -I$(inc_build)
 bundle_build = Build\Bundles
@@ -106,6 +107,20 @@ include UserTargets.mak
 
 make_obj_dir:
 	if not exist $(objdirbare) mkdir $(objdirbare)
+
+copy_build_includes:
+	if not exist $(header_install) mkdir $(header_install)
+	if not exist $(header_install)\OpenHome mkdir $(header_install)\OpenHome
+	if not exist $(header_install)\OpenHome\Net mkdir $(header_install)\OpenHome\Net
+	if not exist $(header_install)\OpenHome\Net\Core mkdir $(header_install)\OpenHome\Net\Core
+	if not exist $(header_install)\OpenHome\Net\C mkdir $(header_install)\OpenHome\Net\C
+	if not exist $(header_install)\OpenHome\Net\Cpp mkdir $(header_install)\OpenHome\Net\Cpp
+	copy OpenHome\Net\ControlPoint\Proxies\*.h $(header_install)\OpenHome\Net\Core > nul
+	copy OpenHome\Net\Device\Providers\*.h $(header_install)\OpenHome\Net\Core > nul
+	copy OpenHome\Net\Bindings\C\ControlPoint\Proxies\*.h $(header_install)\OpenHome\Net\C > nul
+	copy OpenHome\Net\Bindings\C\Device\Providers\*.h $(header_install)\OpenHome\Net\C > nul
+	copy OpenHome\Net\Bindings\Cpp\ControlPoint\Proxies\*.h $(header_install)\OpenHome\Net\Cpp > nul
+	copy OpenHome\Net\Bindings\Cpp\Device\Providers\*.h $(header_install)\OpenHome\Net\Cpp > nul
 
 bundle-after-build: $(all_targets)
 	if not exist "$(bundle_build)" mkdir "$(bundle_build)"
