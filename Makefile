@@ -245,6 +245,7 @@ else
 endif
 cflags = $(cflags_base) -Werror
 depsPlatform = ${openhome_system}-${openhome_architecture}
+header_install = Build/Include
 inc_build = dependencies/$(depsPlatform)/ohNet-$(depsPlatform)-Release/include/ohnet
 includes = -I$(inc_build)/ $(version_specific_includes)
 bundle_build = Build/Bundles
@@ -352,6 +353,20 @@ include UserTargets.mak
 make_obj_dir:
 	$(mkdir) $(objdir)
 
+copy_build_includes:
+	$(mkdir) $(header_install)
+	$(mkdir) $(header_install)/OpenHome
+	$(mkdir) $(header_install)/OpenHome/Net
+	$(mkdir) $(header_install)/OpenHome/Net/Core
+	$(mkdir) $(header_install)/OpenHome/Net/C
+	$(mkdir) $(header_install)/OpenHome/Net/Cpp
+	$(cp) OpenHome/Net/ControlPoint/Proxies/*.h $(header_install)/OpenHome/Net/Core
+	$(cp) OpenHome/Net/Device/Providers/*.h $(header_install)/OpenHome/Net/Core
+	$(cp) OpenHome/Net/Bindings/C/ControlPoint/Proxies/*.h $(header_install)/OpenHome/Net/C
+	$(cp) OpenHome/Net/Bindings/C/Device/Providers/*.h $(header_install)/OpenHome/Net/C
+	$(cp) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/*.h $(header_install)/OpenHome/Net/Cpp
+	$(cp) OpenHome/Net/Bindings/Cpp/Device/Providers/*.h $(header_install)/OpenHome/Net/Cpp
+
 java_packages = ohnet \
 				openhome.net.controlpoint \
 				openhome.net.controlpoint.proxies \
@@ -382,3 +397,4 @@ bundle-after-build: $(build_targets)
 bundle:
 	$(mkdir) $(bundle_build)
 	python bundle_binaries.py --system $(openhome_system) --architecture $(openhome_architecture) --configuration $(openhome_configuration)
+

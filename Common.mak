@@ -30,6 +30,6 @@ Generated$(dirsep)Devices.mak : $(tt) OpenHome$(dirsep)Net$(dirsep)Service$(dirs
 	$(t4) -o Generated$(dirsep)Devices.mak OpenHome/Net/T4/Templates/DvUpnpMakeDevices.tt -a xml:OpenHome/Net/Service/Services.xml
 	@echo Attention: a makefile has been re-generated.
 
-native_targets = make_obj_dir proxies devices
+native_targets = make_obj_dir copy_build_includes proxies devices
 
 all_targets = $(native_targets) CpProxyDotNetAssemblies DvDeviceDotNetAssemblies

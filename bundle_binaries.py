@@ -144,6 +144,7 @@ def main():
         recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_managed)
     else:
         recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_binary)
+        recursively_add_directory(tf, includedir, bundle_fileprefix + "/include/ohnet")
 
 if __name__ == "__main__":
     main()
