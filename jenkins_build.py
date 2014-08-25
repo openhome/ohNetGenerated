@@ -12,7 +12,7 @@ class PostActions():
         rem = remote()
         release_targets = []
         release_targets.append('release')
-        #release_targets.append('debug')
+        release_targets.append('debug')
 
     def gen_docs(self):
         rem = remote()
