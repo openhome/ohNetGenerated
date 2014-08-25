@@ -164,7 +164,6 @@ class JenkinsBuild():
         
         release_targets = []
         release_targets.append('release')
-        release_targets.append('debug')
 
         # clean slate so as not to upload random junk inadvertently
         shutil.rmtree(os.path.join('Build', 'Bundles'), ignore_errors=True)
