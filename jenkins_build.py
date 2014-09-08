@@ -68,23 +68,23 @@ class JenkinsBuild():
 
     def get_platform(self):
         platforms = { 
-                'Linux-x86': { 'os':'linux', 'arch':'x86', 'publish':True, 'system':'Linux'},
-                'Linux-x64': { 'os':'linux', 'arch':'x64', 'publish':True, 'system':'Linux'},
-                'Linux-ppc32': { 'os':'linux', 'arch':'ppc32', 'publish':True, 'system':'Linux'},
-                'Windows-x86': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows'},
-                'Windows-x64': { 'os': 'windows', 'arch':'x64', 'publish':True, 'system':'Windows'},
-                'Macos-x64': { 'os': 'macos', 'arch':'x86', 'publish':False, 'system':'Mac'}, # Old Jenkins label
-                'Mac-x64': { 'os': 'macos', 'arch':'x64', 'publish':True, 'system':'Mac'}, # New Jenkins label, matches downstream builds
-                'Mac-x86': { 'os': 'macos', 'arch':'x86', 'publish':True, 'system':'Mac'}, # New Jenkins label, matches downstream builds
-                'Linux-ARM': { 'os': 'linux', 'arch': 'armel', 'publish':True, 'system':'Linux'},
-                'iOs-ARM': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs'}, # Old Jenkins label
-                'iOs-x86': { 'os': 'iOs', 'arch':'x86', 'publish':True, 'system':'iOs'},
-                'iOs-armv7': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs'},
-                'Core-ppc32': { 'os': 'Core', 'arch':'ppc32', 'publish':True, 'system':'Core'},
-                'Core-armv5': { 'os': 'Core', 'arch':'armv5', 'publish':True, 'system':'Core'},
-                'Core-armv6': { 'os': 'Core', 'arch':'armv6', 'publish':True, 'system':'Core'},
-                'Android-anycpu': { 'os': 'Android', 'arch':'anycpu', 'publish':True, 'system':'Android'},
-                'Qnap-x86': { 'os':'Qnap', 'arch':'x86', 'publish':True, 'system':'Qnap'}
+                'Linux-x86': { 'os':'linux', 'arch':'x86', 'publish':True, 'system':'Linux', make_target:''},
+                'Linux-x64': { 'os':'linux', 'arch':'x64', 'publish':True, 'system':'Linux', make_target:''},
+                'Linux-ppc32': { 'os':'linux', 'arch':'ppc32', 'publish':True, 'system':'Linux', make_target:''},
+                'Windows-x86': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows', make_target:''},
+                'Windows-x64': { 'os': 'windows', 'arch':'x64', 'publish':True, 'system':'Windows', make_target:''},
+                'Macos-x64': { 'os': 'macos', 'arch':'x86', 'publish':False, 'system':'Mac', make_target:''}, # Old Jenkins label
+                'Mac-x64': { 'os': 'macos', 'arch':'x64', 'publish':True, 'system':'Mac', make_target:'mac-64=1'}, # New Jenkins label, matches downstream builds
+                'Mac-x86': { 'os': 'macos', 'arch':'x86', 'publish':True, 'system':'Mac', make_target:''}, # New Jenkins label, matches downstream builds
+                'Linux-ARM': { 'os': 'linux', 'arch': 'armel', 'publish':True, 'system':'Linux', make_target:''},
+                'iOs-ARM': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs', make_target:''}, # Old Jenkins label
+                'iOs-x86': { 'os': 'iOs', 'arch':'x86', 'publish':True, 'system':'iOs', make_target:'iOs-x86=1'},
+                'iOs-armv7': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs', make_target:'iOs-armv7=1'},
+                'Core-ppc32': { 'os': 'Core', 'arch':'ppc32', 'publish':True, 'system':'Core', make_target:''},
+                'Core-armv5': { 'os': 'Core', 'arch':'armv5', 'publish':True, 'system':'Core', make_target:''},
+                'Core-armv6': { 'os': 'Core', 'arch':'armv6', 'publish':True, 'system':'Core', make_target:''},
+                'Android-anycpu': { 'os': 'Android', 'arch':'anycpu', 'publish':True, 'system':'Android', make_target:'Android-anycpu=1'},
+                'Qnap-x86': { 'os':'Qnap', 'arch':'x86', 'publish':True, 'system':'Qnap', make_target:''}
         }
         current_platform = self.options.platform
         self.platform = platforms[current_platform]
@@ -144,6 +144,8 @@ class JenkinsBuild():
         args.append('all')
         if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
             args.append('JavaAll')
+        elif os_platform in ['iOs', 'macos', 'Android']:
+            args.append(self.platform['make_target'])
         args.extend(self.make_args)
         print "do_build: build with cmd %s" %(args,)
         ret = subprocess.check_call(args)
