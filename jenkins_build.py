@@ -34,7 +34,7 @@ class JenkinsBuild():
 
         parser = OptionParser()
         parser.add_option("-p", "--platform", dest="platform",
-            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Linux-ARM, Linux-ppc32, Mac-x64, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-x86, Qnap-x86")
+            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Linux-ARM, Linux-ppc32, Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-x86, Qnap-x86")
         parser.add_option("-n", "--nightly",
                   action="store_true", dest="nightly", default=False,
                   help="Perform a nightly build")
