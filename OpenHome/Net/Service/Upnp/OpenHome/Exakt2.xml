@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+
+    <actionList>
+
+        <action>
+            <name>DeviceList</name>
+            <argumentList>
+                <argument>
+                    <name>List</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>DeviceList</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>DeviceSettings</name>
+            <argumentList>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>DeviceId</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Settings</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>DeviceSettings</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>ConnectionStatus</name>
+            <argumentList>
+                <argument>
+                    <name>ConnectionStatus</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>ConnectionStatus</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>Set</name>
+            <argumentList>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>DeviceId</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>BankId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>BankId</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>FileUri</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>FileUri</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Mute</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>Mute</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Persist</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>Persist</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>Reprogram</name>
+            <argumentList>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>DeviceId</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>FileUri</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>FileUri</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>ReprogramFallback</name>
+            <argumentList>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>DeviceId</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>FileUri</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>FileUri</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+        
+        <action>
+            <name>Version</name>
+            <argumentList>
+                <argument>
+                    <name>Version</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>Version</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+    </actionList>
+
+    <serviceStateTable>
+
+        <stateVariable sendEvents="yes">
+            <name>DeviceList</name>
+            <dataType>string</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>DeviceSettings</name>
+            <dataType>string</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="yes">
+            <name>ConnectionStatus</name>
+            <dataType>string</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>DeviceId</name>
+            <dataType>string</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>BankId</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>Persist</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>Mute</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+
+        <stateVariable sendEvents="no">
+            <name>FileUri</name>
+            <dataType>uri</dataType>
+        </stateVariable>
+        
+        <stateVariable sendEvents="yes">
+            <name>Version</name>
+            <dataType>string</dataType>
+        </stateVariable>
+
+    </serviceStateTable>
+
+</scpd>
+
+

@@ -43,6 +43,12 @@ objects_devices = \
                   $(objdir)DvUpnpOrgDimming1.$(objext) \
                   $(objdir)DvUpnpOrgDimming1Std.$(objext) \
                   $(objdir)DvUpnpOrgDimming1C.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgExakt1.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgExakt1Std.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgExakt1C.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgExakt2.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgExakt2Std.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgExakt2C.$(objext) \
                   $(objdir)DvAvOpenhomeOrgInfo1.$(objext) \
                   $(objdir)DvAvOpenhomeOrgInfo1Std.$(objext) \
                   $(objdir)DvAvOpenhomeOrgInfo1C.$(objext) \
@@ -107,6 +113,8 @@ device_dotnet_assemblies = \
         DvUpnpOrgScheduledRecording2.net.dll \
         DvUpnpOrgSwitchPower1.net.dll \
         DvUpnpOrgDimming1.net.dll \
+        DvAvOpenhomeOrgExakt1.net.dll \
+        DvAvOpenhomeOrgExakt2.net.dll \
         DvAvOpenhomeOrgInfo1.net.dll \
         DvAvOpenhomeOrgTime1.net.dll \
         DvAvOpenhomeOrgPlaylist1.net.dll \
@@ -136,6 +144,8 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvUpnpOrgScheduledRecording2.net.dll \
         $(objdir)DvUpnpOrgSwitchPower1.net.dll \
         $(objdir)DvUpnpOrgDimming1.net.dll \
+        $(objdir)DvAvOpenhomeOrgExakt1.net.dll \
+        $(objdir)DvAvOpenhomeOrgExakt2.net.dll \
         $(objdir)DvAvOpenhomeOrgInfo1.net.dll \
         $(objdir)DvAvOpenhomeOrgTime1.net.dll \
         $(objdir)DvAvOpenhomeOrgPlaylist1.net.dll \
@@ -165,6 +175,8 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgScheduledRecording2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgSwitchPower1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgDimming1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgInfo1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTime1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgPlaylist1.class \
@@ -260,6 +272,18 @@ $(objdir)DvUpnpOrgDimming1Std.$(objext) : $(deviceCppStd)DvUpnpOrgDimming1Std.cp
 	$(compiler)DvUpnpOrgDimming1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvUpnpOrgDimming1Std.cpp
 $(objdir)DvUpnpOrgDimming1C.$(objext) : $(deviceC)DvUpnpOrgDimming1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvUpnpOrgDimming1.h
 	$(compiler)DvUpnpOrgDimming1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvUpnpOrgDimming1C.cpp
+$(objdir)DvAvOpenhomeOrgExakt1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgExakt1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgExakt1.h
+	$(compiler)DvAvOpenhomeOrgExakt1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgExakt1.cpp
+$(objdir)DvAvOpenhomeOrgExakt1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgExakt1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgExakt1.h
+	$(compiler)DvAvOpenhomeOrgExakt1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgExakt1Std.cpp
+$(objdir)DvAvOpenhomeOrgExakt1C.$(objext) : $(deviceC)DvAvOpenhomeOrgExakt1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgExakt1.h
+	$(compiler)DvAvOpenhomeOrgExakt1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgExakt1C.cpp
+$(objdir)DvAvOpenhomeOrgExakt2.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgExakt2.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgExakt2.h
+	$(compiler)DvAvOpenhomeOrgExakt2.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgExakt2.cpp
+$(objdir)DvAvOpenhomeOrgExakt2Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgExakt2Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgExakt2.h
+	$(compiler)DvAvOpenhomeOrgExakt2Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgExakt2Std.cpp
+$(objdir)DvAvOpenhomeOrgExakt2C.$(objext) : $(deviceC)DvAvOpenhomeOrgExakt2C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgExakt2.h
+	$(compiler)DvAvOpenhomeOrgExakt2C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgExakt2C.cpp
 $(objdir)DvAvOpenhomeOrgInfo1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgInfo1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgInfo1.h
 	$(compiler)DvAvOpenhomeOrgInfo1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgInfo1.cpp
 $(objdir)DvAvOpenhomeOrgInfo1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgInfo1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgInfo1.h
@@ -415,6 +439,16 @@ $(objdir)DvUpnpOrgDimming1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOr
         /out:$(objdir)DvUpnpOrgDimming1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvUpnpOrgDimming1.cs
+$(objdir)DvAvOpenhomeOrgExakt1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt1.cs
+	$(csharp) /t:library \
+        /out:$(objdir)DvAvOpenhomeOrgExakt1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvAvOpenhomeOrgExakt1.cs
+$(objdir)DvAvOpenhomeOrgExakt2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt2.cs
+	$(csharp) /t:library \
+        /out:$(objdir)DvAvOpenhomeOrgExakt2.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvAvOpenhomeOrgExakt2.cs
 $(objdir)DvAvOpenhomeOrgInfo1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgInfo1.cs
 	$(csharp) /t:library \
         /out:$(objdir)DvAvOpenhomeOrgInfo1.net.dll \
@@ -516,6 +550,10 @@ $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgSwitchPower1.class :
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderUpnpOrgSwitchPower1.java
 $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgDimming1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderUpnpOrgDimming1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderUpnpOrgDimming1.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgExakt1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgExakt1.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgExakt2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgExakt2.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgInfo1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgInfo1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgInfo1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTime1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgTime1.java
