@@ -344,11 +344,7 @@ else
 ifeq ($(native_only), yes)
 build_targets_base = $(native_targets)
 else
-ifeq ($(no_shared_objects), yes)
-build_targets_base = CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
-else
 build_targets_base = $(all_targets)
-endif
 endif
 endif
 ifeq ($(uset4), yes)
