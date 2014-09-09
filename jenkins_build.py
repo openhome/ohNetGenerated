@@ -74,16 +74,16 @@ class JenkinsBuild():
                 'Windows-x86': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows', 'make_target':''},
                 'Windows-x64': { 'os': 'windows', 'arch':'x64', 'publish':True, 'system':'Windows', 'make_target':''},
                 'Macos-x64': { 'os': 'macos', 'arch':'x86', 'publish':False, 'system':'Mac', 'make_target':''}, # Old Jenkins label
-                'Mac-x64': { 'os': 'macos', 'arch':'x64', 'publish':True, 'system':'Mac', 'make_target':'mac-64=1'}, # New Jenkins label, matches downstream builds
+                'Mac-x64': { 'os': 'macos', 'arch':'x64', 'publish':True, 'system':'Mac', 'make_target':'mac-64=1 uset4=yes'}, # New Jenkins label, matches downstream builds
                 'Mac-x86': { 'os': 'macos', 'arch':'x86', 'publish':True, 'system':'Mac', 'make_target':''}, # New Jenkins label, matches downstream builds
                 'Linux-ARM': { 'os': 'linux', 'arch': 'armel', 'publish':True, 'system':'Linux', 'make_target':''},
                 'iOs-ARM': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs', 'make_target':''}, # Old Jenkins label
-                'iOs-x86': { 'os': 'iOs', 'arch':'x86', 'publish':True, 'system':'iOs', 'make_target':'iOs-x86=1'},
-                'iOs-armv7': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs', 'make_target':'iOs-armv7=1'},
+                'iOs-x86': { 'os': 'iOs', 'arch':'x86', 'publish':True, 'system':'iOs', 'make_target':'iOs-x86=1 uset4=yes'},
+                'iOs-armv7': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs', 'make_target':'iOs-armv7=1 uset4=yes'},
                 'Core-ppc32': { 'os': 'Core', 'arch':'ppc32', 'publish':True, 'system':'Core', 'make_target':''},
                 'Core-armv5': { 'os': 'Core', 'arch':'armv5', 'publish':True, 'system':'Core', 'make_target':''},
                 'Core-armv6': { 'os': 'Core', 'arch':'armv6', 'publish':True, 'system':'Core', 'make_target':''},
-                'Android-anycpu': { 'os': 'Android', 'arch':'anycpu', 'publish':True, 'system':'Android', 'make_target':'Android-anycpu=1'},
+                'Android-anycpu': { 'os': 'Android', 'arch':'anycpu', 'publish':True, 'system':'Android', 'make_target':'Android-anycpu=1 uset4=yes'},
                 'Qnap-x86': { 'os':'Qnap', 'arch':'x86', 'publish':True, 'system':'Qnap', 'make_target':''}
         }
         current_platform = self.options.platform
