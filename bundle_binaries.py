@@ -130,7 +130,7 @@ def main():
     #    builddir = os.path.join(builddir, 'Release')
 
     if options.managed_only:
-        bundle_fileprefix = "ohNetGenerated.net-AnyPlatform-{target.configuration}".format(target=target)
+        bundle_fileprefix = "ohNetGenerated-AnyPlatform-{target.configuration}".format(target=target)
     else:
         bundle_fileprefix = "ohNetGenerated-{target.system}-{target.architecture}-{target.configuration}".format(target=target)
     bundle_filename = bundle_fileprefix + ".tar.gz"
