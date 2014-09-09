@@ -150,6 +150,7 @@ ifeq ($(platform),iOS)
 	no_shared_objects = yes
 endif
 
+$(info (1): system ${openhome_system} and architecture ${openhome_architecture})
 ifeq ($(platform),IntelMac)
 	# Darwin, not ARM -> Intel Mac
 	platform ?= IntelMac
@@ -159,11 +160,13 @@ ifeq ($(platform),IntelMac)
 		platform_linkflags = -arch x86_64 -framework CoreFoundation -framework SystemConfiguration
 		osbuilddir = Mac-x64
 		openhome_architecture = x64
+		$(info (2): system ${openhome_system} and architecture ${openhome_architecture})
 	else
 		platform_cflags = -DPLATFORM_MACOSX_GNU -m32 -mmacosx-version-min=10.7
 		platform_linkflags = -m32 -framework CoreFoundation -framework SystemConfiguration		
 		osbuilddir = Mac-x86
 		openhome_architecture = x86
+		$(info (3): system ${openhome_system} and architecture ${openhome_architecture})
 	endif
 
 	objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
