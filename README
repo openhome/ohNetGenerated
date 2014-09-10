@@ -1,4 +1,7 @@
 This repo offers pre-generated proxy and provider files, covering ohMedia and UPnP:AV services, to clients of ohNet.
 
+Before building, clone ohdevtools (git@github.com:openhome/ohdevtools.git) then run
+'go fetch --all [--debug]'.
+
 Run "make" to build C++, C, C# code.
 "make JavaAll" to build Java code.
