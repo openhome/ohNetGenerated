@@ -13,7 +13,9 @@ deviceJava = OpenHome$(dirsep)Net$(dirsep)Bindings$(dirsep)Java$(dirsep)org$(dir
 depDirCs = dependencies$(dirsep)$(depsPlatform)$(dirsep)ohNet-$(depsPlatform)-Release$(dirsep)lib$(dirsep)
 ohNetLibDir = dependencies$(dirsep)$(depsPlatform)$(dirsep)ohNet-$(depsPlatform)-Release$(dirsep)lib$(dirsep)
 
-JavaAll : CpProxyJavaClasses DvDeviceJavaClasses
+JavaAll : $(objdir)ohnet-generated.jar
+$(objdir)ohnet-generated.jar : CpProxyJavaClasses DvDeviceJavaClasses
+	$(jar) $(jarflags) $(objdir)ohnet-generated.jar -C $(objdir) org
 
 Generated$(dirsep)GenerateSourceFiles.mak : $(tt) OpenHome$(dirsep)Net$(dirsep)Service$(dirsep)Services.xml OpenHome/Net/T4/Templates/UpnpMakeT4.tt
 	$(mkdir) Generated
