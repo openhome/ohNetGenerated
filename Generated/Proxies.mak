@@ -43,6 +43,9 @@ objects_proxies = \
                   $(objdir)CpUpnpOrgDimming1.$(objext) \
                   $(objdir)CpUpnpOrgDimming1C.$(objext) \
                   $(objdir)CpUpnpOrgDimming1Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgCredentials1.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgCredentials1C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgCredentials1Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgExakt1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgExakt1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgExakt1Std.$(objext) \
@@ -119,6 +122,7 @@ proxy_dotnet_assemblies = \
         CpUpnpOrgScheduledRecording2.net.dll \
         CpUpnpOrgSwitchPower1.net.dll \
         CpUpnpOrgDimming1.net.dll \
+        CpAvOpenhomeOrgCredentials1.net.dll \
         CpAvOpenhomeOrgExakt1.net.dll \
         CpAvOpenhomeOrgExakt2.net.dll \
         CpAvOpenhomeOrgInfo1.net.dll \
@@ -150,6 +154,7 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpUpnpOrgScheduledRecording2.net.dll \
         $(objdir)CpUpnpOrgSwitchPower1.net.dll \
         $(objdir)CpUpnpOrgDimming1.net.dll \
+        $(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
         $(objdir)CpAvOpenhomeOrgExakt1.net.dll \
         $(objdir)CpAvOpenhomeOrgExakt2.net.dll \
         $(objdir)CpAvOpenhomeOrgInfo1.net.dll \
@@ -181,6 +186,7 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgScheduledRecording2.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgSwitchPower1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgDimming1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgCredentials1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt2.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgInfo1.class \
@@ -279,6 +285,12 @@ $(objdir)CpUpnpOrgDimming1C.$(objext) : $(proxyC)CpUpnpOrgDimming1C.cpp $(header
 	$(compiler)CpUpnpOrgDimming1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpUpnpOrgDimming1C.cpp
 $(objdir)CpUpnpOrgDimming1Std.$(objext) : $(proxyCppStd)CpUpnpOrgDimming1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpUpnpOrgDimming1.h
 	$(compiler)CpUpnpOrgDimming1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpUpnpOrgDimming1Std.cpp
+$(objdir)CpAvOpenhomeOrgCredentials1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgCredentials1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgCredentials1.h
+	$(compiler)CpAvOpenhomeOrgCredentials1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgCredentials1.cpp
+$(objdir)CpAvOpenhomeOrgCredentials1C.$(objext) : $(proxyC)CpAvOpenhomeOrgCredentials1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgCredentials1.h
+	$(compiler)CpAvOpenhomeOrgCredentials1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgCredentials1C.cpp
+$(objdir)CpAvOpenhomeOrgCredentials1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgCredentials1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgCredentials1.h
+	$(compiler)CpAvOpenhomeOrgCredentials1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgCredentials1Std.cpp
 $(objdir)CpAvOpenhomeOrgExakt1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgExakt1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgExakt1.h
 	$(compiler)CpAvOpenhomeOrgExakt1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgExakt1.cpp
 $(objdir)CpAvOpenhomeOrgExakt1C.$(objext) : $(proxyC)CpAvOpenhomeOrgExakt1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgExakt1.h
@@ -445,6 +457,11 @@ $(objdir)CpUpnpOrgDimming1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrg
         /out:$(objdir)CpUpnpOrgDimming1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgDimming1.cs
+$(objdir)CpAvOpenhomeOrgCredentials1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
+	$(csharp) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
 $(objdir)CpAvOpenhomeOrgExakt1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt1.cs
 	$(csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgExakt1.net.dll \
@@ -556,6 +573,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgSwitchPower1.class 
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyUpnpOrgSwitchPower1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgDimming1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyUpnpOrgDimming1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyUpnpOrgDimming1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgCredentials1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgCredentials1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgCredentials1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgExakt1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgExakt1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt2.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgExakt2.java

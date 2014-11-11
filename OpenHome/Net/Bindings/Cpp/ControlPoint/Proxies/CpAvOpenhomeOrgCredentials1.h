@@ -1,0 +1,384 @@
+#ifndef HEADER_AVOPENHOMEORGCREDENTIALS1CPP
+#define HEADER_AVOPENHOMEORGCREDENTIALS1CPP
+
+#include <OpenHome/Types.h>
+#include <OpenHome/Exception.h>
+#include <OpenHome/Functor.h>
+#include <OpenHome/Net/Core/FunctorAsync.h>
+#include <OpenHome/Net/Core/CpProxy.h>
+
+#include <string>
+
+namespace OpenHome {
+namespace Net {
+
+class CpDeviceCpp;
+class Action;
+class PropertyBinary;
+class PropertyBool;
+class PropertyInt;
+class PropertyString;
+class PropertyUint;
+
+/**
+ * Proxy for av.openhome.org:Credentials:1
+ * @ingroup Proxies
+ */
+class CpProxyAvOpenhomeOrgCredentials1Cpp : public CpProxy
+{
+public:
+    /**
+     * Constructor.
+     *
+     * Use CpProxy::[Un]Subscribe() to enable/disable querying of state variable
+     * and reporting of their changes.
+     *
+     * @param[in]  aDevice   The device to use
+     */
+    CpProxyAvOpenhomeOrgCredentials1Cpp(CpDeviceCpp& aDevice);
+    /**
+     * Destructor.
+     * If any asynchronous method is in progress, this will block until they complete.
+     * [Note that any methods still in progress are likely to complete with an error.]
+     * Clients who have called Subscribe() do not need to call Unsubscribe() before
+     * calling delete.  An unsubscribe will be triggered automatically when required.
+     */
+    ~CpProxyAvOpenhomeOrgCredentials1Cpp();
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aId
+     * @param[in]  aUserName
+     * @param[in]  aPassword
+     */
+    void SyncSet(const std::string& aId, const std::string& aUserName, const std::string& aPassword);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSet().
+     *
+     * @param[in] aId
+     * @param[in] aUserName
+     * @param[in] aPassword
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSet(const std::string& aId, const std::string& aUserName, const std::string& aPassword, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSet(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aId
+     */
+    void SyncClear(const std::string& aId);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndClear().
+     *
+     * @param[in] aId
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginClear(const std::string& aId, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndClear(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aId
+     * @param[in]  aEnabled
+     */
+    void SyncSetEnabled(const std::string& aId, bool aEnabled);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSetEnabled().
+     *
+     * @param[in] aId
+     * @param[in] aEnabled
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSetEnabled(const std::string& aId, bool aEnabled, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSetEnabled(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aId
+     * @param[out] aUserName
+     * @param[out] aPassword
+     * @param[out] aEnabled
+     * @param[out] aStatus
+     */
+    void SyncGet(const std::string& aId, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGet().
+     *
+     * @param[in] aId
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGet(const std::string& aId, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aUserName
+     * @param[out] aPassword
+     * @param[out] aEnabled
+     * @param[out] aStatus
+     */
+    void EndGet(IAsync& aAsync, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aId
+     * @param[out] aToken
+     */
+    void SyncLogin(const std::string& aId, std::string& aToken);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndLogin().
+     *
+     * @param[in] aId
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginLogin(const std::string& aId, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aToken
+     */
+    void EndLogin(IAsync& aAsync, std::string& aToken);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aId
+     * @param[in]  aToken
+     */
+    void SyncLogout(const std::string& aId, const std::string& aToken);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndLogout().
+     *
+     * @param[in] aId
+     * @param[in] aToken
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginLogout(const std::string& aId, const std::string& aToken, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndLogout(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aIds
+     */
+    void SyncGetIds(std::string& aIds);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetIds().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetIds(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aIds
+     */
+    void EndGetIds(IAsync& aAsync, std::string& aIds);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aPublicKey
+     */
+    void SyncGetPublicKey(std::string& aPublicKey);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetPublicKey().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetPublicKey(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aPublicKey
+     */
+    void EndGetPublicKey(IAsync& aAsync, std::string& aPublicKey);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aSequenceNumber
+     */
+    void SyncGetSequenceNumber(uint32_t& aSequenceNumber);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetSequenceNumber().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetSequenceNumber(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aSequenceNumber
+     */
+    void EndGetSequenceNumber(IAsync& aAsync, uint32_t& aSequenceNumber);
+
+    /**
+     * Set a callback to be run when the Ids state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgCredentials1Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyIdsChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the PublicKey state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgCredentials1Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyPublicKeyChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the SequenceNumber state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgCredentials1Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertySequenceNumberChanged(Functor& aFunctor);
+
+    /**
+     * Query the value of the Ids property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aIds
+     */
+    void PropertyIds(std::string& aIds) const;
+    /**
+     * Query the value of the PublicKey property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aPublicKey
+     */
+    void PropertyPublicKey(std::string& aPublicKey) const;
+    /**
+     * Query the value of the SequenceNumber property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aSequenceNumber
+     */
+    void PropertySequenceNumber(uint32_t& aSequenceNumber) const;
+private:
+    void IdsPropertyChanged();
+    void PublicKeyPropertyChanged();
+    void SequenceNumberPropertyChanged();
+private:
+    Action* iActionSet;
+    Action* iActionClear;
+    Action* iActionSetEnabled;
+    Action* iActionGet;
+    Action* iActionLogin;
+    Action* iActionLogout;
+    Action* iActionGetIds;
+    Action* iActionGetPublicKey;
+    Action* iActionGetSequenceNumber;
+    PropertyString* iIds;
+    PropertyString* iPublicKey;
+    PropertyUint* iSequenceNumber;
+    Functor iIdsChanged;
+    Functor iPublicKeyChanged;
+    Functor iSequenceNumberChanged;
+};
+
+} // namespace Net
+} // namespace OpenHome
+
+#endif // HEADER_AVOPENHOMEORGCREDENTIALS1CPP
+
