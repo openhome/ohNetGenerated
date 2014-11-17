@@ -339,7 +339,7 @@ rmdir = rm -rf
 uset4 = no
 
 ifeq ($(Android-anycpu), 1)
-build_targets_base = make_obj_dir CpProxyJavaClasses DvDeviceJavaClasses
+build_targets_base = make_obj_dir CpProxyJavaClasses DvDeviceJavaClasses CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
 else
 ifeq ($(managed_only), yes)
 build_targets_base = make_obj_dir CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
