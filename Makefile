@@ -58,7 +58,6 @@ else ifeq ($(Android-anycpu), 1)
     platform = Android
     detected_openhome_system = Android
     detected_openhome_architecture = anycpu
-    depsPlatform = Linux-x86
 else
   # At present, platform == Vanilla is used for Kirkwood, x86 and x64 Posix builds.
   platform ?= Vanilla
@@ -274,7 +273,7 @@ else
     cppflags = $(cflags_base) -std=c++0x -D__STDC_VERSION__=199901L -Werror
 endif
 cflags = $(cflags_base) -Werror
-depsPlatform ?= ${openhome_system}-${openhome_architecture}
+depsPlatform = ${openhome_system}-${openhome_architecture}
 header_install = Build/Include
 inc_build = dependencies/$(depsPlatform)/ohNet-$(depsPlatform)-Release/include/ohnet
 includes = -I$(inc_build)/ $(version_specific_includes)
