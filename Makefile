@@ -58,6 +58,7 @@ else ifeq ($(Android-anycpu), 1)
     platform = Android
     detected_openhome_system = Android
     detected_openhome_architecture = anycpu
+    depsPlatform = Linux-x86
 else
   # At present, platform == Vanilla is used for Kirkwood, x86 and x64 Posix builds.
   platform ?= Vanilla
@@ -273,7 +274,7 @@ else
     cppflags = $(cflags_base) -std=c++0x -D__STDC_VERSION__=199901L -Werror
 endif
 cflags = $(cflags_base) -Werror
-depsPlatform = ${openhome_system}-${openhome_architecture}
+depsPlatform ?= ${openhome_system}-${openhome_architecture}
 header_install = Build/Include
 inc_build = dependencies/$(depsPlatform)/ohNet-$(depsPlatform)-Release/include/ohnet
 includes = -I$(inc_build)/ $(version_specific_includes)
@@ -338,13 +339,17 @@ mkdir = mkdir -p
 rmdir = rm -rf
 uset4 = no
 
+ifeq ($(Android-anycpu), 1)
+build_targets_base = make_obj_dir CpProxyJavaClasses DvDeviceJavaClasses
+else
 ifeq ($(managed_only), yes)
-build_targets_base = make_obj_dir ohNet.net.dll CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
+build_targets_base = make_obj_dir CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
 else
 ifeq ($(native_only), yes)
 build_targets_base = $(native_targets)
 else
 build_targets_base = $(all_targets)
+endif
 endif
 endif
 ifeq ($(uset4), yes)
