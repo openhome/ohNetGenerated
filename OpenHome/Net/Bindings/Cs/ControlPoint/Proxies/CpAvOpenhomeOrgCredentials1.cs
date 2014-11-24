@@ -19,15 +19,15 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSetEnabled(String aId, bool aEnabled);
         void BeginSetEnabled(String aId, bool aEnabled, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetEnabled(IntPtr aAsyncHandle);
-        void SyncGet(String aId, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus);
+        void SyncGet(String aId, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData);
         void BeginGet(String aId, CpProxy.CallbackAsyncComplete aCallback);
-        void EndGet(IntPtr aAsyncHandle, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus);
+        void EndGet(IntPtr aAsyncHandle, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData);
         void SyncLogin(String aId, out String aToken);
         void BeginLogin(String aId, CpProxy.CallbackAsyncComplete aCallback);
         void EndLogin(IntPtr aAsyncHandle, out String aToken);
-        void SyncLogout(String aId, String aToken);
-        void BeginLogout(String aId, String aToken, CpProxy.CallbackAsyncComplete aCallback);
-        void EndLogout(IntPtr aAsyncHandle);
+        void SyncReLogin(String aId, String aCurrentToken, out String aNewToken);
+        void BeginReLogin(String aId, String aCurrentToken, CpProxy.CallbackAsyncComplete aCallback);
+        void EndReLogin(IntPtr aAsyncHandle, out String aNewToken);
         void SyncGetIds(out String aIds);
         void BeginGetIds(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetIds(IntPtr aAsyncHandle, out String aIds);
@@ -94,6 +94,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private String iPassword;
         private bool iEnabled;
         private String iStatus;
+        private String iData;
 
         public SyncGetAvOpenhomeOrgCredentials1(CpProxyAvOpenhomeOrgCredentials1 aProxy)
         {
@@ -115,9 +116,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
         {
             return iStatus;
         }
+        public String Data()
+        {
+            return iData;
+        }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndGet(aAsyncHandle, out iUserName, out iPassword, out iEnabled, out iStatus);
+            iService.EndGet(aAsyncHandle, out iUserName, out iPassword, out iEnabled, out iStatus, out iData);
         }
     };
 
@@ -140,17 +145,22 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
-    internal class SyncLogoutAvOpenhomeOrgCredentials1 : SyncProxyAction
+    internal class SyncReLoginAvOpenhomeOrgCredentials1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgCredentials1 iService;
+        private String iNewToken;
 
-        public SyncLogoutAvOpenhomeOrgCredentials1(CpProxyAvOpenhomeOrgCredentials1 aProxy)
+        public SyncReLoginAvOpenhomeOrgCredentials1(CpProxyAvOpenhomeOrgCredentials1 aProxy)
         {
             iService = aProxy;
         }
+        public String NewToken()
+        {
+            return iNewToken;
+        }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndLogout(aAsyncHandle);
+            iService.EndReLogin(aAsyncHandle, out iNewToken);
         }
     };
 
@@ -221,7 +231,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionSetEnabled;
         private OpenHome.Net.Core.Action iActionGet;
         private OpenHome.Net.Core.Action iActionLogin;
-        private OpenHome.Net.Core.Action iActionLogout;
+        private OpenHome.Net.Core.Action iActionReLogin;
         private OpenHome.Net.Core.Action iActionGetIds;
         private OpenHome.Net.Core.Action iActionGetPublicKey;
         private OpenHome.Net.Core.Action iActionGetSequenceNumber;
@@ -273,6 +283,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionGet.AddOutputParameter(param);
             param = new ParameterString("Status", allowedValues);
             iActionGet.AddOutputParameter(param);
+            param = new ParameterString("Data", allowedValues);
+            iActionGet.AddOutputParameter(param);
 
             iActionLogin = new OpenHome.Net.Core.Action("Login");
             param = new ParameterString("Id", allowedValues);
@@ -280,11 +292,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterString("Token", allowedValues);
             iActionLogin.AddOutputParameter(param);
 
-            iActionLogout = new OpenHome.Net.Core.Action("Logout");
+            iActionReLogin = new OpenHome.Net.Core.Action("ReLogin");
             param = new ParameterString("Id", allowedValues);
-            iActionLogout.AddInputParameter(param);
-            param = new ParameterString("Token", allowedValues);
-            iActionLogout.AddInputParameter(param);
+            iActionReLogin.AddInputParameter(param);
+            param = new ParameterString("CurrentToken", allowedValues);
+            iActionReLogin.AddInputParameter(param);
+            param = new ParameterString("NewToken", allowedValues);
+            iActionReLogin.AddOutputParameter(param);
 
             iActionGetIds = new OpenHome.Net.Core.Action("GetIds");
             param = new ParameterString("Ids", allowedValues);
@@ -465,7 +479,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aPassword"></param>
         /// <param name="aEnabled"></param>
         /// <param name="aStatus"></param>
-        public void SyncGet(String aId, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus)
+        /// <param name="aData"></param>
+        public void SyncGet(String aId, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData)
         {
             SyncGetAvOpenhomeOrgCredentials1 sync = new SyncGetAvOpenhomeOrgCredentials1(this);
             BeginGet(aId, sync.AsyncComplete());
@@ -475,6 +490,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             aPassword = sync.Password();
             aEnabled = sync.Enabled();
             aStatus = sync.Status();
+            aData = sync.Data();
         }
 
         /// <summary>
@@ -496,6 +512,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             invocation.AddOutput(new ArgumentString((ParameterString)iActionGet.OutputParameter(outIndex++)));
             invocation.AddOutput(new ArgumentBool((ParameterBool)iActionGet.OutputParameter(outIndex++)));
             invocation.AddOutput(new ArgumentString((ParameterString)iActionGet.OutputParameter(outIndex++)));
+            invocation.AddOutput(new ArgumentString((ParameterString)iActionGet.OutputParameter(outIndex++)));
             iService.InvokeAction(invocation);
         }
 
@@ -508,7 +525,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aPassword"></param>
         /// <param name="aEnabled"></param>
         /// <param name="aStatus"></param>
-        public void EndGet(IntPtr aAsyncHandle, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus)
+        /// <param name="aData"></param>
+        public void EndGet(IntPtr aAsyncHandle, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData)
         {
             uint code;
             string desc;
@@ -521,6 +539,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             aPassword = Invocation.OutputString(aAsyncHandle, index++);
             aEnabled = Invocation.OutputBool(aAsyncHandle, index++);
             aStatus = Invocation.OutputString(aAsyncHandle, index++);
+            aData = Invocation.OutputString(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -582,13 +601,15 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aId"></param>
-        /// <param name="aToken"></param>
-        public void SyncLogout(String aId, String aToken)
+        /// <param name="aCurrentToken"></param>
+        /// <param name="aNewToken"></param>
+        public void SyncReLogin(String aId, String aCurrentToken, out String aNewToken)
         {
-            SyncLogoutAvOpenhomeOrgCredentials1 sync = new SyncLogoutAvOpenhomeOrgCredentials1(this);
-            BeginLogout(aId, aToken, sync.AsyncComplete());
+            SyncReLoginAvOpenhomeOrgCredentials1 sync = new SyncReLoginAvOpenhomeOrgCredentials1(this);
+            BeginReLogin(aId, aCurrentToken, sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
+            aNewToken = sync.NewToken();
         }
 
         /// <summary>
@@ -596,17 +617,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndLogout().</remarks>
+        /// EndReLogin().</remarks>
         /// <param name="aId"></param>
-        /// <param name="aToken"></param>
+        /// <param name="aCurrentToken"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginLogout(String aId, String aToken, CallbackAsyncComplete aCallback)
+        public void BeginReLogin(String aId, String aCurrentToken, CallbackAsyncComplete aCallback)
         {
-            Invocation invocation = iService.Invocation(iActionLogout, aCallback);
+            Invocation invocation = iService.Invocation(iActionReLogin, aCallback);
             int inIndex = 0;
-            invocation.AddInput(new ArgumentString((ParameterString)iActionLogout.InputParameter(inIndex++), aId));
-            invocation.AddInput(new ArgumentString((ParameterString)iActionLogout.InputParameter(inIndex++), aToken));
+            invocation.AddInput(new ArgumentString((ParameterString)iActionReLogin.InputParameter(inIndex++), aId));
+            invocation.AddInput(new ArgumentString((ParameterString)iActionReLogin.InputParameter(inIndex++), aCurrentToken));
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentString((ParameterString)iActionReLogin.OutputParameter(outIndex++)));
             iService.InvokeAction(invocation);
         }
 
@@ -615,7 +638,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        public void EndLogout(IntPtr aAsyncHandle)
+        /// <param name="aNewToken"></param>
+        public void EndReLogin(IntPtr aAsyncHandle, out String aNewToken)
         {
             uint code;
             string desc;
@@ -623,6 +647,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             {
                 throw new ProxyError(code, desc);
             }
+            uint index = 0;
+            aNewToken = Invocation.OutputString(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -921,7 +947,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionSetEnabled.Dispose();
             iActionGet.Dispose();
             iActionLogin.Dispose();
-            iActionLogout.Dispose();
+            iActionReLogin.Dispose();
             iActionGetIds.Dispose();
             iActionGetPublicKey.Dispose();
             iActionGetSequenceNumber.Dispose();

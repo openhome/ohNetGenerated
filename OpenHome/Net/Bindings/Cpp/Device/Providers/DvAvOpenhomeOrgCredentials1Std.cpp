@@ -110,6 +110,7 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::EnableActionGet()
     action->AddOutputParameter(new ParameterString("Password"));
     action->AddOutputParameter(new ParameterBool("Enabled"));
     action->AddOutputParameter(new ParameterString("Status"));
+    action->AddOutputParameter(new ParameterString("Data"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1Cpp::DoGet);
     iService->AddAction(action, functor);
 }
@@ -123,12 +124,13 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::EnableActionLogin()
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgCredentials1Cpp::EnableActionLogout()
+void DvProviderAvOpenhomeOrgCredentials1Cpp::EnableActionReLogin()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("Logout");
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("ReLogin");
     action->AddInputParameter(new ParameterString("Id"));
-    action->AddInputParameter(new ParameterString("Token"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1Cpp::DoLogout);
+    action->AddInputParameter(new ParameterString("CurrentToken"));
+    action->AddOutputParameter(new ParameterString("NewToken"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1Cpp::DoReLogin);
     iService->AddAction(action, functor);
 }
 
@@ -213,8 +215,9 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::DoGet(IDviInvocation& aInvocation)
     std::string respPassword;
     bool respEnabled;
     std::string respStatus;
+    std::string respData;
     DvInvocationStd invocation(aInvocation);
-    Get(invocation, Id, respUserName, respPassword, respEnabled, respStatus);
+    Get(invocation, Id, respUserName, respPassword, respEnabled, respStatus, respData);
     aInvocation.InvocationWriteStart();
     DviInvocationResponseString respWriterUserName(aInvocation, "UserName");
     Brn buf_UserName((const TByte*)respUserName.c_str(), (TUint)respUserName.length());
@@ -230,6 +233,10 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::DoGet(IDviInvocation& aInvocation)
     Brn buf_Status((const TByte*)respStatus.c_str(), (TUint)respStatus.length());
     respWriterStatus.Write(buf_Status);
     aInvocation.InvocationWriteStringEnd("Status");
+    DviInvocationResponseString respWriterData(aInvocation, "Data");
+    Brn buf_Data((const TByte*)respData.c_str(), (TUint)respData.length());
+    respWriterData.Write(buf_Data);
+    aInvocation.InvocationWriteStringEnd("Data");
     aInvocation.InvocationWriteEnd();
 }
 
@@ -251,19 +258,24 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::DoLogin(IDviInvocation& aInvocation
     aInvocation.InvocationWriteEnd();
 }
 
-void DvProviderAvOpenhomeOrgCredentials1Cpp::DoLogout(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgCredentials1Cpp::DoReLogin(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     Brhz buf_Id;
     aInvocation.InvocationReadString("Id", buf_Id);
     std::string Id((const char*)buf_Id.Ptr(), buf_Id.Bytes());
-    Brhz buf_Token;
-    aInvocation.InvocationReadString("Token", buf_Token);
-    std::string Token((const char*)buf_Token.Ptr(), buf_Token.Bytes());
+    Brhz buf_CurrentToken;
+    aInvocation.InvocationReadString("CurrentToken", buf_CurrentToken);
+    std::string CurrentToken((const char*)buf_CurrentToken.Ptr(), buf_CurrentToken.Bytes());
     aInvocation.InvocationReadEnd();
+    std::string respNewToken;
     DvInvocationStd invocation(aInvocation);
-    Logout(invocation, Id, Token);
+    ReLogin(invocation, Id, CurrentToken, respNewToken);
     aInvocation.InvocationWriteStart();
+    DviInvocationResponseString respWriterNewToken(aInvocation, "NewToken");
+    Brn buf_NewToken((const TByte*)respNewToken.c_str(), (TUint)respNewToken.length());
+    respWriterNewToken.Write(buf_NewToken);
+    aInvocation.InvocationWriteStringEnd("NewToken");
     aInvocation.InvocationWriteEnd();
 }
 
@@ -325,7 +337,7 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::SetEnabled(IDvInvocationStd& /*aInv
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgCredentials1Cpp::Get(IDvInvocationStd& /*aInvocation*/, const std::string& /*aId*/, std::string& /*aUserName*/, std::string& /*aPassword*/, bool& /*aEnabled*/, std::string& /*aStatus*/)
+void DvProviderAvOpenhomeOrgCredentials1Cpp::Get(IDvInvocationStd& /*aInvocation*/, const std::string& /*aId*/, std::string& /*aUserName*/, std::string& /*aPassword*/, bool& /*aEnabled*/, std::string& /*aStatus*/, std::string& /*aData*/)
 {
     ASSERTS();
 }
@@ -335,7 +347,7 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::Login(IDvInvocationStd& /*aInvocati
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgCredentials1Cpp::Logout(IDvInvocationStd& /*aInvocation*/, const std::string& /*aId*/, const std::string& /*aToken*/)
+void DvProviderAvOpenhomeOrgCredentials1Cpp::ReLogin(IDvInvocationStd& /*aInvocation*/, const std::string& /*aId*/, const std::string& /*aCurrentToken*/, std::string& /*aNewToken*/)
 {
     ASSERTS();
 }

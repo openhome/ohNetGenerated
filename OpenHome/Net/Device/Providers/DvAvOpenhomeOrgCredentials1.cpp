@@ -116,6 +116,7 @@ void DvProviderAvOpenhomeOrgCredentials1::EnableActionGet()
     action->AddOutputParameter(new ParameterString("Password"));
     action->AddOutputParameter(new ParameterBool("Enabled"));
     action->AddOutputParameter(new ParameterString("Status"));
+    action->AddOutputParameter(new ParameterString("Data"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1::DoGet);
     iService->AddAction(action, functor);
 }
@@ -129,12 +130,13 @@ void DvProviderAvOpenhomeOrgCredentials1::EnableActionLogin()
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgCredentials1::EnableActionLogout()
+void DvProviderAvOpenhomeOrgCredentials1::EnableActionReLogin()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("Logout");
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("ReLogin");
     action->AddInputParameter(new ParameterString("Id"));
-    action->AddInputParameter(new ParameterString("Token"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1::DoLogout);
+    action->AddInputParameter(new ParameterString("CurrentToken"));
+    action->AddOutputParameter(new ParameterString("NewToken"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1::DoReLogin);
     iService->AddAction(action, functor);
 }
 
@@ -208,7 +210,8 @@ void DvProviderAvOpenhomeOrgCredentials1::DoGet(IDviInvocation& aInvocation)
     DviInvocationResponseString respPassword(aInvocation, "Password");
     DviInvocationResponseBool respEnabled(aInvocation, "Enabled");
     DviInvocationResponseString respStatus(aInvocation, "Status");
-    Get(invocation, Id, respUserName, respPassword, respEnabled, respStatus);
+    DviInvocationResponseString respData(aInvocation, "Data");
+    Get(invocation, Id, respUserName, respPassword, respEnabled, respStatus, respData);
 }
 
 void DvProviderAvOpenhomeOrgCredentials1::DoLogin(IDviInvocation& aInvocation)
@@ -222,16 +225,17 @@ void DvProviderAvOpenhomeOrgCredentials1::DoLogin(IDviInvocation& aInvocation)
     Login(invocation, Id, respToken);
 }
 
-void DvProviderAvOpenhomeOrgCredentials1::DoLogout(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgCredentials1::DoReLogin(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     Brhz Id;
     aInvocation.InvocationReadString("Id", Id);
-    Brhz Token;
-    aInvocation.InvocationReadString("Token", Token);
+    Brhz CurrentToken;
+    aInvocation.InvocationReadString("CurrentToken", CurrentToken);
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    Logout(invocation, Id, Token);
+    DviInvocationResponseString respNewToken(aInvocation, "NewToken");
+    ReLogin(invocation, Id, CurrentToken, respNewToken);
 }
 
 void DvProviderAvOpenhomeOrgCredentials1::DoGetIds(IDviInvocation& aInvocation)
@@ -276,7 +280,7 @@ void DvProviderAvOpenhomeOrgCredentials1::SetEnabled(IDvInvocation& /*aResponse*
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgCredentials1::Get(IDvInvocation& /*aResponse*/, const Brx& /*aId*/, IDvInvocationResponseString& /*aUserName*/, IDvInvocationResponseString& /*aPassword*/, IDvInvocationResponseBool& /*aEnabled*/, IDvInvocationResponseString& /*aStatus*/)
+void DvProviderAvOpenhomeOrgCredentials1::Get(IDvInvocation& /*aResponse*/, const Brx& /*aId*/, IDvInvocationResponseString& /*aUserName*/, IDvInvocationResponseString& /*aPassword*/, IDvInvocationResponseBool& /*aEnabled*/, IDvInvocationResponseString& /*aStatus*/, IDvInvocationResponseString& /*aData*/)
 {
     ASSERTS();
 }
@@ -286,7 +290,7 @@ void DvProviderAvOpenhomeOrgCredentials1::Login(IDvInvocation& /*aResponse*/, co
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgCredentials1::Logout(IDvInvocation& /*aResponse*/, const Brx& /*aId*/, const Brx& /*aToken*/)
+void DvProviderAvOpenhomeOrgCredentials1::ReLogin(IDvInvocation& /*aResponse*/, const Brx& /*aId*/, const Brx& /*aCurrentToken*/, IDvInvocationResponseString& /*aNewToken*/)
 {
     ASSERTS();
 }

@@ -35,17 +35,17 @@ public:
     void BeginSetEnabled(const Brx& aId, TBool aEnabled, FunctorAsync& aFunctor);
     void EndSetEnabled(IAsync& aAsync);
 
-    void SyncGet(const Brx& aId, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus);
+    void SyncGet(const Brx& aId, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData);
     void BeginGet(const Brx& aId, FunctorAsync& aFunctor);
-    void EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus);
+    void EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData);
 
     void SyncLogin(const Brx& aId, Brh& aToken);
     void BeginLogin(const Brx& aId, FunctorAsync& aFunctor);
     void EndLogin(IAsync& aAsync, Brh& aToken);
 
-    void SyncLogout(const Brx& aId, const Brx& aToken);
-    void BeginLogout(const Brx& aId, const Brx& aToken, FunctorAsync& aFunctor);
-    void EndLogout(IAsync& aAsync);
+    void SyncReLogin(const Brx& aId, const Brx& aCurrentToken, Brh& aNewToken);
+    void BeginReLogin(const Brx& aId, const Brx& aCurrentToken, FunctorAsync& aFunctor);
+    void EndReLogin(IAsync& aAsync, Brh& aNewToken);
 
     void SyncGetIds(Brh& aIds);
     void BeginGetIds(FunctorAsync& aFunctor);
@@ -77,7 +77,7 @@ private:
     Action* iActionSetEnabled;
     Action* iActionGet;
     Action* iActionLogin;
-    Action* iActionLogout;
+    Action* iActionReLogin;
     Action* iActionGetIds;
     Action* iActionGetPublicKey;
     Action* iActionGetSequenceNumber;
@@ -156,7 +156,7 @@ void SyncSetEnabledAvOpenhomeOrgCredentials1C::CompleteRequest(IAsync& aAsync)
 class SyncGetAvOpenhomeOrgCredentials1C : public SyncProxyAction
 {
 public:
-    SyncGetAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus);
+    SyncGetAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData);
     virtual void CompleteRequest(IAsync& aAsync);
     virtual ~SyncGetAvOpenhomeOrgCredentials1C() {};
 private:
@@ -165,20 +165,22 @@ private:
     Brh& iPassword;
     TBool& iEnabled;
     Brh& iStatus;
+    Brh& iData;
 };
 
-SyncGetAvOpenhomeOrgCredentials1C::SyncGetAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus)
+SyncGetAvOpenhomeOrgCredentials1C::SyncGetAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData)
     : iService(aProxy)
     , iUserName(aUserName)
     , iPassword(aPassword)
     , iEnabled(aEnabled)
     , iStatus(aStatus)
+    , iData(aData)
 {
 }
 
 void SyncGetAvOpenhomeOrgCredentials1C::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndGet(aAsync, iUserName, iPassword, iEnabled, iStatus);
+    iService.EndGet(aAsync, iUserName, iPassword, iEnabled, iStatus, iData);
 }
 
 
@@ -205,24 +207,26 @@ void SyncLoginAvOpenhomeOrgCredentials1C::CompleteRequest(IAsync& aAsync)
 }
 
 
-class SyncLogoutAvOpenhomeOrgCredentials1C : public SyncProxyAction
+class SyncReLoginAvOpenhomeOrgCredentials1C : public SyncProxyAction
 {
 public:
-    SyncLogoutAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy);
+    SyncReLoginAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy, Brh& aNewToken);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncLogoutAvOpenhomeOrgCredentials1C() {};
+    virtual ~SyncReLoginAvOpenhomeOrgCredentials1C() {};
 private:
     CpProxyAvOpenhomeOrgCredentials1C& iService;
+    Brh& iNewToken;
 };
 
-SyncLogoutAvOpenhomeOrgCredentials1C::SyncLogoutAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy)
+SyncReLoginAvOpenhomeOrgCredentials1C::SyncReLoginAvOpenhomeOrgCredentials1C(CpProxyAvOpenhomeOrgCredentials1C& aProxy, Brh& aNewToken)
     : iService(aProxy)
+    , iNewToken(aNewToken)
 {
 }
 
-void SyncLogoutAvOpenhomeOrgCredentials1C::CompleteRequest(IAsync& aAsync)
+void SyncReLoginAvOpenhomeOrgCredentials1C::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndLogout(aAsync);
+    iService.EndReLogin(aAsync, iNewToken);
 }
 
 
@@ -329,6 +333,8 @@ CpProxyAvOpenhomeOrgCredentials1C::CpProxyAvOpenhomeOrgCredentials1C(CpDeviceC a
     iActionGet->AddOutputParameter(param);
     param = new OpenHome::Net::ParameterString("Status");
     iActionGet->AddOutputParameter(param);
+    param = new OpenHome::Net::ParameterString("Data");
+    iActionGet->AddOutputParameter(param);
 
     iActionLogin = new Action("Login");
     param = new OpenHome::Net::ParameterString("Id");
@@ -336,11 +342,13 @@ CpProxyAvOpenhomeOrgCredentials1C::CpProxyAvOpenhomeOrgCredentials1C(CpDeviceC a
     param = new OpenHome::Net::ParameterString("Token");
     iActionLogin->AddOutputParameter(param);
 
-    iActionLogout = new Action("Logout");
+    iActionReLogin = new Action("ReLogin");
     param = new OpenHome::Net::ParameterString("Id");
-    iActionLogout->AddInputParameter(param);
-    param = new OpenHome::Net::ParameterString("Token");
-    iActionLogout->AddInputParameter(param);
+    iActionReLogin->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("CurrentToken");
+    iActionReLogin->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("NewToken");
+    iActionReLogin->AddOutputParameter(param);
 
     iActionGetIds = new Action("GetIds");
     param = new OpenHome::Net::ParameterString("Ids");
@@ -374,7 +382,7 @@ CpProxyAvOpenhomeOrgCredentials1C::~CpProxyAvOpenhomeOrgCredentials1C()
     delete iActionSetEnabled;
     delete iActionGet;
     delete iActionLogin;
-    delete iActionLogout;
+    delete iActionReLogin;
     delete iActionGetIds;
     delete iActionGetPublicKey;
     delete iActionGetSequenceNumber;
@@ -473,9 +481,9 @@ void CpProxyAvOpenhomeOrgCredentials1C::EndSetEnabled(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgCredentials1C::SyncGet(const Brx& aId, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus)
+void CpProxyAvOpenhomeOrgCredentials1C::SyncGet(const Brx& aId, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData)
 {
-    SyncGetAvOpenhomeOrgCredentials1C sync(*this, aUserName, aPassword, aEnabled, aStatus);
+    SyncGetAvOpenhomeOrgCredentials1C sync(*this, aUserName, aPassword, aEnabled, aStatus, aData);
     BeginGet(aId, sync.Functor());
     sync.Wait();
 }
@@ -492,10 +500,11 @@ void CpProxyAvOpenhomeOrgCredentials1C::BeginGet(const Brx& aId, FunctorAsync& a
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     Invocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgCredentials1C::EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus)
+void CpProxyAvOpenhomeOrgCredentials1C::EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
@@ -512,6 +521,7 @@ void CpProxyAvOpenhomeOrgCredentials1C::EndGet(IAsync& aAsync, Brh& aUserName, B
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aPassword);
     aEnabled = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aStatus);
+    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aData);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1C::SyncLogin(const Brx& aId, Brh& aToken)
@@ -549,28 +559,31 @@ void CpProxyAvOpenhomeOrgCredentials1C::EndLogin(IAsync& aAsync, Brh& aToken)
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aToken);
 }
 
-void CpProxyAvOpenhomeOrgCredentials1C::SyncLogout(const Brx& aId, const Brx& aToken)
+void CpProxyAvOpenhomeOrgCredentials1C::SyncReLogin(const Brx& aId, const Brx& aCurrentToken, Brh& aNewToken)
 {
-    SyncLogoutAvOpenhomeOrgCredentials1C sync(*this);
-    BeginLogout(aId, aToken, sync.Functor());
+    SyncReLoginAvOpenhomeOrgCredentials1C sync(*this, aNewToken);
+    BeginReLogin(aId, aCurrentToken, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgCredentials1C::BeginLogout(const Brx& aId, const Brx& aToken, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgCredentials1C::BeginReLogin(const Brx& aId, const Brx& aCurrentToken, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = Service()->Invocation(*iActionLogout, aFunctor);
+    Invocation* invocation = Service()->Invocation(*iActionReLogin, aFunctor);
     TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionLogout->InputParameters();
+    const Action::VectorParameters& inParams = iActionReLogin->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
-    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aToken));
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aCurrentToken));
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionReLogin->OutputParameters();
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     Invocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgCredentials1C::EndLogout(IAsync& aAsync)
+void CpProxyAvOpenhomeOrgCredentials1C::EndReLogin(IAsync& aAsync, Brh& aNewToken)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("Logout"));
+    ASSERT(invocation.Action().Name() == Brn("ReLogin"));
 
     Error::ELevel level;
     TUint code;
@@ -578,6 +591,8 @@ void CpProxyAvOpenhomeOrgCredentials1C::EndLogout(IAsync& aAsync)
     if (invocation.Error(level, code, ignore)) {
         THROW_PROXYERROR(level, code);
     }
+    TUint index = 0;
+    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aNewToken);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1C::SyncGetIds(Brh& aIds)
@@ -869,7 +884,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndSetEnabled(THandle aHandle, O
     return err;
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
@@ -878,13 +893,15 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const c
     Brh buf_aPassword;
     TBool Enabled;
     Brh buf_aStatus;
+    Brh buf_aData;
     int32_t err = 0;
     try {
-        proxyC->SyncGet(buf_aId, buf_aUserName, buf_aPassword, Enabled, buf_aStatus);
+        proxyC->SyncGet(buf_aId, buf_aUserName, buf_aPassword, Enabled, buf_aStatus, buf_aData);
         *aUserName = buf_aUserName.Extract();
         *aPassword = buf_aPassword.Extract();
         *aEnabled = Enabled? 1 : 0;
         *aStatus = buf_aStatus.Extract();
+        *aData = buf_aData.Extract();
     }
     catch (ProxyError& ) {
         err = -1;
@@ -892,6 +909,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const c
         *aPassword = NULL;
         *aEnabled = false;
         *aStatus = NULL;
+        *aData = NULL;
     }
     return err;
 }
@@ -905,7 +923,7 @@ void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginGet(THandle aHandle, const cha
     proxyC->BeginGet(buf_aId, functor);
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData)
 {
     int32_t err = 0;
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
@@ -919,12 +937,15 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHan
     TBool Enabled;
     Brh buf_aStatus;
     *aStatus = NULL;
+    Brh buf_aData;
+    *aData = NULL;
     try {
-        proxyC->EndGet(*async, buf_aUserName, buf_aPassword, Enabled, buf_aStatus);
+        proxyC->EndGet(*async, buf_aUserName, buf_aPassword, Enabled, buf_aStatus, buf_aData);
         *aUserName = buf_aUserName.Extract();
         *aPassword = buf_aPassword.Extract();
         *aEnabled = Enabled? 1 : 0;
         *aStatus = buf_aStatus.Extract();
+        *aData = buf_aData.Extract();
     }
     catch(...) {
         err = -1;
@@ -978,41 +999,47 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndLogin(THandle aHandle, OhNetH
     return err;
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncLogout(THandle aHandle, const char* aId, const char* aToken)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncReLogin(THandle aHandle, const char* aId, const char* aCurrentToken, char** aNewToken)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brh buf_aId(aId);
-    Brh buf_aToken(aToken);
+    Brh buf_aCurrentToken(aCurrentToken);
+    Brh buf_aNewToken;
     int32_t err = 0;
     try {
-        proxyC->SyncLogout(buf_aId, buf_aToken);
+        proxyC->SyncReLogin(buf_aId, buf_aCurrentToken, buf_aNewToken);
+        *aNewToken = buf_aNewToken.Extract();
     }
     catch (ProxyError& ) {
         err = -1;
+        *aNewToken = NULL;
     }
     return err;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginLogout(THandle aHandle, const char* aId, const char* aToken, OhNetCallbackAsync aCallback, void* aPtr)
+void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginReLogin(THandle aHandle, const char* aId, const char* aCurrentToken, OhNetCallbackAsync aCallback, void* aPtr)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brh buf_aId(aId);
-    Brh buf_aToken(aToken);
+    Brh buf_aCurrentToken(aCurrentToken);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginLogout(buf_aId, buf_aToken, functor);
+    proxyC->BeginReLogin(buf_aId, buf_aCurrentToken, functor);
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndLogout(THandle aHandle, OhNetHandleAsync aAsync)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndReLogin(THandle aHandle, OhNetHandleAsync aAsync, char** aNewToken)
 {
     int32_t err = 0;
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
     IAsync* async = reinterpret_cast<IAsync*>(aAsync);
     ASSERT(async != NULL);
+    Brh buf_aNewToken;
+    *aNewToken = NULL;
     try {
-        proxyC->EndLogout(*async);
+        proxyC->EndReLogin(*async, buf_aNewToken);
+        *aNewToken = buf_aNewToken.Extract();
     }
     catch(...) {
         err = -1;

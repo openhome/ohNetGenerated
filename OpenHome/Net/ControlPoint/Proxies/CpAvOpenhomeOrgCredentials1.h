@@ -137,8 +137,9 @@ public:
      * @param[out] aPassword
      * @param[out] aEnabled
      * @param[out] aStatus
+     * @param[out] aData
      */
-    void SyncGet(const Brx& aId, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus);
+    void SyncGet(const Brx& aId, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -159,8 +160,9 @@ public:
      * @param[out] aPassword
      * @param[out] aEnabled
      * @param[out] aStatus
+     * @param[out] aData
      */
-    void EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus);
+    void EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -195,28 +197,30 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[in]  aId
-     * @param[in]  aToken
+     * @param[in]  aCurrentToken
+     * @param[out] aNewToken
      */
-    void SyncLogout(const Brx& aId, const Brx& aToken);
+    void SyncReLogin(const Brx& aId, const Brx& aCurrentToken, Brh& aNewToken);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndLogout().
+     * EndReLogin().
      *
      * @param[in] aId
-     * @param[in] aToken
+     * @param[in] aCurrentToken
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginLogout(const Brx& aId, const Brx& aToken, FunctorAsync& aFunctor);
+    void BeginReLogin(const Brx& aId, const Brx& aCurrentToken, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aNewToken
      */
-    void EndLogout(IAsync& aAsync);
+    void EndReLogin(IAsync& aAsync, Brh& aNewToken);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -364,7 +368,7 @@ private:
     Action* iActionSetEnabled;
     Action* iActionGet;
     Action* iActionLogin;
-    Action* iActionLogout;
+    Action* iActionReLogin;
     Action* iActionGetIds;
     Action* iActionGetPublicKey;
     Action* iActionGetSequenceNumber;

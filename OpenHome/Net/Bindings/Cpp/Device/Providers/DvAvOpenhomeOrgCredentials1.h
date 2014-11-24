@@ -119,11 +119,11 @@ protected:
      */
     void EnableActionLogin();
     /**
-     * Signal that the action Logout is supported.
+     * Signal that the action ReLogin is supported.
      * The action's availability will be published in the device's service.xml.
-     * Logout must be overridden if this is called.
+     * ReLogin must be overridden if this is called.
      */
-    void EnableActionLogout();
+    void EnableActionReLogin();
     /**
      * Signal that the action GetIds is supported.
      * The action's availability will be published in the device's service.xml.
@@ -174,7 +174,7 @@ private:
      * Get action for the owning device.
      * Must be implemented iff EnableActionGet was called.
      */
-    virtual void Get(IDvInvocationStd& aInvocation, const std::string& aId, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus);
+    virtual void Get(IDvInvocationStd& aInvocation, const std::string& aId, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus, std::string& aData);
     /**
      * Login action.
      *
@@ -184,13 +184,13 @@ private:
      */
     virtual void Login(IDvInvocationStd& aInvocation, const std::string& aId, std::string& aToken);
     /**
-     * Logout action.
+     * ReLogin action.
      *
      * Will be called when the device stack receives an invocation of the
-     * Logout action for the owning device.
-     * Must be implemented iff EnableActionLogout was called.
+     * ReLogin action for the owning device.
+     * Must be implemented iff EnableActionReLogin was called.
      */
-    virtual void Logout(IDvInvocationStd& aInvocation, const std::string& aId, const std::string& aToken);
+    virtual void ReLogin(IDvInvocationStd& aInvocation, const std::string& aId, const std::string& aCurrentToken, std::string& aNewToken);
     /**
      * GetIds action.
      *
@@ -222,7 +222,7 @@ private:
     void DoSetEnabled(IDviInvocation& aInvocation);
     void DoGet(IDviInvocation& aInvocation);
     void DoLogin(IDviInvocation& aInvocation);
-    void DoLogout(IDviInvocation& aInvocation);
+    void DoReLogin(IDviInvocation& aInvocation);
     void DoGetIds(IDviInvocation& aInvocation);
     void DoGetPublicKey(IDviInvocation& aInvocation);
     void DoGetSequenceNumber(IDviInvocation& aInvocation);

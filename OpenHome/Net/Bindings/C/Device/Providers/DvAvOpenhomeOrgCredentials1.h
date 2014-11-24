@@ -70,10 +70,11 @@ typedef int32_t (STDCALL *CallbackCredentials1SetEnabled)(void* aPtr, IDvInvocat
  * @param[out] aPassword
  * @param[out] aEnabled
  * @param[out] aStatus
+ * @param[out] aData
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackCredentials1Get)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus);
+typedef int32_t (STDCALL *CallbackCredentials1Get)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData);
 /**
  * Callback which runs when the Login action is invoked
  *
@@ -88,18 +89,19 @@ typedef int32_t (STDCALL *CallbackCredentials1Get)(void* aPtr, IDvInvocationC* a
  */
 typedef int32_t (STDCALL *CallbackCredentials1Login)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, char** aToken);
 /**
- * Callback which runs when the Logout action is invoked
+ * Callback which runs when the ReLogin action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgCredentials1EnableActionLogout
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgCredentials1EnableActionReLogin
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[in]  aId
- * @param[in]  aToken
+ * @param[in]  aCurrentToken
+ * @param[out] aNewToken
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackCredentials1Logout)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, const char* aToken);
+typedef int32_t (STDCALL *CallbackCredentials1ReLogin)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, const char* aCurrentToken, char** aNewToken);
 /**
  * Callback which runs when the GetIds action is invoked
  *
@@ -222,7 +224,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionGet(THandl
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionLogin(THandle aProvider, CallbackCredentials1Login aCallback, void* aPtr);
 /**
- * Register a callback for the action Logout
+ * Register a callback for the action ReLogin
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -231,7 +233,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionLogin(THan
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionLogout(THandle aProvider, CallbackCredentials1Logout aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionReLogin(THandle aProvider, CallbackCredentials1ReLogin aCallback, void* aPtr);
 /**
  * Register a callback for the action GetIds
  *

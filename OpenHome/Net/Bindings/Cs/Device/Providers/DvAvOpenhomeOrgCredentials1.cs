@@ -60,7 +60,7 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegateSetEnabled;
         private ActionDelegate iDelegateGet;
         private ActionDelegate iDelegateLogin;
-        private ActionDelegate iDelegateLogout;
+        private ActionDelegate iDelegateReLogin;
         private ActionDelegate iDelegateGetIds;
         private ActionDelegate iDelegateGetPublicKey;
         private ActionDelegate iDelegateGetSequenceNumber;
@@ -241,6 +241,7 @@ namespace OpenHome.Net.Device.Providers
             action.AddOutputParameter(new ParameterString("Password", allowedValues));
             action.AddOutputParameter(new ParameterBool("Enabled"));
             action.AddOutputParameter(new ParameterString("Status", allowedValues));
+            action.AddOutputParameter(new ParameterString("Data", allowedValues));
             iDelegateGet = new ActionDelegate(DoGet);
             EnableAction(action, iDelegateGet, GCHandle.ToIntPtr(iGch));
         }
@@ -261,18 +262,19 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action Logout is supported.
+        /// Signal that the action ReLogin is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// Logout must be overridden if this is called.</remarks>
-        protected void EnableActionLogout()
+        /// ReLogin must be overridden if this is called.</remarks>
+        protected void EnableActionReLogin()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Logout");
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("ReLogin");
             List<String> allowedValues = new List<String>();
             action.AddInputParameter(new ParameterString("Id", allowedValues));
-            action.AddInputParameter(new ParameterString("Token", allowedValues));
-            iDelegateLogout = new ActionDelegate(DoLogout);
-            EnableAction(action, iDelegateLogout, GCHandle.ToIntPtr(iGch));
+            action.AddInputParameter(new ParameterString("CurrentToken", allowedValues));
+            action.AddOutputParameter(new ParameterString("NewToken", allowedValues));
+            iDelegateReLogin = new ActionDelegate(DoReLogin);
+            EnableAction(action, iDelegateReLogin, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -372,7 +374,8 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aPassword"></param>
         /// <param name="aEnabled"></param>
         /// <param name="aStatus"></param>
-        protected virtual void Get(IDvInvocation aInvocation, string aId, out string aUserName, out string aPassword, out bool aEnabled, out string aStatus)
+        /// <param name="aData"></param>
+        protected virtual void Get(IDvInvocation aInvocation, string aId, out string aUserName, out string aPassword, out bool aEnabled, out string aStatus, out string aData)
         {
             throw (new ActionDisabledError());
         }
@@ -393,16 +396,17 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Logout action.
+        /// ReLogin action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// Logout action for the owning device.
+        /// ReLogin action for the owning device.
         ///
-        /// Must be implemented iff EnableActionLogout was called.</remarks>
+        /// Must be implemented iff EnableActionReLogin was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aId"></param>
-        /// <param name="aToken"></param>
-        protected virtual void Logout(IDvInvocation aInvocation, string aId, string aToken)
+        /// <param name="aCurrentToken"></param>
+        /// <param name="aNewToken"></param>
+        protected virtual void ReLogin(IDvInvocation aInvocation, string aId, string aCurrentToken, out string aNewToken)
         {
             throw (new ActionDisabledError());
         }
@@ -603,12 +607,13 @@ namespace OpenHome.Net.Device.Providers
             string password;
             bool enabled;
             string status;
+            string data;
             try
             {
                 invocation.ReadStart();
                 id = invocation.ReadString("Id");
                 invocation.ReadEnd();
-                self.Get(invocation, id, out userName, out password, out enabled, out status);
+                self.Get(invocation, id, out userName, out password, out enabled, out status, out data);
             }
             catch (ActionError e)
             {
@@ -633,6 +638,7 @@ namespace OpenHome.Net.Device.Providers
                 invocation.WriteString("Password", password);
                 invocation.WriteBool("Enabled", enabled);
                 invocation.WriteString("Status", status);
+                invocation.WriteString("Data", data);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -695,40 +701,42 @@ namespace OpenHome.Net.Device.Providers
             return 0;
         }
 
-        private static int DoLogout(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoReLogin(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgCredentials1 self = (DvProviderAvOpenhomeOrgCredentials1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
             string id;
-            string token;
+            string currentToken;
+            string newToken;
             try
             {
                 invocation.ReadStart();
                 id = invocation.ReadString("Id");
-                token = invocation.ReadString("Token");
+                currentToken = invocation.ReadString("CurrentToken");
                 invocation.ReadEnd();
-                self.Logout(invocation, id, token);
+                self.ReLogin(invocation, id, currentToken, out newToken);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "Logout");
+                invocation.ReportActionError(e, "ReLogin");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", "Logout"));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", "ReLogin"));
                 return -1;
             }
             catch (Exception e)
             {
-                Console.WriteLine("WARNING: unexpected exception {0}(\"{1}\") thrown by {2} in {3}", e.GetType(), e.Message, "Logout", e.TargetSite.Name);
+                Console.WriteLine("WARNING: unexpected exception {0}(\"{1}\") thrown by {2} in {3}", e.GetType(), e.Message, "ReLogin", e.TargetSite.Name);
                 Console.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
             try
             {
                 invocation.WriteStart();
+                invocation.WriteString("NewToken", newToken);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -737,7 +745,7 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                Console.WriteLine("ERROR: unexpected exception {0}(\"{1}\") thrown by {2} in {3}", e.GetType(), e.Message, "Logout", e.TargetSite.Name);
+                Console.WriteLine("ERROR: unexpected exception {0}(\"{1}\") thrown by {2} in {3}", e.GetType(), e.Message, "ReLogin", e.TargetSite.Name);
                 Console.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

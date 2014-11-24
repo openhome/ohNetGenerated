@@ -71,18 +71,21 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
         private String iPassword;
         private boolean iEnabled;
         private String iStatus;
+        private String iData;
 
         public Get(
             String aUserName,
             String aPassword,
             boolean aEnabled,
-            String aStatus
+            String aStatus,
+            String aData
         )
         {
             iUserName = aUserName;
             iPassword = aPassword;
             iEnabled = aEnabled;
             iStatus = aStatus;
+            iData = aData;
         }
         public String getUserName()
         {
@@ -100,6 +103,10 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
         {
             return iStatus;
         }
+        public String getData()
+        {
+            return iData;
+        }
     }
 
     private IDvInvocationListener iDelegateSet;
@@ -107,7 +114,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
     private IDvInvocationListener iDelegateSetEnabled;
     private IDvInvocationListener iDelegateGet;
     private IDvInvocationListener iDelegateLogin;
-    private IDvInvocationListener iDelegateLogout;
+    private IDvInvocationListener iDelegateReLogin;
     private IDvInvocationListener iDelegateGetIds;
     private IDvInvocationListener iDelegateGetPublicKey;
     private IDvInvocationListener iDelegateGetSequenceNumber;
@@ -279,6 +286,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
         action.addOutputParameter(new ParameterString("Password", allowedValues));
         action.addOutputParameter(new ParameterBool("Enabled"));
         action.addOutputParameter(new ParameterString("Status", allowedValues));
+        action.addOutputParameter(new ParameterString("Data", allowedValues));
         iDelegateGet = new DoGet();
         enableAction(action, iDelegateGet);
     }
@@ -299,18 +307,19 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
     }
 
     /**
-     * Signal that the action Logout is supported.
+     * Signal that the action ReLogin is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * Logout must be overridden if this is called.
+     * ReLogin must be overridden if this is called.
      */      
-    protected void enableActionLogout()
+    protected void enableActionReLogin()
     {
-        Action action = new Action("Logout");        List<String> allowedValues = new LinkedList<String>();
+        Action action = new Action("ReLogin");        List<String> allowedValues = new LinkedList<String>();
         action.addInputParameter(new ParameterString("Id", allowedValues));
-        action.addInputParameter(new ParameterString("Token", allowedValues));
-        iDelegateLogout = new DoLogout();
-        enableAction(action, iDelegateLogout);
+        action.addInputParameter(new ParameterString("CurrentToken", allowedValues));
+        action.addOutputParameter(new ParameterString("NewToken", allowedValues));
+        iDelegateReLogin = new DoReLogin();
+        enableAction(action, iDelegateReLogin);
     }
 
     /**
@@ -439,18 +448,18 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
     }
 
     /**
-     * Logout action.
+     * ReLogin action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * Logout action for the owning device.
+     * ReLogin action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionLogout} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionReLogin} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aId
-     * @param aToken
+     * @param aCurrentToken
      */
-    protected void logout(IDvInvocation aInvocation, String aId, String aToken)
+    protected String reLogin(IDvInvocation aInvocation, String aId, String aCurrentToken)
     {
         throw (new ActionDisabledError());
     }
@@ -677,6 +686,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
             String password;
             boolean enabled;
             String status;
+            String data;
             try
             {
                 invocation.readStart();
@@ -688,6 +698,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
             password = outArgs.getPassword();
             enabled = outArgs.getEnabled();
             status = outArgs.getStatus();
+            data = outArgs.getData();
             }
             catch (ActionError ae)
             {
@@ -713,6 +724,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
                 invocation.writeString("Password", password);
                 invocation.writeBool("Enabled", enabled);
                 invocation.writeString("Status", status);
+                invocation.writeString("Data", data);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -778,24 +790,25 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
         }
     }
 
-    private class DoLogout implements IDvInvocationListener
+    private class DoReLogin implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
             String id;
-            String token;
+            String currentToken;
+            String newToken;
             try
             {
                 invocation.readStart();
                 id = invocation.readString("Id");
-                token = invocation.readString("Token");
+                currentToken = invocation.readString("CurrentToken");
                 invocation.readEnd();
-                logout(invocation, id, token);
+                 newToken = reLogin(invocation, id, currentToken);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "Logout");
+                invocation.reportActionError(ae, "ReLogin");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -813,6 +826,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
             try
             {
                 invocation.writeStart();
+                invocation.writeString("NewToken", newToken);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

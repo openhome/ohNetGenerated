@@ -32,7 +32,7 @@ public:
     void EnableActionSetEnabled(CallbackCredentials1SetEnabled aCallback, void* aPtr);
     void EnableActionGet(CallbackCredentials1Get aCallback, void* aPtr);
     void EnableActionLogin(CallbackCredentials1Login aCallback, void* aPtr);
-    void EnableActionLogout(CallbackCredentials1Logout aCallback, void* aPtr);
+    void EnableActionReLogin(CallbackCredentials1ReLogin aCallback, void* aPtr);
     void EnableActionGetIds(CallbackCredentials1GetIds aCallback, void* aPtr);
     void EnableActionGetPublicKey(CallbackCredentials1GetPublicKey aCallback, void* aPtr);
     void EnableActionGetSequenceNumber(CallbackCredentials1GetSequenceNumber aCallback, void* aPtr);
@@ -42,7 +42,7 @@ private:
     void DoSetEnabled(IDviInvocation& aInvocation);
     void DoGet(IDviInvocation& aInvocation);
     void DoLogin(IDviInvocation& aInvocation);
-    void DoLogout(IDviInvocation& aInvocation);
+    void DoReLogin(IDviInvocation& aInvocation);
     void DoGetIds(IDviInvocation& aInvocation);
     void DoGetPublicKey(IDviInvocation& aInvocation);
     void DoGetSequenceNumber(IDviInvocation& aInvocation);
@@ -57,8 +57,8 @@ private:
     void* iPtrGet;
     CallbackCredentials1Login iCallbackLogin;
     void* iPtrLogin;
-    CallbackCredentials1Logout iCallbackLogout;
-    void* iPtrLogout;
+    CallbackCredentials1ReLogin iCallbackReLogin;
+    void* iPtrReLogin;
     CallbackCredentials1GetIds iCallbackGetIds;
     void* iPtrGetIds;
     CallbackCredentials1GetPublicKey iCallbackGetPublicKey;
@@ -175,6 +175,7 @@ void DvProviderAvOpenhomeOrgCredentials1C::EnableActionGet(CallbackCredentials1G
     action->AddOutputParameter(new ParameterString("Password"));
     action->AddOutputParameter(new ParameterBool("Enabled"));
     action->AddOutputParameter(new ParameterString("Status"));
+    action->AddOutputParameter(new ParameterString("Data"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1C::DoGet);
     iService->AddAction(action, functor);
 }
@@ -190,14 +191,15 @@ void DvProviderAvOpenhomeOrgCredentials1C::EnableActionLogin(CallbackCredentials
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgCredentials1C::EnableActionLogout(CallbackCredentials1Logout aCallback, void* aPtr)
+void DvProviderAvOpenhomeOrgCredentials1C::EnableActionReLogin(CallbackCredentials1ReLogin aCallback, void* aPtr)
 {
-    iCallbackLogout = aCallback;
-    iPtrLogout = aPtr;
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("Logout");
+    iCallbackReLogin = aCallback;
+    iPtrReLogin = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("ReLogin");
     action->AddInputParameter(new ParameterString("Id"));
-    action->AddInputParameter(new ParameterString("Token"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1C::DoLogout);
+    action->AddInputParameter(new ParameterString("CurrentToken"));
+    action->AddOutputParameter(new ParameterString("NewToken"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1C::DoReLogin);
     iService->AddAction(action, functor);
 }
 
@@ -311,8 +313,9 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoGet(IDviInvocation& aInvocation)
     char* Password;
     uint32_t Enabled;
     char* Status;
+    char* Data;
     ASSERT(iCallbackGet != NULL);
-    if (0 != iCallbackGet(iPtrGet, invocationC, invocationCPtr, (const char*)Id.Ptr(), &UserName, &Password, &Enabled, &Status)) {
+    if (0 != iCallbackGet(iPtrGet, invocationC, invocationCPtr, (const char*)Id.Ptr(), &UserName, &Password, &Enabled, &Status, &Data)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
@@ -320,6 +323,7 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoGet(IDviInvocation& aInvocation)
     DviInvocationResponseString respPassword(aInvocation, "Password");
     DviInvocationResponseBool respEnabled(aInvocation, "Enabled");
     DviInvocationResponseString respStatus(aInvocation, "Status");
+    DviInvocationResponseString respData(aInvocation, "Data");
     invocation.StartResponse();
     Brhz bufUserName((const TChar*)UserName);
     OhNetFreeExternal(UserName);
@@ -334,6 +338,10 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoGet(IDviInvocation& aInvocation)
     OhNetFreeExternal(Status);
     respStatus.Write(bufStatus);
     respStatus.WriteFlush();
+    Brhz bufData((const TChar*)Data);
+    OhNetFreeExternal(Data);
+    respData.Write(bufData);
+    respData.WriteFlush();
     invocation.EndResponse();
 }
 
@@ -363,7 +371,7 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoLogin(IDviInvocation& aInvocation)
     invocation.EndResponse();
 }
 
-void DvProviderAvOpenhomeOrgCredentials1C::DoLogout(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgCredentials1C::DoReLogin(IDviInvocation& aInvocation)
 {
     DvInvocationCPrivate invocationWrapper(aInvocation);
     IDvInvocationC* invocationC;
@@ -372,16 +380,22 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoLogout(IDviInvocation& aInvocation)
     aInvocation.InvocationReadStart();
     Brhz Id;
     aInvocation.InvocationReadString("Id", Id);
-    Brhz Token;
-    aInvocation.InvocationReadString("Token", Token);
+    Brhz CurrentToken;
+    aInvocation.InvocationReadString("CurrentToken", CurrentToken);
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    ASSERT(iCallbackLogout != NULL);
-    if (0 != iCallbackLogout(iPtrLogout, invocationC, invocationCPtr, (const char*)Id.Ptr(), (const char*)Token.Ptr())) {
+    char* NewToken;
+    ASSERT(iCallbackReLogin != NULL);
+    if (0 != iCallbackReLogin(iPtrReLogin, invocationC, invocationCPtr, (const char*)Id.Ptr(), (const char*)CurrentToken.Ptr(), &NewToken)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
+    DviInvocationResponseString respNewToken(aInvocation, "NewToken");
     invocation.StartResponse();
+    Brhz bufNewToken((const TChar*)NewToken);
+    OhNetFreeExternal(NewToken);
+    respNewToken.Write(bufNewToken);
+    respNewToken.WriteFlush();
     invocation.EndResponse();
 }
 
@@ -491,9 +505,9 @@ void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionLogin(THandle aProvi
     reinterpret_cast<DvProviderAvOpenhomeOrgCredentials1C*>(aProvider)->EnableActionLogin(aCallback, aPtr);
 }
 
-void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionLogout(THandle aProvider, CallbackCredentials1Logout aCallback, void* aPtr)
+void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionReLogin(THandle aProvider, CallbackCredentials1ReLogin aCallback, void* aPtr)
 {
-    reinterpret_cast<DvProviderAvOpenhomeOrgCredentials1C*>(aProvider)->EnableActionLogout(aCallback, aPtr);
+    reinterpret_cast<DvProviderAvOpenhomeOrgCredentials1C*>(aProvider)->EnableActionReLogin(aCallback, aPtr);
 }
 
 void STDCALL DvProviderAvOpenhomeOrgCredentials1EnableActionGetIds(THandle aProvider, CallbackCredentials1GetIds aCallback, void* aPtr)

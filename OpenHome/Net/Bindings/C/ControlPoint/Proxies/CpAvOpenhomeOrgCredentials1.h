@@ -166,11 +166,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndSetEnabled(THandle 
  * @param[out] aPassword
  * @param[out] aEnabled
  * @param[out] aStatus
+ * @param[out] aData
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -194,11 +195,12 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginGet(THandle aHandle,
  * @param[out] aPassword
  * @param[out] aEnabled
  * @param[out] aStatus
+ * @param[out] aData
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -244,12 +246,13 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndLogin(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[in]  aId
- * @param[in]  aToken
+ * @param[in]  aCurrentToken
+ * @param[out] aNewToken
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncLogout(THandle aHandle, const char* aId, const char* aToken);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncReLogin(THandle aHandle, const char* aId, const char* aCurrentToken, char** aNewToken);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -258,23 +261,24 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncLogout(THandle aHa
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[in]  aId
- * @param[in]  aToken
+ * @param[in]  aCurrentToken
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginLogout(THandle aHandle, const char* aId, const char* aToken, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginReLogin(THandle aHandle, const char* aId, const char* aCurrentToken, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ * @param[out] aNewToken
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndLogout(THandle aHandle, OhNetHandleAsync aAsync);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndReLogin(THandle aHandle, OhNetHandleAsync aAsync, char** aNewToken);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed

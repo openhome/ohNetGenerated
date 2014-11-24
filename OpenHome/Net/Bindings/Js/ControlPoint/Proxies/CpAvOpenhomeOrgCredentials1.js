@@ -171,6 +171,7 @@ CpProxyAvOpenhomeOrgCredentials1.prototype.Get = function(Id, successFunction, e
         result["Password"] = ohnet.soaprequest.readStringParameter(result["Password"]); 
         result["Enabled"] = ohnet.soaprequest.readBoolParameter(result["Enabled"]); 
         result["Status"] = ohnet.soaprequest.readStringParameter(result["Status"]); 
+        result["Data"] = ohnet.soaprequest.readStringParameter(result["Data"]); 
     
         if (successFunction){
             successFunction(result);
@@ -204,18 +205,19 @@ CpProxyAvOpenhomeOrgCredentials1.prototype.Login = function(Id, successFunction,
 
 
 /**
-* A service action to Logout
-* @method Logout
+* A service action to ReLogin
+* @method ReLogin
 * @param {String} Id An action parameter
-* @param {String} Token An action parameter
+* @param {String} CurrentToken An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgCredentials1.prototype.Logout = function(Id, Token, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("Logout", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgCredentials1.prototype.ReLogin = function(Id, CurrentToken, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("ReLogin", this.url, this.domain, this.type, this.version);     
     request.writeStringParameter("Id", Id);
-    request.writeStringParameter("Token", Token);
+    request.writeStringParameter("CurrentToken", CurrentToken);
     request.send(function(result){
+        result["NewToken"] = ohnet.soaprequest.readStringParameter(result["NewToken"]); 
     
         if (successFunction){
             successFunction(result);

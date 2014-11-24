@@ -138,8 +138,9 @@ public:
      * @param[out] aPassword
      * @param[out] aEnabled
      * @param[out] aStatus
+     * @param[out] aData
      */
-    void SyncGet(const std::string& aId, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus);
+    void SyncGet(const std::string& aId, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus, std::string& aData);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -160,8 +161,9 @@ public:
      * @param[out] aPassword
      * @param[out] aEnabled
      * @param[out] aStatus
+     * @param[out] aData
      */
-    void EndGet(IAsync& aAsync, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus);
+    void EndGet(IAsync& aAsync, std::string& aUserName, std::string& aPassword, bool& aEnabled, std::string& aStatus, std::string& aData);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -196,28 +198,30 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[in]  aId
-     * @param[in]  aToken
+     * @param[in]  aCurrentToken
+     * @param[out] aNewToken
      */
-    void SyncLogout(const std::string& aId, const std::string& aToken);
+    void SyncReLogin(const std::string& aId, const std::string& aCurrentToken, std::string& aNewToken);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndLogout().
+     * EndReLogin().
      *
      * @param[in] aId
-     * @param[in] aToken
+     * @param[in] aCurrentToken
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginLogout(const std::string& aId, const std::string& aToken, FunctorAsync& aFunctor);
+    void BeginReLogin(const std::string& aId, const std::string& aCurrentToken, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aNewToken
      */
-    void EndLogout(IAsync& aAsync);
+    void EndReLogin(IAsync& aAsync, std::string& aNewToken);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -365,7 +369,7 @@ private:
     Action* iActionSetEnabled;
     Action* iActionGet;
     Action* iActionLogin;
-    Action* iActionLogout;
+    Action* iActionReLogin;
     Action* iActionGetIds;
     Action* iActionGetPublicKey;
     Action* iActionGetSequenceNumber;

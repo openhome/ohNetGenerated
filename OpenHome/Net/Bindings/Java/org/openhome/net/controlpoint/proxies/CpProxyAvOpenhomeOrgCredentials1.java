@@ -25,9 +25,9 @@ interface ICpProxyAvOpenhomeOrgCredentials1 extends ICpProxy
     public String syncLogin(String aId);
     public void beginLogin(String aId, ICpProxyListener aCallback);
     public String endLogin(long aAsyncHandle);
-    public void syncLogout(String aId, String aToken);
-    public void beginLogout(String aId, String aToken, ICpProxyListener aCallback);
-    public void endLogout(long aAsyncHandle);
+    public String syncReLogin(String aId, String aCurrentToken);
+    public void beginReLogin(String aId, String aCurrentToken, ICpProxyListener aCallback);
+    public String endReLogin(long aAsyncHandle);
     public String syncGetIds();
     public void beginGetIds(ICpProxyListener aCallback);
     public String endGetIds(long aAsyncHandle);
@@ -97,6 +97,7 @@ class SyncGetAvOpenhomeOrgCredentials1 extends SyncProxyAction
     private String iPassword;
     private boolean iEnabled;
     private String iStatus;
+    private String iData;
 
     public SyncGetAvOpenhomeOrgCredentials1(CpProxyAvOpenhomeOrgCredentials1 aProxy)
     {
@@ -118,6 +119,10 @@ class SyncGetAvOpenhomeOrgCredentials1 extends SyncProxyAction
     {
         return iStatus;
     }
+    public String getData()
+    {
+        return iData;
+    }
     protected void completeRequest(long aAsyncHandle)
     {
         Get result = iService.endGet(aAsyncHandle);
@@ -126,6 +131,7 @@ class SyncGetAvOpenhomeOrgCredentials1 extends SyncProxyAction
         iPassword = result.getPassword();
         iEnabled = result.getEnabled();
         iStatus = result.getStatus();
+        iData = result.getData();
     }
 }
 
@@ -150,18 +156,24 @@ class SyncLoginAvOpenhomeOrgCredentials1 extends SyncProxyAction
     }
 }
 
-class SyncLogoutAvOpenhomeOrgCredentials1 extends SyncProxyAction
+class SyncReLoginAvOpenhomeOrgCredentials1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgCredentials1 iService;
+    private String iNewToken;
 
-    public SyncLogoutAvOpenhomeOrgCredentials1(CpProxyAvOpenhomeOrgCredentials1 aProxy)
+    public SyncReLoginAvOpenhomeOrgCredentials1(CpProxyAvOpenhomeOrgCredentials1 aProxy)
     {
         iService = aProxy;
     }
+    public String getNewToken()
+    {
+        return iNewToken;
+    }
     protected void completeRequest(long aAsyncHandle)
     {
-        iService.endLogout(aAsyncHandle);
+        String result = iService.endReLogin(aAsyncHandle);
         
+        iNewToken = result;
     }
 }
 
@@ -240,18 +252,21 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         private String iPassword;
         private boolean iEnabled;
         private String iStatus;
+        private String iData;
 
         public Get(
             String aUserName,
             String aPassword,
             boolean aEnabled,
-            String aStatus
+            String aStatus,
+            String aData
         )
         {
             iUserName = aUserName;
             iPassword = aPassword;
             iEnabled = aEnabled;
             iStatus = aStatus;
+            iData = aData;
         }
         public String getUserName()
         {
@@ -269,6 +284,10 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         {
             return iStatus;
         }
+        public String getData()
+        {
+            return iData;
+        }
     }
 
     private Action iActionSet;
@@ -276,7 +295,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
     private Action iActionSetEnabled;
     private Action iActionGet;
     private Action iActionLogin;
-    private Action iActionLogout;
+    private Action iActionReLogin;
     private Action iActionGetIds;
     private Action iActionGetPublicKey;
     private Action iActionGetSequenceNumber;
@@ -330,6 +349,8 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         iActionGet.addOutputParameter(param);
         param = new ParameterString("Status", allowedValues);
         iActionGet.addOutputParameter(param);
+        param = new ParameterString("Data", allowedValues);
+        iActionGet.addOutputParameter(param);
 
         iActionLogin = new Action("Login");
         param = new ParameterString("Id", allowedValues);
@@ -337,11 +358,13 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         param = new ParameterString("Token", allowedValues);
         iActionLogin.addOutputParameter(param);
 
-        iActionLogout = new Action("Logout");
+        iActionReLogin = new Action("ReLogin");
         param = new ParameterString("Id", allowedValues);
-        iActionLogout.addInputParameter(param);
-        param = new ParameterString("Token", allowedValues);
-        iActionLogout.addInputParameter(param);
+        iActionReLogin.addInputParameter(param);
+        param = new ParameterString("CurrentToken", allowedValues);
+        iActionReLogin.addInputParameter(param);
+        param = new ParameterString("NewToken", allowedValues);
+        iActionReLogin.addOutputParameter(param);
 
         iActionGetIds = new Action("GetIds");
         param = new ParameterString("Ids", allowedValues);
@@ -552,7 +575,8 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
             sync.getUserName(),
             sync.getPassword(),
             sync.getEnabled(),
-            sync.getStatus()
+            sync.getStatus(),
+            sync.getData()
         );
     }
     
@@ -575,6 +599,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentBool((ParameterBool)iActionGet.getOutputParameter(outIndex++)));
+        invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
         iService.invokeAction(invocation);
     }
@@ -600,11 +625,13 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         String password = Invocation.getOutputString(aAsyncHandle, index++);
         boolean enabled = Invocation.getOutputBool(aAsyncHandle, index++);
         String status = Invocation.getOutputString(aAsyncHandle, index++);
+        String data = Invocation.getOutputString(aAsyncHandle, index++);
         return new Get(
             userName,
             password,
             enabled,
-            status
+            status,
+            data
         );
     }
         
@@ -670,50 +697,60 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
      * Invoke the action synchronously.
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
+     *
+     * @return the result of the invoked action.
      */
-    public void syncLogout(String aId, String aToken)
+    public String syncReLogin(String aId, String aCurrentToken)
     {
-        SyncLogoutAvOpenhomeOrgCredentials1 sync = new SyncLogoutAvOpenhomeOrgCredentials1(this);
-        beginLogout(aId, aToken, sync.getListener());
+        SyncReLoginAvOpenhomeOrgCredentials1 sync = new SyncReLoginAvOpenhomeOrgCredentials1(this);
+        beginReLogin(aId, aCurrentToken, sync.getListener());
         sync.waitToComplete();
         sync.reportError();
+
+        return sync.getNewToken();
     }
     
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endLogout}.
+     * calling {@link #endReLogin}.
      * 
      * @param aId
-     * @param aToken
+     * @param aCurrentToken
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginLogout(String aId, String aToken, ICpProxyListener aCallback)
+    public void beginReLogin(String aId, String aCurrentToken, ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionLogout, aCallback);
+        Invocation invocation = iService.getInvocation(iActionReLogin, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentString((ParameterString)iActionLogout.getInputParameter(inIndex++), aId));
-        invocation.addInput(new ArgumentString((ParameterString)iActionLogout.getInputParameter(inIndex++), aToken));
+        invocation.addInput(new ArgumentString((ParameterString)iActionReLogin.getInputParameter(inIndex++), aId));
+        invocation.addInput(new ArgumentString((ParameterString)iActionReLogin.getInputParameter(inIndex++), aCurrentToken));
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentString((ParameterString)iActionReLogin.getOutputParameter(outIndex++)));
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginLogout} method.
+     * {@link #beginReLogin} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginLogout} method.
+     *          {@link #beginReLogin} method.
+     * @return the result of the previously invoked action.
      */
-    public void endLogout(long aAsyncHandle)
+    public String endReLogin(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
         {
             throw errObj;
         }
+        int index = 0;
+        String newToken = Invocation.getOutputString(aAsyncHandle, index++);
+        return newToken;
     }
         
     /**
@@ -1019,7 +1056,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
             iActionSetEnabled.destroy();
             iActionGet.destroy();
             iActionLogin.destroy();
-            iActionLogout.destroy();
+            iActionReLogin.destroy();
             iActionGetIds.destroy();
             iActionGetPublicKey.destroy();
             iActionGetSequenceNumber.destroy();
