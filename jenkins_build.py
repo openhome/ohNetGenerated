@@ -148,6 +148,8 @@ class JenkinsBuild():
             make_target = self.platform['make_target']
             if len(make_target) > 0:
                 args.append(make_target)
+            if os_platform == 'Android':
+                args.append('JavaAll')
         args.extend(self.make_args)
         print "do_build: build with cmd %s" %(args,)
         ret = subprocess.check_call(args)

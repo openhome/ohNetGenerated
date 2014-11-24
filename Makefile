@@ -338,13 +338,17 @@ mkdir = mkdir -p
 rmdir = rm -rf
 uset4 = no
 
+ifeq ($(Android-anycpu), 1)
+build_targets_base = make_obj_dir CpProxyJavaClasses DvDeviceJavaClasses CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
+else
 ifeq ($(managed_only), yes)
-build_targets_base = make_obj_dir ohNet.net.dll CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
+build_targets_base = make_obj_dir CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
 else
 ifeq ($(native_only), yes)
 build_targets_base = $(native_targets)
 else
 build_targets_base = $(all_targets)
+endif
 endif
 endif
 ifeq ($(uset4), yes)
