@@ -230,7 +230,7 @@ CpProxyAvOpenhomeOrgCredentials1::CpProxyAvOpenhomeOrgCredentials1(CpDevice& aDe
     iActionSet->AddInputParameter(param);
     param = new OpenHome::Net::ParameterString("UserName");
     iActionSet->AddInputParameter(param);
-    param = new OpenHome::Net::ParameterString("Password");
+    param = new OpenHome::Net::ParameterBinary("Password");
     iActionSet->AddInputParameter(param);
 
     iActionClear = new Action("Clear");
@@ -248,7 +248,7 @@ CpProxyAvOpenhomeOrgCredentials1::CpProxyAvOpenhomeOrgCredentials1(CpDevice& aDe
     iActionGet->AddInputParameter(param);
     param = new OpenHome::Net::ParameterString("UserName");
     iActionGet->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterString("Password");
+    param = new OpenHome::Net::ParameterBinary("Password");
     iActionGet->AddOutputParameter(param);
     param = new OpenHome::Net::ParameterBool("Enabled");
     iActionGet->AddOutputParameter(param);
@@ -323,7 +323,7 @@ void CpProxyAvOpenhomeOrgCredentials1::BeginSet(const Brx& aId, const Brx& aUser
     const Action::VectorParameters& inParams = iActionSet->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aUserName));
-    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aPassword));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aPassword));
     iInvocable.InvokeAction(*invocation);
 }
 
@@ -418,7 +418,7 @@ void CpProxyAvOpenhomeOrgCredentials1::BeginGet(const Brx& aId, FunctorAsync& aF
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGet->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    invocation->AddOutput(new ArgumentBinary(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
@@ -439,7 +439,7 @@ void CpProxyAvOpenhomeOrgCredentials1::EndGet(IAsync& aAsync, Brh& aUserName, Br
     }
     TUint index = 0;
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aUserName);
-    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aPassword);
+    ((ArgumentBinary*)invocation.OutputArguments()[index++])->TransferTo(aPassword);
     aEnabled = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aStatus);
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aData);

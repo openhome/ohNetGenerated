@@ -29,10 +29,11 @@ extern "C" {
  * @param[in]  aId
  * @param[in]  aUserName
  * @param[in]  aPassword
+ * @param[in]  aPasswordLen
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackCredentials1Set)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, const char* aUserName, const char* aPassword);
+typedef int32_t (STDCALL *CallbackCredentials1Set)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, const char* aUserName, const char* aPassword, uint32_t aPasswordLen);
 /**
  * Callback which runs when the Clear action is invoked
  *
@@ -68,13 +69,14 @@ typedef int32_t (STDCALL *CallbackCredentials1SetEnabled)(void* aPtr, IDvInvocat
  * @param[in]  aId
  * @param[out] aUserName
  * @param[out] aPassword
+ * @param[out] aPasswordLen
  * @param[out] aEnabled
  * @param[out] aStatus
  * @param[out] aData
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackCredentials1Get)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData);
+typedef int32_t (STDCALL *CallbackCredentials1Get)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aId, char** aUserName, char** aPassword, uint32_t* aPasswordLen, uint32_t* aEnabled, char** aStatus, char** aData);
 /**
  * Callback which runs when the Login action is invoked
  *

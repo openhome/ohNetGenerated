@@ -50,11 +50,12 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1Destroy(THandle aHandle);
  * @param[in]  aId
  * @param[in]  aUserName
  * @param[in]  aPassword
+ * @param[in]  aPasswordLen
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword, uint32_t aPasswordLen);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -65,11 +66,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSet(THandle aHandl
  * @param[in]  aId
  * @param[in]  aUserName
  * @param[in]  aPassword
+ * @param[in]  aPasswordLen
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword, uint32_t aPasswordLen, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -164,6 +166,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndSetEnabled(THandle 
  * @param[in]  aId
  * @param[out] aUserName
  * @param[out] aPassword
+ * @param[out] aPasswordLen
  * @param[out] aEnabled
  * @param[out] aStatus
  * @param[out] aData
@@ -171,7 +174,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndSetEnabled(THandle 
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aPasswordLen, uint32_t* aEnabled, char** aStatus, char** aData);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -193,6 +196,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginGet(THandle aHandle,
  * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
  * @param[out] aUserName
  * @param[out] aPassword
+ * @param[in]  aPasswordLen
  * @param[out] aEnabled
  * @param[out] aStatus
  * @param[out] aData
@@ -200,7 +204,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginGet(THandle aHandle,
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aPasswordLen, uint32_t* aEnabled, char** aStatus, char** aData);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed

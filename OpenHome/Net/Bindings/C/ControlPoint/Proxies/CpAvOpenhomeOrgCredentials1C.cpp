@@ -309,7 +309,7 @@ CpProxyAvOpenhomeOrgCredentials1C::CpProxyAvOpenhomeOrgCredentials1C(CpDeviceC a
     iActionSet->AddInputParameter(param);
     param = new OpenHome::Net::ParameterString("UserName");
     iActionSet->AddInputParameter(param);
-    param = new OpenHome::Net::ParameterString("Password");
+    param = new OpenHome::Net::ParameterBinary("Password");
     iActionSet->AddInputParameter(param);
 
     iActionClear = new Action("Clear");
@@ -327,7 +327,7 @@ CpProxyAvOpenhomeOrgCredentials1C::CpProxyAvOpenhomeOrgCredentials1C(CpDeviceC a
     iActionGet->AddInputParameter(param);
     param = new OpenHome::Net::ParameterString("UserName");
     iActionGet->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterString("Password");
+    param = new OpenHome::Net::ParameterBinary("Password");
     iActionGet->AddOutputParameter(param);
     param = new OpenHome::Net::ParameterBool("Enabled");
     iActionGet->AddOutputParameter(param);
@@ -402,7 +402,7 @@ void CpProxyAvOpenhomeOrgCredentials1C::BeginSet(const Brx& aId, const Brx& aUse
     const Action::VectorParameters& inParams = iActionSet->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aUserName));
-    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aPassword));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aPassword));
     Invocable().InvokeAction(*invocation);
 }
 
@@ -497,7 +497,7 @@ void CpProxyAvOpenhomeOrgCredentials1C::BeginGet(const Brx& aId, FunctorAsync& a
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGet->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    invocation->AddOutput(new ArgumentBinary(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
@@ -518,7 +518,7 @@ void CpProxyAvOpenhomeOrgCredentials1C::EndGet(IAsync& aAsync, Brh& aUserName, B
     }
     TUint index = 0;
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aUserName);
-    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aPassword);
+    ((ArgumentBinary*)invocation.OutputArguments()[index++])->TransferTo(aPassword);
     aEnabled = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aStatus);
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aData);
@@ -760,13 +760,14 @@ void STDCALL CpProxyAvOpenhomeOrgCredentials1Destroy(THandle aHandle)
     delete proxyC;
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword, uint32_t aPasswordLen)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brh buf_aId(aId);
     Brh buf_aUserName(aUserName);
-    Brh buf_aPassword(aPassword);
+    Brh buf_aPassword;
+    buf_aPassword.Set((const TByte*)aPassword, aPasswordLen);
     int32_t err = 0;
     try {
         proxyC->SyncSet(buf_aId, buf_aUserName, buf_aPassword);
@@ -777,13 +778,14 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSet(THandle aHandle, const c
     return err;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword, OhNetCallbackAsync aCallback, void* aPtr)
+void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword, uint32_t aPasswordLen, OhNetCallbackAsync aCallback, void* aPtr)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brh buf_aId(aId);
     Brh buf_aUserName(aUserName);
-    Brh buf_aPassword(aPassword);
+    Brh buf_aPassword;
+    buf_aPassword.Set((const TByte*)aPassword, aPasswordLen);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
     proxyC->BeginSet(buf_aId, buf_aUserName, buf_aPassword, functor);
 }
@@ -884,7 +886,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndSetEnabled(THandle aHandle, O
     return err;
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aPasswordLen, uint32_t* aEnabled, char** aStatus, char** aData)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
@@ -898,6 +900,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const c
     try {
         proxyC->SyncGet(buf_aId, buf_aUserName, buf_aPassword, Enabled, buf_aStatus, buf_aData);
         *aUserName = buf_aUserName.Extract();
+        *aPasswordLen = buf_aPassword.Bytes();
         *aPassword = buf_aPassword.Extract();
         *aEnabled = Enabled? 1 : 0;
         *aStatus = buf_aStatus.Extract();
@@ -906,6 +909,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const c
     catch (ProxyError& ) {
         err = -1;
         *aUserName = NULL;
+        *aPasswordLen = 0;
         *aPassword = NULL;
         *aEnabled = false;
         *aStatus = NULL;
@@ -923,7 +927,7 @@ void STDCALL CpProxyAvOpenhomeOrgCredentials1BeginGet(THandle aHandle, const cha
     proxyC->BeginGet(buf_aId, functor);
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aEnabled, char** aStatus, char** aData)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHandleAsync aAsync, char** aUserName, char** aPassword, uint32_t* aPasswordLen, uint32_t* aEnabled, char** aStatus, char** aData)
 {
     int32_t err = 0;
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
@@ -934,6 +938,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHan
     *aUserName = NULL;
     Brh buf_aPassword;
     *aPassword = NULL;
+    *aPasswordLen = 0;
     TBool Enabled;
     Brh buf_aStatus;
     *aStatus = NULL;
@@ -942,6 +947,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle, OhNetHan
     try {
         proxyC->EndGet(*async, buf_aUserName, buf_aPassword, Enabled, buf_aStatus, buf_aData);
         *aUserName = buf_aUserName.Extract();
+        *aPasswordLen = buf_aPassword.Bytes();
         *aPassword = buf_aPassword.Extract();
         *aEnabled = Enabled? 1 : 0;
         *aStatus = buf_aStatus.Extract();

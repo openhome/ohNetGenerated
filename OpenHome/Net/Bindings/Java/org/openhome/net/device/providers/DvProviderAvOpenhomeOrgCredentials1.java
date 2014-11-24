@@ -68,14 +68,14 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
     public class Get
     {
         private String iUserName;
-        private String iPassword;
+        private byte[] iPassword;
         private boolean iEnabled;
         private String iStatus;
         private String iData;
 
         public Get(
             String aUserName,
-            String aPassword,
+            byte[] aPassword,
             boolean aEnabled,
             String aStatus,
             String aData
@@ -91,7 +91,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
         {
             return iUserName;
         }
-        public String getPassword()
+        public byte[] getPassword()
         {
             return iPassword;
         }
@@ -238,7 +238,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
         Action action = new Action("Set");        List<String> allowedValues = new LinkedList<String>();
         action.addInputParameter(new ParameterString("Id", allowedValues));
         action.addInputParameter(new ParameterString("UserName", allowedValues));
-        action.addInputParameter(new ParameterString("Password", allowedValues));
+        action.addInputParameter(new ParameterBinary("Password"));
         iDelegateSet = new DoSet();
         enableAction(action, iDelegateSet);
     }
@@ -283,7 +283,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
         Action action = new Action("Get");        List<String> allowedValues = new LinkedList<String>();
         action.addInputParameter(new ParameterString("Id", allowedValues));
         action.addOutputParameter(new ParameterString("UserName", allowedValues));
-        action.addOutputParameter(new ParameterString("Password", allowedValues));
+        action.addOutputParameter(new ParameterBinary("Password"));
         action.addOutputParameter(new ParameterBool("Enabled"));
         action.addOutputParameter(new ParameterString("Status", allowedValues));
         action.addOutputParameter(new ParameterString("Data", allowedValues));
@@ -377,7 +377,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
      * @param aUserName
      * @param aPassword
      */
-    protected void set(IDvInvocation aInvocation, String aId, String aUserName, String aPassword)
+    protected void set(IDvInvocation aInvocation, String aId, String aUserName, byte[] aPassword)
     {
         throw (new ActionDisabledError());
     }
@@ -533,13 +533,13 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
             DvInvocation invocation = new DvInvocation(aInvocation);
             String id;
             String userName;
-            String password;
+            byte[] password;
             try
             {
                 invocation.readStart();
                 id = invocation.readString("Id");
                 userName = invocation.readString("UserName");
-                password = invocation.readString("Password");
+                password = invocation.readBinary("Password");
                 invocation.readEnd();
                 set(invocation, id, userName, password);
             }
@@ -683,7 +683,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
             DvInvocation invocation = new DvInvocation(aInvocation);
             String id;
             String userName;
-            String password;
+            byte[] password;
             boolean enabled;
             String status;
             String data;
@@ -721,7 +721,7 @@ public class DvProviderAvOpenhomeOrgCredentials1 extends DvProvider implements I
             {
                 invocation.writeStart();
                 invocation.writeString("UserName", userName);
-                invocation.writeString("Password", password);
+                invocation.writeBinary("Password", password);
                 invocation.writeBool("Enabled", enabled);
                 invocation.writeString("Status", status);
                 invocation.writeString("Data", data);

@@ -80,7 +80,7 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::EnableActionSet()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Set");
     action->AddInputParameter(new ParameterString("Id"));
     action->AddInputParameter(new ParameterString("UserName"));
-    action->AddInputParameter(new ParameterString("Password"));
+    action->AddInputParameter(new ParameterBinary("Password"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1Cpp::DoSet);
     iService->AddAction(action, functor);
 }
@@ -107,7 +107,7 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::EnableActionGet()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Get");
     action->AddInputParameter(new ParameterString("Id"));
     action->AddOutputParameter(new ParameterString("UserName"));
-    action->AddOutputParameter(new ParameterString("Password"));
+    action->AddOutputParameter(new ParameterBinary("Password"));
     action->AddOutputParameter(new ParameterBool("Enabled"));
     action->AddOutputParameter(new ParameterString("Status"));
     action->AddOutputParameter(new ParameterString("Data"));
@@ -167,8 +167,8 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::DoSet(IDviInvocation& aInvocation)
     Brhz buf_UserName;
     aInvocation.InvocationReadString("UserName", buf_UserName);
     std::string UserName((const char*)buf_UserName.Ptr(), buf_UserName.Bytes());
-    Brhz buf_Password;
-    aInvocation.InvocationReadString("Password", buf_Password);
+    Brh buf_Password;
+    aInvocation.InvocationReadBinary("Password", buf_Password);
     std::string Password((const char*)buf_Password.Ptr(), buf_Password.Bytes());
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
@@ -223,10 +223,10 @@ void DvProviderAvOpenhomeOrgCredentials1Cpp::DoGet(IDviInvocation& aInvocation)
     Brn buf_UserName((const TByte*)respUserName.c_str(), (TUint)respUserName.length());
     respWriterUserName.Write(buf_UserName);
     aInvocation.InvocationWriteStringEnd("UserName");
-    DviInvocationResponseString respWriterPassword(aInvocation, "Password");
+    DviInvocationResponseBinary respWriterPassword(aInvocation, "Password");
     Brn buf_Password((const TByte*)respPassword.c_str(), (TUint)respPassword.length());
     respWriterPassword.Write(buf_Password);
-    aInvocation.InvocationWriteStringEnd("Password");
+    aInvocation.InvocationWriteBinaryEnd("Password");
     DviInvocationResponseBool respWriterEnabled(aInvocation, "Enabled");
     respWriterEnabled.Write(respEnabled);
     DviInvocationResponseString respWriterStatus(aInvocation, "Status");

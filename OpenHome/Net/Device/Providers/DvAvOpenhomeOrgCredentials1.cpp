@@ -86,7 +86,7 @@ void DvProviderAvOpenhomeOrgCredentials1::EnableActionSet()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Set");
     action->AddInputParameter(new ParameterString("Id"));
     action->AddInputParameter(new ParameterString("UserName"));
-    action->AddInputParameter(new ParameterString("Password"));
+    action->AddInputParameter(new ParameterBinary("Password"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1::DoSet);
     iService->AddAction(action, functor);
 }
@@ -113,7 +113,7 @@ void DvProviderAvOpenhomeOrgCredentials1::EnableActionGet()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Get");
     action->AddInputParameter(new ParameterString("Id"));
     action->AddOutputParameter(new ParameterString("UserName"));
-    action->AddOutputParameter(new ParameterString("Password"));
+    action->AddOutputParameter(new ParameterBinary("Password"));
     action->AddOutputParameter(new ParameterBool("Enabled"));
     action->AddOutputParameter(new ParameterString("Status"));
     action->AddOutputParameter(new ParameterString("Data"));
@@ -171,8 +171,8 @@ void DvProviderAvOpenhomeOrgCredentials1::DoSet(IDviInvocation& aInvocation)
     aInvocation.InvocationReadString("Id", Id);
     Brhz UserName;
     aInvocation.InvocationReadString("UserName", UserName);
-    Brhz Password;
-    aInvocation.InvocationReadString("Password", Password);
+    Brh Password;
+    aInvocation.InvocationReadBinary("Password", Password);
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     Set(invocation, Id, UserName, Password);
@@ -207,7 +207,7 @@ void DvProviderAvOpenhomeOrgCredentials1::DoGet(IDviInvocation& aInvocation)
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     DviInvocationResponseString respUserName(aInvocation, "UserName");
-    DviInvocationResponseString respPassword(aInvocation, "Password");
+    DviInvocationResponseBinary respPassword(aInvocation, "Password");
     DviInvocationResponseBool respEnabled(aInvocation, "Enabled");
     DviInvocationResponseString respStatus(aInvocation, "Status");
     DviInvocationResponseString respData(aInvocation, "Data");
@@ -280,7 +280,7 @@ void DvProviderAvOpenhomeOrgCredentials1::SetEnabled(IDvInvocation& /*aResponse*
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgCredentials1::Get(IDvInvocation& /*aResponse*/, const Brx& /*aId*/, IDvInvocationResponseString& /*aUserName*/, IDvInvocationResponseString& /*aPassword*/, IDvInvocationResponseBool& /*aEnabled*/, IDvInvocationResponseString& /*aStatus*/, IDvInvocationResponseString& /*aData*/)
+void DvProviderAvOpenhomeOrgCredentials1::Get(IDvInvocation& /*aResponse*/, const Brx& /*aId*/, IDvInvocationResponseString& /*aUserName*/, IDvInvocationResponseBinary& /*aPassword*/, IDvInvocationResponseBool& /*aEnabled*/, IDvInvocationResponseString& /*aStatus*/, IDvInvocationResponseString& /*aData*/)
 {
     ASSERTS();
 }

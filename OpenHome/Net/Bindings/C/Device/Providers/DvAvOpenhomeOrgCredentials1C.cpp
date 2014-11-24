@@ -139,7 +139,7 @@ void DvProviderAvOpenhomeOrgCredentials1C::EnableActionSet(CallbackCredentials1S
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Set");
     action->AddInputParameter(new ParameterString("Id"));
     action->AddInputParameter(new ParameterString("UserName"));
-    action->AddInputParameter(new ParameterString("Password"));
+    action->AddInputParameter(new ParameterBinary("Password"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgCredentials1C::DoSet);
     iService->AddAction(action, functor);
 }
@@ -172,7 +172,7 @@ void DvProviderAvOpenhomeOrgCredentials1C::EnableActionGet(CallbackCredentials1G
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Get");
     action->AddInputParameter(new ParameterString("Id"));
     action->AddOutputParameter(new ParameterString("UserName"));
-    action->AddOutputParameter(new ParameterString("Password"));
+    action->AddOutputParameter(new ParameterBinary("Password"));
     action->AddOutputParameter(new ParameterBool("Enabled"));
     action->AddOutputParameter(new ParameterString("Status"));
     action->AddOutputParameter(new ParameterString("Data"));
@@ -244,12 +244,12 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoSet(IDviInvocation& aInvocation)
     aInvocation.InvocationReadString("Id", Id);
     Brhz UserName;
     aInvocation.InvocationReadString("UserName", UserName);
-    Brhz Password;
-    aInvocation.InvocationReadString("Password", Password);
+    Brh Password;
+    aInvocation.InvocationReadBinary("Password", Password);
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSet != NULL);
-    if (0 != iCallbackSet(iPtrSet, invocationC, invocationCPtr, (const char*)Id.Ptr(), (const char*)UserName.Ptr(), (const char*)Password.Ptr())) {
+    if (0 != iCallbackSet(iPtrSet, invocationC, invocationCPtr, (const char*)Id.Ptr(), (const char*)UserName.Ptr(), (const char*)Password.Ptr(), Password.Bytes())) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
@@ -311,16 +311,17 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoGet(IDviInvocation& aInvocation)
     DviInvocation invocation(aInvocation);
     char* UserName;
     char* Password;
+    uint32_t PasswordLen;
     uint32_t Enabled;
     char* Status;
     char* Data;
     ASSERT(iCallbackGet != NULL);
-    if (0 != iCallbackGet(iPtrGet, invocationC, invocationCPtr, (const char*)Id.Ptr(), &UserName, &Password, &Enabled, &Status, &Data)) {
+    if (0 != iCallbackGet(iPtrGet, invocationC, invocationCPtr, (const char*)Id.Ptr(), &UserName, &Password, &PasswordLen, &Enabled, &Status, &Data)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
     DviInvocationResponseString respUserName(aInvocation, "UserName");
-    DviInvocationResponseString respPassword(aInvocation, "Password");
+    DviInvocationResponseBinary respPassword(aInvocation, "Password");
     DviInvocationResponseBool respEnabled(aInvocation, "Enabled");
     DviInvocationResponseString respStatus(aInvocation, "Status");
     DviInvocationResponseString respData(aInvocation, "Data");
@@ -329,7 +330,8 @@ void DvProviderAvOpenhomeOrgCredentials1C::DoGet(IDviInvocation& aInvocation)
     OhNetFreeExternal(UserName);
     respUserName.Write(bufUserName);
     respUserName.WriteFlush();
-    Brhz bufPassword((const TChar*)Password);
+    Brh bufPassword;
+    bufPassword.Set((const TByte*)Password, PasswordLen);
     OhNetFreeExternal(Password);
     respPassword.Write(bufPassword);
     respPassword.WriteFlush();

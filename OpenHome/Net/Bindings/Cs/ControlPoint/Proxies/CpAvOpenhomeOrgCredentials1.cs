@@ -10,8 +10,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
 {
     public interface ICpProxyAvOpenhomeOrgCredentials1 : ICpProxy, IDisposable
     {
-        void SyncSet(String aId, String aUserName, String aPassword);
-        void BeginSet(String aId, String aUserName, String aPassword, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSet(String aId, String aUserName, byte[] aPassword);
+        void BeginSet(String aId, String aUserName, byte[] aPassword, CpProxy.CallbackAsyncComplete aCallback);
         void EndSet(IntPtr aAsyncHandle);
         void SyncClear(String aId);
         void BeginClear(String aId, CpProxy.CallbackAsyncComplete aCallback);
@@ -19,9 +19,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSetEnabled(String aId, bool aEnabled);
         void BeginSetEnabled(String aId, bool aEnabled, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetEnabled(IntPtr aAsyncHandle);
-        void SyncGet(String aId, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData);
+        void SyncGet(String aId, out String aUserName, out byte[] aPassword, out bool aEnabled, out String aStatus, out String aData);
         void BeginGet(String aId, CpProxy.CallbackAsyncComplete aCallback);
-        void EndGet(IntPtr aAsyncHandle, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData);
+        void EndGet(IntPtr aAsyncHandle, out String aUserName, out byte[] aPassword, out bool aEnabled, out String aStatus, out String aData);
         void SyncLogin(String aId, out String aToken);
         void BeginLogin(String aId, CpProxy.CallbackAsyncComplete aCallback);
         void EndLogin(IntPtr aAsyncHandle, out String aToken);
@@ -91,7 +91,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
     {
         private CpProxyAvOpenhomeOrgCredentials1 iService;
         private String iUserName;
-        private String iPassword;
+        private byte[] iPassword;
         private bool iEnabled;
         private String iStatus;
         private String iData;
@@ -104,7 +104,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         {
             return iUserName;
         }
-        public String Password()
+        public byte[] Password()
         {
             return iPassword;
         }
@@ -259,7 +259,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionSet.AddInputParameter(param);
             param = new ParameterString("UserName", allowedValues);
             iActionSet.AddInputParameter(param);
-            param = new ParameterString("Password", allowedValues);
+            param = new ParameterBinary("Password");
             iActionSet.AddInputParameter(param);
 
             iActionClear = new OpenHome.Net.Core.Action("Clear");
@@ -277,7 +277,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionGet.AddInputParameter(param);
             param = new ParameterString("UserName", allowedValues);
             iActionGet.AddOutputParameter(param);
-            param = new ParameterString("Password", allowedValues);
+            param = new ParameterBinary("Password");
             iActionGet.AddOutputParameter(param);
             param = new ParameterBool("Enabled");
             iActionGet.AddOutputParameter(param);
@@ -330,7 +330,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aId"></param>
         /// <param name="aUserName"></param>
         /// <param name="aPassword"></param>
-        public void SyncSet(String aId, String aUserName, String aPassword)
+        public void SyncSet(String aId, String aUserName, byte[] aPassword)
         {
             SyncSetAvOpenhomeOrgCredentials1 sync = new SyncSetAvOpenhomeOrgCredentials1(this);
             BeginSet(aId, aUserName, aPassword, sync.AsyncComplete());
@@ -349,13 +349,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aPassword"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSet(String aId, String aUserName, String aPassword, CallbackAsyncComplete aCallback)
+        public void BeginSet(String aId, String aUserName, byte[] aPassword, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSet, aCallback);
             int inIndex = 0;
             invocation.AddInput(new ArgumentString((ParameterString)iActionSet.InputParameter(inIndex++), aId));
             invocation.AddInput(new ArgumentString((ParameterString)iActionSet.InputParameter(inIndex++), aUserName));
-            invocation.AddInput(new ArgumentString((ParameterString)iActionSet.InputParameter(inIndex++), aPassword));
+            invocation.AddInput(new ArgumentBinary((ParameterBinary)iActionSet.InputParameter(inIndex++), aPassword));
             iService.InvokeAction(invocation);
         }
 
@@ -480,7 +480,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aEnabled"></param>
         /// <param name="aStatus"></param>
         /// <param name="aData"></param>
-        public void SyncGet(String aId, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData)
+        public void SyncGet(String aId, out String aUserName, out byte[] aPassword, out bool aEnabled, out String aStatus, out String aData)
         {
             SyncGetAvOpenhomeOrgCredentials1 sync = new SyncGetAvOpenhomeOrgCredentials1(this);
             BeginGet(aId, sync.AsyncComplete());
@@ -509,7 +509,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             invocation.AddInput(new ArgumentString((ParameterString)iActionGet.InputParameter(inIndex++), aId));
             int outIndex = 0;
             invocation.AddOutput(new ArgumentString((ParameterString)iActionGet.OutputParameter(outIndex++)));
-            invocation.AddOutput(new ArgumentString((ParameterString)iActionGet.OutputParameter(outIndex++)));
+            invocation.AddOutput(new ArgumentBinary((ParameterBinary)iActionGet.OutputParameter(outIndex++)));
             invocation.AddOutput(new ArgumentBool((ParameterBool)iActionGet.OutputParameter(outIndex++)));
             invocation.AddOutput(new ArgumentString((ParameterString)iActionGet.OutputParameter(outIndex++)));
             invocation.AddOutput(new ArgumentString((ParameterString)iActionGet.OutputParameter(outIndex++)));
@@ -526,7 +526,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aEnabled"></param>
         /// <param name="aStatus"></param>
         /// <param name="aData"></param>
-        public void EndGet(IntPtr aAsyncHandle, out String aUserName, out String aPassword, out bool aEnabled, out String aStatus, out String aData)
+        public void EndGet(IntPtr aAsyncHandle, out String aUserName, out byte[] aPassword, out bool aEnabled, out String aStatus, out String aData)
         {
             uint code;
             string desc;
@@ -536,7 +536,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             uint index = 0;
             aUserName = Invocation.OutputString(aAsyncHandle, index++);
-            aPassword = Invocation.OutputString(aAsyncHandle, index++);
+            aPassword = Invocation.OutputBinary(aAsyncHandle, index++);
             aEnabled = Invocation.OutputBool(aAsyncHandle, index++);
             aStatus = Invocation.OutputString(aAsyncHandle, index++);
             aData = Invocation.OutputString(aAsyncHandle, index++);

@@ -193,7 +193,7 @@ namespace OpenHome.Net.Device.Providers
             List<String> allowedValues = new List<String>();
             action.AddInputParameter(new ParameterString("Id", allowedValues));
             action.AddInputParameter(new ParameterString("UserName", allowedValues));
-            action.AddInputParameter(new ParameterString("Password", allowedValues));
+            action.AddInputParameter(new ParameterBinary("Password"));
             iDelegateSet = new ActionDelegate(DoSet);
             EnableAction(action, iDelegateSet, GCHandle.ToIntPtr(iGch));
         }
@@ -238,7 +238,7 @@ namespace OpenHome.Net.Device.Providers
             List<String> allowedValues = new List<String>();
             action.AddInputParameter(new ParameterString("Id", allowedValues));
             action.AddOutputParameter(new ParameterString("UserName", allowedValues));
-            action.AddOutputParameter(new ParameterString("Password", allowedValues));
+            action.AddOutputParameter(new ParameterBinary("Password"));
             action.AddOutputParameter(new ParameterBool("Enabled"));
             action.AddOutputParameter(new ParameterString("Status", allowedValues));
             action.AddOutputParameter(new ParameterString("Data", allowedValues));
@@ -327,7 +327,7 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aId"></param>
         /// <param name="aUserName"></param>
         /// <param name="aPassword"></param>
-        protected virtual void Set(IDvInvocation aInvocation, string aId, string aUserName, string aPassword)
+        protected virtual void Set(IDvInvocation aInvocation, string aId, string aUserName, byte[] aPassword)
         {
             throw (new ActionDisabledError());
         }
@@ -375,7 +375,7 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aEnabled"></param>
         /// <param name="aStatus"></param>
         /// <param name="aData"></param>
-        protected virtual void Get(IDvInvocation aInvocation, string aId, out string aUserName, out string aPassword, out bool aEnabled, out string aStatus, out string aData)
+        protected virtual void Get(IDvInvocation aInvocation, string aId, out string aUserName, out byte[] aPassword, out bool aEnabled, out string aStatus, out string aData)
         {
             throw (new ActionDisabledError());
         }
@@ -460,13 +460,13 @@ namespace OpenHome.Net.Device.Providers
             DvInvocation invocation = new DvInvocation(aInvocation);
             string id;
             string userName;
-            string password;
+            byte[] password;
             try
             {
                 invocation.ReadStart();
                 id = invocation.ReadString("Id");
                 userName = invocation.ReadString("UserName");
-                password = invocation.ReadString("Password");
+                password = invocation.ReadBinary("Password");
                 invocation.ReadEnd();
                 self.Set(invocation, id, userName, password);
             }
@@ -604,7 +604,7 @@ namespace OpenHome.Net.Device.Providers
             DvInvocation invocation = new DvInvocation(aInvocation);
             string id;
             string userName;
-            string password;
+            byte[] password;
             bool enabled;
             string status;
             string data;
@@ -635,7 +635,7 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.WriteStart();
                 invocation.WriteString("UserName", userName);
-                invocation.WriteString("Password", password);
+                invocation.WriteBinary("Password", password);
                 invocation.WriteBool("Enabled", enabled);
                 invocation.WriteString("Status", status);
                 invocation.WriteString("Data", data);

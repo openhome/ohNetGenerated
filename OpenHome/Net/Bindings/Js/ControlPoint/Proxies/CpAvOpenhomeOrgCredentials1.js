@@ -100,7 +100,7 @@ CpProxyAvOpenhomeOrgCredentials1.prototype.Set = function(Id, UserName, Password
     var request = new ohnet.soaprequest("Set", this.url, this.domain, this.type, this.version);     
     request.writeStringParameter("Id", Id);
     request.writeStringParameter("UserName", UserName);
-    request.writeStringParameter("Password", Password);
+    request.writeBinaryParameter("Password", Password);
     request.send(function(result){
     
         if (successFunction){
@@ -168,7 +168,7 @@ CpProxyAvOpenhomeOrgCredentials1.prototype.Get = function(Id, successFunction, e
     request.writeStringParameter("Id", Id);
     request.send(function(result){
         result["UserName"] = ohnet.soaprequest.readStringParameter(result["UserName"]); 
-        result["Password"] = ohnet.soaprequest.readStringParameter(result["Password"]); 
+        result["Password"] = ohnet.soaprequest.readBinaryParameter(result["Password"]); 
         result["Enabled"] = ohnet.soaprequest.readBoolParameter(result["Enabled"]); 
         result["Status"] = ohnet.soaprequest.readStringParameter(result["Status"]); 
         result["Data"] = ohnet.soaprequest.readStringParameter(result["Data"]); 

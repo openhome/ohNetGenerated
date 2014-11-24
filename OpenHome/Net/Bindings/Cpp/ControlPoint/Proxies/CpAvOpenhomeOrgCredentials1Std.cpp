@@ -232,7 +232,7 @@ CpProxyAvOpenhomeOrgCredentials1Cpp::CpProxyAvOpenhomeOrgCredentials1Cpp(CpDevic
     iActionSet->AddInputParameter(param);
     param = new OpenHome::Net::ParameterString("UserName");
     iActionSet->AddInputParameter(param);
-    param = new OpenHome::Net::ParameterString("Password");
+    param = new OpenHome::Net::ParameterBinary("Password");
     iActionSet->AddInputParameter(param);
 
     iActionClear = new Action("Clear");
@@ -250,7 +250,7 @@ CpProxyAvOpenhomeOrgCredentials1Cpp::CpProxyAvOpenhomeOrgCredentials1Cpp(CpDevic
     iActionGet->AddInputParameter(param);
     param = new OpenHome::Net::ParameterString("UserName");
     iActionGet->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterString("Password");
+    param = new OpenHome::Net::ParameterBinary("Password");
     iActionGet->AddOutputParameter(param);
     param = new OpenHome::Net::ParameterBool("Enabled");
     iActionGet->AddOutputParameter(param);
@@ -333,7 +333,7 @@ void CpProxyAvOpenhomeOrgCredentials1Cpp::BeginSet(const std::string& aId, const
     }
     {
         Brn buf((const TByte*)aPassword.c_str(), (TUint)aPassword.length());
-        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
+        invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], buf));
     }
     iInvocable.InvokeAction(*invocation);
 }
@@ -438,7 +438,7 @@ void CpProxyAvOpenhomeOrgCredentials1Cpp::BeginGet(const std::string& aId, Funct
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGet->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    invocation->AddOutput(new ArgumentBinary(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));

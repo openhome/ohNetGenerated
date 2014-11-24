@@ -178,7 +178,7 @@ private:
      * Get action for the owning device.
      * Must be implemented iff EnableActionGet was called.
      */
-    virtual void Get(IDvInvocation& aInvocation, const Brx& aId, IDvInvocationResponseString& aUserName, IDvInvocationResponseString& aPassword, IDvInvocationResponseBool& aEnabled, IDvInvocationResponseString& aStatus, IDvInvocationResponseString& aData);
+    virtual void Get(IDvInvocation& aInvocation, const Brx& aId, IDvInvocationResponseString& aUserName, IDvInvocationResponseBinary& aPassword, IDvInvocationResponseBool& aEnabled, IDvInvocationResponseString& aStatus, IDvInvocationResponseString& aData);
     /**
      * Login action.
      *

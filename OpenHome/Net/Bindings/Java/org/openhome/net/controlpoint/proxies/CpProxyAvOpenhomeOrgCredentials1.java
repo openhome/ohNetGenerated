@@ -10,8 +10,8 @@ import org.openhome.net.core.*;
     
 interface ICpProxyAvOpenhomeOrgCredentials1 extends ICpProxy
 {
-    public void syncSet(String aId, String aUserName, String aPassword);
-    public void beginSet(String aId, String aUserName, String aPassword, ICpProxyListener aCallback);
+    public void syncSet(String aId, String aUserName, byte[] aPassword);
+    public void beginSet(String aId, String aUserName, byte[] aPassword, ICpProxyListener aCallback);
     public void endSet(long aAsyncHandle);
     public void syncClear(String aId);
     public void beginClear(String aId, ICpProxyListener aCallback);
@@ -94,7 +94,7 @@ class SyncGetAvOpenhomeOrgCredentials1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgCredentials1 iService;
     private String iUserName;
-    private String iPassword;
+    private byte[] iPassword;
     private boolean iEnabled;
     private String iStatus;
     private String iData;
@@ -107,7 +107,7 @@ class SyncGetAvOpenhomeOrgCredentials1 extends SyncProxyAction
     {
         return iUserName;
     }
-    public String getPassword()
+    public byte[] getPassword()
     {
         return iPassword;
     }
@@ -249,14 +249,14 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
     public class Get
     {
         private String iUserName;
-        private String iPassword;
+        private byte[] iPassword;
         private boolean iEnabled;
         private String iStatus;
         private String iData;
 
         public Get(
             String aUserName,
-            String aPassword,
+            byte[] aPassword,
             boolean aEnabled,
             String aStatus,
             String aData
@@ -272,7 +272,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         {
             return iUserName;
         }
-        public String getPassword()
+        public byte[] getPassword()
         {
             return iPassword;
         }
@@ -325,7 +325,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         iActionSet.addInputParameter(param);
         param = new ParameterString("UserName", allowedValues);
         iActionSet.addInputParameter(param);
-        param = new ParameterString("Password", allowedValues);
+        param = new ParameterBinary("Password");
         iActionSet.addInputParameter(param);
 
         iActionClear = new Action("Clear");
@@ -343,7 +343,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         iActionGet.addInputParameter(param);
         param = new ParameterString("UserName", allowedValues);
         iActionGet.addOutputParameter(param);
-        param = new ParameterString("Password", allowedValues);
+        param = new ParameterBinary("Password");
         iActionGet.addOutputParameter(param);
         param = new ParameterBool("Enabled");
         iActionGet.addOutputParameter(param);
@@ -412,7 +412,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSet(String aId, String aUserName, String aPassword)
+    public void syncSet(String aId, String aUserName, byte[] aPassword)
     {
         SyncSetAvOpenhomeOrgCredentials1 sync = new SyncSetAvOpenhomeOrgCredentials1(this);
         beginSet(aId, aUserName, aPassword, sync.getListener());
@@ -432,13 +432,13 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSet(String aId, String aUserName, String aPassword, ICpProxyListener aCallback)
+    public void beginSet(String aId, String aUserName, byte[] aPassword, ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionSet, aCallback);
         int inIndex = 0;
         invocation.addInput(new ArgumentString((ParameterString)iActionSet.getInputParameter(inIndex++), aId));
         invocation.addInput(new ArgumentString((ParameterString)iActionSet.getInputParameter(inIndex++), aUserName));
-        invocation.addInput(new ArgumentString((ParameterString)iActionSet.getInputParameter(inIndex++), aPassword));
+        invocation.addInput(new ArgumentBinary((ParameterBinary)iActionSet.getInputParameter(inIndex++), aPassword));
         iService.invokeAction(invocation);
     }
 
@@ -597,7 +597,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         invocation.addInput(new ArgumentString((ParameterString)iActionGet.getInputParameter(inIndex++), aId));
         int outIndex = 0;
         invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
-        invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
+        invocation.addOutput(new ArgumentBinary((ParameterBinary)iActionGet.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentBool((ParameterBool)iActionGet.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentString((ParameterString)iActionGet.getOutputParameter(outIndex++)));
@@ -622,7 +622,7 @@ public class CpProxyAvOpenhomeOrgCredentials1 extends CpProxy implements ICpProx
         }
         int index = 0;
         String userName = Invocation.getOutputString(aAsyncHandle, index++);
-        String password = Invocation.getOutputString(aAsyncHandle, index++);
+        byte[] password = Invocation.getOutputBinary(aAsyncHandle, index++);
         boolean enabled = Invocation.getOutputBool(aAsyncHandle, index++);
         String status = Invocation.getOutputString(aAsyncHandle, index++);
         String data = Invocation.getOutputString(aAsyncHandle, index++);
