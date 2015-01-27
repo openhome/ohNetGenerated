@@ -13,7 +13,7 @@ deviceJava = OpenHome$(dirsep)Net$(dirsep)Bindings$(dirsep)Java$(dirsep)org$(dir
 depDirCs = dependencies$(dirsep)$(depsPlatform)$(dirsep)ohNet-$(depsPlatform)-Release$(dirsep)lib$(dirsep)
 ohNetLibDir = dependencies$(dirsep)$(depsPlatform)$(dirsep)ohNet-$(depsPlatform)-Release$(dirsep)lib$(dirsep)
 
-JavaAll : $(objdir)ohnet-generated.jar
+JavaAll : make_obj_dir $(objdir)ohnet-generated.jar
 $(objdir)ohnet-generated.jar : CpProxyJavaClasses DvDeviceJavaClasses
 	$(jar) $(jarflags) $(objdir)ohnet-generated.jar -C $(objdir) org
 
