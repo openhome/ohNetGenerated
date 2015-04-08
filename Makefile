@@ -66,14 +66,15 @@ else
     else ifneq (,$(findstring linux,$(gcc_machine)))
       detected_openhome_system = Linux
     endif
-    ifeq ($(gcc_machine),arm-none-linux-gnueabi)
-      detected_openhome_architecture = armel
+    ifneq (,$(findstring arm,$(gcc_machine)))
+      ifneq (,$(findstring linux-gnueabi,$(gcc_machine)))
+        detected_openhome_architecture = armel
+      endif
     endif
-    ifeq ($(gcc_machine),arm-linux-gnueabi)
-      detected_openhome_architecture = armel
-    endif
-    ifeq ($(gcc_machine),arm-linux-gnueabihf)
-      detected_openhome_architecture = armhf
+    ifneq (,$(findstring arm,$(gcc_machine)))
+      ifneq (,$(findstring linux-gnueabihf,$(gcc_machine)))
+        detected_openhome_architecture = armhf
+      endif
     endif
     ifneq (,$(findstring i686,$(gcc_machine)))
       detected_openhome_architecture = x86
