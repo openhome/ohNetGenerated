@@ -118,7 +118,7 @@ void DvProviderUpnpOrgScheduledRecording2C::GetPropertyLastChange(Brhz& aValue)
 
 void DvProviderUpnpOrgScheduledRecording2C::EnablePropertyLastChange()
 {
-    iPropertyLastChange = new PropertyString(iDvStack.Env(), new ParameterString("LastChange"));
+    iPropertyLastChange = new PropertyString(new ParameterString("LastChange"));
     iService->AddProperty(iPropertyLastChange); // passes ownership
 }
 

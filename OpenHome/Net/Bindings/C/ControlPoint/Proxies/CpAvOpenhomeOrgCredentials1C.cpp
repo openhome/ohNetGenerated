@@ -364,13 +364,13 @@ CpProxyAvOpenhomeOrgCredentials1C::CpProxyAvOpenhomeOrgCredentials1C(CpDeviceC a
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgCredentials1C::IdsPropertyChanged);
-    iIds = new PropertyString(reinterpret_cast<CpiDevice*>(aDevice)->GetCpStack().Env(), "Ids", functor);
+    iIds = new PropertyString("Ids", functor);
     AddProperty(iIds);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgCredentials1C::PublicKeyPropertyChanged);
-    iPublicKey = new PropertyString(reinterpret_cast<CpiDevice*>(aDevice)->GetCpStack().Env(), "PublicKey", functor);
+    iPublicKey = new PropertyString("PublicKey", functor);
     AddProperty(iPublicKey);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgCredentials1C::SequenceNumberPropertyChanged);
-    iSequenceNumber = new PropertyUint(reinterpret_cast<CpiDevice*>(aDevice)->GetCpStack().Env(), "SequenceNumber", functor);
+    iSequenceNumber = new PropertyUint("SequenceNumber", functor);
     AddProperty(iSequenceNumber);
 }
 

@@ -567,19 +567,19 @@ CpProxyUpnpOrgDimming1Cpp::CpProxyUpnpOrgDimming1Cpp(CpDeviceCpp& aDevice)
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyUpnpOrgDimming1Cpp::LoadLevelStatusPropertyChanged);
-    iLoadLevelStatus = new PropertyUint(aDevice.Device().GetCpStack().Env(), "LoadLevelStatus", functor);
+    iLoadLevelStatus = new PropertyUint("LoadLevelStatus", functor);
     AddProperty(iLoadLevelStatus);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgDimming1Cpp::StepDeltaPropertyChanged);
-    iStepDelta = new PropertyUint(aDevice.Device().GetCpStack().Env(), "StepDelta", functor);
+    iStepDelta = new PropertyUint("StepDelta", functor);
     AddProperty(iStepDelta);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgDimming1Cpp::RampRatePropertyChanged);
-    iRampRate = new PropertyUint(aDevice.Device().GetCpStack().Env(), "RampRate", functor);
+    iRampRate = new PropertyUint("RampRate", functor);
     AddProperty(iRampRate);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgDimming1Cpp::IsRampingPropertyChanged);
-    iIsRamping = new PropertyBool(aDevice.Device().GetCpStack().Env(), "IsRamping", functor);
+    iIsRamping = new PropertyBool("IsRamping", functor);
     AddProperty(iIsRamping);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgDimming1Cpp::RampPausedPropertyChanged);
-    iRampPaused = new PropertyBool(aDevice.Device().GetCpStack().Env(), "RampPaused", functor);
+    iRampPaused = new PropertyBool("RampPaused", functor);
     AddProperty(iRampPaused);
 }
 

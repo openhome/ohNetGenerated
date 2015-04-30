@@ -104,37 +104,37 @@ void DvProviderAvOpenhomeOrgPlaylistManager1::Construct()
 
 void DvProviderAvOpenhomeOrgPlaylistManager1::EnablePropertyMetadata()
 {
-    iPropertyMetadata = new PropertyString(iDvStack.Env(), new ParameterString("Metadata"));
+    iPropertyMetadata = new PropertyString(new ParameterString("Metadata"));
     iService->AddProperty(iPropertyMetadata); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1::EnablePropertyImagesXml()
 {
-    iPropertyImagesXml = new PropertyString(iDvStack.Env(), new ParameterString("ImagesXml"));
+    iPropertyImagesXml = new PropertyString(new ParameterString("ImagesXml"));
     iService->AddProperty(iPropertyImagesXml); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1::EnablePropertyIdArray()
 {
-    iPropertyIdArray = new PropertyBinary(iDvStack.Env(), new ParameterBinary("IdArray"));
+    iPropertyIdArray = new PropertyBinary(new ParameterBinary("IdArray"));
     iService->AddProperty(iPropertyIdArray); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1::EnablePropertyTokenArray()
 {
-    iPropertyTokenArray = new PropertyBinary(iDvStack.Env(), new ParameterBinary("TokenArray"));
+    iPropertyTokenArray = new PropertyBinary(new ParameterBinary("TokenArray"));
     iService->AddProperty(iPropertyTokenArray); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1::EnablePropertyPlaylistsMax()
 {
-    iPropertyPlaylistsMax = new PropertyUint(iDvStack.Env(), new ParameterUint("PlaylistsMax"));
+    iPropertyPlaylistsMax = new PropertyUint(new ParameterUint("PlaylistsMax"));
     iService->AddProperty(iPropertyPlaylistsMax); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1::EnablePropertyTracksMax()
 {
-    iPropertyTracksMax = new PropertyUint(iDvStack.Env(), new ParameterUint("TracksMax"));
+    iPropertyTracksMax = new PropertyUint(new ParameterUint("TracksMax"));
     iService->AddProperty(iPropertyTracksMax); // passes ownership
 }
 

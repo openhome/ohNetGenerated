@@ -53,13 +53,13 @@ CpProxyAvOpenhomeOrgTime1::CpProxyAvOpenhomeOrgTime1(CpDevice& aDevice)
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTime1::TrackCountPropertyChanged);
-    iTrackCount = new PropertyUint(aDevice.Device().GetCpStack().Env(), "TrackCount", functor);
+    iTrackCount = new PropertyUint("TrackCount", functor);
     AddProperty(iTrackCount);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTime1::DurationPropertyChanged);
-    iDuration = new PropertyUint(aDevice.Device().GetCpStack().Env(), "Duration", functor);
+    iDuration = new PropertyUint("Duration", functor);
     AddProperty(iDuration);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTime1::SecondsPropertyChanged);
-    iSeconds = new PropertyUint(aDevice.Device().GetCpStack().Env(), "Seconds", functor);
+    iSeconds = new PropertyUint("Seconds", functor);
     AddProperty(iSeconds);
 }
 

@@ -215,13 +215,13 @@ CpProxyAvOpenhomeOrgExakt2::CpProxyAvOpenhomeOrgExakt2(CpDevice& aDevice)
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt2::DeviceListPropertyChanged);
-    iDeviceList = new PropertyString(aDevice.Device().GetCpStack().Env(), "DeviceList", functor);
+    iDeviceList = new PropertyString("DeviceList", functor);
     AddProperty(iDeviceList);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt2::ConnectionStatusPropertyChanged);
-    iConnectionStatus = new PropertyString(aDevice.Device().GetCpStack().Env(), "ConnectionStatus", functor);
+    iConnectionStatus = new PropertyString("ConnectionStatus", functor);
     AddProperty(iConnectionStatus);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt2::VersionPropertyChanged);
-    iVersion = new PropertyString(aDevice.Device().GetCpStack().Env(), "Version", functor);
+    iVersion = new PropertyString("Version", functor);
     AddProperty(iVersion);
 }
 

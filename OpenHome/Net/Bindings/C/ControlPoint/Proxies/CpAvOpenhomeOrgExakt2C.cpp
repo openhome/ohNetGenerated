@@ -284,13 +284,13 @@ CpProxyAvOpenhomeOrgExakt2C::CpProxyAvOpenhomeOrgExakt2C(CpDeviceC aDevice)
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt2C::DeviceListPropertyChanged);
-    iDeviceList = new PropertyString(reinterpret_cast<CpiDevice*>(aDevice)->GetCpStack().Env(), "DeviceList", functor);
+    iDeviceList = new PropertyString("DeviceList", functor);
     AddProperty(iDeviceList);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt2C::ConnectionStatusPropertyChanged);
-    iConnectionStatus = new PropertyString(reinterpret_cast<CpiDevice*>(aDevice)->GetCpStack().Env(), "ConnectionStatus", functor);
+    iConnectionStatus = new PropertyString("ConnectionStatus", functor);
     AddProperty(iConnectionStatus);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt2C::VersionPropertyChanged);
-    iVersion = new PropertyString(reinterpret_cast<CpiDevice*>(aDevice)->GetCpStack().Env(), "Version", functor);
+    iVersion = new PropertyString("Version", functor);
     AddProperty(iVersion);
 }
 

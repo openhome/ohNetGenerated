@@ -116,19 +116,19 @@ void DvProviderAvOpenhomeOrgCredentials1C::GetPropertySequenceNumber(TUint& aVal
 
 void DvProviderAvOpenhomeOrgCredentials1C::EnablePropertyIds()
 {
-    iPropertyIds = new PropertyString(iDvStack.Env(), new ParameterString("Ids"));
+    iPropertyIds = new PropertyString(new ParameterString("Ids"));
     iService->AddProperty(iPropertyIds); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgCredentials1C::EnablePropertyPublicKey()
 {
-    iPropertyPublicKey = new PropertyString(iDvStack.Env(), new ParameterString("PublicKey"));
+    iPropertyPublicKey = new PropertyString(new ParameterString("PublicKey"));
     iService->AddProperty(iPropertyPublicKey); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgCredentials1C::EnablePropertySequenceNumber()
 {
-    iPropertySequenceNumber = new PropertyUint(iDvStack.Env(), new ParameterUint("SequenceNumber"));
+    iPropertySequenceNumber = new PropertyUint(new ParameterUint("SequenceNumber"));
     iService->AddProperty(iPropertySequenceNumber); // passes ownership
 }
 

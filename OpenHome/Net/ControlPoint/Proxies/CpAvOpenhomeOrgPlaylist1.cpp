@@ -657,25 +657,25 @@ CpProxyAvOpenhomeOrgPlaylist1::CpProxyAvOpenhomeOrgPlaylist1(CpDevice& aDevice)
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylist1::TransportStatePropertyChanged);
-    iTransportState = new PropertyString(aDevice.Device().GetCpStack().Env(), "TransportState", functor);
+    iTransportState = new PropertyString("TransportState", functor);
     AddProperty(iTransportState);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylist1::RepeatPropertyChanged);
-    iRepeat = new PropertyBool(aDevice.Device().GetCpStack().Env(), "Repeat", functor);
+    iRepeat = new PropertyBool("Repeat", functor);
     AddProperty(iRepeat);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylist1::ShufflePropertyChanged);
-    iShuffle = new PropertyBool(aDevice.Device().GetCpStack().Env(), "Shuffle", functor);
+    iShuffle = new PropertyBool("Shuffle", functor);
     AddProperty(iShuffle);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylist1::IdPropertyChanged);
-    iId = new PropertyUint(aDevice.Device().GetCpStack().Env(), "Id", functor);
+    iId = new PropertyUint("Id", functor);
     AddProperty(iId);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylist1::IdArrayPropertyChanged);
-    iIdArray = new PropertyBinary(aDevice.Device().GetCpStack().Env(), "IdArray", functor);
+    iIdArray = new PropertyBinary("IdArray", functor);
     AddProperty(iIdArray);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylist1::TracksMaxPropertyChanged);
-    iTracksMax = new PropertyUint(aDevice.Device().GetCpStack().Env(), "TracksMax", functor);
+    iTracksMax = new PropertyUint("TracksMax", functor);
     AddProperty(iTracksMax);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylist1::ProtocolInfoPropertyChanged);
-    iProtocolInfo = new PropertyString(aDevice.Device().GetCpStack().Env(), "ProtocolInfo", functor);
+    iProtocolInfo = new PropertyString("ProtocolInfo", functor);
     AddProperty(iProtocolInfo);
 }
 

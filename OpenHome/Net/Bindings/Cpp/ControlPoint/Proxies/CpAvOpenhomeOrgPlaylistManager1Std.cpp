@@ -602,22 +602,22 @@ CpProxyAvOpenhomeOrgPlaylistManager1Cpp::CpProxyAvOpenhomeOrgPlaylistManager1Cpp
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylistManager1Cpp::MetadataPropertyChanged);
-    iMetadata = new PropertyString(aDevice.Device().GetCpStack().Env(), "Metadata", functor);
+    iMetadata = new PropertyString("Metadata", functor);
     AddProperty(iMetadata);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylistManager1Cpp::ImagesXmlPropertyChanged);
-    iImagesXml = new PropertyString(aDevice.Device().GetCpStack().Env(), "ImagesXml", functor);
+    iImagesXml = new PropertyString("ImagesXml", functor);
     AddProperty(iImagesXml);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylistManager1Cpp::IdArrayPropertyChanged);
-    iIdArray = new PropertyBinary(aDevice.Device().GetCpStack().Env(), "IdArray", functor);
+    iIdArray = new PropertyBinary("IdArray", functor);
     AddProperty(iIdArray);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylistManager1Cpp::TokenArrayPropertyChanged);
-    iTokenArray = new PropertyBinary(aDevice.Device().GetCpStack().Env(), "TokenArray", functor);
+    iTokenArray = new PropertyBinary("TokenArray", functor);
     AddProperty(iTokenArray);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PlaylistsMaxPropertyChanged);
-    iPlaylistsMax = new PropertyUint(aDevice.Device().GetCpStack().Env(), "PlaylistsMax", functor);
+    iPlaylistsMax = new PropertyUint("PlaylistsMax", functor);
     AddProperty(iPlaylistsMax);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPlaylistManager1Cpp::TracksMaxPropertyChanged);
-    iTracksMax = new PropertyUint(aDevice.Device().GetCpStack().Env(), "TracksMax", functor);
+    iTracksMax = new PropertyUint("TracksMax", functor);
     AddProperty(iTracksMax);
 }
 

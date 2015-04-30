@@ -795,10 +795,10 @@ CpProxyUpnpOrgAVTransport2Cpp::CpProxyUpnpOrgAVTransport2Cpp(CpDeviceCpp& aDevic
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyUpnpOrgAVTransport2Cpp::LastChangePropertyChanged);
-    iLastChange = new PropertyString(aDevice.Device().GetCpStack().Env(), "LastChange", functor);
+    iLastChange = new PropertyString("LastChange", functor);
     AddProperty(iLastChange);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgAVTransport2Cpp::DRMStatePropertyChanged);
-    iDRMState = new PropertyString(aDevice.Device().GetCpStack().Env(), "DRMState", functor);
+    iDRMState = new PropertyString("DRMState", functor);
     AddProperty(iDRMState);
 }
 

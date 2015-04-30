@@ -102,37 +102,37 @@ DvProviderAvOpenhomeOrgPlaylistManager1Cpp::DvProviderAvOpenhomeOrgPlaylistManag
 
 void DvProviderAvOpenhomeOrgPlaylistManager1Cpp::EnablePropertyMetadata()
 {
-    iPropertyMetadata = new PropertyString(iDvStack.Env(), new ParameterString("Metadata"));
+    iPropertyMetadata = new PropertyString(new ParameterString("Metadata"));
     iService->AddProperty(iPropertyMetadata); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1Cpp::EnablePropertyImagesXml()
 {
-    iPropertyImagesXml = new PropertyString(iDvStack.Env(), new ParameterString("ImagesXml"));
+    iPropertyImagesXml = new PropertyString(new ParameterString("ImagesXml"));
     iService->AddProperty(iPropertyImagesXml); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1Cpp::EnablePropertyIdArray()
 {
-    iPropertyIdArray = new PropertyBinary(iDvStack.Env(), new ParameterBinary("IdArray"));
+    iPropertyIdArray = new PropertyBinary(new ParameterBinary("IdArray"));
     iService->AddProperty(iPropertyIdArray); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1Cpp::EnablePropertyTokenArray()
 {
-    iPropertyTokenArray = new PropertyBinary(iDvStack.Env(), new ParameterBinary("TokenArray"));
+    iPropertyTokenArray = new PropertyBinary(new ParameterBinary("TokenArray"));
     iService->AddProperty(iPropertyTokenArray); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1Cpp::EnablePropertyPlaylistsMax()
 {
-    iPropertyPlaylistsMax = new PropertyUint(iDvStack.Env(), new ParameterUint("PlaylistsMax"));
+    iPropertyPlaylistsMax = new PropertyUint(new ParameterUint("PlaylistsMax"));
     iService->AddProperty(iPropertyPlaylistsMax); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1Cpp::EnablePropertyTracksMax()
 {
-    iPropertyTracksMax = new PropertyUint(iDvStack.Env(), new ParameterUint("TracksMax"));
+    iPropertyTracksMax = new PropertyUint(new ParameterUint("TracksMax"));
     iService->AddProperty(iPropertyTracksMax); // passes ownership
 }
 

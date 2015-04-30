@@ -120,44 +120,44 @@ void DvProviderAvOpenhomeOrgPlaylist1Cpp::EnablePropertyTransportState()
     allowedValues[index++] = (TChar*)"Paused";
     allowedValues[index++] = (TChar*)"Stopped";
     allowedValues[index++] = (TChar*)"Buffering";
-    iPropertyTransportState = new PropertyString(iDvStack.Env(), new ParameterString("TransportState", allowedValues, 4));
+    iPropertyTransportState = new PropertyString(new ParameterString("TransportState", allowedValues, 4));
     delete[] allowedValues;
     iService->AddProperty(iPropertyTransportState); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylist1Cpp::EnablePropertyRepeat()
 {
-    iPropertyRepeat = new PropertyBool(iDvStack.Env(), new ParameterBool("Repeat"));
+    iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
     iService->AddProperty(iPropertyRepeat); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylist1Cpp::EnablePropertyShuffle()
 {
-    iPropertyShuffle = new PropertyBool(iDvStack.Env(), new ParameterBool("Shuffle"));
+    iPropertyShuffle = new PropertyBool(new ParameterBool("Shuffle"));
     iService->AddProperty(iPropertyShuffle); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylist1Cpp::EnablePropertyId()
 {
-    iPropertyId = new PropertyUint(iDvStack.Env(), new ParameterUint("Id"));
+    iPropertyId = new PropertyUint(new ParameterUint("Id"));
     iService->AddProperty(iPropertyId); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylist1Cpp::EnablePropertyIdArray()
 {
-    iPropertyIdArray = new PropertyBinary(iDvStack.Env(), new ParameterBinary("IdArray"));
+    iPropertyIdArray = new PropertyBinary(new ParameterBinary("IdArray"));
     iService->AddProperty(iPropertyIdArray); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylist1Cpp::EnablePropertyTracksMax()
 {
-    iPropertyTracksMax = new PropertyUint(iDvStack.Env(), new ParameterUint("TracksMax"));
+    iPropertyTracksMax = new PropertyUint(new ParameterUint("TracksMax"));
     iService->AddProperty(iPropertyTracksMax); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylist1Cpp::EnablePropertyProtocolInfo()
 {
-    iPropertyProtocolInfo = new PropertyString(iDvStack.Env(), new ParameterString("ProtocolInfo"));
+    iPropertyProtocolInfo = new PropertyString(new ParameterString("ProtocolInfo"));
     iService->AddProperty(iPropertyProtocolInfo); // passes ownership
 }
 

@@ -46,13 +46,13 @@ DvProviderAvOpenhomeOrgExakt1Cpp::DvProviderAvOpenhomeOrgExakt1Cpp(DvDeviceStd& 
 
 void DvProviderAvOpenhomeOrgExakt1Cpp::EnablePropertyDeviceList()
 {
-    iPropertyDeviceList = new PropertyString(iDvStack.Env(), new ParameterString("DeviceList"));
+    iPropertyDeviceList = new PropertyString(new ParameterString("DeviceList"));
     iService->AddProperty(iPropertyDeviceList); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgExakt1Cpp::EnablePropertyConnectionStatus()
 {
-    iPropertyConnectionStatus = new PropertyString(iDvStack.Env(), new ParameterString("ConnectionStatus"));
+    iPropertyConnectionStatus = new PropertyString(new ParameterString("ConnectionStatus"));
     iService->AddProperty(iPropertyConnectionStatus); // passes ownership
 }
 

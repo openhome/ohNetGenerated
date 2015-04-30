@@ -182,73 +182,73 @@ void DvProviderAvOpenhomeOrgInfo1::Construct()
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyTrackCount()
 {
-    iPropertyTrackCount = new PropertyUint(iDvStack.Env(), new ParameterUint("TrackCount"));
+    iPropertyTrackCount = new PropertyUint(new ParameterUint("TrackCount"));
     iService->AddProperty(iPropertyTrackCount); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyDetailsCount()
 {
-    iPropertyDetailsCount = new PropertyUint(iDvStack.Env(), new ParameterUint("DetailsCount"));
+    iPropertyDetailsCount = new PropertyUint(new ParameterUint("DetailsCount"));
     iService->AddProperty(iPropertyDetailsCount); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyMetatextCount()
 {
-    iPropertyMetatextCount = new PropertyUint(iDvStack.Env(), new ParameterUint("MetatextCount"));
+    iPropertyMetatextCount = new PropertyUint(new ParameterUint("MetatextCount"));
     iService->AddProperty(iPropertyMetatextCount); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyUri()
 {
-    iPropertyUri = new PropertyString(iDvStack.Env(), new ParameterString("Uri"));
+    iPropertyUri = new PropertyString(new ParameterString("Uri"));
     iService->AddProperty(iPropertyUri); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyMetadata()
 {
-    iPropertyMetadata = new PropertyString(iDvStack.Env(), new ParameterString("Metadata"));
+    iPropertyMetadata = new PropertyString(new ParameterString("Metadata"));
     iService->AddProperty(iPropertyMetadata); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyDuration()
 {
-    iPropertyDuration = new PropertyUint(iDvStack.Env(), new ParameterUint("Duration"));
+    iPropertyDuration = new PropertyUint(new ParameterUint("Duration"));
     iService->AddProperty(iPropertyDuration); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyBitRate()
 {
-    iPropertyBitRate = new PropertyUint(iDvStack.Env(), new ParameterUint("BitRate"));
+    iPropertyBitRate = new PropertyUint(new ParameterUint("BitRate"));
     iService->AddProperty(iPropertyBitRate); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyBitDepth()
 {
-    iPropertyBitDepth = new PropertyUint(iDvStack.Env(), new ParameterUint("BitDepth"));
+    iPropertyBitDepth = new PropertyUint(new ParameterUint("BitDepth"));
     iService->AddProperty(iPropertyBitDepth); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertySampleRate()
 {
-    iPropertySampleRate = new PropertyUint(iDvStack.Env(), new ParameterUint("SampleRate"));
+    iPropertySampleRate = new PropertyUint(new ParameterUint("SampleRate"));
     iService->AddProperty(iPropertySampleRate); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyLossless()
 {
-    iPropertyLossless = new PropertyBool(iDvStack.Env(), new ParameterBool("Lossless"));
+    iPropertyLossless = new PropertyBool(new ParameterBool("Lossless"));
     iService->AddProperty(iPropertyLossless); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyCodecName()
 {
-    iPropertyCodecName = new PropertyString(iDvStack.Env(), new ParameterString("CodecName"));
+    iPropertyCodecName = new PropertyString(new ParameterString("CodecName"));
     iService->AddProperty(iPropertyCodecName); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgInfo1::EnablePropertyMetatext()
 {
-    iPropertyMetatext = new PropertyString(iDvStack.Env(), new ParameterString("Metatext"));
+    iPropertyMetatext = new PropertyString(new ParameterString("Metatext"));
     iService->AddProperty(iPropertyMetatext); // passes ownership
 }
 

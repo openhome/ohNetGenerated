@@ -438,37 +438,37 @@ CpProxyAvOpenhomeOrgVolume1::CpProxyAvOpenhomeOrgVolume1(CpDevice& aDevice)
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::VolumePropertyChanged);
-    iVolume = new PropertyUint(aDevice.Device().GetCpStack().Env(), "Volume", functor);
+    iVolume = new PropertyUint("Volume", functor);
     AddProperty(iVolume);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::MutePropertyChanged);
-    iMute = new PropertyBool(aDevice.Device().GetCpStack().Env(), "Mute", functor);
+    iMute = new PropertyBool("Mute", functor);
     AddProperty(iMute);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::BalancePropertyChanged);
-    iBalance = new PropertyInt(aDevice.Device().GetCpStack().Env(), "Balance", functor);
+    iBalance = new PropertyInt("Balance", functor);
     AddProperty(iBalance);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::FadePropertyChanged);
-    iFade = new PropertyInt(aDevice.Device().GetCpStack().Env(), "Fade", functor);
+    iFade = new PropertyInt("Fade", functor);
     AddProperty(iFade);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::VolumeLimitPropertyChanged);
-    iVolumeLimit = new PropertyUint(aDevice.Device().GetCpStack().Env(), "VolumeLimit", functor);
+    iVolumeLimit = new PropertyUint("VolumeLimit", functor);
     AddProperty(iVolumeLimit);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::VolumeMaxPropertyChanged);
-    iVolumeMax = new PropertyUint(aDevice.Device().GetCpStack().Env(), "VolumeMax", functor);
+    iVolumeMax = new PropertyUint("VolumeMax", functor);
     AddProperty(iVolumeMax);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::VolumeUnityPropertyChanged);
-    iVolumeUnity = new PropertyUint(aDevice.Device().GetCpStack().Env(), "VolumeUnity", functor);
+    iVolumeUnity = new PropertyUint("VolumeUnity", functor);
     AddProperty(iVolumeUnity);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::VolumeStepsPropertyChanged);
-    iVolumeSteps = new PropertyUint(aDevice.Device().GetCpStack().Env(), "VolumeSteps", functor);
+    iVolumeSteps = new PropertyUint("VolumeSteps", functor);
     AddProperty(iVolumeSteps);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::VolumeMilliDbPerStepPropertyChanged);
-    iVolumeMilliDbPerStep = new PropertyUint(aDevice.Device().GetCpStack().Env(), "VolumeMilliDbPerStep", functor);
+    iVolumeMilliDbPerStep = new PropertyUint("VolumeMilliDbPerStep", functor);
     AddProperty(iVolumeMilliDbPerStep);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::BalanceMaxPropertyChanged);
-    iBalanceMax = new PropertyUint(aDevice.Device().GetCpStack().Env(), "BalanceMax", functor);
+    iBalanceMax = new PropertyUint("BalanceMax", functor);
     AddProperty(iBalanceMax);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume1::FadeMaxPropertyChanged);
-    iFadeMax = new PropertyUint(aDevice.Device().GetCpStack().Env(), "FadeMax", functor);
+    iFadeMax = new PropertyUint("FadeMax", functor);
     AddProperty(iFadeMax);
 }
 

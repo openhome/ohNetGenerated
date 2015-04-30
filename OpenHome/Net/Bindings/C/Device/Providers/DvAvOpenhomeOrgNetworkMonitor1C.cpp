@@ -105,25 +105,25 @@ void DvProviderAvOpenhomeOrgNetworkMonitor1C::GetPropertyResults(TUint& aValue)
 
 void DvProviderAvOpenhomeOrgNetworkMonitor1C::EnablePropertyName()
 {
-    iPropertyName = new PropertyString(iDvStack.Env(), new ParameterString("Name"));
+    iPropertyName = new PropertyString(new ParameterString("Name"));
     iService->AddProperty(iPropertyName); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgNetworkMonitor1C::EnablePropertySender()
 {
-    iPropertySender = new PropertyUint(iDvStack.Env(), new ParameterUint("Sender"));
+    iPropertySender = new PropertyUint(new ParameterUint("Sender"));
     iService->AddProperty(iPropertySender); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgNetworkMonitor1C::EnablePropertyReceiver()
 {
-    iPropertyReceiver = new PropertyUint(iDvStack.Env(), new ParameterUint("Receiver"));
+    iPropertyReceiver = new PropertyUint(new ParameterUint("Receiver"));
     iService->AddProperty(iPropertyReceiver); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgNetworkMonitor1C::EnablePropertyResults()
 {
-    iPropertyResults = new PropertyUint(iDvStack.Env(), new ParameterUint("Results"));
+    iPropertyResults = new PropertyUint(new ParameterUint("Results"));
     iService->AddProperty(iPropertyResults); // passes ownership
 }
 

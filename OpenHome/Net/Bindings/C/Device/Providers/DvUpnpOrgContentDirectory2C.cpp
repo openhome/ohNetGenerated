@@ -148,19 +148,19 @@ void DvProviderUpnpOrgContentDirectory2C::GetPropertyTransferIDs(Brhz& aValue)
 
 void DvProviderUpnpOrgContentDirectory2C::EnablePropertySystemUpdateID()
 {
-    iPropertySystemUpdateID = new PropertyUint(iDvStack.Env(), new ParameterUint("SystemUpdateID"));
+    iPropertySystemUpdateID = new PropertyUint(new ParameterUint("SystemUpdateID"));
     iService->AddProperty(iPropertySystemUpdateID); // passes ownership
 }
 
 void DvProviderUpnpOrgContentDirectory2C::EnablePropertyContainerUpdateIDs()
 {
-    iPropertyContainerUpdateIDs = new PropertyString(iDvStack.Env(), new ParameterString("ContainerUpdateIDs"));
+    iPropertyContainerUpdateIDs = new PropertyString(new ParameterString("ContainerUpdateIDs"));
     iService->AddProperty(iPropertyContainerUpdateIDs); // passes ownership
 }
 
 void DvProviderUpnpOrgContentDirectory2C::EnablePropertyTransferIDs()
 {
-    iPropertyTransferIDs = new PropertyString(iDvStack.Env(), new ParameterString("TransferIDs"));
+    iPropertyTransferIDs = new PropertyString(new ParameterString("TransferIDs"));
     iService->AddProperty(iPropertyTransferIDs); // passes ownership
 }
 

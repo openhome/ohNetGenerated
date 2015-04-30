@@ -121,13 +121,13 @@ void DvProviderAvOpenhomeOrgReceiver1C::GetPropertyProtocolInfo(Brhz& aValue)
 
 void DvProviderAvOpenhomeOrgReceiver1C::EnablePropertyUri()
 {
-    iPropertyUri = new PropertyString(iDvStack.Env(), new ParameterString("Uri"));
+    iPropertyUri = new PropertyString(new ParameterString("Uri"));
     iService->AddProperty(iPropertyUri); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgReceiver1C::EnablePropertyMetadata()
 {
-    iPropertyMetadata = new PropertyString(iDvStack.Env(), new ParameterString("Metadata"));
+    iPropertyMetadata = new PropertyString(new ParameterString("Metadata"));
     iService->AddProperty(iPropertyMetadata); // passes ownership
 }
 
@@ -140,14 +140,14 @@ void DvProviderAvOpenhomeOrgReceiver1C::EnablePropertyTransportState()
     allowedValues[index++] = (TChar*)"Playing";
     allowedValues[index++] = (TChar*)"Waiting";
     allowedValues[index++] = (TChar*)"Buffering";
-    iPropertyTransportState = new PropertyString(iDvStack.Env(), new ParameterString("TransportState", allowedValues, 4));
+    iPropertyTransportState = new PropertyString(new ParameterString("TransportState", allowedValues, 4));
     delete[] allowedValues;
     iService->AddProperty(iPropertyTransportState); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgReceiver1C::EnablePropertyProtocolInfo()
 {
-    iPropertyProtocolInfo = new PropertyString(iDvStack.Env(), new ParameterString("ProtocolInfo"));
+    iPropertyProtocolInfo = new PropertyString(new ParameterString("ProtocolInfo"));
     iService->AddProperty(iPropertyProtocolInfo); // passes ownership
 }
 

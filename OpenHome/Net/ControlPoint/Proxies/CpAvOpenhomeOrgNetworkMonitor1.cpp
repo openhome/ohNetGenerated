@@ -80,16 +80,16 @@ CpProxyAvOpenhomeOrgNetworkMonitor1::CpProxyAvOpenhomeOrgNetworkMonitor1(CpDevic
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgNetworkMonitor1::NamePropertyChanged);
-    iName = new PropertyString(aDevice.Device().GetCpStack().Env(), "Name", functor);
+    iName = new PropertyString("Name", functor);
     AddProperty(iName);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgNetworkMonitor1::SenderPropertyChanged);
-    iSender = new PropertyUint(aDevice.Device().GetCpStack().Env(), "Sender", functor);
+    iSender = new PropertyUint("Sender", functor);
     AddProperty(iSender);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgNetworkMonitor1::ReceiverPropertyChanged);
-    iReceiver = new PropertyUint(aDevice.Device().GetCpStack().Env(), "Receiver", functor);
+    iReceiver = new PropertyUint("Receiver", functor);
     AddProperty(iReceiver);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgNetworkMonitor1::ResultsPropertyChanged);
-    iResults = new PropertyUint(aDevice.Device().GetCpStack().Env(), "Results", functor);
+    iResults = new PropertyUint("Results", functor);
     AddProperty(iResults);
 }
 

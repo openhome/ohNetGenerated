@@ -87,13 +87,13 @@ void DvProviderAvOpenhomeOrgExakt1C::GetPropertyConnectionStatus(Brhz& aValue)
 
 void DvProviderAvOpenhomeOrgExakt1C::EnablePropertyDeviceList()
 {
-    iPropertyDeviceList = new PropertyString(iDvStack.Env(), new ParameterString("DeviceList"));
+    iPropertyDeviceList = new PropertyString(new ParameterString("DeviceList"));
     iService->AddProperty(iPropertyDeviceList); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgExakt1C::EnablePropertyConnectionStatus()
 {
-    iPropertyConnectionStatus = new PropertyString(iDvStack.Env(), new ParameterString("ConnectionStatus"));
+    iPropertyConnectionStatus = new PropertyString(new ParameterString("ConnectionStatus"));
     iService->AddProperty(iPropertyConnectionStatus); // passes ownership
 }
 

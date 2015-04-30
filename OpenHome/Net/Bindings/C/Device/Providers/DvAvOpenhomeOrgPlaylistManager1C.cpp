@@ -211,37 +211,37 @@ void DvProviderAvOpenhomeOrgPlaylistManager1C::GetPropertyTracksMax(TUint& aValu
 
 void DvProviderAvOpenhomeOrgPlaylistManager1C::EnablePropertyMetadata()
 {
-    iPropertyMetadata = new PropertyString(iDvStack.Env(), new ParameterString("Metadata"));
+    iPropertyMetadata = new PropertyString(new ParameterString("Metadata"));
     iService->AddProperty(iPropertyMetadata); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1C::EnablePropertyImagesXml()
 {
-    iPropertyImagesXml = new PropertyString(iDvStack.Env(), new ParameterString("ImagesXml"));
+    iPropertyImagesXml = new PropertyString(new ParameterString("ImagesXml"));
     iService->AddProperty(iPropertyImagesXml); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1C::EnablePropertyIdArray()
 {
-    iPropertyIdArray = new PropertyBinary(iDvStack.Env(), new ParameterBinary("IdArray"));
+    iPropertyIdArray = new PropertyBinary(new ParameterBinary("IdArray"));
     iService->AddProperty(iPropertyIdArray); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1C::EnablePropertyTokenArray()
 {
-    iPropertyTokenArray = new PropertyBinary(iDvStack.Env(), new ParameterBinary("TokenArray"));
+    iPropertyTokenArray = new PropertyBinary(new ParameterBinary("TokenArray"));
     iService->AddProperty(iPropertyTokenArray); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1C::EnablePropertyPlaylistsMax()
 {
-    iPropertyPlaylistsMax = new PropertyUint(iDvStack.Env(), new ParameterUint("PlaylistsMax"));
+    iPropertyPlaylistsMax = new PropertyUint(new ParameterUint("PlaylistsMax"));
     iService->AddProperty(iPropertyPlaylistsMax); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgPlaylistManager1C::EnablePropertyTracksMax()
 {
-    iPropertyTracksMax = new PropertyUint(iDvStack.Env(), new ParameterUint("TracksMax"));
+    iPropertyTracksMax = new PropertyUint(new ParameterUint("TracksMax"));
     iService->AddProperty(iPropertyTracksMax); // passes ownership
 }
 

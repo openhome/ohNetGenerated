@@ -594,7 +594,7 @@ CpProxyUpnpOrgScheduledRecording2::CpProxyUpnpOrgScheduledRecording2(CpDevice& a
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyUpnpOrgScheduledRecording2::LastChangePropertyChanged);
-    iLastChange = new PropertyString(aDevice.Device().GetCpStack().Env(), "LastChange", functor);
+    iLastChange = new PropertyString("LastChange", functor);
     AddProperty(iLastChange);
 }
 

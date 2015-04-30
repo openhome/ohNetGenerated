@@ -185,16 +185,16 @@ CpProxyAvOpenhomeOrgReceiver1::CpProxyAvOpenhomeOrgReceiver1(CpDevice& aDevice)
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgReceiver1::UriPropertyChanged);
-    iUri = new PropertyString(aDevice.Device().GetCpStack().Env(), "Uri", functor);
+    iUri = new PropertyString("Uri", functor);
     AddProperty(iUri);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgReceiver1::MetadataPropertyChanged);
-    iMetadata = new PropertyString(aDevice.Device().GetCpStack().Env(), "Metadata", functor);
+    iMetadata = new PropertyString("Metadata", functor);
     AddProperty(iMetadata);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgReceiver1::TransportStatePropertyChanged);
-    iTransportState = new PropertyString(aDevice.Device().GetCpStack().Env(), "TransportState", functor);
+    iTransportState = new PropertyString("TransportState", functor);
     AddProperty(iTransportState);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgReceiver1::ProtocolInfoPropertyChanged);
-    iProtocolInfo = new PropertyString(aDevice.Device().GetCpStack().Env(), "ProtocolInfo", functor);
+    iProtocolInfo = new PropertyString("ProtocolInfo", functor);
     AddProperty(iProtocolInfo);
 }
 

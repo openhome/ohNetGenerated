@@ -569,13 +569,13 @@ CpProxyUpnpOrgContentDirectory2::CpProxyUpnpOrgContentDirectory2(CpDevice& aDevi
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyUpnpOrgContentDirectory2::SystemUpdateIDPropertyChanged);
-    iSystemUpdateID = new PropertyUint(aDevice.Device().GetCpStack().Env(), "SystemUpdateID", functor);
+    iSystemUpdateID = new PropertyUint("SystemUpdateID", functor);
     AddProperty(iSystemUpdateID);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgContentDirectory2::ContainerUpdateIDsPropertyChanged);
-    iContainerUpdateIDs = new PropertyString(aDevice.Device().GetCpStack().Env(), "ContainerUpdateIDs", functor);
+    iContainerUpdateIDs = new PropertyString("ContainerUpdateIDs", functor);
     AddProperty(iContainerUpdateIDs);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgContentDirectory2::TransferIDsPropertyChanged);
-    iTransferIDs = new PropertyString(aDevice.Device().GetCpStack().Env(), "TransferIDs", functor);
+    iTransferIDs = new PropertyString("TransferIDs", functor);
     AddProperty(iTransferIDs);
 }
 

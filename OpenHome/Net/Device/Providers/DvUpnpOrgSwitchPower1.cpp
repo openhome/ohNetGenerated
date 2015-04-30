@@ -39,7 +39,7 @@ void DvProviderUpnpOrgSwitchPower1::Construct()
 
 void DvProviderUpnpOrgSwitchPower1::EnablePropertyStatus()
 {
-    iPropertyStatus = new PropertyBool(iDvStack.Env(), new ParameterBool("Status"));
+    iPropertyStatus = new PropertyBool(new ParameterBool("Status"));
     iService->AddProperty(iPropertyStatus); // passes ownership
 }
 

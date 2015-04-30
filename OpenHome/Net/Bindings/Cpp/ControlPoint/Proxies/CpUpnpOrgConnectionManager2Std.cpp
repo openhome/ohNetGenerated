@@ -219,13 +219,13 @@ CpProxyUpnpOrgConnectionManager2Cpp::CpProxyUpnpOrgConnectionManager2Cpp(CpDevic
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyUpnpOrgConnectionManager2Cpp::SourceProtocolInfoPropertyChanged);
-    iSourceProtocolInfo = new PropertyString(aDevice.Device().GetCpStack().Env(), "SourceProtocolInfo", functor);
+    iSourceProtocolInfo = new PropertyString("SourceProtocolInfo", functor);
     AddProperty(iSourceProtocolInfo);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgConnectionManager2Cpp::SinkProtocolInfoPropertyChanged);
-    iSinkProtocolInfo = new PropertyString(aDevice.Device().GetCpStack().Env(), "SinkProtocolInfo", functor);
+    iSinkProtocolInfo = new PropertyString("SinkProtocolInfo", functor);
     AddProperty(iSinkProtocolInfo);
     functor = MakeFunctor(*this, &CpProxyUpnpOrgConnectionManager2Cpp::CurrentConnectionIDsPropertyChanged);
-    iCurrentConnectionIDs = new PropertyString(aDevice.Device().GetCpStack().Env(), "CurrentConnectionIDs", functor);
+    iCurrentConnectionIDs = new PropertyString("CurrentConnectionIDs", functor);
     AddProperty(iCurrentConnectionIDs);
 }
 
