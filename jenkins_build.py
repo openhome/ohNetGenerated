@@ -110,12 +110,15 @@ class JenkinsBuild():
         self.platform_args = args
 
     def set_make_args(self):
+        arch = self.platform['arch']
         os_platform = self.platform['os']
         args=[]
         if (os_platform == 'Core'):
-            args.append('platform=' + self.platform['system'] + '-' + self.platform['arch'])
+            args.append('platform=' + self.platform['system'] + '-' + arch)
         if (os_platform == 'Qnap'):
             args.append('Qnap-anycpu=1')
+        if (arch == 'x64' and not os_platform in ['windows', 'linux']):
+            args.append('--native')
         self.make_args = args
 
     def do_build(self):
