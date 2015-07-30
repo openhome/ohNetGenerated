@@ -34,7 +34,7 @@ class JenkinsBuild():
 
         parser = OptionParser()
         parser.add_option("-p", "--platform", dest="platform",
-            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Linux-ARM, Linux-armhf, Linux-ppc32, Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-x86, Qnap-x86")
+            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Linux-ARM, Linux-armhf, Linux-ppc32, Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-arm64, iOs-x86, Qnap-x86")
         parser.add_option("-n", "--nightly",
                   action="store_true", dest="nightly", default=False,
                   help="Perform a nightly build")
@@ -81,6 +81,7 @@ class JenkinsBuild():
                 'iOs-ARM': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs', 'make_target':''}, # Old Jenkins label
                 'iOs-x86': { 'os': 'iOs', 'arch':'x86', 'publish':True, 'system':'iOs', 'make_target':'iOs-x86=1'},
                 'iOs-armv7': { 'os': 'iOs', 'arch':'armv7', 'publish':True, 'system':'iOs', 'make_target':'iOs-armv7=1'},
+                'iOs-arm64': { 'os': 'iOs', 'arch':'arm64', 'publish':True, 'system':'iOs', 'make_target':'iOs-arm64=1'},
                 'Core-ppc32': { 'os': 'Core', 'arch':'ppc32', 'publish':True, 'system':'Core', 'make_target':''},
                 'Core-armv5': { 'os': 'Core', 'arch':'armv5', 'publish':True, 'system':'Core', 'make_target':''},
                 'Core-armv6': { 'os': 'Core', 'arch':'armv6', 'publish':True, 'system':'Core', 'make_target':''},
