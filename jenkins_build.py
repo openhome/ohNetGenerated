@@ -177,57 +177,59 @@ class JenkinsBuild():
         
         release_targets = []
         release_targets.append('release')
+        release_targets.append('debug')
 
         # clean slate so as not to upload random junk inadvertently
         shutil.rmtree(os.path.join('Build', 'Bundles'), ignore_errors=True)
         
-        openhome_configuration = 'Release'
-        build = []
-        if platform_args != []:
-            build.extend(platform_args)
-            build.append('&&')
-        build.append('make')
-        build.append('tt')
-        build.append('uset4=yes')
-        build.extend(self.make_args)
-        ret = subprocess.check_call(build)
-        if ret != 0:
-            print ret
-            sys.exit(10)
+        for release in release_targets:
+            openhome_configuration = release.title()
+            build = []
+            if platform_args != []:
+                build.extend(platform_args)
+                build.append('&&')
+            build.append('make')
+            build.append('tt')
+            build.append('uset4=yes')
+            build.extend(self.make_args)
+            ret = subprocess.check_call(build)
+            if ret != 0:
+                print ret
+                sys.exit(10)
 
-        build = []
-        if platform_args != []:
-            build.extend(platform_args)
-            build.append('&&')
+            build = []
+            if platform_args != []:
+                build.extend(platform_args)
+                build.append('&&')
 
-        build.append('make')
-        build.append('bundle')
-        build.append('uset4=yes')
-        build.append('openhome_system=' + openhome_system)
-        build.append('openhome_architecture=' + openhome_architecture)
-        build.append('openhome_configuration=' + openhome_configuration)
-        #build.extend(self.platform_make_args)
+            build.append('make')
+            build.append('bundle')
+            build.append('uset4=yes')
+            build.append('openhome_system=' + openhome_system)
+            build.append('openhome_architecture=' + openhome_architecture)
+            build.append('openhome_configuration=' + openhome_configuration)
+            #build.extend(self.platform_make_args)
 
-        print "doing release with bundle %s" %(build,)
+            print "doing release with bundle %s" %(build,)
 
-        ret = subprocess.check_call(build)
-        if ret != 0:
-            print ret
-            sys.exit(10)
+            ret = subprocess.check_call(build)
+            if ret != 0:
+                print ret
+                sys.exit(10)
 
-        native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s.tar.gz" %(openhome_system, openhome_architecture, openhome_configuration))
-        native_dest = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s-%s.tar.gz" %(version, openhome_system, openhome_architecture, openhome_configuration))
-        if os.path.exists(native_dest):
-            os.remove(native_dest)
-        os.rename(native_bundle_name, native_dest)
-
-        # Add a version to AnyPlatform on Windows-x86 only (arbitrarily chosen platform)
-        if openhome_system == 'Windows' and openhome_architecture == 'x86':
-            native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated-AnyPlatform-Release.tar.gz")
-            native_dest = os.path.join('Build/Bundles',"ohNetGenerated-%s-AnyPlatform-Release.tar.gz" %(version))
+            native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s.tar.gz" %(openhome_system, openhome_architecture, openhome_configuration))
+            native_dest = os.path.join('Build/Bundles',"ohNetGenerated-%s-%s-%s-%s.tar.gz" %(version, openhome_system, openhome_architecture, openhome_configuration))
             if os.path.exists(native_dest):
                 os.remove(native_dest)
             os.rename(native_bundle_name, native_dest)
+
+            # Add a version to AnyPlatform on Windows-x86 only (arbitrarily chosen platform)
+            if openhome_system == 'Windows' and openhome_architecture == 'x86':
+                native_bundle_name = os.path.join('Build/Bundles',"ohNetGenerated-AnyPlatform-Release.tar.gz")
+                native_dest = os.path.join('Build/Bundles',"ohNetGenerated-%s-AnyPlatform-Release.tar.gz" %(version))
+                if os.path.exists(native_dest):
+                    os.remove(native_dest)
+                os.rename(native_bundle_name, native_dest)
 
         rem.check_rsync('releases','www.openhome.org','Build/Bundles/','~/www/artifacts/ohNetGenerated/')
                         
