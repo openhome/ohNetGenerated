@@ -7,37 +7,15 @@ from Helpers.remote import *
 import sys
 from os import path
 
-class PostActions():
-    def do_release(self,platform):
-        rem = remote()
-        release_targets = []
-        release_targets.append('release')
-        #release_targets.append('debug')
-
-    def gen_docs(self):
-        rem = remote()
-        ret = subprocess.check_call('make docs', shell=True)
-        if ret != 0:
-            print ret
-            sys.exit(10)
-        ret = rem.rsync_gc('hudson-rsync','openhome.org','Build/Docs/','~/build/nightly/docs')
-        if ret != 0:
-            print ret
-            sys.exit(10)
-    
 class JenkinsBuild():
     def get_options(self):
         env_platform = os.environ.get('PLATFORM')
-        env_nightly = os.environ.get('NIGHTLY')
         env_release = os.environ.get('PUBLISH')
         env_version = os.environ.get('PUBLISH_VERSION')
 
         parser = OptionParser()
         parser.add_option("-p", "--platform", dest="platform",
             help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Linux-ARM, Linux-armhf, Linux-ppc32, Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-arm64, iOs-x86, Qnap-x86")
-        parser.add_option("-n", "--nightly",
-                  action="store_true", dest="nightly", default=False,
-                  help="Perform a nightly build")
         parser.add_option("-r", "--publish",
           action="store_true", dest="release", default=False,
           help="publish release")
@@ -55,16 +33,12 @@ class JenkinsBuild():
             self.options.platform = env_platform
         if env_version != None:
             self.options.version = env_version
-        if env_nightly == 'true' or self.options.nightly == True:
-             self.options.nightly = '1'
-        else:
-            self.options.nightly = '0'
         if env_release == 'true' or self.options.release == True:
             self.options.release = '1'
         else:
             self.options.release = '0'
 
-        print "options for build are nightly:%s and release:%s on platform %s" %(self.options.nightly,self.options.release,self.options.platform)
+        print "options for build are release:%s on platform %s" %(self.options.release,self.options.platform)
 
     def get_platform(self):
         platforms = { 
@@ -125,7 +99,7 @@ class JenkinsBuild():
             args.append('native_only=yes')
         self.make_args = args
 
-    def do_build(self):
+    def do_build(self, debug):
         os_platform = self.platform['os']
         arch = self.platform['arch']
         platform_args = self.platform_args
@@ -137,6 +111,8 @@ class JenkinsBuild():
         args.append('fetch')
         args.append('--all')
         args.append('--platform=' + self.platform['system'] + '-' + arch)
+        if debug:
+            args.append('--debug')
         print "do_build: fetch dependencies with cmd %s" %(args,)
         ret = subprocess.check_call(args)
         if ret != 0:
@@ -158,6 +134,8 @@ class JenkinsBuild():
             if os_platform == 'Android':
                 args.append('JavaAll')
         args.extend(self.make_args)
+        if debug:
+            args.append('debug=1')
         print "do_build: build with cmd %s" %(args,)
         ret = subprocess.check_call(args)
         if ret != 0:
@@ -167,7 +145,6 @@ class JenkinsBuild():
     def do_release(self):
         rem = remote()
 
-        nightly = self.options.nightly
         release = self.options.release
         platform_args = self.platform_args
         platform = self.options.platform
@@ -235,15 +212,9 @@ class JenkinsBuild():
                         
     
     def do_postAction(self):
-        nightly = self.options.nightly
         release = self.options.release
         os_platform = self.platform['os']
         arch = self.platform['arch']
-        postAction = PostActions()
-
-        if nightly == '1':
-            if os_platform == 'linux' and arch == 'x86':
-                postAction.gen_docs()
 
         if self.platform['publish'] and release == '1':
             self.do_release()
@@ -259,9 +230,9 @@ def main():
     Build.get_platform()
     Build.set_platform_args()
     Build.set_make_args()
-    Build.do_build()
+    Build.do_build(False) # release build
+    Build.do_build(True)  # debug build
     Build.do_postAction()
 
 if __name__ == "__main__":
     main()
-
