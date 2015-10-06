@@ -17,7 +17,6 @@ openhome_architecture=x86
 !endif
 
 depsPlatform = Windows-$(openhome_architecture)
-csplatform = $(openhome_architecture)
 
 !if "$(debug)"=="1"
 link_flag_debug = /debug
@@ -64,7 +63,7 @@ dllprefix =
 dllext = dll
 linkopts_ohNet =
 link_dll = link /nologo $(link_flag_debug_dll) /map Ws2_32.lib Iphlpapi.lib Dbghelp.lib /dll
-csharp = csc /nologo /platform:$(csplatform)
+csharp = csc /nologo
 csharpdefines = 
 publicjavadir = OpenHome\Net\Bindings\Java^\
 includes_jni = -I"$(JAVA_HOME)\include" -I"$(JAVA_HOME)\include\win32"
