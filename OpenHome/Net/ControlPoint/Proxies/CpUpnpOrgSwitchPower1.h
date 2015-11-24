@@ -19,11 +19,27 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyUpnpOrgSwitchPower1
+{
+public:
+    virtual void SyncSetTarget(TBool anewTargetValue) = 0;
+    virtual void BeginSetTarget(TBool anewTargetValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetTarget(IAsync& aAsync) = 0;
+    virtual void SyncGetTarget(TBool& aRetTargetValue) = 0;
+    virtual void BeginGetTarget(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetTarget(IAsync& aAsync, TBool& aRetTargetValue) = 0;
+    virtual void SyncGetStatus(TBool& aResultStatus) = 0;
+    virtual void BeginGetStatus(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetStatus(IAsync& aAsync, TBool& aResultStatus) = 0;
+    virtual void SetPropertyStatusChanged(Functor& aStatusChanged) = 0;
+    virtual void PropertyStatus(TBool& aStatus) const = 0;
+};
+
 /**
  * Proxy for upnp.org:SwitchPower:1
  * @ingroup Proxies
  */
-class CpProxyUpnpOrgSwitchPower1 : public CpProxy
+class CpProxyUpnpOrgSwitchPower1 : public CpProxy, public ICpProxyUpnpOrgSwitchPower1
 {
 public:
     /**

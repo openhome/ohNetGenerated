@@ -20,11 +20,37 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyOpenhomeOrgTestLights1Cpp
+{
+public:
+    virtual void SyncGetCount(uint32_t& aCount) = 0;
+    virtual void BeginGetCount(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetCount(IAsync& aAsync, uint32_t& aCount) = 0;
+    virtual void SyncGetRoom(uint32_t aIndex, std::string& aRoomName) = 0;
+    virtual void BeginGetRoom(uint32_t aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRoom(IAsync& aAsync, std::string& aRoomName) = 0;
+    virtual void SyncGetName(uint32_t aIndex, std::string& aFriendlyName) = 0;
+    virtual void BeginGetName(uint32_t aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetName(IAsync& aAsync, std::string& aFriendlyName) = 0;
+    virtual void SyncGetPosition(uint32_t aIndex, uint32_t& aX, uint32_t& aY, uint32_t& aZ) = 0;
+    virtual void BeginGetPosition(uint32_t aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetPosition(IAsync& aAsync, uint32_t& aX, uint32_t& aY, uint32_t& aZ) = 0;
+    virtual void SyncSetColor(uint32_t aIndex, uint32_t aColor) = 0;
+    virtual void BeginSetColor(uint32_t aIndex, uint32_t aColor, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetColor(IAsync& aAsync) = 0;
+    virtual void SyncGetColor(uint32_t aIndex, uint32_t& aColor) = 0;
+    virtual void BeginGetColor(uint32_t aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetColor(IAsync& aAsync, uint32_t& aColor) = 0;
+    virtual void SyncGetColorComponents(uint32_t aColor, uint32_t& aBrightness, uint32_t& aRed, uint32_t& aGreen, uint32_t& aBlue) = 0;
+    virtual void BeginGetColorComponents(uint32_t aColor, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetColorComponents(IAsync& aAsync, uint32_t& aBrightness, uint32_t& aRed, uint32_t& aGreen, uint32_t& aBlue) = 0;
+};
+
 /**
  * Proxy for openhome.org:TestLights:1
  * @ingroup Proxies
  */
-class CpProxyOpenhomeOrgTestLights1Cpp : public CpProxy
+class CpProxyOpenhomeOrgTestLights1Cpp : public CpProxy, public ICpProxyOpenhomeOrgTestLights1Cpp
 {
 public:
     /**

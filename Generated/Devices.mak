@@ -94,6 +94,12 @@ objects_devices = \
                   $(objdir)DvOpenhomeOrgSubscriptionLongPoll1.$(objext) \
                   $(objdir)DvOpenhomeOrgSubscriptionLongPoll1Std.$(objext) \
                   $(objdir)DvOpenhomeOrgSubscriptionLongPoll1C.$(objext) \
+                  $(objdir)DvLinnCoUkFlash1.$(objext) \
+                  $(objdir)DvLinnCoUkFlash1Std.$(objext) \
+                  $(objdir)DvLinnCoUkFlash1C.$(objext) \
+                  $(objdir)DvLinnCoUkVolkano1.$(objext) \
+                  $(objdir)DvLinnCoUkVolkano1Std.$(objext) \
+                  $(objdir)DvLinnCoUkVolkano1C.$(objext) \
 
 # Devices have well controlled dependencies so we can document a more limited set of headers
 headers_device = $(inc_build)/OpenHome/Types.h \
@@ -133,6 +139,8 @@ device_dotnet_assemblies = \
         DvOpenhomeOrgTestBasic1.net.dll \
         DvOpenhomeOrgTestLights1.net.dll \
         DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
+        DvLinnCoUkFlash1.net.dll \
+        DvLinnCoUkVolkano1.net.dll \
 
 device_dotnet_assemblies_with_path = \
         $(objdir)DvUpnpOrgAVTransport1.net.dll \
@@ -165,6 +173,8 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvOpenhomeOrgTestBasic1.net.dll \
         $(objdir)DvOpenhomeOrgTestLights1.net.dll \
         $(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
+        $(objdir)DvLinnCoUkFlash1.net.dll \
+        $(objdir)DvLinnCoUkVolkano1.net.dll \
 
 device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgAVTransport1.class \
@@ -197,6 +207,8 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgTestBasic1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgTestLights1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgSubscriptionLongPoll1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkFlash1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class \
 
 devices : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_devices)
 	$(ar)$(libprefix)ohNetGeneratedDevices.$(libext) $(objects_devices)
@@ -380,6 +392,18 @@ $(objdir)DvOpenhomeOrgSubscriptionLongPoll1Std.$(objext) : $(deviceCppStd)DvOpen
 	$(compiler)DvOpenhomeOrgSubscriptionLongPoll1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvOpenhomeOrgSubscriptionLongPoll1Std.cpp
 $(objdir)DvOpenhomeOrgSubscriptionLongPoll1C.$(objext) : $(deviceC)DvOpenhomeOrgSubscriptionLongPoll1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvOpenhomeOrgSubscriptionLongPoll1.h
 	$(compiler)DvOpenhomeOrgSubscriptionLongPoll1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvOpenhomeOrgSubscriptionLongPoll1C.cpp
+$(objdir)DvLinnCoUkFlash1.$(objext) : $(deviceCppCore)DvLinnCoUkFlash1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkFlash1.h
+	$(compiler)DvLinnCoUkFlash1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkFlash1.cpp
+$(objdir)DvLinnCoUkFlash1Std.$(objext) : $(deviceCppStd)DvLinnCoUkFlash1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkFlash1.h
+	$(compiler)DvLinnCoUkFlash1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkFlash1Std.cpp
+$(objdir)DvLinnCoUkFlash1C.$(objext) : $(deviceC)DvLinnCoUkFlash1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkFlash1.h
+	$(compiler)DvLinnCoUkFlash1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkFlash1C.cpp
+$(objdir)DvLinnCoUkVolkano1.$(objext) : $(deviceCppCore)DvLinnCoUkVolkano1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkVolkano1.h
+	$(compiler)DvLinnCoUkVolkano1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkVolkano1.cpp
+$(objdir)DvLinnCoUkVolkano1Std.$(objext) : $(deviceCppStd)DvLinnCoUkVolkano1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkVolkano1.h
+	$(compiler)DvLinnCoUkVolkano1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkVolkano1Std.cpp
+$(objdir)DvLinnCoUkVolkano1C.$(objext) : $(deviceC)DvLinnCoUkVolkano1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkVolkano1.h
+	$(compiler)DvLinnCoUkVolkano1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkVolkano1C.cpp
 
 
 # Device assemblies for .NET:
@@ -536,6 +560,16 @@ $(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(
         /out:$(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs
+$(objdir)DvLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkFlash1.cs
+	$(csharp) /t:library \
+        /out:$(objdir)DvLinnCoUkFlash1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkFlash1.cs
+$(objdir)DvLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkVolkano1.cs
+	$(csharp) /t:library \
+        /out:$(objdir)DvLinnCoUkVolkano1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkVolkano1.cs
 
 # Device classes for Java:
 
@@ -601,5 +635,9 @@ $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgTestLights1.clas
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderOpenhomeOrgTestLights1.java
 $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgSubscriptionLongPoll1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderOpenhomeOrgSubscriptionLongPoll1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderOpenhomeOrgSubscriptionLongPoll1.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkFlash1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkFlash1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkFlash1.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkVolkano1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkVolkano1.java
 
 

@@ -19,11 +19,30 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgNetworkMonitor1
+{
+public:
+    virtual void SyncName(Brh& aName) = 0;
+    virtual void BeginName(FunctorAsync& aFunctor) = 0;
+    virtual void EndName(IAsync& aAsync, Brh& aName) = 0;
+    virtual void SyncPorts(TUint& aSender, TUint& aReceiver, TUint& aResults) = 0;
+    virtual void BeginPorts(FunctorAsync& aFunctor) = 0;
+    virtual void EndPorts(IAsync& aAsync, TUint& aSender, TUint& aReceiver, TUint& aResults) = 0;
+    virtual void SetPropertyNameChanged(Functor& aNameChanged) = 0;
+    virtual void PropertyName(Brhz& aName) const = 0;
+    virtual void SetPropertySenderChanged(Functor& aSenderChanged) = 0;
+    virtual void PropertySender(TUint& aSender) const = 0;
+    virtual void SetPropertyReceiverChanged(Functor& aReceiverChanged) = 0;
+    virtual void PropertyReceiver(TUint& aReceiver) const = 0;
+    virtual void SetPropertyResultsChanged(Functor& aResultsChanged) = 0;
+    virtual void PropertyResults(TUint& aResults) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:NetworkMonitor:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgNetworkMonitor1 : public CpProxy
+class CpProxyAvOpenhomeOrgNetworkMonitor1 : public CpProxy, public ICpProxyAvOpenhomeOrgNetworkMonitor1
 {
 public:
     /**

@@ -20,11 +20,25 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgTime1Cpp
+{
+public:
+    virtual void SyncTime(uint32_t& aTrackCount, uint32_t& aDuration, uint32_t& aSeconds) = 0;
+    virtual void BeginTime(FunctorAsync& aFunctor) = 0;
+    virtual void EndTime(IAsync& aAsync, uint32_t& aTrackCount, uint32_t& aDuration, uint32_t& aSeconds) = 0;
+    virtual void SetPropertyTrackCountChanged(Functor& aTrackCountChanged) = 0;
+    virtual void PropertyTrackCount(uint32_t& aTrackCount) const = 0;
+    virtual void SetPropertyDurationChanged(Functor& aDurationChanged) = 0;
+    virtual void PropertyDuration(uint32_t& aDuration) const = 0;
+    virtual void SetPropertySecondsChanged(Functor& aSecondsChanged) = 0;
+    virtual void PropertySeconds(uint32_t& aSeconds) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Time:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgTime1Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgTime1Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgTime1Cpp
 {
 public:
     /**

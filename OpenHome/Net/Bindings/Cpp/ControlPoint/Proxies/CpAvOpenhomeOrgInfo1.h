@@ -20,11 +20,52 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgInfo1Cpp
+{
+public:
+    virtual void SyncCounters(uint32_t& aTrackCount, uint32_t& aDetailsCount, uint32_t& aMetatextCount) = 0;
+    virtual void BeginCounters(FunctorAsync& aFunctor) = 0;
+    virtual void EndCounters(IAsync& aAsync, uint32_t& aTrackCount, uint32_t& aDetailsCount, uint32_t& aMetatextCount) = 0;
+    virtual void SyncTrack(std::string& aUri, std::string& aMetadata) = 0;
+    virtual void BeginTrack(FunctorAsync& aFunctor) = 0;
+    virtual void EndTrack(IAsync& aAsync, std::string& aUri, std::string& aMetadata) = 0;
+    virtual void SyncDetails(uint32_t& aDuration, uint32_t& aBitRate, uint32_t& aBitDepth, uint32_t& aSampleRate, bool& aLossless, std::string& aCodecName) = 0;
+    virtual void BeginDetails(FunctorAsync& aFunctor) = 0;
+    virtual void EndDetails(IAsync& aAsync, uint32_t& aDuration, uint32_t& aBitRate, uint32_t& aBitDepth, uint32_t& aSampleRate, bool& aLossless, std::string& aCodecName) = 0;
+    virtual void SyncMetatext(std::string& aValue) = 0;
+    virtual void BeginMetatext(FunctorAsync& aFunctor) = 0;
+    virtual void EndMetatext(IAsync& aAsync, std::string& aValue) = 0;
+    virtual void SetPropertyTrackCountChanged(Functor& aTrackCountChanged) = 0;
+    virtual void PropertyTrackCount(uint32_t& aTrackCount) const = 0;
+    virtual void SetPropertyDetailsCountChanged(Functor& aDetailsCountChanged) = 0;
+    virtual void PropertyDetailsCount(uint32_t& aDetailsCount) const = 0;
+    virtual void SetPropertyMetatextCountChanged(Functor& aMetatextCountChanged) = 0;
+    virtual void PropertyMetatextCount(uint32_t& aMetatextCount) const = 0;
+    virtual void SetPropertyUriChanged(Functor& aUriChanged) = 0;
+    virtual void PropertyUri(std::string& aUri) const = 0;
+    virtual void SetPropertyMetadataChanged(Functor& aMetadataChanged) = 0;
+    virtual void PropertyMetadata(std::string& aMetadata) const = 0;
+    virtual void SetPropertyDurationChanged(Functor& aDurationChanged) = 0;
+    virtual void PropertyDuration(uint32_t& aDuration) const = 0;
+    virtual void SetPropertyBitRateChanged(Functor& aBitRateChanged) = 0;
+    virtual void PropertyBitRate(uint32_t& aBitRate) const = 0;
+    virtual void SetPropertyBitDepthChanged(Functor& aBitDepthChanged) = 0;
+    virtual void PropertyBitDepth(uint32_t& aBitDepth) const = 0;
+    virtual void SetPropertySampleRateChanged(Functor& aSampleRateChanged) = 0;
+    virtual void PropertySampleRate(uint32_t& aSampleRate) const = 0;
+    virtual void SetPropertyLosslessChanged(Functor& aLosslessChanged) = 0;
+    virtual void PropertyLossless(bool& aLossless) const = 0;
+    virtual void SetPropertyCodecNameChanged(Functor& aCodecNameChanged) = 0;
+    virtual void PropertyCodecName(std::string& aCodecName) const = 0;
+    virtual void SetPropertyMetatextChanged(Functor& aMetatextChanged) = 0;
+    virtual void PropertyMetatext(std::string& aMetatext) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Info:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgInfo1Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgInfo1Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgInfo1Cpp
 {
 public:
     /**

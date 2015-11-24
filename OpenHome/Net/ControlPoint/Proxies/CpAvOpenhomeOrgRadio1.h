@@ -19,11 +19,78 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgRadio1
+{
+public:
+    virtual void SyncPlay() = 0;
+    virtual void BeginPlay(FunctorAsync& aFunctor) = 0;
+    virtual void EndPlay(IAsync& aAsync) = 0;
+    virtual void SyncPause() = 0;
+    virtual void BeginPause(FunctorAsync& aFunctor) = 0;
+    virtual void EndPause(IAsync& aAsync) = 0;
+    virtual void SyncStop() = 0;
+    virtual void BeginStop(FunctorAsync& aFunctor) = 0;
+    virtual void EndStop(IAsync& aAsync) = 0;
+    virtual void SyncSeekSecondAbsolute(TUint aValue) = 0;
+    virtual void BeginSeekSecondAbsolute(TUint aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekSecondAbsolute(IAsync& aAsync) = 0;
+    virtual void SyncSeekSecondRelative(TInt aValue) = 0;
+    virtual void BeginSeekSecondRelative(TInt aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekSecondRelative(IAsync& aAsync) = 0;
+    virtual void SyncChannel(Brh& aUri, Brh& aMetadata) = 0;
+    virtual void BeginChannel(FunctorAsync& aFunctor) = 0;
+    virtual void EndChannel(IAsync& aAsync, Brh& aUri, Brh& aMetadata) = 0;
+    virtual void SyncSetChannel(const Brx& aUri, const Brx& aMetadata) = 0;
+    virtual void BeginSetChannel(const Brx& aUri, const Brx& aMetadata, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetChannel(IAsync& aAsync) = 0;
+    virtual void SyncTransportState(Brh& aValue) = 0;
+    virtual void BeginTransportState(FunctorAsync& aFunctor) = 0;
+    virtual void EndTransportState(IAsync& aAsync, Brh& aValue) = 0;
+    virtual void SyncId(TUint& aValue) = 0;
+    virtual void BeginId(FunctorAsync& aFunctor) = 0;
+    virtual void EndId(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SyncSetId(TUint aValue, const Brx& aUri) = 0;
+    virtual void BeginSetId(TUint aValue, const Brx& aUri, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetId(IAsync& aAsync) = 0;
+    virtual void SyncRead(TUint aId, Brh& aMetadata) = 0;
+    virtual void BeginRead(TUint aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndRead(IAsync& aAsync, Brh& aMetadata) = 0;
+    virtual void SyncReadList(const Brx& aIdList, Brh& aChannelList) = 0;
+    virtual void BeginReadList(const Brx& aIdList, FunctorAsync& aFunctor) = 0;
+    virtual void EndReadList(IAsync& aAsync, Brh& aChannelList) = 0;
+    virtual void SyncIdArray(TUint& aToken, Brh& aArray) = 0;
+    virtual void BeginIdArray(FunctorAsync& aFunctor) = 0;
+    virtual void EndIdArray(IAsync& aAsync, TUint& aToken, Brh& aArray) = 0;
+    virtual void SyncIdArrayChanged(TUint aToken, TBool& aValue) = 0;
+    virtual void BeginIdArrayChanged(TUint aToken, FunctorAsync& aFunctor) = 0;
+    virtual void EndIdArrayChanged(IAsync& aAsync, TBool& aValue) = 0;
+    virtual void SyncChannelsMax(TUint& aValue) = 0;
+    virtual void BeginChannelsMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndChannelsMax(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SyncProtocolInfo(Brh& aValue) = 0;
+    virtual void BeginProtocolInfo(FunctorAsync& aFunctor) = 0;
+    virtual void EndProtocolInfo(IAsync& aAsync, Brh& aValue) = 0;
+    virtual void SetPropertyUriChanged(Functor& aUriChanged) = 0;
+    virtual void PropertyUri(Brhz& aUri) const = 0;
+    virtual void SetPropertyMetadataChanged(Functor& aMetadataChanged) = 0;
+    virtual void PropertyMetadata(Brhz& aMetadata) const = 0;
+    virtual void SetPropertyTransportStateChanged(Functor& aTransportStateChanged) = 0;
+    virtual void PropertyTransportState(Brhz& aTransportState) const = 0;
+    virtual void SetPropertyIdChanged(Functor& aIdChanged) = 0;
+    virtual void PropertyId(TUint& aId) const = 0;
+    virtual void SetPropertyIdArrayChanged(Functor& aIdArrayChanged) = 0;
+    virtual void PropertyIdArray(Brh& aIdArray) const = 0;
+    virtual void SetPropertyChannelsMaxChanged(Functor& aChannelsMaxChanged) = 0;
+    virtual void PropertyChannelsMax(TUint& aChannelsMax) const = 0;
+    virtual void SetPropertyProtocolInfoChanged(Functor& aProtocolInfoChanged) = 0;
+    virtual void PropertyProtocolInfo(Brhz& aProtocolInfo) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Radio:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgRadio1 : public CpProxy
+class CpProxyAvOpenhomeOrgRadio1 : public CpProxy, public ICpProxyAvOpenhomeOrgRadio1
 {
 public:
     /**

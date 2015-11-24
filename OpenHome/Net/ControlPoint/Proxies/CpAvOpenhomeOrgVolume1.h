@@ -19,11 +19,86 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgVolume1
+{
+public:
+    virtual void SyncCharacteristics(TUint& aVolumeMax, TUint& aVolumeUnity, TUint& aVolumeSteps, TUint& aVolumeMilliDbPerStep, TUint& aBalanceMax, TUint& aFadeMax) = 0;
+    virtual void BeginCharacteristics(FunctorAsync& aFunctor) = 0;
+    virtual void EndCharacteristics(IAsync& aAsync, TUint& aVolumeMax, TUint& aVolumeUnity, TUint& aVolumeSteps, TUint& aVolumeMilliDbPerStep, TUint& aBalanceMax, TUint& aFadeMax) = 0;
+    virtual void SyncSetVolume(TUint aValue) = 0;
+    virtual void BeginSetVolume(TUint aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetVolume(IAsync& aAsync) = 0;
+    virtual void SyncVolumeInc() = 0;
+    virtual void BeginVolumeInc(FunctorAsync& aFunctor) = 0;
+    virtual void EndVolumeInc(IAsync& aAsync) = 0;
+    virtual void SyncVolumeDec() = 0;
+    virtual void BeginVolumeDec(FunctorAsync& aFunctor) = 0;
+    virtual void EndVolumeDec(IAsync& aAsync) = 0;
+    virtual void SyncVolume(TUint& aValue) = 0;
+    virtual void BeginVolume(FunctorAsync& aFunctor) = 0;
+    virtual void EndVolume(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SyncSetBalance(TInt aValue) = 0;
+    virtual void BeginSetBalance(TInt aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetBalance(IAsync& aAsync) = 0;
+    virtual void SyncBalanceInc() = 0;
+    virtual void BeginBalanceInc(FunctorAsync& aFunctor) = 0;
+    virtual void EndBalanceInc(IAsync& aAsync) = 0;
+    virtual void SyncBalanceDec() = 0;
+    virtual void BeginBalanceDec(FunctorAsync& aFunctor) = 0;
+    virtual void EndBalanceDec(IAsync& aAsync) = 0;
+    virtual void SyncBalance(TInt& aValue) = 0;
+    virtual void BeginBalance(FunctorAsync& aFunctor) = 0;
+    virtual void EndBalance(IAsync& aAsync, TInt& aValue) = 0;
+    virtual void SyncSetFade(TInt aValue) = 0;
+    virtual void BeginSetFade(TInt aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetFade(IAsync& aAsync) = 0;
+    virtual void SyncFadeInc() = 0;
+    virtual void BeginFadeInc(FunctorAsync& aFunctor) = 0;
+    virtual void EndFadeInc(IAsync& aAsync) = 0;
+    virtual void SyncFadeDec() = 0;
+    virtual void BeginFadeDec(FunctorAsync& aFunctor) = 0;
+    virtual void EndFadeDec(IAsync& aAsync) = 0;
+    virtual void SyncFade(TInt& aValue) = 0;
+    virtual void BeginFade(FunctorAsync& aFunctor) = 0;
+    virtual void EndFade(IAsync& aAsync, TInt& aValue) = 0;
+    virtual void SyncSetMute(TBool aValue) = 0;
+    virtual void BeginSetMute(TBool aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetMute(IAsync& aAsync) = 0;
+    virtual void SyncMute(TBool& aValue) = 0;
+    virtual void BeginMute(FunctorAsync& aFunctor) = 0;
+    virtual void EndMute(IAsync& aAsync, TBool& aValue) = 0;
+    virtual void SyncVolumeLimit(TUint& aValue) = 0;
+    virtual void BeginVolumeLimit(FunctorAsync& aFunctor) = 0;
+    virtual void EndVolumeLimit(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SetPropertyVolumeChanged(Functor& aVolumeChanged) = 0;
+    virtual void PropertyVolume(TUint& aVolume) const = 0;
+    virtual void SetPropertyMuteChanged(Functor& aMuteChanged) = 0;
+    virtual void PropertyMute(TBool& aMute) const = 0;
+    virtual void SetPropertyBalanceChanged(Functor& aBalanceChanged) = 0;
+    virtual void PropertyBalance(TInt& aBalance) const = 0;
+    virtual void SetPropertyFadeChanged(Functor& aFadeChanged) = 0;
+    virtual void PropertyFade(TInt& aFade) const = 0;
+    virtual void SetPropertyVolumeLimitChanged(Functor& aVolumeLimitChanged) = 0;
+    virtual void PropertyVolumeLimit(TUint& aVolumeLimit) const = 0;
+    virtual void SetPropertyVolumeMaxChanged(Functor& aVolumeMaxChanged) = 0;
+    virtual void PropertyVolumeMax(TUint& aVolumeMax) const = 0;
+    virtual void SetPropertyVolumeUnityChanged(Functor& aVolumeUnityChanged) = 0;
+    virtual void PropertyVolumeUnity(TUint& aVolumeUnity) const = 0;
+    virtual void SetPropertyVolumeStepsChanged(Functor& aVolumeStepsChanged) = 0;
+    virtual void PropertyVolumeSteps(TUint& aVolumeSteps) const = 0;
+    virtual void SetPropertyVolumeMilliDbPerStepChanged(Functor& aVolumeMilliDbPerStepChanged) = 0;
+    virtual void PropertyVolumeMilliDbPerStep(TUint& aVolumeMilliDbPerStep) const = 0;
+    virtual void SetPropertyBalanceMaxChanged(Functor& aBalanceMaxChanged) = 0;
+    virtual void PropertyBalanceMax(TUint& aBalanceMax) const = 0;
+    virtual void SetPropertyFadeMaxChanged(Functor& aFadeMaxChanged) = 0;
+    virtual void PropertyFadeMax(TUint& aFadeMax) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Volume:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgVolume1 : public CpProxy
+class CpProxyAvOpenhomeOrgVolume1 : public CpProxy, public ICpProxyAvOpenhomeOrgVolume1
 {
 public:
     /**

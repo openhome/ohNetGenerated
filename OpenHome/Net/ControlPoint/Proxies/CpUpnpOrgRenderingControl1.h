@@ -19,11 +19,123 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyUpnpOrgRenderingControl1
+{
+public:
+    virtual void SyncListPresets(TUint aInstanceID, Brh& aCurrentPresetNameList) = 0;
+    virtual void BeginListPresets(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndListPresets(IAsync& aAsync, Brh& aCurrentPresetNameList) = 0;
+    virtual void SyncSelectPreset(TUint aInstanceID, const Brx& aPresetName) = 0;
+    virtual void BeginSelectPreset(TUint aInstanceID, const Brx& aPresetName, FunctorAsync& aFunctor) = 0;
+    virtual void EndSelectPreset(IAsync& aAsync) = 0;
+    virtual void SyncGetBrightness(TUint aInstanceID, TUint& aCurrentBrightness) = 0;
+    virtual void BeginGetBrightness(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetBrightness(IAsync& aAsync, TUint& aCurrentBrightness) = 0;
+    virtual void SyncSetBrightness(TUint aInstanceID, TUint aDesiredBrightness) = 0;
+    virtual void BeginSetBrightness(TUint aInstanceID, TUint aDesiredBrightness, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetBrightness(IAsync& aAsync) = 0;
+    virtual void SyncGetContrast(TUint aInstanceID, TUint& aCurrentContrast) = 0;
+    virtual void BeginGetContrast(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetContrast(IAsync& aAsync, TUint& aCurrentContrast) = 0;
+    virtual void SyncSetContrast(TUint aInstanceID, TUint aDesiredContrast) = 0;
+    virtual void BeginSetContrast(TUint aInstanceID, TUint aDesiredContrast, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetContrast(IAsync& aAsync) = 0;
+    virtual void SyncGetSharpness(TUint aInstanceID, TUint& aCurrentSharpness) = 0;
+    virtual void BeginGetSharpness(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSharpness(IAsync& aAsync, TUint& aCurrentSharpness) = 0;
+    virtual void SyncSetSharpness(TUint aInstanceID, TUint aDesiredSharpness) = 0;
+    virtual void BeginSetSharpness(TUint aInstanceID, TUint aDesiredSharpness, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetSharpness(IAsync& aAsync) = 0;
+    virtual void SyncGetRedVideoGain(TUint aInstanceID, TUint& aCurrentRedVideoGain) = 0;
+    virtual void BeginGetRedVideoGain(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRedVideoGain(IAsync& aAsync, TUint& aCurrentRedVideoGain) = 0;
+    virtual void SyncSetRedVideoGain(TUint aInstanceID, TUint aDesiredRedVideoGain) = 0;
+    virtual void BeginSetRedVideoGain(TUint aInstanceID, TUint aDesiredRedVideoGain, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetRedVideoGain(IAsync& aAsync) = 0;
+    virtual void SyncGetGreenVideoGain(TUint aInstanceID, TUint& aCurrentGreenVideoGain) = 0;
+    virtual void BeginGetGreenVideoGain(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetGreenVideoGain(IAsync& aAsync, TUint& aCurrentGreenVideoGain) = 0;
+    virtual void SyncSetGreenVideoGain(TUint aInstanceID, TUint aDesiredGreenVideoGain) = 0;
+    virtual void BeginSetGreenVideoGain(TUint aInstanceID, TUint aDesiredGreenVideoGain, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetGreenVideoGain(IAsync& aAsync) = 0;
+    virtual void SyncGetBlueVideoGain(TUint aInstanceID, TUint& aCurrentBlueVideoGain) = 0;
+    virtual void BeginGetBlueVideoGain(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetBlueVideoGain(IAsync& aAsync, TUint& aCurrentBlueVideoGain) = 0;
+    virtual void SyncSetBlueVideoGain(TUint aInstanceID, TUint aDesiredBlueVideoGain) = 0;
+    virtual void BeginSetBlueVideoGain(TUint aInstanceID, TUint aDesiredBlueVideoGain, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetBlueVideoGain(IAsync& aAsync) = 0;
+    virtual void SyncGetRedVideoBlackLevel(TUint aInstanceID, TUint& aCurrentRedVideoBlackLevel) = 0;
+    virtual void BeginGetRedVideoBlackLevel(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRedVideoBlackLevel(IAsync& aAsync, TUint& aCurrentRedVideoBlackLevel) = 0;
+    virtual void SyncSetRedVideoBlackLevel(TUint aInstanceID, TUint aDesiredRedVideoBlackLevel) = 0;
+    virtual void BeginSetRedVideoBlackLevel(TUint aInstanceID, TUint aDesiredRedVideoBlackLevel, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetRedVideoBlackLevel(IAsync& aAsync) = 0;
+    virtual void SyncGetGreenVideoBlackLevel(TUint aInstanceID, TUint& aCurrentGreenVideoBlackLevel) = 0;
+    virtual void BeginGetGreenVideoBlackLevel(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetGreenVideoBlackLevel(IAsync& aAsync, TUint& aCurrentGreenVideoBlackLevel) = 0;
+    virtual void SyncSetGreenVideoBlackLevel(TUint aInstanceID, TUint aDesiredGreenVideoBlackLevel) = 0;
+    virtual void BeginSetGreenVideoBlackLevel(TUint aInstanceID, TUint aDesiredGreenVideoBlackLevel, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetGreenVideoBlackLevel(IAsync& aAsync) = 0;
+    virtual void SyncGetBlueVideoBlackLevel(TUint aInstanceID, TUint& aCurrentBlueVideoBlackLevel) = 0;
+    virtual void BeginGetBlueVideoBlackLevel(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetBlueVideoBlackLevel(IAsync& aAsync, TUint& aCurrentBlueVideoBlackLevel) = 0;
+    virtual void SyncSetBlueVideoBlackLevel(TUint aInstanceID, TUint aDesiredBlueVideoBlackLevel) = 0;
+    virtual void BeginSetBlueVideoBlackLevel(TUint aInstanceID, TUint aDesiredBlueVideoBlackLevel, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetBlueVideoBlackLevel(IAsync& aAsync) = 0;
+    virtual void SyncGetColorTemperature(TUint aInstanceID, TUint& aCurrentColorTemperature) = 0;
+    virtual void BeginGetColorTemperature(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetColorTemperature(IAsync& aAsync, TUint& aCurrentColorTemperature) = 0;
+    virtual void SyncSetColorTemperature(TUint aInstanceID, TUint aDesiredColorTemperature) = 0;
+    virtual void BeginSetColorTemperature(TUint aInstanceID, TUint aDesiredColorTemperature, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetColorTemperature(IAsync& aAsync) = 0;
+    virtual void SyncGetHorizontalKeystone(TUint aInstanceID, TInt& aCurrentHorizontalKeystone) = 0;
+    virtual void BeginGetHorizontalKeystone(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetHorizontalKeystone(IAsync& aAsync, TInt& aCurrentHorizontalKeystone) = 0;
+    virtual void SyncSetHorizontalKeystone(TUint aInstanceID, TInt aDesiredHorizontalKeystone) = 0;
+    virtual void BeginSetHorizontalKeystone(TUint aInstanceID, TInt aDesiredHorizontalKeystone, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetHorizontalKeystone(IAsync& aAsync) = 0;
+    virtual void SyncGetVerticalKeystone(TUint aInstanceID, TInt& aCurrentVerticalKeystone) = 0;
+    virtual void BeginGetVerticalKeystone(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetVerticalKeystone(IAsync& aAsync, TInt& aCurrentVerticalKeystone) = 0;
+    virtual void SyncSetVerticalKeystone(TUint aInstanceID, TInt aDesiredVerticalKeystone) = 0;
+    virtual void BeginSetVerticalKeystone(TUint aInstanceID, TInt aDesiredVerticalKeystone, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetVerticalKeystone(IAsync& aAsync) = 0;
+    virtual void SyncGetMute(TUint aInstanceID, const Brx& aChannel, TBool& aCurrentMute) = 0;
+    virtual void BeginGetMute(TUint aInstanceID, const Brx& aChannel, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetMute(IAsync& aAsync, TBool& aCurrentMute) = 0;
+    virtual void SyncSetMute(TUint aInstanceID, const Brx& aChannel, TBool aDesiredMute) = 0;
+    virtual void BeginSetMute(TUint aInstanceID, const Brx& aChannel, TBool aDesiredMute, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetMute(IAsync& aAsync) = 0;
+    virtual void SyncGetVolume(TUint aInstanceID, const Brx& aChannel, TUint& aCurrentVolume) = 0;
+    virtual void BeginGetVolume(TUint aInstanceID, const Brx& aChannel, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetVolume(IAsync& aAsync, TUint& aCurrentVolume) = 0;
+    virtual void SyncSetVolume(TUint aInstanceID, const Brx& aChannel, TUint aDesiredVolume) = 0;
+    virtual void BeginSetVolume(TUint aInstanceID, const Brx& aChannel, TUint aDesiredVolume, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetVolume(IAsync& aAsync) = 0;
+    virtual void SyncGetVolumeDB(TUint aInstanceID, const Brx& aChannel, TInt& aCurrentVolume) = 0;
+    virtual void BeginGetVolumeDB(TUint aInstanceID, const Brx& aChannel, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetVolumeDB(IAsync& aAsync, TInt& aCurrentVolume) = 0;
+    virtual void SyncSetVolumeDB(TUint aInstanceID, const Brx& aChannel, TInt aDesiredVolume) = 0;
+    virtual void BeginSetVolumeDB(TUint aInstanceID, const Brx& aChannel, TInt aDesiredVolume, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetVolumeDB(IAsync& aAsync) = 0;
+    virtual void SyncGetVolumeDBRange(TUint aInstanceID, const Brx& aChannel, TInt& aMinValue, TInt& aMaxValue) = 0;
+    virtual void BeginGetVolumeDBRange(TUint aInstanceID, const Brx& aChannel, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetVolumeDBRange(IAsync& aAsync, TInt& aMinValue, TInt& aMaxValue) = 0;
+    virtual void SyncGetLoudness(TUint aInstanceID, const Brx& aChannel, TBool& aCurrentLoudness) = 0;
+    virtual void BeginGetLoudness(TUint aInstanceID, const Brx& aChannel, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetLoudness(IAsync& aAsync, TBool& aCurrentLoudness) = 0;
+    virtual void SyncSetLoudness(TUint aInstanceID, const Brx& aChannel, TBool aDesiredLoudness) = 0;
+    virtual void BeginSetLoudness(TUint aInstanceID, const Brx& aChannel, TBool aDesiredLoudness, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetLoudness(IAsync& aAsync) = 0;
+    virtual void SetPropertyLastChangeChanged(Functor& aLastChangeChanged) = 0;
+    virtual void PropertyLastChange(Brhz& aLastChange) const = 0;
+};
+
 /**
  * Proxy for upnp.org:RenderingControl:1
  * @ingroup Proxies
  */
-class CpProxyUpnpOrgRenderingControl1 : public CpProxy
+class CpProxyUpnpOrgRenderingControl1 : public CpProxy, public ICpProxyUpnpOrgRenderingControl1
 {
 public:
     /**

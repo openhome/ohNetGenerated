@@ -19,11 +19,38 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgExakt1
+{
+public:
+    virtual void SyncDeviceList(Brh& aList) = 0;
+    virtual void BeginDeviceList(FunctorAsync& aFunctor) = 0;
+    virtual void EndDeviceList(IAsync& aAsync, Brh& aList) = 0;
+    virtual void SyncDeviceSettings(const Brx& aDeviceId, Brh& aSettings) = 0;
+    virtual void BeginDeviceSettings(const Brx& aDeviceId, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeviceSettings(IAsync& aAsync, Brh& aSettings) = 0;
+    virtual void SyncConnectionStatus(Brh& aConnectionStatus) = 0;
+    virtual void BeginConnectionStatus(FunctorAsync& aFunctor) = 0;
+    virtual void EndConnectionStatus(IAsync& aAsync, Brh& aConnectionStatus) = 0;
+    virtual void SyncSet(const Brx& aDeviceId, TUint aBankId, const Brx& aFileUri, TBool aMute, TBool aPersist) = 0;
+    virtual void BeginSet(const Brx& aDeviceId, TUint aBankId, const Brx& aFileUri, TBool aMute, TBool aPersist, FunctorAsync& aFunctor) = 0;
+    virtual void EndSet(IAsync& aAsync) = 0;
+    virtual void SyncReprogram(const Brx& aDeviceId, const Brx& aFileUri) = 0;
+    virtual void BeginReprogram(const Brx& aDeviceId, const Brx& aFileUri, FunctorAsync& aFunctor) = 0;
+    virtual void EndReprogram(IAsync& aAsync) = 0;
+    virtual void SyncReprogramFallback(const Brx& aDeviceId, const Brx& aFileUri) = 0;
+    virtual void BeginReprogramFallback(const Brx& aDeviceId, const Brx& aFileUri, FunctorAsync& aFunctor) = 0;
+    virtual void EndReprogramFallback(IAsync& aAsync) = 0;
+    virtual void SetPropertyDeviceListChanged(Functor& aDeviceListChanged) = 0;
+    virtual void PropertyDeviceList(Brhz& aDeviceList) const = 0;
+    virtual void SetPropertyConnectionStatusChanged(Functor& aConnectionStatusChanged) = 0;
+    virtual void PropertyConnectionStatus(Brhz& aConnectionStatus) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Exakt:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgExakt1 : public CpProxy
+class CpProxyAvOpenhomeOrgExakt1 : public CpProxy, public ICpProxyAvOpenhomeOrgExakt1
 {
 public:
     /**

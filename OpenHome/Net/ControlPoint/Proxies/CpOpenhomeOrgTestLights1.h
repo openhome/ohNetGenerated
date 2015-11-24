@@ -19,11 +19,37 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyOpenhomeOrgTestLights1
+{
+public:
+    virtual void SyncGetCount(TUint& aCount) = 0;
+    virtual void BeginGetCount(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetCount(IAsync& aAsync, TUint& aCount) = 0;
+    virtual void SyncGetRoom(TUint aIndex, Brh& aRoomName) = 0;
+    virtual void BeginGetRoom(TUint aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRoom(IAsync& aAsync, Brh& aRoomName) = 0;
+    virtual void SyncGetName(TUint aIndex, Brh& aFriendlyName) = 0;
+    virtual void BeginGetName(TUint aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetName(IAsync& aAsync, Brh& aFriendlyName) = 0;
+    virtual void SyncGetPosition(TUint aIndex, TUint& aX, TUint& aY, TUint& aZ) = 0;
+    virtual void BeginGetPosition(TUint aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetPosition(IAsync& aAsync, TUint& aX, TUint& aY, TUint& aZ) = 0;
+    virtual void SyncSetColor(TUint aIndex, TUint aColor) = 0;
+    virtual void BeginSetColor(TUint aIndex, TUint aColor, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetColor(IAsync& aAsync) = 0;
+    virtual void SyncGetColor(TUint aIndex, TUint& aColor) = 0;
+    virtual void BeginGetColor(TUint aIndex, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetColor(IAsync& aAsync, TUint& aColor) = 0;
+    virtual void SyncGetColorComponents(TUint aColor, TUint& aBrightness, TUint& aRed, TUint& aGreen, TUint& aBlue) = 0;
+    virtual void BeginGetColorComponents(TUint aColor, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetColorComponents(IAsync& aAsync, TUint& aBrightness, TUint& aRed, TUint& aGreen, TUint& aBlue) = 0;
+};
+
 /**
  * Proxy for openhome.org:TestLights:1
  * @ingroup Proxies
  */
-class CpProxyOpenhomeOrgTestLights1 : public CpProxy
+class CpProxyOpenhomeOrgTestLights1 : public CpProxy, public ICpProxyOpenhomeOrgTestLights1
 {
 public:
     /**

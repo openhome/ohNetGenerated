@@ -19,11 +19,88 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgPlaylistManager1
+{
+public:
+    virtual void SyncMetadata(Brh& aMetadata) = 0;
+    virtual void BeginMetadata(FunctorAsync& aFunctor) = 0;
+    virtual void EndMetadata(IAsync& aAsync, Brh& aMetadata) = 0;
+    virtual void SyncImagesXml(Brh& aImagesXml) = 0;
+    virtual void BeginImagesXml(FunctorAsync& aFunctor) = 0;
+    virtual void EndImagesXml(IAsync& aAsync, Brh& aImagesXml) = 0;
+    virtual void SyncPlaylistReadArray(TUint aId, Brh& aArray) = 0;
+    virtual void BeginPlaylistReadArray(TUint aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistReadArray(IAsync& aAsync, Brh& aArray) = 0;
+    virtual void SyncPlaylistReadList(const Brx& aIdList, Brh& aPlaylistList) = 0;
+    virtual void BeginPlaylistReadList(const Brx& aIdList, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistReadList(IAsync& aAsync, Brh& aPlaylistList) = 0;
+    virtual void SyncPlaylistRead(TUint aId, Brh& aName, Brh& aDescription, TUint& aImageId) = 0;
+    virtual void BeginPlaylistRead(TUint aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistRead(IAsync& aAsync, Brh& aName, Brh& aDescription, TUint& aImageId) = 0;
+    virtual void SyncPlaylistSetName(TUint aId, const Brx& aName) = 0;
+    virtual void BeginPlaylistSetName(TUint aId, const Brx& aName, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistSetName(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistSetDescription(TUint aId, const Brx& aDescription) = 0;
+    virtual void BeginPlaylistSetDescription(TUint aId, const Brx& aDescription, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistSetDescription(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistSetImageId(TUint aId, TUint aImageId) = 0;
+    virtual void BeginPlaylistSetImageId(TUint aId, TUint aImageId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistSetImageId(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistInsert(TUint aAfterId, const Brx& aName, const Brx& aDescription, TUint aImageId, TUint& aNewId) = 0;
+    virtual void BeginPlaylistInsert(TUint aAfterId, const Brx& aName, const Brx& aDescription, TUint aImageId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistInsert(IAsync& aAsync, TUint& aNewId) = 0;
+    virtual void SyncPlaylistDeleteId(TUint aValue) = 0;
+    virtual void BeginPlaylistDeleteId(TUint aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistDeleteId(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistMove(TUint aId, TUint aAfterId) = 0;
+    virtual void BeginPlaylistMove(TUint aId, TUint aAfterId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistMove(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistsMax(TUint& aValue) = 0;
+    virtual void BeginPlaylistsMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistsMax(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SyncTracksMax(TUint& aValue) = 0;
+    virtual void BeginTracksMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndTracksMax(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SyncPlaylistArrays(TUint& aToken, Brh& aIdArray, Brh& aTokenArray) = 0;
+    virtual void BeginPlaylistArrays(FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistArrays(IAsync& aAsync, TUint& aToken, Brh& aIdArray, Brh& aTokenArray) = 0;
+    virtual void SyncPlaylistArraysChanged(TUint aToken, TBool& aValue) = 0;
+    virtual void BeginPlaylistArraysChanged(TUint aToken, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistArraysChanged(IAsync& aAsync, TBool& aValue) = 0;
+    virtual void SyncRead(TUint aId, TUint aTrackId, Brh& aMetadata) = 0;
+    virtual void BeginRead(TUint aId, TUint aTrackId, FunctorAsync& aFunctor) = 0;
+    virtual void EndRead(IAsync& aAsync, Brh& aMetadata) = 0;
+    virtual void SyncReadList(TUint aId, const Brx& aTrackIdList, Brh& aTrackList) = 0;
+    virtual void BeginReadList(TUint aId, const Brx& aTrackIdList, FunctorAsync& aFunctor) = 0;
+    virtual void EndReadList(IAsync& aAsync, Brh& aTrackList) = 0;
+    virtual void SyncInsert(TUint aId, TUint aAfterTrackId, const Brx& aMetadata, TUint& aNewTrackId) = 0;
+    virtual void BeginInsert(TUint aId, TUint aAfterTrackId, const Brx& aMetadata, FunctorAsync& aFunctor) = 0;
+    virtual void EndInsert(IAsync& aAsync, TUint& aNewTrackId) = 0;
+    virtual void SyncDeleteId(TUint aId, TUint aTrackId) = 0;
+    virtual void BeginDeleteId(TUint aId, TUint aTrackId, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteId(IAsync& aAsync) = 0;
+    virtual void SyncDeleteAll(TUint aId) = 0;
+    virtual void BeginDeleteAll(TUint aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteAll(IAsync& aAsync) = 0;
+    virtual void SetPropertyMetadataChanged(Functor& aMetadataChanged) = 0;
+    virtual void PropertyMetadata(Brhz& aMetadata) const = 0;
+    virtual void SetPropertyImagesXmlChanged(Functor& aImagesXmlChanged) = 0;
+    virtual void PropertyImagesXml(Brhz& aImagesXml) const = 0;
+    virtual void SetPropertyIdArrayChanged(Functor& aIdArrayChanged) = 0;
+    virtual void PropertyIdArray(Brh& aIdArray) const = 0;
+    virtual void SetPropertyTokenArrayChanged(Functor& aTokenArrayChanged) = 0;
+    virtual void PropertyTokenArray(Brh& aTokenArray) const = 0;
+    virtual void SetPropertyPlaylistsMaxChanged(Functor& aPlaylistsMaxChanged) = 0;
+    virtual void PropertyPlaylistsMax(TUint& aPlaylistsMax) const = 0;
+    virtual void SetPropertyTracksMaxChanged(Functor& aTracksMaxChanged) = 0;
+    virtual void PropertyTracksMax(TUint& aTracksMax) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:PlaylistManager:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgPlaylistManager1 : public CpProxy
+class CpProxyAvOpenhomeOrgPlaylistManager1 : public CpProxy, public ICpProxyAvOpenhomeOrgPlaylistManager1
 {
 public:
     /**

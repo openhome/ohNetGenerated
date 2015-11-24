@@ -19,11 +19,72 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyUpnpOrgScheduledRecording1
+{
+public:
+    virtual void SyncGetSortCapabilities(Brh& aSortCaps, TUint& aSortLevelCap) = 0;
+    virtual void BeginGetSortCapabilities(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSortCapabilities(IAsync& aAsync, Brh& aSortCaps, TUint& aSortLevelCap) = 0;
+    virtual void SyncGetPropertyList(const Brx& aDataTypeID, Brh& aPropertyList) = 0;
+    virtual void BeginGetPropertyList(const Brx& aDataTypeID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetPropertyList(IAsync& aAsync, Brh& aPropertyList) = 0;
+    virtual void SyncGetAllowedValues(const Brx& aDataTypeID, const Brx& aFilter, Brh& aPropertyInfo) = 0;
+    virtual void BeginGetAllowedValues(const Brx& aDataTypeID, const Brx& aFilter, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetAllowedValues(IAsync& aAsync, Brh& aPropertyInfo) = 0;
+    virtual void SyncGetStateUpdateID(TUint& aId) = 0;
+    virtual void BeginGetStateUpdateID(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetStateUpdateID(IAsync& aAsync, TUint& aId) = 0;
+    virtual void SyncBrowseRecordSchedules(const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void BeginBrowseRecordSchedules(const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor) = 0;
+    virtual void EndBrowseRecordSchedules(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void SyncBrowseRecordTasks(const Brx& aRecordScheduleID, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void BeginBrowseRecordTasks(const Brx& aRecordScheduleID, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor) = 0;
+    virtual void EndBrowseRecordTasks(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void SyncCreateRecordSchedule(const Brx& aElements, Brh& aRecordScheduleID, Brh& aResult, TUint& aUpdateID) = 0;
+    virtual void BeginCreateRecordSchedule(const Brx& aElements, FunctorAsync& aFunctor) = 0;
+    virtual void EndCreateRecordSchedule(IAsync& aAsync, Brh& aRecordScheduleID, Brh& aResult, TUint& aUpdateID) = 0;
+    virtual void SyncDeleteRecordSchedule(const Brx& aRecordScheduleID) = 0;
+    virtual void BeginDeleteRecordSchedule(const Brx& aRecordScheduleID, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteRecordSchedule(IAsync& aAsync) = 0;
+    virtual void SyncGetRecordSchedule(const Brx& aRecordScheduleID, const Brx& aFilter, Brh& aResult, TUint& aUpdateID) = 0;
+    virtual void BeginGetRecordSchedule(const Brx& aRecordScheduleID, const Brx& aFilter, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRecordSchedule(IAsync& aAsync, Brh& aResult, TUint& aUpdateID) = 0;
+    virtual void SyncEnableRecordSchedule(const Brx& aRecordScheduleID) = 0;
+    virtual void BeginEnableRecordSchedule(const Brx& aRecordScheduleID, FunctorAsync& aFunctor) = 0;
+    virtual void EndEnableRecordSchedule(IAsync& aAsync) = 0;
+    virtual void SyncDisableRecordSchedule(const Brx& aRecordScheduleID) = 0;
+    virtual void BeginDisableRecordSchedule(const Brx& aRecordScheduleID, FunctorAsync& aFunctor) = 0;
+    virtual void EndDisableRecordSchedule(IAsync& aAsync) = 0;
+    virtual void SyncDeleteRecordTask(const Brx& aRecordTaskID) = 0;
+    virtual void BeginDeleteRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteRecordTask(IAsync& aAsync) = 0;
+    virtual void SyncGetRecordTask(const Brx& aRecordTaskID, const Brx& aFilter, Brh& aResult, TUint& aUpdateID) = 0;
+    virtual void BeginGetRecordTask(const Brx& aRecordTaskID, const Brx& aFilter, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRecordTask(IAsync& aAsync, Brh& aResult, TUint& aUpdateID) = 0;
+    virtual void SyncEnableRecordTask(const Brx& aRecordTaskID) = 0;
+    virtual void BeginEnableRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor) = 0;
+    virtual void EndEnableRecordTask(IAsync& aAsync) = 0;
+    virtual void SyncDisableRecordTask(const Brx& aRecordTaskID) = 0;
+    virtual void BeginDisableRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor) = 0;
+    virtual void EndDisableRecordTask(IAsync& aAsync) = 0;
+    virtual void SyncResetRecordTask(const Brx& aRecordTaskID) = 0;
+    virtual void BeginResetRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor) = 0;
+    virtual void EndResetRecordTask(IAsync& aAsync) = 0;
+    virtual void SyncGetRecordScheduleConflicts(const Brx& aRecordScheduleID, Brh& aRecordScheduleConflictIDList, TUint& aUpdateID) = 0;
+    virtual void BeginGetRecordScheduleConflicts(const Brx& aRecordScheduleID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRecordScheduleConflicts(IAsync& aAsync, Brh& aRecordScheduleConflictIDList, TUint& aUpdateID) = 0;
+    virtual void SyncGetRecordTaskConflicts(const Brx& aRecordTaskID, Brh& aRecordTaskConflictIDList, TUint& aUpdateID) = 0;
+    virtual void BeginGetRecordTaskConflicts(const Brx& aRecordTaskID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRecordTaskConflicts(IAsync& aAsync, Brh& aRecordTaskConflictIDList, TUint& aUpdateID) = 0;
+    virtual void SetPropertyLastChangeChanged(Functor& aLastChangeChanged) = 0;
+    virtual void PropertyLastChange(Brhz& aLastChange) const = 0;
+};
+
 /**
  * Proxy for upnp.org:ScheduledRecording:1
  * @ingroup Proxies
  */
-class CpProxyUpnpOrgScheduledRecording1 : public CpProxy
+class CpProxyUpnpOrgScheduledRecording1 : public CpProxy, public ICpProxyUpnpOrgScheduledRecording1
 {
 public:
     /**

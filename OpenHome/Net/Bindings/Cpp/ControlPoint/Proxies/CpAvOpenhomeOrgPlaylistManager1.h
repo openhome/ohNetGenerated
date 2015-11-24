@@ -20,11 +20,88 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgPlaylistManager1Cpp
+{
+public:
+    virtual void SyncMetadata(std::string& aMetadata) = 0;
+    virtual void BeginMetadata(FunctorAsync& aFunctor) = 0;
+    virtual void EndMetadata(IAsync& aAsync, std::string& aMetadata) = 0;
+    virtual void SyncImagesXml(std::string& aImagesXml) = 0;
+    virtual void BeginImagesXml(FunctorAsync& aFunctor) = 0;
+    virtual void EndImagesXml(IAsync& aAsync, std::string& aImagesXml) = 0;
+    virtual void SyncPlaylistReadArray(uint32_t aId, std::string& aArray) = 0;
+    virtual void BeginPlaylistReadArray(uint32_t aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistReadArray(IAsync& aAsync, std::string& aArray) = 0;
+    virtual void SyncPlaylistReadList(const std::string& aIdList, std::string& aPlaylistList) = 0;
+    virtual void BeginPlaylistReadList(const std::string& aIdList, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistReadList(IAsync& aAsync, std::string& aPlaylistList) = 0;
+    virtual void SyncPlaylistRead(uint32_t aId, std::string& aName, std::string& aDescription, uint32_t& aImageId) = 0;
+    virtual void BeginPlaylistRead(uint32_t aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistRead(IAsync& aAsync, std::string& aName, std::string& aDescription, uint32_t& aImageId) = 0;
+    virtual void SyncPlaylistSetName(uint32_t aId, const std::string& aName) = 0;
+    virtual void BeginPlaylistSetName(uint32_t aId, const std::string& aName, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistSetName(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistSetDescription(uint32_t aId, const std::string& aDescription) = 0;
+    virtual void BeginPlaylistSetDescription(uint32_t aId, const std::string& aDescription, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistSetDescription(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistSetImageId(uint32_t aId, uint32_t aImageId) = 0;
+    virtual void BeginPlaylistSetImageId(uint32_t aId, uint32_t aImageId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistSetImageId(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistInsert(uint32_t aAfterId, const std::string& aName, const std::string& aDescription, uint32_t aImageId, uint32_t& aNewId) = 0;
+    virtual void BeginPlaylistInsert(uint32_t aAfterId, const std::string& aName, const std::string& aDescription, uint32_t aImageId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistInsert(IAsync& aAsync, uint32_t& aNewId) = 0;
+    virtual void SyncPlaylistDeleteId(uint32_t aValue) = 0;
+    virtual void BeginPlaylistDeleteId(uint32_t aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistDeleteId(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistMove(uint32_t aId, uint32_t aAfterId) = 0;
+    virtual void BeginPlaylistMove(uint32_t aId, uint32_t aAfterId, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistMove(IAsync& aAsync) = 0;
+    virtual void SyncPlaylistsMax(uint32_t& aValue) = 0;
+    virtual void BeginPlaylistsMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistsMax(IAsync& aAsync, uint32_t& aValue) = 0;
+    virtual void SyncTracksMax(uint32_t& aValue) = 0;
+    virtual void BeginTracksMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndTracksMax(IAsync& aAsync, uint32_t& aValue) = 0;
+    virtual void SyncPlaylistArrays(uint32_t& aToken, std::string& aIdArray, std::string& aTokenArray) = 0;
+    virtual void BeginPlaylistArrays(FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistArrays(IAsync& aAsync, uint32_t& aToken, std::string& aIdArray, std::string& aTokenArray) = 0;
+    virtual void SyncPlaylistArraysChanged(uint32_t aToken, bool& aValue) = 0;
+    virtual void BeginPlaylistArraysChanged(uint32_t aToken, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlaylistArraysChanged(IAsync& aAsync, bool& aValue) = 0;
+    virtual void SyncRead(uint32_t aId, uint32_t aTrackId, std::string& aMetadata) = 0;
+    virtual void BeginRead(uint32_t aId, uint32_t aTrackId, FunctorAsync& aFunctor) = 0;
+    virtual void EndRead(IAsync& aAsync, std::string& aMetadata) = 0;
+    virtual void SyncReadList(uint32_t aId, const std::string& aTrackIdList, std::string& aTrackList) = 0;
+    virtual void BeginReadList(uint32_t aId, const std::string& aTrackIdList, FunctorAsync& aFunctor) = 0;
+    virtual void EndReadList(IAsync& aAsync, std::string& aTrackList) = 0;
+    virtual void SyncInsert(uint32_t aId, uint32_t aAfterTrackId, const std::string& aMetadata, uint32_t& aNewTrackId) = 0;
+    virtual void BeginInsert(uint32_t aId, uint32_t aAfterTrackId, const std::string& aMetadata, FunctorAsync& aFunctor) = 0;
+    virtual void EndInsert(IAsync& aAsync, uint32_t& aNewTrackId) = 0;
+    virtual void SyncDeleteId(uint32_t aId, uint32_t aTrackId) = 0;
+    virtual void BeginDeleteId(uint32_t aId, uint32_t aTrackId, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteId(IAsync& aAsync) = 0;
+    virtual void SyncDeleteAll(uint32_t aId) = 0;
+    virtual void BeginDeleteAll(uint32_t aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteAll(IAsync& aAsync) = 0;
+    virtual void SetPropertyMetadataChanged(Functor& aMetadataChanged) = 0;
+    virtual void PropertyMetadata(std::string& aMetadata) const = 0;
+    virtual void SetPropertyImagesXmlChanged(Functor& aImagesXmlChanged) = 0;
+    virtual void PropertyImagesXml(std::string& aImagesXml) const = 0;
+    virtual void SetPropertyIdArrayChanged(Functor& aIdArrayChanged) = 0;
+    virtual void PropertyIdArray(std::string& aIdArray) const = 0;
+    virtual void SetPropertyTokenArrayChanged(Functor& aTokenArrayChanged) = 0;
+    virtual void PropertyTokenArray(std::string& aTokenArray) const = 0;
+    virtual void SetPropertyPlaylistsMaxChanged(Functor& aPlaylistsMaxChanged) = 0;
+    virtual void PropertyPlaylistsMax(uint32_t& aPlaylistsMax) const = 0;
+    virtual void SetPropertyTracksMaxChanged(Functor& aTracksMaxChanged) = 0;
+    virtual void PropertyTracksMax(uint32_t& aTracksMax) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:PlaylistManager:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgPlaylistManager1Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgPlaylistManager1Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgPlaylistManager1Cpp
 {
 public:
     /**

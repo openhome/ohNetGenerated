@@ -20,11 +20,43 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgExakt2Cpp
+{
+public:
+    virtual void SyncDeviceList(std::string& aList) = 0;
+    virtual void BeginDeviceList(FunctorAsync& aFunctor) = 0;
+    virtual void EndDeviceList(IAsync& aAsync, std::string& aList) = 0;
+    virtual void SyncDeviceSettings(const std::string& aDeviceId, std::string& aSettings) = 0;
+    virtual void BeginDeviceSettings(const std::string& aDeviceId, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeviceSettings(IAsync& aAsync, std::string& aSettings) = 0;
+    virtual void SyncConnectionStatus(std::string& aConnectionStatus) = 0;
+    virtual void BeginConnectionStatus(FunctorAsync& aFunctor) = 0;
+    virtual void EndConnectionStatus(IAsync& aAsync, std::string& aConnectionStatus) = 0;
+    virtual void SyncSet(const std::string& aDeviceId, uint32_t aBankId, const std::string& aFileUri, bool aMute, bool aPersist) = 0;
+    virtual void BeginSet(const std::string& aDeviceId, uint32_t aBankId, const std::string& aFileUri, bool aMute, bool aPersist, FunctorAsync& aFunctor) = 0;
+    virtual void EndSet(IAsync& aAsync) = 0;
+    virtual void SyncReprogram(const std::string& aDeviceId, const std::string& aFileUri) = 0;
+    virtual void BeginReprogram(const std::string& aDeviceId, const std::string& aFileUri, FunctorAsync& aFunctor) = 0;
+    virtual void EndReprogram(IAsync& aAsync) = 0;
+    virtual void SyncReprogramFallback(const std::string& aDeviceId, const std::string& aFileUri) = 0;
+    virtual void BeginReprogramFallback(const std::string& aDeviceId, const std::string& aFileUri, FunctorAsync& aFunctor) = 0;
+    virtual void EndReprogramFallback(IAsync& aAsync) = 0;
+    virtual void SyncVersion(std::string& aVersion) = 0;
+    virtual void BeginVersion(FunctorAsync& aFunctor) = 0;
+    virtual void EndVersion(IAsync& aAsync, std::string& aVersion) = 0;
+    virtual void SetPropertyDeviceListChanged(Functor& aDeviceListChanged) = 0;
+    virtual void PropertyDeviceList(std::string& aDeviceList) const = 0;
+    virtual void SetPropertyConnectionStatusChanged(Functor& aConnectionStatusChanged) = 0;
+    virtual void PropertyConnectionStatus(std::string& aConnectionStatus) const = 0;
+    virtual void SetPropertyVersionChanged(Functor& aVersionChanged) = 0;
+    virtual void PropertyVersion(std::string& aVersion) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Exakt:2
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgExakt2Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgExakt2Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgExakt2Cpp
 {
 public:
     /**

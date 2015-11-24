@@ -20,11 +20,102 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgPlaylist1Cpp
+{
+public:
+    virtual void SyncPlay() = 0;
+    virtual void BeginPlay(FunctorAsync& aFunctor) = 0;
+    virtual void EndPlay(IAsync& aAsync) = 0;
+    virtual void SyncPause() = 0;
+    virtual void BeginPause(FunctorAsync& aFunctor) = 0;
+    virtual void EndPause(IAsync& aAsync) = 0;
+    virtual void SyncStop() = 0;
+    virtual void BeginStop(FunctorAsync& aFunctor) = 0;
+    virtual void EndStop(IAsync& aAsync) = 0;
+    virtual void SyncNext() = 0;
+    virtual void BeginNext(FunctorAsync& aFunctor) = 0;
+    virtual void EndNext(IAsync& aAsync) = 0;
+    virtual void SyncPrevious() = 0;
+    virtual void BeginPrevious(FunctorAsync& aFunctor) = 0;
+    virtual void EndPrevious(IAsync& aAsync) = 0;
+    virtual void SyncSetRepeat(bool aValue) = 0;
+    virtual void BeginSetRepeat(bool aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetRepeat(IAsync& aAsync) = 0;
+    virtual void SyncRepeat(bool& aValue) = 0;
+    virtual void BeginRepeat(FunctorAsync& aFunctor) = 0;
+    virtual void EndRepeat(IAsync& aAsync, bool& aValue) = 0;
+    virtual void SyncSetShuffle(bool aValue) = 0;
+    virtual void BeginSetShuffle(bool aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetShuffle(IAsync& aAsync) = 0;
+    virtual void SyncShuffle(bool& aValue) = 0;
+    virtual void BeginShuffle(FunctorAsync& aFunctor) = 0;
+    virtual void EndShuffle(IAsync& aAsync, bool& aValue) = 0;
+    virtual void SyncSeekSecondAbsolute(uint32_t aValue) = 0;
+    virtual void BeginSeekSecondAbsolute(uint32_t aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekSecondAbsolute(IAsync& aAsync) = 0;
+    virtual void SyncSeekSecondRelative(int32_t aValue) = 0;
+    virtual void BeginSeekSecondRelative(int32_t aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekSecondRelative(IAsync& aAsync) = 0;
+    virtual void SyncSeekId(uint32_t aValue) = 0;
+    virtual void BeginSeekId(uint32_t aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekId(IAsync& aAsync) = 0;
+    virtual void SyncSeekIndex(uint32_t aValue) = 0;
+    virtual void BeginSeekIndex(uint32_t aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekIndex(IAsync& aAsync) = 0;
+    virtual void SyncTransportState(std::string& aValue) = 0;
+    virtual void BeginTransportState(FunctorAsync& aFunctor) = 0;
+    virtual void EndTransportState(IAsync& aAsync, std::string& aValue) = 0;
+    virtual void SyncId(uint32_t& aValue) = 0;
+    virtual void BeginId(FunctorAsync& aFunctor) = 0;
+    virtual void EndId(IAsync& aAsync, uint32_t& aValue) = 0;
+    virtual void SyncRead(uint32_t aId, std::string& aUri, std::string& aMetadata) = 0;
+    virtual void BeginRead(uint32_t aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndRead(IAsync& aAsync, std::string& aUri, std::string& aMetadata) = 0;
+    virtual void SyncReadList(const std::string& aIdList, std::string& aTrackList) = 0;
+    virtual void BeginReadList(const std::string& aIdList, FunctorAsync& aFunctor) = 0;
+    virtual void EndReadList(IAsync& aAsync, std::string& aTrackList) = 0;
+    virtual void SyncInsert(uint32_t aAfterId, const std::string& aUri, const std::string& aMetadata, uint32_t& aNewId) = 0;
+    virtual void BeginInsert(uint32_t aAfterId, const std::string& aUri, const std::string& aMetadata, FunctorAsync& aFunctor) = 0;
+    virtual void EndInsert(IAsync& aAsync, uint32_t& aNewId) = 0;
+    virtual void SyncDeleteId(uint32_t aValue) = 0;
+    virtual void BeginDeleteId(uint32_t aValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteId(IAsync& aAsync) = 0;
+    virtual void SyncDeleteAll() = 0;
+    virtual void BeginDeleteAll(FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteAll(IAsync& aAsync) = 0;
+    virtual void SyncTracksMax(uint32_t& aValue) = 0;
+    virtual void BeginTracksMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndTracksMax(IAsync& aAsync, uint32_t& aValue) = 0;
+    virtual void SyncIdArray(uint32_t& aToken, std::string& aArray) = 0;
+    virtual void BeginIdArray(FunctorAsync& aFunctor) = 0;
+    virtual void EndIdArray(IAsync& aAsync, uint32_t& aToken, std::string& aArray) = 0;
+    virtual void SyncIdArrayChanged(uint32_t aToken, bool& aValue) = 0;
+    virtual void BeginIdArrayChanged(uint32_t aToken, FunctorAsync& aFunctor) = 0;
+    virtual void EndIdArrayChanged(IAsync& aAsync, bool& aValue) = 0;
+    virtual void SyncProtocolInfo(std::string& aValue) = 0;
+    virtual void BeginProtocolInfo(FunctorAsync& aFunctor) = 0;
+    virtual void EndProtocolInfo(IAsync& aAsync, std::string& aValue) = 0;
+    virtual void SetPropertyTransportStateChanged(Functor& aTransportStateChanged) = 0;
+    virtual void PropertyTransportState(std::string& aTransportState) const = 0;
+    virtual void SetPropertyRepeatChanged(Functor& aRepeatChanged) = 0;
+    virtual void PropertyRepeat(bool& aRepeat) const = 0;
+    virtual void SetPropertyShuffleChanged(Functor& aShuffleChanged) = 0;
+    virtual void PropertyShuffle(bool& aShuffle) const = 0;
+    virtual void SetPropertyIdChanged(Functor& aIdChanged) = 0;
+    virtual void PropertyId(uint32_t& aId) const = 0;
+    virtual void SetPropertyIdArrayChanged(Functor& aIdArrayChanged) = 0;
+    virtual void PropertyIdArray(std::string& aIdArray) const = 0;
+    virtual void SetPropertyTracksMaxChanged(Functor& aTracksMaxChanged) = 0;
+    virtual void PropertyTracksMax(uint32_t& aTracksMax) const = 0;
+    virtual void SetPropertyProtocolInfoChanged(Functor& aProtocolInfoChanged) = 0;
+    virtual void PropertyProtocolInfo(std::string& aProtocolInfo) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Playlist:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgPlaylist1Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgPlaylist1Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgPlaylist1Cpp
 {
 public:
     /**

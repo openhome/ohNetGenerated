@@ -19,11 +19,73 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyUpnpOrgContentDirectory2
+{
+public:
+    virtual void SyncGetSearchCapabilities(Brh& aSearchCaps) = 0;
+    virtual void BeginGetSearchCapabilities(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSearchCapabilities(IAsync& aAsync, Brh& aSearchCaps) = 0;
+    virtual void SyncGetSortCapabilities(Brh& aSortCaps) = 0;
+    virtual void BeginGetSortCapabilities(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSortCapabilities(IAsync& aAsync, Brh& aSortCaps) = 0;
+    virtual void SyncGetSortExtensionCapabilities(Brh& aSortExtensionCaps) = 0;
+    virtual void BeginGetSortExtensionCapabilities(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSortExtensionCapabilities(IAsync& aAsync, Brh& aSortExtensionCaps) = 0;
+    virtual void SyncGetFeatureList(Brh& aFeatureList) = 0;
+    virtual void BeginGetFeatureList(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetFeatureList(IAsync& aAsync, Brh& aFeatureList) = 0;
+    virtual void SyncGetSystemUpdateID(TUint& aId) = 0;
+    virtual void BeginGetSystemUpdateID(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSystemUpdateID(IAsync& aAsync, TUint& aId) = 0;
+    virtual void SyncBrowse(const Brx& aObjectID, const Brx& aBrowseFlag, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void BeginBrowse(const Brx& aObjectID, const Brx& aBrowseFlag, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor) = 0;
+    virtual void EndBrowse(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void SyncSearch(const Brx& aContainerID, const Brx& aSearchCriteria, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void BeginSearch(const Brx& aContainerID, const Brx& aSearchCriteria, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor) = 0;
+    virtual void EndSearch(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID) = 0;
+    virtual void SyncCreateObject(const Brx& aContainerID, const Brx& aElements, Brh& aObjectID, Brh& aResult) = 0;
+    virtual void BeginCreateObject(const Brx& aContainerID, const Brx& aElements, FunctorAsync& aFunctor) = 0;
+    virtual void EndCreateObject(IAsync& aAsync, Brh& aObjectID, Brh& aResult) = 0;
+    virtual void SyncDestroyObject(const Brx& aObjectID) = 0;
+    virtual void BeginDestroyObject(const Brx& aObjectID, FunctorAsync& aFunctor) = 0;
+    virtual void EndDestroyObject(IAsync& aAsync) = 0;
+    virtual void SyncUpdateObject(const Brx& aObjectID, const Brx& aCurrentTagValue, const Brx& aNewTagValue) = 0;
+    virtual void BeginUpdateObject(const Brx& aObjectID, const Brx& aCurrentTagValue, const Brx& aNewTagValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndUpdateObject(IAsync& aAsync) = 0;
+    virtual void SyncMoveObject(const Brx& aObjectID, const Brx& aNewParentID, Brh& aNewObjectID) = 0;
+    virtual void BeginMoveObject(const Brx& aObjectID, const Brx& aNewParentID, FunctorAsync& aFunctor) = 0;
+    virtual void EndMoveObject(IAsync& aAsync, Brh& aNewObjectID) = 0;
+    virtual void SyncImportResource(const Brx& aSourceURI, const Brx& aDestinationURI, TUint& aTransferID) = 0;
+    virtual void BeginImportResource(const Brx& aSourceURI, const Brx& aDestinationURI, FunctorAsync& aFunctor) = 0;
+    virtual void EndImportResource(IAsync& aAsync, TUint& aTransferID) = 0;
+    virtual void SyncExportResource(const Brx& aSourceURI, const Brx& aDestinationURI, TUint& aTransferID) = 0;
+    virtual void BeginExportResource(const Brx& aSourceURI, const Brx& aDestinationURI, FunctorAsync& aFunctor) = 0;
+    virtual void EndExportResource(IAsync& aAsync, TUint& aTransferID) = 0;
+    virtual void SyncDeleteResource(const Brx& aResourceURI) = 0;
+    virtual void BeginDeleteResource(const Brx& aResourceURI, FunctorAsync& aFunctor) = 0;
+    virtual void EndDeleteResource(IAsync& aAsync) = 0;
+    virtual void SyncStopTransferResource(TUint aTransferID) = 0;
+    virtual void BeginStopTransferResource(TUint aTransferID, FunctorAsync& aFunctor) = 0;
+    virtual void EndStopTransferResource(IAsync& aAsync) = 0;
+    virtual void SyncGetTransferProgress(TUint aTransferID, Brh& aTransferStatus, Brh& aTransferLength, Brh& aTransferTotal) = 0;
+    virtual void BeginGetTransferProgress(TUint aTransferID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetTransferProgress(IAsync& aAsync, Brh& aTransferStatus, Brh& aTransferLength, Brh& aTransferTotal) = 0;
+    virtual void SyncCreateReference(const Brx& aContainerID, const Brx& aObjectID, Brh& aNewID) = 0;
+    virtual void BeginCreateReference(const Brx& aContainerID, const Brx& aObjectID, FunctorAsync& aFunctor) = 0;
+    virtual void EndCreateReference(IAsync& aAsync, Brh& aNewID) = 0;
+    virtual void SetPropertySystemUpdateIDChanged(Functor& aSystemUpdateIDChanged) = 0;
+    virtual void PropertySystemUpdateID(TUint& aSystemUpdateID) const = 0;
+    virtual void SetPropertyContainerUpdateIDsChanged(Functor& aContainerUpdateIDsChanged) = 0;
+    virtual void PropertyContainerUpdateIDs(Brhz& aContainerUpdateIDs) const = 0;
+    virtual void SetPropertyTransferIDsChanged(Functor& aTransferIDsChanged) = 0;
+    virtual void PropertyTransferIDs(Brhz& aTransferIDs) const = 0;
+};
+
 /**
  * Proxy for upnp.org:ContentDirectory:2
  * @ingroup Proxies
  */
-class CpProxyUpnpOrgContentDirectory2 : public CpProxy
+class CpProxyUpnpOrgContentDirectory2 : public CpProxy, public ICpProxyUpnpOrgContentDirectory2
 {
 public:
     /**

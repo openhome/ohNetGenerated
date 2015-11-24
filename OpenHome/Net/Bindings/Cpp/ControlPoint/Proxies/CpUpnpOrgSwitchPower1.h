@@ -20,11 +20,27 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyUpnpOrgSwitchPower1Cpp
+{
+public:
+    virtual void SyncSetTarget(bool anewTargetValue) = 0;
+    virtual void BeginSetTarget(bool anewTargetValue, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetTarget(IAsync& aAsync) = 0;
+    virtual void SyncGetTarget(bool& aRetTargetValue) = 0;
+    virtual void BeginGetTarget(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetTarget(IAsync& aAsync, bool& aRetTargetValue) = 0;
+    virtual void SyncGetStatus(bool& aResultStatus) = 0;
+    virtual void BeginGetStatus(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetStatus(IAsync& aAsync, bool& aResultStatus) = 0;
+    virtual void SetPropertyStatusChanged(Functor& aStatusChanged) = 0;
+    virtual void PropertyStatus(bool& aStatus) const = 0;
+};
+
 /**
  * Proxy for upnp.org:SwitchPower:1
  * @ingroup Proxies
  */
-class CpProxyUpnpOrgSwitchPower1Cpp : public CpProxy
+class CpProxyUpnpOrgSwitchPower1Cpp : public CpProxy, public ICpProxyUpnpOrgSwitchPower1Cpp
 {
 public:
     /**

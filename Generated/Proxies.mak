@@ -94,6 +94,12 @@ objects_proxies = \
                   $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.$(objext) \
                   $(objdir)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) \
                   $(objdir)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) \
+                  $(objdir)CpLinnCoUkFlash1.$(objext) \
+                  $(objdir)CpLinnCoUkFlash1C.$(objext) \
+                  $(objdir)CpLinnCoUkFlash1Std.$(objext) \
+                  $(objdir)CpLinnCoUkVolkano1.$(objext) \
+                  $(objdir)CpLinnCoUkVolkano1C.$(objext) \
+                  $(objdir)CpLinnCoUkVolkano1Std.$(objext) \
 
 # Service proxies have well controlled dependencies so we can document a more limited set of headers
 headers_proxy = $(inc_build)/OpenHome/Buffer.h \
@@ -139,6 +145,8 @@ proxy_dotnet_assemblies = \
         CpOpenhomeOrgTestBasic1.net.dll \
         CpOpenhomeOrgTestLights1.net.dll \
         CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
+        CpLinnCoUkFlash1.net.dll \
+        CpLinnCoUkVolkano1.net.dll \
 
 proxy_dotnet_assemblies_with_path = \
         $(objdir)CpUpnpOrgAVTransport1.net.dll \
@@ -171,6 +179,8 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpOpenhomeOrgTestBasic1.net.dll \
         $(objdir)CpOpenhomeOrgTestLights1.net.dll \
         $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
+        $(objdir)CpLinnCoUkFlash1.net.dll \
+        $(objdir)CpLinnCoUkVolkano1.net.dll \
 
 proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport1.class \
@@ -203,6 +213,8 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestBasic1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestLights1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgSubscriptionLongPoll1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class \
 
 
 proxies : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_proxies)
@@ -387,6 +399,18 @@ $(objdir)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) : $(proxyC)CpOpenhomeOrgS
 	$(compiler)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpOpenhomeOrgSubscriptionLongPoll1C.cpp
 $(objdir)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) : $(proxyCppStd)CpOpenhomeOrgSubscriptionLongPoll1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpOpenhomeOrgSubscriptionLongPoll1.h
 	$(compiler)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpOpenhomeOrgSubscriptionLongPoll1Std.cpp
+$(objdir)CpLinnCoUkFlash1.$(objext) : $(proxyCppCore)CpLinnCoUkFlash1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkFlash1.h
+	$(compiler)CpLinnCoUkFlash1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkFlash1.cpp
+$(objdir)CpLinnCoUkFlash1C.$(objext) : $(proxyC)CpLinnCoUkFlash1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkFlash1.h
+	$(compiler)CpLinnCoUkFlash1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkFlash1C.cpp
+$(objdir)CpLinnCoUkFlash1Std.$(objext) : $(proxyCppStd)CpLinnCoUkFlash1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkFlash1.h
+	$(compiler)CpLinnCoUkFlash1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkFlash1Std.cpp
+$(objdir)CpLinnCoUkVolkano1.$(objext) : $(proxyCppCore)CpLinnCoUkVolkano1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkVolkano1.h
+	$(compiler)CpLinnCoUkVolkano1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkVolkano1.cpp
+$(objdir)CpLinnCoUkVolkano1C.$(objext) : $(proxyC)CpLinnCoUkVolkano1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkVolkano1.h
+	$(compiler)CpLinnCoUkVolkano1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkVolkano1C.cpp
+$(objdir)CpLinnCoUkVolkano1Std.$(objext) : $(proxyCppStd)CpLinnCoUkVolkano1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkVolkano1.h
+	$(compiler)CpLinnCoUkVolkano1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkVolkano1Std.cpp
 
 # Proxy assemblies for .NET:
 
@@ -542,6 +566,16 @@ $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(
         /out:$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
+$(objdir)CpLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkFlash1.cs
+	$(csharp) /t:library \
+        /out:$(objdir)CpLinnCoUkFlash1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpLinnCoUkFlash1.cs
+$(objdir)CpLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkVolkano1.cs
+	$(csharp) /t:library \
+        /out:$(objdir)CpLinnCoUkVolkano1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpLinnCoUkVolkano1.cs
 
 # Proxy classes for Java:
 
@@ -607,5 +641,9 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestLights1.cla
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgTestLights1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgSubscriptionLongPoll1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyOpenhomeOrgSubscriptionLongPoll1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgSubscriptionLongPoll1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkFlash1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkFlash1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkVolkano1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkVolkano1.java
 
 

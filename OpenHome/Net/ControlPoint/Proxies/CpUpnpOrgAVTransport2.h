@@ -19,11 +19,83 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyUpnpOrgAVTransport2
+{
+public:
+    virtual void SyncSetAVTransportURI(TUint aInstanceID, const Brx& aCurrentURI, const Brx& aCurrentURIMetaData) = 0;
+    virtual void BeginSetAVTransportURI(TUint aInstanceID, const Brx& aCurrentURI, const Brx& aCurrentURIMetaData, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetAVTransportURI(IAsync& aAsync) = 0;
+    virtual void SyncSetNextAVTransportURI(TUint aInstanceID, const Brx& aNextURI, const Brx& aNextURIMetaData) = 0;
+    virtual void BeginSetNextAVTransportURI(TUint aInstanceID, const Brx& aNextURI, const Brx& aNextURIMetaData, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetNextAVTransportURI(IAsync& aAsync) = 0;
+    virtual void SyncGetMediaInfo(TUint aInstanceID, TUint& aNrTracks, Brh& aMediaDuration, Brh& aCurrentURI, Brh& aCurrentURIMetaData, Brh& aNextURI, Brh& aNextURIMetaData, Brh& aPlayMedium, Brh& aRecordMedium, Brh& aWriteStatus) = 0;
+    virtual void BeginGetMediaInfo(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetMediaInfo(IAsync& aAsync, TUint& aNrTracks, Brh& aMediaDuration, Brh& aCurrentURI, Brh& aCurrentURIMetaData, Brh& aNextURI, Brh& aNextURIMetaData, Brh& aPlayMedium, Brh& aRecordMedium, Brh& aWriteStatus) = 0;
+    virtual void SyncGetMediaInfo_Ext(TUint aInstanceID, Brh& aCurrentType, TUint& aNrTracks, Brh& aMediaDuration, Brh& aCurrentURI, Brh& aCurrentURIMetaData, Brh& aNextURI, Brh& aNextURIMetaData, Brh& aPlayMedium, Brh& aRecordMedium, Brh& aWriteStatus) = 0;
+    virtual void BeginGetMediaInfo_Ext(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetMediaInfo_Ext(IAsync& aAsync, Brh& aCurrentType, TUint& aNrTracks, Brh& aMediaDuration, Brh& aCurrentURI, Brh& aCurrentURIMetaData, Brh& aNextURI, Brh& aNextURIMetaData, Brh& aPlayMedium, Brh& aRecordMedium, Brh& aWriteStatus) = 0;
+    virtual void SyncGetTransportInfo(TUint aInstanceID, Brh& aCurrentTransportState, Brh& aCurrentTransportStatus, Brh& aCurrentSpeed) = 0;
+    virtual void BeginGetTransportInfo(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetTransportInfo(IAsync& aAsync, Brh& aCurrentTransportState, Brh& aCurrentTransportStatus, Brh& aCurrentSpeed) = 0;
+    virtual void SyncGetPositionInfo(TUint aInstanceID, TUint& aTrack, Brh& aTrackDuration, Brh& aTrackMetaData, Brh& aTrackURI, Brh& aRelTime, Brh& aAbsTime, TInt& aRelCount, TInt& aAbsCount) = 0;
+    virtual void BeginGetPositionInfo(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetPositionInfo(IAsync& aAsync, TUint& aTrack, Brh& aTrackDuration, Brh& aTrackMetaData, Brh& aTrackURI, Brh& aRelTime, Brh& aAbsTime, TInt& aRelCount, TInt& aAbsCount) = 0;
+    virtual void SyncGetDeviceCapabilities(TUint aInstanceID, Brh& aPlayMedia, Brh& aRecMedia, Brh& aRecQualityModes) = 0;
+    virtual void BeginGetDeviceCapabilities(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetDeviceCapabilities(IAsync& aAsync, Brh& aPlayMedia, Brh& aRecMedia, Brh& aRecQualityModes) = 0;
+    virtual void SyncGetTransportSettings(TUint aInstanceID, Brh& aPlayMode, Brh& aRecQualityMode) = 0;
+    virtual void BeginGetTransportSettings(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetTransportSettings(IAsync& aAsync, Brh& aPlayMode, Brh& aRecQualityMode) = 0;
+    virtual void SyncStop(TUint aInstanceID) = 0;
+    virtual void BeginStop(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndStop(IAsync& aAsync) = 0;
+    virtual void SyncPlay(TUint aInstanceID, const Brx& aSpeed) = 0;
+    virtual void BeginPlay(TUint aInstanceID, const Brx& aSpeed, FunctorAsync& aFunctor) = 0;
+    virtual void EndPlay(IAsync& aAsync) = 0;
+    virtual void SyncPause(TUint aInstanceID) = 0;
+    virtual void BeginPause(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndPause(IAsync& aAsync) = 0;
+    virtual void SyncRecord(TUint aInstanceID) = 0;
+    virtual void BeginRecord(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndRecord(IAsync& aAsync) = 0;
+    virtual void SyncSeek(TUint aInstanceID, const Brx& aUnit, const Brx& aTarget) = 0;
+    virtual void BeginSeek(TUint aInstanceID, const Brx& aUnit, const Brx& aTarget, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeek(IAsync& aAsync) = 0;
+    virtual void SyncNext(TUint aInstanceID) = 0;
+    virtual void BeginNext(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndNext(IAsync& aAsync) = 0;
+    virtual void SyncPrevious(TUint aInstanceID) = 0;
+    virtual void BeginPrevious(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndPrevious(IAsync& aAsync) = 0;
+    virtual void SyncSetPlayMode(TUint aInstanceID, const Brx& aNewPlayMode) = 0;
+    virtual void BeginSetPlayMode(TUint aInstanceID, const Brx& aNewPlayMode, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetPlayMode(IAsync& aAsync) = 0;
+    virtual void SyncSetRecordQualityMode(TUint aInstanceID, const Brx& aNewRecordQualityMode) = 0;
+    virtual void BeginSetRecordQualityMode(TUint aInstanceID, const Brx& aNewRecordQualityMode, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetRecordQualityMode(IAsync& aAsync) = 0;
+    virtual void SyncGetCurrentTransportActions(TUint aInstanceID, Brh& aActions) = 0;
+    virtual void BeginGetCurrentTransportActions(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetCurrentTransportActions(IAsync& aAsync, Brh& aActions) = 0;
+    virtual void SyncGetDRMState(TUint aInstanceID, Brh& aCurrentDRMState) = 0;
+    virtual void BeginGetDRMState(TUint aInstanceID, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetDRMState(IAsync& aAsync, Brh& aCurrentDRMState) = 0;
+    virtual void SyncGetStateVariables(TUint aInstanceID, const Brx& aStateVariableList, Brh& aStateVariableValuePairs) = 0;
+    virtual void BeginGetStateVariables(TUint aInstanceID, const Brx& aStateVariableList, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetStateVariables(IAsync& aAsync, Brh& aStateVariableValuePairs) = 0;
+    virtual void SyncSetStateVariables(TUint aInstanceID, const Brx& aAVTransportUDN, const Brx& aServiceType, const Brx& aServiceId, const Brx& aStateVariableValuePairs, Brh& aStateVariableList) = 0;
+    virtual void BeginSetStateVariables(TUint aInstanceID, const Brx& aAVTransportUDN, const Brx& aServiceType, const Brx& aServiceId, const Brx& aStateVariableValuePairs, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetStateVariables(IAsync& aAsync, Brh& aStateVariableList) = 0;
+    virtual void SetPropertyLastChangeChanged(Functor& aLastChangeChanged) = 0;
+    virtual void PropertyLastChange(Brhz& aLastChange) const = 0;
+    virtual void SetPropertyDRMStateChanged(Functor& aDRMStateChanged) = 0;
+    virtual void PropertyDRMState(Brhz& aDRMState) const = 0;
+};
+
 /**
  * Proxy for upnp.org:AVTransport:2
  * @ingroup Proxies
  */
-class CpProxyUpnpOrgAVTransport2 : public CpProxy
+class CpProxyUpnpOrgAVTransport2 : public CpProxy, public ICpProxyUpnpOrgAVTransport2
 {
 public:
     /**

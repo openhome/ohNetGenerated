@@ -20,11 +20,42 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgReceiver1Cpp
+{
+public:
+    virtual void SyncPlay() = 0;
+    virtual void BeginPlay(FunctorAsync& aFunctor) = 0;
+    virtual void EndPlay(IAsync& aAsync) = 0;
+    virtual void SyncStop() = 0;
+    virtual void BeginStop(FunctorAsync& aFunctor) = 0;
+    virtual void EndStop(IAsync& aAsync) = 0;
+    virtual void SyncSetSender(const std::string& aUri, const std::string& aMetadata) = 0;
+    virtual void BeginSetSender(const std::string& aUri, const std::string& aMetadata, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetSender(IAsync& aAsync) = 0;
+    virtual void SyncSender(std::string& aUri, std::string& aMetadata) = 0;
+    virtual void BeginSender(FunctorAsync& aFunctor) = 0;
+    virtual void EndSender(IAsync& aAsync, std::string& aUri, std::string& aMetadata) = 0;
+    virtual void SyncProtocolInfo(std::string& aValue) = 0;
+    virtual void BeginProtocolInfo(FunctorAsync& aFunctor) = 0;
+    virtual void EndProtocolInfo(IAsync& aAsync, std::string& aValue) = 0;
+    virtual void SyncTransportState(std::string& aValue) = 0;
+    virtual void BeginTransportState(FunctorAsync& aFunctor) = 0;
+    virtual void EndTransportState(IAsync& aAsync, std::string& aValue) = 0;
+    virtual void SetPropertyUriChanged(Functor& aUriChanged) = 0;
+    virtual void PropertyUri(std::string& aUri) const = 0;
+    virtual void SetPropertyMetadataChanged(Functor& aMetadataChanged) = 0;
+    virtual void PropertyMetadata(std::string& aMetadata) const = 0;
+    virtual void SetPropertyTransportStateChanged(Functor& aTransportStateChanged) = 0;
+    virtual void PropertyTransportState(std::string& aTransportState) const = 0;
+    virtual void SetPropertyProtocolInfoChanged(Functor& aProtocolInfoChanged) = 0;
+    virtual void PropertyProtocolInfo(std::string& aProtocolInfo) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Receiver:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgReceiver1Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgReceiver1Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgReceiver1Cpp
 {
 public:
     /**

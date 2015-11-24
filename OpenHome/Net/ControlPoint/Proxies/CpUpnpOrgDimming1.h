@@ -19,11 +19,89 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyUpnpOrgDimming1
+{
+public:
+    virtual void SyncSetLoadLevelTarget(TUint anewLoadlevelTarget) = 0;
+    virtual void BeginSetLoadLevelTarget(TUint anewLoadlevelTarget, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetLoadLevelTarget(IAsync& aAsync) = 0;
+    virtual void SyncGetLoadLevelTarget(TUint& aGetLoadlevelTarget) = 0;
+    virtual void BeginGetLoadLevelTarget(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetLoadLevelTarget(IAsync& aAsync, TUint& aGetLoadlevelTarget) = 0;
+    virtual void SyncGetLoadLevelStatus(TUint& aretLoadlevelStatus) = 0;
+    virtual void BeginGetLoadLevelStatus(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetLoadLevelStatus(IAsync& aAsync, TUint& aretLoadlevelStatus) = 0;
+    virtual void SyncSetOnEffectLevel(TUint anewOnEffectLevel) = 0;
+    virtual void BeginSetOnEffectLevel(TUint anewOnEffectLevel, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetOnEffectLevel(IAsync& aAsync) = 0;
+    virtual void SyncSetOnEffect(const Brx& anewOnEffect) = 0;
+    virtual void BeginSetOnEffect(const Brx& anewOnEffect, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetOnEffect(IAsync& aAsync) = 0;
+    virtual void SyncGetOnEffectParameters(Brh& aretOnEffect, TUint& aretOnEffectLevel) = 0;
+    virtual void BeginGetOnEffectParameters(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetOnEffectParameters(IAsync& aAsync, Brh& aretOnEffect, TUint& aretOnEffectLevel) = 0;
+    virtual void SyncStepUp() = 0;
+    virtual void BeginStepUp(FunctorAsync& aFunctor) = 0;
+    virtual void EndStepUp(IAsync& aAsync) = 0;
+    virtual void SyncStepDown() = 0;
+    virtual void BeginStepDown(FunctorAsync& aFunctor) = 0;
+    virtual void EndStepDown(IAsync& aAsync) = 0;
+    virtual void SyncStartRampUp() = 0;
+    virtual void BeginStartRampUp(FunctorAsync& aFunctor) = 0;
+    virtual void EndStartRampUp(IAsync& aAsync) = 0;
+    virtual void SyncStartRampDown() = 0;
+    virtual void BeginStartRampDown(FunctorAsync& aFunctor) = 0;
+    virtual void EndStartRampDown(IAsync& aAsync) = 0;
+    virtual void SyncStopRamp() = 0;
+    virtual void BeginStopRamp(FunctorAsync& aFunctor) = 0;
+    virtual void EndStopRamp(IAsync& aAsync) = 0;
+    virtual void SyncStartRampToLevel(TUint anewLoadLevelTarget, TUint anewRampTime) = 0;
+    virtual void BeginStartRampToLevel(TUint anewLoadLevelTarget, TUint anewRampTime, FunctorAsync& aFunctor) = 0;
+    virtual void EndStartRampToLevel(IAsync& aAsync) = 0;
+    virtual void SyncSetStepDelta(TUint anewStepDelta) = 0;
+    virtual void BeginSetStepDelta(TUint anewStepDelta, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetStepDelta(IAsync& aAsync) = 0;
+    virtual void SyncGetStepDelta(TUint& aretStepDelta) = 0;
+    virtual void BeginGetStepDelta(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetStepDelta(IAsync& aAsync, TUint& aretStepDelta) = 0;
+    virtual void SyncSetRampRate(TUint anewRampRate) = 0;
+    virtual void BeginSetRampRate(TUint anewRampRate, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetRampRate(IAsync& aAsync) = 0;
+    virtual void SyncGetRampRate(TUint& aretRampRate) = 0;
+    virtual void BeginGetRampRate(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRampRate(IAsync& aAsync, TUint& aretRampRate) = 0;
+    virtual void SyncPauseRamp() = 0;
+    virtual void BeginPauseRamp(FunctorAsync& aFunctor) = 0;
+    virtual void EndPauseRamp(IAsync& aAsync) = 0;
+    virtual void SyncResumeRamp() = 0;
+    virtual void BeginResumeRamp(FunctorAsync& aFunctor) = 0;
+    virtual void EndResumeRamp(IAsync& aAsync) = 0;
+    virtual void SyncGetIsRamping(TBool& aretIsRamping) = 0;
+    virtual void BeginGetIsRamping(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetIsRamping(IAsync& aAsync, TBool& aretIsRamping) = 0;
+    virtual void SyncGetRampPaused(TBool& aretRampPaused) = 0;
+    virtual void BeginGetRampPaused(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRampPaused(IAsync& aAsync, TBool& aretRampPaused) = 0;
+    virtual void SyncGetRampTime(TUint& aretRampTime) = 0;
+    virtual void BeginGetRampTime(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetRampTime(IAsync& aAsync, TUint& aretRampTime) = 0;
+    virtual void SetPropertyLoadLevelStatusChanged(Functor& aLoadLevelStatusChanged) = 0;
+    virtual void PropertyLoadLevelStatus(TUint& aLoadLevelStatus) const = 0;
+    virtual void SetPropertyStepDeltaChanged(Functor& aStepDeltaChanged) = 0;
+    virtual void PropertyStepDelta(TUint& aStepDelta) const = 0;
+    virtual void SetPropertyRampRateChanged(Functor& aRampRateChanged) = 0;
+    virtual void PropertyRampRate(TUint& aRampRate) const = 0;
+    virtual void SetPropertyIsRampingChanged(Functor& aIsRampingChanged) = 0;
+    virtual void PropertyIsRamping(TBool& aIsRamping) const = 0;
+    virtual void SetPropertyRampPausedChanged(Functor& aRampPausedChanged) = 0;
+    virtual void PropertyRampPaused(TBool& aRampPaused) const = 0;
+};
+
 /**
  * Proxy for upnp.org:Dimming:1
  * @ingroup Proxies
  */
-class CpProxyUpnpOrgDimming1 : public CpProxy
+class CpProxyUpnpOrgDimming1 : public CpProxy, public ICpProxyUpnpOrgDimming1
 {
 public:
     /**

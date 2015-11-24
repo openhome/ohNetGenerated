@@ -19,11 +19,69 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgMediaServer1
+{
+public:
+    virtual void SyncManufacturer(Brh& aName, Brh& aInfo, Brh& aUrl, Brh& aImageUri) = 0;
+    virtual void BeginManufacturer(FunctorAsync& aFunctor) = 0;
+    virtual void EndManufacturer(IAsync& aAsync, Brh& aName, Brh& aInfo, Brh& aUrl, Brh& aImageUri) = 0;
+    virtual void SyncModel(Brh& aName, Brh& aInfo, Brh& aUrl, Brh& aImageUri) = 0;
+    virtual void BeginModel(FunctorAsync& aFunctor) = 0;
+    virtual void EndModel(IAsync& aAsync, Brh& aName, Brh& aInfo, Brh& aUrl, Brh& aImageUri) = 0;
+    virtual void SyncProduct(Brh& aName, Brh& aInfo, Brh& aUrl, Brh& aImageUri) = 0;
+    virtual void BeginProduct(FunctorAsync& aFunctor) = 0;
+    virtual void EndProduct(IAsync& aAsync, Brh& aName, Brh& aInfo, Brh& aUrl, Brh& aImageUri) = 0;
+    virtual void SyncAttributes(Brh& aValue) = 0;
+    virtual void BeginAttributes(FunctorAsync& aFunctor) = 0;
+    virtual void EndAttributes(IAsync& aAsync, Brh& aValue) = 0;
+    virtual void SyncQueryPort(TUint& aValue) = 0;
+    virtual void BeginQueryPort(FunctorAsync& aFunctor) = 0;
+    virtual void EndQueryPort(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SyncBrowsePort(TUint& aValue) = 0;
+    virtual void BeginBrowsePort(FunctorAsync& aFunctor) = 0;
+    virtual void EndBrowsePort(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SyncUpdateCount(TUint& aValue) = 0;
+    virtual void BeginUpdateCount(FunctorAsync& aFunctor) = 0;
+    virtual void EndUpdateCount(IAsync& aAsync, TUint& aValue) = 0;
+    virtual void SetPropertyManufacturerNameChanged(Functor& aManufacturerNameChanged) = 0;
+    virtual void PropertyManufacturerName(Brhz& aManufacturerName) const = 0;
+    virtual void SetPropertyManufacturerInfoChanged(Functor& aManufacturerInfoChanged) = 0;
+    virtual void PropertyManufacturerInfo(Brhz& aManufacturerInfo) const = 0;
+    virtual void SetPropertyManufacturerUrlChanged(Functor& aManufacturerUrlChanged) = 0;
+    virtual void PropertyManufacturerUrl(Brhz& aManufacturerUrl) const = 0;
+    virtual void SetPropertyManufacturerImageUriChanged(Functor& aManufacturerImageUriChanged) = 0;
+    virtual void PropertyManufacturerImageUri(Brhz& aManufacturerImageUri) const = 0;
+    virtual void SetPropertyModelNameChanged(Functor& aModelNameChanged) = 0;
+    virtual void PropertyModelName(Brhz& aModelName) const = 0;
+    virtual void SetPropertyModelInfoChanged(Functor& aModelInfoChanged) = 0;
+    virtual void PropertyModelInfo(Brhz& aModelInfo) const = 0;
+    virtual void SetPropertyModelUrlChanged(Functor& aModelUrlChanged) = 0;
+    virtual void PropertyModelUrl(Brhz& aModelUrl) const = 0;
+    virtual void SetPropertyModelImageUriChanged(Functor& aModelImageUriChanged) = 0;
+    virtual void PropertyModelImageUri(Brhz& aModelImageUri) const = 0;
+    virtual void SetPropertyProductNameChanged(Functor& aProductNameChanged) = 0;
+    virtual void PropertyProductName(Brhz& aProductName) const = 0;
+    virtual void SetPropertyProductInfoChanged(Functor& aProductInfoChanged) = 0;
+    virtual void PropertyProductInfo(Brhz& aProductInfo) const = 0;
+    virtual void SetPropertyProductUrlChanged(Functor& aProductUrlChanged) = 0;
+    virtual void PropertyProductUrl(Brhz& aProductUrl) const = 0;
+    virtual void SetPropertyProductImageUriChanged(Functor& aProductImageUriChanged) = 0;
+    virtual void PropertyProductImageUri(Brhz& aProductImageUri) const = 0;
+    virtual void SetPropertyAttributesChanged(Functor& aAttributesChanged) = 0;
+    virtual void PropertyAttributes(Brhz& aAttributes) const = 0;
+    virtual void SetPropertyQueryPortChanged(Functor& aQueryPortChanged) = 0;
+    virtual void PropertyQueryPort(TUint& aQueryPort) const = 0;
+    virtual void SetPropertyBrowsePortChanged(Functor& aBrowsePortChanged) = 0;
+    virtual void PropertyBrowsePort(TUint& aBrowsePort) const = 0;
+    virtual void SetPropertyUpdateCountChanged(Functor& aUpdateCountChanged) = 0;
+    virtual void PropertyUpdateCount(TUint& aUpdateCount) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:MediaServer:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgMediaServer1 : public CpProxy
+class CpProxyAvOpenhomeOrgMediaServer1 : public CpProxy, public ICpProxyAvOpenhomeOrgMediaServer1
 {
 public:
     /**

@@ -19,11 +19,49 @@ class PropertyInt;
 class PropertyString;
 class PropertyUint;
 
+class ICpProxyAvOpenhomeOrgCredentials1
+{
+public:
+    virtual void SyncSet(const Brx& aId, const Brx& aUserName, const Brx& aPassword) = 0;
+    virtual void BeginSet(const Brx& aId, const Brx& aUserName, const Brx& aPassword, FunctorAsync& aFunctor) = 0;
+    virtual void EndSet(IAsync& aAsync) = 0;
+    virtual void SyncClear(const Brx& aId) = 0;
+    virtual void BeginClear(const Brx& aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndClear(IAsync& aAsync) = 0;
+    virtual void SyncSetEnabled(const Brx& aId, TBool aEnabled) = 0;
+    virtual void BeginSetEnabled(const Brx& aId, TBool aEnabled, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetEnabled(IAsync& aAsync) = 0;
+    virtual void SyncGet(const Brx& aId, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData) = 0;
+    virtual void BeginGet(const Brx& aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData) = 0;
+    virtual void SyncLogin(const Brx& aId, Brh& aToken) = 0;
+    virtual void BeginLogin(const Brx& aId, FunctorAsync& aFunctor) = 0;
+    virtual void EndLogin(IAsync& aAsync, Brh& aToken) = 0;
+    virtual void SyncReLogin(const Brx& aId, const Brx& aCurrentToken, Brh& aNewToken) = 0;
+    virtual void BeginReLogin(const Brx& aId, const Brx& aCurrentToken, FunctorAsync& aFunctor) = 0;
+    virtual void EndReLogin(IAsync& aAsync, Brh& aNewToken) = 0;
+    virtual void SyncGetIds(Brh& aIds) = 0;
+    virtual void BeginGetIds(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetIds(IAsync& aAsync, Brh& aIds) = 0;
+    virtual void SyncGetPublicKey(Brh& aPublicKey) = 0;
+    virtual void BeginGetPublicKey(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetPublicKey(IAsync& aAsync, Brh& aPublicKey) = 0;
+    virtual void SyncGetSequenceNumber(TUint& aSequenceNumber) = 0;
+    virtual void BeginGetSequenceNumber(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSequenceNumber(IAsync& aAsync, TUint& aSequenceNumber) = 0;
+    virtual void SetPropertyIdsChanged(Functor& aIdsChanged) = 0;
+    virtual void PropertyIds(Brhz& aIds) const = 0;
+    virtual void SetPropertyPublicKeyChanged(Functor& aPublicKeyChanged) = 0;
+    virtual void PropertyPublicKey(Brhz& aPublicKey) const = 0;
+    virtual void SetPropertySequenceNumberChanged(Functor& aSequenceNumberChanged) = 0;
+    virtual void PropertySequenceNumber(TUint& aSequenceNumber) const = 0;
+};
+
 /**
  * Proxy for av.openhome.org:Credentials:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgCredentials1 : public CpProxy
+class CpProxyAvOpenhomeOrgCredentials1 : public CpProxy, public ICpProxyAvOpenhomeOrgCredentials1
 {
 public:
     /**
