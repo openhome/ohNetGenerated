@@ -221,7 +221,7 @@ void SyncRomDirInfoLinnCoUkFlash1Cpp::CompleteRequest(IAsync& aAsync)
 
 
 CpProxyLinnCoUkFlash1Cpp::CpProxyLinnCoUkFlash1Cpp(CpDeviceCpp& aDevice)
-    : CpProxy("linn-co-uk", "Flash", 1, aDevice.Device())
+    : iCpProxy("linn-co-uk", "Flash", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -317,7 +317,7 @@ void CpProxyLinnCoUkFlash1Cpp::SyncRead(uint32_t aaId, uint32_t aaAddress, uint3
 
 void CpProxyLinnCoUkFlash1Cpp::BeginRead(uint32_t aaId, uint32_t aaAddress, uint32_t aaLength, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRead, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRead, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionRead->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
@@ -326,7 +326,7 @@ void CpProxyLinnCoUkFlash1Cpp::BeginRead(uint32_t aaId, uint32_t aaAddress, uint
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionRead->OutputParameters();
     invocation->AddOutput(new ArgumentBinary(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndRead(IAsync& aAsync, std::string& aaBuffer)
@@ -357,7 +357,7 @@ void CpProxyLinnCoUkFlash1Cpp::SyncWrite(uint32_t aaId, uint32_t aaAddress, cons
 
 void CpProxyLinnCoUkFlash1Cpp::BeginWrite(uint32_t aaId, uint32_t aaAddress, const std::string& aaSource, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionWrite, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionWrite, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionWrite->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
@@ -366,7 +366,7 @@ void CpProxyLinnCoUkFlash1Cpp::BeginWrite(uint32_t aaId, uint32_t aaAddress, con
         Brn buf((const TByte*)aaSource.c_str(), (TUint)aaSource.length());
         invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], buf));
     }
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndWrite(IAsync& aAsync)
@@ -392,12 +392,12 @@ void CpProxyLinnCoUkFlash1Cpp::SyncErase(uint32_t aaId, uint32_t aaAddress)
 
 void CpProxyLinnCoUkFlash1Cpp::BeginErase(uint32_t aaId, uint32_t aaAddress, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionErase, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionErase, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionErase->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaAddress));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndErase(IAsync& aAsync)
@@ -423,12 +423,12 @@ void CpProxyLinnCoUkFlash1Cpp::SyncEraseSector(uint32_t aaId, uint32_t aaSector)
 
 void CpProxyLinnCoUkFlash1Cpp::BeginEraseSector(uint32_t aaId, uint32_t aaSector, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEraseSector, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEraseSector, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEraseSector->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaSector));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndEraseSector(IAsync& aAsync)
@@ -454,13 +454,13 @@ void CpProxyLinnCoUkFlash1Cpp::SyncEraseSectors(uint32_t aaId, uint32_t aaFirstS
 
 void CpProxyLinnCoUkFlash1Cpp::BeginEraseSectors(uint32_t aaId, uint32_t aaFirstSector, uint32_t aaLastSector, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEraseSectors, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEraseSectors, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEraseSectors->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaFirstSector));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaLastSector));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndEraseSectors(IAsync& aAsync)
@@ -486,11 +486,11 @@ void CpProxyLinnCoUkFlash1Cpp::SyncEraseChip(uint32_t aaId)
 
 void CpProxyLinnCoUkFlash1Cpp::BeginEraseChip(uint32_t aaId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEraseChip, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEraseChip, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEraseChip->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndEraseChip(IAsync& aAsync)
@@ -516,14 +516,14 @@ void CpProxyLinnCoUkFlash1Cpp::SyncSectors(uint32_t aaId, uint32_t& aaSectors)
 
 void CpProxyLinnCoUkFlash1Cpp::BeginSectors(uint32_t aaId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSectors, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSectors, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSectors->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionSectors->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndSectors(IAsync& aAsync, uint32_t& aaSectors)
@@ -551,14 +551,14 @@ void CpProxyLinnCoUkFlash1Cpp::SyncSectorBytes(uint32_t aaId, uint32_t& aaBytes)
 
 void CpProxyLinnCoUkFlash1Cpp::BeginSectorBytes(uint32_t aaId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSectorBytes, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSectorBytes, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSectorBytes->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionSectorBytes->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndSectorBytes(IAsync& aAsync, uint32_t& aaBytes)
@@ -586,7 +586,7 @@ void CpProxyLinnCoUkFlash1Cpp::SyncRomDirInfo(uint32_t& aaFlashIdMain, uint32_t&
 
 void CpProxyLinnCoUkFlash1Cpp::BeginRomDirInfo(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRomDirInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRomDirInfo, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionRomDirInfo->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
@@ -595,7 +595,7 @@ void CpProxyLinnCoUkFlash1Cpp::BeginRomDirInfo(FunctorAsync& aFunctor)
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1Cpp::EndRomDirInfo(IAsync& aAsync, uint32_t& aaFlashIdMain, uint32_t& aaOffsetMain, uint32_t& aaBytesMain, uint32_t& aaFlashIdFallback, uint32_t& aaOffsetFallback, uint32_t& aaBytesFallback)
@@ -617,5 +617,44 @@ void CpProxyLinnCoUkFlash1Cpp::EndRomDirInfo(IAsync& aAsync, uint32_t& aaFlashId
     aaFlashIdFallback = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
     aaOffsetFallback = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
     aaBytesFallback = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
+}
+
+void CpProxyLinnCoUkFlash1Cpp::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyLinnCoUkFlash1Cpp::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyLinnCoUkFlash1Cpp::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyLinnCoUkFlash1Cpp::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyLinnCoUkFlash1Cpp::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyLinnCoUkFlash1Cpp::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyLinnCoUkFlash1Cpp::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyLinnCoUkFlash1Cpp::Version() const
+{
+  return iCpProxy.Version();
 }
 

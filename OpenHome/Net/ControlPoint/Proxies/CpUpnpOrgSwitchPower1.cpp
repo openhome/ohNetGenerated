@@ -7,19 +7,47 @@
 #include <OpenHome/Net/Private/Error.h>
 #include <OpenHome/Net/Private/CpiDevice.h>
 
-using namespace OpenHome;
-using namespace OpenHome::Net;
-
+namespace OpenHome {
+namespace Net {
 
 class SyncSetTargetUpnpOrgSwitchPower1 : public SyncProxyAction
 {
 public:
     SyncSetTargetUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetTargetUpnpOrgSwitchPower1() {}
 private:
     CpProxyUpnpOrgSwitchPower1& iService;
 };
+
+class SyncGetTargetUpnpOrgSwitchPower1 : public SyncProxyAction
+{
+public:
+    SyncGetTargetUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy, TBool& aRetTargetValue);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgSwitchPower1& iService;
+    TBool& iRetTargetValue;
+};
+
+class SyncGetStatusUpnpOrgSwitchPower1 : public SyncProxyAction
+{
+public:
+    SyncGetStatusUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy, TBool& aResultStatus);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgSwitchPower1& iService;
+    TBool& iResultStatus;
+};
+
+} // namespace Net
+} // namespace OpenHome
+
+
+using namespace OpenHome;
+using namespace OpenHome::Net;
+
+
+// SyncSetTargetUpnpOrgSwitchPower1
 
 SyncSetTargetUpnpOrgSwitchPower1::SyncSetTargetUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy)
     : iService(aProxy)
@@ -31,17 +59,7 @@ void SyncSetTargetUpnpOrgSwitchPower1::CompleteRequest(IAsync& aAsync)
     iService.EndSetTarget(aAsync);
 }
 
-
-class SyncGetTargetUpnpOrgSwitchPower1 : public SyncProxyAction
-{
-public:
-    SyncGetTargetUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy, TBool& aRetTargetValue);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetTargetUpnpOrgSwitchPower1() {}
-private:
-    CpProxyUpnpOrgSwitchPower1& iService;
-    TBool& iRetTargetValue;
-};
+// SyncGetTargetUpnpOrgSwitchPower1
 
 SyncGetTargetUpnpOrgSwitchPower1::SyncGetTargetUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy, TBool& aRetTargetValue)
     : iService(aProxy)
@@ -54,17 +72,7 @@ void SyncGetTargetUpnpOrgSwitchPower1::CompleteRequest(IAsync& aAsync)
     iService.EndGetTarget(aAsync, iRetTargetValue);
 }
 
-
-class SyncGetStatusUpnpOrgSwitchPower1 : public SyncProxyAction
-{
-public:
-    SyncGetStatusUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy, TBool& aResultStatus);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetStatusUpnpOrgSwitchPower1() {}
-private:
-    CpProxyUpnpOrgSwitchPower1& iService;
-    TBool& iResultStatus;
-};
+// SyncGetStatusUpnpOrgSwitchPower1
 
 SyncGetStatusUpnpOrgSwitchPower1::SyncGetStatusUpnpOrgSwitchPower1(CpProxyUpnpOrgSwitchPower1& aProxy, TBool& aResultStatus)
     : iService(aProxy)
@@ -78,8 +86,10 @@ void SyncGetStatusUpnpOrgSwitchPower1::CompleteRequest(IAsync& aAsync)
 }
 
 
+// CpProxyUpnpOrgSwitchPower1
+
 CpProxyUpnpOrgSwitchPower1::CpProxyUpnpOrgSwitchPower1(CpDevice& aDevice)
-    : CpProxy("schemas-upnp-org", "SwitchPower", 1, aDevice.Device())
+    : iCpProxy("schemas-upnp-org", "SwitchPower", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -118,11 +128,11 @@ void CpProxyUpnpOrgSwitchPower1::SyncSetTarget(TBool anewTargetValue)
 
 void CpProxyUpnpOrgSwitchPower1::BeginSetTarget(TBool anewTargetValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetTarget, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetTarget, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetTarget->InputParameters();
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], anewTargetValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgSwitchPower1::EndSetTarget(IAsync& aAsync)
@@ -148,11 +158,11 @@ void CpProxyUpnpOrgSwitchPower1::SyncGetTarget(TBool& aRetTargetValue)
 
 void CpProxyUpnpOrgSwitchPower1::BeginGetTarget(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetTarget, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetTarget, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetTarget->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgSwitchPower1::EndGetTarget(IAsync& aAsync, TBool& aRetTargetValue)
@@ -180,11 +190,11 @@ void CpProxyUpnpOrgSwitchPower1::SyncGetStatus(TBool& aResultStatus)
 
 void CpProxyUpnpOrgSwitchPower1::BeginGetStatus(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetStatus, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetStatus, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetStatus->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgSwitchPower1::EndGetStatus(IAsync& aAsync, TBool& aResultStatus)
@@ -205,15 +215,15 @@ void CpProxyUpnpOrgSwitchPower1::EndGetStatus(IAsync& aAsync, TBool& aResultStat
 
 void CpProxyUpnpOrgSwitchPower1::SetPropertyStatusChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iStatusChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyUpnpOrgSwitchPower1::PropertyStatus(TBool& aStatus) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aStatus = iStatus->Value();
 }
 
@@ -221,4 +231,45 @@ void CpProxyUpnpOrgSwitchPower1::StatusPropertyChanged()
 {
     ReportEvent(iStatusChanged);
 }
+
+
+void CpProxyUpnpOrgSwitchPower1::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyUpnpOrgSwitchPower1::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyUpnpOrgSwitchPower1::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyUpnpOrgSwitchPower1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyUpnpOrgSwitchPower1::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyUpnpOrgSwitchPower1::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyUpnpOrgSwitchPower1::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyUpnpOrgSwitchPower1::Version() const
+{
+  return iCpProxy.Version();
+}
+
 

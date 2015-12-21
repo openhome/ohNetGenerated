@@ -7,20 +7,108 @@
 #include <OpenHome/Net/Private/Error.h>
 #include <OpenHome/Net/Private/CpiDevice.h>
 
-using namespace OpenHome;
-using namespace OpenHome::Net;
-
+namespace OpenHome {
+namespace Net {
 
 class SyncReadLinnCoUkFlash1 : public SyncProxyAction
 {
 public:
     SyncReadLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, Brh& aaBuffer);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncReadLinnCoUkFlash1() {}
 private:
     CpProxyLinnCoUkFlash1& iService;
     Brh& iaBuffer;
 };
+
+class SyncWriteLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncWriteLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+};
+
+class SyncEraseLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncEraseLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+};
+
+class SyncEraseSectorLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncEraseSectorLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+};
+
+class SyncEraseSectorsLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncEraseSectorsLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+};
+
+class SyncEraseChipLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncEraseChipLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+};
+
+class SyncSectorsLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncSectorsLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaSectors);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+    TUint& iaSectors;
+};
+
+class SyncSectorBytesLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncSectorBytesLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaBytes);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+    TUint& iaBytes;
+};
+
+class SyncRomDirInfoLinnCoUkFlash1 : public SyncProxyAction
+{
+public:
+    SyncRomDirInfoLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaFlashIdMain, TUint& aaOffsetMain, TUint& aaBytesMain, TUint& aaFlashIdFallback, TUint& aaOffsetFallback, TUint& aaBytesFallback);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkFlash1& iService;
+    TUint& iaFlashIdMain;
+    TUint& iaOffsetMain;
+    TUint& iaBytesMain;
+    TUint& iaFlashIdFallback;
+    TUint& iaOffsetFallback;
+    TUint& iaBytesFallback;
+};
+
+} // namespace Net
+} // namespace OpenHome
+
+
+using namespace OpenHome;
+using namespace OpenHome::Net;
+
+
+// SyncReadLinnCoUkFlash1
 
 SyncReadLinnCoUkFlash1::SyncReadLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, Brh& aaBuffer)
     : iService(aProxy)
@@ -33,16 +121,7 @@ void SyncReadLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndRead(aAsync, iaBuffer);
 }
 
-
-class SyncWriteLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncWriteLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncWriteLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-};
+// SyncWriteLinnCoUkFlash1
 
 SyncWriteLinnCoUkFlash1::SyncWriteLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy)
     : iService(aProxy)
@@ -54,16 +133,7 @@ void SyncWriteLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndWrite(aAsync);
 }
 
-
-class SyncEraseLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncEraseLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncEraseLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-};
+// SyncEraseLinnCoUkFlash1
 
 SyncEraseLinnCoUkFlash1::SyncEraseLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy)
     : iService(aProxy)
@@ -75,16 +145,7 @@ void SyncEraseLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndErase(aAsync);
 }
 
-
-class SyncEraseSectorLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncEraseSectorLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncEraseSectorLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-};
+// SyncEraseSectorLinnCoUkFlash1
 
 SyncEraseSectorLinnCoUkFlash1::SyncEraseSectorLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy)
     : iService(aProxy)
@@ -96,16 +157,7 @@ void SyncEraseSectorLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndEraseSector(aAsync);
 }
 
-
-class SyncEraseSectorsLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncEraseSectorsLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncEraseSectorsLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-};
+// SyncEraseSectorsLinnCoUkFlash1
 
 SyncEraseSectorsLinnCoUkFlash1::SyncEraseSectorsLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy)
     : iService(aProxy)
@@ -117,16 +169,7 @@ void SyncEraseSectorsLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndEraseSectors(aAsync);
 }
 
-
-class SyncEraseChipLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncEraseChipLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncEraseChipLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-};
+// SyncEraseChipLinnCoUkFlash1
 
 SyncEraseChipLinnCoUkFlash1::SyncEraseChipLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy)
     : iService(aProxy)
@@ -138,17 +181,7 @@ void SyncEraseChipLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndEraseChip(aAsync);
 }
 
-
-class SyncSectorsLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncSectorsLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaSectors);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSectorsLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-    TUint& iaSectors;
-};
+// SyncSectorsLinnCoUkFlash1
 
 SyncSectorsLinnCoUkFlash1::SyncSectorsLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaSectors)
     : iService(aProxy)
@@ -161,17 +194,7 @@ void SyncSectorsLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndSectors(aAsync, iaSectors);
 }
 
-
-class SyncSectorBytesLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncSectorBytesLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaBytes);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSectorBytesLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-    TUint& iaBytes;
-};
+// SyncSectorBytesLinnCoUkFlash1
 
 SyncSectorBytesLinnCoUkFlash1::SyncSectorBytesLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaBytes)
     : iService(aProxy)
@@ -184,22 +207,7 @@ void SyncSectorBytesLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
     iService.EndSectorBytes(aAsync, iaBytes);
 }
 
-
-class SyncRomDirInfoLinnCoUkFlash1 : public SyncProxyAction
-{
-public:
-    SyncRomDirInfoLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaFlashIdMain, TUint& aaOffsetMain, TUint& aaBytesMain, TUint& aaFlashIdFallback, TUint& aaOffsetFallback, TUint& aaBytesFallback);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncRomDirInfoLinnCoUkFlash1() {}
-private:
-    CpProxyLinnCoUkFlash1& iService;
-    TUint& iaFlashIdMain;
-    TUint& iaOffsetMain;
-    TUint& iaBytesMain;
-    TUint& iaFlashIdFallback;
-    TUint& iaOffsetFallback;
-    TUint& iaBytesFallback;
-};
+// SyncRomDirInfoLinnCoUkFlash1
 
 SyncRomDirInfoLinnCoUkFlash1::SyncRomDirInfoLinnCoUkFlash1(CpProxyLinnCoUkFlash1& aProxy, TUint& aaFlashIdMain, TUint& aaOffsetMain, TUint& aaBytesMain, TUint& aaFlashIdFallback, TUint& aaOffsetFallback, TUint& aaBytesFallback)
     : iService(aProxy)
@@ -218,8 +226,10 @@ void SyncRomDirInfoLinnCoUkFlash1::CompleteRequest(IAsync& aAsync)
 }
 
 
+// CpProxyLinnCoUkFlash1
+
 CpProxyLinnCoUkFlash1::CpProxyLinnCoUkFlash1(CpDevice& aDevice)
-    : CpProxy("linn-co-uk", "Flash", 1, aDevice.Device())
+    : iCpProxy("linn-co-uk", "Flash", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -315,7 +325,7 @@ void CpProxyLinnCoUkFlash1::SyncRead(TUint aaId, TUint aaAddress, TUint aaLength
 
 void CpProxyLinnCoUkFlash1::BeginRead(TUint aaId, TUint aaAddress, TUint aaLength, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRead, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRead, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionRead->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
@@ -324,7 +334,7 @@ void CpProxyLinnCoUkFlash1::BeginRead(TUint aaId, TUint aaAddress, TUint aaLengt
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionRead->OutputParameters();
     invocation->AddOutput(new ArgumentBinary(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndRead(IAsync& aAsync, Brh& aaBuffer)
@@ -352,13 +362,13 @@ void CpProxyLinnCoUkFlash1::SyncWrite(TUint aaId, TUint aaAddress, const Brx& aa
 
 void CpProxyLinnCoUkFlash1::BeginWrite(TUint aaId, TUint aaAddress, const Brx& aaSource, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionWrite, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionWrite, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionWrite->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaAddress));
     invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aaSource));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndWrite(IAsync& aAsync)
@@ -384,12 +394,12 @@ void CpProxyLinnCoUkFlash1::SyncErase(TUint aaId, TUint aaAddress)
 
 void CpProxyLinnCoUkFlash1::BeginErase(TUint aaId, TUint aaAddress, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionErase, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionErase, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionErase->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaAddress));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndErase(IAsync& aAsync)
@@ -415,12 +425,12 @@ void CpProxyLinnCoUkFlash1::SyncEraseSector(TUint aaId, TUint aaSector)
 
 void CpProxyLinnCoUkFlash1::BeginEraseSector(TUint aaId, TUint aaSector, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEraseSector, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEraseSector, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEraseSector->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaSector));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndEraseSector(IAsync& aAsync)
@@ -446,13 +456,13 @@ void CpProxyLinnCoUkFlash1::SyncEraseSectors(TUint aaId, TUint aaFirstSector, TU
 
 void CpProxyLinnCoUkFlash1::BeginEraseSectors(TUint aaId, TUint aaFirstSector, TUint aaLastSector, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEraseSectors, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEraseSectors, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEraseSectors->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaFirstSector));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaLastSector));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndEraseSectors(IAsync& aAsync)
@@ -478,11 +488,11 @@ void CpProxyLinnCoUkFlash1::SyncEraseChip(TUint aaId)
 
 void CpProxyLinnCoUkFlash1::BeginEraseChip(TUint aaId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEraseChip, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEraseChip, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEraseChip->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndEraseChip(IAsync& aAsync)
@@ -508,14 +518,14 @@ void CpProxyLinnCoUkFlash1::SyncSectors(TUint aaId, TUint& aaSectors)
 
 void CpProxyLinnCoUkFlash1::BeginSectors(TUint aaId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSectors, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSectors, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSectors->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionSectors->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndSectors(IAsync& aAsync, TUint& aaSectors)
@@ -543,14 +553,14 @@ void CpProxyLinnCoUkFlash1::SyncSectorBytes(TUint aaId, TUint& aaBytes)
 
 void CpProxyLinnCoUkFlash1::BeginSectorBytes(TUint aaId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSectorBytes, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSectorBytes, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSectorBytes->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaId));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionSectorBytes->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndSectorBytes(IAsync& aAsync, TUint& aaBytes)
@@ -578,7 +588,7 @@ void CpProxyLinnCoUkFlash1::SyncRomDirInfo(TUint& aaFlashIdMain, TUint& aaOffset
 
 void CpProxyLinnCoUkFlash1::BeginRomDirInfo(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRomDirInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRomDirInfo, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionRomDirInfo->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
@@ -587,7 +597,7 @@ void CpProxyLinnCoUkFlash1::BeginRomDirInfo(FunctorAsync& aFunctor)
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkFlash1::EndRomDirInfo(IAsync& aAsync, TUint& aaFlashIdMain, TUint& aaOffsetMain, TUint& aaBytesMain, TUint& aaFlashIdFallback, TUint& aaOffsetFallback, TUint& aaBytesFallback)
@@ -610,4 +620,45 @@ void CpProxyLinnCoUkFlash1::EndRomDirInfo(IAsync& aAsync, TUint& aaFlashIdMain, 
     aaOffsetFallback = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
     aaBytesFallback = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
 }
+
+
+void CpProxyLinnCoUkFlash1::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyLinnCoUkFlash1::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyLinnCoUkFlash1::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyLinnCoUkFlash1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyLinnCoUkFlash1::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyLinnCoUkFlash1::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyLinnCoUkFlash1::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyLinnCoUkFlash1::Version() const
+{
+  return iCpProxy.Version();
+}
+
 

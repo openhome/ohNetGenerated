@@ -7,21 +7,204 @@
 #include <OpenHome/Net/Private/Error.h>
 #include <OpenHome/Net/Private/CpiDevice.h>
 
-using namespace OpenHome;
-using namespace OpenHome::Net;
-
+namespace OpenHome {
+namespace Net {
 
 class SyncGetSortCapabilitiesUpnpOrgScheduledRecording1 : public SyncProxyAction
 {
 public:
     SyncGetSortCapabilitiesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aSortCaps, TUint& aSortLevelCap);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetSortCapabilitiesUpnpOrgScheduledRecording1() {}
 private:
     CpProxyUpnpOrgScheduledRecording1& iService;
     Brh& iSortCaps;
     TUint& iSortLevelCap;
 };
+
+class SyncGetPropertyListUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncGetPropertyListUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aPropertyList);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iPropertyList;
+};
+
+class SyncGetAllowedValuesUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncGetAllowedValuesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aPropertyInfo);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iPropertyInfo;
+};
+
+class SyncGetStateUpdateIDUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncGetStateUpdateIDUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, TUint& aId);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    TUint& iId;
+};
+
+class SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iResult;
+    TUint& iNumberReturned;
+    TUint& iTotalMatches;
+    TUint& iUpdateID;
+};
+
+class SyncBrowseRecordTasksUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncBrowseRecordTasksUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iResult;
+    TUint& iNumberReturned;
+    TUint& iTotalMatches;
+    TUint& iUpdateID;
+};
+
+class SyncCreateRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncCreateRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordScheduleID, Brh& aResult, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iRecordScheduleID;
+    Brh& iResult;
+    TUint& iUpdateID;
+};
+
+class SyncDeleteRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncDeleteRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+};
+
+class SyncGetRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncGetRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iResult;
+    TUint& iUpdateID;
+};
+
+class SyncEnableRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncEnableRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+};
+
+class SyncDisableRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncDisableRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+};
+
+class SyncDeleteRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncDeleteRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+};
+
+class SyncGetRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncGetRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iResult;
+    TUint& iUpdateID;
+};
+
+class SyncEnableRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncEnableRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+};
+
+class SyncDisableRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncDisableRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+};
+
+class SyncResetRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncResetRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+};
+
+class SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordScheduleConflictIDList, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iRecordScheduleConflictIDList;
+    TUint& iUpdateID;
+};
+
+class SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1 : public SyncProxyAction
+{
+public:
+    SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordTaskConflictIDList, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgScheduledRecording1& iService;
+    Brh& iRecordTaskConflictIDList;
+    TUint& iUpdateID;
+};
+
+} // namespace Net
+} // namespace OpenHome
+
+
+using namespace OpenHome;
+using namespace OpenHome::Net;
+
+
+// SyncGetSortCapabilitiesUpnpOrgScheduledRecording1
 
 SyncGetSortCapabilitiesUpnpOrgScheduledRecording1::SyncGetSortCapabilitiesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aSortCaps, TUint& aSortLevelCap)
     : iService(aProxy)
@@ -35,17 +218,7 @@ void SyncGetSortCapabilitiesUpnpOrgScheduledRecording1::CompleteRequest(IAsync& 
     iService.EndGetSortCapabilities(aAsync, iSortCaps, iSortLevelCap);
 }
 
-
-class SyncGetPropertyListUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncGetPropertyListUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aPropertyList);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetPropertyListUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iPropertyList;
-};
+// SyncGetPropertyListUpnpOrgScheduledRecording1
 
 SyncGetPropertyListUpnpOrgScheduledRecording1::SyncGetPropertyListUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aPropertyList)
     : iService(aProxy)
@@ -58,17 +231,7 @@ void SyncGetPropertyListUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aAsy
     iService.EndGetPropertyList(aAsync, iPropertyList);
 }
 
-
-class SyncGetAllowedValuesUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncGetAllowedValuesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aPropertyInfo);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetAllowedValuesUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iPropertyInfo;
-};
+// SyncGetAllowedValuesUpnpOrgScheduledRecording1
 
 SyncGetAllowedValuesUpnpOrgScheduledRecording1::SyncGetAllowedValuesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aPropertyInfo)
     : iService(aProxy)
@@ -81,17 +244,7 @@ void SyncGetAllowedValuesUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aAs
     iService.EndGetAllowedValues(aAsync, iPropertyInfo);
 }
 
-
-class SyncGetStateUpdateIDUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncGetStateUpdateIDUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, TUint& aId);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetStateUpdateIDUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    TUint& iId;
-};
+// SyncGetStateUpdateIDUpnpOrgScheduledRecording1
 
 SyncGetStateUpdateIDUpnpOrgScheduledRecording1::SyncGetStateUpdateIDUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, TUint& aId)
     : iService(aProxy)
@@ -104,20 +257,7 @@ void SyncGetStateUpdateIDUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aAs
     iService.EndGetStateUpdateID(aAsync, iId);
 }
 
-
-class SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iResult;
-    TUint& iNumberReturned;
-    TUint& iTotalMatches;
-    TUint& iUpdateID;
-};
+// SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1
 
 SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1::SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
     : iService(aProxy)
@@ -133,20 +273,7 @@ void SyncBrowseRecordSchedulesUpnpOrgScheduledRecording1::CompleteRequest(IAsync
     iService.EndBrowseRecordSchedules(aAsync, iResult, iNumberReturned, iTotalMatches, iUpdateID);
 }
 
-
-class SyncBrowseRecordTasksUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncBrowseRecordTasksUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncBrowseRecordTasksUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iResult;
-    TUint& iNumberReturned;
-    TUint& iTotalMatches;
-    TUint& iUpdateID;
-};
+// SyncBrowseRecordTasksUpnpOrgScheduledRecording1
 
 SyncBrowseRecordTasksUpnpOrgScheduledRecording1::SyncBrowseRecordTasksUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
     : iService(aProxy)
@@ -162,19 +289,7 @@ void SyncBrowseRecordTasksUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aA
     iService.EndBrowseRecordTasks(aAsync, iResult, iNumberReturned, iTotalMatches, iUpdateID);
 }
 
-
-class SyncCreateRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncCreateRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordScheduleID, Brh& aResult, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncCreateRecordScheduleUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iRecordScheduleID;
-    Brh& iResult;
-    TUint& iUpdateID;
-};
+// SyncCreateRecordScheduleUpnpOrgScheduledRecording1
 
 SyncCreateRecordScheduleUpnpOrgScheduledRecording1::SyncCreateRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordScheduleID, Brh& aResult, TUint& aUpdateID)
     : iService(aProxy)
@@ -189,16 +304,7 @@ void SyncCreateRecordScheduleUpnpOrgScheduledRecording1::CompleteRequest(IAsync&
     iService.EndCreateRecordSchedule(aAsync, iRecordScheduleID, iResult, iUpdateID);
 }
 
-
-class SyncDeleteRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncDeleteRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncDeleteRecordScheduleUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-};
+// SyncDeleteRecordScheduleUpnpOrgScheduledRecording1
 
 SyncDeleteRecordScheduleUpnpOrgScheduledRecording1::SyncDeleteRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy)
     : iService(aProxy)
@@ -210,18 +316,7 @@ void SyncDeleteRecordScheduleUpnpOrgScheduledRecording1::CompleteRequest(IAsync&
     iService.EndDeleteRecordSchedule(aAsync);
 }
 
-
-class SyncGetRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncGetRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetRecordScheduleUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iResult;
-    TUint& iUpdateID;
-};
+// SyncGetRecordScheduleUpnpOrgScheduledRecording1
 
 SyncGetRecordScheduleUpnpOrgScheduledRecording1::SyncGetRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aUpdateID)
     : iService(aProxy)
@@ -235,16 +330,7 @@ void SyncGetRecordScheduleUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aA
     iService.EndGetRecordSchedule(aAsync, iResult, iUpdateID);
 }
 
-
-class SyncEnableRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncEnableRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncEnableRecordScheduleUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-};
+// SyncEnableRecordScheduleUpnpOrgScheduledRecording1
 
 SyncEnableRecordScheduleUpnpOrgScheduledRecording1::SyncEnableRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy)
     : iService(aProxy)
@@ -256,16 +342,7 @@ void SyncEnableRecordScheduleUpnpOrgScheduledRecording1::CompleteRequest(IAsync&
     iService.EndEnableRecordSchedule(aAsync);
 }
 
-
-class SyncDisableRecordScheduleUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncDisableRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncDisableRecordScheduleUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-};
+// SyncDisableRecordScheduleUpnpOrgScheduledRecording1
 
 SyncDisableRecordScheduleUpnpOrgScheduledRecording1::SyncDisableRecordScheduleUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy)
     : iService(aProxy)
@@ -277,16 +354,7 @@ void SyncDisableRecordScheduleUpnpOrgScheduledRecording1::CompleteRequest(IAsync
     iService.EndDisableRecordSchedule(aAsync);
 }
 
-
-class SyncDeleteRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncDeleteRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncDeleteRecordTaskUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-};
+// SyncDeleteRecordTaskUpnpOrgScheduledRecording1
 
 SyncDeleteRecordTaskUpnpOrgScheduledRecording1::SyncDeleteRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy)
     : iService(aProxy)
@@ -298,18 +366,7 @@ void SyncDeleteRecordTaskUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aAs
     iService.EndDeleteRecordTask(aAsync);
 }
 
-
-class SyncGetRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncGetRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetRecordTaskUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iResult;
-    TUint& iUpdateID;
-};
+// SyncGetRecordTaskUpnpOrgScheduledRecording1
 
 SyncGetRecordTaskUpnpOrgScheduledRecording1::SyncGetRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aResult, TUint& aUpdateID)
     : iService(aProxy)
@@ -323,16 +380,7 @@ void SyncGetRecordTaskUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aAsync
     iService.EndGetRecordTask(aAsync, iResult, iUpdateID);
 }
 
-
-class SyncEnableRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncEnableRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncEnableRecordTaskUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-};
+// SyncEnableRecordTaskUpnpOrgScheduledRecording1
 
 SyncEnableRecordTaskUpnpOrgScheduledRecording1::SyncEnableRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy)
     : iService(aProxy)
@@ -344,16 +392,7 @@ void SyncEnableRecordTaskUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aAs
     iService.EndEnableRecordTask(aAsync);
 }
 
-
-class SyncDisableRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncDisableRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncDisableRecordTaskUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-};
+// SyncDisableRecordTaskUpnpOrgScheduledRecording1
 
 SyncDisableRecordTaskUpnpOrgScheduledRecording1::SyncDisableRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy)
     : iService(aProxy)
@@ -365,16 +404,7 @@ void SyncDisableRecordTaskUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aA
     iService.EndDisableRecordTask(aAsync);
 }
 
-
-class SyncResetRecordTaskUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncResetRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncResetRecordTaskUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-};
+// SyncResetRecordTaskUpnpOrgScheduledRecording1
 
 SyncResetRecordTaskUpnpOrgScheduledRecording1::SyncResetRecordTaskUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy)
     : iService(aProxy)
@@ -386,18 +416,7 @@ void SyncResetRecordTaskUpnpOrgScheduledRecording1::CompleteRequest(IAsync& aAsy
     iService.EndResetRecordTask(aAsync);
 }
 
-
-class SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordScheduleConflictIDList, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iRecordScheduleConflictIDList;
-    TUint& iUpdateID;
-};
+// SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1
 
 SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1::SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordScheduleConflictIDList, TUint& aUpdateID)
     : iService(aProxy)
@@ -411,18 +430,7 @@ void SyncGetRecordScheduleConflictsUpnpOrgScheduledRecording1::CompleteRequest(I
     iService.EndGetRecordScheduleConflicts(aAsync, iRecordScheduleConflictIDList, iUpdateID);
 }
 
-
-class SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1 : public SyncProxyAction
-{
-public:
-    SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordTaskConflictIDList, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1() {}
-private:
-    CpProxyUpnpOrgScheduledRecording1& iService;
-    Brh& iRecordTaskConflictIDList;
-    TUint& iUpdateID;
-};
+// SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1
 
 SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1::SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1(CpProxyUpnpOrgScheduledRecording1& aProxy, Brh& aRecordTaskConflictIDList, TUint& aUpdateID)
     : iService(aProxy)
@@ -437,8 +445,10 @@ void SyncGetRecordTaskConflictsUpnpOrgScheduledRecording1::CompleteRequest(IAsyn
 }
 
 
+// CpProxyUpnpOrgScheduledRecording1
+
 CpProxyUpnpOrgScheduledRecording1::CpProxyUpnpOrgScheduledRecording1(CpDevice& aDevice)
-    : CpProxy("schemas-upnp-org", "ScheduledRecording", 1, aDevice.Device())
+    : iCpProxy("schemas-upnp-org", "ScheduledRecording", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
     TChar** allowedValues;
@@ -630,12 +640,12 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetSortCapabilities(Brh& aSortCaps, 
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetSortCapabilities(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetSortCapabilities, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetSortCapabilities, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetSortCapabilities->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetSortCapabilities(IAsync& aAsync, Brh& aSortCaps, TUint& aSortLevelCap)
@@ -664,14 +674,14 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetPropertyList(const Brx& aDataType
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetPropertyList(const Brx& aDataTypeID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetPropertyList, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetPropertyList, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetPropertyList->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aDataTypeID));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetPropertyList->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetPropertyList(IAsync& aAsync, Brh& aPropertyList)
@@ -699,7 +709,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetAllowedValues(const Brx& aDataTyp
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetAllowedValues(const Brx& aDataTypeID, const Brx& aFilter, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetAllowedValues, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetAllowedValues, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetAllowedValues->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aDataTypeID));
@@ -707,7 +717,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginGetAllowedValues(const Brx& aDataTy
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetAllowedValues->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetAllowedValues(IAsync& aAsync, Brh& aPropertyInfo)
@@ -735,11 +745,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetStateUpdateID(TUint& aId)
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetStateUpdateID(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetStateUpdateID, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetStateUpdateID, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetStateUpdateID->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetStateUpdateID(IAsync& aAsync, TUint& aId)
@@ -767,7 +777,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncBrowseRecordSchedules(const Brx& aFi
 
 void CpProxyUpnpOrgScheduledRecording1::BeginBrowseRecordSchedules(const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBrowseRecordSchedules, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBrowseRecordSchedules, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionBrowseRecordSchedules->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aFilter));
@@ -780,7 +790,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginBrowseRecordSchedules(const Brx& aF
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndBrowseRecordSchedules(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
@@ -811,7 +821,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncBrowseRecordTasks(const Brx& aRecord
 
 void CpProxyUpnpOrgScheduledRecording1::BeginBrowseRecordTasks(const Brx& aRecordScheduleID, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBrowseRecordTasks, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBrowseRecordTasks, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionBrowseRecordTasks->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordScheduleID));
@@ -825,7 +835,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginBrowseRecordTasks(const Brx& aRecor
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndBrowseRecordTasks(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
@@ -856,7 +866,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncCreateRecordSchedule(const Brx& aEle
 
 void CpProxyUpnpOrgScheduledRecording1::BeginCreateRecordSchedule(const Brx& aElements, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionCreateRecordSchedule, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionCreateRecordSchedule, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionCreateRecordSchedule->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aElements));
@@ -865,7 +875,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginCreateRecordSchedule(const Brx& aEl
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndCreateRecordSchedule(IAsync& aAsync, Brh& aRecordScheduleID, Brh& aResult, TUint& aUpdateID)
@@ -895,11 +905,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncDeleteRecordSchedule(const Brx& aRec
 
 void CpProxyUpnpOrgScheduledRecording1::BeginDeleteRecordSchedule(const Brx& aRecordScheduleID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeleteRecordSchedule, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeleteRecordSchedule, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDeleteRecordSchedule->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordScheduleID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndDeleteRecordSchedule(IAsync& aAsync)
@@ -925,7 +935,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetRecordSchedule(const Brx& aRecord
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordSchedule(const Brx& aRecordScheduleID, const Brx& aFilter, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetRecordSchedule, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetRecordSchedule, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetRecordSchedule->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordScheduleID));
@@ -934,7 +944,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordSchedule(const Brx& aRecor
     const Action::VectorParameters& outParams = iActionGetRecordSchedule->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetRecordSchedule(IAsync& aAsync, Brh& aResult, TUint& aUpdateID)
@@ -963,11 +973,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncEnableRecordSchedule(const Brx& aRec
 
 void CpProxyUpnpOrgScheduledRecording1::BeginEnableRecordSchedule(const Brx& aRecordScheduleID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEnableRecordSchedule, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEnableRecordSchedule, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEnableRecordSchedule->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordScheduleID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndEnableRecordSchedule(IAsync& aAsync)
@@ -993,11 +1003,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncDisableRecordSchedule(const Brx& aRe
 
 void CpProxyUpnpOrgScheduledRecording1::BeginDisableRecordSchedule(const Brx& aRecordScheduleID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDisableRecordSchedule, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDisableRecordSchedule, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDisableRecordSchedule->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordScheduleID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndDisableRecordSchedule(IAsync& aAsync)
@@ -1023,11 +1033,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncDeleteRecordTask(const Brx& aRecordT
 
 void CpProxyUpnpOrgScheduledRecording1::BeginDeleteRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeleteRecordTask, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeleteRecordTask, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDeleteRecordTask->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordTaskID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndDeleteRecordTask(IAsync& aAsync)
@@ -1053,7 +1063,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetRecordTask(const Brx& aRecordTask
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordTask(const Brx& aRecordTaskID, const Brx& aFilter, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetRecordTask, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetRecordTask, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetRecordTask->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordTaskID));
@@ -1062,7 +1072,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordTask(const Brx& aRecordTas
     const Action::VectorParameters& outParams = iActionGetRecordTask->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetRecordTask(IAsync& aAsync, Brh& aResult, TUint& aUpdateID)
@@ -1091,11 +1101,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncEnableRecordTask(const Brx& aRecordT
 
 void CpProxyUpnpOrgScheduledRecording1::BeginEnableRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionEnableRecordTask, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionEnableRecordTask, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionEnableRecordTask->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordTaskID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndEnableRecordTask(IAsync& aAsync)
@@ -1121,11 +1131,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncDisableRecordTask(const Brx& aRecord
 
 void CpProxyUpnpOrgScheduledRecording1::BeginDisableRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDisableRecordTask, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDisableRecordTask, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDisableRecordTask->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordTaskID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndDisableRecordTask(IAsync& aAsync)
@@ -1151,11 +1161,11 @@ void CpProxyUpnpOrgScheduledRecording1::SyncResetRecordTask(const Brx& aRecordTa
 
 void CpProxyUpnpOrgScheduledRecording1::BeginResetRecordTask(const Brx& aRecordTaskID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionResetRecordTask, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionResetRecordTask, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionResetRecordTask->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordTaskID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndResetRecordTask(IAsync& aAsync)
@@ -1181,7 +1191,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetRecordScheduleConflicts(const Brx
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordScheduleConflicts(const Brx& aRecordScheduleID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetRecordScheduleConflicts, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetRecordScheduleConflicts, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetRecordScheduleConflicts->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordScheduleID));
@@ -1189,7 +1199,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordScheduleConflicts(const Br
     const Action::VectorParameters& outParams = iActionGetRecordScheduleConflicts->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetRecordScheduleConflicts(IAsync& aAsync, Brh& aRecordScheduleConflictIDList, TUint& aUpdateID)
@@ -1218,7 +1228,7 @@ void CpProxyUpnpOrgScheduledRecording1::SyncGetRecordTaskConflicts(const Brx& aR
 
 void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordTaskConflicts(const Brx& aRecordTaskID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetRecordTaskConflicts, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetRecordTaskConflicts, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetRecordTaskConflicts->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aRecordTaskID));
@@ -1226,7 +1236,7 @@ void CpProxyUpnpOrgScheduledRecording1::BeginGetRecordTaskConflicts(const Brx& a
     const Action::VectorParameters& outParams = iActionGetRecordTaskConflicts->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgScheduledRecording1::EndGetRecordTaskConflicts(IAsync& aAsync, Brh& aRecordTaskConflictIDList, TUint& aUpdateID)
@@ -1248,15 +1258,15 @@ void CpProxyUpnpOrgScheduledRecording1::EndGetRecordTaskConflicts(IAsync& aAsync
 
 void CpProxyUpnpOrgScheduledRecording1::SetPropertyLastChangeChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iLastChangeChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyUpnpOrgScheduledRecording1::PropertyLastChange(Brhz& aLastChange) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aLastChange.Set(iLastChange->Value());
 }
 
@@ -1264,4 +1274,45 @@ void CpProxyUpnpOrgScheduledRecording1::LastChangePropertyChanged()
 {
     ReportEvent(iLastChangeChanged);
 }
+
+
+void CpProxyUpnpOrgScheduledRecording1::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyUpnpOrgScheduledRecording1::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyUpnpOrgScheduledRecording1::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyUpnpOrgScheduledRecording1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyUpnpOrgScheduledRecording1::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyUpnpOrgScheduledRecording1::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyUpnpOrgScheduledRecording1::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyUpnpOrgScheduledRecording1::Version() const
+{
+  return iCpProxy.Version();
+}
+
 

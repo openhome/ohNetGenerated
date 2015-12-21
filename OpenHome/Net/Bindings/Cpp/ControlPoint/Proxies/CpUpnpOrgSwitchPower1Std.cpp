@@ -81,7 +81,7 @@ void SyncGetStatusUpnpOrgSwitchPower1Cpp::CompleteRequest(IAsync& aAsync)
 
 
 CpProxyUpnpOrgSwitchPower1Cpp::CpProxyUpnpOrgSwitchPower1Cpp(CpDeviceCpp& aDevice)
-    : CpProxy("schemas-upnp-org", "SwitchPower", 1, aDevice.Device())
+    : iCpProxy("schemas-upnp-org", "SwitchPower", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -120,11 +120,11 @@ void CpProxyUpnpOrgSwitchPower1Cpp::SyncSetTarget(bool anewTargetValue)
 
 void CpProxyUpnpOrgSwitchPower1Cpp::BeginSetTarget(bool anewTargetValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetTarget, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetTarget, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetTarget->InputParameters();
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], anewTargetValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgSwitchPower1Cpp::EndSetTarget(IAsync& aAsync)
@@ -150,11 +150,11 @@ void CpProxyUpnpOrgSwitchPower1Cpp::SyncGetTarget(bool& aRetTargetValue)
 
 void CpProxyUpnpOrgSwitchPower1Cpp::BeginGetTarget(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetTarget, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetTarget, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetTarget->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgSwitchPower1Cpp::EndGetTarget(IAsync& aAsync, bool& aRetTargetValue)
@@ -182,11 +182,11 @@ void CpProxyUpnpOrgSwitchPower1Cpp::SyncGetStatus(bool& aResultStatus)
 
 void CpProxyUpnpOrgSwitchPower1Cpp::BeginGetStatus(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetStatus, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetStatus, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetStatus->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgSwitchPower1Cpp::EndGetStatus(IAsync& aAsync, bool& aResultStatus)
@@ -207,20 +207,59 @@ void CpProxyUpnpOrgSwitchPower1Cpp::EndGetStatus(IAsync& aAsync, bool& aResultSt
 
 void CpProxyUpnpOrgSwitchPower1Cpp::SetPropertyStatusChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iStatusChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyUpnpOrgSwitchPower1Cpp::PropertyStatus(bool& aStatus) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aStatus = iStatus->Value();
 }
 
 void CpProxyUpnpOrgSwitchPower1Cpp::StatusPropertyChanged()
 {
     ReportEvent(iStatusChanged);
+}
+
+void CpProxyUpnpOrgSwitchPower1Cpp::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyUpnpOrgSwitchPower1Cpp::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyUpnpOrgSwitchPower1Cpp::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyUpnpOrgSwitchPower1Cpp::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyUpnpOrgSwitchPower1Cpp::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyUpnpOrgSwitchPower1Cpp::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyUpnpOrgSwitchPower1Cpp::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyUpnpOrgSwitchPower1Cpp::Version() const
+{
+  return iCpProxy.Version();
 }
 

@@ -7,19 +7,173 @@
 #include <OpenHome/Net/Private/Error.h>
 #include <OpenHome/Net/Private/CpiDevice.h>
 
-using namespace OpenHome;
-using namespace OpenHome::Net;
-
+namespace OpenHome {
+namespace Net {
 
 class SyncPlayAvOpenhomeOrgRadio1 : public SyncProxyAction
 {
 public:
     SyncPlayAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncPlayAvOpenhomeOrgRadio1() {}
 private:
     CpProxyAvOpenhomeOrgRadio1& iService;
 };
+
+class SyncPauseAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncPauseAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+};
+
+class SyncStopAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncStopAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+};
+
+class SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+};
+
+class SyncSeekSecondRelativeAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncSeekSecondRelativeAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+};
+
+class SyncChannelAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncChannelAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aUri, Brh& aMetadata);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    Brh& iUri;
+    Brh& iMetadata;
+};
+
+class SyncSetChannelAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncSetChannelAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+};
+
+class SyncTransportStateAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncTransportStateAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aValue);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    Brh& iValue;
+};
+
+class SyncIdAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncIdAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aValue);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    TUint& iValue;
+};
+
+class SyncSetIdAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncSetIdAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+};
+
+class SyncReadAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncReadAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aMetadata);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    Brh& iMetadata;
+};
+
+class SyncReadListAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncReadListAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aChannelList);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    Brh& iChannelList;
+};
+
+class SyncIdArrayAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncIdArrayAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aToken, Brh& aArray);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    TUint& iToken;
+    Brh& iArray;
+};
+
+class SyncIdArrayChangedAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncIdArrayChangedAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TBool& aValue);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    TBool& iValue;
+};
+
+class SyncChannelsMaxAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncChannelsMaxAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aValue);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    TUint& iValue;
+};
+
+class SyncProtocolInfoAvOpenhomeOrgRadio1 : public SyncProxyAction
+{
+public:
+    SyncProtocolInfoAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aValue);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgRadio1& iService;
+    Brh& iValue;
+};
+
+} // namespace Net
+} // namespace OpenHome
+
+
+using namespace OpenHome;
+using namespace OpenHome::Net;
+
+
+// SyncPlayAvOpenhomeOrgRadio1
 
 SyncPlayAvOpenhomeOrgRadio1::SyncPlayAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy)
     : iService(aProxy)
@@ -31,16 +185,7 @@ void SyncPlayAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndPlay(aAsync);
 }
 
-
-class SyncPauseAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncPauseAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncPauseAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-};
+// SyncPauseAvOpenhomeOrgRadio1
 
 SyncPauseAvOpenhomeOrgRadio1::SyncPauseAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy)
     : iService(aProxy)
@@ -52,16 +197,7 @@ void SyncPauseAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndPause(aAsync);
 }
 
-
-class SyncStopAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncStopAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncStopAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-};
+// SyncStopAvOpenhomeOrgRadio1
 
 SyncStopAvOpenhomeOrgRadio1::SyncStopAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy)
     : iService(aProxy)
@@ -73,16 +209,7 @@ void SyncStopAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndStop(aAsync);
 }
 
-
-class SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-};
+// SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1
 
 SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1::SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy)
     : iService(aProxy)
@@ -94,16 +221,7 @@ void SyncSeekSecondAbsoluteAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndSeekSecondAbsolute(aAsync);
 }
 
-
-class SyncSeekSecondRelativeAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncSeekSecondRelativeAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSeekSecondRelativeAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-};
+// SyncSeekSecondRelativeAvOpenhomeOrgRadio1
 
 SyncSeekSecondRelativeAvOpenhomeOrgRadio1::SyncSeekSecondRelativeAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy)
     : iService(aProxy)
@@ -115,18 +233,7 @@ void SyncSeekSecondRelativeAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndSeekSecondRelative(aAsync);
 }
 
-
-class SyncChannelAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncChannelAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aUri, Brh& aMetadata);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncChannelAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    Brh& iUri;
-    Brh& iMetadata;
-};
+// SyncChannelAvOpenhomeOrgRadio1
 
 SyncChannelAvOpenhomeOrgRadio1::SyncChannelAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aUri, Brh& aMetadata)
     : iService(aProxy)
@@ -140,16 +247,7 @@ void SyncChannelAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndChannel(aAsync, iUri, iMetadata);
 }
 
-
-class SyncSetChannelAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncSetChannelAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetChannelAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-};
+// SyncSetChannelAvOpenhomeOrgRadio1
 
 SyncSetChannelAvOpenhomeOrgRadio1::SyncSetChannelAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy)
     : iService(aProxy)
@@ -161,17 +259,7 @@ void SyncSetChannelAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndSetChannel(aAsync);
 }
 
-
-class SyncTransportStateAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncTransportStateAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aValue);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncTransportStateAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    Brh& iValue;
-};
+// SyncTransportStateAvOpenhomeOrgRadio1
 
 SyncTransportStateAvOpenhomeOrgRadio1::SyncTransportStateAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aValue)
     : iService(aProxy)
@@ -184,17 +272,7 @@ void SyncTransportStateAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndTransportState(aAsync, iValue);
 }
 
-
-class SyncIdAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncIdAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aValue);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncIdAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    TUint& iValue;
-};
+// SyncIdAvOpenhomeOrgRadio1
 
 SyncIdAvOpenhomeOrgRadio1::SyncIdAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aValue)
     : iService(aProxy)
@@ -207,16 +285,7 @@ void SyncIdAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndId(aAsync, iValue);
 }
 
-
-class SyncSetIdAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncSetIdAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetIdAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-};
+// SyncSetIdAvOpenhomeOrgRadio1
 
 SyncSetIdAvOpenhomeOrgRadio1::SyncSetIdAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy)
     : iService(aProxy)
@@ -228,17 +297,7 @@ void SyncSetIdAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndSetId(aAsync);
 }
 
-
-class SyncReadAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncReadAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aMetadata);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncReadAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    Brh& iMetadata;
-};
+// SyncReadAvOpenhomeOrgRadio1
 
 SyncReadAvOpenhomeOrgRadio1::SyncReadAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aMetadata)
     : iService(aProxy)
@@ -251,17 +310,7 @@ void SyncReadAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndRead(aAsync, iMetadata);
 }
 
-
-class SyncReadListAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncReadListAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aChannelList);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncReadListAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    Brh& iChannelList;
-};
+// SyncReadListAvOpenhomeOrgRadio1
 
 SyncReadListAvOpenhomeOrgRadio1::SyncReadListAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aChannelList)
     : iService(aProxy)
@@ -274,18 +323,7 @@ void SyncReadListAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndReadList(aAsync, iChannelList);
 }
 
-
-class SyncIdArrayAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncIdArrayAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aToken, Brh& aArray);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncIdArrayAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    TUint& iToken;
-    Brh& iArray;
-};
+// SyncIdArrayAvOpenhomeOrgRadio1
 
 SyncIdArrayAvOpenhomeOrgRadio1::SyncIdArrayAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aToken, Brh& aArray)
     : iService(aProxy)
@@ -299,17 +337,7 @@ void SyncIdArrayAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndIdArray(aAsync, iToken, iArray);
 }
 
-
-class SyncIdArrayChangedAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncIdArrayChangedAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TBool& aValue);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncIdArrayChangedAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    TBool& iValue;
-};
+// SyncIdArrayChangedAvOpenhomeOrgRadio1
 
 SyncIdArrayChangedAvOpenhomeOrgRadio1::SyncIdArrayChangedAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TBool& aValue)
     : iService(aProxy)
@@ -322,17 +350,7 @@ void SyncIdArrayChangedAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndIdArrayChanged(aAsync, iValue);
 }
 
-
-class SyncChannelsMaxAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncChannelsMaxAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aValue);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncChannelsMaxAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    TUint& iValue;
-};
+// SyncChannelsMaxAvOpenhomeOrgRadio1
 
 SyncChannelsMaxAvOpenhomeOrgRadio1::SyncChannelsMaxAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, TUint& aValue)
     : iService(aProxy)
@@ -345,17 +363,7 @@ void SyncChannelsMaxAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
     iService.EndChannelsMax(aAsync, iValue);
 }
 
-
-class SyncProtocolInfoAvOpenhomeOrgRadio1 : public SyncProxyAction
-{
-public:
-    SyncProtocolInfoAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aValue);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncProtocolInfoAvOpenhomeOrgRadio1() {}
-private:
-    CpProxyAvOpenhomeOrgRadio1& iService;
-    Brh& iValue;
-};
+// SyncProtocolInfoAvOpenhomeOrgRadio1
 
 SyncProtocolInfoAvOpenhomeOrgRadio1::SyncProtocolInfoAvOpenhomeOrgRadio1(CpProxyAvOpenhomeOrgRadio1& aProxy, Brh& aValue)
     : iService(aProxy)
@@ -369,8 +377,10 @@ void SyncProtocolInfoAvOpenhomeOrgRadio1::CompleteRequest(IAsync& aAsync)
 }
 
 
+// CpProxyAvOpenhomeOrgRadio1
+
 CpProxyAvOpenhomeOrgRadio1::CpProxyAvOpenhomeOrgRadio1(CpDevice& aDevice)
-    : CpProxy("av-openhome-org", "Radio", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "Radio", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
     TChar** allowedValues;
@@ -509,8 +519,8 @@ void CpProxyAvOpenhomeOrgRadio1::SyncPlay()
 
 void CpProxyAvOpenhomeOrgRadio1::BeginPlay(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPlay, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPlay, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndPlay(IAsync& aAsync)
@@ -536,8 +546,8 @@ void CpProxyAvOpenhomeOrgRadio1::SyncPause()
 
 void CpProxyAvOpenhomeOrgRadio1::BeginPause(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPause, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPause, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndPause(IAsync& aAsync)
@@ -563,8 +573,8 @@ void CpProxyAvOpenhomeOrgRadio1::SyncStop()
 
 void CpProxyAvOpenhomeOrgRadio1::BeginStop(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionStop, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionStop, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndStop(IAsync& aAsync)
@@ -590,11 +600,11 @@ void CpProxyAvOpenhomeOrgRadio1::SyncSeekSecondAbsolute(TUint aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginSeekSecondAbsolute(TUint aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSeekSecondAbsolute, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondAbsolute, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekSecondAbsolute->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndSeekSecondAbsolute(IAsync& aAsync)
@@ -620,11 +630,11 @@ void CpProxyAvOpenhomeOrgRadio1::SyncSeekSecondRelative(TInt aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginSeekSecondRelative(TInt aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSeekSecondRelative, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondRelative, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekSecondRelative->InputParameters();
     invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndSeekSecondRelative(IAsync& aAsync)
@@ -650,12 +660,12 @@ void CpProxyAvOpenhomeOrgRadio1::SyncChannel(Brh& aUri, Brh& aMetadata)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginChannel(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionChannel, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionChannel, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionChannel->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndChannel(IAsync& aAsync, Brh& aUri, Brh& aMetadata)
@@ -684,12 +694,12 @@ void CpProxyAvOpenhomeOrgRadio1::SyncSetChannel(const Brx& aUri, const Brx& aMet
 
 void CpProxyAvOpenhomeOrgRadio1::BeginSetChannel(const Brx& aUri, const Brx& aMetadata, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetChannel, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetChannel, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetChannel->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aUri));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aMetadata));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndSetChannel(IAsync& aAsync)
@@ -715,11 +725,11 @@ void CpProxyAvOpenhomeOrgRadio1::SyncTransportState(Brh& aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginTransportState(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionTransportState, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionTransportState, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionTransportState->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndTransportState(IAsync& aAsync, Brh& aValue)
@@ -747,11 +757,11 @@ void CpProxyAvOpenhomeOrgRadio1::SyncId(TUint& aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginId(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionId, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionId, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionId->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndId(IAsync& aAsync, TUint& aValue)
@@ -779,12 +789,12 @@ void CpProxyAvOpenhomeOrgRadio1::SyncSetId(TUint aValue, const Brx& aUri)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginSetId(TUint aValue, const Brx& aUri, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetId, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetId, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetId->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aValue));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aUri));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndSetId(IAsync& aAsync)
@@ -810,14 +820,14 @@ void CpProxyAvOpenhomeOrgRadio1::SyncRead(TUint aId, Brh& aMetadata)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginRead(TUint aId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRead, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRead, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionRead->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aId));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionRead->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndRead(IAsync& aAsync, Brh& aMetadata)
@@ -845,14 +855,14 @@ void CpProxyAvOpenhomeOrgRadio1::SyncReadList(const Brx& aIdList, Brh& aChannelL
 
 void CpProxyAvOpenhomeOrgRadio1::BeginReadList(const Brx& aIdList, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionReadList, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionReadList, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionReadList->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aIdList));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionReadList->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndReadList(IAsync& aAsync, Brh& aChannelList)
@@ -880,12 +890,12 @@ void CpProxyAvOpenhomeOrgRadio1::SyncIdArray(TUint& aToken, Brh& aArray)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginIdArray(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionIdArray, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionIdArray, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionIdArray->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentBinary(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndIdArray(IAsync& aAsync, TUint& aToken, Brh& aArray)
@@ -914,14 +924,14 @@ void CpProxyAvOpenhomeOrgRadio1::SyncIdArrayChanged(TUint aToken, TBool& aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginIdArrayChanged(TUint aToken, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionIdArrayChanged, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionIdArrayChanged, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionIdArrayChanged->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aToken));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionIdArrayChanged->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndIdArrayChanged(IAsync& aAsync, TBool& aValue)
@@ -949,11 +959,11 @@ void CpProxyAvOpenhomeOrgRadio1::SyncChannelsMax(TUint& aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginChannelsMax(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionChannelsMax, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionChannelsMax, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionChannelsMax->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndChannelsMax(IAsync& aAsync, TUint& aValue)
@@ -981,11 +991,11 @@ void CpProxyAvOpenhomeOrgRadio1::SyncProtocolInfo(Brh& aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::BeginProtocolInfo(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionProtocolInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionProtocolInfo, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionProtocolInfo->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgRadio1::EndProtocolInfo(IAsync& aAsync, Brh& aValue)
@@ -1006,99 +1016,99 @@ void CpProxyAvOpenhomeOrgRadio1::EndProtocolInfo(IAsync& aAsync, Brh& aValue)
 
 void CpProxyAvOpenhomeOrgRadio1::SetPropertyUriChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iUriChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::SetPropertyMetadataChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iMetadataChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::SetPropertyTransportStateChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iTransportStateChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::SetPropertyIdChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iIdChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::SetPropertyIdArrayChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iIdArrayChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::SetPropertyChannelsMaxChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iChannelsMaxChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::SetPropertyProtocolInfoChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iProtocolInfoChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyUri(Brhz& aUri) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aUri.Set(iUri->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyMetadata(Brhz& aMetadata) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyTransportState(Brhz& aTransportState) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aTransportState.Set(iTransportState->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyId(TUint& aId) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aId = iId->Value();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyIdArray(Brh& aIdArray) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aIdArray.Set(iIdArray->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyChannelsMax(TUint& aChannelsMax) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aChannelsMax = iChannelsMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyProtocolInfo(Brhz& aProtocolInfo) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aProtocolInfo.Set(iProtocolInfo->Value());
 }
 
@@ -1136,4 +1146,45 @@ void CpProxyAvOpenhomeOrgRadio1::ProtocolInfoPropertyChanged()
 {
     ReportEvent(iProtocolInfoChanged);
 }
+
+
+void CpProxyAvOpenhomeOrgRadio1::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgRadio1::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgRadio1::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgRadio1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgRadio1::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgRadio1::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgRadio1::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgRadio1::Version() const
+{
+  return iCpProxy.Version();
+}
+
 

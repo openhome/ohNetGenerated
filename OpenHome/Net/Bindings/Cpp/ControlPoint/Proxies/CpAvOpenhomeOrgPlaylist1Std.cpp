@@ -544,7 +544,7 @@ void SyncProtocolInfoAvOpenhomeOrgPlaylist1Cpp::CompleteRequest(IAsync& aAsync)
 
 
 CpProxyAvOpenhomeOrgPlaylist1Cpp::CpProxyAvOpenhomeOrgPlaylist1Cpp(CpDeviceCpp& aDevice)
-    : CpProxy("av-openhome-org", "Playlist", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "Playlist", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
     TChar** allowedValues;
@@ -719,8 +719,8 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncPlay()
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginPlay(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPlay, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPlay, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndPlay(IAsync& aAsync)
@@ -746,8 +746,8 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncPause()
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginPause(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPause, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPause, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndPause(IAsync& aAsync)
@@ -773,8 +773,8 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncStop()
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginStop(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionStop, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionStop, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndStop(IAsync& aAsync)
@@ -800,8 +800,8 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncNext()
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginNext(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionNext, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionNext, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndNext(IAsync& aAsync)
@@ -827,8 +827,8 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncPrevious()
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginPrevious(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPrevious, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPrevious, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndPrevious(IAsync& aAsync)
@@ -854,11 +854,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncSetRepeat(bool aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginSetRepeat(bool aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetRepeat, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetRepeat, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetRepeat->InputParameters();
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndSetRepeat(IAsync& aAsync)
@@ -884,11 +884,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncRepeat(bool& aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginRepeat(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRepeat, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRepeat, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionRepeat->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndRepeat(IAsync& aAsync, bool& aValue)
@@ -916,11 +916,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncSetShuffle(bool aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginSetShuffle(bool aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetShuffle, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetShuffle, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetShuffle->InputParameters();
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndSetShuffle(IAsync& aAsync)
@@ -946,11 +946,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncShuffle(bool& aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginShuffle(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionShuffle, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionShuffle, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionShuffle->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndShuffle(IAsync& aAsync, bool& aValue)
@@ -978,11 +978,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncSeekSecondAbsolute(uint32_t aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginSeekSecondAbsolute(uint32_t aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSeekSecondAbsolute, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondAbsolute, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekSecondAbsolute->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndSeekSecondAbsolute(IAsync& aAsync)
@@ -1008,11 +1008,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncSeekSecondRelative(int32_t aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginSeekSecondRelative(int32_t aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSeekSecondRelative, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondRelative, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekSecondRelative->InputParameters();
     invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndSeekSecondRelative(IAsync& aAsync)
@@ -1038,11 +1038,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncSeekId(uint32_t aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginSeekId(uint32_t aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSeekId, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekId, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekId->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndSeekId(IAsync& aAsync)
@@ -1068,11 +1068,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncSeekIndex(uint32_t aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginSeekIndex(uint32_t aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSeekIndex, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekIndex, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekIndex->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndSeekIndex(IAsync& aAsync)
@@ -1098,11 +1098,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncTransportState(std::string& aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginTransportState(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionTransportState, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionTransportState, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionTransportState->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndTransportState(IAsync& aAsync, std::string& aValue)
@@ -1133,11 +1133,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncId(uint32_t& aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginId(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionId, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionId, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionId->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndId(IAsync& aAsync, uint32_t& aValue)
@@ -1165,7 +1165,7 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncRead(uint32_t aId, std::string& aUri,
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginRead(uint32_t aId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRead, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRead, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionRead->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aId));
@@ -1173,7 +1173,7 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginRead(uint32_t aId, FunctorAsync& aFu
     const Action::VectorParameters& outParams = iActionRead->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndRead(IAsync& aAsync, std::string& aUri, std::string& aMetadata)
@@ -1208,7 +1208,7 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncReadList(const std::string& aIdList, 
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginReadList(const std::string& aIdList, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionReadList, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionReadList, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionReadList->InputParameters();
     {
@@ -1218,7 +1218,7 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginReadList(const std::string& aIdList,
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionReadList->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndReadList(IAsync& aAsync, std::string& aTrackList)
@@ -1249,7 +1249,7 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncInsert(uint32_t aAfterId, const std::
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginInsert(uint32_t aAfterId, const std::string& aUri, const std::string& aMetadata, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionInsert, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionInsert, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionInsert->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aAfterId));
@@ -1264,7 +1264,7 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginInsert(uint32_t aAfterId, const std:
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionInsert->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndInsert(IAsync& aAsync, uint32_t& aNewId)
@@ -1292,11 +1292,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncDeleteId(uint32_t aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginDeleteId(uint32_t aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeleteId, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeleteId, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDeleteId->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndDeleteId(IAsync& aAsync)
@@ -1322,8 +1322,8 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncDeleteAll()
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginDeleteAll(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeleteAll, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeleteAll, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndDeleteAll(IAsync& aAsync)
@@ -1349,11 +1349,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncTracksMax(uint32_t& aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginTracksMax(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionTracksMax, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionTracksMax, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionTracksMax->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndTracksMax(IAsync& aAsync, uint32_t& aValue)
@@ -1381,12 +1381,12 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncIdArray(uint32_t& aToken, std::string
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginIdArray(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionIdArray, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionIdArray, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionIdArray->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentBinary(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndIdArray(IAsync& aAsync, uint32_t& aToken, std::string& aArray)
@@ -1418,14 +1418,14 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncIdArrayChanged(uint32_t aToken, bool&
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginIdArrayChanged(uint32_t aToken, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionIdArrayChanged, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionIdArrayChanged, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionIdArrayChanged->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aToken));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionIdArrayChanged->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndIdArrayChanged(IAsync& aAsync, bool& aValue)
@@ -1453,11 +1453,11 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::SyncProtocolInfo(std::string& aValue)
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::BeginProtocolInfo(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionProtocolInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionProtocolInfo, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionProtocolInfo->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndProtocolInfo(IAsync& aAsync, std::string& aValue)
@@ -1481,101 +1481,101 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::EndProtocolInfo(IAsync& aAsync, std::stri
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyTransportStateChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iTransportStateChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyRepeatChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iRepeatChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyShuffleChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iShuffleChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyIdChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iIdChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyIdArrayChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iIdArrayChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyTracksMaxChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iTracksMaxChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyProtocolInfoChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iProtocolInfoChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::PropertyTransportState(std::string& aTransportState) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iTransportState->Value();
     aTransportState.assign((const char*)val.Ptr(), val.Bytes());
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::PropertyRepeat(bool& aRepeat) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aRepeat = iRepeat->Value();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::PropertyShuffle(bool& aShuffle) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aShuffle = iShuffle->Value();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::PropertyId(uint32_t& aId) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aId = iId->Value();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::PropertyIdArray(std::string& aIdArray) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iIdArray->Value();
     aIdArray.assign((const char*)val.Ptr(), val.Bytes());
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::PropertyTracksMax(uint32_t& aTracksMax) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aTracksMax = iTracksMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::PropertyProtocolInfo(std::string& aProtocolInfo) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iProtocolInfo->Value();
     aProtocolInfo.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1613,5 +1613,44 @@ void CpProxyAvOpenhomeOrgPlaylist1Cpp::TracksMaxPropertyChanged()
 void CpProxyAvOpenhomeOrgPlaylist1Cpp::ProtocolInfoPropertyChanged()
 {
     ReportEvent(iProtocolInfoChanged);
+}
+
+void CpProxyAvOpenhomeOrgPlaylist1Cpp::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgPlaylist1Cpp::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgPlaylist1Cpp::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgPlaylist1Cpp::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgPlaylist1Cpp::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgPlaylist1Cpp::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgPlaylist1Cpp::Version() const
+{
+  return iCpProxy.Version();
 }
 

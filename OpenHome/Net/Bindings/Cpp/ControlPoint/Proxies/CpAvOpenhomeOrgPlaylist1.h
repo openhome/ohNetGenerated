@@ -19,10 +19,11 @@ class PropertyBool;
 class PropertyInt;
 class PropertyString;
 class PropertyUint;
-
-class ICpProxyAvOpenhomeOrgPlaylist1Cpp
+class CpProxy;
+class ICpProxyAvOpenhomeOrgPlaylist1Cpp : public ICpProxy
 {
 public:
+    virtual ~ICpProxyAvOpenhomeOrgPlaylist1Cpp() {}
     virtual void SyncPlay() = 0;
     virtual void BeginPlay(FunctorAsync& aFunctor) = 0;
     virtual void EndPlay(IAsync& aAsync) = 0;
@@ -115,13 +116,13 @@ public:
  * Proxy for av.openhome.org:Playlist:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgPlaylist1Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgPlaylist1Cpp
+class CpProxyAvOpenhomeOrgPlaylist1Cpp : public ICpProxyAvOpenhomeOrgPlaylist1Cpp
 {
 public:
     /**
      * Constructor.
      *
-     * Use CpProxy::[Un]Subscribe() to enable/disable querying of state variable
+     * Use iCpProxy::[Un]Subscribe() to enable/disable querying of state variable
      * and reporting of their changes.
      *
      * @param[in]  aDevice   The device to use
@@ -892,7 +893,40 @@ public:
      * @param[out] aProtocolInfo
      */
     void PropertyProtocolInfo(std::string& aProtocolInfo) const;
+    /**
+    * This function exposes the Subscribe() function of the iCpProxy member variable
+    */
+    void Subscribe();
+    /**
+    * This function exposes the Unsubscribe() function of the iCpProxy member variable
+    */
+    void Unsubscribe();
+    /**
+    * This function exposes the SetPropertyChanged() function of the iCpProxy member variable
+    */
+    void SetPropertyChanged(Functor& aFunctor);
+    /**
+    * This function exposes the SetPropertyInitialEvent() function of the iCpProxy member variable
+    */
+    void SetPropertyInitialEvent(Functor& aFunctor);
+    /**
+    * This function exposes the AddProperty() function of the iCpProxy member variable
+    */
+    void AddProperty(Property* aProperty);
+    /**
+    * This function exposes DestroyService() function of the iCpProxy member variable
+    */
+    void DestroyService();
+    /**
+    * This function exposes the REportEvent() function of the iCpProxy member variable
+    */
+    void ReportEvent(Functor aFunctor);
+    /**
+    * This function exposes the Version() function of the iCpProxy member variable
+    */
+    TUint Version() const;
 private:
+    CpProxy iCpProxy;
     void TransportStatePropertyChanged();
     void RepeatPropertyChanged();
     void ShufflePropertyChanged();

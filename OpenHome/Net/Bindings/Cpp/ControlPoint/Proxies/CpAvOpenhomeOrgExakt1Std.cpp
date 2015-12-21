@@ -146,7 +146,7 @@ void SyncReprogramFallbackAvOpenhomeOrgExakt1Cpp::CompleteRequest(IAsync& aAsync
 
 
 CpProxyAvOpenhomeOrgExakt1Cpp::CpProxyAvOpenhomeOrgExakt1Cpp(CpDeviceCpp& aDevice)
-    : CpProxy("av-openhome-org", "Exakt", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "Exakt", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -217,11 +217,11 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::SyncDeviceList(std::string& aList)
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::BeginDeviceList(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeviceList, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeviceList, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionDeviceList->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::EndDeviceList(IAsync& aAsync, std::string& aList)
@@ -252,7 +252,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::SyncDeviceSettings(const std::string& aDevic
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::BeginDeviceSettings(const std::string& aDeviceId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeviceSettings, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeviceSettings, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDeviceSettings->InputParameters();
     {
@@ -262,7 +262,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::BeginDeviceSettings(const std::string& aDevi
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionDeviceSettings->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::EndDeviceSettings(IAsync& aAsync, std::string& aSettings)
@@ -293,11 +293,11 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::SyncConnectionStatus(std::string& aConnectio
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::BeginConnectionStatus(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionConnectionStatus, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionConnectionStatus, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionConnectionStatus->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::EndConnectionStatus(IAsync& aAsync, std::string& aConnectionStatus)
@@ -328,7 +328,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::SyncSet(const std::string& aDeviceId, uint32
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::BeginSet(const std::string& aDeviceId, uint32_t aBankId, const std::string& aFileUri, bool aMute, bool aPersist, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSet, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSet, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSet->InputParameters();
     {
@@ -342,7 +342,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::BeginSet(const std::string& aDeviceId, uint3
     }
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aMute));
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aPersist));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::EndSet(IAsync& aAsync)
@@ -368,7 +368,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::SyncReprogram(const std::string& aDeviceId, 
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::BeginReprogram(const std::string& aDeviceId, const std::string& aFileUri, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionReprogram, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionReprogram, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionReprogram->InputParameters();
     {
@@ -379,7 +379,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::BeginReprogram(const std::string& aDeviceId,
         Brn buf((const TByte*)aFileUri.c_str(), (TUint)aFileUri.length());
         invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
     }
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::EndReprogram(IAsync& aAsync)
@@ -405,7 +405,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::SyncReprogramFallback(const std::string& aDe
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::BeginReprogramFallback(const std::string& aDeviceId, const std::string& aFileUri, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionReprogramFallback, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionReprogramFallback, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionReprogramFallback->InputParameters();
     {
@@ -416,7 +416,7 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::BeginReprogramFallback(const std::string& aD
         Brn buf((const TByte*)aFileUri.c_str(), (TUint)aFileUri.length());
         invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
     }
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::EndReprogramFallback(IAsync& aAsync)
@@ -435,30 +435,30 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::EndReprogramFallback(IAsync& aAsync)
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::SetPropertyDeviceListChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iDeviceListChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::SetPropertyConnectionStatusChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iConnectionStatusChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::PropertyDeviceList(std::string& aDeviceList) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iDeviceList->Value();
     aDeviceList.assign((const char*)val.Ptr(), val.Bytes());
 }
 
 void CpProxyAvOpenhomeOrgExakt1Cpp::PropertyConnectionStatus(std::string& aConnectionStatus) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iConnectionStatus->Value();
     aConnectionStatus.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -471,5 +471,44 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::DeviceListPropertyChanged()
 void CpProxyAvOpenhomeOrgExakt1Cpp::ConnectionStatusPropertyChanged()
 {
     ReportEvent(iConnectionStatusChanged);
+}
+
+void CpProxyAvOpenhomeOrgExakt1Cpp::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgExakt1Cpp::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgExakt1Cpp::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgExakt1Cpp::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgExakt1Cpp::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgExakt1Cpp::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgExakt1Cpp::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgExakt1Cpp::Version() const
+{
+  return iCpProxy.Version();
 }
 

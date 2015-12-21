@@ -19,10 +19,11 @@ class PropertyBool;
 class PropertyInt;
 class PropertyString;
 class PropertyUint;
-
-class ICpProxyLinnCoUkFlash1Cpp
+class CpProxy;
+class ICpProxyLinnCoUkFlash1Cpp : public ICpProxy
 {
 public:
+    virtual ~ICpProxyLinnCoUkFlash1Cpp() {}
     virtual void SyncRead(uint32_t aaId, uint32_t aaAddress, uint32_t aaLength, std::string& aaBuffer) = 0;
     virtual void BeginRead(uint32_t aaId, uint32_t aaAddress, uint32_t aaLength, FunctorAsync& aFunctor) = 0;
     virtual void EndRead(IAsync& aAsync, std::string& aaBuffer) = 0;
@@ -56,13 +57,13 @@ public:
  * Proxy for linn.co.uk:Flash:1
  * @ingroup Proxies
  */
-class CpProxyLinnCoUkFlash1Cpp : public CpProxy, public ICpProxyLinnCoUkFlash1Cpp
+class CpProxyLinnCoUkFlash1Cpp : public ICpProxyLinnCoUkFlash1Cpp
 {
 public:
     /**
      * Constructor.
      *
-     * Use CpProxy::[Un]Subscribe() to enable/disable querying of state variable
+     * Use iCpProxy::[Un]Subscribe() to enable/disable querying of state variable
      * and reporting of their changes.
      *
      * @param[in]  aDevice   The device to use
@@ -344,7 +345,40 @@ public:
     void EndRomDirInfo(IAsync& aAsync, uint32_t& aaFlashIdMain, uint32_t& aaOffsetMain, uint32_t& aaBytesMain, uint32_t& aaFlashIdFallback, uint32_t& aaOffsetFallback, uint32_t& aaBytesFallback);
 
 
+    /**
+    * This function exposes the Subscribe() function of the iCpProxy member variable
+    */
+    void Subscribe();
+    /**
+    * This function exposes the Unsubscribe() function of the iCpProxy member variable
+    */
+    void Unsubscribe();
+    /**
+    * This function exposes the SetPropertyChanged() function of the iCpProxy member variable
+    */
+    void SetPropertyChanged(Functor& aFunctor);
+    /**
+    * This function exposes the SetPropertyInitialEvent() function of the iCpProxy member variable
+    */
+    void SetPropertyInitialEvent(Functor& aFunctor);
+    /**
+    * This function exposes the AddProperty() function of the iCpProxy member variable
+    */
+    void AddProperty(Property* aProperty);
+    /**
+    * This function exposes DestroyService() function of the iCpProxy member variable
+    */
+    void DestroyService();
+    /**
+    * This function exposes the REportEvent() function of the iCpProxy member variable
+    */
+    void ReportEvent(Functor aFunctor);
+    /**
+    * This function exposes the Version() function of the iCpProxy member variable
+    */
+    TUint Version() const;
 private:
+    CpProxy iCpProxy;
 private:
     Action* iActionRead;
     Action* iActionWrite;

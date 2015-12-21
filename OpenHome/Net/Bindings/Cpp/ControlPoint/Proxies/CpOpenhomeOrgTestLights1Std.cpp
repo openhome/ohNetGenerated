@@ -183,7 +183,7 @@ void SyncGetColorComponentsOpenhomeOrgTestLights1Cpp::CompleteRequest(IAsync& aA
 
 
 CpProxyOpenhomeOrgTestLights1Cpp::CpProxyOpenhomeOrgTestLights1Cpp(CpDeviceCpp& aDevice)
-    : CpProxy("openhome-org", "TestLights", 1, aDevice.Device())
+    : iCpProxy("openhome-org", "TestLights", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -259,11 +259,11 @@ void CpProxyOpenhomeOrgTestLights1Cpp::SyncGetCount(uint32_t& aCount)
 
 void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetCount(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetCount, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetCount, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetCount->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1Cpp::EndGetCount(IAsync& aAsync, uint32_t& aCount)
@@ -291,14 +291,14 @@ void CpProxyOpenhomeOrgTestLights1Cpp::SyncGetRoom(uint32_t aIndex, std::string&
 
 void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetRoom(uint32_t aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetRoom, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetRoom, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetRoom->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetRoom->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1Cpp::EndGetRoom(IAsync& aAsync, std::string& aRoomName)
@@ -329,14 +329,14 @@ void CpProxyOpenhomeOrgTestLights1Cpp::SyncGetName(uint32_t aIndex, std::string&
 
 void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetName(uint32_t aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetName, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetName, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetName->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetName->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1Cpp::EndGetName(IAsync& aAsync, std::string& aFriendlyName)
@@ -367,7 +367,7 @@ void CpProxyOpenhomeOrgTestLights1Cpp::SyncGetPosition(uint32_t aIndex, uint32_t
 
 void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetPosition(uint32_t aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetPosition, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetPosition, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetPosition->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
@@ -376,7 +376,7 @@ void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetPosition(uint32_t aIndex, Functor
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1Cpp::EndGetPosition(IAsync& aAsync, uint32_t& aX, uint32_t& aY, uint32_t& aZ)
@@ -406,12 +406,12 @@ void CpProxyOpenhomeOrgTestLights1Cpp::SyncSetColor(uint32_t aIndex, uint32_t aC
 
 void CpProxyOpenhomeOrgTestLights1Cpp::BeginSetColor(uint32_t aIndex, uint32_t aColor, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetColor, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetColor, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetColor->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aColor));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1Cpp::EndSetColor(IAsync& aAsync)
@@ -437,14 +437,14 @@ void CpProxyOpenhomeOrgTestLights1Cpp::SyncGetColor(uint32_t aIndex, uint32_t& a
 
 void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetColor(uint32_t aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetColor, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetColor, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetColor->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetColor->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1Cpp::EndGetColor(IAsync& aAsync, uint32_t& aColor)
@@ -472,7 +472,7 @@ void CpProxyOpenhomeOrgTestLights1Cpp::SyncGetColorComponents(uint32_t aColor, u
 
 void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetColorComponents(uint32_t aColor, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetColorComponents, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetColorComponents, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetColorComponents->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aColor));
@@ -482,7 +482,7 @@ void CpProxyOpenhomeOrgTestLights1Cpp::BeginGetColorComponents(uint32_t aColor, 
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1Cpp::EndGetColorComponents(IAsync& aAsync, uint32_t& aBrightness, uint32_t& aRed, uint32_t& aGreen, uint32_t& aBlue)
@@ -502,5 +502,44 @@ void CpProxyOpenhomeOrgTestLights1Cpp::EndGetColorComponents(IAsync& aAsync, uin
     aRed = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
     aGreen = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
     aBlue = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
+}
+
+void CpProxyOpenhomeOrgTestLights1Cpp::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyOpenhomeOrgTestLights1Cpp::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyOpenhomeOrgTestLights1Cpp::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyOpenhomeOrgTestLights1Cpp::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyOpenhomeOrgTestLights1Cpp::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyOpenhomeOrgTestLights1Cpp::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyOpenhomeOrgTestLights1Cpp::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyOpenhomeOrgTestLights1Cpp::Version() const
+{
+  return iCpProxy.Version();
 }
 

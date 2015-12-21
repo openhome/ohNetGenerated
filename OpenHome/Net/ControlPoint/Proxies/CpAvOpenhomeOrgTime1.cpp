@@ -7,22 +7,30 @@
 #include <OpenHome/Net/Private/Error.h>
 #include <OpenHome/Net/Private/CpiDevice.h>
 
-using namespace OpenHome;
-using namespace OpenHome::Net;
-
+namespace OpenHome {
+namespace Net {
 
 class SyncTimeAvOpenhomeOrgTime1 : public SyncProxyAction
 {
 public:
     SyncTimeAvOpenhomeOrgTime1(CpProxyAvOpenhomeOrgTime1& aProxy, TUint& aTrackCount, TUint& aDuration, TUint& aSeconds);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncTimeAvOpenhomeOrgTime1() {}
 private:
     CpProxyAvOpenhomeOrgTime1& iService;
     TUint& iTrackCount;
     TUint& iDuration;
     TUint& iSeconds;
 };
+
+} // namespace Net
+} // namespace OpenHome
+
+
+using namespace OpenHome;
+using namespace OpenHome::Net;
+
+
+// SyncTimeAvOpenhomeOrgTime1
 
 SyncTimeAvOpenhomeOrgTime1::SyncTimeAvOpenhomeOrgTime1(CpProxyAvOpenhomeOrgTime1& aProxy, TUint& aTrackCount, TUint& aDuration, TUint& aSeconds)
     : iService(aProxy)
@@ -38,8 +46,10 @@ void SyncTimeAvOpenhomeOrgTime1::CompleteRequest(IAsync& aAsync)
 }
 
 
+// CpProxyAvOpenhomeOrgTime1
+
 CpProxyAvOpenhomeOrgTime1::CpProxyAvOpenhomeOrgTime1(CpDevice& aDevice)
-    : CpProxy("av-openhome-org", "Time", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "Time", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -78,13 +88,13 @@ void CpProxyAvOpenhomeOrgTime1::SyncTime(TUint& aTrackCount, TUint& aDuration, T
 
 void CpProxyAvOpenhomeOrgTime1::BeginTime(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionTime, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionTime, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionTime->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgTime1::EndTime(IAsync& aAsync, TUint& aTrackCount, TUint& aDuration, TUint& aSeconds)
@@ -107,43 +117,43 @@ void CpProxyAvOpenhomeOrgTime1::EndTime(IAsync& aAsync, TUint& aTrackCount, TUin
 
 void CpProxyAvOpenhomeOrgTime1::SetPropertyTrackCountChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iTrackCountChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgTime1::SetPropertyDurationChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iDurationChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgTime1::SetPropertySecondsChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iSecondsChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgTime1::PropertyTrackCount(TUint& aTrackCount) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aTrackCount = iTrackCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1::PropertyDuration(TUint& aDuration) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aDuration = iDuration->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1::PropertySeconds(TUint& aSeconds) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aSeconds = iSeconds->Value();
 }
 
@@ -161,4 +171,45 @@ void CpProxyAvOpenhomeOrgTime1::SecondsPropertyChanged()
 {
     ReportEvent(iSecondsChanged);
 }
+
+
+void CpProxyAvOpenhomeOrgTime1::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgTime1::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgTime1::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgTime1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgTime1::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgTime1::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgTime1::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgTime1::Version() const
+{
+  return iCpProxy.Version();
+}
+
 

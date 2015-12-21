@@ -7,20 +7,163 @@
 #include <OpenHome/Net/Private/Error.h>
 #include <OpenHome/Net/Private/CpiDevice.h>
 
-using namespace OpenHome;
-using namespace OpenHome::Net;
-
+namespace OpenHome {
+namespace Net {
 
 class SyncGetSearchCapabilitiesUpnpOrgContentDirectory1 : public SyncProxyAction
 {
 public:
     SyncGetSearchCapabilitiesUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aSearchCaps);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetSearchCapabilitiesUpnpOrgContentDirectory1() {}
 private:
     CpProxyUpnpOrgContentDirectory1& iService;
     Brh& iSearchCaps;
 };
+
+class SyncGetSortCapabilitiesUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncGetSortCapabilitiesUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aSortCaps);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    Brh& iSortCaps;
+};
+
+class SyncGetSystemUpdateIDUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncGetSystemUpdateIDUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aId);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    TUint& iId;
+};
+
+class SyncBrowseUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncBrowseUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    Brh& iResult;
+    TUint& iNumberReturned;
+    TUint& iTotalMatches;
+    TUint& iUpdateID;
+};
+
+class SyncSearchUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncSearchUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    Brh& iResult;
+    TUint& iNumberReturned;
+    TUint& iTotalMatches;
+    TUint& iUpdateID;
+};
+
+class SyncCreateObjectUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncCreateObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aObjectID, Brh& aResult);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    Brh& iObjectID;
+    Brh& iResult;
+};
+
+class SyncDestroyObjectUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncDestroyObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+};
+
+class SyncUpdateObjectUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncUpdateObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+};
+
+class SyncImportResourceUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncImportResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aTransferID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    TUint& iTransferID;
+};
+
+class SyncExportResourceUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncExportResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aTransferID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    TUint& iTransferID;
+};
+
+class SyncStopTransferResourceUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncStopTransferResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+};
+
+class SyncGetTransferProgressUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncGetTransferProgressUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aTransferStatus, Brh& aTransferLength, Brh& aTransferTotal);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    Brh& iTransferStatus;
+    Brh& iTransferLength;
+    Brh& iTransferTotal;
+};
+
+class SyncDeleteResourceUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncDeleteResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+};
+
+class SyncCreateReferenceUpnpOrgContentDirectory1 : public SyncProxyAction
+{
+public:
+    SyncCreateReferenceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aNewID);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyUpnpOrgContentDirectory1& iService;
+    Brh& iNewID;
+};
+
+} // namespace Net
+} // namespace OpenHome
+
+
+using namespace OpenHome;
+using namespace OpenHome::Net;
+
+
+// SyncGetSearchCapabilitiesUpnpOrgContentDirectory1
 
 SyncGetSearchCapabilitiesUpnpOrgContentDirectory1::SyncGetSearchCapabilitiesUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aSearchCaps)
     : iService(aProxy)
@@ -33,17 +176,7 @@ void SyncGetSearchCapabilitiesUpnpOrgContentDirectory1::CompleteRequest(IAsync& 
     iService.EndGetSearchCapabilities(aAsync, iSearchCaps);
 }
 
-
-class SyncGetSortCapabilitiesUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncGetSortCapabilitiesUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aSortCaps);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetSortCapabilitiesUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    Brh& iSortCaps;
-};
+// SyncGetSortCapabilitiesUpnpOrgContentDirectory1
 
 SyncGetSortCapabilitiesUpnpOrgContentDirectory1::SyncGetSortCapabilitiesUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aSortCaps)
     : iService(aProxy)
@@ -56,17 +189,7 @@ void SyncGetSortCapabilitiesUpnpOrgContentDirectory1::CompleteRequest(IAsync& aA
     iService.EndGetSortCapabilities(aAsync, iSortCaps);
 }
 
-
-class SyncGetSystemUpdateIDUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncGetSystemUpdateIDUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aId);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetSystemUpdateIDUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    TUint& iId;
-};
+// SyncGetSystemUpdateIDUpnpOrgContentDirectory1
 
 SyncGetSystemUpdateIDUpnpOrgContentDirectory1::SyncGetSystemUpdateIDUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aId)
     : iService(aProxy)
@@ -79,20 +202,7 @@ void SyncGetSystemUpdateIDUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsy
     iService.EndGetSystemUpdateID(aAsync, iId);
 }
 
-
-class SyncBrowseUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncBrowseUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncBrowseUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    Brh& iResult;
-    TUint& iNumberReturned;
-    TUint& iTotalMatches;
-    TUint& iUpdateID;
-};
+// SyncBrowseUpnpOrgContentDirectory1
 
 SyncBrowseUpnpOrgContentDirectory1::SyncBrowseUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
     : iService(aProxy)
@@ -108,20 +218,7 @@ void SyncBrowseUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndBrowse(aAsync, iResult, iNumberReturned, iTotalMatches, iUpdateID);
 }
 
-
-class SyncSearchUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncSearchUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSearchUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    Brh& iResult;
-    TUint& iNumberReturned;
-    TUint& iTotalMatches;
-    TUint& iUpdateID;
-};
+// SyncSearchUpnpOrgContentDirectory1
 
 SyncSearchUpnpOrgContentDirectory1::SyncSearchUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
     : iService(aProxy)
@@ -137,18 +234,7 @@ void SyncSearchUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndSearch(aAsync, iResult, iNumberReturned, iTotalMatches, iUpdateID);
 }
 
-
-class SyncCreateObjectUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncCreateObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aObjectID, Brh& aResult);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncCreateObjectUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    Brh& iObjectID;
-    Brh& iResult;
-};
+// SyncCreateObjectUpnpOrgContentDirectory1
 
 SyncCreateObjectUpnpOrgContentDirectory1::SyncCreateObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aObjectID, Brh& aResult)
     : iService(aProxy)
@@ -162,16 +248,7 @@ void SyncCreateObjectUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndCreateObject(aAsync, iObjectID, iResult);
 }
 
-
-class SyncDestroyObjectUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncDestroyObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncDestroyObjectUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-};
+// SyncDestroyObjectUpnpOrgContentDirectory1
 
 SyncDestroyObjectUpnpOrgContentDirectory1::SyncDestroyObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy)
     : iService(aProxy)
@@ -183,16 +260,7 @@ void SyncDestroyObjectUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndDestroyObject(aAsync);
 }
 
-
-class SyncUpdateObjectUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncUpdateObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncUpdateObjectUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-};
+// SyncUpdateObjectUpnpOrgContentDirectory1
 
 SyncUpdateObjectUpnpOrgContentDirectory1::SyncUpdateObjectUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy)
     : iService(aProxy)
@@ -204,17 +272,7 @@ void SyncUpdateObjectUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndUpdateObject(aAsync);
 }
 
-
-class SyncImportResourceUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncImportResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aTransferID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncImportResourceUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    TUint& iTransferID;
-};
+// SyncImportResourceUpnpOrgContentDirectory1
 
 SyncImportResourceUpnpOrgContentDirectory1::SyncImportResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aTransferID)
     : iService(aProxy)
@@ -227,17 +285,7 @@ void SyncImportResourceUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndImportResource(aAsync, iTransferID);
 }
 
-
-class SyncExportResourceUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncExportResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aTransferID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncExportResourceUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    TUint& iTransferID;
-};
+// SyncExportResourceUpnpOrgContentDirectory1
 
 SyncExportResourceUpnpOrgContentDirectory1::SyncExportResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, TUint& aTransferID)
     : iService(aProxy)
@@ -250,16 +298,7 @@ void SyncExportResourceUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndExportResource(aAsync, iTransferID);
 }
 
-
-class SyncStopTransferResourceUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncStopTransferResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncStopTransferResourceUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-};
+// SyncStopTransferResourceUpnpOrgContentDirectory1
 
 SyncStopTransferResourceUpnpOrgContentDirectory1::SyncStopTransferResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy)
     : iService(aProxy)
@@ -271,19 +310,7 @@ void SyncStopTransferResourceUpnpOrgContentDirectory1::CompleteRequest(IAsync& a
     iService.EndStopTransferResource(aAsync);
 }
 
-
-class SyncGetTransferProgressUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncGetTransferProgressUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aTransferStatus, Brh& aTransferLength, Brh& aTransferTotal);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetTransferProgressUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    Brh& iTransferStatus;
-    Brh& iTransferLength;
-    Brh& iTransferTotal;
-};
+// SyncGetTransferProgressUpnpOrgContentDirectory1
 
 SyncGetTransferProgressUpnpOrgContentDirectory1::SyncGetTransferProgressUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aTransferStatus, Brh& aTransferLength, Brh& aTransferTotal)
     : iService(aProxy)
@@ -298,16 +325,7 @@ void SyncGetTransferProgressUpnpOrgContentDirectory1::CompleteRequest(IAsync& aA
     iService.EndGetTransferProgress(aAsync, iTransferStatus, iTransferLength, iTransferTotal);
 }
 
-
-class SyncDeleteResourceUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncDeleteResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncDeleteResourceUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-};
+// SyncDeleteResourceUpnpOrgContentDirectory1
 
 SyncDeleteResourceUpnpOrgContentDirectory1::SyncDeleteResourceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy)
     : iService(aProxy)
@@ -319,17 +337,7 @@ void SyncDeleteResourceUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync)
     iService.EndDeleteResource(aAsync);
 }
 
-
-class SyncCreateReferenceUpnpOrgContentDirectory1 : public SyncProxyAction
-{
-public:
-    SyncCreateReferenceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aNewID);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncCreateReferenceUpnpOrgContentDirectory1() {}
-private:
-    CpProxyUpnpOrgContentDirectory1& iService;
-    Brh& iNewID;
-};
+// SyncCreateReferenceUpnpOrgContentDirectory1
 
 SyncCreateReferenceUpnpOrgContentDirectory1::SyncCreateReferenceUpnpOrgContentDirectory1(CpProxyUpnpOrgContentDirectory1& aProxy, Brh& aNewID)
     : iService(aProxy)
@@ -343,8 +351,10 @@ void SyncCreateReferenceUpnpOrgContentDirectory1::CompleteRequest(IAsync& aAsync
 }
 
 
+// CpProxyUpnpOrgContentDirectory1
+
 CpProxyUpnpOrgContentDirectory1::CpProxyUpnpOrgContentDirectory1(CpDevice& aDevice)
-    : CpProxy("schemas-upnp-org", "ContentDirectory", 1, aDevice.Device())
+    : iCpProxy("schemas-upnp-org", "ContentDirectory", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
     TChar** allowedValues;
@@ -522,11 +532,11 @@ void CpProxyUpnpOrgContentDirectory1::SyncGetSearchCapabilities(Brh& aSearchCaps
 
 void CpProxyUpnpOrgContentDirectory1::BeginGetSearchCapabilities(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetSearchCapabilities, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetSearchCapabilities, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetSearchCapabilities->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndGetSearchCapabilities(IAsync& aAsync, Brh& aSearchCaps)
@@ -554,11 +564,11 @@ void CpProxyUpnpOrgContentDirectory1::SyncGetSortCapabilities(Brh& aSortCaps)
 
 void CpProxyUpnpOrgContentDirectory1::BeginGetSortCapabilities(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetSortCapabilities, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetSortCapabilities, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetSortCapabilities->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndGetSortCapabilities(IAsync& aAsync, Brh& aSortCaps)
@@ -586,11 +596,11 @@ void CpProxyUpnpOrgContentDirectory1::SyncGetSystemUpdateID(TUint& aId)
 
 void CpProxyUpnpOrgContentDirectory1::BeginGetSystemUpdateID(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetSystemUpdateID, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetSystemUpdateID, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetSystemUpdateID->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndGetSystemUpdateID(IAsync& aAsync, TUint& aId)
@@ -618,7 +628,7 @@ void CpProxyUpnpOrgContentDirectory1::SyncBrowse(const Brx& aObjectID, const Brx
 
 void CpProxyUpnpOrgContentDirectory1::BeginBrowse(const Brx& aObjectID, const Brx& aBrowseFlag, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBrowse, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBrowse, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionBrowse->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aObjectID));
@@ -633,7 +643,7 @@ void CpProxyUpnpOrgContentDirectory1::BeginBrowse(const Brx& aObjectID, const Br
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndBrowse(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
@@ -664,7 +674,7 @@ void CpProxyUpnpOrgContentDirectory1::SyncSearch(const Brx& aContainerID, const 
 
 void CpProxyUpnpOrgContentDirectory1::BeginSearch(const Brx& aContainerID, const Brx& aSearchCriteria, const Brx& aFilter, TUint aStartingIndex, TUint aRequestedCount, const Brx& aSortCriteria, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSearch, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSearch, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSearch->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aContainerID));
@@ -679,7 +689,7 @@ void CpProxyUpnpOrgContentDirectory1::BeginSearch(const Brx& aContainerID, const
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndSearch(IAsync& aAsync, Brh& aResult, TUint& aNumberReturned, TUint& aTotalMatches, TUint& aUpdateID)
@@ -710,7 +720,7 @@ void CpProxyUpnpOrgContentDirectory1::SyncCreateObject(const Brx& aContainerID, 
 
 void CpProxyUpnpOrgContentDirectory1::BeginCreateObject(const Brx& aContainerID, const Brx& aElements, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionCreateObject, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionCreateObject, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionCreateObject->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aContainerID));
@@ -719,7 +729,7 @@ void CpProxyUpnpOrgContentDirectory1::BeginCreateObject(const Brx& aContainerID,
     const Action::VectorParameters& outParams = iActionCreateObject->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndCreateObject(IAsync& aAsync, Brh& aObjectID, Brh& aResult)
@@ -748,11 +758,11 @@ void CpProxyUpnpOrgContentDirectory1::SyncDestroyObject(const Brx& aObjectID)
 
 void CpProxyUpnpOrgContentDirectory1::BeginDestroyObject(const Brx& aObjectID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDestroyObject, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDestroyObject, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDestroyObject->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aObjectID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndDestroyObject(IAsync& aAsync)
@@ -778,13 +788,13 @@ void CpProxyUpnpOrgContentDirectory1::SyncUpdateObject(const Brx& aObjectID, con
 
 void CpProxyUpnpOrgContentDirectory1::BeginUpdateObject(const Brx& aObjectID, const Brx& aCurrentTagValue, const Brx& aNewTagValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionUpdateObject, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionUpdateObject, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionUpdateObject->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aObjectID));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aCurrentTagValue));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aNewTagValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndUpdateObject(IAsync& aAsync)
@@ -810,7 +820,7 @@ void CpProxyUpnpOrgContentDirectory1::SyncImportResource(const Brx& aSourceURI, 
 
 void CpProxyUpnpOrgContentDirectory1::BeginImportResource(const Brx& aSourceURI, const Brx& aDestinationURI, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionImportResource, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionImportResource, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionImportResource->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aSourceURI));
@@ -818,7 +828,7 @@ void CpProxyUpnpOrgContentDirectory1::BeginImportResource(const Brx& aSourceURI,
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionImportResource->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndImportResource(IAsync& aAsync, TUint& aTransferID)
@@ -846,7 +856,7 @@ void CpProxyUpnpOrgContentDirectory1::SyncExportResource(const Brx& aSourceURI, 
 
 void CpProxyUpnpOrgContentDirectory1::BeginExportResource(const Brx& aSourceURI, const Brx& aDestinationURI, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionExportResource, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionExportResource, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionExportResource->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aSourceURI));
@@ -854,7 +864,7 @@ void CpProxyUpnpOrgContentDirectory1::BeginExportResource(const Brx& aSourceURI,
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionExportResource->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndExportResource(IAsync& aAsync, TUint& aTransferID)
@@ -882,11 +892,11 @@ void CpProxyUpnpOrgContentDirectory1::SyncStopTransferResource(TUint aTransferID
 
 void CpProxyUpnpOrgContentDirectory1::BeginStopTransferResource(TUint aTransferID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionStopTransferResource, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionStopTransferResource, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionStopTransferResource->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aTransferID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndStopTransferResource(IAsync& aAsync)
@@ -912,7 +922,7 @@ void CpProxyUpnpOrgContentDirectory1::SyncGetTransferProgress(TUint aTransferID,
 
 void CpProxyUpnpOrgContentDirectory1::BeginGetTransferProgress(TUint aTransferID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetTransferProgress, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetTransferProgress, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetTransferProgress->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aTransferID));
@@ -921,7 +931,7 @@ void CpProxyUpnpOrgContentDirectory1::BeginGetTransferProgress(TUint aTransferID
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndGetTransferProgress(IAsync& aAsync, Brh& aTransferStatus, Brh& aTransferLength, Brh& aTransferTotal)
@@ -951,11 +961,11 @@ void CpProxyUpnpOrgContentDirectory1::SyncDeleteResource(const Brx& aResourceURI
 
 void CpProxyUpnpOrgContentDirectory1::BeginDeleteResource(const Brx& aResourceURI, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeleteResource, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeleteResource, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionDeleteResource->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aResourceURI));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndDeleteResource(IAsync& aAsync)
@@ -981,7 +991,7 @@ void CpProxyUpnpOrgContentDirectory1::SyncCreateReference(const Brx& aContainerI
 
 void CpProxyUpnpOrgContentDirectory1::BeginCreateReference(const Brx& aContainerID, const Brx& aObjectID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionCreateReference, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionCreateReference, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionCreateReference->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aContainerID));
@@ -989,7 +999,7 @@ void CpProxyUpnpOrgContentDirectory1::BeginCreateReference(const Brx& aContainer
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionCreateReference->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgContentDirectory1::EndCreateReference(IAsync& aAsync, Brh& aNewID)
@@ -1010,43 +1020,43 @@ void CpProxyUpnpOrgContentDirectory1::EndCreateReference(IAsync& aAsync, Brh& aN
 
 void CpProxyUpnpOrgContentDirectory1::SetPropertyTransferIDsChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iTransferIDsChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyUpnpOrgContentDirectory1::SetPropertySystemUpdateIDChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iSystemUpdateIDChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyUpnpOrgContentDirectory1::SetPropertyContainerUpdateIDsChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iContainerUpdateIDsChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyUpnpOrgContentDirectory1::PropertyTransferIDs(Brhz& aTransferIDs) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aTransferIDs.Set(iTransferIDs->Value());
 }
 
 void CpProxyUpnpOrgContentDirectory1::PropertySystemUpdateID(TUint& aSystemUpdateID) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aSystemUpdateID = iSystemUpdateID->Value();
 }
 
 void CpProxyUpnpOrgContentDirectory1::PropertyContainerUpdateIDs(Brhz& aContainerUpdateIDs) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aContainerUpdateIDs.Set(iContainerUpdateIDs->Value());
 }
 
@@ -1064,4 +1074,45 @@ void CpProxyUpnpOrgContentDirectory1::ContainerUpdateIDsPropertyChanged()
 {
     ReportEvent(iContainerUpdateIDsChanged);
 }
+
+
+void CpProxyUpnpOrgContentDirectory1::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyUpnpOrgContentDirectory1::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyUpnpOrgContentDirectory1::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyUpnpOrgContentDirectory1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyUpnpOrgContentDirectory1::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyUpnpOrgContentDirectory1::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyUpnpOrgContentDirectory1::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyUpnpOrgContentDirectory1::Version() const
+{
+  return iCpProxy.Version();
+}
+
 

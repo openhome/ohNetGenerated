@@ -7,20 +7,92 @@
 #include <OpenHome/Net/Private/Error.h>
 #include <OpenHome/Net/Private/CpiDevice.h>
 
-using namespace OpenHome;
-using namespace OpenHome::Net;
-
+namespace OpenHome {
+namespace Net {
 
 class SyncGetCountOpenhomeOrgTestLights1 : public SyncProxyAction
 {
 public:
     SyncGetCountOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aCount);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetCountOpenhomeOrgTestLights1() {}
 private:
     CpProxyOpenhomeOrgTestLights1& iService;
     TUint& iCount;
 };
+
+class SyncGetRoomOpenhomeOrgTestLights1 : public SyncProxyAction
+{
+public:
+    SyncGetRoomOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, Brh& aRoomName);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyOpenhomeOrgTestLights1& iService;
+    Brh& iRoomName;
+};
+
+class SyncGetNameOpenhomeOrgTestLights1 : public SyncProxyAction
+{
+public:
+    SyncGetNameOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, Brh& aFriendlyName);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyOpenhomeOrgTestLights1& iService;
+    Brh& iFriendlyName;
+};
+
+class SyncGetPositionOpenhomeOrgTestLights1 : public SyncProxyAction
+{
+public:
+    SyncGetPositionOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aX, TUint& aY, TUint& aZ);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyOpenhomeOrgTestLights1& iService;
+    TUint& iX;
+    TUint& iY;
+    TUint& iZ;
+};
+
+class SyncSetColorOpenhomeOrgTestLights1 : public SyncProxyAction
+{
+public:
+    SyncSetColorOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyOpenhomeOrgTestLights1& iService;
+};
+
+class SyncGetColorOpenhomeOrgTestLights1 : public SyncProxyAction
+{
+public:
+    SyncGetColorOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aColor);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyOpenhomeOrgTestLights1& iService;
+    TUint& iColor;
+};
+
+class SyncGetColorComponentsOpenhomeOrgTestLights1 : public SyncProxyAction
+{
+public:
+    SyncGetColorComponentsOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aBrightness, TUint& aRed, TUint& aGreen, TUint& aBlue);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyOpenhomeOrgTestLights1& iService;
+    TUint& iBrightness;
+    TUint& iRed;
+    TUint& iGreen;
+    TUint& iBlue;
+};
+
+} // namespace Net
+} // namespace OpenHome
+
+
+using namespace OpenHome;
+using namespace OpenHome::Net;
+
+
+// SyncGetCountOpenhomeOrgTestLights1
 
 SyncGetCountOpenhomeOrgTestLights1::SyncGetCountOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aCount)
     : iService(aProxy)
@@ -33,17 +105,7 @@ void SyncGetCountOpenhomeOrgTestLights1::CompleteRequest(IAsync& aAsync)
     iService.EndGetCount(aAsync, iCount);
 }
 
-
-class SyncGetRoomOpenhomeOrgTestLights1 : public SyncProxyAction
-{
-public:
-    SyncGetRoomOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, Brh& aRoomName);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetRoomOpenhomeOrgTestLights1() {}
-private:
-    CpProxyOpenhomeOrgTestLights1& iService;
-    Brh& iRoomName;
-};
+// SyncGetRoomOpenhomeOrgTestLights1
 
 SyncGetRoomOpenhomeOrgTestLights1::SyncGetRoomOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, Brh& aRoomName)
     : iService(aProxy)
@@ -56,17 +118,7 @@ void SyncGetRoomOpenhomeOrgTestLights1::CompleteRequest(IAsync& aAsync)
     iService.EndGetRoom(aAsync, iRoomName);
 }
 
-
-class SyncGetNameOpenhomeOrgTestLights1 : public SyncProxyAction
-{
-public:
-    SyncGetNameOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, Brh& aFriendlyName);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetNameOpenhomeOrgTestLights1() {}
-private:
-    CpProxyOpenhomeOrgTestLights1& iService;
-    Brh& iFriendlyName;
-};
+// SyncGetNameOpenhomeOrgTestLights1
 
 SyncGetNameOpenhomeOrgTestLights1::SyncGetNameOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, Brh& aFriendlyName)
     : iService(aProxy)
@@ -79,19 +131,7 @@ void SyncGetNameOpenhomeOrgTestLights1::CompleteRequest(IAsync& aAsync)
     iService.EndGetName(aAsync, iFriendlyName);
 }
 
-
-class SyncGetPositionOpenhomeOrgTestLights1 : public SyncProxyAction
-{
-public:
-    SyncGetPositionOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aX, TUint& aY, TUint& aZ);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetPositionOpenhomeOrgTestLights1() {}
-private:
-    CpProxyOpenhomeOrgTestLights1& iService;
-    TUint& iX;
-    TUint& iY;
-    TUint& iZ;
-};
+// SyncGetPositionOpenhomeOrgTestLights1
 
 SyncGetPositionOpenhomeOrgTestLights1::SyncGetPositionOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aX, TUint& aY, TUint& aZ)
     : iService(aProxy)
@@ -106,16 +146,7 @@ void SyncGetPositionOpenhomeOrgTestLights1::CompleteRequest(IAsync& aAsync)
     iService.EndGetPosition(aAsync, iX, iY, iZ);
 }
 
-
-class SyncSetColorOpenhomeOrgTestLights1 : public SyncProxyAction
-{
-public:
-    SyncSetColorOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetColorOpenhomeOrgTestLights1() {}
-private:
-    CpProxyOpenhomeOrgTestLights1& iService;
-};
+// SyncSetColorOpenhomeOrgTestLights1
 
 SyncSetColorOpenhomeOrgTestLights1::SyncSetColorOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy)
     : iService(aProxy)
@@ -127,17 +158,7 @@ void SyncSetColorOpenhomeOrgTestLights1::CompleteRequest(IAsync& aAsync)
     iService.EndSetColor(aAsync);
 }
 
-
-class SyncGetColorOpenhomeOrgTestLights1 : public SyncProxyAction
-{
-public:
-    SyncGetColorOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aColor);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetColorOpenhomeOrgTestLights1() {}
-private:
-    CpProxyOpenhomeOrgTestLights1& iService;
-    TUint& iColor;
-};
+// SyncGetColorOpenhomeOrgTestLights1
 
 SyncGetColorOpenhomeOrgTestLights1::SyncGetColorOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aColor)
     : iService(aProxy)
@@ -150,20 +171,7 @@ void SyncGetColorOpenhomeOrgTestLights1::CompleteRequest(IAsync& aAsync)
     iService.EndGetColor(aAsync, iColor);
 }
 
-
-class SyncGetColorComponentsOpenhomeOrgTestLights1 : public SyncProxyAction
-{
-public:
-    SyncGetColorComponentsOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aBrightness, TUint& aRed, TUint& aGreen, TUint& aBlue);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetColorComponentsOpenhomeOrgTestLights1() {}
-private:
-    CpProxyOpenhomeOrgTestLights1& iService;
-    TUint& iBrightness;
-    TUint& iRed;
-    TUint& iGreen;
-    TUint& iBlue;
-};
+// SyncGetColorComponentsOpenhomeOrgTestLights1
 
 SyncGetColorComponentsOpenhomeOrgTestLights1::SyncGetColorComponentsOpenhomeOrgTestLights1(CpProxyOpenhomeOrgTestLights1& aProxy, TUint& aBrightness, TUint& aRed, TUint& aGreen, TUint& aBlue)
     : iService(aProxy)
@@ -180,8 +188,10 @@ void SyncGetColorComponentsOpenhomeOrgTestLights1::CompleteRequest(IAsync& aAsyn
 }
 
 
+// CpProxyOpenhomeOrgTestLights1
+
 CpProxyOpenhomeOrgTestLights1::CpProxyOpenhomeOrgTestLights1(CpDevice& aDevice)
-    : CpProxy("openhome-org", "TestLights", 1, aDevice.Device())
+    : iCpProxy("openhome-org", "TestLights", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -257,11 +267,11 @@ void CpProxyOpenhomeOrgTestLights1::SyncGetCount(TUint& aCount)
 
 void CpProxyOpenhomeOrgTestLights1::BeginGetCount(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetCount, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetCount, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetCount->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1::EndGetCount(IAsync& aAsync, TUint& aCount)
@@ -289,14 +299,14 @@ void CpProxyOpenhomeOrgTestLights1::SyncGetRoom(TUint aIndex, Brh& aRoomName)
 
 void CpProxyOpenhomeOrgTestLights1::BeginGetRoom(TUint aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetRoom, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetRoom, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetRoom->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetRoom->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1::EndGetRoom(IAsync& aAsync, Brh& aRoomName)
@@ -324,14 +334,14 @@ void CpProxyOpenhomeOrgTestLights1::SyncGetName(TUint aIndex, Brh& aFriendlyName
 
 void CpProxyOpenhomeOrgTestLights1::BeginGetName(TUint aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetName, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetName, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetName->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetName->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1::EndGetName(IAsync& aAsync, Brh& aFriendlyName)
@@ -359,7 +369,7 @@ void CpProxyOpenhomeOrgTestLights1::SyncGetPosition(TUint aIndex, TUint& aX, TUi
 
 void CpProxyOpenhomeOrgTestLights1::BeginGetPosition(TUint aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetPosition, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetPosition, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetPosition->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
@@ -368,7 +378,7 @@ void CpProxyOpenhomeOrgTestLights1::BeginGetPosition(TUint aIndex, FunctorAsync&
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1::EndGetPosition(IAsync& aAsync, TUint& aX, TUint& aY, TUint& aZ)
@@ -398,12 +408,12 @@ void CpProxyOpenhomeOrgTestLights1::SyncSetColor(TUint aIndex, TUint aColor)
 
 void CpProxyOpenhomeOrgTestLights1::BeginSetColor(TUint aIndex, TUint aColor, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetColor, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetColor, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetColor->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aColor));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1::EndSetColor(IAsync& aAsync)
@@ -429,14 +439,14 @@ void CpProxyOpenhomeOrgTestLights1::SyncGetColor(TUint aIndex, TUint& aColor)
 
 void CpProxyOpenhomeOrgTestLights1::BeginGetColor(TUint aIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetColor, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetColor, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetColor->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetColor->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1::EndGetColor(IAsync& aAsync, TUint& aColor)
@@ -464,7 +474,7 @@ void CpProxyOpenhomeOrgTestLights1::SyncGetColorComponents(TUint aColor, TUint& 
 
 void CpProxyOpenhomeOrgTestLights1::BeginGetColorComponents(TUint aColor, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetColorComponents, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetColorComponents, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetColorComponents->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aColor));
@@ -474,7 +484,7 @@ void CpProxyOpenhomeOrgTestLights1::BeginGetColorComponents(TUint aColor, Functo
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyOpenhomeOrgTestLights1::EndGetColorComponents(IAsync& aAsync, TUint& aBrightness, TUint& aRed, TUint& aGreen, TUint& aBlue)
@@ -495,4 +505,45 @@ void CpProxyOpenhomeOrgTestLights1::EndGetColorComponents(IAsync& aAsync, TUint&
     aGreen = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
     aBlue = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
 }
+
+
+void CpProxyOpenhomeOrgTestLights1::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyOpenhomeOrgTestLights1::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyOpenhomeOrgTestLights1::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyOpenhomeOrgTestLights1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyOpenhomeOrgTestLights1::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyOpenhomeOrgTestLights1::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyOpenhomeOrgTestLights1::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyOpenhomeOrgTestLights1::Version() const
+{
+  return iCpProxy.Version();
+}
+
 

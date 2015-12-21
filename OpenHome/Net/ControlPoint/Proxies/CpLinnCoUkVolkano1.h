@@ -18,10 +18,11 @@ class PropertyBool;
 class PropertyInt;
 class PropertyString;
 class PropertyUint;
-
-class ICpProxyLinnCoUkVolkano1
+class CpProxy;
+class ICpProxyLinnCoUkVolkano1 : public ICpProxy
 {
 public:
+    virtual ~ICpProxyLinnCoUkVolkano1() {}
     virtual void SyncReboot() = 0;
     virtual void BeginReboot(FunctorAsync& aFunctor) = 0;
     virtual void EndReboot(IAsync& aAsync) = 0;
@@ -67,13 +68,13 @@ public:
  * Proxy for linn.co.uk:Volkano:1
  * @ingroup Proxies
  */
-class CpProxyLinnCoUkVolkano1 : public CpProxy, public ICpProxyLinnCoUkVolkano1
+class CpProxyLinnCoUkVolkano1 : public ICpProxyLinnCoUkVolkano1
 {
 public:
     /**
      * Constructor.
      *
-     * Use CpProxy::[Un]Subscribe() to enable/disable querying of state variable
+     * Use iCpProxy::[Un]Subscribe() to enable/disable querying of state variable
      * and reporting of their changes.
      *
      * @param[in]  aDevice   The device to use
@@ -430,7 +431,40 @@ public:
     void EndDeviceInfo(IAsync& aAsync, Brh& aaDeviceInfoXml);
 
 
+    /**
+    * This function exposes the Subscribe() function of the iCpProxy member variable
+    */
+    void Subscribe();
+    /**
+    * This function exposes the Unsubscribe() function of the iCpProxy member variable
+    */
+    void Unsubscribe();
+    /**
+    * This function exposes the SetPropertyChanged() function of the iCpProxy member variable
+    */
+    void SetPropertyChanged(Functor& aFunctor);
+    /**
+    * This function exposes the SetPropertyInitialEvent() function of the iCpProxy member variable
+    */
+    void SetPropertyInitialEvent(Functor& aFunctor);
+    /**
+    * This function exposes the AddProperty() function of the iCpProxy member variable
+    */
+    void AddProperty(Property* aProperty);
+    /**
+    * This function exposes DestroyService() function of the iCpProxy member variable
+    */
+    void DestroyService();
+    /**
+    * This function exposes the REportEvent() function of the iCpProxy member variable
+    */
+    void ReportEvent(Functor aFunctor);
+    /**
+    * This function exposes the Version() function of the iCpProxy member variable
+    */
+    TUint Version() const;
 private:
+    CpProxy iCpProxy;
 private:
     Action* iActionReboot;
     Action* iActionBootMode;

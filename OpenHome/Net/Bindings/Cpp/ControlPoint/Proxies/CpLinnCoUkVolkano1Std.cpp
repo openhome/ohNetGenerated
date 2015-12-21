@@ -311,7 +311,7 @@ void SyncDeviceInfoLinnCoUkVolkano1Cpp::CompleteRequest(IAsync& aAsync)
 
 
 CpProxyLinnCoUkVolkano1Cpp::CpProxyLinnCoUkVolkano1Cpp(CpDeviceCpp& aDevice)
-    : CpProxy("linn-co-uk", "Volkano", 1, aDevice.Device())
+    : iCpProxy("linn-co-uk", "Volkano", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
     TChar** allowedValues;
@@ -412,8 +412,8 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncReboot()
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginReboot(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionReboot, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionReboot, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndReboot(IAsync& aAsync)
@@ -439,11 +439,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncBootMode(std::string& aaMode)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginBootMode(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBootMode, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBootMode, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionBootMode->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndBootMode(IAsync& aAsync, std::string& aaMode)
@@ -474,14 +474,14 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncSetBootMode(const std::string& aaMode)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginSetBootMode(const std::string& aaMode, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetBootMode, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetBootMode, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetBootMode->InputParameters();
     {
         Brn buf((const TByte*)aaMode.c_str(), (TUint)aaMode.length());
         invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
     }
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndSetBootMode(IAsync& aAsync)
@@ -507,11 +507,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncBspType(std::string& aaBspType)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginBspType(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBspType, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBspType, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionBspType->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndBspType(IAsync& aAsync, std::string& aaBspType)
@@ -542,11 +542,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncUglyName(std::string& aaUglyName)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginUglyName(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionUglyName, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionUglyName, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionUglyName->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndUglyName(IAsync& aAsync, std::string& aaUglyName)
@@ -577,11 +577,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncMacAddress(std::string& aaMacAddress)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginMacAddress(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionMacAddress, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionMacAddress, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionMacAddress->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndMacAddress(IAsync& aAsync, std::string& aaMacAddress)
@@ -612,11 +612,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncProductId(std::string& aaProductNumber)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginProductId(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionProductId, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionProductId, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionProductId->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndProductId(IAsync& aAsync, std::string& aaProductNumber)
@@ -647,14 +647,14 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncBoardId(uint32_t aaIndex, std::string& aaBo
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginBoardId(uint32_t aaIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBoardId, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBoardId, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionBoardId->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionBoardId->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndBoardId(IAsync& aAsync, std::string& aaBoardNumber)
@@ -685,14 +685,14 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncBoardType(uint32_t aaIndex, std::string& aa
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginBoardType(uint32_t aaIndex, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBoardType, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBoardType, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionBoardType->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aaIndex));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionBoardType->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndBoardType(IAsync& aAsync, std::string& aaBoardNumber)
@@ -723,11 +723,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncMaxBoards(uint32_t& aaMaxBoards)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginMaxBoards(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionMaxBoards, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionMaxBoards, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionMaxBoards->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndMaxBoards(IAsync& aAsync, uint32_t& aaMaxBoards)
@@ -755,11 +755,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncSoftwareVersion(std::string& aaSoftwareVers
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginSoftwareVersion(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSoftwareVersion, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSoftwareVersion, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionSoftwareVersion->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndSoftwareVersion(IAsync& aAsync, std::string& aaSoftwareVersion)
@@ -790,12 +790,12 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncSoftwareUpdate(bool& aaAvailable, std::stri
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginSoftwareUpdate(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSoftwareUpdate, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSoftwareUpdate, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionSoftwareUpdate->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndSoftwareUpdate(IAsync& aAsync, bool& aaAvailable, std::string& aaSoftwareVersion)
@@ -827,11 +827,11 @@ void CpProxyLinnCoUkVolkano1Cpp::SyncDeviceInfo(std::string& aaDeviceInfoXml)
 
 void CpProxyLinnCoUkVolkano1Cpp::BeginDeviceInfo(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionDeviceInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionDeviceInfo, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionDeviceInfo->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyLinnCoUkVolkano1Cpp::EndDeviceInfo(IAsync& aAsync, std::string& aaDeviceInfoXml)
@@ -851,5 +851,44 @@ void CpProxyLinnCoUkVolkano1Cpp::EndDeviceInfo(IAsync& aAsync, std::string& aaDe
         const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
         aaDeviceInfoXml.assign((const char*)val.Ptr(), val.Bytes());
     }
+}
+
+void CpProxyLinnCoUkVolkano1Cpp::Subscribe()
+{
+  iCpProxy.Subscribe();
+}
+
+void CpProxyLinnCoUkVolkano1Cpp::Unsubscribe()
+{
+ iCpProxy.Unsubscribe();
+}
+
+void CpProxyLinnCoUkVolkano1Cpp::SetPropertyChanged(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyLinnCoUkVolkano1Cpp::SetPropertyInitialEvent(Functor& aFunctor)
+{
+  iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyLinnCoUkVolkano1Cpp::AddProperty(Property* aProperty)
+{
+  iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyLinnCoUkVolkano1Cpp::DestroyService()
+{
+  iCpProxy.DestroyService();
+}
+
+void CpProxyLinnCoUkVolkano1Cpp::ReportEvent(Functor aFunctor)
+{
+  iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyLinnCoUkVolkano1Cpp::Version() const
+{
+  return iCpProxy.Version();
 }
 

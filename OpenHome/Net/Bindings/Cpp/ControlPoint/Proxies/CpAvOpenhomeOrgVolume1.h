@@ -19,10 +19,11 @@ class PropertyBool;
 class PropertyInt;
 class PropertyString;
 class PropertyUint;
-
-class ICpProxyAvOpenhomeOrgVolume1Cpp
+class CpProxy;
+class ICpProxyAvOpenhomeOrgVolume1Cpp : public ICpProxy
 {
 public:
+    virtual ~ICpProxyAvOpenhomeOrgVolume1Cpp() {}
     virtual void SyncCharacteristics(uint32_t& aVolumeMax, uint32_t& aVolumeUnity, uint32_t& aVolumeSteps, uint32_t& aVolumeMilliDbPerStep, uint32_t& aBalanceMax, uint32_t& aFadeMax) = 0;
     virtual void BeginCharacteristics(FunctorAsync& aFunctor) = 0;
     virtual void EndCharacteristics(IAsync& aAsync, uint32_t& aVolumeMax, uint32_t& aVolumeUnity, uint32_t& aVolumeSteps, uint32_t& aVolumeMilliDbPerStep, uint32_t& aBalanceMax, uint32_t& aFadeMax) = 0;
@@ -99,13 +100,13 @@ public:
  * Proxy for av.openhome.org:Volume:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgVolume1Cpp : public CpProxy, public ICpProxyAvOpenhomeOrgVolume1Cpp
+class CpProxyAvOpenhomeOrgVolume1Cpp : public ICpProxyAvOpenhomeOrgVolume1Cpp
 {
 public:
     /**
      * Constructor.
      *
-     * Use CpProxy::[Un]Subscribe() to enable/disable querying of state variable
+     * Use iCpProxy::[Un]Subscribe() to enable/disable querying of state variable
      * and reporting of their changes.
      *
      * @param[in]  aDevice   The device to use
@@ -738,7 +739,40 @@ public:
      * @param[out] aFadeMax
      */
     void PropertyFadeMax(uint32_t& aFadeMax) const;
+    /**
+    * This function exposes the Subscribe() function of the iCpProxy member variable
+    */
+    void Subscribe();
+    /**
+    * This function exposes the Unsubscribe() function of the iCpProxy member variable
+    */
+    void Unsubscribe();
+    /**
+    * This function exposes the SetPropertyChanged() function of the iCpProxy member variable
+    */
+    void SetPropertyChanged(Functor& aFunctor);
+    /**
+    * This function exposes the SetPropertyInitialEvent() function of the iCpProxy member variable
+    */
+    void SetPropertyInitialEvent(Functor& aFunctor);
+    /**
+    * This function exposes the AddProperty() function of the iCpProxy member variable
+    */
+    void AddProperty(Property* aProperty);
+    /**
+    * This function exposes DestroyService() function of the iCpProxy member variable
+    */
+    void DestroyService();
+    /**
+    * This function exposes the REportEvent() function of the iCpProxy member variable
+    */
+    void ReportEvent(Functor aFunctor);
+    /**
+    * This function exposes the Version() function of the iCpProxy member variable
+    */
+    TUint Version() const;
 private:
+    CpProxy iCpProxy;
     void VolumePropertyChanged();
     void MutePropertyChanged();
     void BalancePropertyChanged();
