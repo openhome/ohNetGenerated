@@ -62,7 +62,7 @@ void SyncPortsAvOpenhomeOrgNetworkMonitor1::CompleteRequest(IAsync& aAsync)
 
 
 CpProxyAvOpenhomeOrgNetworkMonitor1::CpProxyAvOpenhomeOrgNetworkMonitor1(CpDevice& aDevice)
-    : CpProxy("av-openhome-org", "NetworkMonitor", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "NetworkMonitor", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -109,11 +109,11 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1::SyncName(Brh& aName)
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::BeginName(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionName, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionName, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionName->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::EndName(IAsync& aAsync, Brh& aName)
@@ -141,13 +141,13 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1::SyncPorts(TUint& aSender, TUint& aRece
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::BeginPorts(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPorts, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPorts, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionPorts->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::EndPorts(IAsync& aAsync, TUint& aSender, TUint& aReceiver, TUint& aResults)
@@ -170,57 +170,57 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1::EndPorts(IAsync& aAsync, TUint& aSende
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::SetPropertyNameChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iNameChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::SetPropertySenderChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iSenderChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::SetPropertyReceiverChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iReceiverChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::SetPropertyResultsChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iResultsChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertyName(Brhz& aName) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aName.Set(iName->Value());
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertySender(TUint& aSender) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aSender = iSender->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertyReceiver(TUint& aReceiver) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aReceiver = iReceiver->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertyResults(TUint& aResults) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aResults = iResults->Value();
 }
 
@@ -244,3 +244,41 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1::ResultsPropertyChanged()
     ReportEvent(iResultsChanged);
 }
 
+void CpProxyAvOpenhomeOrgNetworkMonitor1::Subscribe()
+{
+    iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgNetworkMonitor1::Unsubscribe()
+{
+   iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgNetworkMonitor1::SetPropertyChanged(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgNetworkMonitor1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgNetworkMonitor1::AddProperty(Property* aProperty)
+{
+    iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgNetworkMonitor1::DestroyService()
+{
+    iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgNetworkMonitor1::ReportEvent(Functor aFunctor)
+{
+    iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgNetworkMonitor1::Version() const
+{
+    return iCpProxy.Version();
+}

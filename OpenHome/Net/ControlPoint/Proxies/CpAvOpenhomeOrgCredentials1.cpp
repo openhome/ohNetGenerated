@@ -221,7 +221,7 @@ void SyncGetSequenceNumberAvOpenhomeOrgCredentials1::CompleteRequest(IAsync& aAs
 
 
 CpProxyAvOpenhomeOrgCredentials1::CpProxyAvOpenhomeOrgCredentials1(CpDevice& aDevice)
-    : CpProxy("av-openhome-org", "Credentials", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "Credentials", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -318,13 +318,13 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncSet(const Brx& aId, const Brx& aUserN
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginSet(const Brx& aId, const Brx& aUserName, const Brx& aPassword, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSet, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSet, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSet->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aUserName));
     invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aPassword));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndSet(IAsync& aAsync)
@@ -350,11 +350,11 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncClear(const Brx& aId)
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginClear(const Brx& aId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionClear, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionClear, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionClear->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndClear(IAsync& aAsync)
@@ -380,12 +380,12 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncSetEnabled(const Brx& aId, TBool aEna
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginSetEnabled(const Brx& aId, TBool aEnabled, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetEnabled, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetEnabled, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetEnabled->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aEnabled));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndSetEnabled(IAsync& aAsync)
@@ -411,7 +411,7 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncGet(const Brx& aId, Brh& aUserName, B
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginGet(const Brx& aId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGet, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGet, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGet->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
@@ -422,7 +422,7 @@ void CpProxyAvOpenhomeOrgCredentials1::BeginGet(const Brx& aId, FunctorAsync& aF
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndGet(IAsync& aAsync, Brh& aUserName, Brh& aPassword, TBool& aEnabled, Brh& aStatus, Brh& aData)
@@ -454,14 +454,14 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncLogin(const Brx& aId, Brh& aToken)
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginLogin(const Brx& aId, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionLogin, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionLogin, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionLogin->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionLogin->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndLogin(IAsync& aAsync, Brh& aToken)
@@ -489,7 +489,7 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncReLogin(const Brx& aId, const Brx& aC
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginReLogin(const Brx& aId, const Brx& aCurrentToken, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionReLogin, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionReLogin, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionReLogin->InputParameters();
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aId));
@@ -497,7 +497,7 @@ void CpProxyAvOpenhomeOrgCredentials1::BeginReLogin(const Brx& aId, const Brx& a
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionReLogin->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndReLogin(IAsync& aAsync, Brh& aNewToken)
@@ -525,11 +525,11 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncGetIds(Brh& aIds)
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginGetIds(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetIds, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetIds, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetIds->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndGetIds(IAsync& aAsync, Brh& aIds)
@@ -557,11 +557,11 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncGetPublicKey(Brh& aPublicKey)
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginGetPublicKey(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetPublicKey, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetPublicKey, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetPublicKey->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndGetPublicKey(IAsync& aAsync, Brh& aPublicKey)
@@ -589,11 +589,11 @@ void CpProxyAvOpenhomeOrgCredentials1::SyncGetSequenceNumber(TUint& aSequenceNum
 
 void CpProxyAvOpenhomeOrgCredentials1::BeginGetSequenceNumber(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetSequenceNumber, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetSequenceNumber, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetSequenceNumber->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::EndGetSequenceNumber(IAsync& aAsync, TUint& aSequenceNumber)
@@ -614,43 +614,43 @@ void CpProxyAvOpenhomeOrgCredentials1::EndGetSequenceNumber(IAsync& aAsync, TUin
 
 void CpProxyAvOpenhomeOrgCredentials1::SetPropertyIdsChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iIdsChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::SetPropertyPublicKeyChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iPublicKeyChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::SetPropertySequenceNumberChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iSequenceNumberChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::PropertyIds(Brhz& aIds) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aIds.Set(iIds->Value());
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::PropertyPublicKey(Brhz& aPublicKey) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aPublicKey.Set(iPublicKey->Value());
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::PropertySequenceNumber(TUint& aSequenceNumber) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aSequenceNumber = iSequenceNumber->Value();
 }
 
@@ -669,3 +669,41 @@ void CpProxyAvOpenhomeOrgCredentials1::SequenceNumberPropertyChanged()
     ReportEvent(iSequenceNumberChanged);
 }
 
+void CpProxyAvOpenhomeOrgCredentials1::Subscribe()
+{
+    iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgCredentials1::Unsubscribe()
+{
+   iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgCredentials1::SetPropertyChanged(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgCredentials1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgCredentials1::AddProperty(Property* aProperty)
+{
+    iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgCredentials1::DestroyService()
+{
+    iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgCredentials1::ReportEvent(Functor aFunctor)
+{
+    iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgCredentials1::Version() const
+{
+    return iCpProxy.Version();
+}

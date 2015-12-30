@@ -148,7 +148,7 @@ void SyncTransportStateAvOpenhomeOrgReceiver1Cpp::CompleteRequest(IAsync& aAsync
 
 
 CpProxyAvOpenhomeOrgReceiver1Cpp::CpProxyAvOpenhomeOrgReceiver1Cpp(CpDeviceCpp& aDevice)
-    : CpProxy("av-openhome-org", "Receiver", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "Receiver", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
     TChar** allowedValues;
@@ -220,8 +220,8 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::SyncPlay()
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::BeginPlay(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPlay, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPlay, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::EndPlay(IAsync& aAsync)
@@ -247,8 +247,8 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::SyncStop()
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::BeginStop(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionStop, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionStop, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::EndStop(IAsync& aAsync)
@@ -274,7 +274,7 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::SyncSetSender(const std::string& aUri, co
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::BeginSetSender(const std::string& aUri, const std::string& aMetadata, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetSender, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetSender, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetSender->InputParameters();
     {
@@ -285,7 +285,7 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::BeginSetSender(const std::string& aUri, c
         Brn buf((const TByte*)aMetadata.c_str(), (TUint)aMetadata.length());
         invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
     }
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::EndSetSender(IAsync& aAsync)
@@ -311,12 +311,12 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::SyncSender(std::string& aUri, std::string
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::BeginSender(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSender, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSender, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionSender->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::EndSender(IAsync& aAsync, std::string& aUri, std::string& aMetadata)
@@ -351,11 +351,11 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::SyncProtocolInfo(std::string& aValue)
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::BeginProtocolInfo(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionProtocolInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionProtocolInfo, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionProtocolInfo->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::EndProtocolInfo(IAsync& aAsync, std::string& aValue)
@@ -386,11 +386,11 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::SyncTransportState(std::string& aValue)
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::BeginTransportState(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionTransportState, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionTransportState, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionTransportState->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::EndTransportState(IAsync& aAsync, std::string& aValue)
@@ -414,60 +414,60 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::EndTransportState(IAsync& aAsync, std::st
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::SetPropertyUriChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iUriChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::SetPropertyMetadataChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iMetadataChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::SetPropertyTransportStateChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iTransportStateChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::SetPropertyProtocolInfoChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iProtocolInfoChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyUri(std::string& aUri) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iUri->Value();
     aUri.assign((const char*)val.Ptr(), val.Bytes());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyMetadata(std::string& aMetadata) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iMetadata->Value();
     aMetadata.assign((const char*)val.Ptr(), val.Bytes());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyTransportState(std::string& aTransportState) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iTransportState->Value();
     aTransportState.assign((const char*)val.Ptr(), val.Bytes());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyProtocolInfo(std::string& aProtocolInfo) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     const Brx& val = iProtocolInfo->Value();
     aProtocolInfo.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -492,3 +492,41 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::ProtocolInfoPropertyChanged()
     ReportEvent(iProtocolInfoChanged);
 }
 
+void CpProxyAvOpenhomeOrgReceiver1Cpp::Subscribe()
+{
+    iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgReceiver1Cpp::Unsubscribe()
+{
+   iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgReceiver1Cpp::SetPropertyChanged(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgReceiver1Cpp::SetPropertyInitialEvent(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgReceiver1Cpp::AddProperty(Property* aProperty)
+{
+    iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgReceiver1Cpp::DestroyService()
+{
+    iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgReceiver1Cpp::ReportEvent(Functor aFunctor)
+{
+    iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgReceiver1Cpp::Version() const
+{
+    return iCpProxy.Version();
+}
