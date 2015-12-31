@@ -24,7 +24,7 @@ class PropertyUint;
  * Proxy for av.openhome.org:Radio:1
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgRadio1Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgRadio1Cpp : public ICpProxy
 {
 public:
     /**
@@ -608,7 +608,40 @@ private:
     void IdArrayPropertyChanged();
     void ChannelsMaxPropertyChanged();
     void ProtocolInfoPropertyChanged();
+    /**
+    * This function exposes the Subscribe() function of the iCpProxy member variable
+    */
+    void Subscribe();
+    /**
+    * This function exposes the Unsubscribe() function of the iCpProxy member variable
+    */
+    void Unsubscribe();
+    /**
+    * This function exposes the SetPropertyChanged() function of the iCpProxy member variable
+    */
+    void SetPropertyChanged(Functor& aFunctor);
+    /**
+    * This function exposes the SetPropertyInitialEvent() function of the iCpProxy member variable
+    */
+    void SetPropertyInitialEvent(Functor& aFunctor);
+    /**
+    * This function exposes the AddProperty() function of the iCpProxy member variable
+    */
+    void AddProperty(Property* aProperty);
+    /**
+    * This function exposes DestroyService() function of the iCpProxy member variable
+    */
+    void DestroyService();
+    /**
+    * This function exposes the REportEvent() function of the iCpProxy member variable
+    */
+    void ReportEvent(Functor aFunctor);
+    /**
+    * This function exposes the Version() function of the iCpProxy member variable
+    */
+    TUint Version() const;
 private:
+    CpProxy iCpProxy;
     Action* iActionPlay;
     Action* iActionPause;
     Action* iActionStop;

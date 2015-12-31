@@ -421,7 +421,7 @@ void SyncGetCurrentTransportActionsUpnpOrgAVTransport1::CompleteRequest(IAsync& 
 
 
 CpProxyUpnpOrgAVTransport1::CpProxyUpnpOrgAVTransport1(CpDevice& aDevice)
-    : CpProxy("schemas-upnp-org", "AVTransport", 1, aDevice.Device())
+    : iCpProxy("schemas-upnp-org", "AVTransport", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
     TChar** allowedValues;
@@ -644,13 +644,13 @@ void CpProxyUpnpOrgAVTransport1::SyncSetAVTransportURI(TUint aInstanceID, const 
 
 void CpProxyUpnpOrgAVTransport1::BeginSetAVTransportURI(TUint aInstanceID, const Brx& aCurrentURI, const Brx& aCurrentURIMetaData, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetAVTransportURI, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetAVTransportURI, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetAVTransportURI->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aCurrentURI));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aCurrentURIMetaData));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndSetAVTransportURI(IAsync& aAsync)
@@ -676,13 +676,13 @@ void CpProxyUpnpOrgAVTransport1::SyncSetNextAVTransportURI(TUint aInstanceID, co
 
 void CpProxyUpnpOrgAVTransport1::BeginSetNextAVTransportURI(TUint aInstanceID, const Brx& aNextURI, const Brx& aNextURIMetaData, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetNextAVTransportURI, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetNextAVTransportURI, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetNextAVTransportURI->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aNextURI));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aNextURIMetaData));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndSetNextAVTransportURI(IAsync& aAsync)
@@ -708,7 +708,7 @@ void CpProxyUpnpOrgAVTransport1::SyncGetMediaInfo(TUint aInstanceID, TUint& aNrT
 
 void CpProxyUpnpOrgAVTransport1::BeginGetMediaInfo(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetMediaInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetMediaInfo, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetMediaInfo->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
@@ -723,7 +723,7 @@ void CpProxyUpnpOrgAVTransport1::BeginGetMediaInfo(TUint aInstanceID, FunctorAsy
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndGetMediaInfo(IAsync& aAsync, TUint& aNrTracks, Brh& aMediaDuration, Brh& aCurrentURI, Brh& aCurrentURIMetaData, Brh& aNextURI, Brh& aNextURIMetaData, Brh& aPlayMedium, Brh& aRecordMedium, Brh& aWriteStatus)
@@ -759,7 +759,7 @@ void CpProxyUpnpOrgAVTransport1::SyncGetTransportInfo(TUint aInstanceID, Brh& aC
 
 void CpProxyUpnpOrgAVTransport1::BeginGetTransportInfo(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetTransportInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetTransportInfo, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetTransportInfo->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
@@ -768,7 +768,7 @@ void CpProxyUpnpOrgAVTransport1::BeginGetTransportInfo(TUint aInstanceID, Functo
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndGetTransportInfo(IAsync& aAsync, Brh& aCurrentTransportState, Brh& aCurrentTransportStatus, Brh& aCurrentSpeed)
@@ -798,7 +798,7 @@ void CpProxyUpnpOrgAVTransport1::SyncGetPositionInfo(TUint aInstanceID, TUint& a
 
 void CpProxyUpnpOrgAVTransport1::BeginGetPositionInfo(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetPositionInfo, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetPositionInfo, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetPositionInfo->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
@@ -812,7 +812,7 @@ void CpProxyUpnpOrgAVTransport1::BeginGetPositionInfo(TUint aInstanceID, Functor
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentInt(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentInt(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndGetPositionInfo(IAsync& aAsync, TUint& aTrack, Brh& aTrackDuration, Brh& aTrackMetaData, Brh& aTrackURI, Brh& aRelTime, Brh& aAbsTime, TInt& aRelCount, TInt& aAbsCount)
@@ -847,7 +847,7 @@ void CpProxyUpnpOrgAVTransport1::SyncGetDeviceCapabilities(TUint aInstanceID, Br
 
 void CpProxyUpnpOrgAVTransport1::BeginGetDeviceCapabilities(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetDeviceCapabilities, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetDeviceCapabilities, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetDeviceCapabilities->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
@@ -856,7 +856,7 @@ void CpProxyUpnpOrgAVTransport1::BeginGetDeviceCapabilities(TUint aInstanceID, F
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndGetDeviceCapabilities(IAsync& aAsync, Brh& aPlayMedia, Brh& aRecMedia, Brh& aRecQualityModes)
@@ -886,7 +886,7 @@ void CpProxyUpnpOrgAVTransport1::SyncGetTransportSettings(TUint aInstanceID, Brh
 
 void CpProxyUpnpOrgAVTransport1::BeginGetTransportSettings(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetTransportSettings, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetTransportSettings, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetTransportSettings->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
@@ -894,7 +894,7 @@ void CpProxyUpnpOrgAVTransport1::BeginGetTransportSettings(TUint aInstanceID, Fu
     const Action::VectorParameters& outParams = iActionGetTransportSettings->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndGetTransportSettings(IAsync& aAsync, Brh& aPlayMode, Brh& aRecQualityMode)
@@ -923,11 +923,11 @@ void CpProxyUpnpOrgAVTransport1::SyncStop(TUint aInstanceID)
 
 void CpProxyUpnpOrgAVTransport1::BeginStop(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionStop, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionStop, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionStop->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndStop(IAsync& aAsync)
@@ -953,12 +953,12 @@ void CpProxyUpnpOrgAVTransport1::SyncPlay(TUint aInstanceID, const Brx& aSpeed)
 
 void CpProxyUpnpOrgAVTransport1::BeginPlay(TUint aInstanceID, const Brx& aSpeed, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPlay, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPlay, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionPlay->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aSpeed));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndPlay(IAsync& aAsync)
@@ -984,11 +984,11 @@ void CpProxyUpnpOrgAVTransport1::SyncPause(TUint aInstanceID)
 
 void CpProxyUpnpOrgAVTransport1::BeginPause(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPause, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPause, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionPause->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndPause(IAsync& aAsync)
@@ -1014,11 +1014,11 @@ void CpProxyUpnpOrgAVTransport1::SyncRecord(TUint aInstanceID)
 
 void CpProxyUpnpOrgAVTransport1::BeginRecord(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionRecord, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRecord, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionRecord->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndRecord(IAsync& aAsync)
@@ -1044,13 +1044,13 @@ void CpProxyUpnpOrgAVTransport1::SyncSeek(TUint aInstanceID, const Brx& aUnit, c
 
 void CpProxyUpnpOrgAVTransport1::BeginSeek(TUint aInstanceID, const Brx& aUnit, const Brx& aTarget, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSeek, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeek, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeek->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aUnit));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aTarget));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndSeek(IAsync& aAsync)
@@ -1076,11 +1076,11 @@ void CpProxyUpnpOrgAVTransport1::SyncNext(TUint aInstanceID)
 
 void CpProxyUpnpOrgAVTransport1::BeginNext(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionNext, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionNext, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionNext->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndNext(IAsync& aAsync)
@@ -1106,11 +1106,11 @@ void CpProxyUpnpOrgAVTransport1::SyncPrevious(TUint aInstanceID)
 
 void CpProxyUpnpOrgAVTransport1::BeginPrevious(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionPrevious, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPrevious, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionPrevious->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndPrevious(IAsync& aAsync)
@@ -1136,12 +1136,12 @@ void CpProxyUpnpOrgAVTransport1::SyncSetPlayMode(TUint aInstanceID, const Brx& a
 
 void CpProxyUpnpOrgAVTransport1::BeginSetPlayMode(TUint aInstanceID, const Brx& aNewPlayMode, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetPlayMode, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetPlayMode, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetPlayMode->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aNewPlayMode));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndSetPlayMode(IAsync& aAsync)
@@ -1167,12 +1167,12 @@ void CpProxyUpnpOrgAVTransport1::SyncSetRecordQualityMode(TUint aInstanceID, con
 
 void CpProxyUpnpOrgAVTransport1::BeginSetRecordQualityMode(TUint aInstanceID, const Brx& aNewRecordQualityMode, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetRecordQualityMode, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetRecordQualityMode, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetRecordQualityMode->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
     invocation->AddInput(new ArgumentString(*inParams[inIndex++], aNewRecordQualityMode));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndSetRecordQualityMode(IAsync& aAsync)
@@ -1198,14 +1198,14 @@ void CpProxyUpnpOrgAVTransport1::SyncGetCurrentTransportActions(TUint aInstanceI
 
 void CpProxyUpnpOrgAVTransport1::BeginGetCurrentTransportActions(TUint aInstanceID, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionGetCurrentTransportActions, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetCurrentTransportActions, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionGetCurrentTransportActions->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aInstanceID));
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionGetCurrentTransportActions->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyUpnpOrgAVTransport1::EndGetCurrentTransportActions(IAsync& aAsync, Brh& aActions)
@@ -1226,15 +1226,15 @@ void CpProxyUpnpOrgAVTransport1::EndGetCurrentTransportActions(IAsync& aAsync, B
 
 void CpProxyUpnpOrgAVTransport1::SetPropertyLastChangeChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iLastChangeChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyUpnpOrgAVTransport1::PropertyLastChange(Brhz& aLastChange) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aLastChange.Set(iLastChange->Value());
 }
 
@@ -1243,3 +1243,41 @@ void CpProxyUpnpOrgAVTransport1::LastChangePropertyChanged()
     ReportEvent(iLastChangeChanged);
 }
 
+void CpProxyUpnpOrgAVTransport1::Subscribe()
+{
+    iCpProxy.Subscribe();
+}
+
+void CpProxyUpnpOrgAVTransport1::Unsubscribe()
+{
+   iCpProxy.Unsubscribe();
+}
+
+void CpProxyUpnpOrgAVTransport1::SetPropertyChanged(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyUpnpOrgAVTransport1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyUpnpOrgAVTransport1::AddProperty(Property* aProperty)
+{
+    iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyUpnpOrgAVTransport1::DestroyService()
+{
+    iCpProxy.DestroyService();
+}
+
+void CpProxyUpnpOrgAVTransport1::ReportEvent(Functor aFunctor)
+{
+    iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyUpnpOrgAVTransport1::Version() const
+{
+    return iCpProxy.Version();
+}

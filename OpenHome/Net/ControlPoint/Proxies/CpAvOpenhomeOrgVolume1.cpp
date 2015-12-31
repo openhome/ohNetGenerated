@@ -370,7 +370,7 @@ void SyncVolumeLimitAvOpenhomeOrgVolume1::CompleteRequest(IAsync& aAsync)
 
 
 CpProxyAvOpenhomeOrgVolume1::CpProxyAvOpenhomeOrgVolume1(CpDevice& aDevice)
-    : CpProxy("av-openhome-org", "Volume", 1, aDevice.Device())
+    : iCpProxy("av-openhome-org", "Volume", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
 
@@ -502,7 +502,7 @@ void CpProxyAvOpenhomeOrgVolume1::SyncCharacteristics(TUint& aVolumeMax, TUint& 
 
 void CpProxyAvOpenhomeOrgVolume1::BeginCharacteristics(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionCharacteristics, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionCharacteristics, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionCharacteristics->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
@@ -511,7 +511,7 @@ void CpProxyAvOpenhomeOrgVolume1::BeginCharacteristics(FunctorAsync& aFunctor)
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndCharacteristics(IAsync& aAsync, TUint& aVolumeMax, TUint& aVolumeUnity, TUint& aVolumeSteps, TUint& aVolumeMilliDbPerStep, TUint& aBalanceMax, TUint& aFadeMax)
@@ -544,11 +544,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncSetVolume(TUint aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginSetVolume(TUint aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetVolume, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetVolume, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetVolume->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndSetVolume(IAsync& aAsync)
@@ -574,8 +574,8 @@ void CpProxyAvOpenhomeOrgVolume1::SyncVolumeInc()
 
 void CpProxyAvOpenhomeOrgVolume1::BeginVolumeInc(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionVolumeInc, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionVolumeInc, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndVolumeInc(IAsync& aAsync)
@@ -601,8 +601,8 @@ void CpProxyAvOpenhomeOrgVolume1::SyncVolumeDec()
 
 void CpProxyAvOpenhomeOrgVolume1::BeginVolumeDec(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionVolumeDec, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionVolumeDec, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndVolumeDec(IAsync& aAsync)
@@ -628,11 +628,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncVolume(TUint& aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginVolume(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionVolume, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionVolume, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionVolume->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndVolume(IAsync& aAsync, TUint& aValue)
@@ -660,11 +660,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncSetBalance(TInt aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginSetBalance(TInt aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetBalance, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetBalance, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetBalance->InputParameters();
     invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndSetBalance(IAsync& aAsync)
@@ -690,8 +690,8 @@ void CpProxyAvOpenhomeOrgVolume1::SyncBalanceInc()
 
 void CpProxyAvOpenhomeOrgVolume1::BeginBalanceInc(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBalanceInc, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBalanceInc, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndBalanceInc(IAsync& aAsync)
@@ -717,8 +717,8 @@ void CpProxyAvOpenhomeOrgVolume1::SyncBalanceDec()
 
 void CpProxyAvOpenhomeOrgVolume1::BeginBalanceDec(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBalanceDec, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBalanceDec, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndBalanceDec(IAsync& aAsync)
@@ -744,11 +744,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncBalance(TInt& aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginBalance(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionBalance, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionBalance, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionBalance->OutputParameters();
     invocation->AddOutput(new ArgumentInt(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndBalance(IAsync& aAsync, TInt& aValue)
@@ -776,11 +776,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncSetFade(TInt aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginSetFade(TInt aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetFade, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetFade, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetFade->InputParameters();
     invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndSetFade(IAsync& aAsync)
@@ -806,8 +806,8 @@ void CpProxyAvOpenhomeOrgVolume1::SyncFadeInc()
 
 void CpProxyAvOpenhomeOrgVolume1::BeginFadeInc(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionFadeInc, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionFadeInc, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndFadeInc(IAsync& aAsync)
@@ -833,8 +833,8 @@ void CpProxyAvOpenhomeOrgVolume1::SyncFadeDec()
 
 void CpProxyAvOpenhomeOrgVolume1::BeginFadeDec(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionFadeDec, aFunctor);
-    iInvocable.InvokeAction(*invocation);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionFadeDec, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndFadeDec(IAsync& aAsync)
@@ -860,11 +860,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncFade(TInt& aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginFade(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionFade, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionFade, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionFade->OutputParameters();
     invocation->AddOutput(new ArgumentInt(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndFade(IAsync& aAsync, TInt& aValue)
@@ -892,11 +892,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncSetMute(TBool aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginSetMute(TBool aValue, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionSetMute, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetMute, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetMute->InputParameters();
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aValue));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndSetMute(IAsync& aAsync)
@@ -922,11 +922,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncMute(TBool& aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginMute(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionMute, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionMute, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionMute->OutputParameters();
     invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndMute(IAsync& aAsync, TBool& aValue)
@@ -954,11 +954,11 @@ void CpProxyAvOpenhomeOrgVolume1::SyncVolumeLimit(TUint& aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::BeginVolumeLimit(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iService->Invocation(*iActionVolumeLimit, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionVolumeLimit, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionVolumeLimit->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
-    iInvocable.InvokeAction(*invocation);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
 void CpProxyAvOpenhomeOrgVolume1::EndVolumeLimit(IAsync& aAsync, TUint& aValue)
@@ -979,155 +979,155 @@ void CpProxyAvOpenhomeOrgVolume1::EndVolumeLimit(IAsync& aAsync, TUint& aValue)
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyVolumeChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iVolumeChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyMuteChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iMuteChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyBalanceChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iBalanceChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyFadeChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iFadeChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyVolumeLimitChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iVolumeLimitChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyVolumeMaxChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iVolumeMaxChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyVolumeUnityChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iVolumeUnityChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyVolumeStepsChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iVolumeStepsChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyVolumeMilliDbPerStepChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iVolumeMilliDbPerStepChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyBalanceMaxChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iBalanceMaxChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::SetPropertyFadeMaxChanged(Functor& aFunctor)
 {
-    iLock->Wait();
+    iCpProxy.GetLock().Wait();
     iFadeMaxChanged = aFunctor;
-    iLock->Signal();
+    iCpProxy.GetLock().Signal();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyVolume(TUint& aVolume) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aVolume = iVolume->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyMute(TBool& aMute) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aMute = iMute->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyBalance(TInt& aBalance) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aBalance = iBalance->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyFade(TInt& aFade) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aFade = iFade->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyVolumeLimit(TUint& aVolumeLimit) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aVolumeLimit = iVolumeLimit->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyVolumeMax(TUint& aVolumeMax) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aVolumeMax = iVolumeMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyVolumeUnity(TUint& aVolumeUnity) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aVolumeUnity = iVolumeUnity->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyVolumeSteps(TUint& aVolumeSteps) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aVolumeSteps = iVolumeSteps->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyVolumeMilliDbPerStep(TUint& aVolumeMilliDbPerStep) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aVolumeMilliDbPerStep = iVolumeMilliDbPerStep->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyBalanceMax(TUint& aBalanceMax) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aBalanceMax = iBalanceMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume1::PropertyFadeMax(TUint& aFadeMax) const
 {
-    AutoMutex a(PropertyReadLock());
-    ASSERT(iCpSubscriptionStatus == CpProxy::eSubscribed);
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
     aFadeMax = iFadeMax->Value();
 }
 
@@ -1186,3 +1186,41 @@ void CpProxyAvOpenhomeOrgVolume1::FadeMaxPropertyChanged()
     ReportEvent(iFadeMaxChanged);
 }
 
+void CpProxyAvOpenhomeOrgVolume1::Subscribe()
+{
+    iCpProxy.Subscribe();
+}
+
+void CpProxyAvOpenhomeOrgVolume1::Unsubscribe()
+{
+   iCpProxy.Unsubscribe();
+}
+
+void CpProxyAvOpenhomeOrgVolume1::SetPropertyChanged(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyChanged(aFunctor);
+}
+
+void CpProxyAvOpenhomeOrgVolume1::SetPropertyInitialEvent(Functor& aFunctor)
+{
+    iCpProxy.SetPropertyInitialEvent(aFunctor);
+}
+void CpProxyAvOpenhomeOrgVolume1::AddProperty(Property* aProperty)
+{
+    iCpProxy.AddProperty(aProperty);
+}
+
+void CpProxyAvOpenhomeOrgVolume1::DestroyService()
+{
+    iCpProxy.DestroyService();
+}
+
+void CpProxyAvOpenhomeOrgVolume1::ReportEvent(Functor aFunctor)
+{
+    iCpProxy.ReportEvent(aFunctor);
+}
+
+TUint CpProxyAvOpenhomeOrgVolume1::Version() const
+{
+    return iCpProxy.Version();
+}

@@ -24,7 +24,7 @@ class PropertyUint;
  * Proxy for av.openhome.org:Exakt:2
  * @ingroup Proxies
  */
-class CpProxyAvOpenhomeOrgExakt2Cpp : public CpProxy
+class CpProxyAvOpenhomeOrgExakt2Cpp : public ICpProxy
 {
 public:
     /**
@@ -303,7 +303,40 @@ private:
     void DeviceListPropertyChanged();
     void ConnectionStatusPropertyChanged();
     void VersionPropertyChanged();
+    /**
+    * This function exposes the Subscribe() function of the iCpProxy member variable
+    */
+    void Subscribe();
+    /**
+    * This function exposes the Unsubscribe() function of the iCpProxy member variable
+    */
+    void Unsubscribe();
+    /**
+    * This function exposes the SetPropertyChanged() function of the iCpProxy member variable
+    */
+    void SetPropertyChanged(Functor& aFunctor);
+    /**
+    * This function exposes the SetPropertyInitialEvent() function of the iCpProxy member variable
+    */
+    void SetPropertyInitialEvent(Functor& aFunctor);
+    /**
+    * This function exposes the AddProperty() function of the iCpProxy member variable
+    */
+    void AddProperty(Property* aProperty);
+    /**
+    * This function exposes DestroyService() function of the iCpProxy member variable
+    */
+    void DestroyService();
+    /**
+    * This function exposes the REportEvent() function of the iCpProxy member variable
+    */
+    void ReportEvent(Functor aFunctor);
+    /**
+    * This function exposes the Version() function of the iCpProxy member variable
+    */
+    TUint Version() const;
 private:
+    CpProxy iCpProxy;
     Action* iActionDeviceList;
     Action* iActionDeviceSettings;
     Action* iActionConnectionStatus;
