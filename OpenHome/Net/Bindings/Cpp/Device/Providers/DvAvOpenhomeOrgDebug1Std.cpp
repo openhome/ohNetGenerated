@@ -22,6 +22,14 @@ void DvProviderAvOpenhomeOrgDebug1Cpp::EnableActionGetLog()
     iService->AddAction(action, functor);
 }
 
+void DvProviderAvOpenhomeOrgDebug1Cpp::EnableActionSendLog()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SendLog");
+    action->AddInputParameter(new ParameterString("Data"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgDebug1Cpp::DoSendLog);
+    iService->AddAction(action, functor);
+}
+
 void DvProviderAvOpenhomeOrgDebug1Cpp::DoGetLog(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -37,7 +45,25 @@ void DvProviderAvOpenhomeOrgDebug1Cpp::DoGetLog(IDviInvocation& aInvocation)
     aInvocation.InvocationWriteEnd();
 }
 
+void DvProviderAvOpenhomeOrgDebug1Cpp::DoSendLog(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz buf_Data;
+    aInvocation.InvocationReadString("Data", buf_Data);
+    std::string Data((const char*)buf_Data.Ptr(), buf_Data.Bytes());
+    aInvocation.InvocationReadEnd();
+    DvInvocationStd invocation(aInvocation);
+    SendLog(invocation, Data);
+    aInvocation.InvocationWriteStart();
+    aInvocation.InvocationWriteEnd();
+}
+
 void DvProviderAvOpenhomeOrgDebug1Cpp::GetLog(IDvInvocationStd& /*aInvocation*/, std::string& /*aLog*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgDebug1Cpp::SendLog(IDvInvocationStd& /*aInvocation*/, const std::string& /*aData*/)
 {
     ASSERTS();
 }

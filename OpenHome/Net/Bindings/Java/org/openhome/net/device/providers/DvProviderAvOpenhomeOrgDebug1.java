@@ -18,6 +18,7 @@ public class DvProviderAvOpenhomeOrgDebug1 extends DvProvider implements IDvProv
 {
 
     private IDvInvocationListener iDelegateGetLog;
+    private IDvInvocationListener iDelegateSendLog;
 
     /**
      * Constructor
@@ -44,6 +45,20 @@ public class DvProviderAvOpenhomeOrgDebug1 extends DvProvider implements IDvProv
     }
 
     /**
+     * Signal that the action SendLog is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * SendLog must be overridden if this is called.
+     */      
+    protected void enableActionSendLog()
+    {
+        Action action = new Action("SendLog");        List<String> allowedValues = new LinkedList<String>();
+        action.addInputParameter(new ParameterString("Data", allowedValues));
+        iDelegateSendLog = new DoSendLog();
+        enableAction(action, iDelegateSendLog);
+    }
+
+    /**
      * GetLog action.
      *
      * <p>Will be called when the device stack receives an invocation of the
@@ -54,6 +69,22 @@ public class DvProviderAvOpenhomeOrgDebug1 extends DvProvider implements IDvProv
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
     protected String getLog(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * SendLog action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * SendLog action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionSendLog} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aData
+     */
+    protected void sendLog(IDvInvocation aInvocation, String aData)
     {
         throw (new ActionDisabledError());
     }
@@ -108,6 +139,54 @@ public class DvProviderAvOpenhomeOrgDebug1 extends DvProvider implements IDvProv
             {
                 invocation.writeStart();
                 invocation.writeString("Log", log);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoSendLog implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String data;
+            try
+            {
+                invocation.readStart();
+                data = invocation.readString("Data");
+                invocation.readEnd();
+                sendLog(invocation, data);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "SendLog");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
                 invocation.writeEnd();
             }
             catch (ActionError ae)

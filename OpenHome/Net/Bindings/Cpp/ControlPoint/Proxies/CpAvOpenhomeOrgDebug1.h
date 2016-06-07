@@ -27,6 +27,9 @@ public:
     virtual void SyncGetLog(std::string& aLog) = 0;
     virtual void BeginGetLog(FunctorAsync& aFunctor) = 0;
     virtual void EndGetLog(IAsync& aAsync, std::string& aLog) = 0;
+    virtual void SyncSendLog(const std::string& aData) = 0;
+    virtual void BeginSendLog(const std::string& aData, FunctorAsync& aFunctor) = 0;
+    virtual void EndSendLog(IAsync& aAsync) = 0;
 };
 
 /**
@@ -80,6 +83,32 @@ public:
      */
     void EndGetLog(IAsync& aAsync, std::string& aLog);
 
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aData
+     */
+    void SyncSendLog(const std::string& aData);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSendLog().
+     *
+     * @param[in] aData
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSendLog(const std::string& aData, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSendLog(IAsync& aAsync);
+
 
     /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
@@ -117,6 +146,7 @@ private:
     CpProxy iCpProxy;
 private:
     Action* iActionGetLog;
+    Action* iActionSendLog;
 };
 
 } // namespace Net

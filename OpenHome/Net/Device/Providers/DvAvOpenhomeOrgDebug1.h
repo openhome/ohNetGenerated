@@ -44,6 +44,12 @@ protected:
      * GetLog must be overridden if this is called.
      */
     void EnableActionGetLog();
+    /**
+     * Signal that the action SendLog is supported.
+     * The action's availability will be published in the device's service.xml.
+     * SendLog must be overridden if this is called.
+     */
+    void EnableActionSendLog();
 private:
     /**
      * GetLog action.
@@ -53,10 +59,19 @@ private:
      * Must be implemented iff EnableActionGetLog was called.
      */
     virtual void GetLog(IDvInvocation& aInvocation, IDvInvocationResponseString& aLog);
+    /**
+     * SendLog action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * SendLog action for the owning device.
+     * Must be implemented iff EnableActionSendLog was called.
+     */
+    virtual void SendLog(IDvInvocation& aInvocation, const Brx& aData);
 private:
     DvProviderAvOpenhomeOrgDebug1();
     void Construct();
     void DoGetLog(IDviInvocation& aInvocation);
+    void DoSendLog(IDviInvocation& aInvocation);
 private:
 };
 

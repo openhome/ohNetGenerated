@@ -27,11 +27,16 @@ public:
     void BeginGetLog(FunctorAsync& aFunctor);
     void EndGetLog(IAsync& aAsync, Brh& aLog);
 
+    void SyncSendLog(const Brx& aData);
+    void BeginSendLog(const Brx& aData, FunctorAsync& aFunctor);
+    void EndSendLog(IAsync& aAsync);
+
 
 private:
 private:
     Mutex iLock;
     Action* iActionGetLog;
+    Action* iActionSendLog;
 };
 
 
@@ -57,6 +62,27 @@ void SyncGetLogAvOpenhomeOrgDebug1C::CompleteRequest(IAsync& aAsync)
     iService.EndGetLog(aAsync, iLog);
 }
 
+
+class SyncSendLogAvOpenhomeOrgDebug1C : public SyncProxyAction
+{
+public:
+    SyncSendLogAvOpenhomeOrgDebug1C(CpProxyAvOpenhomeOrgDebug1C& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncSendLogAvOpenhomeOrgDebug1C() {};
+private:
+    CpProxyAvOpenhomeOrgDebug1C& iService;
+};
+
+SyncSendLogAvOpenhomeOrgDebug1C::SyncSendLogAvOpenhomeOrgDebug1C(CpProxyAvOpenhomeOrgDebug1C& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSendLogAvOpenhomeOrgDebug1C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSendLog(aAsync);
+}
+
 CpProxyAvOpenhomeOrgDebug1C::CpProxyAvOpenhomeOrgDebug1C(CpDeviceC aDevice)
     : CpProxyC("av-openhome-org", "Debug", 1, *reinterpret_cast<CpiDevice*>(aDevice))
     , iLock("MPCS")
@@ -66,12 +92,17 @@ CpProxyAvOpenhomeOrgDebug1C::CpProxyAvOpenhomeOrgDebug1C(CpDeviceC aDevice)
     iActionGetLog = new Action("GetLog");
     param = new OpenHome::Net::ParameterString("Log");
     iActionGetLog->AddOutputParameter(param);
+
+    iActionSendLog = new Action("SendLog");
+    param = new OpenHome::Net::ParameterString("Data");
+    iActionSendLog->AddInputParameter(param);
 }
 
 CpProxyAvOpenhomeOrgDebug1C::~CpProxyAvOpenhomeOrgDebug1C()
 {
     DestroyService();
     delete iActionGetLog;
+    delete iActionSendLog;
 }
 
 void CpProxyAvOpenhomeOrgDebug1C::SyncGetLog(Brh& aLog)
@@ -104,6 +135,36 @@ void CpProxyAvOpenhomeOrgDebug1C::EndGetLog(IAsync& aAsync, Brh& aLog)
     }
     TUint index = 0;
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aLog);
+}
+
+void CpProxyAvOpenhomeOrgDebug1C::SyncSendLog(const Brx& aData)
+{
+    SyncSendLogAvOpenhomeOrgDebug1C sync(*this);
+    BeginSendLog(aData, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgDebug1C::BeginSendLog(const Brx& aData, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionSendLog, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSendLog->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aData));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgDebug1C::EndSendLog(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SendLog"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
 }
 
 
@@ -155,6 +216,46 @@ int32_t STDCALL CpProxyAvOpenhomeOrgDebug1EndGetLog(THandle aHandle, OhNetHandle
     try {
         proxyC->EndGetLog(*async, buf_aLog);
         *aLog = buf_aLog.Extract();
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
+int32_t STDCALL CpProxyAvOpenhomeOrgDebug1SyncSendLog(THandle aHandle, const char* aData)
+{
+    CpProxyAvOpenhomeOrgDebug1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgDebug1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aData(aData);
+    int32_t err = 0;
+    try {
+        proxyC->SyncSendLog(buf_aData);
+    }
+    catch (ProxyError& ) {
+        err = -1;
+    }
+    return err;
+}
+
+void STDCALL CpProxyAvOpenhomeOrgDebug1BeginSendLog(THandle aHandle, const char* aData, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyAvOpenhomeOrgDebug1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgDebug1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aData(aData);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginSendLog(buf_aData, functor);
+}
+
+int32_t STDCALL CpProxyAvOpenhomeOrgDebug1EndSendLog(THandle aHandle, OhNetHandleAsync aAsync)
+{
+    int32_t err = 0;
+    CpProxyAvOpenhomeOrgDebug1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgDebug1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    try {
+        proxyC->EndSendLog(*async);
     }
     catch(...) {
         err = -1;

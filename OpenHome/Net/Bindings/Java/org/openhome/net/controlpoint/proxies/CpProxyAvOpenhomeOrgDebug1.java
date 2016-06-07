@@ -13,6 +13,9 @@ interface ICpProxyAvOpenhomeOrgDebug1 extends ICpProxy
     public String syncGetLog();
     public void beginGetLog(ICpProxyListener aCallback);
     public String endGetLog(long aAsyncHandle);
+    public void syncSendLog(String aData);
+    public void beginSendLog(String aData, ICpProxyListener aCallback);
+    public void endSendLog(long aAsyncHandle);
 }
 
 class SyncGetLogAvOpenhomeOrgDebug1 extends SyncProxyAction
@@ -36,6 +39,21 @@ class SyncGetLogAvOpenhomeOrgDebug1 extends SyncProxyAction
     }
 }
 
+class SyncSendLogAvOpenhomeOrgDebug1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgDebug1 iService;
+
+    public SyncSendLogAvOpenhomeOrgDebug1(CpProxyAvOpenhomeOrgDebug1 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endSendLog(aAsyncHandle);
+        
+    }
+}
+
 /**
  * Proxy for the av.openhome.org:Debug:1 UPnP service
  */
@@ -43,6 +61,7 @@ public class CpProxyAvOpenhomeOrgDebug1 extends CpProxy implements ICpProxyAvOpe
 {
 
     private Action iActionGetLog;
+    private Action iActionSendLog;
 
     /**
      * Constructor.
@@ -60,6 +79,10 @@ public class CpProxyAvOpenhomeOrgDebug1 extends CpProxy implements ICpProxyAvOpe
         iActionGetLog = new Action("GetLog");
         param = new ParameterString("Log", allowedValues);
         iActionGetLog.addOutputParameter(param);
+
+        iActionSendLog = new Action("SendLog");
+        param = new ParameterString("Data", allowedValues);
+        iActionSendLog.addInputParameter(param);
     }
     /**
      * Invoke the action synchronously.
@@ -116,6 +139,54 @@ public class CpProxyAvOpenhomeOrgDebug1 extends CpProxy implements ICpProxyAvOpe
         return log;
     }
         
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncSendLog(String aData)
+    {
+        SyncSendLogAvOpenhomeOrgDebug1 sync = new SyncSendLogAvOpenhomeOrgDebug1(this);
+        beginSendLog(aData, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endSendLog}.
+     * 
+     * @param aData
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginSendLog(String aData, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionSendLog, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionSendLog.getInputParameter(inIndex++), aData));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginSendLog} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginSendLog} method.
+     */
+    public void endSendLog(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
 
     /**
      * Dispose of this control point proxy.
@@ -133,6 +204,7 @@ public class CpProxyAvOpenhomeOrgDebug1 extends CpProxy implements ICpProxyAvOpe
             disposeProxy();
             iHandle = 0;
             iActionGetLog.destroy();
+            iActionSendLog.destroy();
         }
     }
 }

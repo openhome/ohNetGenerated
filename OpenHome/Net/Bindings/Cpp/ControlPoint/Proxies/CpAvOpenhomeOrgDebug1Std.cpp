@@ -36,6 +36,27 @@ void SyncGetLogAvOpenhomeOrgDebug1Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
+class SyncSendLogAvOpenhomeOrgDebug1Cpp : public SyncProxyAction
+{
+public:
+    SyncSendLogAvOpenhomeOrgDebug1Cpp(CpProxyAvOpenhomeOrgDebug1Cpp& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncSendLogAvOpenhomeOrgDebug1Cpp() {}
+private:
+    CpProxyAvOpenhomeOrgDebug1Cpp& iService;
+};
+
+SyncSendLogAvOpenhomeOrgDebug1Cpp::SyncSendLogAvOpenhomeOrgDebug1Cpp(CpProxyAvOpenhomeOrgDebug1Cpp& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSendLogAvOpenhomeOrgDebug1Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSendLog(aAsync);
+}
+
+
 CpProxyAvOpenhomeOrgDebug1Cpp::CpProxyAvOpenhomeOrgDebug1Cpp(CpDeviceCpp& aDevice)
     : iCpProxy("av-openhome-org", "Debug", 1, aDevice.Device())
 {
@@ -44,12 +65,17 @@ CpProxyAvOpenhomeOrgDebug1Cpp::CpProxyAvOpenhomeOrgDebug1Cpp(CpDeviceCpp& aDevic
     iActionGetLog = new Action("GetLog");
     param = new OpenHome::Net::ParameterString("Log");
     iActionGetLog->AddOutputParameter(param);
+
+    iActionSendLog = new Action("SendLog");
+    param = new OpenHome::Net::ParameterString("Data");
+    iActionSendLog->AddInputParameter(param);
 }
 
 CpProxyAvOpenhomeOrgDebug1Cpp::~CpProxyAvOpenhomeOrgDebug1Cpp()
 {
     DestroyService();
     delete iActionGetLog;
+    delete iActionSendLog;
 }
 
 void CpProxyAvOpenhomeOrgDebug1Cpp::SyncGetLog(std::string& aLog)
@@ -84,6 +110,39 @@ void CpProxyAvOpenhomeOrgDebug1Cpp::EndGetLog(IAsync& aAsync, std::string& aLog)
     {
         const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
         aLog.assign((const char*)val.Ptr(), val.Bytes());
+    }
+}
+
+void CpProxyAvOpenhomeOrgDebug1Cpp::SyncSendLog(const std::string& aData)
+{
+    SyncSendLogAvOpenhomeOrgDebug1Cpp sync(*this);
+    BeginSendLog(aData, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgDebug1Cpp::BeginSendLog(const std::string& aData, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSendLog, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSendLog->InputParameters();
+    {
+        Brn buf((const TByte*)aData.c_str(), (TUint)aData.length());
+        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
+    }
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgDebug1Cpp::EndSendLog(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SendLog"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
     }
 }
 

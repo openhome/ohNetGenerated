@@ -65,4 +65,25 @@ CpProxyAvOpenhomeOrgDebug1.prototype.GetLog = function(successFunction, errorFun
 }
 
 
+/**
+* A service action to SendLog
+* @method SendLog
+* @param {String} Data An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgDebug1.prototype.SendLog = function(Data, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SendLog", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("Data", Data);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
 

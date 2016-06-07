@@ -19,11 +19,15 @@ class DvProviderAvOpenhomeOrgDebug1C : public DvProvider
 public:
     DvProviderAvOpenhomeOrgDebug1C(DvDeviceC aDevice);
     void EnableActionGetLog(CallbackDebug1GetLog aCallback, void* aPtr);
+    void EnableActionSendLog(CallbackDebug1SendLog aCallback, void* aPtr);
 private:
     void DoGetLog(IDviInvocation& aInvocation);
+    void DoSendLog(IDviInvocation& aInvocation);
 private:
     CallbackDebug1GetLog iCallbackGetLog;
     void* iPtrGetLog;
+    CallbackDebug1SendLog iCallbackSendLog;
+    void* iPtrSendLog;
 };
 
 DvProviderAvOpenhomeOrgDebug1C::DvProviderAvOpenhomeOrgDebug1C(DvDeviceC aDevice)
@@ -38,6 +42,16 @@ void DvProviderAvOpenhomeOrgDebug1C::EnableActionGetLog(CallbackDebug1GetLog aCa
     OpenHome::Net::Action* action = new OpenHome::Net::Action("GetLog");
     action->AddOutputParameter(new ParameterString("Log"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgDebug1C::DoGetLog);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgDebug1C::EnableActionSendLog(CallbackDebug1SendLog aCallback, void* aPtr)
+{
+    iCallbackSendLog = aCallback;
+    iPtrSendLog = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SendLog");
+    action->AddInputParameter(new ParameterString("Data"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgDebug1C::DoSendLog);
     iService->AddAction(action, functor);
 }
 
@@ -65,6 +79,26 @@ void DvProviderAvOpenhomeOrgDebug1C::DoGetLog(IDviInvocation& aInvocation)
     invocation.EndResponse();
 }
 
+void DvProviderAvOpenhomeOrgDebug1C::DoSendLog(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    Brhz Data;
+    aInvocation.InvocationReadString("Data", Data);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    ASSERT(iCallbackSendLog != NULL);
+    if (0 != iCallbackSendLog(iPtrSendLog, invocationC, invocationCPtr, (const char*)Data.Ptr())) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    invocation.StartResponse();
+    invocation.EndResponse();
+}
+
 
 
 THandle STDCALL DvProviderAvOpenhomeOrgDebug1Create(DvDeviceC aDevice)
@@ -80,5 +114,10 @@ void STDCALL DvProviderAvOpenhomeOrgDebug1Destroy(THandle aProvider)
 void STDCALL DvProviderAvOpenhomeOrgDebug1EnableActionGetLog(THandle aProvider, CallbackDebug1GetLog aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgDebug1C*>(aProvider)->EnableActionGetLog(aCallback, aPtr);
+}
+
+void STDCALL DvProviderAvOpenhomeOrgDebug1EnableActionSendLog(THandle aProvider, CallbackDebug1SendLog aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgDebug1C*>(aProvider)->EnableActionSendLog(aCallback, aPtr);
 }
 
