@@ -230,7 +230,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Use CpProxy::[Un]Subscribe() to enable/disable querying of state variable and reporting of their changes.</remarks>
         /// <param name="aDevice">The device to use</param>
-        public CpProxyLinnCoUkFlash1(CpDevice aDevice)
+        public CpProxyLinnCoUkFlash1(ICpDevice aDevice)
             : base("linn-co-uk", "Flash", 1, aDevice)
         {
             OpenHome.Net.Core.Parameter param;
