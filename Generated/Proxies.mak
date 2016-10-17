@@ -64,9 +64,15 @@ objects_proxies = \
                   $(objdir)CpAvOpenhomeOrgVolume1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgVolume1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgVolume1Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgVolume2.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgVolume2C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgVolume2Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgProduct1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgProduct1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgProduct1Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgProduct2.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgProduct2C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgProduct2Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgRadio1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgRadio1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgRadio1Std.$(objext) \
@@ -76,6 +82,9 @@ objects_proxies = \
                   $(objdir)CpAvOpenhomeOrgSender1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgSender1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgSender1Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgDebug1.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgDebug1C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgDebug1Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgPlaylistManager1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgPlaylistManager1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgPlaylistManager1Std.$(objext) \
@@ -135,10 +144,13 @@ proxy_dotnet_assemblies = \
         CpAvOpenhomeOrgTime1.net.dll \
         CpAvOpenhomeOrgPlaylist1.net.dll \
         CpAvOpenhomeOrgVolume1.net.dll \
+        CpAvOpenhomeOrgVolume2.net.dll \
         CpAvOpenhomeOrgProduct1.net.dll \
+        CpAvOpenhomeOrgProduct2.net.dll \
         CpAvOpenhomeOrgRadio1.net.dll \
         CpAvOpenhomeOrgReceiver1.net.dll \
         CpAvOpenhomeOrgSender1.net.dll \
+        CpAvOpenhomeOrgDebug1.net.dll \
         CpAvOpenhomeOrgPlaylistManager1.net.dll \
         CpAvOpenhomeOrgMediaServer1.net.dll \
         CpAvOpenhomeOrgNetworkMonitor1.net.dll \
@@ -169,10 +181,13 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpAvOpenhomeOrgTime1.net.dll \
         $(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
         $(objdir)CpAvOpenhomeOrgVolume1.net.dll \
+        $(objdir)CpAvOpenhomeOrgVolume2.net.dll \
         $(objdir)CpAvOpenhomeOrgProduct1.net.dll \
+        $(objdir)CpAvOpenhomeOrgProduct2.net.dll \
         $(objdir)CpAvOpenhomeOrgRadio1.net.dll \
         $(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
         $(objdir)CpAvOpenhomeOrgSender1.net.dll \
+        $(objdir)CpAvOpenhomeOrgDebug1.net.dll \
         $(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
         $(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
         $(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
@@ -203,10 +218,13 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTime1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylist1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume2.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct2.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgRadio1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgReceiver1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylistManager1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgMediaServer1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgNetworkMonitor1.class \
@@ -339,12 +357,24 @@ $(objdir)CpAvOpenhomeOrgVolume1C.$(objext) : $(proxyC)CpAvOpenhomeOrgVolume1C.cp
 	$(compiler)CpAvOpenhomeOrgVolume1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgVolume1C.cpp
 $(objdir)CpAvOpenhomeOrgVolume1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgVolume1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgVolume1.h
 	$(compiler)CpAvOpenhomeOrgVolume1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgVolume1Std.cpp
+$(objdir)CpAvOpenhomeOrgVolume2.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgVolume2.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgVolume2.h
+	$(compiler)CpAvOpenhomeOrgVolume2.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgVolume2.cpp
+$(objdir)CpAvOpenhomeOrgVolume2C.$(objext) : $(proxyC)CpAvOpenhomeOrgVolume2C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgVolume2.h
+	$(compiler)CpAvOpenhomeOrgVolume2C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgVolume2C.cpp
+$(objdir)CpAvOpenhomeOrgVolume2Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgVolume2Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgVolume2.h
+	$(compiler)CpAvOpenhomeOrgVolume2Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgVolume2Std.cpp
 $(objdir)CpAvOpenhomeOrgProduct1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgProduct1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgProduct1.h
 	$(compiler)CpAvOpenhomeOrgProduct1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgProduct1.cpp
 $(objdir)CpAvOpenhomeOrgProduct1C.$(objext) : $(proxyC)CpAvOpenhomeOrgProduct1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgProduct1.h
 	$(compiler)CpAvOpenhomeOrgProduct1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgProduct1C.cpp
 $(objdir)CpAvOpenhomeOrgProduct1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgProduct1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgProduct1.h
 	$(compiler)CpAvOpenhomeOrgProduct1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgProduct1Std.cpp
+$(objdir)CpAvOpenhomeOrgProduct2.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgProduct2.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgProduct2.h
+	$(compiler)CpAvOpenhomeOrgProduct2.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgProduct2.cpp
+$(objdir)CpAvOpenhomeOrgProduct2C.$(objext) : $(proxyC)CpAvOpenhomeOrgProduct2C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgProduct2.h
+	$(compiler)CpAvOpenhomeOrgProduct2C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgProduct2C.cpp
+$(objdir)CpAvOpenhomeOrgProduct2Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgProduct2Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgProduct2.h
+	$(compiler)CpAvOpenhomeOrgProduct2Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgProduct2Std.cpp
 $(objdir)CpAvOpenhomeOrgRadio1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgRadio1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgRadio1.h
 	$(compiler)CpAvOpenhomeOrgRadio1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgRadio1.cpp
 $(objdir)CpAvOpenhomeOrgRadio1C.$(objext) : $(proxyC)CpAvOpenhomeOrgRadio1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgRadio1.h
@@ -363,6 +393,12 @@ $(objdir)CpAvOpenhomeOrgSender1C.$(objext) : $(proxyC)CpAvOpenhomeOrgSender1C.cp
 	$(compiler)CpAvOpenhomeOrgSender1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgSender1C.cpp
 $(objdir)CpAvOpenhomeOrgSender1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgSender1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgSender1.h
 	$(compiler)CpAvOpenhomeOrgSender1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgSender1Std.cpp
+$(objdir)CpAvOpenhomeOrgDebug1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgDebug1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgDebug1.h
+	$(compiler)CpAvOpenhomeOrgDebug1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgDebug1.cpp
+$(objdir)CpAvOpenhomeOrgDebug1C.$(objext) : $(proxyC)CpAvOpenhomeOrgDebug1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgDebug1.h
+	$(compiler)CpAvOpenhomeOrgDebug1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgDebug1C.cpp
+$(objdir)CpAvOpenhomeOrgDebug1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgDebug1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgDebug1.h
+	$(compiler)CpAvOpenhomeOrgDebug1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgDebug1Std.cpp
 $(objdir)CpAvOpenhomeOrgPlaylistManager1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgPlaylistManager1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgPlaylistManager1.h
 	$(compiler)CpAvOpenhomeOrgPlaylistManager1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgPlaylistManager1.cpp
 $(objdir)CpAvOpenhomeOrgPlaylistManager1C.$(objext) : $(proxyC)CpAvOpenhomeOrgPlaylistManager1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgPlaylistManager1.h
@@ -417,162 +453,177 @@ $(objdir)CpLinnCoUkVolkano1Std.$(objext) : $(proxyCppStd)CpLinnCoUkVolkano1Std.c
 CpProxyDotNetAssemblies: $(proxy_dotnet_assemblies_with_path)
 
 $(objdir)CpUpnpOrgAVTransport1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgAVTransport1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgAVTransport1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgAVTransport1.cs
 $(objdir)CpUpnpOrgAVTransport2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgAVTransport2.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgAVTransport2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgAVTransport2.cs
 $(objdir)CpUpnpOrgConnectionManager1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgConnectionManager1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgConnectionManager1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgConnectionManager1.cs
 $(objdir)CpUpnpOrgConnectionManager2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgConnectionManager2.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgConnectionManager2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgConnectionManager2.cs
 $(objdir)CpUpnpOrgContentDirectory1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgContentDirectory1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgContentDirectory1.cs
 $(objdir)CpUpnpOrgContentDirectory2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory2.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgContentDirectory2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgContentDirectory2.cs
 $(objdir)CpUpnpOrgContentDirectory3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory3.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgContentDirectory3.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgContentDirectory3.cs
 $(objdir)CpUpnpOrgRenderingControl1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgRenderingControl1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgRenderingControl1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgRenderingControl1.cs
 $(objdir)CpUpnpOrgRenderingControl2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgRenderingControl2.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgRenderingControl2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgRenderingControl2.cs
 $(objdir)CpUpnpOrgScheduledRecording1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgScheduledRecording1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgScheduledRecording1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgScheduledRecording1.cs
 $(objdir)CpUpnpOrgScheduledRecording2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgScheduledRecording2.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgScheduledRecording2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgScheduledRecording2.cs
 $(objdir)CpUpnpOrgSwitchPower1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgSwitchPower1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgSwitchPower1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgSwitchPower1.cs
 $(objdir)CpUpnpOrgDimming1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgDimming1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpUpnpOrgDimming1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgDimming1.cs
 $(objdir)CpAvOpenhomeOrgCredentials1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
 $(objdir)CpAvOpenhomeOrgExakt1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgExakt1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgExakt1.cs
 $(objdir)CpAvOpenhomeOrgExakt2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt2.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgExakt2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgExakt2.cs
 $(objdir)CpAvOpenhomeOrgInfo1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgInfo1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgInfo1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgInfo1.cs
 $(objdir)CpAvOpenhomeOrgTime1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgTime1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgTime1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgTime1.cs
 $(objdir)CpAvOpenhomeOrgPlaylist1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs
 $(objdir)CpAvOpenhomeOrgVolume1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgVolume1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgVolume1.cs
+$(objdir)CpAvOpenhomeOrgVolume2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume2.cs
+	$(csharp) $(debug_csharp) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgVolume2.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgVolume2.cs
 $(objdir)CpAvOpenhomeOrgProduct1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgProduct1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgProduct1.cs
+$(objdir)CpAvOpenhomeOrgProduct2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct2.cs
+	$(csharp) $(debug_csharp) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgProduct2.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgProduct2.cs
 $(objdir)CpAvOpenhomeOrgRadio1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgRadio1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgRadio1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgRadio1.cs
 $(objdir)CpAvOpenhomeOrgReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgReceiver1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgReceiver1.cs
 $(objdir)CpAvOpenhomeOrgSender1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgSender1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgSender1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgSender1.cs
+$(objdir)CpAvOpenhomeOrgDebug1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgDebug1.cs
+	$(csharp) $(debug_csharp) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgDebug1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgDebug1.cs
 $(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
 $(objdir)CpAvOpenhomeOrgMediaServer1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs
 $(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs
 $(objdir)CpOpenhomeOrgTestBasic1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgTestBasic1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpOpenhomeOrgTestBasic1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpOpenhomeOrgTestBasic1.cs
 $(objdir)CpOpenhomeOrgTestLights1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgTestLights1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpOpenhomeOrgTestLights1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpOpenhomeOrgTestLights1.cs
 $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
 $(objdir)CpLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkFlash1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpLinnCoUkFlash1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpLinnCoUkFlash1.cs
 $(objdir)CpLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkVolkano1.cs
-	$(csharp) /t:library \
+	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)CpLinnCoUkVolkano1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpLinnCoUkVolkano1.cs
@@ -621,14 +672,20 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylist1.cla
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgPlaylist1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgVolume1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgVolume1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume2.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgVolume2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgVolume2.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgProduct1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgProduct1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct2.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgProduct2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgProduct2.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgRadio1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgRadio1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgRadio1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgReceiver1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgReceiver1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgReceiver1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgSender1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgSender1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgDebug1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgDebug1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylistManager1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgPlaylistManager1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgPlaylistManager1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgMediaServer1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgMediaServer1.java
