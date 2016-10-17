@@ -32,7 +32,7 @@ dllsources =	OpenHome/Net/T4/TextTemplating/Mono.TextTemplating/AssemblyInfo.cs 
 
 $(toolsDir)Mono.TextTemplating.dll : $(dllsources)
 	$(mkdir) $(toolsDir)
-	dmcs /t:library -out:$(toolsDir)Mono.TextTemplating.dll $(dllsources)
+	mcs /t:library -out:$(toolsDir)Mono.TextTemplating.dll $(dllsources)
 
  
 exesources =	OpenHome/Net/T4/TextTemplating/TextTransform/AssemblyInfo.cs \
