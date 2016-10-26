@@ -305,7 +305,7 @@ endif
 ifeq ($(platform), iOS)
 	csharp = /Developer/MonoTouch/usr/bin/smcs /nologo $(debug_csharp)
 else
-	csharp = dmcs /nologo $(debug_csharp)
+	csharp = mcs /nologo $(debug_csharp)
 endif
 csharpdefines ?=
 publicjavadir = OpenHome/Net/Bindings/Java/
