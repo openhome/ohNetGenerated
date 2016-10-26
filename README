@@ -5,3 +5,7 @@ Before building, clone ohdevtools (git@github.com:openhome/ohdevtools.git) then 
 
 Run "make" to build C++, C, C# code.
 "make JavaAll" to build Java code.
+
+To add new services, edit OpenHome/Net/Service/Services.xml, then
+   make generate-makefiles uset4=yes
+   make GenAll uset4=yes
