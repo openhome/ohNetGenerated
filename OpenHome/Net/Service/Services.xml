@@ -251,4 +251,11 @@
     <type>Volkano</type>
     <version>1</version>
   </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>Privacy</type>
+    <version>1</version>
+  </service>
 </servicelist>
