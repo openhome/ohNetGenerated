@@ -29,9 +29,6 @@ public:
     virtual void SyncGetPolicyAgreed(TUint& aVersion) = 0;
     virtual void BeginGetPolicyAgreed(FunctorAsync& aFunctor) = 0;
     virtual void EndGetPolicyAgreed(IAsync& aAsync, TUint& aVersion) = 0;
-    virtual void SyncSetPolicyAgreed(TUint aAgreed) = 0;
-    virtual void BeginSetPolicyAgreed(TUint aAgreed, FunctorAsync& aFunctor) = 0;
-    virtual void EndSetPolicyAgreed(IAsync& aAsync) = 0;
     virtual void SyncGetPolicyDetails(Brh& aDetails) = 0;
     virtual void BeginGetPolicyDetails(FunctorAsync& aFunctor) = 0;
     virtual void EndGetPolicyDetails(IAsync& aAsync, Brh& aDetails) = 0;
@@ -122,32 +119,6 @@ public:
      * @param[out] aVersion
      */
     void EndGetPolicyAgreed(IAsync& aAsync, TUint& aVersion);
-
-    /**
-     * Invoke the action synchronously.  Blocks until the action has been processed
-     * on the device and sets any output arguments.
-     *
-     * @param[in]  aAgreed
-     */
-    void SyncSetPolicyAgreed(TUint aAgreed);
-    /**
-     * Invoke the action asynchronously.
-     * Returns immediately and will run the client-specified callback when the action
-     * later completes.  Any output arguments can then be retrieved by calling
-     * EndSetPolicyAgreed().
-     *
-     * @param[in] aAgreed
-     * @param[in] aFunctor   Callback to run when the action completes.
-     *                       This is guaranteed to be run but may indicate an error
-     */
-    void BeginSetPolicyAgreed(TUint aAgreed, FunctorAsync& aFunctor);
-    /**
-     * Retrieve the output arguments from an asynchronously invoked action.
-     * This may only be called from the callback set in the above Begin function.
-     *
-     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     */
-    void EndSetPolicyAgreed(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -299,7 +270,6 @@ private:
 private:
     Action* iActionGetPolicyVersion;
     Action* iActionGetPolicyAgreed;
-    Action* iActionSetPolicyAgreed;
     Action* iActionGetPolicyDetails;
     Action* iActionSetPolicyDetails;
     PropertyUint* iPolicyVersion;

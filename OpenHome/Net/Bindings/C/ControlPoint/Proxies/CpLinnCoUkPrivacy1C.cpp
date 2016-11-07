@@ -31,10 +31,6 @@ public:
     void BeginGetPolicyAgreed(FunctorAsync& aFunctor);
     void EndGetPolicyAgreed(IAsync& aAsync, TUint& aVersion);
 
-    void SyncSetPolicyAgreed(TUint aAgreed);
-    void BeginSetPolicyAgreed(TUint aAgreed, FunctorAsync& aFunctor);
-    void EndSetPolicyAgreed(IAsync& aAsync);
-
     void SyncGetPolicyDetails(Brh& aDetails);
     void BeginGetPolicyDetails(FunctorAsync& aFunctor);
     void EndGetPolicyDetails(IAsync& aAsync, Brh& aDetails);
@@ -58,7 +54,6 @@ private:
     Mutex iLock;
     Action* iActionGetPolicyVersion;
     Action* iActionGetPolicyAgreed;
-    Action* iActionSetPolicyAgreed;
     Action* iActionGetPolicyDetails;
     Action* iActionSetPolicyDetails;
     PropertyUint* iPolicyVersion;
@@ -113,27 +108,6 @@ SyncGetPolicyAgreedLinnCoUkPrivacy1C::SyncGetPolicyAgreedLinnCoUkPrivacy1C(CpPro
 void SyncGetPolicyAgreedLinnCoUkPrivacy1C::CompleteRequest(IAsync& aAsync)
 {
     iService.EndGetPolicyAgreed(aAsync, iVersion);
-}
-
-
-class SyncSetPolicyAgreedLinnCoUkPrivacy1C : public SyncProxyAction
-{
-public:
-    SyncSetPolicyAgreedLinnCoUkPrivacy1C(CpProxyLinnCoUkPrivacy1C& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetPolicyAgreedLinnCoUkPrivacy1C() {};
-private:
-    CpProxyLinnCoUkPrivacy1C& iService;
-};
-
-SyncSetPolicyAgreedLinnCoUkPrivacy1C::SyncSetPolicyAgreedLinnCoUkPrivacy1C(CpProxyLinnCoUkPrivacy1C& aProxy)
-    : iService(aProxy)
-{
-}
-
-void SyncSetPolicyAgreedLinnCoUkPrivacy1C::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndSetPolicyAgreed(aAsync);
 }
 
 
@@ -194,10 +168,6 @@ CpProxyLinnCoUkPrivacy1C::CpProxyLinnCoUkPrivacy1C(CpDeviceC aDevice)
     param = new OpenHome::Net::ParameterUint("Version");
     iActionGetPolicyAgreed->AddOutputParameter(param);
 
-    iActionSetPolicyAgreed = new Action("SetPolicyAgreed");
-    param = new OpenHome::Net::ParameterUint("Agreed");
-    iActionSetPolicyAgreed->AddInputParameter(param);
-
     iActionGetPolicyDetails = new Action("GetPolicyDetails");
     param = new OpenHome::Net::ParameterString("Details");
     iActionGetPolicyDetails->AddOutputParameter(param);
@@ -223,7 +193,6 @@ CpProxyLinnCoUkPrivacy1C::~CpProxyLinnCoUkPrivacy1C()
     DestroyService();
     delete iActionGetPolicyVersion;
     delete iActionGetPolicyAgreed;
-    delete iActionSetPolicyAgreed;
     delete iActionGetPolicyDetails;
     delete iActionSetPolicyDetails;
 }
@@ -290,36 +259,6 @@ void CpProxyLinnCoUkPrivacy1C::EndGetPolicyAgreed(IAsync& aAsync, TUint& aVersio
     }
     TUint index = 0;
     aVersion = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
-}
-
-void CpProxyLinnCoUkPrivacy1C::SyncSetPolicyAgreed(TUint aAgreed)
-{
-    SyncSetPolicyAgreedLinnCoUkPrivacy1C sync(*this);
-    BeginSetPolicyAgreed(aAgreed, sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkPrivacy1C::BeginSetPolicyAgreed(TUint aAgreed, FunctorAsync& aFunctor)
-{
-    Invocation* invocation = Service()->Invocation(*iActionSetPolicyAgreed, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSetPolicyAgreed->InputParameters();
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aAgreed));
-    Invocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkPrivacy1C::EndSetPolicyAgreed(IAsync& aAsync)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SetPolicyAgreed"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
 }
 
 void CpProxyLinnCoUkPrivacy1C::SyncGetPolicyDetails(Brh& aDetails)
@@ -524,44 +463,6 @@ int32_t STDCALL CpProxyLinnCoUkPrivacy1EndGetPolicyAgreed(THandle aHandle, OhNet
     ASSERT(async != NULL);
     try {
         proxyC->EndGetPolicyAgreed(*async, *aVersion);
-    }
-    catch(...) {
-        err = -1;
-    }
-    return err;
-}
-
-int32_t STDCALL CpProxyLinnCoUkPrivacy1SyncSetPolicyAgreed(THandle aHandle, uint32_t aAgreed)
-{
-    CpProxyLinnCoUkPrivacy1C* proxyC = reinterpret_cast<CpProxyLinnCoUkPrivacy1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    int32_t err = 0;
-    try {
-        proxyC->SyncSetPolicyAgreed(aAgreed);
-    }
-    catch (ProxyError& ) {
-        err = -1;
-    }
-    return err;
-}
-
-void STDCALL CpProxyLinnCoUkPrivacy1BeginSetPolicyAgreed(THandle aHandle, uint32_t aAgreed, OhNetCallbackAsync aCallback, void* aPtr)
-{
-    CpProxyLinnCoUkPrivacy1C* proxyC = reinterpret_cast<CpProxyLinnCoUkPrivacy1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginSetPolicyAgreed(aAgreed, functor);
-}
-
-int32_t STDCALL CpProxyLinnCoUkPrivacy1EndSetPolicyAgreed(THandle aHandle, OhNetHandleAsync aAsync)
-{
-    int32_t err = 0;
-    CpProxyLinnCoUkPrivacy1C* proxyC = reinterpret_cast<CpProxyLinnCoUkPrivacy1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
-    ASSERT(async != NULL);
-    try {
-        proxyC->EndSetPolicyAgreed(*async);
     }
     catch(...) {
         err = -1;

@@ -57,7 +57,6 @@ namespace OpenHome.Net.Device.Providers
         private GCHandle iGch;
         private ActionDelegate iDelegateGetPolicyVersion;
         private ActionDelegate iDelegateGetPolicyAgreed;
-        private ActionDelegate iDelegateSetPolicyAgreed;
         private ActionDelegate iDelegateGetPolicyDetails;
         private ActionDelegate iDelegateSetPolicyDetails;
         private PropertyUint iPropertyPolicyVersion;
@@ -204,19 +203,6 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action SetPolicyAgreed is supported.
-        /// </summary>
-        /// <remarks>The action's availability will be published in the device's service.xml.
-        /// SetPolicyAgreed must be overridden if this is called.</remarks>
-        protected void EnableActionSetPolicyAgreed()
-        {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetPolicyAgreed");
-            action.AddInputParameter(new ParameterRelated("Agreed", iPropertyPolicyAgreed));
-            iDelegateSetPolicyAgreed = new ActionDelegate(DoSetPolicyAgreed);
-            EnableAction(action, iDelegateSetPolicyAgreed, GCHandle.ToIntPtr(iGch));
-        }
-
-        /// <summary>
         /// Signal that the action GetPolicyDetails is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
@@ -266,20 +252,6 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aVersion"></param>
         protected virtual void GetPolicyAgreed(IDvInvocation aInvocation, out uint aVersion)
-        {
-            throw (new ActionDisabledError());
-        }
-
-        /// <summary>
-        /// SetPolicyAgreed action.
-        /// </summary>
-        /// <remarks>Will be called when the device stack receives an invocation of the
-        /// SetPolicyAgreed action for the owning device.
-        ///
-        /// Must be implemented iff EnableActionSetPolicyAgreed was called.</remarks>
-        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aAgreed"></param>
-        protected virtual void SetPolicyAgreed(IDvInvocation aInvocation, uint aAgreed)
         {
             throw (new ActionDisabledError());
         }
@@ -399,52 +371,6 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetPolicyAgreed" });
-                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
-            }
-            return 0;
-        }
-
-        private static int DoSetPolicyAgreed(IntPtr aPtr, IntPtr aInvocation)
-        {
-            GCHandle gch = GCHandle.FromIntPtr(aPtr);
-            DvProviderLinnCoUkPrivacy1 self = (DvProviderLinnCoUkPrivacy1)gch.Target;
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            uint agreed;
-            try
-            {
-                invocation.ReadStart();
-                agreed = invocation.ReadUint("Agreed");
-                invocation.ReadEnd();
-                self.SetPolicyAgreed(invocation, agreed);
-            }
-            catch (ActionError e)
-            {
-                invocation.ReportActionError(e, "SetPolicyAgreed");
-                return -1;
-            }
-            catch (PropertyUpdateError)
-            {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetPolicyAgreed" }));
-                return -1;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetPolicyAgreed" });
-                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
-                return -1;
-            }
-            try
-            {
-                invocation.WriteStart();
-                invocation.WriteEnd();
-            }
-            catch (ActionError)
-            {
-                return -1;
-            }
-            catch (System.Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetPolicyAgreed" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

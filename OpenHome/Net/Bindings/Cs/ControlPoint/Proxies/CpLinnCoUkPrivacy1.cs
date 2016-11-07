@@ -16,9 +16,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncGetPolicyAgreed(out uint aVersion);
         void BeginGetPolicyAgreed(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetPolicyAgreed(IntPtr aAsyncHandle, out uint aVersion);
-        void SyncSetPolicyAgreed(uint aAgreed);
-        void BeginSetPolicyAgreed(uint aAgreed, CpProxy.CallbackAsyncComplete aCallback);
-        void EndSetPolicyAgreed(IntPtr aAsyncHandle);
         void SyncGetPolicyDetails(out String aDetails);
         void BeginGetPolicyDetails(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetPolicyDetails(IntPtr aAsyncHandle, out String aDetails);
@@ -71,20 +68,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
-    internal class SyncSetPolicyAgreedLinnCoUkPrivacy1 : SyncProxyAction
-    {
-        private CpProxyLinnCoUkPrivacy1 iService;
-
-        public SyncSetPolicyAgreedLinnCoUkPrivacy1(CpProxyLinnCoUkPrivacy1 aProxy)
-        {
-            iService = aProxy;
-        }
-        protected override void CompleteRequest(IntPtr aAsyncHandle)
-        {
-            iService.EndSetPolicyAgreed(aAsyncHandle);
-        }
-    };
-
     internal class SyncGetPolicyDetailsLinnCoUkPrivacy1 : SyncProxyAction
     {
         private CpProxyLinnCoUkPrivacy1 iService;
@@ -125,7 +108,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
     {
         private OpenHome.Net.Core.Action iActionGetPolicyVersion;
         private OpenHome.Net.Core.Action iActionGetPolicyAgreed;
-        private OpenHome.Net.Core.Action iActionSetPolicyAgreed;
         private OpenHome.Net.Core.Action iActionGetPolicyDetails;
         private OpenHome.Net.Core.Action iActionSetPolicyDetails;
         private PropertyUint iPolicyVersion;
@@ -154,10 +136,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionGetPolicyAgreed = new OpenHome.Net.Core.Action("GetPolicyAgreed");
             param = new ParameterUint("Version");
             iActionGetPolicyAgreed.AddOutputParameter(param);
-
-            iActionSetPolicyAgreed = new OpenHome.Net.Core.Action("SetPolicyAgreed");
-            param = new ParameterUint("Agreed");
-            iActionSetPolicyAgreed.AddInputParameter(param);
 
             iActionGetPolicyDetails = new OpenHome.Net.Core.Action("GetPolicyDetails");
             param = new ParameterString("Details", allowedValues);
@@ -273,52 +251,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             uint index = 0;
             aVersion = Invocation.OutputUint(aAsyncHandle, index++);
-        }
-
-        /// <summary>
-        /// Invoke the action synchronously
-        /// </summary>
-        /// <remarks>Blocks until the action has been processed
-        /// on the device and sets any output arguments</remarks>
-        /// <param name="aAgreed"></param>
-        public void SyncSetPolicyAgreed(uint aAgreed)
-        {
-            SyncSetPolicyAgreedLinnCoUkPrivacy1 sync = new SyncSetPolicyAgreedLinnCoUkPrivacy1(this);
-            BeginSetPolicyAgreed(aAgreed, sync.AsyncComplete());
-            sync.Wait();
-            sync.ReportError();
-        }
-
-        /// <summary>
-        /// Invoke the action asynchronously
-        /// </summary>
-        /// <remarks>Returns immediately and will run the client-specified callback when the action
-        /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndSetPolicyAgreed().</remarks>
-        /// <param name="aAgreed"></param>
-        /// <param name="aCallback">Delegate to run when the action completes.
-        /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetPolicyAgreed(uint aAgreed, CallbackAsyncComplete aCallback)
-        {
-            Invocation invocation = iService.Invocation(iActionSetPolicyAgreed, aCallback);
-            int inIndex = 0;
-            invocation.AddInput(new ArgumentUint((ParameterUint)iActionSetPolicyAgreed.InputParameter(inIndex++), aAgreed));
-            iService.InvokeAction(invocation);
-        }
-
-        /// <summary>
-        /// Retrieve the output arguments from an asynchronously invoked action.
-        /// </summary>
-        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
-        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        public void EndSetPolicyAgreed(IntPtr aAsyncHandle)
-        {
-            uint code;
-            string desc;
-            if (Invocation.Error(aAsyncHandle, out code, out desc))
-            {
-                throw new ProxyError(code, desc);
-            }
         }
 
         /// <summary>
@@ -562,7 +494,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             iActionGetPolicyVersion.Dispose();
             iActionGetPolicyAgreed.Dispose();
-            iActionSetPolicyAgreed.Dispose();
             iActionGetPolicyDetails.Dispose();
             iActionSetPolicyDetails.Dispose();
             iPolicyVersion.Dispose();

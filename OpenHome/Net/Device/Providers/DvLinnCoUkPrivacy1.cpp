@@ -97,14 +97,6 @@ void DvProviderLinnCoUkPrivacy1::EnableActionGetPolicyAgreed()
     iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkPrivacy1::EnableActionSetPolicyAgreed()
-{
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetPolicyAgreed");
-    action->AddInputParameter(new ParameterRelated("Agreed", *iPropertyPolicyAgreed));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkPrivacy1::DoSetPolicyAgreed);
-    iService->AddAction(action, functor);
-}
-
 void DvProviderLinnCoUkPrivacy1::EnableActionGetPolicyDetails()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("GetPolicyDetails");
@@ -139,15 +131,6 @@ void DvProviderLinnCoUkPrivacy1::DoGetPolicyAgreed(IDviInvocation& aInvocation)
     GetPolicyAgreed(invocation, respVersion);
 }
 
-void DvProviderLinnCoUkPrivacy1::DoSetPolicyAgreed(IDviInvocation& aInvocation)
-{
-    aInvocation.InvocationReadStart();
-    TUint Agreed = aInvocation.InvocationReadUint("Agreed");
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    SetPolicyAgreed(invocation, Agreed);
-}
-
 void DvProviderLinnCoUkPrivacy1::DoGetPolicyDetails(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -173,11 +156,6 @@ void DvProviderLinnCoUkPrivacy1::GetPolicyVersion(IDvInvocation& /*aResponse*/, 
 }
 
 void DvProviderLinnCoUkPrivacy1::GetPolicyAgreed(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aVersion*/)
-{
-    ASSERTS();
-}
-
-void DvProviderLinnCoUkPrivacy1::SetPolicyAgreed(IDvInvocation& /*aResponse*/, TUint /*aAgreed*/)
 {
     ASSERTS();
 }

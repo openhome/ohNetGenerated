@@ -128,27 +128,6 @@ CpProxyLinnCoUkPrivacy1.prototype.GetPolicyAgreed = function(successFunction, er
 
 
 /**
-* A service action to SetPolicyAgreed
-* @method SetPolicyAgreed
-* @param {Int} Agreed An action parameter
-* @param {Function} successFunction The function that is executed when the action has completed successfully
-* @param {Function} errorFunction The function that is executed when the action has cause an error
-*/
-CpProxyLinnCoUkPrivacy1.prototype.SetPolicyAgreed = function(Agreed, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("SetPolicyAgreed", this.url, this.domain, this.type, this.version);     
-    request.writeIntParameter("Agreed", Agreed);
-    request.send(function(result){
-    
-        if (successFunction){
-            successFunction(result);
-        }
-    }, function(message, transport) {
-        if (errorFunction) {errorFunction(message, transport);}
-    });
-}
-
-
-/**
 * A service action to GetPolicyDetails
 * @method GetPolicyDetails
 * @param {Function} successFunction The function that is executed when the action has completed successfully

@@ -29,13 +29,11 @@ public:
     void EnablePropertyPolicyDetails();
     void EnableActionGetPolicyVersion(CallbackPrivacy1GetPolicyVersion aCallback, void* aPtr);
     void EnableActionGetPolicyAgreed(CallbackPrivacy1GetPolicyAgreed aCallback, void* aPtr);
-    void EnableActionSetPolicyAgreed(CallbackPrivacy1SetPolicyAgreed aCallback, void* aPtr);
     void EnableActionGetPolicyDetails(CallbackPrivacy1GetPolicyDetails aCallback, void* aPtr);
     void EnableActionSetPolicyDetails(CallbackPrivacy1SetPolicyDetails aCallback, void* aPtr);
 private:
     void DoGetPolicyVersion(IDviInvocation& aInvocation);
     void DoGetPolicyAgreed(IDviInvocation& aInvocation);
-    void DoSetPolicyAgreed(IDviInvocation& aInvocation);
     void DoGetPolicyDetails(IDviInvocation& aInvocation);
     void DoSetPolicyDetails(IDviInvocation& aInvocation);
 private:
@@ -43,8 +41,6 @@ private:
     void* iPtrGetPolicyVersion;
     CallbackPrivacy1GetPolicyAgreed iCallbackGetPolicyAgreed;
     void* iPtrGetPolicyAgreed;
-    CallbackPrivacy1SetPolicyAgreed iCallbackSetPolicyAgreed;
-    void* iPtrSetPolicyAgreed;
     CallbackPrivacy1GetPolicyDetails iCallbackGetPolicyDetails;
     void* iPtrGetPolicyDetails;
     CallbackPrivacy1SetPolicyDetails iCallbackSetPolicyDetails;
@@ -136,16 +132,6 @@ void DvProviderLinnCoUkPrivacy1C::EnableActionGetPolicyAgreed(CallbackPrivacy1Ge
     iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkPrivacy1C::EnableActionSetPolicyAgreed(CallbackPrivacy1SetPolicyAgreed aCallback, void* aPtr)
-{
-    iCallbackSetPolicyAgreed = aCallback;
-    iPtrSetPolicyAgreed = aPtr;
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetPolicyAgreed");
-    action->AddInputParameter(new ParameterRelated("Agreed", *iPropertyPolicyAgreed));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkPrivacy1C::DoSetPolicyAgreed);
-    iService->AddAction(action, functor);
-}
-
 void DvProviderLinnCoUkPrivacy1C::EnableActionGetPolicyDetails(CallbackPrivacy1GetPolicyDetails aCallback, void* aPtr)
 {
     iCallbackGetPolicyDetails = aCallback;
@@ -205,25 +191,6 @@ void DvProviderLinnCoUkPrivacy1C::DoGetPolicyAgreed(IDviInvocation& aInvocation)
     DviInvocationResponseUint respVersion(aInvocation, "Version");
     invocation.StartResponse();
     respVersion.Write(Version);
-    invocation.EndResponse();
-}
-
-void DvProviderLinnCoUkPrivacy1C::DoSetPolicyAgreed(IDviInvocation& aInvocation)
-{
-    DvInvocationCPrivate invocationWrapper(aInvocation);
-    IDvInvocationC* invocationC;
-    void* invocationCPtr;
-    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
-    aInvocation.InvocationReadStart();
-    TUint Agreed = aInvocation.InvocationReadUint("Agreed");
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    ASSERT(iCallbackSetPolicyAgreed != NULL);
-    if (0 != iCallbackSetPolicyAgreed(iPtrSetPolicyAgreed, invocationC, invocationCPtr, Agreed)) {
-        invocation.Error(502, Brn("Action failed"));
-        return;
-    }
-    invocation.StartResponse();
     invocation.EndResponse();
 }
 
@@ -291,11 +258,6 @@ void STDCALL DvProviderLinnCoUkPrivacy1EnableActionGetPolicyVersion(THandle aPro
 void STDCALL DvProviderLinnCoUkPrivacy1EnableActionGetPolicyAgreed(THandle aProvider, CallbackPrivacy1GetPolicyAgreed aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderLinnCoUkPrivacy1C*>(aProvider)->EnableActionGetPolicyAgreed(aCallback, aPtr);
-}
-
-void STDCALL DvProviderLinnCoUkPrivacy1EnableActionSetPolicyAgreed(THandle aProvider, CallbackPrivacy1SetPolicyAgreed aCallback, void* aPtr)
-{
-    reinterpret_cast<DvProviderLinnCoUkPrivacy1C*>(aProvider)->EnableActionSetPolicyAgreed(aCallback, aPtr);
 }
 
 void STDCALL DvProviderLinnCoUkPrivacy1EnableActionGetPolicyDetails(THandle aProvider, CallbackPrivacy1GetPolicyDetails aCallback, void* aPtr)

@@ -16,9 +16,6 @@ interface ICpProxyLinnCoUkPrivacy1 extends ICpProxy
     public long syncGetPolicyAgreed();
     public void beginGetPolicyAgreed(ICpProxyListener aCallback);
     public long endGetPolicyAgreed(long aAsyncHandle);
-    public void syncSetPolicyAgreed(long aAgreed);
-    public void beginSetPolicyAgreed(long aAgreed, ICpProxyListener aCallback);
-    public void endSetPolicyAgreed(long aAsyncHandle);
     public String syncGetPolicyDetails();
     public void beginGetPolicyDetails(ICpProxyListener aCallback);
     public String endGetPolicyDetails(long aAsyncHandle);
@@ -75,21 +72,6 @@ class SyncGetPolicyAgreedLinnCoUkPrivacy1 extends SyncProxyAction
     }
 }
 
-class SyncSetPolicyAgreedLinnCoUkPrivacy1 extends SyncProxyAction
-{
-    private CpProxyLinnCoUkPrivacy1 iService;
-
-    public SyncSetPolicyAgreedLinnCoUkPrivacy1(CpProxyLinnCoUkPrivacy1 aProxy)
-    {
-        iService = aProxy;
-    }
-    protected void completeRequest(long aAsyncHandle)
-    {
-        iService.endSetPolicyAgreed(aAsyncHandle);
-        
-    }
-}
-
 class SyncGetPolicyDetailsLinnCoUkPrivacy1 extends SyncProxyAction
 {
     private CpProxyLinnCoUkPrivacy1 iService;
@@ -134,7 +116,6 @@ public class CpProxyLinnCoUkPrivacy1 extends CpProxy implements ICpProxyLinnCoUk
 
     private Action iActionGetPolicyVersion;
     private Action iActionGetPolicyAgreed;
-    private Action iActionSetPolicyAgreed;
     private Action iActionGetPolicyDetails;
     private Action iActionSetPolicyDetails;
     private PropertyUint iPolicyVersion;
@@ -165,10 +146,6 @@ public class CpProxyLinnCoUkPrivacy1 extends CpProxy implements ICpProxyLinnCoUk
         iActionGetPolicyAgreed = new Action("GetPolicyAgreed");
         param = new ParameterUint("Version");
         iActionGetPolicyAgreed.addOutputParameter(param);
-
-        iActionSetPolicyAgreed = new Action("SetPolicyAgreed");
-        param = new ParameterUint("Agreed");
-        iActionSetPolicyAgreed.addInputParameter(param);
 
         iActionGetPolicyDetails = new Action("GetPolicyDetails");
         param = new ParameterString("Details", allowedValues);
@@ -315,54 +292,6 @@ public class CpProxyLinnCoUkPrivacy1 extends CpProxy implements ICpProxyLinnCoUk
         int index = 0;
         long version = Invocation.getOutputUint(aAsyncHandle, index++);
         return version;
-    }
-        
-    /**
-     * Invoke the action synchronously.
-     * Blocks until the action has been processed on the device and sets any
-     * output arguments.
-     */
-    public void syncSetPolicyAgreed(long aAgreed)
-    {
-        SyncSetPolicyAgreedLinnCoUkPrivacy1 sync = new SyncSetPolicyAgreedLinnCoUkPrivacy1(this);
-        beginSetPolicyAgreed(aAgreed, sync.getListener());
-        sync.waitToComplete();
-        sync.reportError();
-    }
-    
-    /**
-     * Invoke the action asynchronously.
-     * Returns immediately and will run the client-specified callback when the
-     * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endSetPolicyAgreed}.
-     * 
-     * @param aAgreed
-     * @param aCallback listener to call back when action completes.
-     *                  This is guaranteed to be run but may indicate an error.
-     */
-    public void beginSetPolicyAgreed(long aAgreed, ICpProxyListener aCallback)
-    {
-        Invocation invocation = iService.getInvocation(iActionSetPolicyAgreed, aCallback);
-        int inIndex = 0;
-        invocation.addInput(new ArgumentUint((ParameterUint)iActionSetPolicyAgreed.getInputParameter(inIndex++), aAgreed));
-        iService.invokeAction(invocation);
-    }
-
-    /**
-     * Retrieve the output arguments from an asynchronously invoked action.
-     * This may only be called from the callback set in the
-     * {@link #beginSetPolicyAgreed} method.
-     *
-     * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginSetPolicyAgreed} method.
-     */
-    public void endSetPolicyAgreed(long aAsyncHandle)
-    {
-        ProxyError errObj = Invocation.error(aAsyncHandle);
-        if (errObj != null)
-        {
-            throw errObj;
-        }
     }
         
     /**
@@ -603,7 +532,6 @@ public class CpProxyLinnCoUkPrivacy1 extends CpProxy implements ICpProxyLinnCoUk
             iHandle = 0;
             iActionGetPolicyVersion.destroy();
             iActionGetPolicyAgreed.destroy();
-            iActionSetPolicyAgreed.destroy();
             iActionGetPolicyDetails.destroy();
             iActionSetPolicyDetails.destroy();
             iPolicyVersion.destroy();

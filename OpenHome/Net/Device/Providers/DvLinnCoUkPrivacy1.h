@@ -105,12 +105,6 @@ protected:
      */
     void EnableActionGetPolicyAgreed();
     /**
-     * Signal that the action SetPolicyAgreed is supported.
-     * The action's availability will be published in the device's service.xml.
-     * SetPolicyAgreed must be overridden if this is called.
-     */
-    void EnableActionSetPolicyAgreed();
-    /**
      * Signal that the action GetPolicyDetails is supported.
      * The action's availability will be published in the device's service.xml.
      * GetPolicyDetails must be overridden if this is called.
@@ -140,14 +134,6 @@ private:
      */
     virtual void GetPolicyAgreed(IDvInvocation& aInvocation, IDvInvocationResponseUint& aVersion);
     /**
-     * SetPolicyAgreed action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * SetPolicyAgreed action for the owning device.
-     * Must be implemented iff EnableActionSetPolicyAgreed was called.
-     */
-    virtual void SetPolicyAgreed(IDvInvocation& aInvocation, TUint aAgreed);
-    /**
      * GetPolicyDetails action.
      *
      * Will be called when the device stack receives an invocation of the
@@ -168,7 +154,6 @@ private:
     void Construct();
     void DoGetPolicyVersion(IDviInvocation& aInvocation);
     void DoGetPolicyAgreed(IDviInvocation& aInvocation);
-    void DoSetPolicyAgreed(IDviInvocation& aInvocation);
     void DoGetPolicyDetails(IDviInvocation& aInvocation);
     void DoSetPolicyDetails(IDviInvocation& aInvocation);
 private:

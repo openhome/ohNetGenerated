@@ -67,7 +67,6 @@ public class DvProviderLinnCoUkPrivacy1 extends DvProvider implements IDvProvide
 
     private IDvInvocationListener iDelegateGetPolicyVersion;
     private IDvInvocationListener iDelegateGetPolicyAgreed;
-    private IDvInvocationListener iDelegateSetPolicyAgreed;
     private IDvInvocationListener iDelegateGetPolicyDetails;
     private IDvInvocationListener iDelegateSetPolicyDetails;
     private PropertyUint iPropertyPolicyVersion;
@@ -207,20 +206,6 @@ public class DvProviderLinnCoUkPrivacy1 extends DvProvider implements IDvProvide
     }
 
     /**
-     * Signal that the action SetPolicyAgreed is supported.
-     *
-     * <p>The action's availability will be published in the device's service.xml.
-     * SetPolicyAgreed must be overridden if this is called.
-     */      
-    protected void enableActionSetPolicyAgreed()
-    {
-        Action action = new Action("SetPolicyAgreed");
-        action.addInputParameter(new ParameterRelated("Agreed", iPropertyPolicyAgreed));
-        iDelegateSetPolicyAgreed = new DoSetPolicyAgreed();
-        enableAction(action, iDelegateSetPolicyAgreed);
-    }
-
-    /**
      * Signal that the action GetPolicyDetails is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
@@ -274,22 +259,6 @@ public class DvProviderLinnCoUkPrivacy1 extends DvProvider implements IDvProvide
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
     protected long getPolicyAgreed(IDvInvocation aInvocation)
-    {
-        throw (new ActionDisabledError());
-    }
-
-    /**
-     * SetPolicyAgreed action.
-     *
-     * <p>Will be called when the device stack receives an invocation of the
-     * SetPolicyAgreed action for the owning device.
-     *
-     * <p>Must be implemented iff {@link #enableActionSetPolicyAgreed} was called.</remarks>
-     *
-     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     * @param aAgreed
-     */
-    protected void setPolicyAgreed(IDvInvocation aInvocation, long aAgreed)
     {
         throw (new ActionDisabledError());
     }
@@ -423,54 +392,6 @@ public class DvProviderLinnCoUkPrivacy1 extends DvProvider implements IDvProvide
             {
                 invocation.writeStart();
                 invocation.writeUint("Version", version);
-                invocation.writeEnd();
-            }
-            catch (ActionError ae)
-            {
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("ERROR: unexpected exception: " + e.getMessage());
-                System.out.println("       Only ActionError can be thrown by action response writer");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class DoSetPolicyAgreed implements IDvInvocationListener
-    {
-        public void actionInvoked(long aInvocation)
-        {
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            long agreed;
-            try
-            {
-                invocation.readStart();
-                agreed = invocation.readUint("Agreed");
-                invocation.readEnd();
-                setPolicyAgreed(invocation, agreed);
-            }
-            catch (ActionError ae)
-            {
-                invocation.reportActionError(ae, "SetPolicyAgreed");
-                return;
-            }
-            catch (PropertyUpdateError pue)
-            {
-                invocation.reportError(501, "Invalid XML");
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("WARNING: unexpected exception: " + e.getMessage());
-                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
-                e.printStackTrace();
-                return;
-            }
-            try
-            {
-                invocation.writeStart();
                 invocation.writeEnd();
             }
             catch (ActionError ae)

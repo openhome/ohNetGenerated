@@ -25,16 +25,6 @@
       </argumentList>
     </action>
     <action>
-      <name>SetPolicyAgreed</name>
-      <argumentList>
-        <argument>
-          <name>Agreed</name>
-          <direction>in</direction>
-          <relatedStateVariable>PolicyAgreed</relatedStateVariable>
-        </argument>
-      </argumentList>
-    </action>
-    <action>
       <name>GetPolicyDetails</name>
       <argumentList>
         <argument>
