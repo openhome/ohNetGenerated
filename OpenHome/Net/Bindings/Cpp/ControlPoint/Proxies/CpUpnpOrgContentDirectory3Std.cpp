@@ -1552,14 +1552,18 @@ void CpProxyUpnpOrgContentDirectory3Cpp::SetPropertyTransferIDsChanged(Functor& 
 void CpProxyUpnpOrgContentDirectory3Cpp::PropertySystemUpdateID(uint32_t& aSystemUpdateID) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSystemUpdateID = iSystemUpdateID->Value();
 }
 
 void CpProxyUpnpOrgContentDirectory3Cpp::PropertyContainerUpdateIDs(std::string& aContainerUpdateIDs) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iContainerUpdateIDs->Value();
     aContainerUpdateIDs.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1567,7 +1571,9 @@ void CpProxyUpnpOrgContentDirectory3Cpp::PropertyContainerUpdateIDs(std::string&
 void CpProxyUpnpOrgContentDirectory3Cpp::PropertyLastChange(std::string& aLastChange) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iLastChange->Value();
     aLastChange.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1575,7 +1581,9 @@ void CpProxyUpnpOrgContentDirectory3Cpp::PropertyLastChange(std::string& aLastCh
 void CpProxyUpnpOrgContentDirectory3Cpp::PropertyTransferIDs(std::string& aTransferIDs) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iTransferIDs->Value();
     aTransferIDs.assign((const char*)val.Ptr(), val.Bytes());
 }

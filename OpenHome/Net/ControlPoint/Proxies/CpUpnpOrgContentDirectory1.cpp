@@ -1042,21 +1042,27 @@ void CpProxyUpnpOrgContentDirectory1::SetPropertyContainerUpdateIDsChanged(Funct
 void CpProxyUpnpOrgContentDirectory1::PropertyTransferIDs(Brhz& aTransferIDs) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTransferIDs.Set(iTransferIDs->Value());
 }
 
 void CpProxyUpnpOrgContentDirectory1::PropertySystemUpdateID(TUint& aSystemUpdateID) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSystemUpdateID = iSystemUpdateID->Value();
 }
 
 void CpProxyUpnpOrgContentDirectory1::PropertyContainerUpdateIDs(Brhz& aContainerUpdateIDs) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aContainerUpdateIDs.Set(iContainerUpdateIDs->Value());
 }
 

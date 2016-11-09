@@ -303,21 +303,27 @@ void CpProxyLinnCoUkPrivacy1::SetPropertyPolicyDetailsChanged(Functor& aFunctor)
 void CpProxyLinnCoUkPrivacy1::PropertyPolicyVersion(TUint& aPolicyVersion) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPolicyVersion = iPolicyVersion->Value();
 }
 
 void CpProxyLinnCoUkPrivacy1::PropertyPolicyAgreed(TUint& aPolicyAgreed) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPolicyAgreed = iPolicyAgreed->Value();
 }
 
 void CpProxyLinnCoUkPrivacy1::PropertyPolicyDetails(Brhz& aPolicyDetails) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPolicyDetails.Set(iPolicyDetails->Value());
 }
 

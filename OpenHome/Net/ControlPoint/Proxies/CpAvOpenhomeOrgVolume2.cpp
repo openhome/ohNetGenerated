@@ -1137,84 +1137,108 @@ void CpProxyAvOpenhomeOrgVolume2::SetPropertyUnityGainChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgVolume2::PropertyVolume(TUint& aVolume) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVolume = iVolume->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyMute(TBool& aMute) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMute = iMute->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyBalance(TInt& aBalance) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aBalance = iBalance->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyFade(TInt& aFade) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aFade = iFade->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyVolumeLimit(TUint& aVolumeLimit) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVolumeLimit = iVolumeLimit->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyVolumeMax(TUint& aVolumeMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVolumeMax = iVolumeMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyVolumeUnity(TUint& aVolumeUnity) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVolumeUnity = iVolumeUnity->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyVolumeSteps(TUint& aVolumeSteps) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVolumeSteps = iVolumeSteps->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyVolumeMilliDbPerStep(TUint& aVolumeMilliDbPerStep) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVolumeMilliDbPerStep = iVolumeMilliDbPerStep->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyBalanceMax(TUint& aBalanceMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aBalanceMax = iBalanceMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyFadeMax(TUint& aFadeMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aFadeMax = iFadeMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2::PropertyUnityGain(TBool& aUnityGain) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aUnityGain = iUnityGain->Value();
 }
 

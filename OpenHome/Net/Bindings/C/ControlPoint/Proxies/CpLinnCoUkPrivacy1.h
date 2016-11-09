@@ -49,7 +49,7 @@ DllExport void STDCALL CpProxyLinnCoUkPrivacy1Destroy(THandle aHandle);
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkPrivacy1Create
  * @param[out] aVersion
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1SyncGetPolicyVersion(THandle aHandle, uint32_t* aVersion);
@@ -85,7 +85,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1EndGetPolicyVersion(THandle aHa
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkPrivacy1Create
  * @param[out] aVersion
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1SyncGetPolicyAgreed(THandle aHandle, uint32_t* aVersion);
@@ -121,7 +121,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1EndGetPolicyAgreed(THandle aHan
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkPrivacy1Create
  * @param[out] aDetails
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1SyncGetPolicyDetails(THandle aHandle, char** aDetails);
@@ -157,7 +157,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1EndGetPolicyDetails(THandle aHa
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkPrivacy1Create
  * @param[in]  aDetails
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1SyncSetPolicyDetails(THandle aHandle, const char* aDetails);
@@ -227,8 +227,10 @@ DllExport void STDCALL CpProxyLinnCoUkPrivacy1SetPropertyPolicyDetailsChanged(TH
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkPrivacy1Create
  * @param[out] aPolicyVersion
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyVersion(THandle aHandle, uint32_t* aPolicyVersion);
+DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyVersion(THandle aHandle, uint32_t* aPolicyVersion);
 /**
  * Query the value of the PolicyAgreed property.
  *
@@ -237,8 +239,10 @@ DllExport void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyVersion(THandle aHan
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkPrivacy1Create
  * @param[out] aPolicyAgreed
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyAgreed(THandle aHandle, uint32_t* aPolicyAgreed);
+DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyAgreed(THandle aHandle, uint32_t* aPolicyAgreed);
 /**
  * Query the value of the PolicyDetails property.
  *
@@ -247,8 +251,10 @@ DllExport void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyAgreed(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkPrivacy1Create
  * @param[out] aPolicyDetails
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyDetails(THandle aHandle, char** aPolicyDetails);
+DllExport int32_t STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyDetails(THandle aHandle, char** aPolicyDetails);
 
 /* @} */
 

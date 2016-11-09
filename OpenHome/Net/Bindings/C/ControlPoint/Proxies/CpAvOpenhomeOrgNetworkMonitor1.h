@@ -49,7 +49,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1Destroy(THandle aHandl
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgNetworkMonitor1Create
  * @param[out] aName
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1SyncName(THandle aHandle, char** aName);
@@ -87,7 +87,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1EndName(THandle aHa
  * @param[out] aReceiver
  * @param[out] aResults
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1SyncPorts(THandle aHandle, uint32_t* aSender, uint32_t* aReceiver, uint32_t* aResults);
@@ -170,8 +170,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1SetPropertyResultsChan
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgNetworkMonitor1Create
  * @param[out] aName
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyName(THandle aHandle, char** aName);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyName(THandle aHandle, char** aName);
 /**
  * Query the value of the Sender property.
  *
@@ -180,8 +182,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyName(THandle a
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgNetworkMonitor1Create
  * @param[out] aSender
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertySender(THandle aHandle, uint32_t* aSender);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertySender(THandle aHandle, uint32_t* aSender);
 /**
  * Query the value of the Receiver property.
  *
@@ -190,8 +194,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertySender(THandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgNetworkMonitor1Create
  * @param[out] aReceiver
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyReceiver(THandle aHandle, uint32_t* aReceiver);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyReceiver(THandle aHandle, uint32_t* aReceiver);
 /**
  * Query the value of the Results property.
  *
@@ -200,8 +206,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyReceiver(THand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgNetworkMonitor1Create
  * @param[out] aResults
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyResults(THandle aHandle, uint32_t* aResults);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyResults(THandle aHandle, uint32_t* aResults);
 
 /* @} */
 

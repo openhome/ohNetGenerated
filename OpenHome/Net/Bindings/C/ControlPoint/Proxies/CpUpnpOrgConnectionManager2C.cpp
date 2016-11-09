@@ -505,21 +505,21 @@ void CpProxyUpnpOrgConnectionManager2C::SetPropertyCurrentConnectionIDsChanged(F
 void CpProxyUpnpOrgConnectionManager2C::PropertySourceProtocolInfo(Brhz& aSourceProtocolInfo) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aSourceProtocolInfo.Set(iSourceProtocolInfo->Value());
 }
 
 void CpProxyUpnpOrgConnectionManager2C::PropertySinkProtocolInfo(Brhz& aSinkProtocolInfo) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aSinkProtocolInfo.Set(iSinkProtocolInfo->Value());
 }
 
 void CpProxyUpnpOrgConnectionManager2C::PropertyCurrentConnectionIDs(Brhz& aCurrentConnectionIDs) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aCurrentConnectionIDs.Set(iCurrentConnectionIDs->Value());
 }
 
@@ -818,30 +818,48 @@ void STDCALL CpProxyUpnpOrgConnectionManager2SetPropertyCurrentConnectionIDsChan
     proxyC->SetPropertyCurrentConnectionIDsChanged(functor);
 }
 
-void STDCALL CpProxyUpnpOrgConnectionManager2PropertySourceProtocolInfo(THandle aHandle, char** aSourceProtocolInfo)
+int32_t STDCALL CpProxyUpnpOrgConnectionManager2PropertySourceProtocolInfo(THandle aHandle, char** aSourceProtocolInfo)
 {
     CpProxyUpnpOrgConnectionManager2C* proxyC = reinterpret_cast<CpProxyUpnpOrgConnectionManager2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aSourceProtocolInfo;
-    proxyC->PropertySourceProtocolInfo(buf_aSourceProtocolInfo);
+    try {
+        proxyC->PropertySourceProtocolInfo(buf_aSourceProtocolInfo);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aSourceProtocolInfo = buf_aSourceProtocolInfo.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgConnectionManager2PropertySinkProtocolInfo(THandle aHandle, char** aSinkProtocolInfo)
+int32_t STDCALL CpProxyUpnpOrgConnectionManager2PropertySinkProtocolInfo(THandle aHandle, char** aSinkProtocolInfo)
 {
     CpProxyUpnpOrgConnectionManager2C* proxyC = reinterpret_cast<CpProxyUpnpOrgConnectionManager2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aSinkProtocolInfo;
-    proxyC->PropertySinkProtocolInfo(buf_aSinkProtocolInfo);
+    try {
+        proxyC->PropertySinkProtocolInfo(buf_aSinkProtocolInfo);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aSinkProtocolInfo = buf_aSinkProtocolInfo.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgConnectionManager2PropertyCurrentConnectionIDs(THandle aHandle, char** aCurrentConnectionIDs)
+int32_t STDCALL CpProxyUpnpOrgConnectionManager2PropertyCurrentConnectionIDs(THandle aHandle, char** aCurrentConnectionIDs)
 {
     CpProxyUpnpOrgConnectionManager2C* proxyC = reinterpret_cast<CpProxyUpnpOrgConnectionManager2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aCurrentConnectionIDs;
-    proxyC->PropertyCurrentConnectionIDs(buf_aCurrentConnectionIDs);
+    try {
+        proxyC->PropertyCurrentConnectionIDs(buf_aCurrentConnectionIDs);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aCurrentConnectionIDs = buf_aCurrentConnectionIDs.Transfer();
+    return 0;
 }
 

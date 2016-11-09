@@ -450,7 +450,9 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::SetPropertyConnectionStatusChanged(Functor& 
 void CpProxyAvOpenhomeOrgExakt1Cpp::PropertyDeviceList(std::string& aDeviceList) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iDeviceList->Value();
     aDeviceList.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -458,7 +460,9 @@ void CpProxyAvOpenhomeOrgExakt1Cpp::PropertyDeviceList(std::string& aDeviceList)
 void CpProxyAvOpenhomeOrgExakt1Cpp::PropertyConnectionStatus(std::string& aConnectionStatus) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iConnectionStatus->Value();
     aConnectionStatus.assign((const char*)val.Ptr(), val.Bytes());
 }

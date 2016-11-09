@@ -702,7 +702,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::SetPropertyUpdateCountChanged(Functor&
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerName(std::string& aManufacturerName) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iManufacturerName->Value();
     aManufacturerName.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -710,7 +712,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerName(std::string& 
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerInfo(std::string& aManufacturerInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iManufacturerInfo->Value();
     aManufacturerInfo.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -718,7 +722,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerInfo(std::string& 
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerUrl(std::string& aManufacturerUrl) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iManufacturerUrl->Value();
     aManufacturerUrl.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -726,7 +732,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerUrl(std::string& a
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerImageUri(std::string& aManufacturerImageUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iManufacturerImageUri->Value();
     aManufacturerImageUri.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -734,7 +742,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyManufacturerImageUri(std::stri
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelName(std::string& aModelName) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iModelName->Value();
     aModelName.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -742,7 +752,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelName(std::string& aModelN
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelInfo(std::string& aModelInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iModelInfo->Value();
     aModelInfo.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -750,7 +762,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelInfo(std::string& aModelI
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelUrl(std::string& aModelUrl) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iModelUrl->Value();
     aModelUrl.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -758,7 +772,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelUrl(std::string& aModelUr
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelImageUri(std::string& aModelImageUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iModelImageUri->Value();
     aModelImageUri.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -766,7 +782,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyModelImageUri(std::string& aMo
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductName(std::string& aProductName) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iProductName->Value();
     aProductName.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -774,7 +792,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductName(std::string& aProd
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductInfo(std::string& aProductInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iProductInfo->Value();
     aProductInfo.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -782,7 +802,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductInfo(std::string& aProd
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductUrl(std::string& aProductUrl) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iProductUrl->Value();
     aProductUrl.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -790,7 +812,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductUrl(std::string& aProdu
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductImageUri(std::string& aProductImageUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iProductImageUri->Value();
     aProductImageUri.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -798,7 +822,9 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyProductImageUri(std::string& a
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyAttributes(std::string& aAttributes) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iAttributes->Value();
     aAttributes.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -806,21 +832,27 @@ void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyAttributes(std::string& aAttri
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyQueryPort(uint32_t& aQueryPort) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aQueryPort = iQueryPort->Value();
 }
 
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyBrowsePort(uint32_t& aBrowsePort) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aBrowsePort = iBrowsePort->Value();
 }
 
 void CpProxyAvOpenhomeOrgMediaServer1Cpp::PropertyUpdateCount(uint32_t& aUpdateCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aUpdateCount = iUpdateCount->Value();
 }
 

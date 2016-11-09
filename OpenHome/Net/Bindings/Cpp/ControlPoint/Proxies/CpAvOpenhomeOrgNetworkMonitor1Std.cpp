@@ -204,7 +204,9 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1Cpp::SetPropertyResultsChanged(Functor& 
 void CpProxyAvOpenhomeOrgNetworkMonitor1Cpp::PropertyName(std::string& aName) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iName->Value();
     aName.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -212,21 +214,27 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1Cpp::PropertyName(std::string& aName) co
 void CpProxyAvOpenhomeOrgNetworkMonitor1Cpp::PropertySender(uint32_t& aSender) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSender = iSender->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1Cpp::PropertyReceiver(uint32_t& aReceiver) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aReceiver = iReceiver->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1Cpp::PropertyResults(uint32_t& aResults) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aResults = iResults->Value();
 }
 

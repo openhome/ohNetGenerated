@@ -689,7 +689,9 @@ void CpProxyAvOpenhomeOrgCredentials1Cpp::SetPropertySequenceNumberChanged(Funct
 void CpProxyAvOpenhomeOrgCredentials1Cpp::PropertyIds(std::string& aIds) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iIds->Value();
     aIds.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -697,7 +699,9 @@ void CpProxyAvOpenhomeOrgCredentials1Cpp::PropertyIds(std::string& aIds) const
 void CpProxyAvOpenhomeOrgCredentials1Cpp::PropertyPublicKey(std::string& aPublicKey) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iPublicKey->Value();
     aPublicKey.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -705,7 +709,9 @@ void CpProxyAvOpenhomeOrgCredentials1Cpp::PropertyPublicKey(std::string& aPublic
 void CpProxyAvOpenhomeOrgCredentials1Cpp::PropertySequenceNumber(uint32_t& aSequenceNumber) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSequenceNumber = iSequenceNumber->Value();
 }
 

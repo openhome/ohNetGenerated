@@ -301,21 +301,27 @@ void CpProxyLinnCoUkPrivacy1Cpp::SetPropertyPolicyDetailsChanged(Functor& aFunct
 void CpProxyLinnCoUkPrivacy1Cpp::PropertyPolicyVersion(uint32_t& aPolicyVersion) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPolicyVersion = iPolicyVersion->Value();
 }
 
 void CpProxyLinnCoUkPrivacy1Cpp::PropertyPolicyAgreed(uint32_t& aPolicyAgreed) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPolicyAgreed = iPolicyAgreed->Value();
 }
 
 void CpProxyLinnCoUkPrivacy1Cpp::PropertyPolicyDetails(std::string& aPolicyDetails) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iPolicyDetails->Value();
     aPolicyDetails.assign((const char*)val.Ptr(), val.Bytes());
 }

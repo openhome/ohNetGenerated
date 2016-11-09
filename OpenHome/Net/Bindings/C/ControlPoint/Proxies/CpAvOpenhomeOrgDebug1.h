@@ -49,7 +49,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgDebug1Destroy(THandle aHandle);
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgDebug1Create
  * @param[out] aLog
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgDebug1SyncGetLog(THandle aHandle, char** aLog);
@@ -85,7 +85,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgDebug1EndGetLog(THandle aHandle, O
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgDebug1Create
  * @param[in]  aData
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgDebug1SyncSendLog(THandle aHandle, const char* aData);

@@ -209,28 +209,36 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1::SetPropertyResultsChanged(Functor& aFu
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertyName(Brhz& aName) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aName.Set(iName->Value());
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertySender(TUint& aSender) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSender = iSender->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertyReceiver(TUint& aReceiver) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aReceiver = iReceiver->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1::PropertyResults(TUint& aResults) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aResults = iResults->Value();
 }
 

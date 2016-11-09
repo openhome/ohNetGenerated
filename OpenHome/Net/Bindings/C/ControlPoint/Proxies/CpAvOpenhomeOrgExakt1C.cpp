@@ -477,14 +477,14 @@ void CpProxyAvOpenhomeOrgExakt1C::SetPropertyConnectionStatusChanged(Functor& aF
 void CpProxyAvOpenhomeOrgExakt1C::PropertyDeviceList(Brhz& aDeviceList) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aDeviceList.Set(iDeviceList->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt1C::PropertyConnectionStatus(Brhz& aConnectionStatus) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aConnectionStatus.Set(iConnectionStatus->Value());
 }
 
@@ -786,21 +786,33 @@ void STDCALL CpProxyAvOpenhomeOrgExakt1SetPropertyConnectionStatusChanged(THandl
     proxyC->SetPropertyConnectionStatusChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgExakt1PropertyDeviceList(THandle aHandle, char** aDeviceList)
+int32_t STDCALL CpProxyAvOpenhomeOrgExakt1PropertyDeviceList(THandle aHandle, char** aDeviceList)
 {
     CpProxyAvOpenhomeOrgExakt1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgExakt1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aDeviceList;
-    proxyC->PropertyDeviceList(buf_aDeviceList);
+    try {
+        proxyC->PropertyDeviceList(buf_aDeviceList);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aDeviceList = buf_aDeviceList.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgExakt1PropertyConnectionStatus(THandle aHandle, char** aConnectionStatus)
+int32_t STDCALL CpProxyAvOpenhomeOrgExakt1PropertyConnectionStatus(THandle aHandle, char** aConnectionStatus)
 {
     CpProxyAvOpenhomeOrgExakt1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgExakt1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aConnectionStatus;
-    proxyC->PropertyConnectionStatus(buf_aConnectionStatus);
+    try {
+        proxyC->PropertyConnectionStatus(buf_aConnectionStatus);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aConnectionStatus = buf_aConnectionStatus.Transfer();
+    return 0;
 }
 

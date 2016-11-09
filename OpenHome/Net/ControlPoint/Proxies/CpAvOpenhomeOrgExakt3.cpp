@@ -624,28 +624,36 @@ void CpProxyAvOpenhomeOrgExakt3::SetPropertyVersionChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgExakt3::PropertyDeviceList(Brhz& aDeviceList) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDeviceList.Set(iDeviceList->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt3::PropertyConnectionStatus(Brhz& aConnectionStatus) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aConnectionStatus.Set(iConnectionStatus->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt3::PropertyChannelMap(Brhz& aChannelMap) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aChannelMap.Set(iChannelMap->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt3::PropertyVersion(Brhz& aVersion) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVersion.Set(iVersion->Value());
 }
 

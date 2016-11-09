@@ -48,7 +48,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1Destroy(THandle aHandle);
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncPlay(THandle aHandle);
@@ -82,7 +82,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndPlay(THandle aHandle, 
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncPause(THandle aHandle);
@@ -116,7 +116,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndPause(THandle aHandle,
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncStop(THandle aHandle);
@@ -150,7 +150,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndStop(THandle aHandle, 
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncNext(THandle aHandle);
@@ -184,7 +184,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndNext(THandle aHandle, 
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncPrevious(THandle aHandle);
@@ -219,7 +219,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndPrevious(THandle aHand
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncSetRepeat(THandle aHandle, uint32_t aValue);
@@ -255,7 +255,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndSetRepeat(THandle aHan
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncRepeat(THandle aHandle, uint32_t* aValue);
@@ -291,7 +291,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndRepeat(THandle aHandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncSetShuffle(THandle aHandle, uint32_t aValue);
@@ -327,7 +327,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndSetShuffle(THandle aHa
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncShuffle(THandle aHandle, uint32_t* aValue);
@@ -363,7 +363,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndShuffle(THandle aHandl
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncSeekSecondAbsolute(THandle aHandle, uint32_t aValue);
@@ -399,7 +399,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndSeekSecondAbsolute(THa
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncSeekSecondRelative(THandle aHandle, int32_t aValue);
@@ -435,7 +435,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndSeekSecondRelative(THa
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncSeekId(THandle aHandle, uint32_t aValue);
@@ -471,7 +471,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndSeekId(THandle aHandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncSeekIndex(THandle aHandle, uint32_t aValue);
@@ -507,7 +507,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndSeekIndex(THandle aHan
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncTransportState(THandle aHandle, char** aValue);
@@ -543,7 +543,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndTransportState(THandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncId(THandle aHandle, uint32_t* aValue);
@@ -581,7 +581,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndId(THandle aHandle, Oh
  * @param[out] aUri
  * @param[out] aMetadata
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncRead(THandle aHandle, uint32_t aId, char** aUri, char** aMetadata);
@@ -620,7 +620,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndRead(THandle aHandle, 
  * @param[in]  aIdList
  * @param[out] aTrackList
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncReadList(THandle aHandle, const char* aIdList, char** aTrackList);
@@ -660,7 +660,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndReadList(THandle aHand
  * @param[in]  aMetadata
  * @param[out] aNewId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncInsert(THandle aHandle, uint32_t aAfterId, const char* aUri, const char* aMetadata, uint32_t* aNewId);
@@ -699,7 +699,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndInsert(THandle aHandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncDeleteId(THandle aHandle, uint32_t aValue);
@@ -734,7 +734,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndDeleteId(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncDeleteAll(THandle aHandle);
@@ -769,7 +769,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndDeleteAll(THandle aHan
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncTracksMax(THandle aHandle, uint32_t* aValue);
@@ -807,7 +807,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndTracksMax(THandle aHan
  * @param[out] aArray
  * @param[out] aArrayLen
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncIdArray(THandle aHandle, uint32_t* aToken, char** aArray, uint32_t* aArrayLen);
@@ -846,7 +846,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndIdArray(THandle aHandl
  * @param[in]  aToken
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncIdArrayChanged(THandle aHandle, uint32_t aToken, uint32_t* aValue);
@@ -883,7 +883,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1EndIdArrayChanged(THandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1SyncProtocolInfo(THandle aHandle, char** aValue);
@@ -997,8 +997,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1SetPropertyProtocolInfoChang
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aTransportState
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyTransportState(THandle aHandle, char** aTransportState);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyTransportState(THandle aHandle, char** aTransportState);
 /**
  * Query the value of the Repeat property.
  *
@@ -1007,8 +1009,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyTransportState(THand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aRepeat
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyRepeat(THandle aHandle, uint32_t* aRepeat);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyRepeat(THandle aHandle, uint32_t* aRepeat);
 /**
  * Query the value of the Shuffle property.
  *
@@ -1017,8 +1021,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyRepeat(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aShuffle
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyShuffle(THandle aHandle, uint32_t* aShuffle);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyShuffle(THandle aHandle, uint32_t* aShuffle);
 /**
  * Query the value of the Id property.
  *
@@ -1027,8 +1033,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyShuffle(THandle aHan
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aId
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyId(THandle aHandle, uint32_t* aId);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyId(THandle aHandle, uint32_t* aId);
 /**
  * Query the value of the IdArray property.
  *
@@ -1038,8 +1046,11 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyId(THandle aHandle, 
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aIdArray
  * @param[out] aLen
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyIdArray(THandle aHandle, char** aIdArray, uint32_t* aLen);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyIdArray(THandle aHandle, char** aIdArray, uint32_t* aLen);
 /**
  * Query the value of the TracksMax property.
  *
@@ -1048,8 +1059,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyIdArray(THandle aHan
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aTracksMax
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyTracksMax(THandle aHandle, uint32_t* aTracksMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyTracksMax(THandle aHandle, uint32_t* aTracksMax);
 /**
  * Query the value of the ProtocolInfo property.
  *
@@ -1058,8 +1071,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyTracksMax(THandle aH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylist1Create
  * @param[out] aProtocolInfo
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyProtocolInfo(THandle aHandle, char** aProtocolInfo);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylist1PropertyProtocolInfo(THandle aHandle, char** aProtocolInfo);
 
 /* @} */
 

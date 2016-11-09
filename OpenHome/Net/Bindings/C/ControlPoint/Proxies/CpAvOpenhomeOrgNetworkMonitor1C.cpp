@@ -248,28 +248,28 @@ void CpProxyAvOpenhomeOrgNetworkMonitor1C::SetPropertyResultsChanged(Functor& aF
 void CpProxyAvOpenhomeOrgNetworkMonitor1C::PropertyName(Brhz& aName) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aName.Set(iName->Value());
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1C::PropertySender(TUint& aSender) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aSender = iSender->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1C::PropertyReceiver(TUint& aReceiver) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aReceiver = iReceiver->Value();
 }
 
 void CpProxyAvOpenhomeOrgNetworkMonitor1C::PropertyResults(TUint& aResults) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aResults = iResults->Value();
 }
 
@@ -422,33 +422,57 @@ void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1SetPropertyResultsChanged(THandl
     proxyC->SetPropertyResultsChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyName(THandle aHandle, char** aName)
+int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyName(THandle aHandle, char** aName)
 {
     CpProxyAvOpenhomeOrgNetworkMonitor1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgNetworkMonitor1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aName;
-    proxyC->PropertyName(buf_aName);
+    try {
+        proxyC->PropertyName(buf_aName);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aName = buf_aName.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertySender(THandle aHandle, uint32_t* aSender)
+int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertySender(THandle aHandle, uint32_t* aSender)
 {
     CpProxyAvOpenhomeOrgNetworkMonitor1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgNetworkMonitor1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertySender(*aSender);
+    try {
+        proxyC->PropertySender(*aSender);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyReceiver(THandle aHandle, uint32_t* aReceiver)
+int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyReceiver(THandle aHandle, uint32_t* aReceiver)
 {
     CpProxyAvOpenhomeOrgNetworkMonitor1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgNetworkMonitor1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyReceiver(*aReceiver);
+    try {
+        proxyC->PropertyReceiver(*aReceiver);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyResults(THandle aHandle, uint32_t* aResults)
+int32_t STDCALL CpProxyAvOpenhomeOrgNetworkMonitor1PropertyResults(THandle aHandle, uint32_t* aResults)
 {
     CpProxyAvOpenhomeOrgNetworkMonitor1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgNetworkMonitor1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyResults(*aResults);
+    try {
+        proxyC->PropertyResults(*aResults);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 

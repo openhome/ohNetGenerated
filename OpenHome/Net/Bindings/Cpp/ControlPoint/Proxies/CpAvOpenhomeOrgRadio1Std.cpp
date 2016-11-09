@@ -1091,7 +1091,9 @@ void CpProxyAvOpenhomeOrgRadio1Cpp::SetPropertyProtocolInfoChanged(Functor& aFun
 void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyUri(std::string& aUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iUri->Value();
     aUri.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1099,7 +1101,9 @@ void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyUri(std::string& aUri) const
 void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyMetadata(std::string& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iMetadata->Value();
     aMetadata.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1107,7 +1111,9 @@ void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyMetadata(std::string& aMetadata) con
 void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyTransportState(std::string& aTransportState) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iTransportState->Value();
     aTransportState.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1115,14 +1121,18 @@ void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyTransportState(std::string& aTranspo
 void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyId(uint32_t& aId) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aId = iId->Value();
 }
 
 void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyIdArray(std::string& aIdArray) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iIdArray->Value();
     aIdArray.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1130,14 +1140,18 @@ void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyIdArray(std::string& aIdArray) const
 void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyChannelsMax(uint32_t& aChannelsMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aChannelsMax = iChannelsMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgRadio1Cpp::PropertyProtocolInfo(std::string& aProtocolInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iProtocolInfo->Value();
     aProtocolInfo.assign((const char*)val.Ptr(), val.Bytes());
 }

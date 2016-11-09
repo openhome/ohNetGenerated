@@ -478,7 +478,9 @@ void CpProxyUpnpOrgConnectionManager2Cpp::SetPropertyCurrentConnectionIDsChanged
 void CpProxyUpnpOrgConnectionManager2Cpp::PropertySourceProtocolInfo(std::string& aSourceProtocolInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iSourceProtocolInfo->Value();
     aSourceProtocolInfo.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -486,7 +488,9 @@ void CpProxyUpnpOrgConnectionManager2Cpp::PropertySourceProtocolInfo(std::string
 void CpProxyUpnpOrgConnectionManager2Cpp::PropertySinkProtocolInfo(std::string& aSinkProtocolInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iSinkProtocolInfo->Value();
     aSinkProtocolInfo.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -494,7 +498,9 @@ void CpProxyUpnpOrgConnectionManager2Cpp::PropertySinkProtocolInfo(std::string& 
 void CpProxyUpnpOrgConnectionManager2Cpp::PropertyCurrentConnectionIDs(std::string& aCurrentConnectionIDs) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iCurrentConnectionIDs->Value();
     aCurrentConnectionIDs.assign((const char*)val.Ptr(), val.Bytes());
 }

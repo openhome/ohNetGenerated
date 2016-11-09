@@ -50,7 +50,7 @@ DllExport void STDCALL CpProxyUpnpOrgScheduledRecording2Destroy(THandle aHandle)
  * @param[out] aSortCaps
  * @param[out] aSortLevelCap
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetSortCapabilities(THandle aHandle, char** aSortCaps, uint32_t* aSortLevelCap);
@@ -88,7 +88,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndGetSortCapabilitie
  * @param[in]  aDataTypeID
  * @param[out] aPropertyList
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetPropertyList(THandle aHandle, const char* aDataTypeID, char** aPropertyList);
@@ -127,7 +127,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndGetPropertyList(TH
  * @param[in]  aFilter
  * @param[out] aPropertyInfo
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetAllowedValues(THandle aHandle, const char* aDataTypeID, const char* aFilter, char** aPropertyInfo);
@@ -165,7 +165,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndGetAllowedValues(T
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[out] aId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetStateUpdateID(THandle aHandle, uint32_t* aId);
@@ -208,7 +208,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndGetStateUpdateID(T
  * @param[out] aTotalMatches
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncBrowseRecordSchedules(THandle aHandle, const char* aFilter, uint32_t aStartingIndex, uint32_t aRequestedCount, const char* aSortCriteria, char** aResult, uint32_t* aNumberReturned, uint32_t* aTotalMatches, uint32_t* aUpdateID);
@@ -259,7 +259,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndBrowseRecordSchedu
  * @param[out] aTotalMatches
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncBrowseRecordTasks(THandle aHandle, const char* aRecordScheduleID, const char* aFilter, uint32_t aStartingIndex, uint32_t aRequestedCount, const char* aSortCriteria, char** aResult, uint32_t* aNumberReturned, uint32_t* aTotalMatches, uint32_t* aUpdateID);
@@ -306,7 +306,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndBrowseRecordTasks(
  * @param[out] aResult
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncCreateRecordSchedule(THandle aHandle, const char* aElements, char** aRecordScheduleID, char** aResult, uint32_t* aUpdateID);
@@ -345,7 +345,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndCreateRecordSchedu
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[in]  aRecordScheduleID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncDeleteRecordSchedule(THandle aHandle, const char* aRecordScheduleID);
@@ -384,7 +384,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndDeleteRecordSchedu
  * @param[out] aResult
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetRecordSchedule(THandle aHandle, const char* aRecordScheduleID, const char* aFilter, char** aResult, uint32_t* aUpdateID);
@@ -423,7 +423,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndGetRecordSchedule(
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[in]  aRecordScheduleID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncEnableRecordSchedule(THandle aHandle, const char* aRecordScheduleID);
@@ -459,7 +459,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndEnableRecordSchedu
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[in]  aRecordScheduleID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncDisableRecordSchedule(THandle aHandle, const char* aRecordScheduleID);
@@ -495,7 +495,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndDisableRecordSched
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[in]  aRecordTaskID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncDeleteRecordTask(THandle aHandle, const char* aRecordTaskID);
@@ -534,7 +534,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndDeleteRecordTask(T
  * @param[out] aResult
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetRecordTask(THandle aHandle, const char* aRecordTaskID, const char* aFilter, char** aResult, uint32_t* aUpdateID);
@@ -573,7 +573,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndGetRecordTask(THan
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[in]  aRecordTaskID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncEnableRecordTask(THandle aHandle, const char* aRecordTaskID);
@@ -609,7 +609,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndEnableRecordTask(T
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[in]  aRecordTaskID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncDisableRecordTask(THandle aHandle, const char* aRecordTaskID);
@@ -645,7 +645,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndDisableRecordTask(
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[in]  aRecordTaskID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncResetRecordTask(THandle aHandle, const char* aRecordTaskID);
@@ -683,7 +683,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndResetRecordTask(TH
  * @param[out] aRecordScheduleConflictIDList
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetRecordScheduleConflicts(THandle aHandle, const char* aRecordScheduleID, char** aRecordScheduleConflictIDList, uint32_t* aUpdateID);
@@ -723,7 +723,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2EndGetRecordScheduleC
  * @param[out] aRecordTaskConflictIDList
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2SyncGetRecordTaskConflicts(THandle aHandle, const char* aRecordTaskID, char** aRecordTaskConflictIDList, uint32_t* aUpdateID);
@@ -773,8 +773,10 @@ DllExport void STDCALL CpProxyUpnpOrgScheduledRecording2SetPropertyLastChangeCha
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgScheduledRecording2Create
  * @param[out] aLastChange
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgScheduledRecording2PropertyLastChange(THandle aHandle, char** aLastChange);
+DllExport int32_t STDCALL CpProxyUpnpOrgScheduledRecording2PropertyLastChange(THandle aHandle, char** aLastChange);
 
 /* @} */
 

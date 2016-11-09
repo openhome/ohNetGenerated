@@ -492,28 +492,28 @@ void CpProxyAvOpenhomeOrgReceiver1C::SetPropertyProtocolInfoChanged(Functor& aFu
 void CpProxyAvOpenhomeOrgReceiver1C::PropertyUri(Brhz& aUri) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aUri.Set(iUri->Value());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1C::PropertyMetadata(Brhz& aMetadata) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1C::PropertyTransportState(Brhz& aTransportState) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aTransportState.Set(iTransportState->Value());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1C::PropertyProtocolInfo(Brhz& aProtocolInfo) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aProtocolInfo.Set(iProtocolInfo->Value());
 }
 
@@ -837,39 +837,63 @@ void STDCALL CpProxyAvOpenhomeOrgReceiver1SetPropertyProtocolInfoChanged(THandle
     proxyC->SetPropertyProtocolInfoChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyUri(THandle aHandle, char** aUri)
+int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyUri(THandle aHandle, char** aUri)
 {
     CpProxyAvOpenhomeOrgReceiver1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgReceiver1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aUri;
-    proxyC->PropertyUri(buf_aUri);
+    try {
+        proxyC->PropertyUri(buf_aUri);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aUri = buf_aUri.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyMetadata(THandle aHandle, char** aMetadata)
+int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyMetadata(THandle aHandle, char** aMetadata)
 {
     CpProxyAvOpenhomeOrgReceiver1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgReceiver1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aMetadata;
-    proxyC->PropertyMetadata(buf_aMetadata);
+    try {
+        proxyC->PropertyMetadata(buf_aMetadata);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aMetadata = buf_aMetadata.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyTransportState(THandle aHandle, char** aTransportState)
+int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyTransportState(THandle aHandle, char** aTransportState)
 {
     CpProxyAvOpenhomeOrgReceiver1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgReceiver1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aTransportState;
-    proxyC->PropertyTransportState(buf_aTransportState);
+    try {
+        proxyC->PropertyTransportState(buf_aTransportState);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aTransportState = buf_aTransportState.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyProtocolInfo(THandle aHandle, char** aProtocolInfo)
+int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyProtocolInfo(THandle aHandle, char** aProtocolInfo)
 {
     CpProxyAvOpenhomeOrgReceiver1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgReceiver1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aProtocolInfo;
-    proxyC->PropertyProtocolInfo(buf_aProtocolInfo);
+    try {
+        proxyC->PropertyProtocolInfo(buf_aProtocolInfo);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aProtocolInfo = buf_aProtocolInfo.Transfer();
+    return 0;
 }
 

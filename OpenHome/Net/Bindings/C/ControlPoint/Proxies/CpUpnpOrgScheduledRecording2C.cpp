@@ -1370,7 +1370,7 @@ void CpProxyUpnpOrgScheduledRecording2C::SetPropertyLastChangeChanged(Functor& a
 void CpProxyUpnpOrgScheduledRecording2C::PropertyLastChange(Brhz& aLastChange) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aLastChange.Set(iLastChange->Value());
 }
 
@@ -2206,12 +2206,18 @@ void STDCALL CpProxyUpnpOrgScheduledRecording2SetPropertyLastChangeChanged(THand
     proxyC->SetPropertyLastChangeChanged(functor);
 }
 
-void STDCALL CpProxyUpnpOrgScheduledRecording2PropertyLastChange(THandle aHandle, char** aLastChange)
+int32_t STDCALL CpProxyUpnpOrgScheduledRecording2PropertyLastChange(THandle aHandle, char** aLastChange)
 {
     CpProxyUpnpOrgScheduledRecording2C* proxyC = reinterpret_cast<CpProxyUpnpOrgScheduledRecording2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aLastChange;
-    proxyC->PropertyLastChange(buf_aLastChange);
+    try {
+        proxyC->PropertyLastChange(buf_aLastChange);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aLastChange = buf_aLastChange.Transfer();
+    return 0;
 }
 

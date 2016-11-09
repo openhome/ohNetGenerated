@@ -49,7 +49,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3Destroy(THandle aHandle);
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aList
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncDeviceList(THandle aHandle, char** aList);
@@ -86,7 +86,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndDeviceList(THandle aHandl
  * @param[in]  aDeviceId
  * @param[out] aSettings
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncDeviceSettings(THandle aHandle, const char* aDeviceId, char** aSettings);
@@ -123,7 +123,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndDeviceSettings(THandle aH
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aConnectionStatus
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncConnectionStatus(THandle aHandle, char** aConnectionStatus);
@@ -163,7 +163,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndConnectionStatus(THandle 
  * @param[in]  aMute
  * @param[in]  aPersist
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncSet(THandle aHandle, const char* aDeviceId, uint32_t aBankId, const char* aFileUri, uint32_t aMute, uint32_t aPersist);
@@ -204,7 +204,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndSet(THandle aHandle, OhNe
  * @param[in]  aDeviceId
  * @param[in]  aFileUri
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncReprogram(THandle aHandle, const char* aDeviceId, const char* aFileUri);
@@ -242,7 +242,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndReprogram(THandle aHandle
  * @param[in]  aDeviceId
  * @param[in]  aFileUri
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncReprogramFallback(THandle aHandle, const char* aDeviceId, const char* aFileUri);
@@ -279,7 +279,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndReprogramFallback(THandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aChannelMap
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncChannelMap(THandle aHandle, char** aChannelMap);
@@ -315,7 +315,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndChannelMap(THandle aHandl
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[in]  aChannelMap
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncSetChannelMap(THandle aHandle, const char* aChannelMap);
@@ -351,7 +351,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3EndSetChannelMap(THandle aHa
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aVersion
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3SyncVersion(THandle aHandle, char** aVersion);
@@ -432,8 +432,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3SetPropertyVersionChanged(THand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aDeviceList
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3PropertyDeviceList(THandle aHandle, char** aDeviceList);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3PropertyDeviceList(THandle aHandle, char** aDeviceList);
 /**
  * Query the value of the ConnectionStatus property.
  *
@@ -442,8 +444,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3PropertyDeviceList(THandle aHan
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aConnectionStatus
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3PropertyConnectionStatus(THandle aHandle, char** aConnectionStatus);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3PropertyConnectionStatus(THandle aHandle, char** aConnectionStatus);
 /**
  * Query the value of the ChannelMap property.
  *
@@ -452,8 +456,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3PropertyConnectionStatus(THandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aChannelMap
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3PropertyChannelMap(THandle aHandle, char** aChannelMap);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3PropertyChannelMap(THandle aHandle, char** aChannelMap);
 /**
  * Query the value of the Version property.
  *
@@ -462,8 +468,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3PropertyChannelMap(THandle aHan
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgExakt3Create
  * @param[out] aVersion
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgExakt3PropertyVersion(THandle aHandle, char** aVersion);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgExakt3PropertyVersion(THandle aHandle, char** aVersion);
 
 /* @} */
 

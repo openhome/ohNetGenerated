@@ -347,21 +347,21 @@ void CpProxyLinnCoUkPrivacy1C::SetPropertyPolicyDetailsChanged(Functor& aFunctor
 void CpProxyLinnCoUkPrivacy1C::PropertyPolicyVersion(TUint& aPolicyVersion) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aPolicyVersion = iPolicyVersion->Value();
 }
 
 void CpProxyLinnCoUkPrivacy1C::PropertyPolicyAgreed(TUint& aPolicyAgreed) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aPolicyAgreed = iPolicyAgreed->Value();
 }
 
 void CpProxyLinnCoUkPrivacy1C::PropertyPolicyDetails(Brhz& aPolicyDetails) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aPolicyDetails.Set(iPolicyDetails->Value());
 }
 
@@ -578,26 +578,44 @@ void STDCALL CpProxyLinnCoUkPrivacy1SetPropertyPolicyDetailsChanged(THandle aHan
     proxyC->SetPropertyPolicyDetailsChanged(functor);
 }
 
-void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyVersion(THandle aHandle, uint32_t* aPolicyVersion)
+int32_t STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyVersion(THandle aHandle, uint32_t* aPolicyVersion)
 {
     CpProxyLinnCoUkPrivacy1C* proxyC = reinterpret_cast<CpProxyLinnCoUkPrivacy1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyPolicyVersion(*aPolicyVersion);
+    try {
+        proxyC->PropertyPolicyVersion(*aPolicyVersion);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyAgreed(THandle aHandle, uint32_t* aPolicyAgreed)
+int32_t STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyAgreed(THandle aHandle, uint32_t* aPolicyAgreed)
 {
     CpProxyLinnCoUkPrivacy1C* proxyC = reinterpret_cast<CpProxyLinnCoUkPrivacy1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyPolicyAgreed(*aPolicyAgreed);
+    try {
+        proxyC->PropertyPolicyAgreed(*aPolicyAgreed);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyDetails(THandle aHandle, char** aPolicyDetails)
+int32_t STDCALL CpProxyLinnCoUkPrivacy1PropertyPolicyDetails(THandle aHandle, char** aPolicyDetails)
 {
     CpProxyLinnCoUkPrivacy1C* proxyC = reinterpret_cast<CpProxyLinnCoUkPrivacy1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aPolicyDetails;
-    proxyC->PropertyPolicyDetails(buf_aPolicyDetails);
+    try {
+        proxyC->PropertyPolicyDetails(buf_aPolicyDetails);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aPolicyDetails = buf_aPolicyDetails.Transfer();
+    return 0;
 }
 

@@ -54,7 +54,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2Destroy(THandle aHandle);
  * @param[out] aBalanceMax
  * @param[out] aFadeMax
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncCharacteristics(THandle aHandle, uint32_t* aVolumeMax, uint32_t* aVolumeUnity, uint32_t* aVolumeSteps, uint32_t* aVolumeMilliDbPerStep, uint32_t* aBalanceMax, uint32_t* aFadeMax);
@@ -95,7 +95,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndCharacteristics(THandle 
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncSetVolume(THandle aHandle, uint32_t aValue);
@@ -130,7 +130,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndSetVolume(THandle aHandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncVolumeInc(THandle aHandle);
@@ -164,7 +164,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndVolumeInc(THandle aHandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncVolumeDec(THandle aHandle);
@@ -199,7 +199,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndVolumeDec(THandle aHandl
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncVolume(THandle aHandle, uint32_t* aValue);
@@ -235,7 +235,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndVolume(THandle aHandle, 
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncSetBalance(THandle aHandle, int32_t aValue);
@@ -270,7 +270,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndSetBalance(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncBalanceInc(THandle aHandle);
@@ -304,7 +304,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndBalanceInc(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncBalanceDec(THandle aHandle);
@@ -339,7 +339,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndBalanceDec(THandle aHand
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncBalance(THandle aHandle, int32_t* aValue);
@@ -375,7 +375,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndBalance(THandle aHandle,
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncSetFade(THandle aHandle, int32_t aValue);
@@ -410,7 +410,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndSetFade(THandle aHandle,
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncFadeInc(THandle aHandle);
@@ -444,7 +444,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndFadeInc(THandle aHandle,
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncFadeDec(THandle aHandle);
@@ -479,7 +479,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndFadeDec(THandle aHandle,
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncFade(THandle aHandle, int32_t* aValue);
@@ -515,7 +515,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndFade(THandle aHandle, Oh
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncSetMute(THandle aHandle, uint32_t aValue);
@@ -551,7 +551,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndSetMute(THandle aHandle,
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncMute(THandle aHandle, uint32_t* aValue);
@@ -587,7 +587,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndMute(THandle aHandle, Oh
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncVolumeLimit(THandle aHandle, uint32_t* aValue);
@@ -623,7 +623,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2EndVolumeLimit(THandle aHan
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2SyncUnityGain(THandle aHandle, uint32_t* aValue);
@@ -792,8 +792,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2SetPropertyUnityGainChanged(TH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aVolume
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolume(THandle aHandle, uint32_t* aVolume);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolume(THandle aHandle, uint32_t* aVolume);
 /**
  * Query the value of the Mute property.
  *
@@ -802,8 +804,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolume(THandle aHandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aMute
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyMute(THandle aHandle, uint32_t* aMute);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyMute(THandle aHandle, uint32_t* aMute);
 /**
  * Query the value of the Balance property.
  *
@@ -812,8 +816,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyMute(THandle aHandle, 
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aBalance
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalance(THandle aHandle, int32_t* aBalance);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalance(THandle aHandle, int32_t* aBalance);
 /**
  * Query the value of the Fade property.
  *
@@ -822,8 +828,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalance(THandle aHandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aFade
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFade(THandle aHandle, int32_t* aFade);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFade(THandle aHandle, int32_t* aFade);
 /**
  * Query the value of the VolumeLimit property.
  *
@@ -832,8 +840,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFade(THandle aHandle, 
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aVolumeLimit
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeLimit(THandle aHandle, uint32_t* aVolumeLimit);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeLimit(THandle aHandle, uint32_t* aVolumeLimit);
 /**
  * Query the value of the VolumeMax property.
  *
@@ -842,8 +852,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeLimit(THandle aH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aVolumeMax
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMax(THandle aHandle, uint32_t* aVolumeMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMax(THandle aHandle, uint32_t* aVolumeMax);
 /**
  * Query the value of the VolumeUnity property.
  *
@@ -852,8 +864,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMax(THandle aHan
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aVolumeUnity
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeUnity(THandle aHandle, uint32_t* aVolumeUnity);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeUnity(THandle aHandle, uint32_t* aVolumeUnity);
 /**
  * Query the value of the VolumeSteps property.
  *
@@ -862,8 +876,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeUnity(THandle aH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aVolumeSteps
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeSteps(THandle aHandle, uint32_t* aVolumeSteps);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeSteps(THandle aHandle, uint32_t* aVolumeSteps);
 /**
  * Query the value of the VolumeMilliDbPerStep property.
  *
@@ -872,8 +888,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeSteps(THandle aH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aVolumeMilliDbPerStep
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMilliDbPerStep(THandle aHandle, uint32_t* aVolumeMilliDbPerStep);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMilliDbPerStep(THandle aHandle, uint32_t* aVolumeMilliDbPerStep);
 /**
  * Query the value of the BalanceMax property.
  *
@@ -882,8 +900,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMilliDbPerStep(T
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aBalanceMax
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalanceMax(THandle aHandle, uint32_t* aBalanceMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalanceMax(THandle aHandle, uint32_t* aBalanceMax);
 /**
  * Query the value of the FadeMax property.
  *
@@ -892,8 +912,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalanceMax(THandle aHa
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aFadeMax
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFadeMax(THandle aHandle, uint32_t* aFadeMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFadeMax(THandle aHandle, uint32_t* aFadeMax);
 /**
  * Query the value of the UnityGain property.
  *
@@ -902,8 +924,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFadeMax(THandle aHandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume2Create
  * @param[out] aUnityGain
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyUnityGain(THandle aHandle, uint32_t* aUnityGain);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyUnityGain(THandle aHandle, uint32_t* aUnityGain);
 
 /* @} */
 

@@ -51,7 +51,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTime1Destroy(THandle aHandle);
  * @param[out] aDuration
  * @param[out] aSeconds
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTime1SyncTime(THandle aHandle, uint32_t* aTrackCount, uint32_t* aDuration, uint32_t* aSeconds);
@@ -123,8 +123,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTime1SetPropertySecondsChanged(THandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTime1Create
  * @param[out] aTrackCount
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTime1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTime1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount);
 /**
  * Query the value of the Duration property.
  *
@@ -133,8 +135,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTime1PropertyTrackCount(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTime1Create
  * @param[out] aDuration
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTime1PropertyDuration(THandle aHandle, uint32_t* aDuration);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTime1PropertyDuration(THandle aHandle, uint32_t* aDuration);
 /**
  * Query the value of the Seconds property.
  *
@@ -143,8 +147,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTime1PropertyDuration(THandle aHandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTime1Create
  * @param[out] aSeconds
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTime1PropertySeconds(THandle aHandle, uint32_t* aSeconds);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTime1PropertySeconds(THandle aHandle, uint32_t* aSeconds);
 
 /* @} */
 

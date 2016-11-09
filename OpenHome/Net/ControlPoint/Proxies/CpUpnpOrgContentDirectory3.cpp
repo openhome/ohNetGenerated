@@ -1437,28 +1437,36 @@ void CpProxyUpnpOrgContentDirectory3::SetPropertyTransferIDsChanged(Functor& aFu
 void CpProxyUpnpOrgContentDirectory3::PropertySystemUpdateID(TUint& aSystemUpdateID) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSystemUpdateID = iSystemUpdateID->Value();
 }
 
 void CpProxyUpnpOrgContentDirectory3::PropertyContainerUpdateIDs(Brhz& aContainerUpdateIDs) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aContainerUpdateIDs.Set(iContainerUpdateIDs->Value());
 }
 
 void CpProxyUpnpOrgContentDirectory3::PropertyLastChange(Brhz& aLastChange) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aLastChange.Set(iLastChange->Value());
 }
 
 void CpProxyUpnpOrgContentDirectory3::PropertyTransferIDs(Brhz& aTransferIDs) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTransferIDs.Set(iTransferIDs->Value());
 }
 

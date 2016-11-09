@@ -1281,35 +1281,45 @@ void CpProxyUpnpOrgDimming1Cpp::SetPropertyRampPausedChanged(Functor& aFunctor)
 void CpProxyUpnpOrgDimming1Cpp::PropertyLoadLevelStatus(uint32_t& aLoadLevelStatus) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aLoadLevelStatus = iLoadLevelStatus->Value();
 }
 
 void CpProxyUpnpOrgDimming1Cpp::PropertyStepDelta(uint32_t& aStepDelta) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aStepDelta = iStepDelta->Value();
 }
 
 void CpProxyUpnpOrgDimming1Cpp::PropertyRampRate(uint32_t& aRampRate) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aRampRate = iRampRate->Value();
 }
 
 void CpProxyUpnpOrgDimming1Cpp::PropertyIsRamping(bool& aIsRamping) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aIsRamping = iIsRamping->Value();
 }
 
 void CpProxyUpnpOrgDimming1Cpp::PropertyRampPaused(bool& aRampPaused) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aRampPaused = iRampPaused->Value();
 }
 

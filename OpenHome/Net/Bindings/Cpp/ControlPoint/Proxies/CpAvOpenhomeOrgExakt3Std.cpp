@@ -655,7 +655,9 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::SetPropertyVersionChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyDeviceList(std::string& aDeviceList) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iDeviceList->Value();
     aDeviceList.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -663,7 +665,9 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyDeviceList(std::string& aDeviceList)
 void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyConnectionStatus(std::string& aConnectionStatus) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iConnectionStatus->Value();
     aConnectionStatus.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -671,7 +675,9 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyConnectionStatus(std::string& aConne
 void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyChannelMap(std::string& aChannelMap) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iChannelMap->Value();
     aChannelMap.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -679,7 +685,9 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyChannelMap(std::string& aChannelMap)
 void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyVersion(std::string& aVersion) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iVersion->Value();
     aVersion.assign((const char*)val.Ptr(), val.Bytes());
 }

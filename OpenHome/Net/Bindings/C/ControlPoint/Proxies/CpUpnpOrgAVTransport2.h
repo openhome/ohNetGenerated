@@ -51,7 +51,7 @@ DllExport void STDCALL CpProxyUpnpOrgAVTransport2Destroy(THandle aHandle);
  * @param[in]  aCurrentURI
  * @param[in]  aCurrentURIMetaData
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncSetAVTransportURI(THandle aHandle, uint32_t aInstanceID, const char* aCurrentURI, const char* aCurrentURIMetaData);
@@ -91,7 +91,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndSetAVTransportURI(THandle
  * @param[in]  aNextURI
  * @param[in]  aNextURIMetaData
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncSetNextAVTransportURI(THandle aHandle, uint32_t aInstanceID, const char* aNextURI, const char* aNextURIMetaData);
@@ -138,7 +138,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndSetNextAVTransportURI(THa
  * @param[out] aRecordMedium
  * @param[out] aWriteStatus
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetMediaInfo(THandle aHandle, uint32_t aInstanceID, uint32_t* aNrTracks, char** aMediaDuration, char** aCurrentURI, char** aCurrentURIMetaData, char** aNextURI, char** aNextURIMetaData, char** aPlayMedium, char** aRecordMedium, char** aWriteStatus);
@@ -193,7 +193,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetMediaInfo(THandle aHan
  * @param[out] aRecordMedium
  * @param[out] aWriteStatus
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetMediaInfo_Ext(THandle aHandle, uint32_t aInstanceID, char** aCurrentType, uint32_t* aNrTracks, char** aMediaDuration, char** aCurrentURI, char** aCurrentURIMetaData, char** aNextURI, char** aNextURIMetaData, char** aPlayMedium, char** aRecordMedium, char** aWriteStatus);
@@ -242,7 +242,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetMediaInfo_Ext(THandle 
  * @param[out] aCurrentTransportStatus
  * @param[out] aCurrentSpeed
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetTransportInfo(THandle aHandle, uint32_t aInstanceID, char** aCurrentTransportState, char** aCurrentTransportStatus, char** aCurrentSpeed);
@@ -289,7 +289,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetTransportInfo(THandle 
  * @param[out] aRelCount
  * @param[out] aAbsCount
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetPositionInfo(THandle aHandle, uint32_t aInstanceID, uint32_t* aTrack, char** aTrackDuration, char** aTrackMetaData, char** aTrackURI, char** aRelTime, char** aAbsTime, int32_t* aRelCount, int32_t* aAbsCount);
@@ -336,7 +336,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetPositionInfo(THandle a
  * @param[out] aRecMedia
  * @param[out] aRecQualityModes
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetDeviceCapabilities(THandle aHandle, uint32_t aInstanceID, char** aPlayMedia, char** aRecMedia, char** aRecQualityModes);
@@ -377,7 +377,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetDeviceCapabilities(THa
  * @param[out] aPlayMode
  * @param[out] aRecQualityMode
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetTransportSettings(THandle aHandle, uint32_t aInstanceID, char** aPlayMode, char** aRecQualityMode);
@@ -415,7 +415,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetTransportSettings(THan
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgAVTransport2Create
  * @param[in]  aInstanceID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncStop(THandle aHandle, uint32_t aInstanceID);
@@ -452,7 +452,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndStop(THandle aHandle, OhN
  * @param[in]  aInstanceID
  * @param[in]  aSpeed
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncPlay(THandle aHandle, uint32_t aInstanceID, const char* aSpeed);
@@ -489,7 +489,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndPlay(THandle aHandle, OhN
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgAVTransport2Create
  * @param[in]  aInstanceID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncPause(THandle aHandle, uint32_t aInstanceID);
@@ -525,7 +525,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndPause(THandle aHandle, Oh
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgAVTransport2Create
  * @param[in]  aInstanceID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncRecord(THandle aHandle, uint32_t aInstanceID);
@@ -563,7 +563,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndRecord(THandle aHandle, O
  * @param[in]  aUnit
  * @param[in]  aTarget
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncSeek(THandle aHandle, uint32_t aInstanceID, const char* aUnit, const char* aTarget);
@@ -601,7 +601,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndSeek(THandle aHandle, OhN
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgAVTransport2Create
  * @param[in]  aInstanceID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncNext(THandle aHandle, uint32_t aInstanceID);
@@ -637,7 +637,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndNext(THandle aHandle, OhN
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgAVTransport2Create
  * @param[in]  aInstanceID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncPrevious(THandle aHandle, uint32_t aInstanceID);
@@ -674,7 +674,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndPrevious(THandle aHandle,
  * @param[in]  aInstanceID
  * @param[in]  aNewPlayMode
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncSetPlayMode(THandle aHandle, uint32_t aInstanceID, const char* aNewPlayMode);
@@ -712,7 +712,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndSetPlayMode(THandle aHand
  * @param[in]  aInstanceID
  * @param[in]  aNewRecordQualityMode
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncSetRecordQualityMode(THandle aHandle, uint32_t aInstanceID, const char* aNewRecordQualityMode);
@@ -750,7 +750,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndSetRecordQualityMode(THan
  * @param[in]  aInstanceID
  * @param[out] aActions
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetCurrentTransportActions(THandle aHandle, uint32_t aInstanceID, char** aActions);
@@ -788,7 +788,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetCurrentTransportAction
  * @param[in]  aInstanceID
  * @param[out] aCurrentDRMState
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetDRMState(THandle aHandle, uint32_t aInstanceID, char** aCurrentDRMState);
@@ -827,7 +827,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetDRMState(THandle aHand
  * @param[in]  aStateVariableList
  * @param[out] aStateVariableValuePairs
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncGetStateVariables(THandle aHandle, uint32_t aInstanceID, const char* aStateVariableList, char** aStateVariableValuePairs);
@@ -870,7 +870,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2EndGetStateVariables(THandle
  * @param[in]  aStateVariableValuePairs
  * @param[out] aStateVariableList
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2SyncSetStateVariables(THandle aHandle, uint32_t aInstanceID, const char* aAVTransportUDN, const char* aServiceType, const char* aServiceId, const char* aStateVariableValuePairs, char** aStateVariableList);
@@ -934,8 +934,10 @@ DllExport void STDCALL CpProxyUpnpOrgAVTransport2SetPropertyDRMStateChanged(THan
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgAVTransport2Create
  * @param[out] aLastChange
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgAVTransport2PropertyLastChange(THandle aHandle, char** aLastChange);
+DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2PropertyLastChange(THandle aHandle, char** aLastChange);
 /**
  * Query the value of the DRMState property.
  *
@@ -944,8 +946,10 @@ DllExport void STDCALL CpProxyUpnpOrgAVTransport2PropertyLastChange(THandle aHan
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgAVTransport2Create
  * @param[out] aDRMState
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgAVTransport2PropertyDRMState(THandle aHandle, char** aDRMState);
+DllExport int32_t STDCALL CpProxyUpnpOrgAVTransport2PropertyDRMState(THandle aHandle, char** aDRMState);
 
 /* @} */
 

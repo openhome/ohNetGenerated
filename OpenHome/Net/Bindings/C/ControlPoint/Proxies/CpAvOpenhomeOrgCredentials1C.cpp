@@ -715,21 +715,21 @@ void CpProxyAvOpenhomeOrgCredentials1C::SetPropertySequenceNumberChanged(Functor
 void CpProxyAvOpenhomeOrgCredentials1C::PropertyIds(Brhz& aIds) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aIds.Set(iIds->Value());
 }
 
 void CpProxyAvOpenhomeOrgCredentials1C::PropertyPublicKey(Brhz& aPublicKey) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aPublicKey.Set(iPublicKey->Value());
 }
 
 void CpProxyAvOpenhomeOrgCredentials1C::PropertySequenceNumber(TUint& aSequenceNumber) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aSequenceNumber = iSequenceNumber->Value();
 }
 
@@ -1204,28 +1204,46 @@ void STDCALL CpProxyAvOpenhomeOrgCredentials1SetPropertySequenceNumberChanged(TH
     proxyC->SetPropertySequenceNumberChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyIds(THandle aHandle, char** aIds)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyIds(THandle aHandle, char** aIds)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aIds;
-    proxyC->PropertyIds(buf_aIds);
+    try {
+        proxyC->PropertyIds(buf_aIds);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aIds = buf_aIds.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyPublicKey(THandle aHandle, char** aPublicKey)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyPublicKey(THandle aHandle, char** aPublicKey)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aPublicKey;
-    proxyC->PropertyPublicKey(buf_aPublicKey);
+    try {
+        proxyC->PropertyPublicKey(buf_aPublicKey);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aPublicKey = buf_aPublicKey.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertySequenceNumber(THandle aHandle, uint32_t* aSequenceNumber)
+int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1PropertySequenceNumber(THandle aHandle, uint32_t* aSequenceNumber)
 {
     CpProxyAvOpenhomeOrgCredentials1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgCredentials1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertySequenceNumber(*aSequenceNumber);
+    try {
+        proxyC->PropertySequenceNumber(*aSequenceNumber);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 

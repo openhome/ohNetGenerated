@@ -48,7 +48,7 @@ DllExport void STDCALL CpProxyLinnCoUkVolkano1Destroy(THandle aHandle);
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncReboot(THandle aHandle);
@@ -83,7 +83,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndReboot(THandle aHandle, OhNe
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaMode
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncBootMode(THandle aHandle, char** aaMode);
@@ -119,7 +119,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndBootMode(THandle aHandle, Oh
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[in]  aaMode
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncSetBootMode(THandle aHandle, const char* aaMode);
@@ -155,7 +155,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndSetBootMode(THandle aHandle,
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaBspType
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncBspType(THandle aHandle, char** aaBspType);
@@ -191,7 +191,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndBspType(THandle aHandle, OhN
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaUglyName
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncUglyName(THandle aHandle, char** aaUglyName);
@@ -227,7 +227,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndUglyName(THandle aHandle, Oh
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaMacAddress
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncMacAddress(THandle aHandle, char** aaMacAddress);
@@ -263,7 +263,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndMacAddress(THandle aHandle, 
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaProductNumber
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncProductId(THandle aHandle, char** aaProductNumber);
@@ -300,7 +300,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndProductId(THandle aHandle, O
  * @param[in]  aaIndex
  * @param[out] aaBoardNumber
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncBoardId(THandle aHandle, uint32_t aaIndex, char** aaBoardNumber);
@@ -338,7 +338,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndBoardId(THandle aHandle, OhN
  * @param[in]  aaIndex
  * @param[out] aaBoardNumber
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncBoardType(THandle aHandle, uint32_t aaIndex, char** aaBoardNumber);
@@ -375,7 +375,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndBoardType(THandle aHandle, O
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaMaxBoards
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncMaxBoards(THandle aHandle, uint32_t* aaMaxBoards);
@@ -411,7 +411,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndMaxBoards(THandle aHandle, O
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaSoftwareVersion
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncSoftwareVersion(THandle aHandle, char** aaSoftwareVersion);
@@ -448,7 +448,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndSoftwareVersion(THandle aHan
  * @param[out] aaAvailable
  * @param[out] aaSoftwareVersion
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncSoftwareUpdate(THandle aHandle, uint32_t* aaAvailable, char** aaSoftwareVersion);
@@ -485,7 +485,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1EndSoftwareUpdate(THandle aHand
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkVolkano1Create
  * @param[out] aaDeviceInfoXml
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkVolkano1SyncDeviceInfo(THandle aHandle, char** aaDeviceInfoXml);

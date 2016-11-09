@@ -139,21 +139,27 @@ void CpProxyAvOpenhomeOrgTime1::SetPropertySecondsChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgTime1::PropertyTrackCount(TUint& aTrackCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTrackCount = iTrackCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1::PropertyDuration(TUint& aDuration) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDuration = iDuration->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1::PropertySeconds(TUint& aSeconds) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSeconds = iSeconds->Value();
 }
 

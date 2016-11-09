@@ -1412,7 +1412,9 @@ void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::SetPropertyTracksMaxChanged(Functo
 void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyMetadata(std::string& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iMetadata->Value();
     aMetadata.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1420,7 +1422,9 @@ void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyMetadata(std::string& aMet
 void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyImagesXml(std::string& aImagesXml) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iImagesXml->Value();
     aImagesXml.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1428,7 +1432,9 @@ void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyImagesXml(std::string& aIm
 void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyIdArray(std::string& aIdArray) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iIdArray->Value();
     aIdArray.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1436,7 +1442,9 @@ void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyIdArray(std::string& aIdAr
 void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyTokenArray(std::string& aTokenArray) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iTokenArray->Value();
     aTokenArray.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -1444,14 +1452,18 @@ void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyTokenArray(std::string& aT
 void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyPlaylistsMax(uint32_t& aPlaylistsMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPlaylistsMax = iPlaylistsMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1Cpp::PropertyTracksMax(uint32_t& aTracksMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTracksMax = iTracksMax->Value();
 }
 

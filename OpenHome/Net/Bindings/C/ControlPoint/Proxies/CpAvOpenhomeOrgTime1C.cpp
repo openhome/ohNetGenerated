@@ -168,21 +168,21 @@ void CpProxyAvOpenhomeOrgTime1C::SetPropertySecondsChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgTime1C::PropertyTrackCount(TUint& aTrackCount) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aTrackCount = iTrackCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1C::PropertyDuration(TUint& aDuration) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aDuration = iDuration->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1C::PropertySeconds(TUint& aSeconds) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aSeconds = iSeconds->Value();
 }
 
@@ -278,24 +278,42 @@ void STDCALL CpProxyAvOpenhomeOrgTime1SetPropertySecondsChanged(THandle aHandle,
     proxyC->SetPropertySecondsChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgTime1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount)
+int32_t STDCALL CpProxyAvOpenhomeOrgTime1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount)
 {
     CpProxyAvOpenhomeOrgTime1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTime1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyTrackCount(*aTrackCount);
+    try {
+        proxyC->PropertyTrackCount(*aTrackCount);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgTime1PropertyDuration(THandle aHandle, uint32_t* aDuration)
+int32_t STDCALL CpProxyAvOpenhomeOrgTime1PropertyDuration(THandle aHandle, uint32_t* aDuration)
 {
     CpProxyAvOpenhomeOrgTime1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTime1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyDuration(*aDuration);
+    try {
+        proxyC->PropertyDuration(*aDuration);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgTime1PropertySeconds(THandle aHandle, uint32_t* aSeconds)
+int32_t STDCALL CpProxyAvOpenhomeOrgTime1PropertySeconds(THandle aHandle, uint32_t* aSeconds)
 {
     CpProxyAvOpenhomeOrgTime1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTime1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertySeconds(*aSeconds);
+    try {
+        proxyC->PropertySeconds(*aSeconds);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 

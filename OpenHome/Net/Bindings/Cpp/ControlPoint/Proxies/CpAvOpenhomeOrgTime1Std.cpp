@@ -131,21 +131,27 @@ void CpProxyAvOpenhomeOrgTime1Cpp::SetPropertySecondsChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgTime1Cpp::PropertyTrackCount(uint32_t& aTrackCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTrackCount = iTrackCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1Cpp::PropertyDuration(uint32_t& aDuration) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDuration = iDuration->Value();
 }
 
 void CpProxyAvOpenhomeOrgTime1Cpp::PropertySeconds(uint32_t& aSeconds) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSeconds = iSeconds->Value();
 }
 
