@@ -132,6 +132,28 @@
         </action>
 
         <action>
+            <name>AudioChannels</name>
+            <argumentList>
+                <argument>
+                    <name>AudioChannels</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>AudioChannels</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SetAudioChannels</name>
+            <argumentList>
+                <argument>
+                    <name>AudioChannels</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>AudioChannels</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
             <name>Version</name>
             <argumentList>
                 <argument>
@@ -155,6 +177,10 @@
         </stateVariable>
         <stateVariable sendEvents="yes">
             <name>ChannelMap</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>AudioChannels</name>
             <dataType>string</dataType>
         </stateVariable>
         <stateVariable sendEvents="yes">
