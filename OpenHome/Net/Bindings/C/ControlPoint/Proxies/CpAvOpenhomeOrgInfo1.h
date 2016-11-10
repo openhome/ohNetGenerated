@@ -51,7 +51,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1Destroy(THandle aHandle);
  * @param[out] aDetailsCount
  * @param[out] aMetatextCount
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1SyncCounters(THandle aHandle, uint32_t* aTrackCount, uint32_t* aDetailsCount, uint32_t* aMetatextCount);
@@ -90,7 +90,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1EndCounters(THandle aHandle, 
  * @param[out] aUri
  * @param[out] aMetadata
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1SyncTrack(THandle aHandle, char** aUri, char** aMetadata);
@@ -132,7 +132,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1EndTrack(THandle aHandle, OhN
  * @param[out] aLossless
  * @param[out] aCodecName
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1SyncDetails(THandle aHandle, uint32_t* aDuration, uint32_t* aBitRate, uint32_t* aBitDepth, uint32_t* aSampleRate, uint32_t* aLossless, char** aCodecName);
@@ -173,7 +173,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1EndDetails(THandle aHandle, O
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1SyncMetatext(THandle aHandle, char** aValue);
@@ -342,8 +342,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1SetPropertyMetatextChanged(THand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aTrackCount
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount);
 /**
  * Query the value of the DetailsCount property.
  *
@@ -352,8 +354,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyTrackCount(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aDetailsCount
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDetailsCount(THandle aHandle, uint32_t* aDetailsCount);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDetailsCount(THandle aHandle, uint32_t* aDetailsCount);
 /**
  * Query the value of the MetatextCount property.
  *
@@ -362,8 +366,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDetailsCount(THandle aHa
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aMetatextCount
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatextCount(THandle aHandle, uint32_t* aMetatextCount);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatextCount(THandle aHandle, uint32_t* aMetatextCount);
 /**
  * Query the value of the Uri property.
  *
@@ -372,8 +378,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatextCount(THandle aH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aUri
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyUri(THandle aHandle, char** aUri);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyUri(THandle aHandle, char** aUri);
 /**
  * Query the value of the Metadata property.
  *
@@ -382,8 +390,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyUri(THandle aHandle, cha
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aMetadata
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetadata(THandle aHandle, char** aMetadata);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetadata(THandle aHandle, char** aMetadata);
 /**
  * Query the value of the Duration property.
  *
@@ -392,8 +402,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetadata(THandle aHandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aDuration
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDuration(THandle aHandle, uint32_t* aDuration);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDuration(THandle aHandle, uint32_t* aDuration);
 /**
  * Query the value of the BitRate property.
  *
@@ -402,8 +414,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDuration(THandle aHandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aBitRate
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitRate(THandle aHandle, uint32_t* aBitRate);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitRate(THandle aHandle, uint32_t* aBitRate);
 /**
  * Query the value of the BitDepth property.
  *
@@ -412,8 +426,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitRate(THandle aHandle,
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aBitDepth
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitDepth(THandle aHandle, uint32_t* aBitDepth);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitDepth(THandle aHandle, uint32_t* aBitDepth);
 /**
  * Query the value of the SampleRate property.
  *
@@ -422,8 +438,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitDepth(THandle aHandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aSampleRate
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertySampleRate(THandle aHandle, uint32_t* aSampleRate);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertySampleRate(THandle aHandle, uint32_t* aSampleRate);
 /**
  * Query the value of the Lossless property.
  *
@@ -432,8 +450,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertySampleRate(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aLossless
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyLossless(THandle aHandle, uint32_t* aLossless);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyLossless(THandle aHandle, uint32_t* aLossless);
 /**
  * Query the value of the CodecName property.
  *
@@ -442,8 +462,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyLossless(THandle aHandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aCodecName
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyCodecName(THandle aHandle, char** aCodecName);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyCodecName(THandle aHandle, char** aCodecName);
 /**
  * Query the value of the Metatext property.
  *
@@ -452,8 +474,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyCodecName(THandle aHandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgInfo1Create
  * @param[out] aMetatext
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatext(THandle aHandle, char** aMetatext);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatext(THandle aHandle, char** aMetatext);
 
 /* @} */
 

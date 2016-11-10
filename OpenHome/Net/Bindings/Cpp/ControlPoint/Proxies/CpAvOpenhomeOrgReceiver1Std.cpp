@@ -443,7 +443,9 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::SetPropertyProtocolInfoChanged(Functor& a
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyUri(std::string& aUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iUri->Value();
     aUri.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -451,7 +453,9 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyUri(std::string& aUri) const
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyMetadata(std::string& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iMetadata->Value();
     aMetadata.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -459,7 +463,9 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyMetadata(std::string& aMetadata) 
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyTransportState(std::string& aTransportState) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iTransportState->Value();
     aTransportState.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -467,7 +473,9 @@ void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyTransportState(std::string& aTran
 void CpProxyAvOpenhomeOrgReceiver1Cpp::PropertyProtocolInfo(std::string& aProtocolInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iProtocolInfo->Value();
     aProtocolInfo.assign((const char*)val.Ptr(), val.Bytes());
 }

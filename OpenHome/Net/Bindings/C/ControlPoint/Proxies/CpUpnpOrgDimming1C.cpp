@@ -1422,35 +1422,35 @@ void CpProxyUpnpOrgDimming1C::SetPropertyRampPausedChanged(Functor& aFunctor)
 void CpProxyUpnpOrgDimming1C::PropertyLoadLevelStatus(TUint& aLoadLevelStatus) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aLoadLevelStatus = iLoadLevelStatus->Value();
 }
 
 void CpProxyUpnpOrgDimming1C::PropertyStepDelta(TUint& aStepDelta) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aStepDelta = iStepDelta->Value();
 }
 
 void CpProxyUpnpOrgDimming1C::PropertyRampRate(TUint& aRampRate) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aRampRate = iRampRate->Value();
 }
 
 void CpProxyUpnpOrgDimming1C::PropertyIsRamping(TBool& aIsRamping) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aIsRamping = iIsRamping->Value();
 }
 
 void CpProxyUpnpOrgDimming1C::PropertyRampPaused(TBool& aRampPaused) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aRampPaused = iRampPaused->Value();
 }
 
@@ -2353,42 +2353,72 @@ void STDCALL CpProxyUpnpOrgDimming1SetPropertyRampPausedChanged(THandle aHandle,
     proxyC->SetPropertyRampPausedChanged(functor);
 }
 
-void STDCALL CpProxyUpnpOrgDimming1PropertyLoadLevelStatus(THandle aHandle, uint32_t* aLoadLevelStatus)
+int32_t STDCALL CpProxyUpnpOrgDimming1PropertyLoadLevelStatus(THandle aHandle, uint32_t* aLoadLevelStatus)
 {
     CpProxyUpnpOrgDimming1C* proxyC = reinterpret_cast<CpProxyUpnpOrgDimming1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyLoadLevelStatus(*aLoadLevelStatus);
+    try {
+        proxyC->PropertyLoadLevelStatus(*aLoadLevelStatus);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgDimming1PropertyStepDelta(THandle aHandle, uint32_t* aStepDelta)
+int32_t STDCALL CpProxyUpnpOrgDimming1PropertyStepDelta(THandle aHandle, uint32_t* aStepDelta)
 {
     CpProxyUpnpOrgDimming1C* proxyC = reinterpret_cast<CpProxyUpnpOrgDimming1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyStepDelta(*aStepDelta);
+    try {
+        proxyC->PropertyStepDelta(*aStepDelta);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgDimming1PropertyRampRate(THandle aHandle, uint32_t* aRampRate)
+int32_t STDCALL CpProxyUpnpOrgDimming1PropertyRampRate(THandle aHandle, uint32_t* aRampRate)
 {
     CpProxyUpnpOrgDimming1C* proxyC = reinterpret_cast<CpProxyUpnpOrgDimming1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyRampRate(*aRampRate);
+    try {
+        proxyC->PropertyRampRate(*aRampRate);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgDimming1PropertyIsRamping(THandle aHandle, uint32_t* aIsRamping)
+int32_t STDCALL CpProxyUpnpOrgDimming1PropertyIsRamping(THandle aHandle, uint32_t* aIsRamping)
 {
     CpProxyUpnpOrgDimming1C* proxyC = reinterpret_cast<CpProxyUpnpOrgDimming1C*>(aHandle);
     ASSERT(proxyC != NULL);
     TBool IsRamping;
-    proxyC->PropertyIsRamping(IsRamping);
+    try {
+        proxyC->PropertyIsRamping(IsRamping);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aIsRamping = IsRamping? 1 : 0;
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgDimming1PropertyRampPaused(THandle aHandle, uint32_t* aRampPaused)
+int32_t STDCALL CpProxyUpnpOrgDimming1PropertyRampPaused(THandle aHandle, uint32_t* aRampPaused)
 {
     CpProxyUpnpOrgDimming1C* proxyC = reinterpret_cast<CpProxyUpnpOrgDimming1C*>(aHandle);
     ASSERT(proxyC != NULL);
     TBool RampPaused;
-    proxyC->PropertyRampPaused(RampPaused);
+    try {
+        proxyC->PropertyRampPaused(RampPaused);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aRampPaused = RampPaused? 1 : 0;
+    return 0;
 }
 

@@ -49,7 +49,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1Destroy(THandle aHand
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aMetadata
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncMetadata(THandle aHandle, char** aMetadata);
@@ -85,7 +85,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndMetadata(THandl
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aImagesXml
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncImagesXml(THandle aHandle, char** aImagesXml);
@@ -123,7 +123,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndImagesXml(THand
  * @param[out] aArray
  * @param[out] aArrayLen
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistReadArray(THandle aHandle, uint32_t aId, char** aArray, uint32_t* aArrayLen);
@@ -162,7 +162,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistReadArr
  * @param[in]  aIdList
  * @param[out] aPlaylistList
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistReadList(THandle aHandle, const char* aIdList, char** aPlaylistList);
@@ -202,7 +202,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistReadLis
  * @param[out] aDescription
  * @param[out] aImageId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistRead(THandle aHandle, uint32_t aId, char** aName, char** aDescription, uint32_t* aImageId);
@@ -242,7 +242,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistRead(TH
  * @param[in]  aId
  * @param[in]  aName
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistSetName(THandle aHandle, uint32_t aId, const char* aName);
@@ -280,7 +280,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistSetName
  * @param[in]  aId
  * @param[in]  aDescription
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistSetDescription(THandle aHandle, uint32_t aId, const char* aDescription);
@@ -318,7 +318,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistSetDesc
  * @param[in]  aId
  * @param[in]  aImageId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistSetImageId(THandle aHandle, uint32_t aId, uint32_t aImageId);
@@ -359,7 +359,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistSetImag
  * @param[in]  aImageId
  * @param[out] aNewId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistInsert(THandle aHandle, uint32_t aAfterId, const char* aName, const char* aDescription, uint32_t aImageId, uint32_t* aNewId);
@@ -399,7 +399,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistInsert(
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[in]  aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistDeleteId(THandle aHandle, uint32_t aValue);
@@ -436,7 +436,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistDeleteI
  * @param[in]  aId
  * @param[in]  aAfterId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistMove(THandle aHandle, uint32_t aId, uint32_t aAfterId);
@@ -473,7 +473,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistMove(TH
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistsMax(THandle aHandle, uint32_t* aValue);
@@ -509,7 +509,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistsMax(TH
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncTracksMax(THandle aHandle, uint32_t* aValue);
@@ -549,7 +549,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndTracksMax(THand
  * @param[out] aTokenArray
  * @param[out] aTokenArrayLen
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistArrays(THandle aHandle, uint32_t* aToken, char** aIdArray, uint32_t* aIdArrayLen, char** aTokenArray, uint32_t* aTokenArrayLen);
@@ -590,7 +590,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistArrays(
  * @param[in]  aToken
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncPlaylistArraysChanged(THandle aHandle, uint32_t aToken, uint32_t* aValue);
@@ -629,7 +629,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndPlaylistArraysC
  * @param[in]  aTrackId
  * @param[out] aMetadata
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncRead(THandle aHandle, uint32_t aId, uint32_t aTrackId, char** aMetadata);
@@ -669,7 +669,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndRead(THandle aH
  * @param[in]  aTrackIdList
  * @param[out] aTrackList
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncReadList(THandle aHandle, uint32_t aId, const char* aTrackIdList, char** aTrackList);
@@ -710,7 +710,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndReadList(THandl
  * @param[in]  aMetadata
  * @param[out] aNewTrackId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncInsert(THandle aHandle, uint32_t aId, uint32_t aAfterTrackId, const char* aMetadata, uint32_t* aNewTrackId);
@@ -750,7 +750,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndInsert(THandle 
  * @param[in]  aId
  * @param[in]  aTrackId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncDeleteId(THandle aHandle, uint32_t aId, uint32_t aTrackId);
@@ -787,7 +787,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1EndDeleteId(THandl
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[in]  aId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SyncDeleteAll(THandle aHandle, uint32_t aId);
@@ -890,8 +890,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SetPropertyTracksMaxC
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aMetadata
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyMetadata(THandle aHandle, char** aMetadata);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyMetadata(THandle aHandle, char** aMetadata);
 /**
  * Query the value of the ImagesXml property.
  *
@@ -900,8 +902,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyMetadata(THan
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aImagesXml
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyImagesXml(THandle aHandle, char** aImagesXml);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyImagesXml(THandle aHandle, char** aImagesXml);
 /**
  * Query the value of the IdArray property.
  *
@@ -911,8 +915,11 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyImagesXml(THa
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aIdArray
  * @param[out] aLen
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyIdArray(THandle aHandle, char** aIdArray, uint32_t* aLen);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyIdArray(THandle aHandle, char** aIdArray, uint32_t* aLen);
 /**
  * Query the value of the TokenArray property.
  *
@@ -922,8 +929,11 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyIdArray(THand
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aTokenArray
  * @param[out] aLen
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTokenArray(THandle aHandle, char** aTokenArray, uint32_t* aLen);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTokenArray(THandle aHandle, char** aTokenArray, uint32_t* aLen);
 /**
  * Query the value of the PlaylistsMax property.
  *
@@ -932,8 +942,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTokenArray(TH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aPlaylistsMax
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyPlaylistsMax(THandle aHandle, uint32_t* aPlaylistsMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyPlaylistsMax(THandle aHandle, uint32_t* aPlaylistsMax);
 /**
  * Query the value of the TracksMax property.
  *
@@ -942,8 +954,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyPlaylistsMax(
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPlaylistManager1Create
  * @param[out] aTracksMax
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTracksMax(THandle aHandle, uint32_t* aTracksMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTracksMax(THandle aHandle, uint32_t* aTracksMax);
 
 /* @} */
 

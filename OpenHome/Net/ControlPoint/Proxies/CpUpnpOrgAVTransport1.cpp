@@ -1244,7 +1244,9 @@ void CpProxyUpnpOrgAVTransport1::SetPropertyLastChangeChanged(Functor& aFunctor)
 void CpProxyUpnpOrgAVTransport1::PropertyLastChange(Brhz& aLastChange) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aLastChange.Set(iLastChange->Value());
 }
 

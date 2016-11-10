@@ -498,21 +498,27 @@ void CpProxyAvOpenhomeOrgExakt2::SetPropertyVersionChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgExakt2::PropertyDeviceList(Brhz& aDeviceList) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDeviceList.Set(iDeviceList->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt2::PropertyConnectionStatus(Brhz& aConnectionStatus) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aConnectionStatus.Set(iConnectionStatus->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt2::PropertyVersion(Brhz& aVersion) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aVersion.Set(iVersion->Value());
 }
 

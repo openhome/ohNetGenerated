@@ -445,84 +445,108 @@ void CpProxyAvOpenhomeOrgInfo1::SetPropertyMetatextChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgInfo1::PropertyTrackCount(TUint& aTrackCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTrackCount = iTrackCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyDetailsCount(TUint& aDetailsCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDetailsCount = iDetailsCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyMetatextCount(TUint& aMetatextCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMetatextCount = iMetatextCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyUri(Brhz& aUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aUri.Set(iUri->Value());
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyMetadata(Brhz& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyDuration(TUint& aDuration) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDuration = iDuration->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyBitRate(TUint& aBitRate) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aBitRate = iBitRate->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyBitDepth(TUint& aBitDepth) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aBitDepth = iBitDepth->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertySampleRate(TUint& aSampleRate) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSampleRate = iSampleRate->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyLossless(TBool& aLossless) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aLossless = iLossless->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyCodecName(Brhz& aCodecName) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aCodecName.Set(iCodecName->Value());
 }
 
 void CpProxyAvOpenhomeOrgInfo1::PropertyMetatext(Brhz& aMetatext) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMetatext.Set(iMetatext->Value());
 }
 

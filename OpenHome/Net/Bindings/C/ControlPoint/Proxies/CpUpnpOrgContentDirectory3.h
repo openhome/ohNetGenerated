@@ -49,7 +49,7 @@ DllExport void STDCALL CpProxyUpnpOrgContentDirectory3Destroy(THandle aHandle);
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aSearchCaps
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetSearchCapabilities(THandle aHandle, char** aSearchCaps);
@@ -85,7 +85,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndGetSearchCapabilitie
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aSortCaps
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetSortCapabilities(THandle aHandle, char** aSortCaps);
@@ -121,7 +121,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndGetSortCapabilities(
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aSortExtensionCaps
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetSortExtensionCapabilities(THandle aHandle, char** aSortExtensionCaps);
@@ -157,7 +157,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndGetSortExtensionCapa
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aFeatureList
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetFeatureList(THandle aHandle, char** aFeatureList);
@@ -193,7 +193,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndGetFeatureList(THand
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetSystemUpdateID(THandle aHandle, uint32_t* aId);
@@ -229,7 +229,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndGetSystemUpdateID(TH
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aResetToken
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetServiceResetToken(THandle aHandle, char** aResetToken);
@@ -274,7 +274,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndGetServiceResetToken
  * @param[out] aTotalMatches
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncBrowse(THandle aHandle, const char* aObjectID, const char* aBrowseFlag, const char* aFilter, uint32_t aStartingIndex, uint32_t aRequestedCount, const char* aSortCriteria, char** aResult, uint32_t* aNumberReturned, uint32_t* aTotalMatches, uint32_t* aUpdateID);
@@ -328,7 +328,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndBrowse(THandle aHand
  * @param[out] aTotalMatches
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncSearch(THandle aHandle, const char* aContainerID, const char* aSearchCriteria, const char* aFilter, uint32_t aStartingIndex, uint32_t aRequestedCount, const char* aSortCriteria, char** aResult, uint32_t* aNumberReturned, uint32_t* aTotalMatches, uint32_t* aUpdateID);
@@ -376,7 +376,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndSearch(THandle aHand
  * @param[out] aObjectID
  * @param[out] aResult
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncCreateObject(THandle aHandle, const char* aContainerID, const char* aElements, char** aObjectID, char** aResult);
@@ -415,7 +415,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndCreateObject(THandle
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[in]  aObjectID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncDestroyObject(THandle aHandle, const char* aObjectID);
@@ -453,7 +453,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndDestroyObject(THandl
  * @param[in]  aCurrentTagValue
  * @param[in]  aNewTagValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncUpdateObject(THandle aHandle, const char* aObjectID, const char* aCurrentTagValue, const char* aNewTagValue);
@@ -493,7 +493,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndUpdateObject(THandle
  * @param[in]  aNewParentID
  * @param[out] aNewObjectID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncMoveObject(THandle aHandle, const char* aObjectID, const char* aNewParentID, char** aNewObjectID);
@@ -533,7 +533,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndMoveObject(THandle a
  * @param[in]  aDestinationURI
  * @param[out] aTransferID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncImportResource(THandle aHandle, const char* aSourceURI, const char* aDestinationURI, uint32_t* aTransferID);
@@ -573,7 +573,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndImportResource(THand
  * @param[in]  aDestinationURI
  * @param[out] aTransferID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncExportResource(THandle aHandle, const char* aSourceURI, const char* aDestinationURI, uint32_t* aTransferID);
@@ -611,7 +611,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndExportResource(THand
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[in]  aResourceURI
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncDeleteResource(THandle aHandle, const char* aResourceURI);
@@ -647,7 +647,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndDeleteResource(THand
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[in]  aTransferID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncStopTransferResource(THandle aHandle, uint32_t aTransferID);
@@ -686,7 +686,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndStopTransferResource
  * @param[out] aTransferLength
  * @param[out] aTransferTotal
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetTransferProgress(THandle aHandle, uint32_t aTransferID, char** aTransferStatus, char** aTransferLength, char** aTransferTotal);
@@ -727,7 +727,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndGetTransferProgress(
  * @param[in]  aObjectID
  * @param[out] aNewID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncCreateReference(THandle aHandle, const char* aContainerID, const char* aObjectID, char** aNewID);
@@ -769,7 +769,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndCreateReference(THan
  * @param[out] aQueryResult
  * @param[out] aUpdateID
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncFreeFormQuery(THandle aHandle, const char* aContainerID, uint32_t aCDSView, const char* aQueryRequest, char** aQueryResult, uint32_t* aUpdateID);
@@ -809,7 +809,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3EndFreeFormQuery(THandl
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aFFQCapabilities
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3SyncGetFreeFormQueryCapabilities(THandle aHandle, char** aFFQCapabilities);
@@ -890,8 +890,10 @@ DllExport void STDCALL CpProxyUpnpOrgContentDirectory3SetPropertyTransferIDsChan
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aSystemUpdateID
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgContentDirectory3PropertySystemUpdateID(THandle aHandle, uint32_t* aSystemUpdateID);
+DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3PropertySystemUpdateID(THandle aHandle, uint32_t* aSystemUpdateID);
 /**
  * Query the value of the ContainerUpdateIDs property.
  *
@@ -900,8 +902,10 @@ DllExport void STDCALL CpProxyUpnpOrgContentDirectory3PropertySystemUpdateID(THa
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aContainerUpdateIDs
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgContentDirectory3PropertyContainerUpdateIDs(THandle aHandle, char** aContainerUpdateIDs);
+DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3PropertyContainerUpdateIDs(THandle aHandle, char** aContainerUpdateIDs);
 /**
  * Query the value of the LastChange property.
  *
@@ -910,8 +914,10 @@ DllExport void STDCALL CpProxyUpnpOrgContentDirectory3PropertyContainerUpdateIDs
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aLastChange
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgContentDirectory3PropertyLastChange(THandle aHandle, char** aLastChange);
+DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3PropertyLastChange(THandle aHandle, char** aLastChange);
 /**
  * Query the value of the TransferIDs property.
  *
@@ -920,8 +926,10 @@ DllExport void STDCALL CpProxyUpnpOrgContentDirectory3PropertyLastChange(THandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgContentDirectory3Create
  * @param[out] aTransferIDs
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgContentDirectory3PropertyTransferIDs(THandle aHandle, char** aTransferIDs);
+DllExport int32_t STDCALL CpProxyUpnpOrgContentDirectory3PropertyTransferIDs(THandle aHandle, char** aTransferIDs);
 
 /* @} */
 

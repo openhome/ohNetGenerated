@@ -557,21 +557,21 @@ void CpProxyAvOpenhomeOrgExakt2C::SetPropertyVersionChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgExakt2C::PropertyDeviceList(Brhz& aDeviceList) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aDeviceList.Set(iDeviceList->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt2C::PropertyConnectionStatus(Brhz& aConnectionStatus) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aConnectionStatus.Set(iConnectionStatus->Value());
 }
 
 void CpProxyAvOpenhomeOrgExakt2C::PropertyVersion(Brhz& aVersion) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aVersion.Set(iVersion->Value());
 }
 
@@ -930,30 +930,48 @@ void STDCALL CpProxyAvOpenhomeOrgExakt2SetPropertyVersionChanged(THandle aHandle
     proxyC->SetPropertyVersionChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgExakt2PropertyDeviceList(THandle aHandle, char** aDeviceList)
+int32_t STDCALL CpProxyAvOpenhomeOrgExakt2PropertyDeviceList(THandle aHandle, char** aDeviceList)
 {
     CpProxyAvOpenhomeOrgExakt2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgExakt2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aDeviceList;
-    proxyC->PropertyDeviceList(buf_aDeviceList);
+    try {
+        proxyC->PropertyDeviceList(buf_aDeviceList);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aDeviceList = buf_aDeviceList.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgExakt2PropertyConnectionStatus(THandle aHandle, char** aConnectionStatus)
+int32_t STDCALL CpProxyAvOpenhomeOrgExakt2PropertyConnectionStatus(THandle aHandle, char** aConnectionStatus)
 {
     CpProxyAvOpenhomeOrgExakt2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgExakt2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aConnectionStatus;
-    proxyC->PropertyConnectionStatus(buf_aConnectionStatus);
+    try {
+        proxyC->PropertyConnectionStatus(buf_aConnectionStatus);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aConnectionStatus = buf_aConnectionStatus.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgExakt2PropertyVersion(THandle aHandle, char** aVersion)
+int32_t STDCALL CpProxyAvOpenhomeOrgExakt2PropertyVersion(THandle aHandle, char** aVersion)
 {
     CpProxyAvOpenhomeOrgExakt2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgExakt2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aVersion;
-    proxyC->PropertyVersion(buf_aVersion);
+    try {
+        proxyC->PropertyVersion(buf_aVersion);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aVersion = buf_aVersion.Transfer();
+    return 0;
 }
 

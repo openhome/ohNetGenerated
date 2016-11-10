@@ -449,28 +449,36 @@ void CpProxyAvOpenhomeOrgInfo1Cpp::SetPropertyMetatextChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyTrackCount(uint32_t& aTrackCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTrackCount = iTrackCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyDetailsCount(uint32_t& aDetailsCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDetailsCount = iDetailsCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyMetatextCount(uint32_t& aMetatextCount) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMetatextCount = iMetatextCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyUri(std::string& aUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iUri->Value();
     aUri.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -478,7 +486,9 @@ void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyUri(std::string& aUri) const
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyMetadata(std::string& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iMetadata->Value();
     aMetadata.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -486,42 +496,54 @@ void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyMetadata(std::string& aMetadata) cons
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyDuration(uint32_t& aDuration) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aDuration = iDuration->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyBitRate(uint32_t& aBitRate) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aBitRate = iBitRate->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyBitDepth(uint32_t& aBitDepth) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aBitDepth = iBitDepth->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertySampleRate(uint32_t& aSampleRate) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSampleRate = iSampleRate->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyLossless(bool& aLossless) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aLossless = iLossless->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyCodecName(std::string& aCodecName) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iCodecName->Value();
     aCodecName.assign((const char*)val.Ptr(), val.Bytes());
 }
@@ -529,7 +551,9 @@ void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyCodecName(std::string& aCodecName) co
 void CpProxyAvOpenhomeOrgInfo1Cpp::PropertyMetatext(std::string& aMetatext) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iMetatext->Value();
     aMetatext.assign((const char*)val.Ptr(), val.Bytes());
 }

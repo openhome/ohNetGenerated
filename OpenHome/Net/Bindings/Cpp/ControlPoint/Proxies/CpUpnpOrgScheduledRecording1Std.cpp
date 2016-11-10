@@ -1357,7 +1357,9 @@ void CpProxyUpnpOrgScheduledRecording1Cpp::SetPropertyLastChangeChanged(Functor&
 void CpProxyUpnpOrgScheduledRecording1Cpp::PropertyLastChange(std::string& aLastChange) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     const Brx& val = iLastChange->Value();
     aLastChange.assign((const char*)val.Ptr(), val.Bytes());
 }

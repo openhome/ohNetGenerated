@@ -646,21 +646,27 @@ void CpProxyAvOpenhomeOrgCredentials1::SetPropertySequenceNumberChanged(Functor&
 void CpProxyAvOpenhomeOrgCredentials1::PropertyIds(Brhz& aIds) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aIds.Set(iIds->Value());
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::PropertyPublicKey(Brhz& aPublicKey) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPublicKey.Set(iPublicKey->Value());
 }
 
 void CpProxyAvOpenhomeOrgCredentials1::PropertySequenceNumber(TUint& aSequenceNumber) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aSequenceNumber = iSequenceNumber->Value();
 }
 

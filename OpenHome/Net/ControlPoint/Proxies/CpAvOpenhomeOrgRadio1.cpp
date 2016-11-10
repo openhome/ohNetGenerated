@@ -1066,49 +1066,63 @@ void CpProxyAvOpenhomeOrgRadio1::SetPropertyProtocolInfoChanged(Functor& aFuncto
 void CpProxyAvOpenhomeOrgRadio1::PropertyUri(Brhz& aUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aUri.Set(iUri->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyMetadata(Brhz& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyTransportState(Brhz& aTransportState) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTransportState.Set(iTransportState->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyId(TUint& aId) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aId = iId->Value();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyIdArray(Brh& aIdArray) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aIdArray.Set(iIdArray->Value());
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyChannelsMax(TUint& aChannelsMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aChannelsMax = iChannelsMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgRadio1::PropertyProtocolInfo(Brhz& aProtocolInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aProtocolInfo.Set(iProtocolInfo->Value());
 }
 

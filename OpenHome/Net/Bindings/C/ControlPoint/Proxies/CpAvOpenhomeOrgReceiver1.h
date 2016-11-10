@@ -48,7 +48,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1Destroy(THandle aHandle);
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1SyncPlay(THandle aHandle);
@@ -82,7 +82,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1EndPlay(THandle aHandle, 
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1SyncStop(THandle aHandle);
@@ -118,7 +118,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1EndStop(THandle aHandle, 
  * @param[in]  aUri
  * @param[in]  aMetadata
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1SyncSetSender(THandle aHandle, const char* aUri, const char* aMetadata);
@@ -156,7 +156,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1EndSetSender(THandle aHan
  * @param[out] aUri
  * @param[out] aMetadata
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1SyncSender(THandle aHandle, char** aUri, char** aMetadata);
@@ -193,7 +193,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1EndSender(THandle aHandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1SyncProtocolInfo(THandle aHandle, char** aValue);
@@ -229,7 +229,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1EndProtocolInfo(THandle a
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  * @param[out] aValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1SyncTransportState(THandle aHandle, char** aValue);
@@ -310,8 +310,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1SetPropertyProtocolInfoChang
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  * @param[out] aUri
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyUri(THandle aHandle, char** aUri);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyUri(THandle aHandle, char** aUri);
 /**
  * Query the value of the Metadata property.
  *
@@ -320,8 +322,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyUri(THandle aHandle,
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  * @param[out] aMetadata
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyMetadata(THandle aHandle, char** aMetadata);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyMetadata(THandle aHandle, char** aMetadata);
 /**
  * Query the value of the TransportState property.
  *
@@ -330,8 +334,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyMetadata(THandle aHa
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  * @param[out] aTransportState
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyTransportState(THandle aHandle, char** aTransportState);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyTransportState(THandle aHandle, char** aTransportState);
 /**
  * Query the value of the ProtocolInfo property.
  *
@@ -340,8 +346,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyTransportState(THand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgReceiver1Create
  * @param[out] aProtocolInfo
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyProtocolInfo(THandle aHandle, char** aProtocolInfo);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgReceiver1PropertyProtocolInfo(THandle aHandle, char** aProtocolInfo);
 
 /* @} */
 

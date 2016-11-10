@@ -1291,84 +1291,84 @@ void CpProxyAvOpenhomeOrgVolume2C::SetPropertyUnityGainChanged(Functor& aFunctor
 void CpProxyAvOpenhomeOrgVolume2C::PropertyVolume(TUint& aVolume) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aVolume = iVolume->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyMute(TBool& aMute) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aMute = iMute->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyBalance(TInt& aBalance) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aBalance = iBalance->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyFade(TInt& aFade) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aFade = iFade->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyVolumeLimit(TUint& aVolumeLimit) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aVolumeLimit = iVolumeLimit->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyVolumeMax(TUint& aVolumeMax) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aVolumeMax = iVolumeMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyVolumeUnity(TUint& aVolumeUnity) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aVolumeUnity = iVolumeUnity->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyVolumeSteps(TUint& aVolumeSteps) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aVolumeSteps = iVolumeSteps->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyVolumeMilliDbPerStep(TUint& aVolumeMilliDbPerStep) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aVolumeMilliDbPerStep = iVolumeMilliDbPerStep->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyBalanceMax(TUint& aBalanceMax) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aBalanceMax = iBalanceMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyFadeMax(TUint& aFadeMax) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aFadeMax = iFadeMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgVolume2C::PropertyUnityGain(TBool& aUnityGain) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aUnityGain = iUnityGain->Value();
 }
 
@@ -2206,91 +2206,163 @@ void STDCALL CpProxyAvOpenhomeOrgVolume2SetPropertyUnityGainChanged(THandle aHan
     proxyC->SetPropertyUnityGainChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolume(THandle aHandle, uint32_t* aVolume)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolume(THandle aHandle, uint32_t* aVolume)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyVolume(*aVolume);
+    try {
+        proxyC->PropertyVolume(*aVolume);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyMute(THandle aHandle, uint32_t* aMute)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyMute(THandle aHandle, uint32_t* aMute)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
     TBool Mute;
-    proxyC->PropertyMute(Mute);
+    try {
+        proxyC->PropertyMute(Mute);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aMute = Mute? 1 : 0;
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalance(THandle aHandle, int32_t* aBalance)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalance(THandle aHandle, int32_t* aBalance)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyBalance(*aBalance);
+    try {
+        proxyC->PropertyBalance(*aBalance);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFade(THandle aHandle, int32_t* aFade)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFade(THandle aHandle, int32_t* aFade)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyFade(*aFade);
+    try {
+        proxyC->PropertyFade(*aFade);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeLimit(THandle aHandle, uint32_t* aVolumeLimit)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeLimit(THandle aHandle, uint32_t* aVolumeLimit)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyVolumeLimit(*aVolumeLimit);
+    try {
+        proxyC->PropertyVolumeLimit(*aVolumeLimit);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMax(THandle aHandle, uint32_t* aVolumeMax)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMax(THandle aHandle, uint32_t* aVolumeMax)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyVolumeMax(*aVolumeMax);
+    try {
+        proxyC->PropertyVolumeMax(*aVolumeMax);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeUnity(THandle aHandle, uint32_t* aVolumeUnity)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeUnity(THandle aHandle, uint32_t* aVolumeUnity)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyVolumeUnity(*aVolumeUnity);
+    try {
+        proxyC->PropertyVolumeUnity(*aVolumeUnity);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeSteps(THandle aHandle, uint32_t* aVolumeSteps)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeSteps(THandle aHandle, uint32_t* aVolumeSteps)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyVolumeSteps(*aVolumeSteps);
+    try {
+        proxyC->PropertyVolumeSteps(*aVolumeSteps);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMilliDbPerStep(THandle aHandle, uint32_t* aVolumeMilliDbPerStep)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyVolumeMilliDbPerStep(THandle aHandle, uint32_t* aVolumeMilliDbPerStep)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyVolumeMilliDbPerStep(*aVolumeMilliDbPerStep);
+    try {
+        proxyC->PropertyVolumeMilliDbPerStep(*aVolumeMilliDbPerStep);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalanceMax(THandle aHandle, uint32_t* aBalanceMax)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyBalanceMax(THandle aHandle, uint32_t* aBalanceMax)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyBalanceMax(*aBalanceMax);
+    try {
+        proxyC->PropertyBalanceMax(*aBalanceMax);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFadeMax(THandle aHandle, uint32_t* aFadeMax)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyFadeMax(THandle aHandle, uint32_t* aFadeMax)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyFadeMax(*aFadeMax);
+    try {
+        proxyC->PropertyFadeMax(*aFadeMax);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgVolume2PropertyUnityGain(THandle aHandle, uint32_t* aUnityGain)
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume2PropertyUnityGain(THandle aHandle, uint32_t* aUnityGain)
 {
     CpProxyAvOpenhomeOrgVolume2C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume2C*>(aHandle);
     ASSERT(proxyC != NULL);
     TBool UnityGain;
-    proxyC->PropertyUnityGain(UnityGain);
+    try {
+        proxyC->PropertyUnityGain(UnityGain);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aUnityGain = UnityGain? 1 : 0;
+    return 0;
 }
 

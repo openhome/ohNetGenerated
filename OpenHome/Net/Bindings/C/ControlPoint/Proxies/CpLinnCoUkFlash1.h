@@ -53,7 +53,7 @@ DllExport void STDCALL CpProxyLinnCoUkFlash1Destroy(THandle aHandle);
  * @param[out] aaBuffer
  * @param[out] aaBufferLen
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncRead(THandle aHandle, uint32_t aaId, uint32_t aaAddress, uint32_t aaLength, char** aaBuffer, uint32_t* aaBufferLen);
@@ -96,7 +96,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndRead(THandle aHandle, OhNetHan
  * @param[in]  aaSource
  * @param[in]  aaSourceLen
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncWrite(THandle aHandle, uint32_t aaId, uint32_t aaAddress, const char* aaSource, uint32_t aaSourceLen);
@@ -136,7 +136,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndWrite(THandle aHandle, OhNetHa
  * @param[in]  aaId
  * @param[in]  aaAddress
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncErase(THandle aHandle, uint32_t aaId, uint32_t aaAddress);
@@ -174,7 +174,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndErase(THandle aHandle, OhNetHa
  * @param[in]  aaId
  * @param[in]  aaSector
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncEraseSector(THandle aHandle, uint32_t aaId, uint32_t aaSector);
@@ -213,7 +213,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndEraseSector(THandle aHandle, O
  * @param[in]  aaFirstSector
  * @param[in]  aaLastSector
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncEraseSectors(THandle aHandle, uint32_t aaId, uint32_t aaFirstSector, uint32_t aaLastSector);
@@ -251,7 +251,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndEraseSectors(THandle aHandle, 
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkFlash1Create
  * @param[in]  aaId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncEraseChip(THandle aHandle, uint32_t aaId);
@@ -288,7 +288,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndEraseChip(THandle aHandle, OhN
  * @param[in]  aaId
  * @param[out] aaSectors
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncSectors(THandle aHandle, uint32_t aaId, uint32_t* aaSectors);
@@ -326,7 +326,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndSectors(THandle aHandle, OhNet
  * @param[in]  aaId
  * @param[out] aaBytes
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncSectorBytes(THandle aHandle, uint32_t aaId, uint32_t* aaBytes);
@@ -368,7 +368,7 @@ DllExport int32_t STDCALL CpProxyLinnCoUkFlash1EndSectorBytes(THandle aHandle, O
  * @param[out] aaOffsetFallback
  * @param[out] aaBytesFallback
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkFlash1SyncRomDirInfo(THandle aHandle, uint32_t* aaFlashIdMain, uint32_t* aaOffsetMain, uint32_t* aaBytesMain, uint32_t* aaFlashIdFallback, uint32_t* aaOffsetFallback, uint32_t* aaBytesFallback);

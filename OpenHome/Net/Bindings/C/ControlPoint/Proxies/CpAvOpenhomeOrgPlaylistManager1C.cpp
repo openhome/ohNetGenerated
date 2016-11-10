@@ -1508,42 +1508,42 @@ void CpProxyAvOpenhomeOrgPlaylistManager1C::SetPropertyTracksMaxChanged(Functor&
 void CpProxyAvOpenhomeOrgPlaylistManager1C::PropertyMetadata(Brhz& aMetadata) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1C::PropertyImagesXml(Brhz& aImagesXml) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aImagesXml.Set(iImagesXml->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1C::PropertyIdArray(Brh& aIdArray) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aIdArray.Set(iIdArray->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1C::PropertyTokenArray(Brh& aTokenArray) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aTokenArray.Set(iTokenArray->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1C::PropertyPlaylistsMax(TUint& aPlaylistsMax) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aPlaylistsMax = iPlaylistsMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1C::PropertyTracksMax(TUint& aTracksMax) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aTracksMax = iTracksMax->Value();
 }
 
@@ -2494,55 +2494,91 @@ void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1SetPropertyTracksMaxChanged(THa
     proxyC->SetPropertyTracksMaxChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyMetadata(THandle aHandle, char** aMetadata)
+int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyMetadata(THandle aHandle, char** aMetadata)
 {
     CpProxyAvOpenhomeOrgPlaylistManager1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgPlaylistManager1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aMetadata;
-    proxyC->PropertyMetadata(buf_aMetadata);
+    try {
+        proxyC->PropertyMetadata(buf_aMetadata);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aMetadata = buf_aMetadata.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyImagesXml(THandle aHandle, char** aImagesXml)
+int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyImagesXml(THandle aHandle, char** aImagesXml)
 {
     CpProxyAvOpenhomeOrgPlaylistManager1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgPlaylistManager1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aImagesXml;
-    proxyC->PropertyImagesXml(buf_aImagesXml);
+    try {
+        proxyC->PropertyImagesXml(buf_aImagesXml);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aImagesXml = buf_aImagesXml.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyIdArray(THandle aHandle, char** aIdArray, uint32_t* aLen)
+int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyIdArray(THandle aHandle, char** aIdArray, uint32_t* aLen)
 {
     CpProxyAvOpenhomeOrgPlaylistManager1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgPlaylistManager1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brh buf_aIdArray;
-    proxyC->PropertyIdArray(buf_aIdArray);
+    try {
+        proxyC->PropertyIdArray(buf_aIdArray);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aLen = buf_aIdArray.Bytes();
     *aIdArray = buf_aIdArray.Extract();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTokenArray(THandle aHandle, char** aTokenArray, uint32_t* aLen)
+int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTokenArray(THandle aHandle, char** aTokenArray, uint32_t* aLen)
 {
     CpProxyAvOpenhomeOrgPlaylistManager1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgPlaylistManager1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brh buf_aTokenArray;
-    proxyC->PropertyTokenArray(buf_aTokenArray);
+    try {
+        proxyC->PropertyTokenArray(buf_aTokenArray);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aLen = buf_aTokenArray.Bytes();
     *aTokenArray = buf_aTokenArray.Extract();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyPlaylistsMax(THandle aHandle, uint32_t* aPlaylistsMax)
+int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyPlaylistsMax(THandle aHandle, uint32_t* aPlaylistsMax)
 {
     CpProxyAvOpenhomeOrgPlaylistManager1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgPlaylistManager1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyPlaylistsMax(*aPlaylistsMax);
+    try {
+        proxyC->PropertyPlaylistsMax(*aPlaylistsMax);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTracksMax(THandle aHandle, uint32_t* aTracksMax)
+int32_t STDCALL CpProxyAvOpenhomeOrgPlaylistManager1PropertyTracksMax(THandle aHandle, uint32_t* aTracksMax)
 {
     CpProxyAvOpenhomeOrgPlaylistManager1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgPlaylistManager1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyTracksMax(*aTracksMax);
+    try {
+        proxyC->PropertyTracksMax(*aTracksMax);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 

@@ -534,84 +534,84 @@ void CpProxyAvOpenhomeOrgInfo1C::SetPropertyMetatextChanged(Functor& aFunctor)
 void CpProxyAvOpenhomeOrgInfo1C::PropertyTrackCount(TUint& aTrackCount) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aTrackCount = iTrackCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyDetailsCount(TUint& aDetailsCount) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aDetailsCount = iDetailsCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyMetatextCount(TUint& aMetatextCount) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aMetatextCount = iMetatextCount->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyUri(Brhz& aUri) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aUri.Set(iUri->Value());
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyMetadata(Brhz& aMetadata) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyDuration(TUint& aDuration) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aDuration = iDuration->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyBitRate(TUint& aBitRate) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aBitRate = iBitRate->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyBitDepth(TUint& aBitDepth) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aBitDepth = iBitDepth->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertySampleRate(TUint& aSampleRate) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aSampleRate = iSampleRate->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyLossless(TBool& aLossless) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aLossless = iLossless->Value();
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyCodecName(Brhz& aCodecName) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aCodecName.Set(iCodecName->Value());
 }
 
 void CpProxyAvOpenhomeOrgInfo1C::PropertyMetatext(Brhz& aMetatext) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aMetatext.Set(iMetatext->Value());
 }
 
@@ -971,97 +971,169 @@ void STDCALL CpProxyAvOpenhomeOrgInfo1SetPropertyMetatextChanged(THandle aHandle
     proxyC->SetPropertyMetatextChanged(functor);
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyTrackCount(THandle aHandle, uint32_t* aTrackCount)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyTrackCount(*aTrackCount);
+    try {
+        proxyC->PropertyTrackCount(*aTrackCount);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDetailsCount(THandle aHandle, uint32_t* aDetailsCount)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDetailsCount(THandle aHandle, uint32_t* aDetailsCount)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyDetailsCount(*aDetailsCount);
+    try {
+        proxyC->PropertyDetailsCount(*aDetailsCount);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatextCount(THandle aHandle, uint32_t* aMetatextCount)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatextCount(THandle aHandle, uint32_t* aMetatextCount)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyMetatextCount(*aMetatextCount);
+    try {
+        proxyC->PropertyMetatextCount(*aMetatextCount);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyUri(THandle aHandle, char** aUri)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyUri(THandle aHandle, char** aUri)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aUri;
-    proxyC->PropertyUri(buf_aUri);
+    try {
+        proxyC->PropertyUri(buf_aUri);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aUri = buf_aUri.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetadata(THandle aHandle, char** aMetadata)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetadata(THandle aHandle, char** aMetadata)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aMetadata;
-    proxyC->PropertyMetadata(buf_aMetadata);
+    try {
+        proxyC->PropertyMetadata(buf_aMetadata);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aMetadata = buf_aMetadata.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDuration(THandle aHandle, uint32_t* aDuration)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyDuration(THandle aHandle, uint32_t* aDuration)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyDuration(*aDuration);
+    try {
+        proxyC->PropertyDuration(*aDuration);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitRate(THandle aHandle, uint32_t* aBitRate)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitRate(THandle aHandle, uint32_t* aBitRate)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyBitRate(*aBitRate);
+    try {
+        proxyC->PropertyBitRate(*aBitRate);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitDepth(THandle aHandle, uint32_t* aBitDepth)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyBitDepth(THandle aHandle, uint32_t* aBitDepth)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertyBitDepth(*aBitDepth);
+    try {
+        proxyC->PropertyBitDepth(*aBitDepth);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertySampleRate(THandle aHandle, uint32_t* aSampleRate)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertySampleRate(THandle aHandle, uint32_t* aSampleRate)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertySampleRate(*aSampleRate);
+    try {
+        proxyC->PropertySampleRate(*aSampleRate);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyLossless(THandle aHandle, uint32_t* aLossless)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyLossless(THandle aHandle, uint32_t* aLossless)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
     TBool Lossless;
-    proxyC->PropertyLossless(Lossless);
+    try {
+        proxyC->PropertyLossless(Lossless);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aLossless = Lossless? 1 : 0;
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyCodecName(THandle aHandle, char** aCodecName)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyCodecName(THandle aHandle, char** aCodecName)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aCodecName;
-    proxyC->PropertyCodecName(buf_aCodecName);
+    try {
+        proxyC->PropertyCodecName(buf_aCodecName);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aCodecName = buf_aCodecName.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatext(THandle aHandle, char** aMetatext)
+int32_t STDCALL CpProxyAvOpenhomeOrgInfo1PropertyMetatext(THandle aHandle, char** aMetatext)
 {
     CpProxyAvOpenhomeOrgInfo1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgInfo1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aMetatext;
-    proxyC->PropertyMetatext(buf_aMetatext);
+    try {
+        proxyC->PropertyMetatext(buf_aMetatext);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aMetatext = buf_aMetatext.Transfer();
+    return 0;
 }
 

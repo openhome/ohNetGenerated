@@ -1343,7 +1343,7 @@ void CpProxyUpnpOrgAVTransport1C::SetPropertyLastChangeChanged(Functor& aFunctor
 void CpProxyUpnpOrgAVTransport1C::PropertyLastChange(Brhz& aLastChange) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aLastChange.Set(iLastChange->Value());
 }
 
@@ -2172,12 +2172,18 @@ void STDCALL CpProxyUpnpOrgAVTransport1SetPropertyLastChangeChanged(THandle aHan
     proxyC->SetPropertyLastChangeChanged(functor);
 }
 
-void STDCALL CpProxyUpnpOrgAVTransport1PropertyLastChange(THandle aHandle, char** aLastChange)
+int32_t STDCALL CpProxyUpnpOrgAVTransport1PropertyLastChange(THandle aHandle, char** aLastChange)
 {
     CpProxyUpnpOrgAVTransport1C* proxyC = reinterpret_cast<CpProxyUpnpOrgAVTransport1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aLastChange;
-    proxyC->PropertyLastChange(buf_aLastChange);
+    try {
+        proxyC->PropertyLastChange(buf_aLastChange);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aLastChange = buf_aLastChange.Transfer();
+    return 0;
 }
 

@@ -433,28 +433,36 @@ void CpProxyAvOpenhomeOrgReceiver1::SetPropertyProtocolInfoChanged(Functor& aFun
 void CpProxyAvOpenhomeOrgReceiver1::PropertyUri(Brhz& aUri) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aUri.Set(iUri->Value());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1::PropertyMetadata(Brhz& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1::PropertyTransportState(Brhz& aTransportState) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTransportState.Set(iTransportState->Value());
 }
 
 void CpProxyAvOpenhomeOrgReceiver1::PropertyProtocolInfo(Brhz& aProtocolInfo) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aProtocolInfo.Set(iProtocolInfo->Value());
 }
 

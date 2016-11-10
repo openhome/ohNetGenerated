@@ -1369,42 +1369,54 @@ void CpProxyAvOpenhomeOrgPlaylistManager1::SetPropertyTracksMaxChanged(Functor& 
 void CpProxyAvOpenhomeOrgPlaylistManager1::PropertyMetadata(Brhz& aMetadata) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aMetadata.Set(iMetadata->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1::PropertyImagesXml(Brhz& aImagesXml) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aImagesXml.Set(iImagesXml->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1::PropertyIdArray(Brh& aIdArray) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aIdArray.Set(iIdArray->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1::PropertyTokenArray(Brh& aTokenArray) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTokenArray.Set(iTokenArray->Value());
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1::PropertyPlaylistsMax(TUint& aPlaylistsMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aPlaylistsMax = iPlaylistsMax->Value();
 }
 
 void CpProxyAvOpenhomeOrgPlaylistManager1::PropertyTracksMax(TUint& aTracksMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
-    ASSERT(iCpProxy.GetSubscriptionStatus() == CpProxy::eSubscribed);
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
     aTracksMax = iTracksMax->Value();
 }
 

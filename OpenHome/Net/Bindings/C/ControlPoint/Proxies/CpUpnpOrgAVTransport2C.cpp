@@ -1729,14 +1729,14 @@ void CpProxyUpnpOrgAVTransport2C::SetPropertyDRMStateChanged(Functor& aFunctor)
 void CpProxyUpnpOrgAVTransport2C::PropertyLastChange(Brhz& aLastChange) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aLastChange.Set(iLastChange->Value());
 }
 
 void CpProxyUpnpOrgAVTransport2C::PropertyDRMState(Brhz& aDRMState) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aDRMState.Set(iDRMState->Value());
 }
 
@@ -2813,21 +2813,33 @@ void STDCALL CpProxyUpnpOrgAVTransport2SetPropertyDRMStateChanged(THandle aHandl
     proxyC->SetPropertyDRMStateChanged(functor);
 }
 
-void STDCALL CpProxyUpnpOrgAVTransport2PropertyLastChange(THandle aHandle, char** aLastChange)
+int32_t STDCALL CpProxyUpnpOrgAVTransport2PropertyLastChange(THandle aHandle, char** aLastChange)
 {
     CpProxyUpnpOrgAVTransport2C* proxyC = reinterpret_cast<CpProxyUpnpOrgAVTransport2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aLastChange;
-    proxyC->PropertyLastChange(buf_aLastChange);
+    try {
+        proxyC->PropertyLastChange(buf_aLastChange);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aLastChange = buf_aLastChange.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgAVTransport2PropertyDRMState(THandle aHandle, char** aDRMState)
+int32_t STDCALL CpProxyUpnpOrgAVTransport2PropertyDRMState(THandle aHandle, char** aDRMState)
 {
     CpProxyUpnpOrgAVTransport2C* proxyC = reinterpret_cast<CpProxyUpnpOrgAVTransport2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aDRMState;
-    proxyC->PropertyDRMState(buf_aDRMState);
+    try {
+        proxyC->PropertyDRMState(buf_aDRMState);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aDRMState = buf_aDRMState.Transfer();
+    return 0;
 }
 

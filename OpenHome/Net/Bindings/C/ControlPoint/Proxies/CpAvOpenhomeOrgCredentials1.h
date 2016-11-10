@@ -52,7 +52,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1Destroy(THandle aHandle);
  * @param[in]  aPassword
  * @param[in]  aPasswordLen
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSet(THandle aHandle, const char* aId, const char* aUserName, const char* aPassword, uint32_t aPasswordLen);
@@ -91,7 +91,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndSet(THandle aHandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[in]  aId
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncClear(THandle aHandle, const char* aId);
@@ -128,7 +128,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndClear(THandle aHand
  * @param[in]  aId
  * @param[in]  aEnabled
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncSetEnabled(THandle aHandle, const char* aId, uint32_t aEnabled);
@@ -171,7 +171,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndSetEnabled(THandle 
  * @param[out] aStatus
  * @param[out] aData
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGet(THandle aHandle, const char* aId, char** aUserName, char** aPassword, uint32_t* aPasswordLen, uint32_t* aEnabled, char** aStatus, char** aData);
@@ -214,7 +214,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGet(THandle aHandle
  * @param[in]  aId
  * @param[out] aToken
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncLogin(THandle aHandle, const char* aId, char** aToken);
@@ -253,7 +253,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndLogin(THandle aHand
  * @param[in]  aCurrentToken
  * @param[out] aNewToken
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncReLogin(THandle aHandle, const char* aId, const char* aCurrentToken, char** aNewToken);
@@ -291,7 +291,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndReLogin(THandle aHa
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[out] aIds
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGetIds(THandle aHandle, char** aIds);
@@ -327,7 +327,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGetIds(THandle aHan
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[out] aPublicKey
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGetPublicKey(THandle aHandle, char** aPublicKey);
@@ -363,7 +363,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1EndGetPublicKey(THandl
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[out] aSequenceNumber
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1SyncGetSequenceNumber(THandle aHandle, uint32_t* aSequenceNumber);
@@ -433,8 +433,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1SetPropertySequenceNumber
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[out] aIds
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyIds(THandle aHandle, char** aIds);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyIds(THandle aHandle, char** aIds);
 /**
  * Query the value of the PublicKey property.
  *
@@ -443,8 +445,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyIds(THandle aHand
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[out] aPublicKey
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyPublicKey(THandle aHandle, char** aPublicKey);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyPublicKey(THandle aHandle, char** aPublicKey);
 /**
  * Query the value of the SequenceNumber property.
  *
@@ -453,8 +457,10 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertyPublicKey(THandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgCredentials1Create
  * @param[out] aSequenceNumber
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgCredentials1PropertySequenceNumber(THandle aHandle, uint32_t* aSequenceNumber);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgCredentials1PropertySequenceNumber(THandle aHandle, uint32_t* aSequenceNumber);
 
 /* @} */
 

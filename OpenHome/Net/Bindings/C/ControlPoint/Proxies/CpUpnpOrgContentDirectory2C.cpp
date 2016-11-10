@@ -1339,21 +1339,21 @@ void CpProxyUpnpOrgContentDirectory2C::SetPropertyTransferIDsChanged(Functor& aF
 void CpProxyUpnpOrgContentDirectory2C::PropertySystemUpdateID(TUint& aSystemUpdateID) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aSystemUpdateID = iSystemUpdateID->Value();
 }
 
 void CpProxyUpnpOrgContentDirectory2C::PropertyContainerUpdateIDs(Brhz& aContainerUpdateIDs) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aContainerUpdateIDs.Set(iContainerUpdateIDs->Value());
 }
 
 void CpProxyUpnpOrgContentDirectory2C::PropertyTransferIDs(Brhz& aTransferIDs) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aTransferIDs.Set(iTransferIDs->Value());
 }
 
@@ -2187,28 +2187,46 @@ void STDCALL CpProxyUpnpOrgContentDirectory2SetPropertyTransferIDsChanged(THandl
     proxyC->SetPropertyTransferIDsChanged(functor);
 }
 
-void STDCALL CpProxyUpnpOrgContentDirectory2PropertySystemUpdateID(THandle aHandle, uint32_t* aSystemUpdateID)
+int32_t STDCALL CpProxyUpnpOrgContentDirectory2PropertySystemUpdateID(THandle aHandle, uint32_t* aSystemUpdateID)
 {
     CpProxyUpnpOrgContentDirectory2C* proxyC = reinterpret_cast<CpProxyUpnpOrgContentDirectory2C*>(aHandle);
     ASSERT(proxyC != NULL);
-    proxyC->PropertySystemUpdateID(*aSystemUpdateID);
+    try {
+        proxyC->PropertySystemUpdateID(*aSystemUpdateID);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgContentDirectory2PropertyContainerUpdateIDs(THandle aHandle, char** aContainerUpdateIDs)
+int32_t STDCALL CpProxyUpnpOrgContentDirectory2PropertyContainerUpdateIDs(THandle aHandle, char** aContainerUpdateIDs)
 {
     CpProxyUpnpOrgContentDirectory2C* proxyC = reinterpret_cast<CpProxyUpnpOrgContentDirectory2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aContainerUpdateIDs;
-    proxyC->PropertyContainerUpdateIDs(buf_aContainerUpdateIDs);
+    try {
+        proxyC->PropertyContainerUpdateIDs(buf_aContainerUpdateIDs);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aContainerUpdateIDs = buf_aContainerUpdateIDs.Transfer();
+    return 0;
 }
 
-void STDCALL CpProxyUpnpOrgContentDirectory2PropertyTransferIDs(THandle aHandle, char** aTransferIDs)
+int32_t STDCALL CpProxyUpnpOrgContentDirectory2PropertyTransferIDs(THandle aHandle, char** aTransferIDs)
 {
     CpProxyUpnpOrgContentDirectory2C* proxyC = reinterpret_cast<CpProxyUpnpOrgContentDirectory2C*>(aHandle);
     ASSERT(proxyC != NULL);
     Brhz buf_aTransferIDs;
-    proxyC->PropertyTransferIDs(buf_aTransferIDs);
+    try {
+        proxyC->PropertyTransferIDs(buf_aTransferIDs);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aTransferIDs = buf_aTransferIDs.Transfer();
+    return 0;
 }
 

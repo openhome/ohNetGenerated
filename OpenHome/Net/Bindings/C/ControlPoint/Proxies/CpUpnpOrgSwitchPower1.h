@@ -49,7 +49,7 @@ DllExport void STDCALL CpProxyUpnpOrgSwitchPower1Destroy(THandle aHandle);
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgSwitchPower1Create
  * @param[in]  anewTargetValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgSwitchPower1SyncSetTarget(THandle aHandle, uint32_t anewTargetValue);
@@ -85,7 +85,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgSwitchPower1EndSetTarget(THandle aHandle
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgSwitchPower1Create
  * @param[out] aRetTargetValue
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgSwitchPower1SyncGetTarget(THandle aHandle, uint32_t* aRetTargetValue);
@@ -121,7 +121,7 @@ DllExport int32_t STDCALL CpProxyUpnpOrgSwitchPower1EndGetTarget(THandle aHandle
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgSwitchPower1Create
  * @param[out] aResultStatus
  *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyUpnpOrgSwitchPower1SyncGetStatus(THandle aHandle, uint32_t* aResultStatus);
@@ -169,8 +169,10 @@ DllExport void STDCALL CpProxyUpnpOrgSwitchPower1SetPropertyStatusChanged(THandl
  *
  * @param[in]  aHandle   Handle returned by CpProxyUpnpOrgSwitchPower1Create
  * @param[out] aStatus
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
  */
-DllExport void STDCALL CpProxyUpnpOrgSwitchPower1PropertyStatus(THandle aHandle, uint32_t* aStatus);
+DllExport int32_t STDCALL CpProxyUpnpOrgSwitchPower1PropertyStatus(THandle aHandle, uint32_t* aStatus);
 
 /* @} */
 

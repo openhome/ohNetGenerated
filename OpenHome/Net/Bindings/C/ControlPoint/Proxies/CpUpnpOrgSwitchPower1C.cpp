@@ -252,7 +252,7 @@ void CpProxyUpnpOrgSwitchPower1C::SetPropertyStatusChanged(Functor& aFunctor)
 void CpProxyUpnpOrgSwitchPower1C::PropertyStatus(TBool& aStatus) const
 {
     AutoMutex a(GetPropertyReadLock());
-    ASSERT(IsSubscribed());
+    CheckSubscribed();
     aStatus = iStatus->Value();
 }
 
@@ -405,12 +405,18 @@ void STDCALL CpProxyUpnpOrgSwitchPower1SetPropertyStatusChanged(THandle aHandle,
     proxyC->SetPropertyStatusChanged(functor);
 }
 
-void STDCALL CpProxyUpnpOrgSwitchPower1PropertyStatus(THandle aHandle, uint32_t* aStatus)
+int32_t STDCALL CpProxyUpnpOrgSwitchPower1PropertyStatus(THandle aHandle, uint32_t* aStatus)
 {
     CpProxyUpnpOrgSwitchPower1C* proxyC = reinterpret_cast<CpProxyUpnpOrgSwitchPower1C*>(aHandle);
     ASSERT(proxyC != NULL);
     TBool Status;
-    proxyC->PropertyStatus(Status);
+    try {
+        proxyC->PropertyStatus(Status);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
     *aStatus = Status? 1 : 0;
+    return 0;
 }
 
