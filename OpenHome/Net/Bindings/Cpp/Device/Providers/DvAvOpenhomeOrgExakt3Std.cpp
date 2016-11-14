@@ -51,6 +51,20 @@ void DvProviderAvOpenhomeOrgExakt3Cpp::GetPropertyChannelMap(std::string& aValue
     aValue.assign((const char*)val.Ptr(), val.Bytes());
 }
 
+bool DvProviderAvOpenhomeOrgExakt3Cpp::SetPropertyAudioChannels(const std::string& aValue)
+{
+    ASSERT(iPropertyAudioChannels != NULL);
+    Brn buf((const TByte*)aValue.c_str(), (TUint)aValue.length());
+    return SetPropertyString(*iPropertyAudioChannels, buf);
+}
+
+void DvProviderAvOpenhomeOrgExakt3Cpp::GetPropertyAudioChannels(std::string& aValue)
+{
+    ASSERT(iPropertyAudioChannels != NULL);
+    const Brx& val = iPropertyAudioChannels->Value();
+    aValue.assign((const char*)val.Ptr(), val.Bytes());
+}
+
 bool DvProviderAvOpenhomeOrgExakt3Cpp::SetPropertyVersion(const std::string& aValue)
 {
     ASSERT(iPropertyVersion != NULL);
@@ -71,6 +85,7 @@ DvProviderAvOpenhomeOrgExakt3Cpp::DvProviderAvOpenhomeOrgExakt3Cpp(DvDeviceStd& 
     iPropertyDeviceList = NULL;
     iPropertyConnectionStatus = NULL;
     iPropertyChannelMap = NULL;
+    iPropertyAudioChannels = NULL;
     iPropertyVersion = NULL;
 }
 
@@ -90,6 +105,12 @@ void DvProviderAvOpenhomeOrgExakt3Cpp::EnablePropertyChannelMap()
 {
     iPropertyChannelMap = new PropertyString(new ParameterString("ChannelMap"));
     iService->AddProperty(iPropertyChannelMap); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgExakt3Cpp::EnablePropertyAudioChannels()
+{
+    iPropertyAudioChannels = new PropertyString(new ParameterString("AudioChannels"));
+    iService->AddProperty(iPropertyAudioChannels); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgExakt3Cpp::EnablePropertyVersion()
@@ -166,6 +187,22 @@ void DvProviderAvOpenhomeOrgExakt3Cpp::EnableActionSetChannelMap()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetChannelMap");
     action->AddInputParameter(new ParameterRelated("ChannelMap", *iPropertyChannelMap));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3Cpp::DoSetChannelMap);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgExakt3Cpp::EnableActionAudioChannels()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("AudioChannels");
+    action->AddOutputParameter(new ParameterRelated("AudioChannels", *iPropertyAudioChannels));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3Cpp::DoAudioChannels);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgExakt3Cpp::EnableActionSetAudioChannels()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAudioChannels");
+    action->AddInputParameter(new ParameterRelated("AudioChannels", *iPropertyAudioChannels));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3Cpp::DoSetAudioChannels);
     iService->AddAction(action, functor);
 }
 
@@ -304,6 +341,34 @@ void DvProviderAvOpenhomeOrgExakt3Cpp::DoSetChannelMap(IDviInvocation& aInvocati
     aInvocation.InvocationWriteEnd();
 }
 
+void DvProviderAvOpenhomeOrgExakt3Cpp::DoAudioChannels(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    std::string respAudioChannels;
+    DvInvocationStd invocation(aInvocation);
+    AudioChannels(invocation, respAudioChannels);
+    aInvocation.InvocationWriteStart();
+    DviInvocationResponseString respWriterAudioChannels(aInvocation, "AudioChannels");
+    Brn buf_AudioChannels((const TByte*)respAudioChannels.c_str(), (TUint)respAudioChannels.length());
+    respWriterAudioChannels.Write(buf_AudioChannels);
+    aInvocation.InvocationWriteStringEnd("AudioChannels");
+    aInvocation.InvocationWriteEnd();
+}
+
+void DvProviderAvOpenhomeOrgExakt3Cpp::DoSetAudioChannels(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz buf_AudioChannels;
+    aInvocation.InvocationReadString("AudioChannels", buf_AudioChannels);
+    std::string AudioChannels((const char*)buf_AudioChannels.Ptr(), buf_AudioChannels.Bytes());
+    aInvocation.InvocationReadEnd();
+    DvInvocationStd invocation(aInvocation);
+    SetAudioChannels(invocation, AudioChannels);
+    aInvocation.InvocationWriteStart();
+    aInvocation.InvocationWriteEnd();
+}
+
 void DvProviderAvOpenhomeOrgExakt3Cpp::DoVersion(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -355,6 +420,16 @@ void DvProviderAvOpenhomeOrgExakt3Cpp::ChannelMap(IDvInvocationStd& /*aInvocatio
 }
 
 void DvProviderAvOpenhomeOrgExakt3Cpp::SetChannelMap(IDvInvocationStd& /*aInvocation*/, const std::string& /*aChannelMap*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgExakt3Cpp::AudioChannels(IDvInvocationStd& /*aInvocation*/, std::string& /*aAudioChannels*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgExakt3Cpp::SetAudioChannels(IDvInvocationStd& /*aInvocation*/, const std::string& /*aAudioChannels*/)
 {
     ASSERTS();
 }

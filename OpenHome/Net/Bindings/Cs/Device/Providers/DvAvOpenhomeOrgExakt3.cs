@@ -49,6 +49,19 @@ namespace OpenHome.Net.Device.Providers
         string PropertyChannelMap();
 
         /// <summary>
+        /// Set the value of the AudioChannels property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyAudioChannels(string aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the AudioChannels property
+        /// </summary>
+        /// <returns>Value of the AudioChannels property.</param>
+        string PropertyAudioChannels();
+
+        /// <summary>
         /// Set the value of the Version property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
@@ -76,10 +89,13 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegateReprogramFallback;
         private ActionDelegate iDelegateChannelMap;
         private ActionDelegate iDelegateSetChannelMap;
+        private ActionDelegate iDelegateAudioChannels;
+        private ActionDelegate iDelegateSetAudioChannels;
         private ActionDelegate iDelegateVersion;
         private PropertyString iPropertyDeviceList;
         private PropertyString iPropertyConnectionStatus;
         private PropertyString iPropertyChannelMap;
+        private PropertyString iPropertyAudioChannels;
         private PropertyString iPropertyVersion;
 
         /// <summary>
@@ -120,6 +136,16 @@ namespace OpenHome.Net.Device.Providers
             List<String> allowedValues = new List<String>();
             iPropertyChannelMap = new PropertyString(new ParameterString("ChannelMap", allowedValues));
             AddProperty(iPropertyChannelMap);
+        }
+
+        /// <summary>
+        /// Enable the AudioChannels property.
+        /// </summary>
+        public void EnablePropertyAudioChannels()
+        {
+            List<String> allowedValues = new List<String>();
+            iPropertyAudioChannels = new PropertyString(new ParameterString("AudioChannels", allowedValues));
+            AddProperty(iPropertyAudioChannels);
         }
 
         /// <summary>
@@ -205,6 +231,31 @@ namespace OpenHome.Net.Device.Providers
             if (iPropertyChannelMap == null)
                 throw new PropertyDisabledError();
             return iPropertyChannelMap.Value();
+        }
+
+        /// <summary>
+        /// Set the value of the AudioChannels property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyAudioChannels has previously been called.</remarks>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        public bool SetPropertyAudioChannels(string aValue)
+        {
+            if (iPropertyAudioChannels == null)
+                throw new PropertyDisabledError();
+            return SetPropertyString(iPropertyAudioChannels, aValue);
+        }
+
+        /// <summary>
+        /// Get a copy of the value of the AudioChannels property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyAudioChannels has previously been called.</remarks>
+        /// <returns>Value of the AudioChannels property.</returns>
+        public string PropertyAudioChannels()
+        {
+            if (iPropertyAudioChannels == null)
+                throw new PropertyDisabledError();
+            return iPropertyAudioChannels.Value();
         }
 
         /// <summary>
@@ -348,6 +399,32 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
+        /// Signal that the action AudioChannels is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// AudioChannels must be overridden if this is called.</remarks>
+        protected void EnableActionAudioChannels()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("AudioChannels");
+            action.AddOutputParameter(new ParameterRelated("AudioChannels", iPropertyAudioChannels));
+            iDelegateAudioChannels = new ActionDelegate(DoAudioChannels);
+            EnableAction(action, iDelegateAudioChannels, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action SetAudioChannels is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// SetAudioChannels must be overridden if this is called.</remarks>
+        protected void EnableActionSetAudioChannels()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetAudioChannels");
+            action.AddInputParameter(new ParameterRelated("AudioChannels", iPropertyAudioChannels));
+            iDelegateSetAudioChannels = new ActionDelegate(DoSetAudioChannels);
+            EnableAction(action, iDelegateSetAudioChannels, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
         /// Signal that the action Version is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
@@ -475,6 +552,34 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aChannelMap"></param>
         protected virtual void SetChannelMap(IDvInvocation aInvocation, string aChannelMap)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// AudioChannels action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// AudioChannels action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionAudioChannels was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aAudioChannels"></param>
+        protected virtual void AudioChannels(IDvInvocation aInvocation, out string aAudioChannels)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// SetAudioChannels action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// SetAudioChannels action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionSetAudioChannels was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aAudioChannels"></param>
+        protected virtual void SetAudioChannels(IDvInvocation aInvocation, string aAudioChannels)
         {
             throw (new ActionDisabledError());
         }
@@ -870,6 +975,98 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetChannelMap" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoAudioChannels(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderAvOpenhomeOrgExakt3 self = (DvProviderAvOpenhomeOrgExakt3)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string audioChannels;
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.AudioChannels(invocation, out audioChannels);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "AudioChannels");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "AudioChannels" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "AudioChannels" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteString("AudioChannels", audioChannels);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "AudioChannels" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoSetAudioChannels(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderAvOpenhomeOrgExakt3 self = (DvProviderAvOpenhomeOrgExakt3)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string audioChannels;
+            try
+            {
+                invocation.ReadStart();
+                audioChannels = invocation.ReadString("AudioChannels");
+                invocation.ReadEnd();
+                self.SetAudioChannels(invocation, audioChannels);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "SetAudioChannels");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetAudioChannels" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAudioChannels" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAudioChannels" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

@@ -48,6 +48,12 @@ public:
     virtual void SyncSetChannelMap(const std::string& aChannelMap) = 0;
     virtual void BeginSetChannelMap(const std::string& aChannelMap, FunctorAsync& aFunctor) = 0;
     virtual void EndSetChannelMap(IAsync& aAsync) = 0;
+    virtual void SyncAudioChannels(std::string& aAudioChannels) = 0;
+    virtual void BeginAudioChannels(FunctorAsync& aFunctor) = 0;
+    virtual void EndAudioChannels(IAsync& aAsync, std::string& aAudioChannels) = 0;
+    virtual void SyncSetAudioChannels(const std::string& aAudioChannels) = 0;
+    virtual void BeginSetAudioChannels(const std::string& aAudioChannels, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetAudioChannels(IAsync& aAsync) = 0;
     virtual void SyncVersion(std::string& aVersion) = 0;
     virtual void BeginVersion(FunctorAsync& aFunctor) = 0;
     virtual void EndVersion(IAsync& aAsync, std::string& aVersion) = 0;
@@ -57,6 +63,8 @@ public:
     virtual void PropertyConnectionStatus(std::string& aConnectionStatus) const = 0;
     virtual void SetPropertyChannelMapChanged(Functor& aChannelMapChanged) = 0;
     virtual void PropertyChannelMap(std::string& aChannelMap) const = 0;
+    virtual void SetPropertyAudioChannelsChanged(Functor& aAudioChannelsChanged) = 0;
+    virtual void PropertyAudioChannels(std::string& aAudioChannels) const = 0;
     virtual void SetPropertyVersionChanged(Functor& aVersionChanged) = 0;
     virtual void PropertyVersion(std::string& aVersion) const = 0;
 };
@@ -312,6 +320,58 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
+     * @param[out] aAudioChannels
+     */
+    void SyncAudioChannels(std::string& aAudioChannels);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndAudioChannels().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginAudioChannels(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aAudioChannels
+     */
+    void EndAudioChannels(IAsync& aAsync, std::string& aAudioChannels);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aAudioChannels
+     */
+    void SyncSetAudioChannels(const std::string& aAudioChannels);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSetAudioChannels().
+     *
+     * @param[in] aAudioChannels
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSetAudioChannels(const std::string& aAudioChannels, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSetAudioChannels(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
      * @param[out] aVersion
      */
     void SyncVersion(std::string& aVersion);
@@ -362,6 +422,15 @@ public:
      */
     void SetPropertyChannelMapChanged(Functor& aFunctor);
     /**
+     * Set a callback to be run when the AudioChannels state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgExakt3Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyAudioChannelsChanged(Functor& aFunctor);
+    /**
      * Set a callback to be run when the Version state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
@@ -401,6 +470,16 @@ public:
      * @param[out] aChannelMap
      */
     void PropertyChannelMap(std::string& aChannelMap) const;
+    /**
+     * Query the value of the AudioChannels property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aAudioChannels
+     */
+    void PropertyAudioChannels(std::string& aAudioChannels) const;
     /**
      * Query the value of the Version property.
      *
@@ -448,6 +527,7 @@ private:
     void DeviceListPropertyChanged();
     void ConnectionStatusPropertyChanged();
     void ChannelMapPropertyChanged();
+    void AudioChannelsPropertyChanged();
     void VersionPropertyChanged();
 private:
     Action* iActionDeviceList;
@@ -458,14 +538,18 @@ private:
     Action* iActionReprogramFallback;
     Action* iActionChannelMap;
     Action* iActionSetChannelMap;
+    Action* iActionAudioChannels;
+    Action* iActionSetAudioChannels;
     Action* iActionVersion;
     PropertyString* iDeviceList;
     PropertyString* iConnectionStatus;
     PropertyString* iChannelMap;
+    PropertyString* iAudioChannels;
     PropertyString* iVersion;
     Functor iDeviceListChanged;
     Functor iConnectionStatusChanged;
     Functor iChannelMapChanged;
+    Functor iAudioChannelsChanged;
     Functor iVersionChanged;
 };
 

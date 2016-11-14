@@ -44,6 +44,18 @@ void DvProviderAvOpenhomeOrgExakt3::GetPropertyChannelMap(Brhz& aValue)
     aValue.Set(iPropertyChannelMap->Value());
 }
 
+TBool DvProviderAvOpenhomeOrgExakt3::SetPropertyAudioChannels(const Brx& aValue)
+{
+    ASSERT(iPropertyAudioChannels != NULL);
+    return SetPropertyString(*iPropertyAudioChannels, aValue);
+}
+
+void DvProviderAvOpenhomeOrgExakt3::GetPropertyAudioChannels(Brhz& aValue)
+{
+    ASSERT(iPropertyAudioChannels != NULL);
+    aValue.Set(iPropertyAudioChannels->Value());
+}
+
 TBool DvProviderAvOpenhomeOrgExakt3::SetPropertyVersion(const Brx& aValue)
 {
     ASSERT(iPropertyVersion != NULL);
@@ -73,6 +85,7 @@ void DvProviderAvOpenhomeOrgExakt3::Construct()
     iPropertyDeviceList = NULL;
     iPropertyConnectionStatus = NULL;
     iPropertyChannelMap = NULL;
+    iPropertyAudioChannels = NULL;
     iPropertyVersion = NULL;
 }
 
@@ -92,6 +105,12 @@ void DvProviderAvOpenhomeOrgExakt3::EnablePropertyChannelMap()
 {
     iPropertyChannelMap = new PropertyString(new ParameterString("ChannelMap"));
     iService->AddProperty(iPropertyChannelMap); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgExakt3::EnablePropertyAudioChannels()
+{
+    iPropertyAudioChannels = new PropertyString(new ParameterString("AudioChannels"));
+    iService->AddProperty(iPropertyAudioChannels); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgExakt3::EnablePropertyVersion()
@@ -168,6 +187,22 @@ void DvProviderAvOpenhomeOrgExakt3::EnableActionSetChannelMap()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetChannelMap");
     action->AddInputParameter(new ParameterRelated("ChannelMap", *iPropertyChannelMap));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3::DoSetChannelMap);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgExakt3::EnableActionAudioChannels()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("AudioChannels");
+    action->AddOutputParameter(new ParameterRelated("AudioChannels", *iPropertyAudioChannels));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3::DoAudioChannels);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgExakt3::EnableActionSetAudioChannels()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAudioChannels");
+    action->AddInputParameter(new ParameterRelated("AudioChannels", *iPropertyAudioChannels));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3::DoSetAudioChannels);
     iService->AddAction(action, functor);
 }
 
@@ -266,6 +301,25 @@ void DvProviderAvOpenhomeOrgExakt3::DoSetChannelMap(IDviInvocation& aInvocation)
     SetChannelMap(invocation, ChannelMap);
 }
 
+void DvProviderAvOpenhomeOrgExakt3::DoAudioChannels(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    DviInvocationResponseString respAudioChannels(aInvocation, "AudioChannels");
+    AudioChannels(invocation, respAudioChannels);
+}
+
+void DvProviderAvOpenhomeOrgExakt3::DoSetAudioChannels(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz AudioChannels;
+    aInvocation.InvocationReadString("AudioChannels", AudioChannels);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    SetAudioChannels(invocation, AudioChannels);
+}
+
 void DvProviderAvOpenhomeOrgExakt3::DoVersion(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -311,6 +365,16 @@ void DvProviderAvOpenhomeOrgExakt3::ChannelMap(IDvInvocation& /*aResponse*/, IDv
 }
 
 void DvProviderAvOpenhomeOrgExakt3::SetChannelMap(IDvInvocation& /*aResponse*/, const Brx& /*aChannelMap*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgExakt3::AudioChannels(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aAudioChannels*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgExakt3::SetAudioChannels(IDvInvocation& /*aResponse*/, const Brx& /*aAudioChannels*/)
 {
     ASSERTS();
 }

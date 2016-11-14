@@ -24,11 +24,14 @@ public:
     void GetPropertyConnectionStatus(Brhz& aValue);
     TBool SetPropertyChannelMap(const Brx& aValue);
     void GetPropertyChannelMap(Brhz& aValue);
+    TBool SetPropertyAudioChannels(const Brx& aValue);
+    void GetPropertyAudioChannels(Brhz& aValue);
     TBool SetPropertyVersion(const Brx& aValue);
     void GetPropertyVersion(Brhz& aValue);
     void EnablePropertyDeviceList();
     void EnablePropertyConnectionStatus();
     void EnablePropertyChannelMap();
+    void EnablePropertyAudioChannels();
     void EnablePropertyVersion();
     void EnableActionDeviceList(CallbackExakt3DeviceList aCallback, void* aPtr);
     void EnableActionDeviceSettings(CallbackExakt3DeviceSettings aCallback, void* aPtr);
@@ -38,6 +41,8 @@ public:
     void EnableActionReprogramFallback(CallbackExakt3ReprogramFallback aCallback, void* aPtr);
     void EnableActionChannelMap(CallbackExakt3ChannelMap aCallback, void* aPtr);
     void EnableActionSetChannelMap(CallbackExakt3SetChannelMap aCallback, void* aPtr);
+    void EnableActionAudioChannels(CallbackExakt3AudioChannels aCallback, void* aPtr);
+    void EnableActionSetAudioChannels(CallbackExakt3SetAudioChannels aCallback, void* aPtr);
     void EnableActionVersion(CallbackExakt3Version aCallback, void* aPtr);
 private:
     void DoDeviceList(IDviInvocation& aInvocation);
@@ -48,6 +53,8 @@ private:
     void DoReprogramFallback(IDviInvocation& aInvocation);
     void DoChannelMap(IDviInvocation& aInvocation);
     void DoSetChannelMap(IDviInvocation& aInvocation);
+    void DoAudioChannels(IDviInvocation& aInvocation);
+    void DoSetAudioChannels(IDviInvocation& aInvocation);
     void DoVersion(IDviInvocation& aInvocation);
 private:
     CallbackExakt3DeviceList iCallbackDeviceList;
@@ -66,11 +73,16 @@ private:
     void* iPtrChannelMap;
     CallbackExakt3SetChannelMap iCallbackSetChannelMap;
     void* iPtrSetChannelMap;
+    CallbackExakt3AudioChannels iCallbackAudioChannels;
+    void* iPtrAudioChannels;
+    CallbackExakt3SetAudioChannels iCallbackSetAudioChannels;
+    void* iPtrSetAudioChannels;
     CallbackExakt3Version iCallbackVersion;
     void* iPtrVersion;
     PropertyString* iPropertyDeviceList;
     PropertyString* iPropertyConnectionStatus;
     PropertyString* iPropertyChannelMap;
+    PropertyString* iPropertyAudioChannels;
     PropertyString* iPropertyVersion;
 };
 
@@ -80,6 +92,7 @@ DvProviderAvOpenhomeOrgExakt3C::DvProviderAvOpenhomeOrgExakt3C(DvDeviceC aDevice
     iPropertyDeviceList = NULL;
     iPropertyConnectionStatus = NULL;
     iPropertyChannelMap = NULL;
+    iPropertyAudioChannels = NULL;
     iPropertyVersion = NULL;
 }
 
@@ -119,6 +132,18 @@ void DvProviderAvOpenhomeOrgExakt3C::GetPropertyChannelMap(Brhz& aValue)
     aValue.Set(iPropertyChannelMap->Value());
 }
 
+TBool DvProviderAvOpenhomeOrgExakt3C::SetPropertyAudioChannels(const Brx& aValue)
+{
+    ASSERT(iPropertyAudioChannels != NULL);
+    return SetPropertyString(*iPropertyAudioChannels, aValue);
+}
+
+void DvProviderAvOpenhomeOrgExakt3C::GetPropertyAudioChannels(Brhz& aValue)
+{
+    ASSERT(iPropertyAudioChannels != NULL);
+    aValue.Set(iPropertyAudioChannels->Value());
+}
+
 TBool DvProviderAvOpenhomeOrgExakt3C::SetPropertyVersion(const Brx& aValue)
 {
     ASSERT(iPropertyVersion != NULL);
@@ -147,6 +172,12 @@ void DvProviderAvOpenhomeOrgExakt3C::EnablePropertyChannelMap()
 {
     iPropertyChannelMap = new PropertyString(new ParameterString("ChannelMap"));
     iService->AddProperty(iPropertyChannelMap); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgExakt3C::EnablePropertyAudioChannels()
+{
+    iPropertyAudioChannels = new PropertyString(new ParameterString("AudioChannels"));
+    iService->AddProperty(iPropertyAudioChannels); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgExakt3C::EnablePropertyVersion()
@@ -239,6 +270,26 @@ void DvProviderAvOpenhomeOrgExakt3C::EnableActionSetChannelMap(CallbackExakt3Set
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetChannelMap");
     action->AddInputParameter(new ParameterRelated("ChannelMap", *iPropertyChannelMap));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3C::DoSetChannelMap);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgExakt3C::EnableActionAudioChannels(CallbackExakt3AudioChannels aCallback, void* aPtr)
+{
+    iCallbackAudioChannels = aCallback;
+    iPtrAudioChannels = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("AudioChannels");
+    action->AddOutputParameter(new ParameterRelated("AudioChannels", *iPropertyAudioChannels));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3C::DoAudioChannels);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgExakt3C::EnableActionSetAudioChannels(CallbackExakt3SetAudioChannels aCallback, void* aPtr)
+{
+    iCallbackSetAudioChannels = aCallback;
+    iPtrSetAudioChannels = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAudioChannels");
+    action->AddInputParameter(new ParameterRelated("AudioChannels", *iPropertyAudioChannels));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgExakt3C::DoSetAudioChannels);
     iService->AddAction(action, functor);
 }
 
@@ -439,6 +490,50 @@ void DvProviderAvOpenhomeOrgExakt3C::DoSetChannelMap(IDviInvocation& aInvocation
     invocation.EndResponse();
 }
 
+void DvProviderAvOpenhomeOrgExakt3C::DoAudioChannels(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    char* AudioChannels;
+    ASSERT(iCallbackAudioChannels != NULL);
+    if (0 != iCallbackAudioChannels(iPtrAudioChannels, invocationC, invocationCPtr, &AudioChannels)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    DviInvocationResponseString respAudioChannels(aInvocation, "AudioChannels");
+    invocation.StartResponse();
+    Brhz bufAudioChannels((const TChar*)AudioChannels);
+    OhNetFreeExternal(AudioChannels);
+    respAudioChannels.Write(bufAudioChannels);
+    respAudioChannels.WriteFlush();
+    invocation.EndResponse();
+}
+
+void DvProviderAvOpenhomeOrgExakt3C::DoSetAudioChannels(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    Brhz AudioChannels;
+    aInvocation.InvocationReadString("AudioChannels", AudioChannels);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    ASSERT(iCallbackSetAudioChannels != NULL);
+    if (0 != iCallbackSetAudioChannels(iPtrSetAudioChannels, invocationC, invocationCPtr, (const char*)AudioChannels.Ptr())) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    invocation.StartResponse();
+    invocation.EndResponse();
+}
+
 void DvProviderAvOpenhomeOrgExakt3C::DoVersion(IDviInvocation& aInvocation)
 {
     DvInvocationCPrivate invocationWrapper(aInvocation);
@@ -515,6 +610,16 @@ void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionSetChannelMap(THandle aPro
     reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->EnableActionSetChannelMap(aCallback, aPtr);
 }
 
+void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionAudioChannels(THandle aProvider, CallbackExakt3AudioChannels aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->EnableActionAudioChannels(aCallback, aPtr);
+}
+
+void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionSetAudioChannels(THandle aProvider, CallbackExakt3SetAudioChannels aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->EnableActionSetAudioChannels(aCallback, aPtr);
+}
+
 void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionVersion(THandle aProvider, CallbackExakt3Version aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->EnableActionVersion(aCallback, aPtr);
@@ -562,6 +667,20 @@ void STDCALL DvProviderAvOpenhomeOrgExakt3GetPropertyChannelMap(THandle aProvide
     *aValue = (char*)buf.Transfer();
 }
 
+int32_t STDCALL DvProviderAvOpenhomeOrgExakt3SetPropertyAudioChannels(THandle aProvider, const char* aValue, uint32_t* aChanged)
+{
+    Brhz buf(aValue);
+    *aChanged = (reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->SetPropertyAudioChannels(buf)? 1 : 0);
+    return 0;
+}
+
+void STDCALL DvProviderAvOpenhomeOrgExakt3GetPropertyAudioChannels(THandle aProvider, char** aValue)
+{
+    Brhz buf;
+    reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->GetPropertyAudioChannels(buf);
+    *aValue = (char*)buf.Transfer();
+}
+
 int32_t STDCALL DvProviderAvOpenhomeOrgExakt3SetPropertyVersion(THandle aProvider, const char* aValue, uint32_t* aChanged)
 {
     Brhz buf(aValue);
@@ -589,6 +708,11 @@ void STDCALL DvProviderAvOpenhomeOrgExakt3EnablePropertyConnectionStatus(THandle
 void STDCALL DvProviderAvOpenhomeOrgExakt3EnablePropertyChannelMap(THandle aProvider)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->EnablePropertyChannelMap();
+}
+
+void STDCALL DvProviderAvOpenhomeOrgExakt3EnablePropertyAudioChannels(THandle aProvider)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgExakt3C*>(aProvider)->EnablePropertyAudioChannels();
 }
 
 void STDCALL DvProviderAvOpenhomeOrgExakt3EnablePropertyVersion(THandle aProvider)

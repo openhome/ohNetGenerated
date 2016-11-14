@@ -70,6 +70,20 @@ public:
      */
     void GetPropertyChannelMap(std::string& aValue);
     /**
+     * Set the value of the AudioChannels property
+     *
+     * Can only be called if EnablePropertyAudioChannels has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    bool SetPropertyAudioChannels(const std::string& aValue);
+    /**
+     * Get a copy of the value of the AudioChannels property
+     *
+     * Can only be called if EnablePropertyAudioChannels has previously been called.
+     */
+    void GetPropertyAudioChannels(std::string& aValue);
+    /**
      * Set the value of the Version property
      *
      * Can only be called if EnablePropertyVersion has previously been called.
@@ -102,6 +116,10 @@ protected:
      * Enable the ChannelMap property.
      */
     void EnablePropertyChannelMap();
+    /**
+     * Enable the AudioChannels property.
+     */
+    void EnablePropertyAudioChannels();
     /**
      * Enable the Version property.
      */
@@ -154,6 +172,18 @@ protected:
      * SetChannelMap must be overridden if this is called.
      */
     void EnableActionSetChannelMap();
+    /**
+     * Signal that the action AudioChannels is supported.
+     * The action's availability will be published in the device's service.xml.
+     * AudioChannels must be overridden if this is called.
+     */
+    void EnableActionAudioChannels();
+    /**
+     * Signal that the action SetAudioChannels is supported.
+     * The action's availability will be published in the device's service.xml.
+     * SetAudioChannels must be overridden if this is called.
+     */
+    void EnableActionSetAudioChannels();
     /**
      * Signal that the action Version is supported.
      * The action's availability will be published in the device's service.xml.
@@ -226,6 +256,22 @@ private:
      */
     virtual void SetChannelMap(IDvInvocationStd& aInvocation, const std::string& aChannelMap);
     /**
+     * AudioChannels action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * AudioChannels action for the owning device.
+     * Must be implemented iff EnableActionAudioChannels was called.
+     */
+    virtual void AudioChannels(IDvInvocationStd& aInvocation, std::string& aAudioChannels);
+    /**
+     * SetAudioChannels action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * SetAudioChannels action for the owning device.
+     * Must be implemented iff EnableActionSetAudioChannels was called.
+     */
+    virtual void SetAudioChannels(IDvInvocationStd& aInvocation, const std::string& aAudioChannels);
+    /**
      * Version action.
      *
      * Will be called when the device stack receives an invocation of the
@@ -243,11 +289,14 @@ private:
     void DoReprogramFallback(IDviInvocation& aInvocation);
     void DoChannelMap(IDviInvocation& aInvocation);
     void DoSetChannelMap(IDviInvocation& aInvocation);
+    void DoAudioChannels(IDviInvocation& aInvocation);
+    void DoSetAudioChannels(IDviInvocation& aInvocation);
     void DoVersion(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyDeviceList;
     PropertyString* iPropertyConnectionStatus;
     PropertyString* iPropertyChannelMap;
+    PropertyString* iPropertyAudioChannels;
     PropertyString* iPropertyVersion;
 };
 

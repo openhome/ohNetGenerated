@@ -34,6 +34,12 @@ interface ICpProxyAvOpenhomeOrgExakt3 extends ICpProxy
     public void syncSetChannelMap(String aChannelMap);
     public void beginSetChannelMap(String aChannelMap, ICpProxyListener aCallback);
     public void endSetChannelMap(long aAsyncHandle);
+    public String syncAudioChannels();
+    public void beginAudioChannels(ICpProxyListener aCallback);
+    public String endAudioChannels(long aAsyncHandle);
+    public void syncSetAudioChannels(String aAudioChannels);
+    public void beginSetAudioChannels(String aAudioChannels, ICpProxyListener aCallback);
+    public void endSetAudioChannels(long aAsyncHandle);
     public String syncVersion();
     public void beginVersion(ICpProxyListener aCallback);
     public String endVersion(long aAsyncHandle);
@@ -43,6 +49,8 @@ interface ICpProxyAvOpenhomeOrgExakt3 extends ICpProxy
     public String getPropertyConnectionStatus();
     public void setPropertyChannelMapChanged(IPropertyChangeListener aChannelMapChanged);
     public String getPropertyChannelMap();
+    public void setPropertyAudioChannelsChanged(IPropertyChangeListener aAudioChannelsChanged);
+    public String getPropertyAudioChannels();
     public void setPropertyVersionChanged(IPropertyChangeListener aVersionChanged);
     public String getPropertyVersion();
 }
@@ -191,6 +199,42 @@ class SyncSetChannelMapAvOpenhomeOrgExakt3 extends SyncProxyAction
     }
 }
 
+class SyncAudioChannelsAvOpenhomeOrgExakt3 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgExakt3 iService;
+    private String iAudioChannels;
+
+    public SyncAudioChannelsAvOpenhomeOrgExakt3(CpProxyAvOpenhomeOrgExakt3 aProxy)
+    {
+        iService = aProxy;
+    }
+    public String getAudioChannels()
+    {
+        return iAudioChannels;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        String result = iService.endAudioChannels(aAsyncHandle);
+        
+        iAudioChannels = result;
+    }
+}
+
+class SyncSetAudioChannelsAvOpenhomeOrgExakt3 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgExakt3 iService;
+
+    public SyncSetAudioChannelsAvOpenhomeOrgExakt3(CpProxyAvOpenhomeOrgExakt3 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endSetAudioChannels(aAsyncHandle);
+        
+    }
+}
+
 class SyncVersionAvOpenhomeOrgExakt3 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgExakt3 iService;
@@ -226,14 +270,18 @@ public class CpProxyAvOpenhomeOrgExakt3 extends CpProxy implements ICpProxyAvOpe
     private Action iActionReprogramFallback;
     private Action iActionChannelMap;
     private Action iActionSetChannelMap;
+    private Action iActionAudioChannels;
+    private Action iActionSetAudioChannels;
     private Action iActionVersion;
     private PropertyString iDeviceList;
     private PropertyString iConnectionStatus;
     private PropertyString iChannelMap;
+    private PropertyString iAudioChannels;
     private PropertyString iVersion;
     private IPropertyChangeListener iDeviceListChanged;
     private IPropertyChangeListener iConnectionStatusChanged;
     private IPropertyChangeListener iChannelMapChanged;
+    private IPropertyChangeListener iAudioChannelsChanged;
     private IPropertyChangeListener iVersionChanged;
     private Object iPropertyLock;
 
@@ -296,6 +344,14 @@ public class CpProxyAvOpenhomeOrgExakt3 extends CpProxy implements ICpProxyAvOpe
         param = new ParameterString("ChannelMap", allowedValues);
         iActionSetChannelMap.addInputParameter(param);
 
+        iActionAudioChannels = new Action("AudioChannels");
+        param = new ParameterString("AudioChannels", allowedValues);
+        iActionAudioChannels.addOutputParameter(param);
+
+        iActionSetAudioChannels = new Action("SetAudioChannels");
+        param = new ParameterString("AudioChannels", allowedValues);
+        iActionSetAudioChannels.addInputParameter(param);
+
         iActionVersion = new Action("Version");
         param = new ParameterString("Version", allowedValues);
         iActionVersion.addOutputParameter(param);
@@ -327,6 +383,15 @@ public class CpProxyAvOpenhomeOrgExakt3 extends CpProxy implements ICpProxyAvOpe
             }
         );
         addProperty(iChannelMap);
+        iAudioChannelsChanged = new PropertyChangeListener();
+        iAudioChannels = new PropertyString("AudioChannels",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    audioChannelsPropertyChanged();
+                }
+            }
+        );
+        addProperty(iAudioChannels);
         iVersionChanged = new PropertyChangeListener();
         iVersion = new PropertyString("Version",
             new PropertyChangeListener() {
@@ -772,6 +837,109 @@ public class CpProxyAvOpenhomeOrgExakt3 extends CpProxy implements ICpProxyAvOpe
      *
      * @return the result of the invoked action.
      */
+    public String syncAudioChannels()
+    {
+        SyncAudioChannelsAvOpenhomeOrgExakt3 sync = new SyncAudioChannelsAvOpenhomeOrgExakt3(this);
+        beginAudioChannels(sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getAudioChannels();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endAudioChannels}.
+     * 
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginAudioChannels(ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionAudioChannels, aCallback);
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentString((ParameterString)iActionAudioChannels.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginAudioChannels} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginAudioChannels} method.
+     * @return the result of the previously invoked action.
+     */
+    public String endAudioChannels(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        String audioChannels = Invocation.getOutputString(aAsyncHandle, index++);
+        return audioChannels;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncSetAudioChannels(String aAudioChannels)
+    {
+        SyncSetAudioChannelsAvOpenhomeOrgExakt3 sync = new SyncSetAudioChannelsAvOpenhomeOrgExakt3(this);
+        beginSetAudioChannels(aAudioChannels, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endSetAudioChannels}.
+     * 
+     * @param aAudioChannels
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginSetAudioChannels(String aAudioChannels, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionSetAudioChannels, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionSetAudioChannels.getInputParameter(inIndex++), aAudioChannels));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginSetAudioChannels} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginSetAudioChannels} method.
+     */
+    public void endSetAudioChannels(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
     public String syncVersion()
     {
         SyncVersionAvOpenhomeOrgExakt3 sync = new SyncVersionAvOpenhomeOrgExakt3(this);
@@ -890,6 +1058,29 @@ public class CpProxyAvOpenhomeOrgExakt3 extends CpProxy implements ICpProxyAvOpe
         }
     }
     /**
+     * Set a delegate to be run when the AudioChannels state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgExakt3 instance will not overlap.
+     *
+     * @param aAudioChannelsChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyAudioChannelsChanged(IPropertyChangeListener aAudioChannelsChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iAudioChannelsChanged = aAudioChannelsChanged;
+        }
+    }
+
+    private void audioChannelsPropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iAudioChannelsChanged);
+        }
+    }
+    /**
      * Set a delegate to be run when the Version state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgExakt3 instance will not overlap.
@@ -962,6 +1153,22 @@ public class CpProxyAvOpenhomeOrgExakt3 extends CpProxy implements ICpProxyAvOpe
     }
     
     /**
+     * Query the value of the AudioChannels property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the AudioChannels property.
+     */
+    public String getPropertyAudioChannels()
+    {
+        propertyReadLock();
+        String val = iAudioChannels.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
      * Query the value of the Version property.
      * This function is thread-safe and can only be called if {@link 
      * #subscribe} has been called and a first eventing callback received
@@ -1000,10 +1207,13 @@ public class CpProxyAvOpenhomeOrgExakt3 extends CpProxy implements ICpProxyAvOpe
             iActionReprogramFallback.destroy();
             iActionChannelMap.destroy();
             iActionSetChannelMap.destroy();
+            iActionAudioChannels.destroy();
+            iActionSetAudioChannels.destroy();
             iActionVersion.destroy();
             iDeviceList.destroy();
             iConnectionStatus.destroy();
             iChannelMap.destroy();
+            iAudioChannels.destroy();
             iVersion.destroy();
         }
     }

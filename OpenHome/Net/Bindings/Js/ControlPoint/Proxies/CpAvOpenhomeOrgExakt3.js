@@ -21,9 +21,10 @@ var CpProxyAvOpenhomeOrgExakt3 = function(udn){
     this.serviceProperties["DeviceList"] = new ohnet.serviceproperty("DeviceList","string");
     this.serviceProperties["ConnectionStatus"] = new ohnet.serviceproperty("ConnectionStatus","string");
     this.serviceProperties["ChannelMap"] = new ohnet.serviceproperty("ChannelMap","string");
+    this.serviceProperties["AudioChannels"] = new ohnet.serviceproperty("AudioChannels","string");
     this.serviceProperties["Version"] = new ohnet.serviceproperty("Version","string");
 
-                            
+                                  
 }
 
 
@@ -82,6 +83,19 @@ CpProxyAvOpenhomeOrgExakt3.prototype.ConnectionStatus_Changed = function (stateC
 */
 CpProxyAvOpenhomeOrgExakt3.prototype.ChannelMap_Changed = function (stateChangedFunction) {
     this.serviceProperties.ChannelMap.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
+    });
+}
+    
+
+/**
+* Adds a listener to handle "AudioChannels" property change events
+* @method AudioChannels_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyAvOpenhomeOrgExakt3.prototype.AudioChannels_Changed = function (stateChangedFunction) {
+    this.serviceProperties.AudioChannels.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
     });
@@ -268,6 +282,47 @@ CpProxyAvOpenhomeOrgExakt3.prototype.ChannelMap = function(successFunction, erro
 CpProxyAvOpenhomeOrgExakt3.prototype.SetChannelMap = function(ChannelMap, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SetChannelMap", this.url, this.domain, this.type, this.version);     
     request.writeStringParameter("ChannelMap", ChannelMap);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to AudioChannels
+* @method AudioChannels
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgExakt3.prototype.AudioChannels = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("AudioChannels", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["AudioChannels"] = ohnet.soaprequest.readStringParameter(result["AudioChannels"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to SetAudioChannels
+* @method SetAudioChannels
+* @param {String} AudioChannels An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgExakt3.prototype.SetAudioChannels = function(AudioChannels, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetAudioChannels", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("AudioChannels", AudioChannels);
     request.send(function(result){
     
         if (successFunction){

@@ -58,6 +58,22 @@ interface IDvProviderAvOpenhomeOrgExakt3
     public String getPropertyChannelMap();
 
     /**
+     * Set the value of the AudioChannels property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyAudioChannels(String aValue);
+
+    /**
+     * Get a copy of the value of the AudioChannels property
+     *
+     * @return value of the AudioChannels property.
+     */
+    public String getPropertyAudioChannels();
+
+    /**
      * Set the value of the Version property
      *
      * @param aValue    new value for the property.
@@ -89,10 +105,13 @@ public class DvProviderAvOpenhomeOrgExakt3 extends DvProvider implements IDvProv
     private IDvInvocationListener iDelegateReprogramFallback;
     private IDvInvocationListener iDelegateChannelMap;
     private IDvInvocationListener iDelegateSetChannelMap;
+    private IDvInvocationListener iDelegateAudioChannels;
+    private IDvInvocationListener iDelegateSetAudioChannels;
     private IDvInvocationListener iDelegateVersion;
     private PropertyString iPropertyDeviceList;
     private PropertyString iPropertyConnectionStatus;
     private PropertyString iPropertyChannelMap;
+    private PropertyString iPropertyAudioChannels;
     private PropertyString iPropertyVersion;
 
     /**
@@ -133,6 +152,16 @@ public class DvProviderAvOpenhomeOrgExakt3 extends DvProvider implements IDvProv
         List<String> allowedValues = new LinkedList<String>();
         iPropertyChannelMap = new PropertyString(new ParameterString("ChannelMap", allowedValues));
         addProperty(iPropertyChannelMap);
+    }
+
+    /**
+     * Enable the AudioChannels property.
+     */
+    public void enablePropertyAudioChannels()
+    {
+        List<String> allowedValues = new LinkedList<String>();
+        iPropertyAudioChannels = new PropertyString(new ParameterString("AudioChannels", allowedValues));
+        addProperty(iPropertyAudioChannels);
     }
 
     /**
@@ -209,6 +238,28 @@ public class DvProviderAvOpenhomeOrgExakt3 extends DvProvider implements IDvProv
     public String getPropertyChannelMap()
     {
         return iPropertyChannelMap.getValue();
+    }
+
+    /**
+     * Set the value of the AudioChannels property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyAudioChannels(String aValue)
+    {
+        return setPropertyString(iPropertyAudioChannels, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the AudioChannels property
+     *
+     * @return  value of the AudioChannels property.
+     */
+    public String getPropertyAudioChannels()
+    {
+        return iPropertyAudioChannels.getValue();
     }
 
     /**
@@ -353,6 +404,34 @@ public class DvProviderAvOpenhomeOrgExakt3 extends DvProvider implements IDvProv
     }
 
     /**
+     * Signal that the action AudioChannels is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * AudioChannels must be overridden if this is called.
+     */      
+    protected void enableActionAudioChannels()
+    {
+        Action action = new Action("AudioChannels");
+        action.addOutputParameter(new ParameterRelated("AudioChannels", iPropertyAudioChannels));
+        iDelegateAudioChannels = new DoAudioChannels();
+        enableAction(action, iDelegateAudioChannels);
+    }
+
+    /**
+     * Signal that the action SetAudioChannels is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * SetAudioChannels must be overridden if this is called.
+     */      
+    protected void enableActionSetAudioChannels()
+    {
+        Action action = new Action("SetAudioChannels");
+        action.addInputParameter(new ParameterRelated("AudioChannels", iPropertyAudioChannels));
+        iDelegateSetAudioChannels = new DoSetAudioChannels();
+        enableAction(action, iDelegateSetAudioChannels);
+    }
+
+    /**
      * Signal that the action Version is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
@@ -493,6 +572,37 @@ public class DvProviderAvOpenhomeOrgExakt3 extends DvProvider implements IDvProv
      * @param aChannelMap
      */
     protected void setChannelMap(IDvInvocation aInvocation, String aChannelMap)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * AudioChannels action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * AudioChannels action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionAudioChannels} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected String audioChannels(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * SetAudioChannels action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * SetAudioChannels action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionSetAudioChannels} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aAudioChannels
+     */
+    protected void setAudioChannels(IDvInvocation aInvocation, String aAudioChannels)
     {
         throw (new ActionDisabledError());
     }
@@ -895,6 +1005,102 @@ public class DvProviderAvOpenhomeOrgExakt3 extends DvProvider implements IDvProv
             catch (ActionError ae)
             {
                 invocation.reportActionError(ae, "SetChannelMap");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoAudioChannels implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String audioChannels;
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                 audioChannels = audioChannels(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "AudioChannels");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeString("AudioChannels", audioChannels);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoSetAudioChannels implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String audioChannels;
+            try
+            {
+                invocation.readStart();
+                audioChannels = invocation.readString("AudioChannels");
+                invocation.readEnd();
+                setAudioChannels(invocation, audioChannels);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "SetAudioChannels");
                 return;
             }
             catch (PropertyUpdateError pue)

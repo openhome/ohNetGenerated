@@ -123,6 +123,30 @@ typedef int32_t (STDCALL *CallbackExakt3ChannelMap)(void* aPtr, IDvInvocationC* 
  */
 typedef int32_t (STDCALL *CallbackExakt3SetChannelMap)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aChannelMap);
 /**
+ * Callback which runs when the AudioChannels action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgExakt3EnableActionAudioChannels
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ * @param[out] aAudioChannels
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackExakt3AudioChannels)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, char** aAudioChannels);
+/**
+ * Callback which runs when the SetAudioChannels action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgExakt3EnableActionSetAudioChannels
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ * @param[in]  aAudioChannels
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackExakt3SetAudioChannels)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aAudioChannels);
+/**
  * Callback which runs when the Version action is invoked
  *
  * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgExakt3EnableActionVersion
@@ -163,6 +187,10 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3EnablePropertyConnectionStat
  * Enable the ChannelMap property.
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3EnablePropertyChannelMap(THandle aProvider);
+/**
+ * Enable the AudioChannels property.
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3EnablePropertyAudioChannels(THandle aProvider);
 /**
  * Enable the Version property.
  */
@@ -257,6 +285,28 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionChannelMap(THand
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionSetChannelMap(THandle aProvider, CallbackExakt3SetChannelMap aCallback, void* aPtr);
 /**
+ * Register a callback for the action AudioChannels
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderAvOpenhomeOrgExakt3Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionAudioChannels(THandle aProvider, CallbackExakt3AudioChannels aCallback, void* aPtr);
+/**
+ * Register a callback for the action SetAudioChannels
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderAvOpenhomeOrgExakt3Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3EnableActionSetAudioChannels(THandle aProvider, CallbackExakt3SetAudioChannels aCallback, void* aPtr);
+/**
  * Register a callback for the action Version
  *
  * If this is called, the action's availability will be published in the device's service.xml.
@@ -334,6 +384,28 @@ DllExport int32_t STDCALL DvProviderAvOpenhomeOrgExakt3SetPropertyChannelMap(THa
  * @param[out] aValue     Value for the property.  Caller is responsible for freeing this.
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3GetPropertyChannelMap(THandle aProvider, char** aValue);
+/**
+ * Set the value of the AudioChannels property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgExakt3EnablePropertyAudioChannels has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgExakt3Create
+ * @param[in]  aValue     New value for the property (will be copied)
+ * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
+ *
+ * @return  0 if the property was successfully set; non-zero if there was an error (including
+ *          an attempt to set a property to a value not in its allowed range/set)
+ */
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgExakt3SetPropertyAudioChannels(THandle aProvider, const char* aValue, uint32_t* aChanged);
+/**
+ * Get a copy of the value of the AudioChannels property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgExakt3EnablePropertyAudioChannels has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgExakt3Create
+ * @param[out] aValue     Value for the property.  Caller is responsible for freeing this.
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgExakt3GetPropertyAudioChannels(THandle aProvider, char** aValue);
 /**
  * Set the value of the Version property
  *

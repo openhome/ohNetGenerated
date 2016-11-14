@@ -34,6 +34,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSetChannelMap(String aChannelMap);
         void BeginSetChannelMap(String aChannelMap, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetChannelMap(IntPtr aAsyncHandle);
+        void SyncAudioChannels(out String aAudioChannels);
+        void BeginAudioChannels(CpProxy.CallbackAsyncComplete aCallback);
+        void EndAudioChannels(IntPtr aAsyncHandle, out String aAudioChannels);
+        void SyncSetAudioChannels(String aAudioChannels);
+        void BeginSetAudioChannels(String aAudioChannels, CpProxy.CallbackAsyncComplete aCallback);
+        void EndSetAudioChannels(IntPtr aAsyncHandle);
         void SyncVersion(out String aVersion);
         void BeginVersion(CpProxy.CallbackAsyncComplete aCallback);
         void EndVersion(IntPtr aAsyncHandle, out String aVersion);
@@ -43,6 +49,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         String PropertyConnectionStatus();
         void SetPropertyChannelMapChanged(System.Action aChannelMapChanged);
         String PropertyChannelMap();
+        void SetPropertyAudioChannelsChanged(System.Action aAudioChannelsChanged);
+        String PropertyAudioChannels();
         void SetPropertyVersionChanged(System.Action aVersionChanged);
         String PropertyVersion();
     }
@@ -179,6 +187,39 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
+    internal class SyncAudioChannelsAvOpenhomeOrgExakt3 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgExakt3 iService;
+        private String iAudioChannels;
+
+        public SyncAudioChannelsAvOpenhomeOrgExakt3(CpProxyAvOpenhomeOrgExakt3 aProxy)
+        {
+            iService = aProxy;
+        }
+        public String AudioChannels()
+        {
+            return iAudioChannels;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndAudioChannels(aAsyncHandle, out iAudioChannels);
+        }
+    };
+
+    internal class SyncSetAudioChannelsAvOpenhomeOrgExakt3 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgExakt3 iService;
+
+        public SyncSetAudioChannelsAvOpenhomeOrgExakt3(CpProxyAvOpenhomeOrgExakt3 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndSetAudioChannels(aAsyncHandle);
+        }
+    };
+
     internal class SyncVersionAvOpenhomeOrgExakt3 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgExakt3 iService;
@@ -211,14 +252,18 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionReprogramFallback;
         private OpenHome.Net.Core.Action iActionChannelMap;
         private OpenHome.Net.Core.Action iActionSetChannelMap;
+        private OpenHome.Net.Core.Action iActionAudioChannels;
+        private OpenHome.Net.Core.Action iActionSetAudioChannels;
         private OpenHome.Net.Core.Action iActionVersion;
         private PropertyString iDeviceList;
         private PropertyString iConnectionStatus;
         private PropertyString iChannelMap;
+        private PropertyString iAudioChannels;
         private PropertyString iVersion;
         private System.Action iDeviceListChanged;
         private System.Action iConnectionStatusChanged;
         private System.Action iChannelMapChanged;
+        private System.Action iAudioChannelsChanged;
         private System.Action iVersionChanged;
         private Mutex iPropertyLock;
 
@@ -279,6 +324,14 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterString("ChannelMap", allowedValues);
             iActionSetChannelMap.AddInputParameter(param);
 
+            iActionAudioChannels = new OpenHome.Net.Core.Action("AudioChannels");
+            param = new ParameterString("AudioChannels", allowedValues);
+            iActionAudioChannels.AddOutputParameter(param);
+
+            iActionSetAudioChannels = new OpenHome.Net.Core.Action("SetAudioChannels");
+            param = new ParameterString("AudioChannels", allowedValues);
+            iActionSetAudioChannels.AddInputParameter(param);
+
             iActionVersion = new OpenHome.Net.Core.Action("Version");
             param = new ParameterString("Version", allowedValues);
             iActionVersion.AddOutputParameter(param);
@@ -289,6 +342,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             AddProperty(iConnectionStatus);
             iChannelMap = new PropertyString("ChannelMap", ChannelMapPropertyChanged);
             AddProperty(iChannelMap);
+            iAudioChannels = new PropertyString("AudioChannels", AudioChannelsPropertyChanged);
+            AddProperty(iAudioChannels);
             iVersion = new PropertyString("Version", VersionPropertyChanged);
             AddProperty(iVersion);
             
@@ -702,6 +757,101 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
+        /// <param name="aAudioChannels"></param>
+        public void SyncAudioChannels(out String aAudioChannels)
+        {
+            SyncAudioChannelsAvOpenhomeOrgExakt3 sync = new SyncAudioChannelsAvOpenhomeOrgExakt3(this);
+            BeginAudioChannels(sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aAudioChannels = sync.AudioChannels();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndAudioChannels().</remarks>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginAudioChannels(CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionAudioChannels, aCallback);
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentString((ParameterString)iActionAudioChannels.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aAudioChannels"></param>
+        public void EndAudioChannels(IntPtr aAsyncHandle, out String aAudioChannels)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
+            aAudioChannels = Invocation.OutputString(aAsyncHandle, index++);
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aAudioChannels"></param>
+        public void SyncSetAudioChannels(String aAudioChannels)
+        {
+            SyncSetAudioChannelsAvOpenhomeOrgExakt3 sync = new SyncSetAudioChannelsAvOpenhomeOrgExakt3(this);
+            BeginSetAudioChannels(aAudioChannels, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndSetAudioChannels().</remarks>
+        /// <param name="aAudioChannels"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginSetAudioChannels(String aAudioChannels, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionSetAudioChannels, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentString((ParameterString)iActionSetAudioChannels.InputParameter(inIndex++), aAudioChannels));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndSetAudioChannels(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
         /// <param name="aVersion"></param>
         public void SyncVersion(out String aVersion)
         {
@@ -813,6 +963,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Set a delegate to be run when the AudioChannels state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyAvOpenhomeOrgExakt3 instance will not overlap.</remarks>
+        /// <param name="aAudioChannelsChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyAudioChannelsChanged(System.Action aAudioChannelsChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iAudioChannelsChanged = aAudioChannelsChanged;
+            }
+        }
+
+        private void AudioChannelsPropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iAudioChannelsChanged);
+            }
+        }
+
+        /// <summary>
         /// Set a delegate to be run when the Version state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
@@ -901,6 +1073,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Query the value of the AudioChannels property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the AudioChannels property</returns>
+        public String PropertyAudioChannels()
+        {
+            PropertyReadLock();
+            String val;
+            try
+            {
+                val = iAudioChannels.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
+        }
+
+        /// <summary>
         /// Query the value of the Version property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
@@ -942,10 +1136,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionReprogramFallback.Dispose();
             iActionChannelMap.Dispose();
             iActionSetChannelMap.Dispose();
+            iActionAudioChannels.Dispose();
+            iActionSetAudioChannels.Dispose();
             iActionVersion.Dispose();
             iDeviceList.Dispose();
             iConnectionStatus.Dispose();
             iChannelMap.Dispose();
+            iAudioChannels.Dispose();
             iVersion.Dispose();
         }
     }

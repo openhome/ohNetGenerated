@@ -189,6 +189,50 @@ void SyncSetChannelMapAvOpenhomeOrgExakt3Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
+class SyncAudioChannelsAvOpenhomeOrgExakt3Cpp : public SyncProxyAction
+{
+public:
+    SyncAudioChannelsAvOpenhomeOrgExakt3Cpp(CpProxyAvOpenhomeOrgExakt3Cpp& aProxy, std::string& aAudioChannels);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncAudioChannelsAvOpenhomeOrgExakt3Cpp() {}
+private:
+    CpProxyAvOpenhomeOrgExakt3Cpp& iService;
+    std::string& iAudioChannels;
+};
+
+SyncAudioChannelsAvOpenhomeOrgExakt3Cpp::SyncAudioChannelsAvOpenhomeOrgExakt3Cpp(CpProxyAvOpenhomeOrgExakt3Cpp& aProxy, std::string& aAudioChannels)
+    : iService(aProxy)
+    , iAudioChannels(aAudioChannels)
+{
+}
+
+void SyncAudioChannelsAvOpenhomeOrgExakt3Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndAudioChannels(aAsync, iAudioChannels);
+}
+
+
+class SyncSetAudioChannelsAvOpenhomeOrgExakt3Cpp : public SyncProxyAction
+{
+public:
+    SyncSetAudioChannelsAvOpenhomeOrgExakt3Cpp(CpProxyAvOpenhomeOrgExakt3Cpp& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncSetAudioChannelsAvOpenhomeOrgExakt3Cpp() {}
+private:
+    CpProxyAvOpenhomeOrgExakt3Cpp& iService;
+};
+
+SyncSetAudioChannelsAvOpenhomeOrgExakt3Cpp::SyncSetAudioChannelsAvOpenhomeOrgExakt3Cpp(CpProxyAvOpenhomeOrgExakt3Cpp& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSetAudioChannelsAvOpenhomeOrgExakt3Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSetAudioChannels(aAsync);
+}
+
+
 class SyncVersionAvOpenhomeOrgExakt3Cpp : public SyncProxyAction
 {
 public:
@@ -263,6 +307,14 @@ CpProxyAvOpenhomeOrgExakt3Cpp::CpProxyAvOpenhomeOrgExakt3Cpp(CpDeviceCpp& aDevic
     param = new OpenHome::Net::ParameterString("ChannelMap");
     iActionSetChannelMap->AddInputParameter(param);
 
+    iActionAudioChannels = new Action("AudioChannels");
+    param = new OpenHome::Net::ParameterString("AudioChannels");
+    iActionAudioChannels->AddOutputParameter(param);
+
+    iActionSetAudioChannels = new Action("SetAudioChannels");
+    param = new OpenHome::Net::ParameterString("AudioChannels");
+    iActionSetAudioChannels->AddInputParameter(param);
+
     iActionVersion = new Action("Version");
     param = new OpenHome::Net::ParameterString("Version");
     iActionVersion->AddOutputParameter(param);
@@ -277,6 +329,9 @@ CpProxyAvOpenhomeOrgExakt3Cpp::CpProxyAvOpenhomeOrgExakt3Cpp(CpDeviceCpp& aDevic
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt3Cpp::ChannelMapPropertyChanged);
     iChannelMap = new PropertyString("ChannelMap", functor);
     AddProperty(iChannelMap);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt3Cpp::AudioChannelsPropertyChanged);
+    iAudioChannels = new PropertyString("AudioChannels", functor);
+    AddProperty(iAudioChannels);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgExakt3Cpp::VersionPropertyChanged);
     iVersion = new PropertyString("Version", functor);
     AddProperty(iVersion);
@@ -293,6 +348,8 @@ CpProxyAvOpenhomeOrgExakt3Cpp::~CpProxyAvOpenhomeOrgExakt3Cpp()
     delete iActionReprogramFallback;
     delete iActionChannelMap;
     delete iActionSetChannelMap;
+    delete iActionAudioChannels;
+    delete iActionSetAudioChannels;
     delete iActionVersion;
 }
 
@@ -589,6 +646,74 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::EndSetChannelMap(IAsync& aAsync)
     }
 }
 
+void CpProxyAvOpenhomeOrgExakt3Cpp::SyncAudioChannels(std::string& aAudioChannels)
+{
+    SyncAudioChannelsAvOpenhomeOrgExakt3Cpp sync(*this, aAudioChannels);
+    BeginAudioChannels(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgExakt3Cpp::BeginAudioChannels(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionAudioChannels, aFunctor);
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionAudioChannels->OutputParameters();
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgExakt3Cpp::EndAudioChannels(IAsync& aAsync, std::string& aAudioChannels)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("AudioChannels"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    {
+        const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
+        aAudioChannels.assign((const char*)val.Ptr(), val.Bytes());
+    }
+}
+
+void CpProxyAvOpenhomeOrgExakt3Cpp::SyncSetAudioChannels(const std::string& aAudioChannels)
+{
+    SyncSetAudioChannelsAvOpenhomeOrgExakt3Cpp sync(*this);
+    BeginSetAudioChannels(aAudioChannels, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgExakt3Cpp::BeginSetAudioChannels(const std::string& aAudioChannels, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetAudioChannels, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSetAudioChannels->InputParameters();
+    {
+        Brn buf((const TByte*)aAudioChannels.c_str(), (TUint)aAudioChannels.length());
+        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
+    }
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgExakt3Cpp::EndSetAudioChannels(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SetAudioChannels"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
 void CpProxyAvOpenhomeOrgExakt3Cpp::SyncVersion(std::string& aVersion)
 {
     SyncVersionAvOpenhomeOrgExakt3Cpp sync(*this, aVersion);
@@ -645,6 +770,13 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::SetPropertyChannelMapChanged(Functor& aFunct
     iCpProxy.GetLock().Signal();
 }
 
+void CpProxyAvOpenhomeOrgExakt3Cpp::SetPropertyAudioChannelsChanged(Functor& aFunctor)
+{
+    iCpProxy.GetLock().Wait();
+    iAudioChannelsChanged = aFunctor;
+    iCpProxy.GetLock().Signal();
+}
+
 void CpProxyAvOpenhomeOrgExakt3Cpp::SetPropertyVersionChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
@@ -682,6 +814,16 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyChannelMap(std::string& aChannelMap)
     aChannelMap.assign((const char*)val.Ptr(), val.Bytes());
 }
 
+void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyAudioChannels(std::string& aAudioChannels) const
+{
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
+    const Brx& val = iAudioChannels->Value();
+    aAudioChannels.assign((const char*)val.Ptr(), val.Bytes());
+}
+
 void CpProxyAvOpenhomeOrgExakt3Cpp::PropertyVersion(std::string& aVersion) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
@@ -705,6 +847,11 @@ void CpProxyAvOpenhomeOrgExakt3Cpp::ConnectionStatusPropertyChanged()
 void CpProxyAvOpenhomeOrgExakt3Cpp::ChannelMapPropertyChanged()
 {
     ReportEvent(iChannelMapChanged);
+}
+
+void CpProxyAvOpenhomeOrgExakt3Cpp::AudioChannelsPropertyChanged()
+{
+    ReportEvent(iAudioChannelsChanged);
 }
 
 void CpProxyAvOpenhomeOrgExakt3Cpp::VersionPropertyChanged()
