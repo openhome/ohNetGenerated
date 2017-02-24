@@ -232,6 +232,22 @@ interface IDvProviderAvOpenhomeOrgVolume3
      * @return value of the VolumeOffsetMax property.
      */
     public long getPropertyVolumeOffsetMax();
+
+    /**
+     * Set the value of the Trim property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyTrim(String aValue);
+
+    /**
+     * Get a copy of the value of the Trim property
+     *
+     * @return value of the Trim property.
+     */
+    public String getPropertyTrim();
         
 }
 
@@ -311,6 +327,8 @@ public class DvProviderAvOpenhomeOrgVolume3 extends DvProvider implements IDvPro
     private IDvInvocationListener iDelegateUnityGain;
     private IDvInvocationListener iDelegateVolumeOffset;
     private IDvInvocationListener iDelegateSetVolumeOffset;
+    private IDvInvocationListener iDelegateTrim;
+    private IDvInvocationListener iDelegateSetTrim;
     private PropertyUint iPropertyVolume;
     private PropertyBool iPropertyMute;
     private PropertyInt iPropertyBalance;
@@ -325,6 +343,7 @@ public class DvProviderAvOpenhomeOrgVolume3 extends DvProvider implements IDvPro
     private PropertyBool iPropertyUnityGain;
     private PropertyString iPropertyVolumeOffsets;
     private PropertyUint iPropertyVolumeOffsetMax;
+    private PropertyString iPropertyTrim;
 
     /**
      * Constructor
@@ -461,6 +480,16 @@ public class DvProviderAvOpenhomeOrgVolume3 extends DvProvider implements IDvPro
     {
         iPropertyVolumeOffsetMax = new PropertyUint(new ParameterUint("VolumeOffsetMax"));
         addProperty(iPropertyVolumeOffsetMax);
+    }
+
+    /**
+     * Enable the Trim property.
+     */
+    public void enablePropertyTrim()
+    {
+        List<String> allowedValues = new LinkedList<String>();
+        iPropertyTrim = new PropertyString(new ParameterString("Trim", allowedValues));
+        addProperty(iPropertyTrim);
     }
 
     /**
@@ -772,6 +801,28 @@ public class DvProviderAvOpenhomeOrgVolume3 extends DvProvider implements IDvPro
     }
 
     /**
+     * Set the value of the Trim property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyTrim(String aValue)
+    {
+        return setPropertyString(iPropertyTrim, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the Trim property
+     *
+     * @return  value of the Trim property.
+     */
+    public String getPropertyTrim()
+    {
+        return iPropertyTrim.getValue();
+    }
+
+    /**
      * Signal that the action Characteristics is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
@@ -1036,6 +1087,36 @@ public class DvProviderAvOpenhomeOrgVolume3 extends DvProvider implements IDvPro
         action.addInputParameter(new ParameterInt("VolumeOffsetBinaryMilliDb"));
         iDelegateSetVolumeOffset = new DoSetVolumeOffset();
         enableAction(action, iDelegateSetVolumeOffset);
+    }
+
+    /**
+     * Signal that the action Trim is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * Trim must be overridden if this is called.
+     */      
+    protected void enableActionTrim()
+    {
+        Action action = new Action("Trim");        List<String> allowedValues = new LinkedList<String>();
+        action.addInputParameter(new ParameterString("Channel", allowedValues));
+        action.addOutputParameter(new ParameterInt("TrimBinaryMilliDb"));
+        iDelegateTrim = new DoTrim();
+        enableAction(action, iDelegateTrim);
+    }
+
+    /**
+     * Signal that the action SetTrim is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * SetTrim must be overridden if this is called.
+     */      
+    protected void enableActionSetTrim()
+    {
+        Action action = new Action("SetTrim");        List<String> allowedValues = new LinkedList<String>();
+        action.addInputParameter(new ParameterString("Channel", allowedValues));
+        action.addInputParameter(new ParameterInt("TrimBinaryMilliDb"));
+        iDelegateSetTrim = new DoSetTrim();
+        enableAction(action, iDelegateSetTrim);
     }
 
     /**
@@ -1326,6 +1407,39 @@ public class DvProviderAvOpenhomeOrgVolume3 extends DvProvider implements IDvPro
      * @param aVolumeOffsetBinaryMilliDb
      */
     protected void setVolumeOffset(IDvInvocation aInvocation, String aChannel, int aVolumeOffsetBinaryMilliDb)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * Trim action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * Trim action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionTrim} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aChannel
+     */
+    protected int trim(IDvInvocation aInvocation, String aChannel)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * SetTrim action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * SetTrim action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionSetTrim} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aChannel
+     * @param aTrimBinaryMilliDb
+     */
+    protected void setTrim(IDvInvocation aInvocation, String aChannel, int aTrimBinaryMilliDb)
     {
         throw (new ActionDisabledError());
     }
@@ -2236,6 +2350,106 @@ public class DvProviderAvOpenhomeOrgVolume3 extends DvProvider implements IDvPro
             catch (ActionError ae)
             {
                 invocation.reportActionError(ae, "SetVolumeOffset");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoTrim implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String channel;
+            int trimBinaryMilliDb;
+            try
+            {
+                invocation.readStart();
+                channel = invocation.readString("Channel");
+                invocation.readEnd();
+                 trimBinaryMilliDb = trim(invocation, channel);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "Trim");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeInt("TrimBinaryMilliDb", trimBinaryMilliDb);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoSetTrim implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String channel;
+            int trimBinaryMilliDb;
+            try
+            {
+                invocation.readStart();
+                channel = invocation.readString("Channel");
+                trimBinaryMilliDb = invocation.readInt("TrimBinaryMilliDb");
+                invocation.readEnd();
+                setTrim(invocation, channel, trimBinaryMilliDb);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "SetTrim");
                 return;
             }
             catch (PropertyUpdateError pue)

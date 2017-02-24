@@ -32,8 +32,9 @@ var CpProxyAvOpenhomeOrgVolume3 = function(udn){
     this.serviceProperties["UnityGain"] = new ohnet.serviceproperty("UnityGain","bool");
     this.serviceProperties["VolumeOffsets"] = new ohnet.serviceproperty("VolumeOffsets","string");
     this.serviceProperties["VolumeOffsetMax"] = new ohnet.serviceproperty("VolumeOffsetMax","int");
+    this.serviceProperties["Trim"] = new ohnet.serviceproperty("Trim","string");
 
-                                                                                        
+                                                                                              
 }
 
 
@@ -237,6 +238,19 @@ CpProxyAvOpenhomeOrgVolume3.prototype.VolumeOffsetMax_Changed = function (stateC
     this.serviceProperties.VolumeOffsetMax.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readIntParameter(state)); 
+    });
+}
+    
+
+/**
+* Adds a listener to handle "Trim" property change events
+* @method Trim_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyAvOpenhomeOrgVolume3.prototype.Trim_Changed = function (stateChangedFunction) {
+    this.serviceProperties.Trim.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
     });
 }
 
@@ -618,6 +632,51 @@ CpProxyAvOpenhomeOrgVolume3.prototype.SetVolumeOffset = function(Channel, Volume
     var request = new ohnet.soaprequest("SetVolumeOffset", this.url, this.domain, this.type, this.version);     
     request.writeStringParameter("Channel", Channel);
     request.writeIntParameter("VolumeOffsetBinaryMilliDb", VolumeOffsetBinaryMilliDb);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to Trim
+* @method Trim
+* @param {String} Channel An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgVolume3.prototype.Trim = function(Channel, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("Trim", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("Channel", Channel);
+    request.send(function(result){
+        result["TrimBinaryMilliDb"] = ohnet.soaprequest.readIntParameter(result["TrimBinaryMilliDb"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to SetTrim
+* @method SetTrim
+* @param {String} Channel An action parameter
+* @param {Int} TrimBinaryMilliDb An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgVolume3.prototype.SetTrim = function(Channel, TrimBinaryMilliDb, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetTrim", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("Channel", Channel);
+    request.writeIntParameter("TrimBinaryMilliDb", TrimBinaryMilliDb);
     request.send(function(result){
     
         if (successFunction){

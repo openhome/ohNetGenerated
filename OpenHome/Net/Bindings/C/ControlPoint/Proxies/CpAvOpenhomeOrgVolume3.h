@@ -727,6 +727,82 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume3BeginSetVolumeOffset(THandle a
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3EndSetVolumeOffset(THandle aHandle, OhNetHandleAsync aAsync);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[in]  aChannel
+ * @param[out] aTrimBinaryMilliDb
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3SyncTrim(THandle aHandle, const char* aChannel, int32_t* aTrimBinaryMilliDb);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[in]  aChannel
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyAvOpenhomeOrgVolume3BeginTrim(THandle aHandle, const char* aChannel, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ * @param[out] aTrimBinaryMilliDb
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3EndTrim(THandle aHandle, OhNetHandleAsync aAsync, int32_t* aTrimBinaryMilliDb);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[in]  aChannel
+ * @param[in]  aTrimBinaryMilliDb
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3SyncSetTrim(THandle aHandle, const char* aChannel, int32_t aTrimBinaryMilliDb);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[in]  aChannel
+ * @param[in]  aTrimBinaryMilliDb
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyAvOpenhomeOrgVolume3BeginSetTrim(THandle aHandle, const char* aChannel, int32_t aTrimBinaryMilliDb, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3EndSetTrim(THandle aHandle, OhNetHandleAsync aAsync);
 /**
  * Set a callback to be run when the Volume state variable changes.
  *
@@ -881,6 +957,17 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgVolume3SetPropertyVolumeOffsetsChange
  * @param[in]  aPtr      Data to be passed to the callback
  */
 DllExport void STDCALL CpProxyAvOpenhomeOrgVolume3SetPropertyVolumeOffsetMaxChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
+/**
+ * Set a callback to be run when the Trim state variable changes.
+ *
+ * Callbacks may be run in different threads but callbacks for a
+ * CpProxyAvOpenhomeOrgVolume3 instance will not overlap.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[in]  aCallback The callback to run when the state variable changes
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyAvOpenhomeOrgVolume3SetPropertyTrimChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 
 /**
  * Query the value of the Volume property.
@@ -1050,6 +1137,18 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3PropertyVolumeOffsets(THand
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3PropertyVolumeOffsetMax(THandle aHandle, uint32_t* aVolumeOffsetMax);
+/**
+ * Query the value of the Trim property.
+ *
+ * This function is threadsafe and can only be called after the first callback
+ * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgVolume3Create
+ * @param[out] aTrim
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgVolume3PropertyTrim(THandle aHandle, char** aTrim);
 
 /* @} */
 

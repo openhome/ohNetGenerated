@@ -99,6 +99,14 @@ public:
     void BeginSetVolumeOffset(const Brx& aChannel, TInt aVolumeOffsetBinaryMilliDb, FunctorAsync& aFunctor);
     void EndSetVolumeOffset(IAsync& aAsync);
 
+    void SyncTrim(const Brx& aChannel, TInt& aTrimBinaryMilliDb);
+    void BeginTrim(const Brx& aChannel, FunctorAsync& aFunctor);
+    void EndTrim(IAsync& aAsync, TInt& aTrimBinaryMilliDb);
+
+    void SyncSetTrim(const Brx& aChannel, TInt aTrimBinaryMilliDb);
+    void BeginSetTrim(const Brx& aChannel, TInt aTrimBinaryMilliDb, FunctorAsync& aFunctor);
+    void EndSetTrim(IAsync& aAsync);
+
     void SetPropertyVolumeChanged(Functor& aFunctor);
     void SetPropertyMuteChanged(Functor& aFunctor);
     void SetPropertyBalanceChanged(Functor& aFunctor);
@@ -113,6 +121,7 @@ public:
     void SetPropertyUnityGainChanged(Functor& aFunctor);
     void SetPropertyVolumeOffsetsChanged(Functor& aFunctor);
     void SetPropertyVolumeOffsetMaxChanged(Functor& aFunctor);
+    void SetPropertyTrimChanged(Functor& aFunctor);
 
     void PropertyVolume(TUint& aVolume) const;
     void PropertyMute(TBool& aMute) const;
@@ -128,6 +137,7 @@ public:
     void PropertyUnityGain(TBool& aUnityGain) const;
     void PropertyVolumeOffsets(Brhz& aVolumeOffsets) const;
     void PropertyVolumeOffsetMax(TUint& aVolumeOffsetMax) const;
+    void PropertyTrim(Brhz& aTrim) const;
 private:
     void VolumePropertyChanged();
     void MutePropertyChanged();
@@ -143,6 +153,7 @@ private:
     void UnityGainPropertyChanged();
     void VolumeOffsetsPropertyChanged();
     void VolumeOffsetMaxPropertyChanged();
+    void TrimPropertyChanged();
 private:
     Mutex iLock;
     Action* iActionCharacteristics;
@@ -164,6 +175,8 @@ private:
     Action* iActionUnityGain;
     Action* iActionVolumeOffset;
     Action* iActionSetVolumeOffset;
+    Action* iActionTrim;
+    Action* iActionSetTrim;
     PropertyUint* iVolume;
     PropertyBool* iMute;
     PropertyInt* iBalance;
@@ -178,6 +191,7 @@ private:
     PropertyBool* iUnityGain;
     PropertyString* iVolumeOffsets;
     PropertyUint* iVolumeOffsetMax;
+    PropertyString* iTrim;
     Functor iVolumeChanged;
     Functor iMuteChanged;
     Functor iBalanceChanged;
@@ -192,6 +206,7 @@ private:
     Functor iUnityGainChanged;
     Functor iVolumeOffsetsChanged;
     Functor iVolumeOffsetMaxChanged;
+    Functor iTrimChanged;
 };
 
 
@@ -619,6 +634,50 @@ void SyncSetVolumeOffsetAvOpenhomeOrgVolume3C::CompleteRequest(IAsync& aAsync)
     iService.EndSetVolumeOffset(aAsync);
 }
 
+
+class SyncTrimAvOpenhomeOrgVolume3C : public SyncProxyAction
+{
+public:
+    SyncTrimAvOpenhomeOrgVolume3C(CpProxyAvOpenhomeOrgVolume3C& aProxy, TInt& aTrimBinaryMilliDb);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncTrimAvOpenhomeOrgVolume3C() {};
+private:
+    CpProxyAvOpenhomeOrgVolume3C& iService;
+    TInt& iTrimBinaryMilliDb;
+};
+
+SyncTrimAvOpenhomeOrgVolume3C::SyncTrimAvOpenhomeOrgVolume3C(CpProxyAvOpenhomeOrgVolume3C& aProxy, TInt& aTrimBinaryMilliDb)
+    : iService(aProxy)
+    , iTrimBinaryMilliDb(aTrimBinaryMilliDb)
+{
+}
+
+void SyncTrimAvOpenhomeOrgVolume3C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndTrim(aAsync, iTrimBinaryMilliDb);
+}
+
+
+class SyncSetTrimAvOpenhomeOrgVolume3C : public SyncProxyAction
+{
+public:
+    SyncSetTrimAvOpenhomeOrgVolume3C(CpProxyAvOpenhomeOrgVolume3C& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncSetTrimAvOpenhomeOrgVolume3C() {};
+private:
+    CpProxyAvOpenhomeOrgVolume3C& iService;
+};
+
+SyncSetTrimAvOpenhomeOrgVolume3C::SyncSetTrimAvOpenhomeOrgVolume3C(CpProxyAvOpenhomeOrgVolume3C& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSetTrimAvOpenhomeOrgVolume3C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSetTrim(aAsync);
+}
+
 CpProxyAvOpenhomeOrgVolume3C::CpProxyAvOpenhomeOrgVolume3C(CpDeviceC aDevice)
     : CpProxyC("av-openhome-org", "Volume", 3, *reinterpret_cast<CpiDevice*>(aDevice))
     , iLock("MPCS")
@@ -703,6 +762,18 @@ CpProxyAvOpenhomeOrgVolume3C::CpProxyAvOpenhomeOrgVolume3C(CpDeviceC aDevice)
     param = new OpenHome::Net::ParameterInt("VolumeOffsetBinaryMilliDb");
     iActionSetVolumeOffset->AddInputParameter(param);
 
+    iActionTrim = new Action("Trim");
+    param = new OpenHome::Net::ParameterString("Channel");
+    iActionTrim->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterInt("TrimBinaryMilliDb");
+    iActionTrim->AddOutputParameter(param);
+
+    iActionSetTrim = new Action("SetTrim");
+    param = new OpenHome::Net::ParameterString("Channel");
+    iActionSetTrim->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterInt("TrimBinaryMilliDb");
+    iActionSetTrim->AddInputParameter(param);
+
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume3C::VolumePropertyChanged);
     iVolume = new PropertyUint("Volume", functor);
@@ -746,6 +817,9 @@ CpProxyAvOpenhomeOrgVolume3C::CpProxyAvOpenhomeOrgVolume3C(CpDeviceC aDevice)
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume3C::VolumeOffsetMaxPropertyChanged);
     iVolumeOffsetMax = new PropertyUint("VolumeOffsetMax", functor);
     AddProperty(iVolumeOffsetMax);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume3C::TrimPropertyChanged);
+    iTrim = new PropertyString("Trim", functor);
+    AddProperty(iTrim);
 }
 
 CpProxyAvOpenhomeOrgVolume3C::~CpProxyAvOpenhomeOrgVolume3C()
@@ -770,6 +844,8 @@ CpProxyAvOpenhomeOrgVolume3C::~CpProxyAvOpenhomeOrgVolume3C()
     delete iActionUnityGain;
     delete iActionVolumeOffset;
     delete iActionSetVolumeOffset;
+    delete iActionTrim;
+    delete iActionSetTrim;
 }
 
 void CpProxyAvOpenhomeOrgVolume3C::SyncCharacteristics(TUint& aVolumeMax, TUint& aVolumeUnity, TUint& aVolumeSteps, TUint& aVolumeMilliDbPerStep, TUint& aBalanceMax, TUint& aFadeMax)
@@ -1354,6 +1430,72 @@ void CpProxyAvOpenhomeOrgVolume3C::EndSetVolumeOffset(IAsync& aAsync)
     }
 }
 
+void CpProxyAvOpenhomeOrgVolume3C::SyncTrim(const Brx& aChannel, TInt& aTrimBinaryMilliDb)
+{
+    SyncTrimAvOpenhomeOrgVolume3C sync(*this, aTrimBinaryMilliDb);
+    BeginTrim(aChannel, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgVolume3C::BeginTrim(const Brx& aChannel, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionTrim, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionTrim->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aChannel));
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionTrim->OutputParameters();
+    invocation->AddOutput(new ArgumentInt(*outParams[outIndex++]));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgVolume3C::EndTrim(IAsync& aAsync, TInt& aTrimBinaryMilliDb)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("Trim"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    aTrimBinaryMilliDb = ((ArgumentInt*)invocation.OutputArguments()[index++])->Value();
+}
+
+void CpProxyAvOpenhomeOrgVolume3C::SyncSetTrim(const Brx& aChannel, TInt aTrimBinaryMilliDb)
+{
+    SyncSetTrimAvOpenhomeOrgVolume3C sync(*this);
+    BeginSetTrim(aChannel, aTrimBinaryMilliDb, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgVolume3C::BeginSetTrim(const Brx& aChannel, TInt aTrimBinaryMilliDb, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionSetTrim, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSetTrim->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aChannel));
+    invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aTrimBinaryMilliDb));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgVolume3C::EndSetTrim(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SetTrim"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
 void CpProxyAvOpenhomeOrgVolume3C::SetPropertyVolumeChanged(Functor& aFunctor)
 {
     iLock.Wait();
@@ -1449,6 +1591,13 @@ void CpProxyAvOpenhomeOrgVolume3C::SetPropertyVolumeOffsetMaxChanged(Functor& aF
 {
     iLock.Wait();
     iVolumeOffsetMaxChanged = aFunctor;
+    iLock.Signal();
+}
+
+void CpProxyAvOpenhomeOrgVolume3C::SetPropertyTrimChanged(Functor& aFunctor)
+{
+    iLock.Wait();
+    iTrimChanged = aFunctor;
     iLock.Signal();
 }
 
@@ -1550,6 +1699,13 @@ void CpProxyAvOpenhomeOrgVolume3C::PropertyVolumeOffsetMax(TUint& aVolumeOffsetM
     aVolumeOffsetMax = iVolumeOffsetMax->Value();
 }
 
+void CpProxyAvOpenhomeOrgVolume3C::PropertyTrim(Brhz& aTrim) const
+{
+    AutoMutex a(GetPropertyReadLock());
+    CheckSubscribed();
+    aTrim.Set(iTrim->Value());
+}
+
 void CpProxyAvOpenhomeOrgVolume3C::VolumePropertyChanged()
 {
     ReportEvent(iVolumeChanged);
@@ -1618,6 +1774,11 @@ void CpProxyAvOpenhomeOrgVolume3C::VolumeOffsetsPropertyChanged()
 void CpProxyAvOpenhomeOrgVolume3C::VolumeOffsetMaxPropertyChanged()
 {
     ReportEvent(iVolumeOffsetMaxChanged);
+}
+
+void CpProxyAvOpenhomeOrgVolume3C::TrimPropertyChanged()
+{
+    ReportEvent(iTrimChanged);
 }
 
 
@@ -2379,6 +2540,87 @@ int32_t STDCALL CpProxyAvOpenhomeOrgVolume3EndSetVolumeOffset(THandle aHandle, O
     return err;
 }
 
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume3SyncTrim(THandle aHandle, const char* aChannel, int32_t* aTrimBinaryMilliDb)
+{
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aChannel(aChannel);
+    int32_t err = 0;
+    try {
+        proxyC->SyncTrim(buf_aChannel, *aTrimBinaryMilliDb);
+    }
+    catch (ProxyError& ) {
+        err = -1;
+        *aTrimBinaryMilliDb = 0;
+    }
+    return err;
+}
+
+void STDCALL CpProxyAvOpenhomeOrgVolume3BeginTrim(THandle aHandle, const char* aChannel, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aChannel(aChannel);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginTrim(buf_aChannel, functor);
+}
+
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume3EndTrim(THandle aHandle, OhNetHandleAsync aAsync, int32_t* aTrimBinaryMilliDb)
+{
+    int32_t err = 0;
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    try {
+        proxyC->EndTrim(*async, *aTrimBinaryMilliDb);
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume3SyncSetTrim(THandle aHandle, const char* aChannel, int32_t aTrimBinaryMilliDb)
+{
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aChannel(aChannel);
+    int32_t err = 0;
+    try {
+        proxyC->SyncSetTrim(buf_aChannel, aTrimBinaryMilliDb);
+    }
+    catch (ProxyError& ) {
+        err = -1;
+    }
+    return err;
+}
+
+void STDCALL CpProxyAvOpenhomeOrgVolume3BeginSetTrim(THandle aHandle, const char* aChannel, int32_t aTrimBinaryMilliDb, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aChannel(aChannel);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginSetTrim(buf_aChannel, aTrimBinaryMilliDb, functor);
+}
+
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume3EndSetTrim(THandle aHandle, OhNetHandleAsync aAsync)
+{
+    int32_t err = 0;
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    try {
+        proxyC->EndSetTrim(*async);
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
 void STDCALL CpProxyAvOpenhomeOrgVolume3SetPropertyVolumeChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
 {
     CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
@@ -2489,6 +2731,14 @@ void STDCALL CpProxyAvOpenhomeOrgVolume3SetPropertyVolumeOffsetMaxChanged(THandl
     ASSERT(proxyC != NULL);
     Functor functor = MakeFunctor(aPtr, aCallback);
     proxyC->SetPropertyVolumeOffsetMaxChanged(functor);
+}
+
+void STDCALL CpProxyAvOpenhomeOrgVolume3SetPropertyTrimChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
+{
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Functor functor = MakeFunctor(aPtr, aCallback);
+    proxyC->SetPropertyTrimChanged(functor);
 }
 
 int32_t STDCALL CpProxyAvOpenhomeOrgVolume3PropertyVolume(THandle aHandle, uint32_t* aVolume)
@@ -2676,6 +2926,21 @@ int32_t STDCALL CpProxyAvOpenhomeOrgVolume3PropertyVolumeOffsetMax(THandle aHand
     catch (ProxyNotSubscribed&) {
         return -1;
     }
+    return 0;
+}
+
+int32_t STDCALL CpProxyAvOpenhomeOrgVolume3PropertyTrim(THandle aHandle, char** aTrim)
+{
+    CpProxyAvOpenhomeOrgVolume3C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgVolume3C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brhz buf_aTrim;
+    try {
+        proxyC->PropertyTrim(buf_aTrim);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    *aTrim = buf_aTrim.Transfer();
     return 0;
 }
 

@@ -176,6 +176,18 @@ void DvProviderAvOpenhomeOrgVolume3::GetPropertyVolumeOffsetMax(TUint& aValue)
     aValue = iPropertyVolumeOffsetMax->Value();
 }
 
+TBool DvProviderAvOpenhomeOrgVolume3::SetPropertyTrim(const Brx& aValue)
+{
+    ASSERT(iPropertyTrim != NULL);
+    return SetPropertyString(*iPropertyTrim, aValue);
+}
+
+void DvProviderAvOpenhomeOrgVolume3::GetPropertyTrim(Brhz& aValue)
+{
+    ASSERT(iPropertyTrim != NULL);
+    aValue.Set(iPropertyTrim->Value());
+}
+
 DvProviderAvOpenhomeOrgVolume3::DvProviderAvOpenhomeOrgVolume3(DvDevice& aDevice)
     : DvProvider(aDevice.Device(), "av.openhome.org", "Volume", 3)
 {
@@ -204,6 +216,7 @@ void DvProviderAvOpenhomeOrgVolume3::Construct()
     iPropertyUnityGain = NULL;
     iPropertyVolumeOffsets = NULL;
     iPropertyVolumeOffsetMax = NULL;
+    iPropertyTrim = NULL;
 }
 
 void DvProviderAvOpenhomeOrgVolume3::EnablePropertyVolume()
@@ -288,6 +301,12 @@ void DvProviderAvOpenhomeOrgVolume3::EnablePropertyVolumeOffsetMax()
 {
     iPropertyVolumeOffsetMax = new PropertyUint(new ParameterUint("VolumeOffsetMax"));
     iService->AddProperty(iPropertyVolumeOffsetMax); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgVolume3::EnablePropertyTrim()
+{
+    iPropertyTrim = new PropertyString(new ParameterString("Trim"));
+    iService->AddProperty(iPropertyTrim); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgVolume3::EnableActionCharacteristics()
@@ -440,6 +459,24 @@ void DvProviderAvOpenhomeOrgVolume3::EnableActionSetVolumeOffset()
     action->AddInputParameter(new ParameterString("Channel"));
     action->AddInputParameter(new ParameterInt("VolumeOffsetBinaryMilliDb"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3::DoSetVolumeOffset);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgVolume3::EnableActionTrim()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("Trim");
+    action->AddInputParameter(new ParameterString("Channel"));
+    action->AddOutputParameter(new ParameterInt("TrimBinaryMilliDb"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3::DoTrim);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgVolume3::EnableActionSetTrim()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetTrim");
+    action->AddInputParameter(new ParameterString("Channel"));
+    action->AddInputParameter(new ParameterInt("TrimBinaryMilliDb"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3::DoSetTrim);
     iService->AddAction(action, functor);
 }
 
@@ -617,6 +654,28 @@ void DvProviderAvOpenhomeOrgVolume3::DoSetVolumeOffset(IDviInvocation& aInvocati
     SetVolumeOffset(invocation, Channel, VolumeOffsetBinaryMilliDb);
 }
 
+void DvProviderAvOpenhomeOrgVolume3::DoTrim(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz Channel;
+    aInvocation.InvocationReadString("Channel", Channel);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    DviInvocationResponseInt respTrimBinaryMilliDb(aInvocation, "TrimBinaryMilliDb");
+    Trim(invocation, Channel, respTrimBinaryMilliDb);
+}
+
+void DvProviderAvOpenhomeOrgVolume3::DoSetTrim(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz Channel;
+    aInvocation.InvocationReadString("Channel", Channel);
+    TInt TrimBinaryMilliDb = aInvocation.InvocationReadInt("TrimBinaryMilliDb");
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    SetTrim(invocation, Channel, TrimBinaryMilliDb);
+}
+
 void DvProviderAvOpenhomeOrgVolume3::Characteristics(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aVolumeMax*/, IDvInvocationResponseUint& /*aVolumeUnity*/, IDvInvocationResponseUint& /*aVolumeSteps*/, IDvInvocationResponseUint& /*aVolumeMilliDbPerStep*/, IDvInvocationResponseUint& /*aBalanceMax*/, IDvInvocationResponseUint& /*aFadeMax*/)
 {
     ASSERTS();
@@ -708,6 +767,16 @@ void DvProviderAvOpenhomeOrgVolume3::VolumeOffset(IDvInvocation& /*aResponse*/, 
 }
 
 void DvProviderAvOpenhomeOrgVolume3::SetVolumeOffset(IDvInvocation& /*aResponse*/, const Brx& /*aChannel*/, TInt /*aVolumeOffsetBinaryMilliDb*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgVolume3::Trim(IDvInvocation& /*aResponse*/, const Brx& /*aChannel*/, IDvInvocationResponseInt& /*aTrimBinaryMilliDb*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgVolume3::SetTrim(IDvInvocation& /*aResponse*/, const Brx& /*aChannel*/, TInt /*aTrimBinaryMilliDb*/)
 {
     ASSERTS();
 }

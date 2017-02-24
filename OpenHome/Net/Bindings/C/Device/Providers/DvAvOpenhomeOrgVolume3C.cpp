@@ -46,6 +46,8 @@ public:
     void GetPropertyVolumeOffsets(Brhz& aValue);
     TBool SetPropertyVolumeOffsetMax(TUint aValue);
     void GetPropertyVolumeOffsetMax(TUint& aValue);
+    TBool SetPropertyTrim(const Brx& aValue);
+    void GetPropertyTrim(Brhz& aValue);
     void EnablePropertyVolume();
     void EnablePropertyMute();
     void EnablePropertyBalance();
@@ -60,6 +62,7 @@ public:
     void EnablePropertyUnityGain();
     void EnablePropertyVolumeOffsets();
     void EnablePropertyVolumeOffsetMax();
+    void EnablePropertyTrim();
     void EnableActionCharacteristics(CallbackVolume3Characteristics aCallback, void* aPtr);
     void EnableActionSetVolume(CallbackVolume3SetVolume aCallback, void* aPtr);
     void EnableActionVolumeInc(CallbackVolume3VolumeInc aCallback, void* aPtr);
@@ -79,6 +82,8 @@ public:
     void EnableActionUnityGain(CallbackVolume3UnityGain aCallback, void* aPtr);
     void EnableActionVolumeOffset(CallbackVolume3VolumeOffset aCallback, void* aPtr);
     void EnableActionSetVolumeOffset(CallbackVolume3SetVolumeOffset aCallback, void* aPtr);
+    void EnableActionTrim(CallbackVolume3Trim aCallback, void* aPtr);
+    void EnableActionSetTrim(CallbackVolume3SetTrim aCallback, void* aPtr);
 private:
     void DoCharacteristics(IDviInvocation& aInvocation);
     void DoSetVolume(IDviInvocation& aInvocation);
@@ -99,6 +104,8 @@ private:
     void DoUnityGain(IDviInvocation& aInvocation);
     void DoVolumeOffset(IDviInvocation& aInvocation);
     void DoSetVolumeOffset(IDviInvocation& aInvocation);
+    void DoTrim(IDviInvocation& aInvocation);
+    void DoSetTrim(IDviInvocation& aInvocation);
 private:
     CallbackVolume3Characteristics iCallbackCharacteristics;
     void* iPtrCharacteristics;
@@ -138,6 +145,10 @@ private:
     void* iPtrVolumeOffset;
     CallbackVolume3SetVolumeOffset iCallbackSetVolumeOffset;
     void* iPtrSetVolumeOffset;
+    CallbackVolume3Trim iCallbackTrim;
+    void* iPtrTrim;
+    CallbackVolume3SetTrim iCallbackSetTrim;
+    void* iPtrSetTrim;
     PropertyUint* iPropertyVolume;
     PropertyBool* iPropertyMute;
     PropertyInt* iPropertyBalance;
@@ -152,6 +163,7 @@ private:
     PropertyBool* iPropertyUnityGain;
     PropertyString* iPropertyVolumeOffsets;
     PropertyUint* iPropertyVolumeOffsetMax;
+    PropertyString* iPropertyTrim;
 };
 
 DvProviderAvOpenhomeOrgVolume3C::DvProviderAvOpenhomeOrgVolume3C(DvDeviceC aDevice)
@@ -171,6 +183,7 @@ DvProviderAvOpenhomeOrgVolume3C::DvProviderAvOpenhomeOrgVolume3C(DvDeviceC aDevi
     iPropertyUnityGain = NULL;
     iPropertyVolumeOffsets = NULL;
     iPropertyVolumeOffsetMax = NULL;
+    iPropertyTrim = NULL;
 }
 
 TBool DvProviderAvOpenhomeOrgVolume3C::SetPropertyVolume(TUint aValue)
@@ -341,6 +354,18 @@ void DvProviderAvOpenhomeOrgVolume3C::GetPropertyVolumeOffsetMax(TUint& aValue)
     aValue = iPropertyVolumeOffsetMax->Value();
 }
 
+TBool DvProviderAvOpenhomeOrgVolume3C::SetPropertyTrim(const Brx& aValue)
+{
+    ASSERT(iPropertyTrim != NULL);
+    return SetPropertyString(*iPropertyTrim, aValue);
+}
+
+void DvProviderAvOpenhomeOrgVolume3C::GetPropertyTrim(Brhz& aValue)
+{
+    ASSERT(iPropertyTrim != NULL);
+    aValue.Set(iPropertyTrim->Value());
+}
+
 void DvProviderAvOpenhomeOrgVolume3C::EnablePropertyVolume()
 {
     iPropertyVolume = new PropertyUint(new ParameterUint("Volume"));
@@ -423,6 +448,12 @@ void DvProviderAvOpenhomeOrgVolume3C::EnablePropertyVolumeOffsetMax()
 {
     iPropertyVolumeOffsetMax = new PropertyUint(new ParameterUint("VolumeOffsetMax"));
     iService->AddProperty(iPropertyVolumeOffsetMax); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgVolume3C::EnablePropertyTrim()
+{
+    iPropertyTrim = new PropertyString(new ParameterString("Trim"));
+    iService->AddProperty(iPropertyTrim); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgVolume3C::EnableActionCharacteristics(CallbackVolume3Characteristics aCallback, void* aPtr)
@@ -613,6 +644,28 @@ void DvProviderAvOpenhomeOrgVolume3C::EnableActionSetVolumeOffset(CallbackVolume
     action->AddInputParameter(new ParameterString("Channel"));
     action->AddInputParameter(new ParameterInt("VolumeOffsetBinaryMilliDb"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3C::DoSetVolumeOffset);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgVolume3C::EnableActionTrim(CallbackVolume3Trim aCallback, void* aPtr)
+{
+    iCallbackTrim = aCallback;
+    iPtrTrim = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("Trim");
+    action->AddInputParameter(new ParameterString("Channel"));
+    action->AddOutputParameter(new ParameterInt("TrimBinaryMilliDb"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3C::DoTrim);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgVolume3C::EnableActionSetTrim(CallbackVolume3SetTrim aCallback, void* aPtr)
+{
+    iCallbackSetTrim = aCallback;
+    iPtrSetTrim = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetTrim");
+    action->AddInputParameter(new ParameterString("Channel"));
+    action->AddInputParameter(new ParameterInt("TrimBinaryMilliDb"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3C::DoSetTrim);
     iService->AddAction(action, functor);
 }
 
@@ -1006,6 +1059,50 @@ void DvProviderAvOpenhomeOrgVolume3C::DoSetVolumeOffset(IDviInvocation& aInvocat
     invocation.EndResponse();
 }
 
+void DvProviderAvOpenhomeOrgVolume3C::DoTrim(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    Brhz Channel;
+    aInvocation.InvocationReadString("Channel", Channel);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    int32_t TrimBinaryMilliDb;
+    ASSERT(iCallbackTrim != NULL);
+    if (0 != iCallbackTrim(iPtrTrim, invocationC, invocationCPtr, (const char*)Channel.Ptr(), &TrimBinaryMilliDb)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    DviInvocationResponseInt respTrimBinaryMilliDb(aInvocation, "TrimBinaryMilliDb");
+    invocation.StartResponse();
+    respTrimBinaryMilliDb.Write(TrimBinaryMilliDb);
+    invocation.EndResponse();
+}
+
+void DvProviderAvOpenhomeOrgVolume3C::DoSetTrim(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    Brhz Channel;
+    aInvocation.InvocationReadString("Channel", Channel);
+    TInt TrimBinaryMilliDb = aInvocation.InvocationReadInt("TrimBinaryMilliDb");
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    ASSERT(iCallbackSetTrim != NULL);
+    if (0 != iCallbackSetTrim(iPtrSetTrim, invocationC, invocationCPtr, (const char*)Channel.Ptr(), TrimBinaryMilliDb)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    invocation.StartResponse();
+    invocation.EndResponse();
+}
+
 
 
 THandle STDCALL DvProviderAvOpenhomeOrgVolume3Create(DvDeviceC aDevice)
@@ -1111,6 +1208,16 @@ void STDCALL DvProviderAvOpenhomeOrgVolume3EnableActionVolumeOffset(THandle aPro
 void STDCALL DvProviderAvOpenhomeOrgVolume3EnableActionSetVolumeOffset(THandle aProvider, CallbackVolume3SetVolumeOffset aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->EnableActionSetVolumeOffset(aCallback, aPtr);
+}
+
+void STDCALL DvProviderAvOpenhomeOrgVolume3EnableActionTrim(THandle aProvider, CallbackVolume3Trim aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->EnableActionTrim(aCallback, aPtr);
+}
+
+void STDCALL DvProviderAvOpenhomeOrgVolume3EnableActionSetTrim(THandle aProvider, CallbackVolume3SetTrim aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->EnableActionSetTrim(aCallback, aPtr);
 }
 
 int32_t STDCALL DvProviderAvOpenhomeOrgVolume3SetPropertyVolume(THandle aProvider, uint32_t aValue, uint32_t* aChanged)
@@ -1296,6 +1403,20 @@ void STDCALL DvProviderAvOpenhomeOrgVolume3GetPropertyVolumeOffsetMax(THandle aP
     *aValue = val;
 }
 
+int32_t STDCALL DvProviderAvOpenhomeOrgVolume3SetPropertyTrim(THandle aProvider, const char* aValue, uint32_t* aChanged)
+{
+    Brhz buf(aValue);
+    *aChanged = (reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->SetPropertyTrim(buf)? 1 : 0);
+    return 0;
+}
+
+void STDCALL DvProviderAvOpenhomeOrgVolume3GetPropertyTrim(THandle aProvider, char** aValue)
+{
+    Brhz buf;
+    reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->GetPropertyTrim(buf);
+    *aValue = (char*)buf.Transfer();
+}
+
 void STDCALL DvProviderAvOpenhomeOrgVolume3EnablePropertyVolume(THandle aProvider)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->EnablePropertyVolume();
@@ -1364,5 +1485,10 @@ void STDCALL DvProviderAvOpenhomeOrgVolume3EnablePropertyVolumeOffsets(THandle a
 void STDCALL DvProviderAvOpenhomeOrgVolume3EnablePropertyVolumeOffsetMax(THandle aProvider)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->EnablePropertyVolumeOffsetMax();
+}
+
+void STDCALL DvProviderAvOpenhomeOrgVolume3EnablePropertyTrim(THandle aProvider)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgVolume3C*>(aProvider)->EnablePropertyTrim();
 }
 

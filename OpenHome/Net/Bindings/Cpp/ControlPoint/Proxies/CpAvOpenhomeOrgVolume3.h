@@ -81,6 +81,12 @@ public:
     virtual void SyncSetVolumeOffset(const std::string& aChannel, int32_t aVolumeOffsetBinaryMilliDb) = 0;
     virtual void BeginSetVolumeOffset(const std::string& aChannel, int32_t aVolumeOffsetBinaryMilliDb, FunctorAsync& aFunctor) = 0;
     virtual void EndSetVolumeOffset(IAsync& aAsync) = 0;
+    virtual void SyncTrim(const std::string& aChannel, int32_t& aTrimBinaryMilliDb) = 0;
+    virtual void BeginTrim(const std::string& aChannel, FunctorAsync& aFunctor) = 0;
+    virtual void EndTrim(IAsync& aAsync, int32_t& aTrimBinaryMilliDb) = 0;
+    virtual void SyncSetTrim(const std::string& aChannel, int32_t aTrimBinaryMilliDb) = 0;
+    virtual void BeginSetTrim(const std::string& aChannel, int32_t aTrimBinaryMilliDb, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetTrim(IAsync& aAsync) = 0;
     virtual void SetPropertyVolumeChanged(Functor& aVolumeChanged) = 0;
     virtual void PropertyVolume(uint32_t& aVolume) const = 0;
     virtual void SetPropertyMuteChanged(Functor& aMuteChanged) = 0;
@@ -109,6 +115,8 @@ public:
     virtual void PropertyVolumeOffsets(std::string& aVolumeOffsets) const = 0;
     virtual void SetPropertyVolumeOffsetMaxChanged(Functor& aVolumeOffsetMaxChanged) = 0;
     virtual void PropertyVolumeOffsetMax(uint32_t& aVolumeOffsetMax) const = 0;
+    virtual void SetPropertyTrimChanged(Functor& aTrimChanged) = 0;
+    virtual void PropertyTrim(std::string& aTrim) const = 0;
 };
 
 /**
@@ -627,6 +635,62 @@ public:
     void EndSetVolumeOffset(IAsync& aAsync);
 
     /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aChannel
+     * @param[out] aTrimBinaryMilliDb
+     */
+    void SyncTrim(const std::string& aChannel, int32_t& aTrimBinaryMilliDb);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndTrim().
+     *
+     * @param[in] aChannel
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginTrim(const std::string& aChannel, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aTrimBinaryMilliDb
+     */
+    void EndTrim(IAsync& aAsync, int32_t& aTrimBinaryMilliDb);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aChannel
+     * @param[in]  aTrimBinaryMilliDb
+     */
+    void SyncSetTrim(const std::string& aChannel, int32_t aTrimBinaryMilliDb);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSetTrim().
+     *
+     * @param[in] aChannel
+     * @param[in] aTrimBinaryMilliDb
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSetTrim(const std::string& aChannel, int32_t aTrimBinaryMilliDb, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSetTrim(IAsync& aAsync);
+
+    /**
      * Set a callback to be run when the Volume state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
@@ -752,6 +816,15 @@ public:
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
     void SetPropertyVolumeOffsetMaxChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the Trim state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgVolume3Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyTrimChanged(Functor& aFunctor);
 
     /**
      * Query the value of the Volume property.
@@ -894,6 +967,16 @@ public:
      */
     void PropertyVolumeOffsetMax(uint32_t& aVolumeOffsetMax) const;
     /**
+     * Query the value of the Trim property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aTrim
+     */
+    void PropertyTrim(std::string& aTrim) const;
+    /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
     */
     void Subscribe();
@@ -941,6 +1024,7 @@ private:
     void UnityGainPropertyChanged();
     void VolumeOffsetsPropertyChanged();
     void VolumeOffsetMaxPropertyChanged();
+    void TrimPropertyChanged();
 private:
     Action* iActionCharacteristics;
     Action* iActionSetVolume;
@@ -961,6 +1045,8 @@ private:
     Action* iActionUnityGain;
     Action* iActionVolumeOffset;
     Action* iActionSetVolumeOffset;
+    Action* iActionTrim;
+    Action* iActionSetTrim;
     PropertyUint* iVolume;
     PropertyBool* iMute;
     PropertyInt* iBalance;
@@ -975,6 +1061,7 @@ private:
     PropertyBool* iUnityGain;
     PropertyString* iVolumeOffsets;
     PropertyUint* iVolumeOffsetMax;
+    PropertyString* iTrim;
     Functor iVolumeChanged;
     Functor iMuteChanged;
     Functor iBalanceChanged;
@@ -989,6 +1076,7 @@ private:
     Functor iUnityGainChanged;
     Functor iVolumeOffsetsChanged;
     Functor iVolumeOffsetMaxChanged;
+    Functor iTrimChanged;
 };
 
 } // namespace Net

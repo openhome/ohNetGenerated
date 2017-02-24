@@ -67,6 +67,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSetVolumeOffset(String aChannel, int aVolumeOffsetBinaryMilliDb);
         void BeginSetVolumeOffset(String aChannel, int aVolumeOffsetBinaryMilliDb, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetVolumeOffset(IntPtr aAsyncHandle);
+        void SyncTrim(String aChannel, out int aTrimBinaryMilliDb);
+        void BeginTrim(String aChannel, CpProxy.CallbackAsyncComplete aCallback);
+        void EndTrim(IntPtr aAsyncHandle, out int aTrimBinaryMilliDb);
+        void SyncSetTrim(String aChannel, int aTrimBinaryMilliDb);
+        void BeginSetTrim(String aChannel, int aTrimBinaryMilliDb, CpProxy.CallbackAsyncComplete aCallback);
+        void EndSetTrim(IntPtr aAsyncHandle);
         void SetPropertyVolumeChanged(System.Action aVolumeChanged);
         uint PropertyVolume();
         void SetPropertyMuteChanged(System.Action aMuteChanged);
@@ -95,6 +101,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         String PropertyVolumeOffsets();
         void SetPropertyVolumeOffsetMaxChanged(System.Action aVolumeOffsetMaxChanged);
         uint PropertyVolumeOffsetMax();
+        void SetPropertyTrimChanged(System.Action aTrimChanged);
+        String PropertyTrim();
     }
 
     internal class SyncCharacteristicsAvOpenhomeOrgVolume3 : SyncProxyAction
@@ -428,6 +436,39 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
+    internal class SyncTrimAvOpenhomeOrgVolume3 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgVolume3 iService;
+        private int iTrimBinaryMilliDb;
+
+        public SyncTrimAvOpenhomeOrgVolume3(CpProxyAvOpenhomeOrgVolume3 aProxy)
+        {
+            iService = aProxy;
+        }
+        public int TrimBinaryMilliDb()
+        {
+            return iTrimBinaryMilliDb;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndTrim(aAsyncHandle, out iTrimBinaryMilliDb);
+        }
+    };
+
+    internal class SyncSetTrimAvOpenhomeOrgVolume3 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgVolume3 iService;
+
+        public SyncSetTrimAvOpenhomeOrgVolume3(CpProxyAvOpenhomeOrgVolume3 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndSetTrim(aAsyncHandle);
+        }
+    };
+
     /// <summary>
     /// Proxy for the av.openhome.org:Volume:3 UPnP service
     /// </summary>
@@ -452,6 +493,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionUnityGain;
         private OpenHome.Net.Core.Action iActionVolumeOffset;
         private OpenHome.Net.Core.Action iActionSetVolumeOffset;
+        private OpenHome.Net.Core.Action iActionTrim;
+        private OpenHome.Net.Core.Action iActionSetTrim;
         private PropertyUint iVolume;
         private PropertyBool iMute;
         private PropertyInt iBalance;
@@ -466,6 +509,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private PropertyBool iUnityGain;
         private PropertyString iVolumeOffsets;
         private PropertyUint iVolumeOffsetMax;
+        private PropertyString iTrim;
         private System.Action iVolumeChanged;
         private System.Action iMuteChanged;
         private System.Action iBalanceChanged;
@@ -480,6 +524,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private System.Action iUnityGainChanged;
         private System.Action iVolumeOffsetsChanged;
         private System.Action iVolumeOffsetMaxChanged;
+        private System.Action iTrimChanged;
         private Mutex iPropertyLock;
 
         /// <summary>
@@ -571,6 +616,18 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterInt("VolumeOffsetBinaryMilliDb");
             iActionSetVolumeOffset.AddInputParameter(param);
 
+            iActionTrim = new OpenHome.Net.Core.Action("Trim");
+            param = new ParameterString("Channel", allowedValues);
+            iActionTrim.AddInputParameter(param);
+            param = new ParameterInt("TrimBinaryMilliDb");
+            iActionTrim.AddOutputParameter(param);
+
+            iActionSetTrim = new OpenHome.Net.Core.Action("SetTrim");
+            param = new ParameterString("Channel", allowedValues);
+            iActionSetTrim.AddInputParameter(param);
+            param = new ParameterInt("TrimBinaryMilliDb");
+            iActionSetTrim.AddInputParameter(param);
+
             iVolume = new PropertyUint("Volume", VolumePropertyChanged);
             AddProperty(iVolume);
             iMute = new PropertyBool("Mute", MutePropertyChanged);
@@ -599,6 +656,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             AddProperty(iVolumeOffsets);
             iVolumeOffsetMax = new PropertyUint("VolumeOffsetMax", VolumeOffsetMaxPropertyChanged);
             AddProperty(iVolumeOffsetMax);
+            iTrim = new PropertyString("Trim", TrimPropertyChanged);
+            AddProperty(iTrim);
             
             iPropertyLock = new Mutex();
         }
@@ -1510,6 +1569,108 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aChannel"></param>
+        /// <param name="aTrimBinaryMilliDb"></param>
+        public void SyncTrim(String aChannel, out int aTrimBinaryMilliDb)
+        {
+            SyncTrimAvOpenhomeOrgVolume3 sync = new SyncTrimAvOpenhomeOrgVolume3(this);
+            BeginTrim(aChannel, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aTrimBinaryMilliDb = sync.TrimBinaryMilliDb();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndTrim().</remarks>
+        /// <param name="aChannel"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginTrim(String aChannel, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionTrim, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentString((ParameterString)iActionTrim.InputParameter(inIndex++), aChannel));
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentInt((ParameterInt)iActionTrim.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aTrimBinaryMilliDb"></param>
+        public void EndTrim(IntPtr aAsyncHandle, out int aTrimBinaryMilliDb)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
+            aTrimBinaryMilliDb = Invocation.OutputInt(aAsyncHandle, index++);
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aChannel"></param>
+        /// <param name="aTrimBinaryMilliDb"></param>
+        public void SyncSetTrim(String aChannel, int aTrimBinaryMilliDb)
+        {
+            SyncSetTrimAvOpenhomeOrgVolume3 sync = new SyncSetTrimAvOpenhomeOrgVolume3(this);
+            BeginSetTrim(aChannel, aTrimBinaryMilliDb, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndSetTrim().</remarks>
+        /// <param name="aChannel"></param>
+        /// <param name="aTrimBinaryMilliDb"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginSetTrim(String aChannel, int aTrimBinaryMilliDb, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionSetTrim, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentString((ParameterString)iActionSetTrim.InputParameter(inIndex++), aChannel));
+            invocation.AddInput(new ArgumentInt((ParameterInt)iActionSetTrim.InputParameter(inIndex++), aTrimBinaryMilliDb));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndSetTrim(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
         /// Set a delegate to be run when the Volume state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
@@ -1814,6 +1975,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
             lock (iPropertyLock)
             {
                 ReportEvent(iVolumeOffsetMaxChanged);
+            }
+        }
+
+        /// <summary>
+        /// Set a delegate to be run when the Trim state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyAvOpenhomeOrgVolume3 instance will not overlap.</remarks>
+        /// <param name="aTrimChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyTrimChanged(System.Action aTrimChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iTrimChanged = aTrimChanged;
+            }
+        }
+
+        private void TrimPropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iTrimChanged);
             }
         }
 
@@ -2126,6 +2309,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Query the value of the Trim property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the Trim property</returns>
+        public String PropertyTrim()
+        {
+            PropertyReadLock();
+            String val;
+            try
+            {
+                val = iTrim.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
+        }
+
+        /// <summary>
         /// Must be called for each class instance.  Must be called before Core.Library.Close().
         /// </summary>
         public void Dispose()
@@ -2156,6 +2361,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionUnityGain.Dispose();
             iActionVolumeOffset.Dispose();
             iActionSetVolumeOffset.Dispose();
+            iActionTrim.Dispose();
+            iActionSetTrim.Dispose();
             iVolume.Dispose();
             iMute.Dispose();
             iBalance.Dispose();
@@ -2170,6 +2377,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iUnityGain.Dispose();
             iVolumeOffsets.Dispose();
             iVolumeOffsetMax.Dispose();
+            iTrim.Dispose();
         }
     }
 }

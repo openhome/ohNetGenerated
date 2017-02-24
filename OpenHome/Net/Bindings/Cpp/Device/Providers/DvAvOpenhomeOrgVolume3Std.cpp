@@ -179,6 +179,20 @@ void DvProviderAvOpenhomeOrgVolume3Cpp::GetPropertyVolumeOffsetMax(uint32_t& aVa
     aValue = iPropertyVolumeOffsetMax->Value();
 }
 
+bool DvProviderAvOpenhomeOrgVolume3Cpp::SetPropertyTrim(const std::string& aValue)
+{
+    ASSERT(iPropertyTrim != NULL);
+    Brn buf((const TByte*)aValue.c_str(), (TUint)aValue.length());
+    return SetPropertyString(*iPropertyTrim, buf);
+}
+
+void DvProviderAvOpenhomeOrgVolume3Cpp::GetPropertyTrim(std::string& aValue)
+{
+    ASSERT(iPropertyTrim != NULL);
+    const Brx& val = iPropertyTrim->Value();
+    aValue.assign((const char*)val.Ptr(), val.Bytes());
+}
+
 DvProviderAvOpenhomeOrgVolume3Cpp::DvProviderAvOpenhomeOrgVolume3Cpp(DvDeviceStd& aDevice)
     : DvProvider(aDevice.Device(), "av.openhome.org", "Volume", 3)
 {
@@ -196,6 +210,7 @@ DvProviderAvOpenhomeOrgVolume3Cpp::DvProviderAvOpenhomeOrgVolume3Cpp(DvDeviceStd
     iPropertyUnityGain = NULL;
     iPropertyVolumeOffsets = NULL;
     iPropertyVolumeOffsetMax = NULL;
+    iPropertyTrim = NULL;
 }
 
 void DvProviderAvOpenhomeOrgVolume3Cpp::EnablePropertyVolume()
@@ -280,6 +295,12 @@ void DvProviderAvOpenhomeOrgVolume3Cpp::EnablePropertyVolumeOffsetMax()
 {
     iPropertyVolumeOffsetMax = new PropertyUint(new ParameterUint("VolumeOffsetMax"));
     iService->AddProperty(iPropertyVolumeOffsetMax); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgVolume3Cpp::EnablePropertyTrim()
+{
+    iPropertyTrim = new PropertyString(new ParameterString("Trim"));
+    iService->AddProperty(iPropertyTrim); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgVolume3Cpp::EnableActionCharacteristics()
@@ -432,6 +453,24 @@ void DvProviderAvOpenhomeOrgVolume3Cpp::EnableActionSetVolumeOffset()
     action->AddInputParameter(new ParameterString("Channel"));
     action->AddInputParameter(new ParameterInt("VolumeOffsetBinaryMilliDb"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3Cpp::DoSetVolumeOffset);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgVolume3Cpp::EnableActionTrim()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("Trim");
+    action->AddInputParameter(new ParameterString("Channel"));
+    action->AddOutputParameter(new ParameterInt("TrimBinaryMilliDb"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3Cpp::DoTrim);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgVolume3Cpp::EnableActionSetTrim()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetTrim");
+    action->AddInputParameter(new ParameterString("Channel"));
+    action->AddInputParameter(new ParameterInt("TrimBinaryMilliDb"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgVolume3Cpp::DoSetTrim);
     iService->AddAction(action, functor);
 }
 
@@ -675,6 +714,36 @@ void DvProviderAvOpenhomeOrgVolume3Cpp::DoSetVolumeOffset(IDviInvocation& aInvoc
     aInvocation.InvocationWriteEnd();
 }
 
+void DvProviderAvOpenhomeOrgVolume3Cpp::DoTrim(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz buf_Channel;
+    aInvocation.InvocationReadString("Channel", buf_Channel);
+    std::string Channel((const char*)buf_Channel.Ptr(), buf_Channel.Bytes());
+    aInvocation.InvocationReadEnd();
+    int32_t respTrimBinaryMilliDb;
+    DvInvocationStd invocation(aInvocation);
+    Trim(invocation, Channel, respTrimBinaryMilliDb);
+    aInvocation.InvocationWriteStart();
+    DviInvocationResponseInt respWriterTrimBinaryMilliDb(aInvocation, "TrimBinaryMilliDb");
+    respWriterTrimBinaryMilliDb.Write(respTrimBinaryMilliDb);
+    aInvocation.InvocationWriteEnd();
+}
+
+void DvProviderAvOpenhomeOrgVolume3Cpp::DoSetTrim(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz buf_Channel;
+    aInvocation.InvocationReadString("Channel", buf_Channel);
+    std::string Channel((const char*)buf_Channel.Ptr(), buf_Channel.Bytes());
+    int32_t TrimBinaryMilliDb = aInvocation.InvocationReadInt("TrimBinaryMilliDb");
+    aInvocation.InvocationReadEnd();
+    DvInvocationStd invocation(aInvocation);
+    SetTrim(invocation, Channel, TrimBinaryMilliDb);
+    aInvocation.InvocationWriteStart();
+    aInvocation.InvocationWriteEnd();
+}
+
 void DvProviderAvOpenhomeOrgVolume3Cpp::Characteristics(IDvInvocationStd& /*aInvocation*/, uint32_t& /*aVolumeMax*/, uint32_t& /*aVolumeUnity*/, uint32_t& /*aVolumeSteps*/, uint32_t& /*aVolumeMilliDbPerStep*/, uint32_t& /*aBalanceMax*/, uint32_t& /*aFadeMax*/)
 {
     ASSERTS();
@@ -766,6 +835,16 @@ void DvProviderAvOpenhomeOrgVolume3Cpp::VolumeOffset(IDvInvocationStd& /*aInvoca
 }
 
 void DvProviderAvOpenhomeOrgVolume3Cpp::SetVolumeOffset(IDvInvocationStd& /*aInvocation*/, const std::string& /*aChannel*/, int32_t /*aVolumeOffsetBinaryMilliDb*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgVolume3Cpp::Trim(IDvInvocationStd& /*aInvocation*/, const std::string& /*aChannel*/, int32_t& /*aTrimBinaryMilliDb*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgVolume3Cpp::SetTrim(IDvInvocationStd& /*aInvocation*/, const std::string& /*aChannel*/, int32_t /*aTrimBinaryMilliDb*/)
 {
     ASSERTS();
 }
