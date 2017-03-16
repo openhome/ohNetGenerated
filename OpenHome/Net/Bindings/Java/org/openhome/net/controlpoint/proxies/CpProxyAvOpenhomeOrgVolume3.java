@@ -67,6 +67,12 @@ interface ICpProxyAvOpenhomeOrgVolume3 extends ICpProxy
     public void syncSetVolumeOffset(String aChannel, int aVolumeOffsetBinaryMilliDb);
     public void beginSetVolumeOffset(String aChannel, int aVolumeOffsetBinaryMilliDb, ICpProxyListener aCallback);
     public void endSetVolumeOffset(long aAsyncHandle);
+    public int syncTrim(String aChannel);
+    public void beginTrim(String aChannel, ICpProxyListener aCallback);
+    public int endTrim(long aAsyncHandle);
+    public void syncSetTrim(String aChannel, int aTrimBinaryMilliDb);
+    public void beginSetTrim(String aChannel, int aTrimBinaryMilliDb, ICpProxyListener aCallback);
+    public void endSetTrim(long aAsyncHandle);
     public void setPropertyVolumeChanged(IPropertyChangeListener aVolumeChanged);
     public long getPropertyVolume();
     public void setPropertyMuteChanged(IPropertyChangeListener aMuteChanged);
@@ -95,6 +101,8 @@ interface ICpProxyAvOpenhomeOrgVolume3 extends ICpProxy
     public String getPropertyVolumeOffsets();
     public void setPropertyVolumeOffsetMaxChanged(IPropertyChangeListener aVolumeOffsetMaxChanged);
     public long getPropertyVolumeOffsetMax();
+    public void setPropertyTrimChanged(IPropertyChangeListener aTrimChanged);
+    public String getPropertyTrim();
 }
 
 class SyncCharacteristicsAvOpenhomeOrgVolume3 extends SyncProxyAction
@@ -460,6 +468,42 @@ class SyncSetVolumeOffsetAvOpenhomeOrgVolume3 extends SyncProxyAction
     }
 }
 
+class SyncTrimAvOpenhomeOrgVolume3 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgVolume3 iService;
+    private int iTrimBinaryMilliDb;
+
+    public SyncTrimAvOpenhomeOrgVolume3(CpProxyAvOpenhomeOrgVolume3 aProxy)
+    {
+        iService = aProxy;
+    }
+    public int getTrimBinaryMilliDb()
+    {
+        return iTrimBinaryMilliDb;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        int result = iService.endTrim(aAsyncHandle);
+        
+        iTrimBinaryMilliDb = result;
+    }
+}
+
+class SyncSetTrimAvOpenhomeOrgVolume3 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgVolume3 iService;
+
+    public SyncSetTrimAvOpenhomeOrgVolume3(CpProxyAvOpenhomeOrgVolume3 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endSetTrim(aAsyncHandle);
+        
+    }
+}
+
 /**
  * Proxy for the av.openhome.org:Volume:3 UPnP service
  */
@@ -536,6 +580,8 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
     private Action iActionUnityGain;
     private Action iActionVolumeOffset;
     private Action iActionSetVolumeOffset;
+    private Action iActionTrim;
+    private Action iActionSetTrim;
     private PropertyUint iVolume;
     private PropertyBool iMute;
     private PropertyInt iBalance;
@@ -550,6 +596,7 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
     private PropertyBool iUnityGain;
     private PropertyString iVolumeOffsets;
     private PropertyUint iVolumeOffsetMax;
+    private PropertyString iTrim;
     private IPropertyChangeListener iVolumeChanged;
     private IPropertyChangeListener iMuteChanged;
     private IPropertyChangeListener iBalanceChanged;
@@ -564,6 +611,7 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
     private IPropertyChangeListener iUnityGainChanged;
     private IPropertyChangeListener iVolumeOffsetsChanged;
     private IPropertyChangeListener iVolumeOffsetMaxChanged;
+    private IPropertyChangeListener iTrimChanged;
     private Object iPropertyLock;
 
     /**
@@ -656,6 +704,18 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
         iActionSetVolumeOffset.addInputParameter(param);
         param = new ParameterInt("VolumeOffsetBinaryMilliDb");
         iActionSetVolumeOffset.addInputParameter(param);
+
+        iActionTrim = new Action("Trim");
+        param = new ParameterString("Channel", allowedValues);
+        iActionTrim.addInputParameter(param);
+        param = new ParameterInt("TrimBinaryMilliDb");
+        iActionTrim.addOutputParameter(param);
+
+        iActionSetTrim = new Action("SetTrim");
+        param = new ParameterString("Channel", allowedValues);
+        iActionSetTrim.addInputParameter(param);
+        param = new ParameterInt("TrimBinaryMilliDb");
+        iActionSetTrim.addInputParameter(param);
 
         iVolumeChanged = new PropertyChangeListener();
         iVolume = new PropertyUint("Volume",
@@ -783,6 +843,15 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
             }
         );
         addProperty(iVolumeOffsetMax);
+        iTrimChanged = new PropertyChangeListener();
+        iTrim = new PropertyString("Trim",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    trimPropertyChanged();
+                }
+            }
+        );
+        addProperty(iTrim);
         iPropertyLock = new Object();
     }
     /**
@@ -1765,6 +1834,114 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
     }
         
     /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
+    public int syncTrim(String aChannel)
+    {
+        SyncTrimAvOpenhomeOrgVolume3 sync = new SyncTrimAvOpenhomeOrgVolume3(this);
+        beginTrim(aChannel, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getTrimBinaryMilliDb();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endTrim}.
+     * 
+     * @param aChannel
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginTrim(String aChannel, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionTrim, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionTrim.getInputParameter(inIndex++), aChannel));
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentInt((ParameterInt)iActionTrim.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginTrim} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginTrim} method.
+     * @return the result of the previously invoked action.
+     */
+    public int endTrim(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        int trimBinaryMilliDb = Invocation.getOutputInt(aAsyncHandle, index++);
+        return trimBinaryMilliDb;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncSetTrim(String aChannel, int aTrimBinaryMilliDb)
+    {
+        SyncSetTrimAvOpenhomeOrgVolume3 sync = new SyncSetTrimAvOpenhomeOrgVolume3(this);
+        beginSetTrim(aChannel, aTrimBinaryMilliDb, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endSetTrim}.
+     * 
+     * @param aChannel
+     * @param aTrimBinaryMilliDb
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginSetTrim(String aChannel, int aTrimBinaryMilliDb, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionSetTrim, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionSetTrim.getInputParameter(inIndex++), aChannel));
+        invocation.addInput(new ArgumentInt((ParameterInt)iActionSetTrim.getInputParameter(inIndex++), aTrimBinaryMilliDb));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginSetTrim} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginSetTrim} method.
+     */
+    public void endSetTrim(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
+    /**
      * Set a delegate to be run when the Volume state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgVolume3 instance will not overlap.
@@ -2086,6 +2263,29 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
             reportEvent(iVolumeOffsetMaxChanged);
         }
     }
+    /**
+     * Set a delegate to be run when the Trim state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgVolume3 instance will not overlap.
+     *
+     * @param aTrimChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyTrimChanged(IPropertyChangeListener aTrimChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iTrimChanged = aTrimChanged;
+        }
+    }
+
+    private void trimPropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iTrimChanged);
+        }
+    }
 
     /**
      * Query the value of the Volume property.
@@ -2312,6 +2512,22 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
     }
     
     /**
+     * Query the value of the Trim property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the Trim property.
+     */
+    public String getPropertyTrim()
+    {
+        propertyReadLock();
+        String val = iTrim.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
      * Dispose of this control point proxy.
      * Must be called for each class instance.
      * Must be called before <tt>Library.close()</tt>.
@@ -2345,6 +2561,8 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
             iActionUnityGain.destroy();
             iActionVolumeOffset.destroy();
             iActionSetVolumeOffset.destroy();
+            iActionTrim.destroy();
+            iActionSetTrim.destroy();
             iVolume.destroy();
             iMute.destroy();
             iBalance.destroy();
@@ -2359,6 +2577,7 @@ public class CpProxyAvOpenhomeOrgVolume3 extends CpProxy implements ICpProxyAvOp
             iUnityGain.destroy();
             iVolumeOffsets.destroy();
             iVolumeOffsetMax.destroy();
+            iTrim.destroy();
         }
     }
 }

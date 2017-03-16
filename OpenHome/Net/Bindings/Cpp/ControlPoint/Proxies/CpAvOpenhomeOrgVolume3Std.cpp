@@ -438,6 +438,50 @@ void SyncSetVolumeOffsetAvOpenhomeOrgVolume3Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
+class SyncTrimAvOpenhomeOrgVolume3Cpp : public SyncProxyAction
+{
+public:
+    SyncTrimAvOpenhomeOrgVolume3Cpp(CpProxyAvOpenhomeOrgVolume3Cpp& aProxy, int32_t& aTrimBinaryMilliDb);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncTrimAvOpenhomeOrgVolume3Cpp() {}
+private:
+    CpProxyAvOpenhomeOrgVolume3Cpp& iService;
+    int32_t& iTrimBinaryMilliDb;
+};
+
+SyncTrimAvOpenhomeOrgVolume3Cpp::SyncTrimAvOpenhomeOrgVolume3Cpp(CpProxyAvOpenhomeOrgVolume3Cpp& aProxy, int32_t& aTrimBinaryMilliDb)
+    : iService(aProxy)
+    , iTrimBinaryMilliDb(aTrimBinaryMilliDb)
+{
+}
+
+void SyncTrimAvOpenhomeOrgVolume3Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndTrim(aAsync, iTrimBinaryMilliDb);
+}
+
+
+class SyncSetTrimAvOpenhomeOrgVolume3Cpp : public SyncProxyAction
+{
+public:
+    SyncSetTrimAvOpenhomeOrgVolume3Cpp(CpProxyAvOpenhomeOrgVolume3Cpp& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncSetTrimAvOpenhomeOrgVolume3Cpp() {}
+private:
+    CpProxyAvOpenhomeOrgVolume3Cpp& iService;
+};
+
+SyncSetTrimAvOpenhomeOrgVolume3Cpp::SyncSetTrimAvOpenhomeOrgVolume3Cpp(CpProxyAvOpenhomeOrgVolume3Cpp& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSetTrimAvOpenhomeOrgVolume3Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSetTrim(aAsync);
+}
+
+
 CpProxyAvOpenhomeOrgVolume3Cpp::CpProxyAvOpenhomeOrgVolume3Cpp(CpDeviceCpp& aDevice)
     : iCpProxy("av-openhome-org", "Volume", 3, aDevice.Device())
 {
@@ -521,6 +565,18 @@ CpProxyAvOpenhomeOrgVolume3Cpp::CpProxyAvOpenhomeOrgVolume3Cpp(CpDeviceCpp& aDev
     param = new OpenHome::Net::ParameterInt("VolumeOffsetBinaryMilliDb");
     iActionSetVolumeOffset->AddInputParameter(param);
 
+    iActionTrim = new Action("Trim");
+    param = new OpenHome::Net::ParameterString("Channel");
+    iActionTrim->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterInt("TrimBinaryMilliDb");
+    iActionTrim->AddOutputParameter(param);
+
+    iActionSetTrim = new Action("SetTrim");
+    param = new OpenHome::Net::ParameterString("Channel");
+    iActionSetTrim->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterInt("TrimBinaryMilliDb");
+    iActionSetTrim->AddInputParameter(param);
+
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume3Cpp::VolumePropertyChanged);
     iVolume = new PropertyUint("Volume", functor);
@@ -564,6 +620,9 @@ CpProxyAvOpenhomeOrgVolume3Cpp::CpProxyAvOpenhomeOrgVolume3Cpp(CpDeviceCpp& aDev
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume3Cpp::VolumeOffsetMaxPropertyChanged);
     iVolumeOffsetMax = new PropertyUint("VolumeOffsetMax", functor);
     AddProperty(iVolumeOffsetMax);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgVolume3Cpp::TrimPropertyChanged);
+    iTrim = new PropertyString("Trim", functor);
+    AddProperty(iTrim);
 }
 
 CpProxyAvOpenhomeOrgVolume3Cpp::~CpProxyAvOpenhomeOrgVolume3Cpp()
@@ -588,6 +647,8 @@ CpProxyAvOpenhomeOrgVolume3Cpp::~CpProxyAvOpenhomeOrgVolume3Cpp()
     delete iActionUnityGain;
     delete iActionVolumeOffset;
     delete iActionSetVolumeOffset;
+    delete iActionTrim;
+    delete iActionSetTrim;
 }
 
 void CpProxyAvOpenhomeOrgVolume3Cpp::SyncCharacteristics(uint32_t& aVolumeMax, uint32_t& aVolumeUnity, uint32_t& aVolumeSteps, uint32_t& aVolumeMilliDbPerStep, uint32_t& aBalanceMax, uint32_t& aFadeMax)
@@ -1178,6 +1239,78 @@ void CpProxyAvOpenhomeOrgVolume3Cpp::EndSetVolumeOffset(IAsync& aAsync)
     }
 }
 
+void CpProxyAvOpenhomeOrgVolume3Cpp::SyncTrim(const std::string& aChannel, int32_t& aTrimBinaryMilliDb)
+{
+    SyncTrimAvOpenhomeOrgVolume3Cpp sync(*this, aTrimBinaryMilliDb);
+    BeginTrim(aChannel, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgVolume3Cpp::BeginTrim(const std::string& aChannel, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionTrim, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionTrim->InputParameters();
+    {
+        Brn buf((const TByte*)aChannel.c_str(), (TUint)aChannel.length());
+        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
+    }
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionTrim->OutputParameters();
+    invocation->AddOutput(new ArgumentInt(*outParams[outIndex++]));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgVolume3Cpp::EndTrim(IAsync& aAsync, int32_t& aTrimBinaryMilliDb)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("Trim"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    aTrimBinaryMilliDb = ((ArgumentInt*)invocation.OutputArguments()[index++])->Value();
+}
+
+void CpProxyAvOpenhomeOrgVolume3Cpp::SyncSetTrim(const std::string& aChannel, int32_t aTrimBinaryMilliDb)
+{
+    SyncSetTrimAvOpenhomeOrgVolume3Cpp sync(*this);
+    BeginSetTrim(aChannel, aTrimBinaryMilliDb, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgVolume3Cpp::BeginSetTrim(const std::string& aChannel, int32_t aTrimBinaryMilliDb, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetTrim, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSetTrim->InputParameters();
+    {
+        Brn buf((const TByte*)aChannel.c_str(), (TUint)aChannel.length());
+        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
+    }
+    invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aTrimBinaryMilliDb));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgVolume3Cpp::EndSetTrim(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SetTrim"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
 void CpProxyAvOpenhomeOrgVolume3Cpp::SetPropertyVolumeChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
@@ -1273,6 +1406,13 @@ void CpProxyAvOpenhomeOrgVolume3Cpp::SetPropertyVolumeOffsetMaxChanged(Functor& 
 {
     iCpProxy.GetLock().Wait();
     iVolumeOffsetMaxChanged = aFunctor;
+    iCpProxy.GetLock().Signal();
+}
+
+void CpProxyAvOpenhomeOrgVolume3Cpp::SetPropertyTrimChanged(Functor& aFunctor)
+{
+    iCpProxy.GetLock().Wait();
+    iTrimChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
@@ -1403,6 +1543,16 @@ void CpProxyAvOpenhomeOrgVolume3Cpp::PropertyVolumeOffsetMax(uint32_t& aVolumeOf
     aVolumeOffsetMax = iVolumeOffsetMax->Value();
 }
 
+void CpProxyAvOpenhomeOrgVolume3Cpp::PropertyTrim(std::string& aTrim) const
+{
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
+    const Brx& val = iTrim->Value();
+    aTrim.assign((const char*)val.Ptr(), val.Bytes());
+}
+
 void CpProxyAvOpenhomeOrgVolume3Cpp::VolumePropertyChanged()
 {
     ReportEvent(iVolumeChanged);
@@ -1471,6 +1621,11 @@ void CpProxyAvOpenhomeOrgVolume3Cpp::VolumeOffsetsPropertyChanged()
 void CpProxyAvOpenhomeOrgVolume3Cpp::VolumeOffsetMaxPropertyChanged()
 {
     ReportEvent(iVolumeOffsetMaxChanged);
+}
+
+void CpProxyAvOpenhomeOrgVolume3Cpp::TrimPropertyChanged()
+{
+    ReportEvent(iTrimChanged);
 }
 
 void CpProxyAvOpenhomeOrgVolume3Cpp::Subscribe()

@@ -190,6 +190,19 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <returns>Value of the VolumeOffsetMax property.</param>
         uint PropertyVolumeOffsetMax();
+
+        /// <summary>
+        /// Set the value of the Trim property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyTrim(string aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the Trim property
+        /// </summary>
+        /// <returns>Value of the Trim property.</param>
+        string PropertyTrim();
         
     }
     /// <summary>
@@ -217,6 +230,8 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegateUnityGain;
         private ActionDelegate iDelegateVolumeOffset;
         private ActionDelegate iDelegateSetVolumeOffset;
+        private ActionDelegate iDelegateTrim;
+        private ActionDelegate iDelegateSetTrim;
         private PropertyUint iPropertyVolume;
         private PropertyBool iPropertyMute;
         private PropertyInt iPropertyBalance;
@@ -231,6 +246,7 @@ namespace OpenHome.Net.Device.Providers
         private PropertyBool iPropertyUnityGain;
         private PropertyString iPropertyVolumeOffsets;
         private PropertyUint iPropertyVolumeOffsetMax;
+        private PropertyString iPropertyTrim;
 
         /// <summary>
         /// Constructor
@@ -367,6 +383,16 @@ namespace OpenHome.Net.Device.Providers
         {
             iPropertyVolumeOffsetMax = new PropertyUint(new ParameterUint("VolumeOffsetMax"));
             AddProperty(iPropertyVolumeOffsetMax);
+        }
+
+        /// <summary>
+        /// Enable the Trim property.
+        /// </summary>
+        public void EnablePropertyTrim()
+        {
+            List<String> allowedValues = new List<String>();
+            iPropertyTrim = new PropertyString(new ParameterString("Trim", allowedValues));
+            AddProperty(iPropertyTrim);
         }
 
         /// <summary>
@@ -720,6 +746,31 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
+        /// Set the value of the Trim property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyTrim has previously been called.</remarks>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        public bool SetPropertyTrim(string aValue)
+        {
+            if (iPropertyTrim == null)
+                throw new PropertyDisabledError();
+            return SetPropertyString(iPropertyTrim, aValue);
+        }
+
+        /// <summary>
+        /// Get a copy of the value of the Trim property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyTrim has previously been called.</remarks>
+        /// <returns>Value of the Trim property.</returns>
+        public string PropertyTrim()
+        {
+            if (iPropertyTrim == null)
+                throw new PropertyDisabledError();
+            return iPropertyTrim.Value();
+        }
+
+        /// <summary>
         /// Signal that the action Characteristics is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
@@ -967,6 +1018,36 @@ namespace OpenHome.Net.Device.Providers
             action.AddInputParameter(new ParameterInt("VolumeOffsetBinaryMilliDb"));
             iDelegateSetVolumeOffset = new ActionDelegate(DoSetVolumeOffset);
             EnableAction(action, iDelegateSetVolumeOffset, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action Trim is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// Trim must be overridden if this is called.</remarks>
+        protected void EnableActionTrim()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Trim");
+            List<String> allowedValues = new List<String>();
+            action.AddInputParameter(new ParameterString("Channel", allowedValues));
+            action.AddOutputParameter(new ParameterInt("TrimBinaryMilliDb"));
+            iDelegateTrim = new ActionDelegate(DoTrim);
+            EnableAction(action, iDelegateTrim, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action SetTrim is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// SetTrim must be overridden if this is called.</remarks>
+        protected void EnableActionSetTrim()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetTrim");
+            List<String> allowedValues = new List<String>();
+            action.AddInputParameter(new ParameterString("Channel", allowedValues));
+            action.AddInputParameter(new ParameterInt("TrimBinaryMilliDb"));
+            iDelegateSetTrim = new ActionDelegate(DoSetTrim);
+            EnableAction(action, iDelegateSetTrim, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -1232,6 +1313,36 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aChannel"></param>
         /// <param name="aVolumeOffsetBinaryMilliDb"></param>
         protected virtual void SetVolumeOffset(IDvInvocation aInvocation, string aChannel, int aVolumeOffsetBinaryMilliDb)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// Trim action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// Trim action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionTrim was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aChannel"></param>
+        /// <param name="aTrimBinaryMilliDb"></param>
+        protected virtual void Trim(IDvInvocation aInvocation, string aChannel, out int aTrimBinaryMilliDb)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// SetTrim action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// SetTrim action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionSetTrim was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aChannel"></param>
+        /// <param name="aTrimBinaryMilliDb"></param>
+        protected virtual void SetTrim(IDvInvocation aInvocation, string aChannel, int aTrimBinaryMilliDb)
         {
             throw (new ActionDisabledError());
         }
@@ -2107,6 +2218,102 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetVolumeOffset" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoTrim(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderAvOpenhomeOrgVolume3 self = (DvProviderAvOpenhomeOrgVolume3)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string channel;
+            int trimBinaryMilliDb;
+            try
+            {
+                invocation.ReadStart();
+                channel = invocation.ReadString("Channel");
+                invocation.ReadEnd();
+                self.Trim(invocation, channel, out trimBinaryMilliDb);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "Trim");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Trim" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Trim" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteInt("TrimBinaryMilliDb", trimBinaryMilliDb);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Trim" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoSetTrim(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderAvOpenhomeOrgVolume3 self = (DvProviderAvOpenhomeOrgVolume3)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string channel;
+            int trimBinaryMilliDb;
+            try
+            {
+                invocation.ReadStart();
+                channel = invocation.ReadString("Channel");
+                trimBinaryMilliDb = invocation.ReadInt("TrimBinaryMilliDb");
+                invocation.ReadEnd();
+                self.SetTrim(invocation, channel, trimBinaryMilliDb);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "SetTrim");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetTrim" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetTrim" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetTrim" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

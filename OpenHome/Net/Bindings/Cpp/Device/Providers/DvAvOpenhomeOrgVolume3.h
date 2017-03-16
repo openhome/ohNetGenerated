@@ -223,6 +223,20 @@ public:
      * Can only be called if EnablePropertyVolumeOffsetMax has previously been called.
      */
     void GetPropertyVolumeOffsetMax(uint32_t& aValue);
+    /**
+     * Set the value of the Trim property
+     *
+     * Can only be called if EnablePropertyTrim has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    bool SetPropertyTrim(const std::string& aValue);
+    /**
+     * Get a copy of the value of the Trim property
+     *
+     * Can only be called if EnablePropertyTrim has previously been called.
+     */
+    void GetPropertyTrim(std::string& aValue);
 protected:
     /**
      * Constructor
@@ -286,6 +300,10 @@ protected:
      * Enable the VolumeOffsetMax property.
      */
     void EnablePropertyVolumeOffsetMax();
+    /**
+     * Enable the Trim property.
+     */
+    void EnablePropertyTrim();
     /**
      * Signal that the action Characteristics is supported.
      * The action's availability will be published in the device's service.xml.
@@ -400,6 +418,18 @@ protected:
      * SetVolumeOffset must be overridden if this is called.
      */
     void EnableActionSetVolumeOffset();
+    /**
+     * Signal that the action Trim is supported.
+     * The action's availability will be published in the device's service.xml.
+     * Trim must be overridden if this is called.
+     */
+    void EnableActionTrim();
+    /**
+     * Signal that the action SetTrim is supported.
+     * The action's availability will be published in the device's service.xml.
+     * SetTrim must be overridden if this is called.
+     */
+    void EnableActionSetTrim();
 private:
     /**
      * Characteristics action.
@@ -553,6 +583,22 @@ private:
      * Must be implemented iff EnableActionSetVolumeOffset was called.
      */
     virtual void SetVolumeOffset(IDvInvocationStd& aInvocation, const std::string& aChannel, int32_t aVolumeOffsetBinaryMilliDb);
+    /**
+     * Trim action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * Trim action for the owning device.
+     * Must be implemented iff EnableActionTrim was called.
+     */
+    virtual void Trim(IDvInvocationStd& aInvocation, const std::string& aChannel, int32_t& aTrimBinaryMilliDb);
+    /**
+     * SetTrim action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * SetTrim action for the owning device.
+     * Must be implemented iff EnableActionSetTrim was called.
+     */
+    virtual void SetTrim(IDvInvocationStd& aInvocation, const std::string& aChannel, int32_t aTrimBinaryMilliDb);
 private:
     DvProviderAvOpenhomeOrgVolume3Cpp();
     void DoCharacteristics(IDviInvocation& aInvocation);
@@ -574,6 +620,8 @@ private:
     void DoUnityGain(IDviInvocation& aInvocation);
     void DoVolumeOffset(IDviInvocation& aInvocation);
     void DoSetVolumeOffset(IDviInvocation& aInvocation);
+    void DoTrim(IDviInvocation& aInvocation);
+    void DoSetTrim(IDviInvocation& aInvocation);
 private:
     PropertyUint* iPropertyVolume;
     PropertyBool* iPropertyMute;
@@ -589,6 +637,7 @@ private:
     PropertyBool* iPropertyUnityGain;
     PropertyString* iPropertyVolumeOffsets;
     PropertyUint* iPropertyVolumeOffsetMax;
+    PropertyString* iPropertyTrim;
 };
 
 } // namespace Net
