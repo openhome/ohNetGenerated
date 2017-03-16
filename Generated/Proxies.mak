@@ -118,6 +118,9 @@ objects_proxies = \
                   $(objdir)CpLinnCoUkPrivacy1.$(objext) \
                   $(objdir)CpLinnCoUkPrivacy1C.$(objext) \
                   $(objdir)CpLinnCoUkPrivacy1Std.$(objext) \
+                  $(objdir)CpLinnCoUkExaktInputs1.$(objext) \
+                  $(objdir)CpLinnCoUkExaktInputs1C.$(objext) \
+                  $(objdir)CpLinnCoUkExaktInputs1Std.$(objext) \
 
 # Service proxies have well controlled dependencies so we can document a more limited set of headers
 headers_proxy = $(inc_build)/OpenHome/Buffer.h \
@@ -171,6 +174,7 @@ proxy_dotnet_assemblies = \
         CpLinnCoUkFlash1.net.dll \
         CpLinnCoUkVolkano1.net.dll \
         CpLinnCoUkPrivacy1.net.dll \
+        CpLinnCoUkExaktInputs1.net.dll \
 
 proxy_dotnet_assemblies_with_path = \
         $(objdir)CpUpnpOrgAVTransport1.net.dll \
@@ -211,6 +215,7 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpLinnCoUkFlash1.net.dll \
         $(objdir)CpLinnCoUkVolkano1.net.dll \
         $(objdir)CpLinnCoUkPrivacy1.net.dll \
+        $(objdir)CpLinnCoUkExaktInputs1.net.dll \
 
 proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport1.class \
@@ -251,6 +256,7 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class \
 
 
 proxies : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_proxies)
@@ -483,6 +489,12 @@ $(objdir)CpLinnCoUkPrivacy1C.$(objext) : $(proxyC)CpLinnCoUkPrivacy1C.cpp $(head
 	$(compiler)CpLinnCoUkPrivacy1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkPrivacy1C.cpp
 $(objdir)CpLinnCoUkPrivacy1Std.$(objext) : $(proxyCppStd)CpLinnCoUkPrivacy1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkPrivacy1.h
 	$(compiler)CpLinnCoUkPrivacy1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkPrivacy1Std.cpp
+$(objdir)CpLinnCoUkExaktInputs1.$(objext) : $(proxyCppCore)CpLinnCoUkExaktInputs1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkExaktInputs1.h
+	$(compiler)CpLinnCoUkExaktInputs1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkExaktInputs1.cpp
+$(objdir)CpLinnCoUkExaktInputs1C.$(objext) : $(proxyC)CpLinnCoUkExaktInputs1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkExaktInputs1.h
+	$(compiler)CpLinnCoUkExaktInputs1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkExaktInputs1C.cpp
+$(objdir)CpLinnCoUkExaktInputs1Std.$(objext) : $(proxyCppStd)CpLinnCoUkExaktInputs1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkExaktInputs1.h
+	$(compiler)CpLinnCoUkExaktInputs1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkExaktInputs1Std.cpp
 
 # Proxy assemblies for .NET:
 
@@ -678,6 +690,11 @@ $(objdir)CpLinnCoUkPrivacy1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCo
         /out:$(objdir)CpLinnCoUkPrivacy1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpLinnCoUkPrivacy1.cs
+$(objdir)CpLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExaktInputs1.cs
+	$(csharp) $(debug_csharp) /t:library \
+        /out:$(objdir)CpLinnCoUkExaktInputs1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpLinnCoUkExaktInputs1.cs
 
 # Proxy classes for Java:
 
@@ -759,5 +776,7 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class : $
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkVolkano1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkPrivacy1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkPrivacy1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkExaktInputs1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkExaktInputs1.java
 
 

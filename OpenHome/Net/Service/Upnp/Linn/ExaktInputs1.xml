@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+
+    <actionList>
+
+        <action>
+            <name>GetAssociation</name>
+            <argumentList>
+                <argument>
+                    <name>InputIndex</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uint</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SetAssociation</name>
+            <argumentList>
+                <argument>
+                    <name>InputIndex</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uint</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>ClearAssociation</name>
+            <argumentList>
+                <argument>
+                    <name>InputIndex</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uint</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>InputCount</name>
+            <argumentList>
+                <argument>
+                    <name>InputCount</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uint</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+    </actionList>
+
+    <serviceStateTable>
+        <stateVariable sendEvents="yes">
+            <name>Associations</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_String</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_Uint</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+    </serviceStateTable>
+
+</scpd>

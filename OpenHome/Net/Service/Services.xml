@@ -265,4 +265,11 @@
     <type>Privacy</type>
     <version>1</version>
   </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>ExaktInputs</type>
+    <version>1</version>
+  </service>
 </servicelist>

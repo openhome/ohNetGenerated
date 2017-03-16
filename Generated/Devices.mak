@@ -118,6 +118,9 @@ objects_devices = \
                   $(objdir)DvLinnCoUkPrivacy1.$(objext) \
                   $(objdir)DvLinnCoUkPrivacy1Std.$(objext) \
                   $(objdir)DvLinnCoUkPrivacy1C.$(objext) \
+                  $(objdir)DvLinnCoUkExaktInputs1.$(objext) \
+                  $(objdir)DvLinnCoUkExaktInputs1Std.$(objext) \
+                  $(objdir)DvLinnCoUkExaktInputs1C.$(objext) \
 
 # Devices have well controlled dependencies so we can document a more limited set of headers
 headers_device = $(inc_build)/OpenHome/Types.h \
@@ -165,6 +168,7 @@ device_dotnet_assemblies = \
         DvLinnCoUkFlash1.net.dll \
         DvLinnCoUkVolkano1.net.dll \
         DvLinnCoUkPrivacy1.net.dll \
+        DvLinnCoUkExaktInputs1.net.dll \
 
 device_dotnet_assemblies_with_path = \
         $(objdir)DvUpnpOrgAVTransport1.net.dll \
@@ -205,6 +209,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvLinnCoUkFlash1.net.dll \
         $(objdir)DvLinnCoUkVolkano1.net.dll \
         $(objdir)DvLinnCoUkPrivacy1.net.dll \
+        $(objdir)DvLinnCoUkExaktInputs1.net.dll \
 
 device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgAVTransport1.class \
@@ -245,6 +250,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkFlash1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class \
 
 devices : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_devices)
 	$(ar)$(libprefix)ohNetGeneratedDevices.$(libext) $(objects_devices)
@@ -476,6 +482,12 @@ $(objdir)DvLinnCoUkPrivacy1Std.$(objext) : $(deviceCppStd)DvLinnCoUkPrivacy1Std.
 	$(compiler)DvLinnCoUkPrivacy1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkPrivacy1Std.cpp
 $(objdir)DvLinnCoUkPrivacy1C.$(objext) : $(deviceC)DvLinnCoUkPrivacy1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkPrivacy1.h
 	$(compiler)DvLinnCoUkPrivacy1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkPrivacy1C.cpp
+$(objdir)DvLinnCoUkExaktInputs1.$(objext) : $(deviceCppCore)DvLinnCoUkExaktInputs1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkExaktInputs1.h
+	$(compiler)DvLinnCoUkExaktInputs1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkExaktInputs1.cpp
+$(objdir)DvLinnCoUkExaktInputs1Std.$(objext) : $(deviceCppStd)DvLinnCoUkExaktInputs1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkExaktInputs1.h
+	$(compiler)DvLinnCoUkExaktInputs1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkExaktInputs1Std.cpp
+$(objdir)DvLinnCoUkExaktInputs1C.$(objext) : $(deviceC)DvLinnCoUkExaktInputs1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkExaktInputs1.h
+	$(compiler)DvLinnCoUkExaktInputs1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkExaktInputs1C.cpp
 
 
 # Device assemblies for .NET:
@@ -672,6 +684,11 @@ $(objdir)DvLinnCoUkPrivacy1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnC
         /out:$(objdir)DvLinnCoUkPrivacy1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvLinnCoUkPrivacy1.cs
+$(objdir)DvLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkExaktInputs1.cs
+	$(csharp) $(debug_csharp) /t:library \
+        /out:$(objdir)DvLinnCoUkExaktInputs1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkExaktInputs1.cs
 
 # Device classes for Java:
 
@@ -753,5 +770,7 @@ $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class : $(
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkVolkano1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkPrivacy1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkPrivacy1.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkExaktInputs1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkExaktInputs1.java
 
 
