@@ -79,6 +79,9 @@ objects_devices = \
                   $(objdir)DvAvOpenhomeOrgProduct2.$(objext) \
                   $(objdir)DvAvOpenhomeOrgProduct2Std.$(objext) \
                   $(objdir)DvAvOpenhomeOrgProduct2C.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgTransport1.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgTransport1Std.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgTransport1C.$(objext) \
                   $(objdir)DvAvOpenhomeOrgRadio1.$(objext) \
                   $(objdir)DvAvOpenhomeOrgRadio1Std.$(objext) \
                   $(objdir)DvAvOpenhomeOrgRadio1C.$(objext) \
@@ -121,6 +124,9 @@ objects_devices = \
                   $(objdir)DvLinnCoUkExaktInputs1.$(objext) \
                   $(objdir)DvLinnCoUkExaktInputs1Std.$(objext) \
                   $(objdir)DvLinnCoUkExaktInputs1C.$(objext) \
+                  $(objdir)DvLinnCoUkCloud1.$(objext) \
+                  $(objdir)DvLinnCoUkCloud1Std.$(objext) \
+                  $(objdir)DvLinnCoUkCloud1C.$(objext) \
 
 # Devices have well controlled dependencies so we can document a more limited set of headers
 headers_device = $(inc_build)/OpenHome/Types.h \
@@ -155,6 +161,7 @@ device_dotnet_assemblies = \
         DvAvOpenhomeOrgVolume3.net.dll \
         DvAvOpenhomeOrgProduct1.net.dll \
         DvAvOpenhomeOrgProduct2.net.dll \
+        DvAvOpenhomeOrgTransport1.net.dll \
         DvAvOpenhomeOrgRadio1.net.dll \
         DvAvOpenhomeOrgReceiver1.net.dll \
         DvAvOpenhomeOrgSender1.net.dll \
@@ -169,6 +176,7 @@ device_dotnet_assemblies = \
         DvLinnCoUkVolkano1.net.dll \
         DvLinnCoUkPrivacy1.net.dll \
         DvLinnCoUkExaktInputs1.net.dll \
+        DvLinnCoUkCloud1.net.dll \
 
 device_dotnet_assemblies_with_path = \
         $(objdir)DvUpnpOrgAVTransport1.net.dll \
@@ -196,6 +204,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvAvOpenhomeOrgVolume3.net.dll \
         $(objdir)DvAvOpenhomeOrgProduct1.net.dll \
         $(objdir)DvAvOpenhomeOrgProduct2.net.dll \
+        $(objdir)DvAvOpenhomeOrgTransport1.net.dll \
         $(objdir)DvAvOpenhomeOrgRadio1.net.dll \
         $(objdir)DvAvOpenhomeOrgReceiver1.net.dll \
         $(objdir)DvAvOpenhomeOrgSender1.net.dll \
@@ -210,6 +219,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvLinnCoUkVolkano1.net.dll \
         $(objdir)DvLinnCoUkPrivacy1.net.dll \
         $(objdir)DvLinnCoUkExaktInputs1.net.dll \
+        $(objdir)DvLinnCoUkCloud1.net.dll \
 
 device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgAVTransport1.class \
@@ -237,6 +247,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume3.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct2.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTransport1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgReceiver1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgSender1.class \
@@ -251,6 +262,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud1.class \
 
 devices : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_devices)
 	$(ar)$(libprefix)ohNetGeneratedDevices.$(libext) $(objects_devices)
@@ -404,6 +416,12 @@ $(objdir)DvAvOpenhomeOrgProduct2Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgPr
 	$(compiler)DvAvOpenhomeOrgProduct2Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgProduct2Std.cpp
 $(objdir)DvAvOpenhomeOrgProduct2C.$(objext) : $(deviceC)DvAvOpenhomeOrgProduct2C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgProduct2.h
 	$(compiler)DvAvOpenhomeOrgProduct2C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgProduct2C.cpp
+$(objdir)DvAvOpenhomeOrgTransport1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgTransport1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgTransport1.h
+	$(compiler)DvAvOpenhomeOrgTransport1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgTransport1.cpp
+$(objdir)DvAvOpenhomeOrgTransport1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgTransport1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgTransport1.h
+	$(compiler)DvAvOpenhomeOrgTransport1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgTransport1Std.cpp
+$(objdir)DvAvOpenhomeOrgTransport1C.$(objext) : $(deviceC)DvAvOpenhomeOrgTransport1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgTransport1.h
+	$(compiler)DvAvOpenhomeOrgTransport1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgTransport1C.cpp
 $(objdir)DvAvOpenhomeOrgRadio1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgRadio1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgRadio1.h
 	$(compiler)DvAvOpenhomeOrgRadio1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgRadio1.cpp
 $(objdir)DvAvOpenhomeOrgRadio1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgRadio1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgRadio1.h
@@ -488,6 +506,12 @@ $(objdir)DvLinnCoUkExaktInputs1Std.$(objext) : $(deviceCppStd)DvLinnCoUkExaktInp
 	$(compiler)DvLinnCoUkExaktInputs1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkExaktInputs1Std.cpp
 $(objdir)DvLinnCoUkExaktInputs1C.$(objext) : $(deviceC)DvLinnCoUkExaktInputs1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkExaktInputs1.h
 	$(compiler)DvLinnCoUkExaktInputs1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkExaktInputs1C.cpp
+$(objdir)DvLinnCoUkCloud1.$(objext) : $(deviceCppCore)DvLinnCoUkCloud1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkCloud1.h
+	$(compiler)DvLinnCoUkCloud1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkCloud1.cpp
+$(objdir)DvLinnCoUkCloud1Std.$(objext) : $(deviceCppStd)DvLinnCoUkCloud1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkCloud1.h
+	$(compiler)DvLinnCoUkCloud1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkCloud1Std.cpp
+$(objdir)DvLinnCoUkCloud1C.$(objext) : $(deviceC)DvLinnCoUkCloud1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkCloud1.h
+	$(compiler)DvLinnCoUkCloud1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkCloud1C.cpp
 
 
 # Device assemblies for .NET:
@@ -619,6 +643,11 @@ $(objdir)DvAvOpenhomeOrgProduct2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)Dv
         /out:$(objdir)DvAvOpenhomeOrgProduct2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvAvOpenhomeOrgProduct2.cs
+$(objdir)DvAvOpenhomeOrgTransport1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgTransport1.cs
+	$(csharp) $(debug_csharp) /t:library \
+        /out:$(objdir)DvAvOpenhomeOrgTransport1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvAvOpenhomeOrgTransport1.cs
 $(objdir)DvAvOpenhomeOrgRadio1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgRadio1.cs
 	$(csharp) $(debug_csharp) /t:library \
         /out:$(objdir)DvAvOpenhomeOrgRadio1.net.dll \
@@ -689,6 +718,11 @@ $(objdir)DvLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvL
         /out:$(objdir)DvLinnCoUkExaktInputs1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvLinnCoUkExaktInputs1.cs
+$(objdir)DvLinnCoUkCloud1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkCloud1.cs
+	$(csharp) $(debug_csharp) /t:library \
+        /out:$(objdir)DvLinnCoUkCloud1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkCloud1.cs
 
 # Device classes for Java:
 
@@ -744,6 +778,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct1.class
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgProduct1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgProduct2.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgProduct2.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTransport1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgTransport1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgTransport1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgRadio1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgRadio1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgReceiver1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgReceiver1.java
@@ -772,5 +808,7 @@ $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class : $(
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkPrivacy1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkExaktInputs1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkExaktInputs1.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkCloud1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkCloud1.java
 
 

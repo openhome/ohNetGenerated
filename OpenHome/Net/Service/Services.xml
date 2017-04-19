@@ -178,6 +178,13 @@
     <publisher>OpenHome</publisher>
     <dcpdir></dcpdir>
     <domain>av.openhome.org</domain>
+    <type>Transport</type>
+    <version>1</version>
+  </service>
+  <service>
+    <publisher>OpenHome</publisher>
+    <dcpdir></dcpdir>
+    <domain>av.openhome.org</domain>
     <type>Radio</type>
     <version>1</version>
   </service>
@@ -270,6 +277,13 @@
     <dcpdir></dcpdir>
     <domain>linn.co.uk</domain>
     <type>ExaktInputs</type>
+    <version>1</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>Cloud</type>
     <version>1</version>
   </service>
 </servicelist>
