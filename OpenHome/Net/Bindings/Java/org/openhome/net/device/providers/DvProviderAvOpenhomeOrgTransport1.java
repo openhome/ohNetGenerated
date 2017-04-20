@@ -58,6 +58,38 @@ interface IDvProviderAvOpenhomeOrgTransport1
     public boolean getPropertyPrevAvailable();
 
     /**
+     * Set the value of the RepeatAvailable property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyRepeatAvailable(boolean aValue);
+
+    /**
+     * Get a copy of the value of the RepeatAvailable property
+     *
+     * @return value of the RepeatAvailable property.
+     */
+    public boolean getPropertyRepeatAvailable();
+
+    /**
+     * Set the value of the RandomAvailable property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyRandomAvailable(boolean aValue);
+
+    /**
+     * Get a copy of the value of the RandomAvailable property
+     *
+     * @return value of the RandomAvailable property.
+     */
+    public boolean getPropertyRandomAvailable();
+
+    /**
      * Set the value of the StreamId property
      *
      * @param aValue    new value for the property.
@@ -120,6 +152,38 @@ interface IDvProviderAvOpenhomeOrgTransport1
      * @return value of the TransportState property.
      */
     public String getPropertyTransportState();
+
+    /**
+     * Set the value of the Repeat property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyRepeat(boolean aValue);
+
+    /**
+     * Get a copy of the value of the Repeat property
+     *
+     * @return value of the Repeat property.
+     */
+    public boolean getPropertyRepeat();
+
+    /**
+     * Set the value of the Random property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyRandom(boolean aValue);
+
+    /**
+     * Get a copy of the value of the Random property
+     *
+     * @return value of the Random property.
+     */
+    public boolean getPropertyRandom();
         
 }
 
@@ -133,14 +197,20 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     {
         private boolean iNextAvailable;
         private boolean iPrevAvailable;
+        private boolean iRepeatAvailable;
+        private boolean iRandomAvailable;
 
         public ModeInfo(
             boolean aNextAvailable,
-            boolean aPrevAvailable
+            boolean aPrevAvailable,
+            boolean aRepeatAvailable,
+            boolean aRandomAvailable
         )
         {
             iNextAvailable = aNextAvailable;
             iPrevAvailable = aPrevAvailable;
+            iRepeatAvailable = aRepeatAvailable;
+            iRandomAvailable = aRandomAvailable;
         }
         public boolean getNextAvailable()
         {
@@ -149,6 +219,14 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public boolean getPrevAvailable()
         {
             return iPrevAvailable;
+        }
+        public boolean getRepeatAvailable()
+        {
+            return iRepeatAvailable;
+        }
+        public boolean getRandomAvailable()
+        {
+            return iRandomAvailable;
         }
     }
 
@@ -188,6 +266,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     private IDvInvocationListener iDelegateStop;
     private IDvInvocationListener iDelegateNext;
     private IDvInvocationListener iDelegatePrev;
+    private IDvInvocationListener iDelegateSetRepeat;
+    private IDvInvocationListener iDelegateSetRandom;
     private IDvInvocationListener iDelegateSeekSecondsAbsolute;
     private IDvInvocationListener iDelegateSeekSecondsRelative;
     private IDvInvocationListener iDelegateTransportState;
@@ -195,13 +275,19 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     private IDvInvocationListener iDelegateModeInfo;
     private IDvInvocationListener iDelegateStreamInfo;
     private IDvInvocationListener iDelegateStreamId;
+    private IDvInvocationListener iDelegateRepeat;
+    private IDvInvocationListener iDelegateRandom;
     private PropertyString iPropertyModes;
     private PropertyBool iPropertyNextAvailable;
     private PropertyBool iPropertyPrevAvailable;
+    private PropertyBool iPropertyRepeatAvailable;
+    private PropertyBool iPropertyRandomAvailable;
     private PropertyUint iPropertyStreamId;
     private PropertyBool iPropertySeekable;
     private PropertyBool iPropertyPausable;
     private PropertyString iPropertyTransportState;
+    private PropertyBool iPropertyRepeat;
+    private PropertyBool iPropertyRandom;
 
     /**
      * Constructor
@@ -239,6 +325,24 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     {
         iPropertyPrevAvailable = new PropertyBool(new ParameterBool("PrevAvailable"));
         addProperty(iPropertyPrevAvailable);
+    }
+
+    /**
+     * Enable the RepeatAvailable property.
+     */
+    public void enablePropertyRepeatAvailable()
+    {
+        iPropertyRepeatAvailable = new PropertyBool(new ParameterBool("RepeatAvailable"));
+        addProperty(iPropertyRepeatAvailable);
+    }
+
+    /**
+     * Enable the RandomAvailable property.
+     */
+    public void enablePropertyRandomAvailable()
+    {
+        iPropertyRandomAvailable = new PropertyBool(new ParameterBool("RandomAvailable"));
+        addProperty(iPropertyRandomAvailable);
     }
 
     /**
@@ -282,6 +386,24 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         iPropertyTransportState = new PropertyString(new ParameterString("TransportState", allowedValues));
         addProperty(iPropertyTransportState);
             allowedValues.clear();
+    }
+
+    /**
+     * Enable the Repeat property.
+     */
+    public void enablePropertyRepeat()
+    {
+        iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
+        addProperty(iPropertyRepeat);
+    }
+
+    /**
+     * Enable the Random property.
+     */
+    public void enablePropertyRandom()
+    {
+        iPropertyRandom = new PropertyBool(new ParameterBool("Random"));
+        addProperty(iPropertyRandom);
     }
 
     /**
@@ -348,6 +470,50 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     public boolean getPropertyPrevAvailable()
     {
         return iPropertyPrevAvailable.getValue();
+    }
+
+    /**
+     * Set the value of the RepeatAvailable property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyRepeatAvailable(boolean aValue)
+    {
+        return setPropertyBool(iPropertyRepeatAvailable, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the RepeatAvailable property
+     *
+     * @return  value of the RepeatAvailable property.
+     */
+    public boolean getPropertyRepeatAvailable()
+    {
+        return iPropertyRepeatAvailable.getValue();
+    }
+
+    /**
+     * Set the value of the RandomAvailable property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyRandomAvailable(boolean aValue)
+    {
+        return setPropertyBool(iPropertyRandomAvailable, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the RandomAvailable property
+     *
+     * @return  value of the RandomAvailable property.
+     */
+    public boolean getPropertyRandomAvailable()
+    {
+        return iPropertyRandomAvailable.getValue();
     }
 
     /**
@@ -439,6 +605,50 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
+     * Set the value of the Repeat property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyRepeat(boolean aValue)
+    {
+        return setPropertyBool(iPropertyRepeat, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the Repeat property
+     *
+     * @return  value of the Repeat property.
+     */
+    public boolean getPropertyRepeat()
+    {
+        return iPropertyRepeat.getValue();
+    }
+
+    /**
+     * Set the value of the Random property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyRandom(boolean aValue)
+    {
+        return setPropertyBool(iPropertyRandom, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the Random property
+     *
+     * @return  value of the Random property.
+     */
+    public boolean getPropertyRandom()
+    {
+        return iPropertyRandom.getValue();
+    }
+
+    /**
      * Signal that the action PlayAs is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
@@ -521,6 +731,34 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
+     * Signal that the action SetRepeat is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * SetRepeat must be overridden if this is called.
+     */      
+    protected void enableActionSetRepeat()
+    {
+        Action action = new Action("SetRepeat");
+        action.addInputParameter(new ParameterBool("Repeat"));
+        iDelegateSetRepeat = new DoSetRepeat();
+        enableAction(action, iDelegateSetRepeat);
+    }
+
+    /**
+     * Signal that the action SetRandom is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * SetRandom must be overridden if this is called.
+     */      
+    protected void enableActionSetRandom()
+    {
+        Action action = new Action("SetRandom");
+        action.addInputParameter(new ParameterBool("Random"));
+        iDelegateSetRandom = new DoSetRandom();
+        enableAction(action, iDelegateSetRandom);
+    }
+
+    /**
      * Signal that the action SeekSecondsAbsolute is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
@@ -589,6 +827,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         Action action = new Action("ModeInfo");
         action.addOutputParameter(new ParameterRelated("NextAvailable", iPropertyNextAvailable));
         action.addOutputParameter(new ParameterRelated("PrevAvailable", iPropertyPrevAvailable));
+        action.addOutputParameter(new ParameterRelated("RepeatAvailable", iPropertyRepeatAvailable));
+        action.addOutputParameter(new ParameterRelated("RandomAvailable", iPropertyRandomAvailable));
         iDelegateModeInfo = new DoModeInfo();
         enableAction(action, iDelegateModeInfo);
     }
@@ -621,6 +861,34 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         action.addOutputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
         iDelegateStreamId = new DoStreamId();
         enableAction(action, iDelegateStreamId);
+    }
+
+    /**
+     * Signal that the action Repeat is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * Repeat must be overridden if this is called.
+     */      
+    protected void enableActionRepeat()
+    {
+        Action action = new Action("Repeat");
+        action.addOutputParameter(new ParameterRelated("Repeat", iPropertyRepeat));
+        iDelegateRepeat = new DoRepeat();
+        enableAction(action, iDelegateRepeat);
+    }
+
+    /**
+     * Signal that the action Random is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * Random must be overridden if this is called.
+     */      
+    protected void enableActionRandom()
+    {
+        Action action = new Action("Random");
+        action.addOutputParameter(new ParameterRelated("Random", iPropertyRandom));
+        iDelegateRandom = new DoRandom();
+        enableAction(action, iDelegateRandom);
     }
 
     /**
@@ -713,6 +981,38 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @param aStreamId
      */
     protected void prev(IDvInvocation aInvocation, long aStreamId)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * SetRepeat action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * SetRepeat action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionSetRepeat} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aRepeat
+     */
+    protected void setRepeat(IDvInvocation aInvocation, boolean aRepeat)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * SetRandom action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * SetRandom action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionSetRandom} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aRandom
+     */
+    protected void setRandom(IDvInvocation aInvocation, boolean aRandom)
     {
         throw (new ActionDisabledError());
     }
@@ -822,6 +1122,36 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
     protected long streamId(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * Repeat action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * Repeat action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionRepeat} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected boolean repeat(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * Random action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * Random action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionRandom} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected boolean random(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -1127,6 +1457,102 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
+    private class DoSetRepeat implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            boolean repeat;
+            try
+            {
+                invocation.readStart();
+                repeat = invocation.readBool("Repeat");
+                invocation.readEnd();
+                setRepeat(invocation, repeat);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "SetRepeat");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoSetRandom implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            boolean random;
+            try
+            {
+                invocation.readStart();
+                random = invocation.readBool("Random");
+                invocation.readEnd();
+                setRandom(invocation, random);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "SetRandom");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
     private class DoSeekSecondsAbsolute implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
@@ -1330,6 +1756,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             DvInvocation invocation = new DvInvocation(aInvocation);
             boolean nextAvailable;
             boolean prevAvailable;
+            boolean repeatAvailable;
+            boolean randomAvailable;
             try
             {
                 invocation.readStart();
@@ -1338,6 +1766,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             ModeInfo outArgs = modeInfo(invocation);
             nextAvailable = outArgs.getNextAvailable();
             prevAvailable = outArgs.getPrevAvailable();
+            repeatAvailable = outArgs.getRepeatAvailable();
+            randomAvailable = outArgs.getRandomAvailable();
             }
             catch (ActionError ae)
             {
@@ -1361,6 +1791,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
                 invocation.writeStart();
                 invocation.writeBool("NextAvailable", nextAvailable);
                 invocation.writeBool("PrevAvailable", prevAvailable);
+                invocation.writeBool("RepeatAvailable", repeatAvailable);
+                invocation.writeBool("RandomAvailable", randomAvailable);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -1465,6 +1897,102 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             {
                 invocation.writeStart();
                 invocation.writeUint("StreamId", streamId);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoRepeat implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            boolean repeat;
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                 repeat = repeat(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "Repeat");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeBool("Repeat", repeat);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoRandom implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            boolean random;
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                 random = random(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "Random");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeBool("Random", random);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

@@ -28,6 +28,12 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public void syncPrev(long aStreamId);
     public void beginPrev(long aStreamId, ICpProxyListener aCallback);
     public void endPrev(long aAsyncHandle);
+    public void syncSetRepeat(boolean aRepeat);
+    public void beginSetRepeat(boolean aRepeat, ICpProxyListener aCallback);
+    public void endSetRepeat(long aAsyncHandle);
+    public void syncSetRandom(boolean aRandom);
+    public void beginSetRandom(boolean aRandom, ICpProxyListener aCallback);
+    public void endSetRandom(long aAsyncHandle);
     public void syncSeekSecondsAbsolute(long aStreamId, long aSecondsAbsolute);
     public void beginSeekSecondsAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback);
     public void endSeekSecondsAbsolute(long aAsyncHandle);
@@ -49,12 +55,22 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public long syncStreamId();
     public void beginStreamId(ICpProxyListener aCallback);
     public long endStreamId(long aAsyncHandle);
+    public boolean syncRepeat();
+    public void beginRepeat(ICpProxyListener aCallback);
+    public boolean endRepeat(long aAsyncHandle);
+    public boolean syncRandom();
+    public void beginRandom(ICpProxyListener aCallback);
+    public boolean endRandom(long aAsyncHandle);
     public void setPropertyModesChanged(IPropertyChangeListener aModesChanged);
     public String getPropertyModes();
     public void setPropertyNextAvailableChanged(IPropertyChangeListener aNextAvailableChanged);
     public boolean getPropertyNextAvailable();
     public void setPropertyPrevAvailableChanged(IPropertyChangeListener aPrevAvailableChanged);
     public boolean getPropertyPrevAvailable();
+    public void setPropertyRepeatAvailableChanged(IPropertyChangeListener aRepeatAvailableChanged);
+    public boolean getPropertyRepeatAvailable();
+    public void setPropertyRandomAvailableChanged(IPropertyChangeListener aRandomAvailableChanged);
+    public boolean getPropertyRandomAvailable();
     public void setPropertyStreamIdChanged(IPropertyChangeListener aStreamIdChanged);
     public long getPropertyStreamId();
     public void setPropertySeekableChanged(IPropertyChangeListener aSeekableChanged);
@@ -63,6 +79,10 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public boolean getPropertyPausable();
     public void setPropertyTransportStateChanged(IPropertyChangeListener aTransportStateChanged);
     public String getPropertyTransportState();
+    public void setPropertyRepeatChanged(IPropertyChangeListener aRepeatChanged);
+    public boolean getPropertyRepeat();
+    public void setPropertyRandomChanged(IPropertyChangeListener aRandomChanged);
+    public boolean getPropertyRandom();
 }
 
 class SyncPlayAsAvOpenhomeOrgTransport1 extends SyncProxyAction
@@ -155,6 +175,36 @@ class SyncPrevAvOpenhomeOrgTransport1 extends SyncProxyAction
     }
 }
 
+class SyncSetRepeatAvOpenhomeOrgTransport1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgTransport1 iService;
+
+    public SyncSetRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endSetRepeat(aAsyncHandle);
+        
+    }
+}
+
+class SyncSetRandomAvOpenhomeOrgTransport1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgTransport1 iService;
+
+    public SyncSetRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endSetRandom(aAsyncHandle);
+        
+    }
+}
+
 class SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
@@ -232,6 +282,8 @@ class SyncModeInfoAvOpenhomeOrgTransport1 extends SyncProxyAction
     private CpProxyAvOpenhomeOrgTransport1 iService;
     private boolean iNextAvailable;
     private boolean iPrevAvailable;
+    private boolean iRepeatAvailable;
+    private boolean iRandomAvailable;
 
     public SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
@@ -245,12 +297,22 @@ class SyncModeInfoAvOpenhomeOrgTransport1 extends SyncProxyAction
     {
         return iPrevAvailable;
     }
+    public boolean getRepeatAvailable()
+    {
+        return iRepeatAvailable;
+    }
+    public boolean getRandomAvailable()
+    {
+        return iRandomAvailable;
+    }
     protected void completeRequest(long aAsyncHandle)
     {
         ModeInfo result = iService.endModeInfo(aAsyncHandle);
         
         iNextAvailable = result.getNextAvailable();
         iPrevAvailable = result.getPrevAvailable();
+        iRepeatAvailable = result.getRepeatAvailable();
+        iRandomAvailable = result.getRandomAvailable();
     }
 }
 
@@ -308,6 +370,48 @@ class SyncStreamIdAvOpenhomeOrgTransport1 extends SyncProxyAction
     }
 }
 
+class SyncRepeatAvOpenhomeOrgTransport1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgTransport1 iService;
+    private boolean iRepeat;
+
+    public SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    {
+        iService = aProxy;
+    }
+    public boolean getRepeat()
+    {
+        return iRepeat;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        boolean result = iService.endRepeat(aAsyncHandle);
+        
+        iRepeat = result;
+    }
+}
+
+class SyncRandomAvOpenhomeOrgTransport1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgTransport1 iService;
+    private boolean iRandom;
+
+    public SyncRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    {
+        iService = aProxy;
+    }
+    public boolean getRandom()
+    {
+        return iRandom;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        boolean result = iService.endRandom(aAsyncHandle);
+        
+        iRandom = result;
+    }
+}
+
 /**
  * Proxy for the av.openhome.org:Transport:1 UPnP service
  */
@@ -318,14 +422,20 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     {
         private boolean iNextAvailable;
         private boolean iPrevAvailable;
+        private boolean iRepeatAvailable;
+        private boolean iRandomAvailable;
 
         public ModeInfo(
             boolean aNextAvailable,
-            boolean aPrevAvailable
+            boolean aPrevAvailable,
+            boolean aRepeatAvailable,
+            boolean aRandomAvailable
         )
         {
             iNextAvailable = aNextAvailable;
             iPrevAvailable = aPrevAvailable;
+            iRepeatAvailable = aRepeatAvailable;
+            iRandomAvailable = aRandomAvailable;
         }
         public boolean getNextAvailable()
         {
@@ -334,6 +444,14 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         public boolean getPrevAvailable()
         {
             return iPrevAvailable;
+        }
+        public boolean getRepeatAvailable()
+        {
+            return iRepeatAvailable;
+        }
+        public boolean getRandomAvailable()
+        {
+            return iRandomAvailable;
         }
     }
 
@@ -373,6 +491,8 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     private Action iActionStop;
     private Action iActionNext;
     private Action iActionPrev;
+    private Action iActionSetRepeat;
+    private Action iActionSetRandom;
     private Action iActionSeekSecondsAbsolute;
     private Action iActionSeekSecondsRelative;
     private Action iActionTransportState;
@@ -380,20 +500,30 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     private Action iActionModeInfo;
     private Action iActionStreamInfo;
     private Action iActionStreamId;
+    private Action iActionRepeat;
+    private Action iActionRandom;
     private PropertyString iModes;
     private PropertyBool iNextAvailable;
     private PropertyBool iPrevAvailable;
+    private PropertyBool iRepeatAvailable;
+    private PropertyBool iRandomAvailable;
     private PropertyUint iStreamId;
     private PropertyBool iSeekable;
     private PropertyBool iPausable;
     private PropertyString iTransportState;
+    private PropertyBool iRepeat;
+    private PropertyBool iRandom;
     private IPropertyChangeListener iModesChanged;
     private IPropertyChangeListener iNextAvailableChanged;
     private IPropertyChangeListener iPrevAvailableChanged;
+    private IPropertyChangeListener iRepeatAvailableChanged;
+    private IPropertyChangeListener iRandomAvailableChanged;
     private IPropertyChangeListener iStreamIdChanged;
     private IPropertyChangeListener iSeekableChanged;
     private IPropertyChangeListener iPausableChanged;
     private IPropertyChangeListener iTransportStateChanged;
+    private IPropertyChangeListener iRepeatChanged;
+    private IPropertyChangeListener iRandomChanged;
     private Object iPropertyLock;
 
     /**
@@ -429,6 +559,14 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         param = new ParameterUint("StreamId");
         iActionPrev.addInputParameter(param);
 
+        iActionSetRepeat = new Action("SetRepeat");
+        param = new ParameterBool("Repeat");
+        iActionSetRepeat.addInputParameter(param);
+
+        iActionSetRandom = new Action("SetRandom");
+        param = new ParameterBool("Random");
+        iActionSetRandom.addInputParameter(param);
+
         iActionSeekSecondsAbsolute = new Action("SeekSecondsAbsolute");
         param = new ParameterUint("StreamId");
         iActionSeekSecondsAbsolute.addInputParameter(param);
@@ -460,6 +598,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         iActionModeInfo.addOutputParameter(param);
         param = new ParameterBool("PrevAvailable");
         iActionModeInfo.addOutputParameter(param);
+        param = new ParameterBool("RepeatAvailable");
+        iActionModeInfo.addOutputParameter(param);
+        param = new ParameterBool("RandomAvailable");
+        iActionModeInfo.addOutputParameter(param);
 
         iActionStreamInfo = new Action("StreamInfo");
         param = new ParameterUint("StreamId");
@@ -472,6 +614,14 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         iActionStreamId = new Action("StreamId");
         param = new ParameterUint("StreamId");
         iActionStreamId.addOutputParameter(param);
+
+        iActionRepeat = new Action("Repeat");
+        param = new ParameterBool("Repeat");
+        iActionRepeat.addOutputParameter(param);
+
+        iActionRandom = new Action("Random");
+        param = new ParameterBool("Random");
+        iActionRandom.addOutputParameter(param);
 
         iModesChanged = new PropertyChangeListener();
         iModes = new PropertyString("Modes",
@@ -500,6 +650,24 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             }
         );
         addProperty(iPrevAvailable);
+        iRepeatAvailableChanged = new PropertyChangeListener();
+        iRepeatAvailable = new PropertyBool("RepeatAvailable",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    repeatAvailablePropertyChanged();
+                }
+            }
+        );
+        addProperty(iRepeatAvailable);
+        iRandomAvailableChanged = new PropertyChangeListener();
+        iRandomAvailable = new PropertyBool("RandomAvailable",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    randomAvailablePropertyChanged();
+                }
+            }
+        );
+        addProperty(iRandomAvailable);
         iStreamIdChanged = new PropertyChangeListener();
         iStreamId = new PropertyUint("StreamId",
             new PropertyChangeListener() {
@@ -536,6 +704,24 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             }
         );
         addProperty(iTransportState);
+        iRepeatChanged = new PropertyChangeListener();
+        iRepeat = new PropertyBool("Repeat",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    repeatPropertyChanged();
+                }
+            }
+        );
+        addProperty(iRepeat);
+        iRandomChanged = new PropertyChangeListener();
+        iRandom = new PropertyBool("Random",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    randomPropertyChanged();
+                }
+            }
+        );
+        addProperty(iRandom);
         iPropertyLock = new Object();
     }
     /**
@@ -824,6 +1010,102 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
+    public void syncSetRepeat(boolean aRepeat)
+    {
+        SyncSetRepeatAvOpenhomeOrgTransport1 sync = new SyncSetRepeatAvOpenhomeOrgTransport1(this);
+        beginSetRepeat(aRepeat, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endSetRepeat}.
+     * 
+     * @param aRepeat
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginSetRepeat(boolean aRepeat, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionSetRepeat, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentBool((ParameterBool)iActionSetRepeat.getInputParameter(inIndex++), aRepeat));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginSetRepeat} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginSetRepeat} method.
+     */
+    public void endSetRepeat(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncSetRandom(boolean aRandom)
+    {
+        SyncSetRandomAvOpenhomeOrgTransport1 sync = new SyncSetRandomAvOpenhomeOrgTransport1(this);
+        beginSetRandom(aRandom, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endSetRandom}.
+     * 
+     * @param aRandom
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginSetRandom(boolean aRandom, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionSetRandom, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentBool((ParameterBool)iActionSetRandom.getInputParameter(inIndex++), aRandom));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginSetRandom} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginSetRandom} method.
+     */
+    public void endSetRandom(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
     public void syncSeekSecondsAbsolute(long aStreamId, long aSecondsAbsolute)
     {
         SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1 sync = new SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1(this);
@@ -1045,7 +1327,9 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
 
         return new ModeInfo(
             sync.getNextAvailable(),
-            sync.getPrevAvailable()
+            sync.getPrevAvailable(),
+            sync.getRepeatAvailable(),
+            sync.getRandomAvailable()
         );
     }
     
@@ -1062,6 +1346,8 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     {
         Invocation invocation = iService.getInvocation(iActionModeInfo, aCallback);
         int outIndex = 0;
+        invocation.addOutput(new ArgumentBool((ParameterBool)iActionModeInfo.getOutputParameter(outIndex++)));
+        invocation.addOutput(new ArgumentBool((ParameterBool)iActionModeInfo.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentBool((ParameterBool)iActionModeInfo.getOutputParameter(outIndex++)));
         invocation.addOutput(new ArgumentBool((ParameterBool)iActionModeInfo.getOutputParameter(outIndex++)));
         iService.invokeAction(invocation);
@@ -1086,9 +1372,13 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         int index = 0;
         boolean nextAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
         boolean prevAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
+        boolean repeatAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
+        boolean randomAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
         return new ModeInfo(
             nextAvailable,
-            prevAvailable
+            prevAvailable,
+            repeatAvailable,
+            randomAvailable
         );
     }
         
@@ -1215,6 +1505,116 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     }
         
     /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
+    public boolean syncRepeat()
+    {
+        SyncRepeatAvOpenhomeOrgTransport1 sync = new SyncRepeatAvOpenhomeOrgTransport1(this);
+        beginRepeat(sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getRepeat();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endRepeat}.
+     * 
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginRepeat(ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionRepeat, aCallback);
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentBool((ParameterBool)iActionRepeat.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginRepeat} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginRepeat} method.
+     * @return the result of the previously invoked action.
+     */
+    public boolean endRepeat(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        boolean repeat = Invocation.getOutputBool(aAsyncHandle, index++);
+        return repeat;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
+    public boolean syncRandom()
+    {
+        SyncRandomAvOpenhomeOrgTransport1 sync = new SyncRandomAvOpenhomeOrgTransport1(this);
+        beginRandom(sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getRandom();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endRandom}.
+     * 
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginRandom(ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionRandom, aCallback);
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentBool((ParameterBool)iActionRandom.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginRandom} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginRandom} method.
+     * @return the result of the previously invoked action.
+     */
+    public boolean endRandom(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        boolean random = Invocation.getOutputBool(aAsyncHandle, index++);
+        return random;
+    }
+        
+    /**
      * Set a delegate to be run when the Modes state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
@@ -1281,6 +1681,52 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         synchronized (iPropertyLock)
         {
             reportEvent(iPrevAvailableChanged);
+        }
+    }
+    /**
+     * Set a delegate to be run when the RepeatAvailable state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param aRepeatAvailableChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyRepeatAvailableChanged(IPropertyChangeListener aRepeatAvailableChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iRepeatAvailableChanged = aRepeatAvailableChanged;
+        }
+    }
+
+    private void repeatAvailablePropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iRepeatAvailableChanged);
+        }
+    }
+    /**
+     * Set a delegate to be run when the RandomAvailable state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param aRandomAvailableChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyRandomAvailableChanged(IPropertyChangeListener aRandomAvailableChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iRandomAvailableChanged = aRandomAvailableChanged;
+        }
+    }
+
+    private void randomAvailablePropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iRandomAvailableChanged);
         }
     }
     /**
@@ -1375,6 +1821,52 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             reportEvent(iTransportStateChanged);
         }
     }
+    /**
+     * Set a delegate to be run when the Repeat state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param aRepeatChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyRepeatChanged(IPropertyChangeListener aRepeatChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iRepeatChanged = aRepeatChanged;
+        }
+    }
+
+    private void repeatPropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iRepeatChanged);
+        }
+    }
+    /**
+     * Set a delegate to be run when the Random state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param aRandomChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyRandomChanged(IPropertyChangeListener aRandomChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iRandomChanged = aRandomChanged;
+        }
+    }
+
+    private void randomPropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iRandomChanged);
+        }
+    }
 
     /**
      * Query the value of the Modes property.
@@ -1420,6 +1912,38 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     {
         propertyReadLock();
         boolean val = iPrevAvailable.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
+     * Query the value of the RepeatAvailable property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the RepeatAvailable property.
+     */
+    public boolean getPropertyRepeatAvailable()
+    {
+        propertyReadLock();
+        boolean val = iRepeatAvailable.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
+     * Query the value of the RandomAvailable property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the RandomAvailable property.
+     */
+    public boolean getPropertyRandomAvailable()
+    {
+        propertyReadLock();
+        boolean val = iRandomAvailable.getValue();
         propertyReadUnlock();
         return val;
     }
@@ -1489,6 +2013,38 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     }
     
     /**
+     * Query the value of the Repeat property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the Repeat property.
+     */
+    public boolean getPropertyRepeat()
+    {
+        propertyReadLock();
+        boolean val = iRepeat.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
+     * Query the value of the Random property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the Random property.
+     */
+    public boolean getPropertyRandom()
+    {
+        propertyReadLock();
+        boolean val = iRandom.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
      * Dispose of this control point proxy.
      * Must be called for each class instance.
      * Must be called before <tt>Library.close()</tt>.
@@ -1509,6 +2065,8 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             iActionStop.destroy();
             iActionNext.destroy();
             iActionPrev.destroy();
+            iActionSetRepeat.destroy();
+            iActionSetRandom.destroy();
             iActionSeekSecondsAbsolute.destroy();
             iActionSeekSecondsRelative.destroy();
             iActionTransportState.destroy();
@@ -1516,13 +2074,19 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             iActionModeInfo.destroy();
             iActionStreamInfo.destroy();
             iActionStreamId.destroy();
+            iActionRepeat.destroy();
+            iActionRandom.destroy();
             iModes.destroy();
             iNextAvailable.destroy();
             iPrevAvailable.destroy();
+            iRepeatAvailable.destroy();
+            iRandomAvailable.destroy();
             iStreamId.destroy();
             iSeekable.destroy();
             iPausable.destroy();
             iTransportState.destroy();
+            iRepeat.destroy();
+            iRandom.destroy();
         }
     }
 }

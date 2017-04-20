@@ -21,19 +21,23 @@ var CpProxyAvOpenhomeOrgTransport1 = function(udn){
     this.serviceProperties["Modes"] = new ohnet.serviceproperty("Modes","string");
     this.serviceProperties["NextAvailable"] = new ohnet.serviceproperty("NextAvailable","bool");
     this.serviceProperties["PrevAvailable"] = new ohnet.serviceproperty("PrevAvailable","bool");
+    this.serviceProperties["RepeatAvailable"] = new ohnet.serviceproperty("RepeatAvailable","bool");
+    this.serviceProperties["RandomAvailable"] = new ohnet.serviceproperty("RandomAvailable","bool");
     this.serviceProperties["StreamId"] = new ohnet.serviceproperty("StreamId","int");
     this.serviceProperties["Seekable"] = new ohnet.serviceproperty("Seekable","bool");
     this.serviceProperties["Pausable"] = new ohnet.serviceproperty("Pausable","bool");
     this.serviceProperties["TransportState"] = new ohnet.serviceproperty("TransportState","string");
+    this.serviceProperties["Repeat"] = new ohnet.serviceproperty("Repeat","bool");
+    this.serviceProperties["Random"] = new ohnet.serviceproperty("Random","bool");
 
-                                                
+                                                            
     this.TransportStateAllowedValues = [];
     this.TransportStateAllowedValues.push("Playing");
     this.TransportStateAllowedValues.push("Paused");
     this.TransportStateAllowedValues.push("Stopped");
     this.TransportStateAllowedValues.push("Buffering");
     this.TransportStateAllowedValues.push("Waiting");
-
+            
 }
 
 
@@ -99,6 +103,32 @@ CpProxyAvOpenhomeOrgTransport1.prototype.PrevAvailable_Changed = function (state
     
 
 /**
+* Adds a listener to handle "RepeatAvailable" property change events
+* @method RepeatAvailable_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.RepeatAvailable_Changed = function (stateChangedFunction) {
+    this.serviceProperties.RepeatAvailable.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
+    });
+}
+    
+
+/**
+* Adds a listener to handle "RandomAvailable" property change events
+* @method RandomAvailable_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.RandomAvailable_Changed = function (stateChangedFunction) {
+    this.serviceProperties.RandomAvailable.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
+    });
+}
+    
+
+/**
 * Adds a listener to handle "StreamId" property change events
 * @method StreamId_Changed
 * @param {Function} stateChangedFunction The handler for state changes
@@ -146,6 +176,32 @@ CpProxyAvOpenhomeOrgTransport1.prototype.TransportState_Changed = function (stat
     this.serviceProperties.TransportState.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
+    });
+}
+    
+
+/**
+* Adds a listener to handle "Repeat" property change events
+* @method Repeat_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.Repeat_Changed = function (stateChangedFunction) {
+    this.serviceProperties.Repeat.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
+    });
+}
+    
+
+/**
+* Adds a listener to handle "Random" property change events
+* @method Random_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.Random_Changed = function (stateChangedFunction) {
+    this.serviceProperties.Random.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
 }
 
@@ -273,6 +329,48 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Prev = function(StreamId, successFuncti
 
 
 /**
+* A service action to SetRepeat
+* @method SetRepeat
+* @param {Boolean} Repeat An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.SetRepeat = function(Repeat, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetRepeat", this.url, this.domain, this.type, this.version);     
+    request.writeBoolParameter("Repeat", Repeat);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to SetRandom
+* @method SetRandom
+* @param {Boolean} Random An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.SetRandom = function(Random, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetRandom", this.url, this.domain, this.type, this.version);     
+    request.writeBoolParameter("Random", Random);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
 * A service action to SeekSecondsAbsolute
 * @method SeekSecondsAbsolute
 * @param {Int} StreamId An action parameter
@@ -369,6 +467,8 @@ CpProxyAvOpenhomeOrgTransport1.prototype.ModeInfo = function(successFunction, er
     request.send(function(result){
         result["NextAvailable"] = ohnet.soaprequest.readBoolParameter(result["NextAvailable"]); 
         result["PrevAvailable"] = ohnet.soaprequest.readBoolParameter(result["PrevAvailable"]); 
+        result["RepeatAvailable"] = ohnet.soaprequest.readBoolParameter(result["RepeatAvailable"]); 
+        result["RandomAvailable"] = ohnet.soaprequest.readBoolParameter(result["RandomAvailable"]); 
     
         if (successFunction){
             successFunction(result);
@@ -411,6 +511,46 @@ CpProxyAvOpenhomeOrgTransport1.prototype.StreamId = function(successFunction, er
     var request = new ohnet.soaprequest("StreamId", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
         result["StreamId"] = ohnet.soaprequest.readIntParameter(result["StreamId"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to Repeat
+* @method Repeat
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.Repeat = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("Repeat", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["Repeat"] = ohnet.soaprequest.readBoolParameter(result["Repeat"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to Random
+* @method Random
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgTransport1.prototype.Random = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("Random", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["Random"] = ohnet.soaprequest.readBoolParameter(result["Random"]); 
     
         if (successFunction){
             successFunction(result);

@@ -68,6 +68,34 @@ public:
      */
     void GetPropertyPrevAvailable(TBool& aValue);
     /**
+     * Set the value of the RepeatAvailable property
+     *
+     * Can only be called if EnablePropertyRepeatAvailable has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyRepeatAvailable(TBool aValue);
+    /**
+     * Get a copy of the value of the RepeatAvailable property
+     *
+     * Can only be called if EnablePropertyRepeatAvailable has previously been called.
+     */
+    void GetPropertyRepeatAvailable(TBool& aValue);
+    /**
+     * Set the value of the RandomAvailable property
+     *
+     * Can only be called if EnablePropertyRandomAvailable has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyRandomAvailable(TBool aValue);
+    /**
+     * Get a copy of the value of the RandomAvailable property
+     *
+     * Can only be called if EnablePropertyRandomAvailable has previously been called.
+     */
+    void GetPropertyRandomAvailable(TBool& aValue);
+    /**
      * Set the value of the StreamId property
      *
      * Can only be called if EnablePropertyStreamId has previously been called.
@@ -123,6 +151,34 @@ public:
      * Can only be called if EnablePropertyTransportState has previously been called.
      */
     void GetPropertyTransportState(Brhz& aValue);
+    /**
+     * Set the value of the Repeat property
+     *
+     * Can only be called if EnablePropertyRepeat has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyRepeat(TBool aValue);
+    /**
+     * Get a copy of the value of the Repeat property
+     *
+     * Can only be called if EnablePropertyRepeat has previously been called.
+     */
+    void GetPropertyRepeat(TBool& aValue);
+    /**
+     * Set the value of the Random property
+     *
+     * Can only be called if EnablePropertyRandom has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyRandom(TBool aValue);
+    /**
+     * Get a copy of the value of the Random property
+     *
+     * Can only be called if EnablePropertyRandom has previously been called.
+     */
+    void GetPropertyRandom(TBool& aValue);
 protected:
     /**
      * Constructor
@@ -149,6 +205,14 @@ protected:
      */
     void EnablePropertyPrevAvailable();
     /**
+     * Enable the RepeatAvailable property.
+     */
+    void EnablePropertyRepeatAvailable();
+    /**
+     * Enable the RandomAvailable property.
+     */
+    void EnablePropertyRandomAvailable();
+    /**
      * Enable the StreamId property.
      */
     void EnablePropertyStreamId();
@@ -164,6 +228,14 @@ protected:
      * Enable the TransportState property.
      */
     void EnablePropertyTransportState();
+    /**
+     * Enable the Repeat property.
+     */
+    void EnablePropertyRepeat();
+    /**
+     * Enable the Random property.
+     */
+    void EnablePropertyRandom();
     /**
      * Signal that the action PlayAs is supported.
      * The action's availability will be published in the device's service.xml.
@@ -200,6 +272,18 @@ protected:
      * Prev must be overridden if this is called.
      */
     void EnableActionPrev();
+    /**
+     * Signal that the action SetRepeat is supported.
+     * The action's availability will be published in the device's service.xml.
+     * SetRepeat must be overridden if this is called.
+     */
+    void EnableActionSetRepeat();
+    /**
+     * Signal that the action SetRandom is supported.
+     * The action's availability will be published in the device's service.xml.
+     * SetRandom must be overridden if this is called.
+     */
+    void EnableActionSetRandom();
     /**
      * Signal that the action SeekSecondsAbsolute is supported.
      * The action's availability will be published in the device's service.xml.
@@ -242,6 +326,18 @@ protected:
      * StreamId must be overridden if this is called.
      */
     void EnableActionStreamId();
+    /**
+     * Signal that the action Repeat is supported.
+     * The action's availability will be published in the device's service.xml.
+     * Repeat must be overridden if this is called.
+     */
+    void EnableActionRepeat();
+    /**
+     * Signal that the action Random is supported.
+     * The action's availability will be published in the device's service.xml.
+     * Random must be overridden if this is called.
+     */
+    void EnableActionRandom();
 private:
     /**
      * PlayAs action.
@@ -292,6 +388,22 @@ private:
      */
     virtual void Prev(IDvInvocation& aInvocation, TUint aStreamId);
     /**
+     * SetRepeat action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * SetRepeat action for the owning device.
+     * Must be implemented iff EnableActionSetRepeat was called.
+     */
+    virtual void SetRepeat(IDvInvocation& aInvocation, TBool aRepeat);
+    /**
+     * SetRandom action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * SetRandom action for the owning device.
+     * Must be implemented iff EnableActionSetRandom was called.
+     */
+    virtual void SetRandom(IDvInvocation& aInvocation, TBool aRandom);
+    /**
      * SeekSecondsAbsolute action.
      *
      * Will be called when the device stack receives an invocation of the
@@ -330,7 +442,7 @@ private:
      * ModeInfo action for the owning device.
      * Must be implemented iff EnableActionModeInfo was called.
      */
-    virtual void ModeInfo(IDvInvocation& aInvocation, IDvInvocationResponseBool& aNextAvailable, IDvInvocationResponseBool& aPrevAvailable);
+    virtual void ModeInfo(IDvInvocation& aInvocation, IDvInvocationResponseBool& aNextAvailable, IDvInvocationResponseBool& aPrevAvailable, IDvInvocationResponseBool& aRepeatAvailable, IDvInvocationResponseBool& aRandomAvailable);
     /**
      * StreamInfo action.
      *
@@ -347,6 +459,22 @@ private:
      * Must be implemented iff EnableActionStreamId was called.
      */
     virtual void StreamId(IDvInvocation& aInvocation, IDvInvocationResponseUint& aStreamId);
+    /**
+     * Repeat action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * Repeat action for the owning device.
+     * Must be implemented iff EnableActionRepeat was called.
+     */
+    virtual void Repeat(IDvInvocation& aInvocation, IDvInvocationResponseBool& aRepeat);
+    /**
+     * Random action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * Random action for the owning device.
+     * Must be implemented iff EnableActionRandom was called.
+     */
+    virtual void Random(IDvInvocation& aInvocation, IDvInvocationResponseBool& aRandom);
 private:
     DvProviderAvOpenhomeOrgTransport1();
     void Construct();
@@ -356,6 +484,8 @@ private:
     void DoStop(IDviInvocation& aInvocation);
     void DoNext(IDviInvocation& aInvocation);
     void DoPrev(IDviInvocation& aInvocation);
+    void DoSetRepeat(IDviInvocation& aInvocation);
+    void DoSetRandom(IDviInvocation& aInvocation);
     void DoSeekSecondsAbsolute(IDviInvocation& aInvocation);
     void DoSeekSecondsRelative(IDviInvocation& aInvocation);
     void DoTransportState(IDviInvocation& aInvocation);
@@ -363,14 +493,20 @@ private:
     void DoModeInfo(IDviInvocation& aInvocation);
     void DoStreamInfo(IDviInvocation& aInvocation);
     void DoStreamId(IDviInvocation& aInvocation);
+    void DoRepeat(IDviInvocation& aInvocation);
+    void DoRandom(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyModes;
     PropertyBool* iPropertyNextAvailable;
     PropertyBool* iPropertyPrevAvailable;
+    PropertyBool* iPropertyRepeatAvailable;
+    PropertyBool* iPropertyRandomAvailable;
     PropertyUint* iPropertyStreamId;
     PropertyBool* iPropertySeekable;
     PropertyBool* iPropertyPausable;
     PropertyString* iPropertyTransportState;
+    PropertyBool* iPropertyRepeat;
+    PropertyBool* iPropertyRandom;
 };
 
 } // namespace Net

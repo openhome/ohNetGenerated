@@ -28,6 +28,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncPrev(uint aStreamId);
         void BeginPrev(uint aStreamId, CpProxy.CallbackAsyncComplete aCallback);
         void EndPrev(IntPtr aAsyncHandle);
+        void SyncSetRepeat(bool aRepeat);
+        void BeginSetRepeat(bool aRepeat, CpProxy.CallbackAsyncComplete aCallback);
+        void EndSetRepeat(IntPtr aAsyncHandle);
+        void SyncSetRandom(bool aRandom);
+        void BeginSetRandom(bool aRandom, CpProxy.CallbackAsyncComplete aCallback);
+        void EndSetRandom(IntPtr aAsyncHandle);
         void SyncSeekSecondsAbsolute(uint aStreamId, uint aSecondsAbsolute);
         void BeginSeekSecondsAbsolute(uint aStreamId, uint aSecondsAbsolute, CpProxy.CallbackAsyncComplete aCallback);
         void EndSeekSecondsAbsolute(IntPtr aAsyncHandle);
@@ -40,21 +46,31 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncModes(out String aModes);
         void BeginModes(CpProxy.CallbackAsyncComplete aCallback);
         void EndModes(IntPtr aAsyncHandle, out String aModes);
-        void SyncModeInfo(out bool aNextAvailable, out bool aPrevAvailable);
+        void SyncModeInfo(out bool aNextAvailable, out bool aPrevAvailable, out bool aRepeatAvailable, out bool aRandomAvailable);
         void BeginModeInfo(CpProxy.CallbackAsyncComplete aCallback);
-        void EndModeInfo(IntPtr aAsyncHandle, out bool aNextAvailable, out bool aPrevAvailable);
+        void EndModeInfo(IntPtr aAsyncHandle, out bool aNextAvailable, out bool aPrevAvailable, out bool aRepeatAvailable, out bool aRandomAvailable);
         void SyncStreamInfo(out uint aStreamId, out bool aSeekable, out bool aPausable);
         void BeginStreamInfo(CpProxy.CallbackAsyncComplete aCallback);
         void EndStreamInfo(IntPtr aAsyncHandle, out uint aStreamId, out bool aSeekable, out bool aPausable);
         void SyncStreamId(out uint aStreamId);
         void BeginStreamId(CpProxy.CallbackAsyncComplete aCallback);
         void EndStreamId(IntPtr aAsyncHandle, out uint aStreamId);
+        void SyncRepeat(out bool aRepeat);
+        void BeginRepeat(CpProxy.CallbackAsyncComplete aCallback);
+        void EndRepeat(IntPtr aAsyncHandle, out bool aRepeat);
+        void SyncRandom(out bool aRandom);
+        void BeginRandom(CpProxy.CallbackAsyncComplete aCallback);
+        void EndRandom(IntPtr aAsyncHandle, out bool aRandom);
         void SetPropertyModesChanged(System.Action aModesChanged);
         String PropertyModes();
         void SetPropertyNextAvailableChanged(System.Action aNextAvailableChanged);
         bool PropertyNextAvailable();
         void SetPropertyPrevAvailableChanged(System.Action aPrevAvailableChanged);
         bool PropertyPrevAvailable();
+        void SetPropertyRepeatAvailableChanged(System.Action aRepeatAvailableChanged);
+        bool PropertyRepeatAvailable();
+        void SetPropertyRandomAvailableChanged(System.Action aRandomAvailableChanged);
+        bool PropertyRandomAvailable();
         void SetPropertyStreamIdChanged(System.Action aStreamIdChanged);
         uint PropertyStreamId();
         void SetPropertySeekableChanged(System.Action aSeekableChanged);
@@ -63,6 +79,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         bool PropertyPausable();
         void SetPropertyTransportStateChanged(System.Action aTransportStateChanged);
         String PropertyTransportState();
+        void SetPropertyRepeatChanged(System.Action aRepeatChanged);
+        bool PropertyRepeat();
+        void SetPropertyRandomChanged(System.Action aRandomChanged);
+        bool PropertyRandom();
     }
 
     internal class SyncPlayAsAvOpenhomeOrgTransport1 : SyncProxyAction
@@ -149,6 +169,34 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
+    internal class SyncSetRepeatAvOpenhomeOrgTransport1 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgTransport1 iService;
+
+        public SyncSetRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndSetRepeat(aAsyncHandle);
+        }
+    };
+
+    internal class SyncSetRandomAvOpenhomeOrgTransport1 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgTransport1 iService;
+
+        public SyncSetRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndSetRandom(aAsyncHandle);
+        }
+    };
+
     internal class SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgTransport1 iService;
@@ -220,6 +268,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private CpProxyAvOpenhomeOrgTransport1 iService;
         private bool iNextAvailable;
         private bool iPrevAvailable;
+        private bool iRepeatAvailable;
+        private bool iRandomAvailable;
 
         public SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
         {
@@ -233,9 +283,17 @@ namespace OpenHome.Net.ControlPoint.Proxies
         {
             return iPrevAvailable;
         }
+        public bool RepeatAvailable()
+        {
+            return iRepeatAvailable;
+        }
+        public bool RandomAvailable()
+        {
+            return iRandomAvailable;
+        }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndModeInfo(aAsyncHandle, out iNextAvailable, out iPrevAvailable);
+            iService.EndModeInfo(aAsyncHandle, out iNextAvailable, out iPrevAvailable, out iRepeatAvailable, out iRandomAvailable);
         }
     };
 
@@ -287,6 +345,44 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
+    internal class SyncRepeatAvOpenhomeOrgTransport1 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgTransport1 iService;
+        private bool iRepeat;
+
+        public SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+        {
+            iService = aProxy;
+        }
+        public bool Repeat()
+        {
+            return iRepeat;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndRepeat(aAsyncHandle, out iRepeat);
+        }
+    };
+
+    internal class SyncRandomAvOpenhomeOrgTransport1 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgTransport1 iService;
+        private bool iRandom;
+
+        public SyncRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+        {
+            iService = aProxy;
+        }
+        public bool Random()
+        {
+            return iRandom;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndRandom(aAsyncHandle, out iRandom);
+        }
+    };
+
     /// <summary>
     /// Proxy for the av.openhome.org:Transport:1 UPnP service
     /// </summary>
@@ -298,6 +394,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionStop;
         private OpenHome.Net.Core.Action iActionNext;
         private OpenHome.Net.Core.Action iActionPrev;
+        private OpenHome.Net.Core.Action iActionSetRepeat;
+        private OpenHome.Net.Core.Action iActionSetRandom;
         private OpenHome.Net.Core.Action iActionSeekSecondsAbsolute;
         private OpenHome.Net.Core.Action iActionSeekSecondsRelative;
         private OpenHome.Net.Core.Action iActionTransportState;
@@ -305,20 +403,30 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionModeInfo;
         private OpenHome.Net.Core.Action iActionStreamInfo;
         private OpenHome.Net.Core.Action iActionStreamId;
+        private OpenHome.Net.Core.Action iActionRepeat;
+        private OpenHome.Net.Core.Action iActionRandom;
         private PropertyString iModes;
         private PropertyBool iNextAvailable;
         private PropertyBool iPrevAvailable;
+        private PropertyBool iRepeatAvailable;
+        private PropertyBool iRandomAvailable;
         private PropertyUint iStreamId;
         private PropertyBool iSeekable;
         private PropertyBool iPausable;
         private PropertyString iTransportState;
+        private PropertyBool iRepeat;
+        private PropertyBool iRandom;
         private System.Action iModesChanged;
         private System.Action iNextAvailableChanged;
         private System.Action iPrevAvailableChanged;
+        private System.Action iRepeatAvailableChanged;
+        private System.Action iRandomAvailableChanged;
         private System.Action iStreamIdChanged;
         private System.Action iSeekableChanged;
         private System.Action iPausableChanged;
         private System.Action iTransportStateChanged;
+        private System.Action iRepeatChanged;
+        private System.Action iRandomChanged;
         private Mutex iPropertyLock;
 
         /// <summary>
@@ -352,6 +460,14 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterUint("StreamId");
             iActionPrev.AddInputParameter(param);
 
+            iActionSetRepeat = new OpenHome.Net.Core.Action("SetRepeat");
+            param = new ParameterBool("Repeat");
+            iActionSetRepeat.AddInputParameter(param);
+
+            iActionSetRandom = new OpenHome.Net.Core.Action("SetRandom");
+            param = new ParameterBool("Random");
+            iActionSetRandom.AddInputParameter(param);
+
             iActionSeekSecondsAbsolute = new OpenHome.Net.Core.Action("SeekSecondsAbsolute");
             param = new ParameterUint("StreamId");
             iActionSeekSecondsAbsolute.AddInputParameter(param);
@@ -383,6 +499,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionModeInfo.AddOutputParameter(param);
             param = new ParameterBool("PrevAvailable");
             iActionModeInfo.AddOutputParameter(param);
+            param = new ParameterBool("RepeatAvailable");
+            iActionModeInfo.AddOutputParameter(param);
+            param = new ParameterBool("RandomAvailable");
+            iActionModeInfo.AddOutputParameter(param);
 
             iActionStreamInfo = new OpenHome.Net.Core.Action("StreamInfo");
             param = new ParameterUint("StreamId");
@@ -396,12 +516,24 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterUint("StreamId");
             iActionStreamId.AddOutputParameter(param);
 
+            iActionRepeat = new OpenHome.Net.Core.Action("Repeat");
+            param = new ParameterBool("Repeat");
+            iActionRepeat.AddOutputParameter(param);
+
+            iActionRandom = new OpenHome.Net.Core.Action("Random");
+            param = new ParameterBool("Random");
+            iActionRandom.AddOutputParameter(param);
+
             iModes = new PropertyString("Modes", ModesPropertyChanged);
             AddProperty(iModes);
             iNextAvailable = new PropertyBool("NextAvailable", NextAvailablePropertyChanged);
             AddProperty(iNextAvailable);
             iPrevAvailable = new PropertyBool("PrevAvailable", PrevAvailablePropertyChanged);
             AddProperty(iPrevAvailable);
+            iRepeatAvailable = new PropertyBool("RepeatAvailable", RepeatAvailablePropertyChanged);
+            AddProperty(iRepeatAvailable);
+            iRandomAvailable = new PropertyBool("RandomAvailable", RandomAvailablePropertyChanged);
+            AddProperty(iRandomAvailable);
             iStreamId = new PropertyUint("StreamId", StreamIdPropertyChanged);
             AddProperty(iStreamId);
             iSeekable = new PropertyBool("Seekable", SeekablePropertyChanged);
@@ -410,6 +542,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
             AddProperty(iPausable);
             iTransportState = new PropertyString("TransportState", TransportStatePropertyChanged);
             AddProperty(iTransportState);
+            iRepeat = new PropertyBool("Repeat", RepeatPropertyChanged);
+            AddProperty(iRepeat);
+            iRandom = new PropertyBool("Random", RandomPropertyChanged);
+            AddProperty(iRandom);
             
             iPropertyLock = new Mutex();
         }
@@ -686,6 +822,98 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
+        /// <param name="aRepeat"></param>
+        public void SyncSetRepeat(bool aRepeat)
+        {
+            SyncSetRepeatAvOpenhomeOrgTransport1 sync = new SyncSetRepeatAvOpenhomeOrgTransport1(this);
+            BeginSetRepeat(aRepeat, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndSetRepeat().</remarks>
+        /// <param name="aRepeat"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginSetRepeat(bool aRepeat, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionSetRepeat, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetRepeat.InputParameter(inIndex++), aRepeat));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndSetRepeat(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aRandom"></param>
+        public void SyncSetRandom(bool aRandom)
+        {
+            SyncSetRandomAvOpenhomeOrgTransport1 sync = new SyncSetRandomAvOpenhomeOrgTransport1(this);
+            BeginSetRandom(aRandom, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndSetRandom().</remarks>
+        /// <param name="aRandom"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginSetRandom(bool aRandom, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionSetRandom, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetRandom.InputParameter(inIndex++), aRandom));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndSetRandom(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
         /// <param name="aStreamId"></param>
         /// <param name="aSecondsAbsolute"></param>
         public void SyncSeekSecondsAbsolute(uint aStreamId, uint aSecondsAbsolute)
@@ -884,7 +1112,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// on the device and sets any output arguments</remarks>
         /// <param name="aNextAvailable"></param>
         /// <param name="aPrevAvailable"></param>
-        public void SyncModeInfo(out bool aNextAvailable, out bool aPrevAvailable)
+        /// <param name="aRepeatAvailable"></param>
+        /// <param name="aRandomAvailable"></param>
+        public void SyncModeInfo(out bool aNextAvailable, out bool aPrevAvailable, out bool aRepeatAvailable, out bool aRandomAvailable)
         {
             SyncModeInfoAvOpenhomeOrgTransport1 sync = new SyncModeInfoAvOpenhomeOrgTransport1(this);
             BeginModeInfo(sync.AsyncComplete());
@@ -892,6 +1122,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             sync.ReportError();
             aNextAvailable = sync.NextAvailable();
             aPrevAvailable = sync.PrevAvailable();
+            aRepeatAvailable = sync.RepeatAvailable();
+            aRandomAvailable = sync.RandomAvailable();
         }
 
         /// <summary>
@@ -908,6 +1140,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             int outIndex = 0;
             invocation.AddOutput(new ArgumentBool((ParameterBool)iActionModeInfo.OutputParameter(outIndex++)));
             invocation.AddOutput(new ArgumentBool((ParameterBool)iActionModeInfo.OutputParameter(outIndex++)));
+            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionModeInfo.OutputParameter(outIndex++)));
+            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionModeInfo.OutputParameter(outIndex++)));
             iService.InvokeAction(invocation);
         }
 
@@ -918,7 +1152,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
         /// <param name="aNextAvailable"></param>
         /// <param name="aPrevAvailable"></param>
-        public void EndModeInfo(IntPtr aAsyncHandle, out bool aNextAvailable, out bool aPrevAvailable)
+        /// <param name="aRepeatAvailable"></param>
+        /// <param name="aRandomAvailable"></param>
+        public void EndModeInfo(IntPtr aAsyncHandle, out bool aNextAvailable, out bool aPrevAvailable, out bool aRepeatAvailable, out bool aRandomAvailable)
         {
             uint code;
             string desc;
@@ -929,6 +1165,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             uint index = 0;
             aNextAvailable = Invocation.OutputBool(aAsyncHandle, index++);
             aPrevAvailable = Invocation.OutputBool(aAsyncHandle, index++);
+            aRepeatAvailable = Invocation.OutputBool(aAsyncHandle, index++);
+            aRandomAvailable = Invocation.OutputBool(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -1040,6 +1278,104 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aRepeat"></param>
+        public void SyncRepeat(out bool aRepeat)
+        {
+            SyncRepeatAvOpenhomeOrgTransport1 sync = new SyncRepeatAvOpenhomeOrgTransport1(this);
+            BeginRepeat(sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aRepeat = sync.Repeat();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndRepeat().</remarks>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginRepeat(CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionRepeat, aCallback);
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionRepeat.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aRepeat"></param>
+        public void EndRepeat(IntPtr aAsyncHandle, out bool aRepeat)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
+            aRepeat = Invocation.OutputBool(aAsyncHandle, index++);
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aRandom"></param>
+        public void SyncRandom(out bool aRandom)
+        {
+            SyncRandomAvOpenhomeOrgTransport1 sync = new SyncRandomAvOpenhomeOrgTransport1(this);
+            BeginRandom(sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aRandom = sync.Random();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndRandom().</remarks>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginRandom(CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionRandom, aCallback);
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionRandom.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aRandom"></param>
+        public void EndRandom(IntPtr aAsyncHandle, out bool aRandom)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
+            aRandom = Invocation.OutputBool(aAsyncHandle, index++);
+        }
+
+        /// <summary>
         /// Set a delegate to be run when the Modes state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
@@ -1102,6 +1438,50 @@ namespace OpenHome.Net.ControlPoint.Proxies
             lock (iPropertyLock)
             {
                 ReportEvent(iPrevAvailableChanged);
+            }
+        }
+
+        /// <summary>
+        /// Set a delegate to be run when the RepeatAvailable state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
+        /// <param name="aRepeatAvailableChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyRepeatAvailableChanged(System.Action aRepeatAvailableChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iRepeatAvailableChanged = aRepeatAvailableChanged;
+            }
+        }
+
+        private void RepeatAvailablePropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iRepeatAvailableChanged);
+            }
+        }
+
+        /// <summary>
+        /// Set a delegate to be run when the RandomAvailable state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
+        /// <param name="aRandomAvailableChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyRandomAvailableChanged(System.Action aRandomAvailableChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iRandomAvailableChanged = aRandomAvailableChanged;
+            }
+        }
+
+        private void RandomAvailablePropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iRandomAvailableChanged);
             }
         }
 
@@ -1194,6 +1574,50 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Set a delegate to be run when the Repeat state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
+        /// <param name="aRepeatChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyRepeatChanged(System.Action aRepeatChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iRepeatChanged = aRepeatChanged;
+            }
+        }
+
+        private void RepeatPropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iRepeatChanged);
+            }
+        }
+
+        /// <summary>
+        /// Set a delegate to be run when the Random state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
+        /// <param name="aRandomChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyRandomChanged(System.Action aRandomChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iRandomChanged = aRandomChanged;
+            }
+        }
+
+        private void RandomPropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iRandomChanged);
+            }
+        }
+
+        /// <summary>
         /// Query the value of the Modes property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
@@ -1251,6 +1675,50 @@ namespace OpenHome.Net.ControlPoint.Proxies
             try
             {
                 val = iPrevAvailable.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
+        }
+
+        /// <summary>
+        /// Query the value of the RepeatAvailable property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the RepeatAvailable property</returns>
+        public bool PropertyRepeatAvailable()
+        {
+            PropertyReadLock();
+            bool val;
+            try
+            {
+                val = iRepeatAvailable.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
+        }
+
+        /// <summary>
+        /// Query the value of the RandomAvailable property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the RandomAvailable property</returns>
+        public bool PropertyRandomAvailable()
+        {
+            PropertyReadLock();
+            bool val;
+            try
+            {
+                val = iRandomAvailable.Value();
             }
             finally
             {
@@ -1348,6 +1816,50 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Query the value of the Repeat property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the Repeat property</returns>
+        public bool PropertyRepeat()
+        {
+            PropertyReadLock();
+            bool val;
+            try
+            {
+                val = iRepeat.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
+        }
+
+        /// <summary>
+        /// Query the value of the Random property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the Random property</returns>
+        public bool PropertyRandom()
+        {
+            PropertyReadLock();
+            bool val;
+            try
+            {
+                val = iRandom.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
+        }
+
+        /// <summary>
         /// Must be called for each class instance.  Must be called before Core.Library.Close().
         /// </summary>
         public void Dispose()
@@ -1365,6 +1877,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionStop.Dispose();
             iActionNext.Dispose();
             iActionPrev.Dispose();
+            iActionSetRepeat.Dispose();
+            iActionSetRandom.Dispose();
             iActionSeekSecondsAbsolute.Dispose();
             iActionSeekSecondsRelative.Dispose();
             iActionTransportState.Dispose();
@@ -1372,13 +1886,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionModeInfo.Dispose();
             iActionStreamInfo.Dispose();
             iActionStreamId.Dispose();
+            iActionRepeat.Dispose();
+            iActionRandom.Dispose();
             iModes.Dispose();
             iNextAvailable.Dispose();
             iPrevAvailable.Dispose();
+            iRepeatAvailable.Dispose();
+            iRandomAvailable.Dispose();
             iStreamId.Dispose();
             iSeekable.Dispose();
             iPausable.Dispose();
             iTransportState.Dispose();
+            iRepeat.Dispose();
+            iRandom.Dispose();
         }
     }
 }

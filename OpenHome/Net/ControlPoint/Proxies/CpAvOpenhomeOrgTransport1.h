@@ -41,6 +41,12 @@ public:
     virtual void SyncPrev(TUint aStreamId) = 0;
     virtual void BeginPrev(TUint aStreamId, FunctorAsync& aFunctor) = 0;
     virtual void EndPrev(IAsync& aAsync) = 0;
+    virtual void SyncSetRepeat(TBool aRepeat) = 0;
+    virtual void BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetRepeat(IAsync& aAsync) = 0;
+    virtual void SyncSetRandom(TBool aRandom) = 0;
+    virtual void BeginSetRandom(TBool aRandom, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetRandom(IAsync& aAsync) = 0;
     virtual void SyncSeekSecondsAbsolute(TUint aStreamId, TUint aSecondsAbsolute) = 0;
     virtual void BeginSeekSecondsAbsolute(TUint aStreamId, TUint aSecondsAbsolute, FunctorAsync& aFunctor) = 0;
     virtual void EndSeekSecondsAbsolute(IAsync& aAsync) = 0;
@@ -53,21 +59,31 @@ public:
     virtual void SyncModes(Brh& aModes) = 0;
     virtual void BeginModes(FunctorAsync& aFunctor) = 0;
     virtual void EndModes(IAsync& aAsync, Brh& aModes) = 0;
-    virtual void SyncModeInfo(TBool& aNextAvailable, TBool& aPrevAvailable) = 0;
+    virtual void SyncModeInfo(TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable) = 0;
     virtual void BeginModeInfo(FunctorAsync& aFunctor) = 0;
-    virtual void EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPrevAvailable) = 0;
+    virtual void EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable) = 0;
     virtual void SyncStreamInfo(TUint& aStreamId, TBool& aSeekable, TBool& aPausable) = 0;
     virtual void BeginStreamInfo(FunctorAsync& aFunctor) = 0;
     virtual void EndStreamInfo(IAsync& aAsync, TUint& aStreamId, TBool& aSeekable, TBool& aPausable) = 0;
     virtual void SyncStreamId(TUint& aStreamId) = 0;
     virtual void BeginStreamId(FunctorAsync& aFunctor) = 0;
     virtual void EndStreamId(IAsync& aAsync, TUint& aStreamId) = 0;
+    virtual void SyncRepeat(TBool& aRepeat) = 0;
+    virtual void BeginRepeat(FunctorAsync& aFunctor) = 0;
+    virtual void EndRepeat(IAsync& aAsync, TBool& aRepeat) = 0;
+    virtual void SyncRandom(TBool& aRandom) = 0;
+    virtual void BeginRandom(FunctorAsync& aFunctor) = 0;
+    virtual void EndRandom(IAsync& aAsync, TBool& aRandom) = 0;
     virtual void SetPropertyModesChanged(Functor& aModesChanged) = 0;
     virtual void PropertyModes(Brhz& aModes) const = 0;
     virtual void SetPropertyNextAvailableChanged(Functor& aNextAvailableChanged) = 0;
     virtual void PropertyNextAvailable(TBool& aNextAvailable) const = 0;
     virtual void SetPropertyPrevAvailableChanged(Functor& aPrevAvailableChanged) = 0;
     virtual void PropertyPrevAvailable(TBool& aPrevAvailable) const = 0;
+    virtual void SetPropertyRepeatAvailableChanged(Functor& aRepeatAvailableChanged) = 0;
+    virtual void PropertyRepeatAvailable(TBool& aRepeatAvailable) const = 0;
+    virtual void SetPropertyRandomAvailableChanged(Functor& aRandomAvailableChanged) = 0;
+    virtual void PropertyRandomAvailable(TBool& aRandomAvailable) const = 0;
     virtual void SetPropertyStreamIdChanged(Functor& aStreamIdChanged) = 0;
     virtual void PropertyStreamId(TUint& aStreamId) const = 0;
     virtual void SetPropertySeekableChanged(Functor& aSeekableChanged) = 0;
@@ -76,6 +92,10 @@ public:
     virtual void PropertyPausable(TBool& aPausable) const = 0;
     virtual void SetPropertyTransportStateChanged(Functor& aTransportStateChanged) = 0;
     virtual void PropertyTransportState(Brhz& aTransportState) const = 0;
+    virtual void SetPropertyRepeatChanged(Functor& aRepeatChanged) = 0;
+    virtual void PropertyRepeat(TBool& aRepeat) const = 0;
+    virtual void SetPropertyRandomChanged(Functor& aRandomChanged) = 0;
+    virtual void PropertyRandom(TBool& aRandom) const = 0;
 };
 
 /**
@@ -256,6 +276,58 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
+     * @param[in]  aRepeat
+     */
+    void SyncSetRepeat(TBool aRepeat);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSetRepeat().
+     *
+     * @param[in] aRepeat
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSetRepeat(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aRandom
+     */
+    void SyncSetRandom(TBool aRandom);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSetRandom().
+     *
+     * @param[in] aRandom
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSetRandom(TBool aRandom, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSetRandom(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
      * @param[in]  aStreamId
      * @param[in]  aSecondsAbsolute
      */
@@ -366,8 +438,10 @@ public:
      *
      * @param[out] aNextAvailable
      * @param[out] aPrevAvailable
+     * @param[out] aRepeatAvailable
+     * @param[out] aRandomAvailable
      */
-    void SyncModeInfo(TBool& aNextAvailable, TBool& aPrevAvailable);
+    void SyncModeInfo(TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -385,8 +459,10 @@ public:
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      * @param[out] aNextAvailable
      * @param[out] aPrevAvailable
+     * @param[out] aRepeatAvailable
+     * @param[out] aRandomAvailable
      */
-    void EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPrevAvailable);
+    void EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -445,6 +521,58 @@ public:
     void EndStreamId(IAsync& aAsync, TUint& aStreamId);
 
     /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aRepeat
+     */
+    void SyncRepeat(TBool& aRepeat);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndRepeat().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginRepeat(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aRepeat
+     */
+    void EndRepeat(IAsync& aAsync, TBool& aRepeat);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aRandom
+     */
+    void SyncRandom(TBool& aRandom);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndRandom().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginRandom(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aRandom
+     */
+    void EndRandom(IAsync& aAsync, TBool& aRandom);
+
+    /**
      * Set a callback to be run when the Modes state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
@@ -471,6 +599,24 @@ public:
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
     void SetPropertyPrevAvailableChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the RepeatAvailable state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyRepeatAvailableChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the RandomAvailable state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyRandomAvailableChanged(Functor& aFunctor);
     /**
      * Set a callback to be run when the StreamId state variable changes.
      *
@@ -507,6 +653,24 @@ public:
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
     void SetPropertyTransportStateChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the Repeat state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyRepeatChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the Random state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyRandomChanged(Functor& aFunctor);
 
     /**
      * Query the value of the Modes property.
@@ -538,6 +702,26 @@ public:
      * @param[out] aPrevAvailable
      */
     void PropertyPrevAvailable(TBool& aPrevAvailable) const;
+    /**
+     * Query the value of the RepeatAvailable property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aRepeatAvailable
+     */
+    void PropertyRepeatAvailable(TBool& aRepeatAvailable) const;
+    /**
+     * Query the value of the RandomAvailable property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aRandomAvailable
+     */
+    void PropertyRandomAvailable(TBool& aRandomAvailable) const;
     /**
      * Query the value of the StreamId property.
      *
@@ -579,6 +763,26 @@ public:
      */
     void PropertyTransportState(Brhz& aTransportState) const;
     /**
+     * Query the value of the Repeat property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aRepeat
+     */
+    void PropertyRepeat(TBool& aRepeat) const;
+    /**
+     * Query the value of the Random property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aRandom
+     */
+    void PropertyRandom(TBool& aRandom) const;
+    /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
     */
     void Subscribe();
@@ -615,10 +819,14 @@ private:
     void ModesPropertyChanged();
     void NextAvailablePropertyChanged();
     void PrevAvailablePropertyChanged();
+    void RepeatAvailablePropertyChanged();
+    void RandomAvailablePropertyChanged();
     void StreamIdPropertyChanged();
     void SeekablePropertyChanged();
     void PausablePropertyChanged();
     void TransportStatePropertyChanged();
+    void RepeatPropertyChanged();
+    void RandomPropertyChanged();
 private:
     Action* iActionPlayAs;
     Action* iActionPlay;
@@ -626,6 +834,8 @@ private:
     Action* iActionStop;
     Action* iActionNext;
     Action* iActionPrev;
+    Action* iActionSetRepeat;
+    Action* iActionSetRandom;
     Action* iActionSeekSecondsAbsolute;
     Action* iActionSeekSecondsRelative;
     Action* iActionTransportState;
@@ -633,20 +843,30 @@ private:
     Action* iActionModeInfo;
     Action* iActionStreamInfo;
     Action* iActionStreamId;
+    Action* iActionRepeat;
+    Action* iActionRandom;
     PropertyString* iModes;
     PropertyBool* iNextAvailable;
     PropertyBool* iPrevAvailable;
+    PropertyBool* iRepeatAvailable;
+    PropertyBool* iRandomAvailable;
     PropertyUint* iStreamId;
     PropertyBool* iSeekable;
     PropertyBool* iPausable;
     PropertyString* iTransportState;
+    PropertyBool* iRepeat;
+    PropertyBool* iRandom;
     Functor iModesChanged;
     Functor iNextAvailableChanged;
     Functor iPrevAvailableChanged;
+    Functor iRepeatAvailableChanged;
+    Functor iRandomAvailableChanged;
     Functor iStreamIdChanged;
     Functor iSeekableChanged;
     Functor iPausableChanged;
     Functor iTransportStateChanged;
+    Functor iRepeatChanged;
+    Functor iRandomChanged;
 };
 
 } // namespace Net
