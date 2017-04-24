@@ -289,13 +289,11 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Stop = function(successFunction, errorF
 /**
 * A service action to Next
 * @method Next
-* @param {Int} StreamId An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Next = function(StreamId, successFunction, errorFunction){ 
+CpProxyAvOpenhomeOrgTransport1.prototype.Next = function(successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("Next", this.url, this.domain, this.type, this.version);     
-    request.writeIntParameter("StreamId", StreamId);
     request.send(function(result){
     
         if (successFunction){
@@ -310,13 +308,11 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Next = function(StreamId, successFuncti
 /**
 * A service action to Prev
 * @method Prev
-* @param {Int} StreamId An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Prev = function(StreamId, successFunction, errorFunction){ 
+CpProxyAvOpenhomeOrgTransport1.prototype.Prev = function(successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("Prev", this.url, this.domain, this.type, this.version);     
-    request.writeIntParameter("StreamId", StreamId);
     request.send(function(result){
     
         if (successFunction){

@@ -269,7 +269,6 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionStop()
 void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionNext()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Next");
-    action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1Cpp::DoNext);
     iService->AddAction(action, functor);
 }
@@ -277,7 +276,6 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionNext()
 void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionPrev()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Prev");
-    action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1Cpp::DoPrev);
     iService->AddAction(action, functor);
 }
@@ -426,10 +424,9 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoStop(IDviInvocation& aInvocation)
 void DvProviderAvOpenhomeOrgTransport1Cpp::DoNext(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    uint32_t StreamId = aInvocation.InvocationReadUint("StreamId");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
-    Next(invocation, StreamId);
+    Next(invocation);
     aInvocation.InvocationWriteStart();
     aInvocation.InvocationWriteEnd();
 }
@@ -437,10 +434,9 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoNext(IDviInvocation& aInvocation)
 void DvProviderAvOpenhomeOrgTransport1Cpp::DoPrev(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    uint32_t StreamId = aInvocation.InvocationReadUint("StreamId");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
-    Prev(invocation, StreamId);
+    Prev(invocation);
     aInvocation.InvocationWriteStart();
     aInvocation.InvocationWriteEnd();
 }
@@ -621,12 +617,12 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::Stop(IDvInvocationStd& /*aInvocation*
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::Next(IDvInvocationStd& /*aInvocation*/, uint32_t /*aStreamId*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::Next(IDvInvocationStd& /*aInvocation*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::Prev(IDvInvocationStd& /*aInvocation*/, uint32_t /*aStreamId*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::Prev(IDvInvocationStd& /*aInvocation*/)
 {
     ASSERTS();
 }

@@ -22,11 +22,11 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public void syncStop();
     public void beginStop(ICpProxyListener aCallback);
     public void endStop(long aAsyncHandle);
-    public void syncNext(long aStreamId);
-    public void beginNext(long aStreamId, ICpProxyListener aCallback);
+    public void syncNext();
+    public void beginNext(ICpProxyListener aCallback);
     public void endNext(long aAsyncHandle);
-    public void syncPrev(long aStreamId);
-    public void beginPrev(long aStreamId, ICpProxyListener aCallback);
+    public void syncPrev();
+    public void beginPrev(ICpProxyListener aCallback);
     public void endPrev(long aAsyncHandle);
     public void syncSetRepeat(boolean aRepeat);
     public void beginSetRepeat(boolean aRepeat, ICpProxyListener aCallback);
@@ -552,12 +552,8 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         iActionStop = new Action("Stop");
 
         iActionNext = new Action("Next");
-        param = new ParameterUint("StreamId");
-        iActionNext.addInputParameter(param);
 
         iActionPrev = new Action("Prev");
-        param = new ParameterUint("StreamId");
-        iActionPrev.addInputParameter(param);
 
         iActionSetRepeat = new Action("SetRepeat");
         param = new ParameterBool("Repeat");
@@ -914,10 +910,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncNext(long aStreamId)
+    public void syncNext()
     {
         SyncNextAvOpenhomeOrgTransport1 sync = new SyncNextAvOpenhomeOrgTransport1(this);
-        beginNext(aStreamId, sync.getListener());
+        beginNext(sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -928,15 +924,12 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * action later completes.  Any output arguments can then be retrieved by
      * calling {@link #endNext}.
      * 
-     * @param aStreamId
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginNext(long aStreamId, ICpProxyListener aCallback)
+    public void beginNext(ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionNext, aCallback);
-        int inIndex = 0;
-        invocation.addInput(new ArgumentUint((ParameterUint)iActionNext.getInputParameter(inIndex++), aStreamId));
         iService.invokeAction(invocation);
     }
 
@@ -962,10 +955,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncPrev(long aStreamId)
+    public void syncPrev()
     {
         SyncPrevAvOpenhomeOrgTransport1 sync = new SyncPrevAvOpenhomeOrgTransport1(this);
-        beginPrev(aStreamId, sync.getListener());
+        beginPrev(sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -976,15 +969,12 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * action later completes.  Any output arguments can then be retrieved by
      * calling {@link #endPrev}.
      * 
-     * @param aStreamId
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginPrev(long aStreamId, ICpProxyListener aCallback)
+    public void beginPrev(ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionPrev, aCallback);
-        int inIndex = 0;
-        invocation.addInput(new ArgumentUint((ParameterUint)iActionPrev.getInputParameter(inIndex++), aStreamId));
         iService.invokeAction(invocation);
     }
 

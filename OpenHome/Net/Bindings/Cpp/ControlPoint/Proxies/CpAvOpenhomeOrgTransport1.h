@@ -36,11 +36,11 @@ public:
     virtual void SyncStop() = 0;
     virtual void BeginStop(FunctorAsync& aFunctor) = 0;
     virtual void EndStop(IAsync& aAsync) = 0;
-    virtual void SyncNext(uint32_t aStreamId) = 0;
-    virtual void BeginNext(uint32_t aStreamId, FunctorAsync& aFunctor) = 0;
+    virtual void SyncNext() = 0;
+    virtual void BeginNext(FunctorAsync& aFunctor) = 0;
     virtual void EndNext(IAsync& aAsync) = 0;
-    virtual void SyncPrev(uint32_t aStreamId) = 0;
-    virtual void BeginPrev(uint32_t aStreamId, FunctorAsync& aFunctor) = 0;
+    virtual void SyncPrev() = 0;
+    virtual void BeginPrev(FunctorAsync& aFunctor) = 0;
     virtual void EndPrev(IAsync& aAsync) = 0;
     virtual void SyncSetRepeat(bool aRepeat) = 0;
     virtual void BeginSetRepeat(bool aRepeat, FunctorAsync& aFunctor) = 0;
@@ -224,21 +224,18 @@ public:
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
-     *
-     * @param[in]  aStreamId
      */
-    void SyncNext(uint32_t aStreamId);
+    void SyncNext();
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
      * EndNext().
      *
-     * @param[in] aStreamId
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginNext(uint32_t aStreamId, FunctorAsync& aFunctor);
+    void BeginNext(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -250,21 +247,18 @@ public:
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
-     *
-     * @param[in]  aStreamId
      */
-    void SyncPrev(uint32_t aStreamId);
+    void SyncPrev();
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
      * EndPrev().
      *
-     * @param[in] aStreamId
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginPrev(uint32_t aStreamId, FunctorAsync& aFunctor);
+    void BeginPrev(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.

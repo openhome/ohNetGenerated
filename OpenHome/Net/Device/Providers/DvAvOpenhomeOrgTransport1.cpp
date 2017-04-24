@@ -275,7 +275,6 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionStop()
 void DvProviderAvOpenhomeOrgTransport1::EnableActionNext()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Next");
-    action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoNext);
     iService->AddAction(action, functor);
 }
@@ -283,7 +282,6 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionNext()
 void DvProviderAvOpenhomeOrgTransport1::EnableActionPrev()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Prev");
-    action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoPrev);
     iService->AddAction(action, functor);
 }
@@ -422,19 +420,17 @@ void DvProviderAvOpenhomeOrgTransport1::DoStop(IDviInvocation& aInvocation)
 void DvProviderAvOpenhomeOrgTransport1::DoNext(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    TUint StreamId = aInvocation.InvocationReadUint("StreamId");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    Next(invocation, StreamId);
+    Next(invocation);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoPrev(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    TUint StreamId = aInvocation.InvocationReadUint("StreamId");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    Prev(invocation, StreamId);
+    Prev(invocation);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoSetRepeat(IDviInvocation& aInvocation)
@@ -563,12 +559,12 @@ void DvProviderAvOpenhomeOrgTransport1::Stop(IDvInvocation& /*aResponse*/)
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::Next(IDvInvocation& /*aResponse*/, TUint /*aStreamId*/)
+void DvProviderAvOpenhomeOrgTransport1::Next(IDvInvocation& /*aResponse*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::Prev(IDvInvocation& /*aResponse*/, TUint /*aStreamId*/)
+void DvProviderAvOpenhomeOrgTransport1::Prev(IDvInvocation& /*aResponse*/)
 {
     ASSERTS();
 }

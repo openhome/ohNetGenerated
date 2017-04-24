@@ -422,12 +422,8 @@ CpProxyAvOpenhomeOrgTransport1::CpProxyAvOpenhomeOrgTransport1(CpDevice& aDevice
     iActionStop = new Action("Stop");
 
     iActionNext = new Action("Next");
-    param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionNext->AddInputParameter(param);
 
     iActionPrev = new Action("Prev");
-    param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionPrev->AddInputParameter(param);
 
     iActionSetRepeat = new Action("SetRepeat");
     param = new OpenHome::Net::ParameterBool("Repeat");
@@ -665,19 +661,16 @@ void CpProxyAvOpenhomeOrgTransport1::EndStop(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncNext(TUint aStreamId)
+void CpProxyAvOpenhomeOrgTransport1::SyncNext()
 {
     SyncNextAvOpenhomeOrgTransport1 sync(*this);
-    BeginNext(aStreamId, sync.Functor());
+    BeginNext(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginNext(TUint aStreamId, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginNext(FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionNext, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionNext->InputParameters();
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
@@ -695,19 +688,16 @@ void CpProxyAvOpenhomeOrgTransport1::EndNext(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncPrev(TUint aStreamId)
+void CpProxyAvOpenhomeOrgTransport1::SyncPrev()
 {
     SyncPrevAvOpenhomeOrgTransport1 sync(*this);
-    BeginPrev(aStreamId, sync.Functor());
+    BeginPrev(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginPrev(TUint aStreamId, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginPrev(FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPrev, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionPrev->InputParameters();
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 

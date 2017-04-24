@@ -39,12 +39,12 @@ public:
     void BeginStop(FunctorAsync& aFunctor);
     void EndStop(IAsync& aAsync);
 
-    void SyncNext(TUint aStreamId);
-    void BeginNext(TUint aStreamId, FunctorAsync& aFunctor);
+    void SyncNext();
+    void BeginNext(FunctorAsync& aFunctor);
     void EndNext(IAsync& aAsync);
 
-    void SyncPrev(TUint aStreamId);
-    void BeginPrev(TUint aStreamId, FunctorAsync& aFunctor);
+    void SyncPrev();
+    void BeginPrev(FunctorAsync& aFunctor);
     void EndPrev(IAsync& aAsync);
 
     void SyncSetRepeat(TBool aRepeat);
@@ -571,12 +571,8 @@ CpProxyAvOpenhomeOrgTransport1C::CpProxyAvOpenhomeOrgTransport1C(CpDeviceC aDevi
     iActionStop = new Action("Stop");
 
     iActionNext = new Action("Next");
-    param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionNext->AddInputParameter(param);
 
     iActionPrev = new Action("Prev");
-    param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionPrev->AddInputParameter(param);
 
     iActionSetRepeat = new Action("SetRepeat");
     param = new OpenHome::Net::ParameterBool("Repeat");
@@ -814,19 +810,16 @@ void CpProxyAvOpenhomeOrgTransport1C::EndStop(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::SyncNext(TUint aStreamId)
+void CpProxyAvOpenhomeOrgTransport1C::SyncNext()
 {
     SyncNextAvOpenhomeOrgTransport1C sync(*this);
-    BeginNext(aStreamId, sync.Functor());
+    BeginNext(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::BeginNext(TUint aStreamId, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1C::BeginNext(FunctorAsync& aFunctor)
 {
     Invocation* invocation = Service()->Invocation(*iActionNext, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionNext->InputParameters();
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     Invocable().InvokeAction(*invocation);
 }
 
@@ -844,19 +837,16 @@ void CpProxyAvOpenhomeOrgTransport1C::EndNext(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::SyncPrev(TUint aStreamId)
+void CpProxyAvOpenhomeOrgTransport1C::SyncPrev()
 {
     SyncPrevAvOpenhomeOrgTransport1C sync(*this);
-    BeginPrev(aStreamId, sync.Functor());
+    BeginPrev(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::BeginPrev(TUint aStreamId, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1C::BeginPrev(FunctorAsync& aFunctor)
 {
     Invocation* invocation = Service()->Invocation(*iActionPrev, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionPrev->InputParameters();
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     Invocable().InvokeAction(*invocation);
 }
 
@@ -1607,13 +1597,13 @@ int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndStop(THandle aHandle, OhNetHand
     return err;
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncNext(THandle aHandle, uint32_t aStreamId)
+int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncNext(THandle aHandle)
 {
     CpProxyAvOpenhomeOrgTransport1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTransport1C*>(aHandle);
     ASSERT(proxyC != NULL);
     int32_t err = 0;
     try {
-        proxyC->SyncNext(aStreamId);
+        proxyC->SyncNext();
     }
     catch (ProxyError& ) {
         err = -1;
@@ -1621,12 +1611,12 @@ int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncNext(THandle aHandle, uint32_t
     return err;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgTransport1BeginNext(THandle aHandle, uint32_t aStreamId, OhNetCallbackAsync aCallback, void* aPtr)
+void STDCALL CpProxyAvOpenhomeOrgTransport1BeginNext(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr)
 {
     CpProxyAvOpenhomeOrgTransport1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTransport1C*>(aHandle);
     ASSERT(proxyC != NULL);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginNext(aStreamId, functor);
+    proxyC->BeginNext(functor);
 }
 
 int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndNext(THandle aHandle, OhNetHandleAsync aAsync)
@@ -1645,13 +1635,13 @@ int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndNext(THandle aHandle, OhNetHand
     return err;
 }
 
-int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle, uint32_t aStreamId)
+int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle)
 {
     CpProxyAvOpenhomeOrgTransport1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTransport1C*>(aHandle);
     ASSERT(proxyC != NULL);
     int32_t err = 0;
     try {
-        proxyC->SyncPrev(aStreamId);
+        proxyC->SyncPrev();
     }
     catch (ProxyError& ) {
         err = -1;
@@ -1659,12 +1649,12 @@ int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle, uint32_t
     return err;
 }
 
-void STDCALL CpProxyAvOpenhomeOrgTransport1BeginPrev(THandle aHandle, uint32_t aStreamId, OhNetCallbackAsync aCallback, void* aPtr)
+void STDCALL CpProxyAvOpenhomeOrgTransport1BeginPrev(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr)
 {
     CpProxyAvOpenhomeOrgTransport1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTransport1C*>(aHandle);
     ASSERT(proxyC != NULL);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginPrev(aStreamId, functor);
+    proxyC->BeginPrev(functor);
 }
 
 int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndPrev(THandle aHandle, OhNetHandleAsync aAsync)

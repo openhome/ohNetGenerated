@@ -22,11 +22,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncStop();
         void BeginStop(CpProxy.CallbackAsyncComplete aCallback);
         void EndStop(IntPtr aAsyncHandle);
-        void SyncNext(uint aStreamId);
-        void BeginNext(uint aStreamId, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncNext();
+        void BeginNext(CpProxy.CallbackAsyncComplete aCallback);
         void EndNext(IntPtr aAsyncHandle);
-        void SyncPrev(uint aStreamId);
-        void BeginPrev(uint aStreamId, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncPrev();
+        void BeginPrev(CpProxy.CallbackAsyncComplete aCallback);
         void EndPrev(IntPtr aAsyncHandle);
         void SyncSetRepeat(bool aRepeat);
         void BeginSetRepeat(bool aRepeat, CpProxy.CallbackAsyncComplete aCallback);
@@ -453,12 +453,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionStop = new OpenHome.Net.Core.Action("Stop");
 
             iActionNext = new OpenHome.Net.Core.Action("Next");
-            param = new ParameterUint("StreamId");
-            iActionNext.AddInputParameter(param);
 
             iActionPrev = new OpenHome.Net.Core.Action("Prev");
-            param = new ParameterUint("StreamId");
-            iActionPrev.AddInputParameter(param);
 
             iActionSetRepeat = new OpenHome.Net.Core.Action("SetRepeat");
             param = new ParameterBool("Repeat");
@@ -730,11 +726,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
-        /// <param name="aStreamId"></param>
-        public void SyncNext(uint aStreamId)
+        public void SyncNext()
         {
             SyncNextAvOpenhomeOrgTransport1 sync = new SyncNextAvOpenhomeOrgTransport1(this);
-            BeginNext(aStreamId, sync.AsyncComplete());
+            BeginNext(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -745,14 +740,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
         /// EndNext().</remarks>
-        /// <param name="aStreamId"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginNext(uint aStreamId, CallbackAsyncComplete aCallback)
+        public void BeginNext(CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionNext, aCallback);
-            int inIndex = 0;
-            invocation.AddInput(new ArgumentUint((ParameterUint)iActionNext.InputParameter(inIndex++), aStreamId));
             iService.InvokeAction(invocation);
         }
 
@@ -776,11 +768,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
-        /// <param name="aStreamId"></param>
-        public void SyncPrev(uint aStreamId)
+        public void SyncPrev()
         {
             SyncPrevAvOpenhomeOrgTransport1 sync = new SyncPrevAvOpenhomeOrgTransport1(this);
-            BeginPrev(aStreamId, sync.AsyncComplete());
+            BeginPrev(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -791,14 +782,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
         /// EndPrev().</remarks>
-        /// <param name="aStreamId"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginPrev(uint aStreamId, CallbackAsyncComplete aCallback)
+        public void BeginPrev(CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionPrev, aCallback);
-            int inIndex = 0;
-            invocation.AddInput(new ArgumentUint((ParameterUint)iActionPrev.InputParameter(inIndex++), aStreamId));
             iService.InvokeAction(invocation);
         }
 

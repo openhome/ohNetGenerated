@@ -711,7 +711,6 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     protected void enableActionNext()
     {
         Action action = new Action("Next");
-        action.addInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
         iDelegateNext = new DoNext();
         enableAction(action, iDelegateNext);
     }
@@ -725,7 +724,6 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     protected void enableActionPrev()
     {
         Action action = new Action("Prev");
-        action.addInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
         iDelegatePrev = new DoPrev();
         enableAction(action, iDelegatePrev);
     }
@@ -962,9 +960,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * <p>Must be implemented iff {@link #enableActionNext} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     * @param aStreamId
      */
-    protected void next(IDvInvocation aInvocation, long aStreamId)
+    protected void next(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -978,9 +975,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * <p>Must be implemented iff {@link #enableActionPrev} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     * @param aStreamId
      */
-    protected void prev(IDvInvocation aInvocation, long aStreamId)
+    protected void prev(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -1366,13 +1362,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            long streamId;
             try
             {
                 invocation.readStart();
-                streamId = invocation.readUint("StreamId");
                 invocation.readEnd();
-                next(invocation, streamId);
+                next(invocation);
             }
             catch (ActionError ae)
             {
@@ -1414,13 +1408,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            long streamId;
             try
             {
                 invocation.readStart();
-                streamId = invocation.readUint("StreamId");
                 invocation.readEnd();
-                prev(invocation, streamId);
+                prev(invocation);
             }
             catch (ActionError ae)
             {

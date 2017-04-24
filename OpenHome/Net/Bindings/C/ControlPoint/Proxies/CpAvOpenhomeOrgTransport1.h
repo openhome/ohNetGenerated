@@ -187,12 +187,11 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndStop(THandle aHandle,
  * on the device and sets any output arguments.
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[in]  aStreamId
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncNext(THandle aHandle, uint32_t aStreamId);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncNext(THandle aHandle);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -200,12 +199,11 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncNext(THandle aHandle
  * EndGetProtocolInfo().
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[in]  aStreamId
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginNext(THandle aHandle, uint32_t aStreamId, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginNext(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -223,12 +221,11 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndNext(THandle aHandle,
  * on the device and sets any output arguments.
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[in]  aStreamId
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle, uint32_t aStreamId);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -236,12 +233,11 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle
  * EndGetProtocolInfo().
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[in]  aStreamId
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginPrev(THandle aHandle, uint32_t aStreamId, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginPrev(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.

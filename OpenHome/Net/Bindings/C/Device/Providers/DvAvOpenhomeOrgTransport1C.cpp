@@ -400,7 +400,6 @@ void DvProviderAvOpenhomeOrgTransport1C::EnableActionNext(CallbackTransport1Next
     iCallbackNext = aCallback;
     iPtrNext = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Next");
-    action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1C::DoNext);
     iService->AddAction(action, functor);
 }
@@ -410,7 +409,6 @@ void DvProviderAvOpenhomeOrgTransport1C::EnableActionPrev(CallbackTransport1Prev
     iCallbackPrev = aCallback;
     iPtrPrev = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("Prev");
-    action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1C::DoPrev);
     iService->AddAction(action, functor);
 }
@@ -615,11 +613,10 @@ void DvProviderAvOpenhomeOrgTransport1C::DoNext(IDviInvocation& aInvocation)
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    TUint StreamId = aInvocation.InvocationReadUint("StreamId");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackNext != NULL);
-    if (0 != iCallbackNext(iPtrNext, invocationC, invocationCPtr, StreamId)) {
+    if (0 != iCallbackNext(iPtrNext, invocationC, invocationCPtr)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
@@ -634,11 +631,10 @@ void DvProviderAvOpenhomeOrgTransport1C::DoPrev(IDviInvocation& aInvocation)
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    TUint StreamId = aInvocation.InvocationReadUint("StreamId");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackPrev != NULL);
-    if (0 != iCallbackPrev(iPtrPrev, invocationC, invocationCPtr, StreamId)) {
+    if (0 != iCallbackPrev(iPtrPrev, invocationC, invocationCPtr)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }

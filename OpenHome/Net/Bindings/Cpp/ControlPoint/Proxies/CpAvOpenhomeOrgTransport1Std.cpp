@@ -414,12 +414,8 @@ CpProxyAvOpenhomeOrgTransport1Cpp::CpProxyAvOpenhomeOrgTransport1Cpp(CpDeviceCpp
     iActionStop = new Action("Stop");
 
     iActionNext = new Action("Next");
-    param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionNext->AddInputParameter(param);
 
     iActionPrev = new Action("Prev");
-    param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionPrev->AddInputParameter(param);
 
     iActionSetRepeat = new Action("SetRepeat");
     param = new OpenHome::Net::ParameterBool("Repeat");
@@ -663,19 +659,16 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndStop(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncNext(uint32_t aStreamId)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncNext()
 {
     SyncNextAvOpenhomeOrgTransport1Cpp sync(*this);
-    BeginNext(aStreamId, sync.Functor());
+    BeginNext(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::BeginNext(uint32_t aStreamId, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::BeginNext(FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionNext, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionNext->InputParameters();
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
@@ -693,19 +686,16 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndNext(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncPrev(uint32_t aStreamId)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncPrev()
 {
     SyncPrevAvOpenhomeOrgTransport1Cpp sync(*this);
-    BeginPrev(aStreamId, sync.Functor());
+    BeginPrev(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::BeginPrev(uint32_t aStreamId, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::BeginPrev(FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPrev, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionPrev->InputParameters();
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 

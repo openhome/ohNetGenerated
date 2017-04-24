@@ -374,7 +374,7 @@ private:
      * Next action for the owning device.
      * Must be implemented iff EnableActionNext was called.
      */
-    virtual void Next(IDvInvocationStd& aInvocation, uint32_t aStreamId);
+    virtual void Next(IDvInvocationStd& aInvocation);
     /**
      * Prev action.
      *
@@ -382,7 +382,7 @@ private:
      * Prev action for the owning device.
      * Must be implemented iff EnableActionPrev was called.
      */
-    virtual void Prev(IDvInvocationStd& aInvocation, uint32_t aStreamId);
+    virtual void Prev(IDvInvocationStd& aInvocation);
     /**
      * SetRepeat action.
      *

@@ -639,7 +639,6 @@ namespace OpenHome.Net.Device.Providers
         protected void EnableActionNext()
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Next");
-            action.AddInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
             iDelegateNext = new ActionDelegate(DoNext);
             EnableAction(action, iDelegateNext, GCHandle.ToIntPtr(iGch));
         }
@@ -652,7 +651,6 @@ namespace OpenHome.Net.Device.Providers
         protected void EnableActionPrev()
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Prev");
-            action.AddInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
             iDelegatePrev = new ActionDelegate(DoPrev);
             EnableAction(action, iDelegatePrev, GCHandle.ToIntPtr(iGch));
         }
@@ -869,8 +867,7 @@ namespace OpenHome.Net.Device.Providers
         ///
         /// Must be implemented iff EnableActionNext was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aStreamId"></param>
-        protected virtual void Next(IDvInvocation aInvocation, uint aStreamId)
+        protected virtual void Next(IDvInvocation aInvocation)
         {
             throw (new ActionDisabledError());
         }
@@ -883,8 +880,7 @@ namespace OpenHome.Net.Device.Providers
         ///
         /// Must be implemented iff EnableActionPrev was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aStreamId"></param>
-        protected virtual void Prev(IDvInvocation aInvocation, uint aStreamId)
+        protected virtual void Prev(IDvInvocation aInvocation)
         {
             throw (new ActionDisabledError());
         }
@@ -1235,13 +1231,11 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            uint streamId;
             try
             {
                 invocation.ReadStart();
-                streamId = invocation.ReadUint("StreamId");
                 invocation.ReadEnd();
-                self.Next(invocation, streamId);
+                self.Next(invocation);
             }
             catch (ActionError e)
             {
@@ -1281,13 +1275,11 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            uint streamId;
             try
             {
                 invocation.ReadStart();
-                streamId = invocation.ReadUint("StreamId");
                 invocation.ReadEnd();
-                self.Prev(invocation, streamId);
+                self.Prev(invocation);
             }
             catch (ActionError e)
             {

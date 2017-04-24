@@ -72,11 +72,10 @@ typedef int32_t (STDCALL *CallbackTransport1Stop)(void* aPtr, IDvInvocationC* aI
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[in]  aStreamId
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1Next)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId);
+typedef int32_t (STDCALL *CallbackTransport1Next)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
  * Callback which runs when the Prev action is invoked
  *
@@ -84,11 +83,10 @@ typedef int32_t (STDCALL *CallbackTransport1Next)(void* aPtr, IDvInvocationC* aI
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[in]  aStreamId
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1Prev)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId);
+typedef int32_t (STDCALL *CallbackTransport1Prev)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
  * Callback which runs when the SetRepeat action is invoked
  *
