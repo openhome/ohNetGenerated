@@ -32,16 +32,16 @@ void DvProviderAvOpenhomeOrgTransport1::GetPropertyNextAvailable(TBool& aValue)
     aValue = iPropertyNextAvailable->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyPrevAvailable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyPreviousAvailable(TBool aValue)
 {
-    ASSERT(iPropertyPrevAvailable != NULL);
-    return SetPropertyBool(*iPropertyPrevAvailable, aValue);
+    ASSERT(iPropertyPreviousAvailable != NULL);
+    return SetPropertyBool(*iPropertyPreviousAvailable, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyPrevAvailable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyPreviousAvailable(TBool& aValue)
 {
-    ASSERT(iPropertyPrevAvailable != NULL);
-    aValue = iPropertyPrevAvailable->Value();
+    ASSERT(iPropertyPreviousAvailable != NULL);
+    aValue = iPropertyPreviousAvailable->Value();
 }
 
 TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyRepeatAvailable(TBool aValue)
@@ -56,16 +56,16 @@ void DvProviderAvOpenhomeOrgTransport1::GetPropertyRepeatAvailable(TBool& aValue
     aValue = iPropertyRepeatAvailable->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyRandomAvailable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyShuffleAvailable(TBool aValue)
 {
-    ASSERT(iPropertyRandomAvailable != NULL);
-    return SetPropertyBool(*iPropertyRandomAvailable, aValue);
+    ASSERT(iPropertyShuffleAvailable != NULL);
+    return SetPropertyBool(*iPropertyShuffleAvailable, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyRandomAvailable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyShuffleAvailable(TBool& aValue)
 {
-    ASSERT(iPropertyRandomAvailable != NULL);
-    aValue = iPropertyRandomAvailable->Value();
+    ASSERT(iPropertyShuffleAvailable != NULL);
+    aValue = iPropertyShuffleAvailable->Value();
 }
 
 TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyStreamId(TUint aValue)
@@ -116,28 +116,28 @@ void DvProviderAvOpenhomeOrgTransport1::GetPropertyTransportState(Brhz& aValue)
     aValue.Set(iPropertyTransportState->Value());
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyRepeat(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyRepeat(TUint aValue)
 {
     ASSERT(iPropertyRepeat != NULL);
-    return SetPropertyBool(*iPropertyRepeat, aValue);
+    return SetPropertyUint(*iPropertyRepeat, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyRepeat(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyRepeat(TUint& aValue)
 {
     ASSERT(iPropertyRepeat != NULL);
     aValue = iPropertyRepeat->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyRandom(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyShuffle(TUint aValue)
 {
-    ASSERT(iPropertyRandom != NULL);
-    return SetPropertyBool(*iPropertyRandom, aValue);
+    ASSERT(iPropertyShuffle != NULL);
+    return SetPropertyUint(*iPropertyShuffle, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyRandom(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyShuffle(TUint& aValue)
 {
-    ASSERT(iPropertyRandom != NULL);
-    aValue = iPropertyRandom->Value();
+    ASSERT(iPropertyShuffle != NULL);
+    aValue = iPropertyShuffle->Value();
 }
 
 DvProviderAvOpenhomeOrgTransport1::DvProviderAvOpenhomeOrgTransport1(DvDevice& aDevice)
@@ -156,15 +156,15 @@ void DvProviderAvOpenhomeOrgTransport1::Construct()
 {
     iPropertyModes = NULL;
     iPropertyNextAvailable = NULL;
-    iPropertyPrevAvailable = NULL;
+    iPropertyPreviousAvailable = NULL;
     iPropertyRepeatAvailable = NULL;
-    iPropertyRandomAvailable = NULL;
+    iPropertyShuffleAvailable = NULL;
     iPropertyStreamId = NULL;
     iPropertySeekable = NULL;
     iPropertyPausable = NULL;
     iPropertyTransportState = NULL;
     iPropertyRepeat = NULL;
-    iPropertyRandom = NULL;
+    iPropertyShuffle = NULL;
 }
 
 void DvProviderAvOpenhomeOrgTransport1::EnablePropertyModes()
@@ -179,10 +179,10 @@ void DvProviderAvOpenhomeOrgTransport1::EnablePropertyNextAvailable()
     iService->AddProperty(iPropertyNextAvailable); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyPrevAvailable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyPreviousAvailable()
 {
-    iPropertyPrevAvailable = new PropertyBool(new ParameterBool("PrevAvailable"));
-    iService->AddProperty(iPropertyPrevAvailable); // passes ownership
+    iPropertyPreviousAvailable = new PropertyBool(new ParameterBool("PreviousAvailable"));
+    iService->AddProperty(iPropertyPreviousAvailable); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgTransport1::EnablePropertyRepeatAvailable()
@@ -191,10 +191,10 @@ void DvProviderAvOpenhomeOrgTransport1::EnablePropertyRepeatAvailable()
     iService->AddProperty(iPropertyRepeatAvailable); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyRandomAvailable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyShuffleAvailable()
 {
-    iPropertyRandomAvailable = new PropertyBool(new ParameterBool("RandomAvailable"));
-    iService->AddProperty(iPropertyRandomAvailable); // passes ownership
+    iPropertyShuffleAvailable = new PropertyBool(new ParameterBool("ShuffleAvailable"));
+    iService->AddProperty(iPropertyShuffleAvailable); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgTransport1::EnablePropertyStreamId()
@@ -232,14 +232,14 @@ void DvProviderAvOpenhomeOrgTransport1::EnablePropertyTransportState()
 
 void DvProviderAvOpenhomeOrgTransport1::EnablePropertyRepeat()
 {
-    iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
+    iPropertyRepeat = new PropertyUint(new ParameterUint("Repeat"));
     iService->AddProperty(iPropertyRepeat); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyRandom()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyShuffle()
 {
-    iPropertyRandom = new PropertyBool(new ParameterBool("Random"));
-    iService->AddProperty(iPropertyRandom); // passes ownership
+    iPropertyShuffle = new PropertyUint(new ParameterUint("Shuffle"));
+    iService->AddProperty(iPropertyShuffle); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgTransport1::EnableActionPlayAs()
@@ -279,10 +279,10 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionNext()
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnableActionPrev()
+void DvProviderAvOpenhomeOrgTransport1::EnableActionPrevious()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("Prev");
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoPrev);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("Previous");
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoPrevious);
     iService->AddAction(action, functor);
 }
 
@@ -294,29 +294,29 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionSetRepeat()
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnableActionSetRandom()
+void DvProviderAvOpenhomeOrgTransport1::EnableActionSetShuffle()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetRandom");
-    action->AddInputParameter(new ParameterBool("Random"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSetRandom);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetShuffle");
+    action->AddInputParameter(new ParameterBool("Shuffle"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSetShuffle);
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnableActionSeekSecondsAbsolute()
+void DvProviderAvOpenhomeOrgTransport1::EnableActionSeekSecondAbsolute()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondsAbsolute");
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondAbsolute");
     action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     action->AddInputParameter(new ParameterUint("SecondsAbsolute"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSeekSecondsAbsolute);
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSeekSecondAbsolute);
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnableActionSeekSecondsRelative()
+void DvProviderAvOpenhomeOrgTransport1::EnableActionSeekSecondRelative()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondsRelative");
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondRelative");
     action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
     action->AddInputParameter(new ParameterInt("SecondsRelative"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSeekSecondsRelative);
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSeekSecondRelative);
     iService->AddAction(action, functor);
 }
 
@@ -340,9 +340,9 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionModeInfo()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("ModeInfo");
     action->AddOutputParameter(new ParameterRelated("NextAvailable", *iPropertyNextAvailable));
-    action->AddOutputParameter(new ParameterRelated("PrevAvailable", *iPropertyPrevAvailable));
+    action->AddOutputParameter(new ParameterRelated("PreviousAvailable", *iPropertyPreviousAvailable));
     action->AddOutputParameter(new ParameterRelated("RepeatAvailable", *iPropertyRepeatAvailable));
-    action->AddOutputParameter(new ParameterRelated("RandomAvailable", *iPropertyRandomAvailable));
+    action->AddOutputParameter(new ParameterRelated("ShuffleAvailable", *iPropertyShuffleAvailable));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoModeInfo);
     iService->AddAction(action, functor);
 }
@@ -373,11 +373,11 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionRepeat()
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnableActionRandom()
+void DvProviderAvOpenhomeOrgTransport1::EnableActionShuffle()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("Random");
-    action->AddOutputParameter(new ParameterRelated("Random", *iPropertyRandom));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoRandom);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("Shuffle");
+    action->AddOutputParameter(new ParameterRelated("Shuffle", *iPropertyShuffle));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoShuffle);
     iService->AddAction(action, functor);
 }
 
@@ -425,12 +425,12 @@ void DvProviderAvOpenhomeOrgTransport1::DoNext(IDviInvocation& aInvocation)
     Next(invocation);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::DoPrev(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgTransport1::DoPrevious(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    Prev(invocation);
+    Previous(invocation);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoSetRepeat(IDviInvocation& aInvocation)
@@ -442,33 +442,33 @@ void DvProviderAvOpenhomeOrgTransport1::DoSetRepeat(IDviInvocation& aInvocation)
     SetRepeat(invocation, Repeat);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::DoSetRandom(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgTransport1::DoSetShuffle(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    TBool Random = aInvocation.InvocationReadBool("Random");
+    TBool Shuffle = aInvocation.InvocationReadBool("Shuffle");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    SetRandom(invocation, Random);
+    SetShuffle(invocation, Shuffle);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::DoSeekSecondsAbsolute(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgTransport1::DoSeekSecondAbsolute(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     TUint StreamId = aInvocation.InvocationReadUint("StreamId");
     TUint SecondsAbsolute = aInvocation.InvocationReadUint("SecondsAbsolute");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    SeekSecondsAbsolute(invocation, StreamId, SecondsAbsolute);
+    SeekSecondAbsolute(invocation, StreamId, SecondsAbsolute);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::DoSeekSecondsRelative(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgTransport1::DoSeekSecondRelative(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     TUint StreamId = aInvocation.InvocationReadUint("StreamId");
     TInt SecondsRelative = aInvocation.InvocationReadInt("SecondsRelative");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    SeekSecondsRelative(invocation, StreamId, SecondsRelative);
+    SeekSecondRelative(invocation, StreamId, SecondsRelative);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoTransportState(IDviInvocation& aInvocation)
@@ -495,10 +495,10 @@ void DvProviderAvOpenhomeOrgTransport1::DoModeInfo(IDviInvocation& aInvocation)
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     DviInvocationResponseBool respNextAvailable(aInvocation, "NextAvailable");
-    DviInvocationResponseBool respPrevAvailable(aInvocation, "PrevAvailable");
+    DviInvocationResponseBool respPreviousAvailable(aInvocation, "PreviousAvailable");
     DviInvocationResponseBool respRepeatAvailable(aInvocation, "RepeatAvailable");
-    DviInvocationResponseBool respRandomAvailable(aInvocation, "RandomAvailable");
-    ModeInfo(invocation, respNextAvailable, respPrevAvailable, respRepeatAvailable, respRandomAvailable);
+    DviInvocationResponseBool respShuffleAvailable(aInvocation, "ShuffleAvailable");
+    ModeInfo(invocation, respNextAvailable, respPreviousAvailable, respRepeatAvailable, respShuffleAvailable);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoStreamInfo(IDviInvocation& aInvocation)
@@ -526,17 +526,17 @@ void DvProviderAvOpenhomeOrgTransport1::DoRepeat(IDviInvocation& aInvocation)
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    DviInvocationResponseBool respRepeat(aInvocation, "Repeat");
+    DviInvocationResponseUint respRepeat(aInvocation, "Repeat");
     Repeat(invocation, respRepeat);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::DoRandom(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgTransport1::DoShuffle(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    DviInvocationResponseBool respRandom(aInvocation, "Random");
-    Random(invocation, respRandom);
+    DviInvocationResponseUint respShuffle(aInvocation, "Shuffle");
+    Shuffle(invocation, respShuffle);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::PlayAs(IDvInvocation& /*aResponse*/, const Brx& /*aMode*/, const Brx& /*aCommand*/)
@@ -564,7 +564,7 @@ void DvProviderAvOpenhomeOrgTransport1::Next(IDvInvocation& /*aResponse*/)
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::Prev(IDvInvocation& /*aResponse*/)
+void DvProviderAvOpenhomeOrgTransport1::Previous(IDvInvocation& /*aResponse*/)
 {
     ASSERTS();
 }
@@ -574,17 +574,17 @@ void DvProviderAvOpenhomeOrgTransport1::SetRepeat(IDvInvocation& /*aResponse*/, 
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::SetRandom(IDvInvocation& /*aResponse*/, TBool /*aRandom*/)
+void DvProviderAvOpenhomeOrgTransport1::SetShuffle(IDvInvocation& /*aResponse*/, TBool /*aShuffle*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::SeekSecondsAbsolute(IDvInvocation& /*aResponse*/, TUint /*aStreamId*/, TUint /*aSecondsAbsolute*/)
+void DvProviderAvOpenhomeOrgTransport1::SeekSecondAbsolute(IDvInvocation& /*aResponse*/, TUint /*aStreamId*/, TUint /*aSecondsAbsolute*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::SeekSecondsRelative(IDvInvocation& /*aResponse*/, TUint /*aStreamId*/, TInt /*aSecondsRelative*/)
+void DvProviderAvOpenhomeOrgTransport1::SeekSecondRelative(IDvInvocation& /*aResponse*/, TUint /*aStreamId*/, TInt /*aSecondsRelative*/)
 {
     ASSERTS();
 }
@@ -599,7 +599,7 @@ void DvProviderAvOpenhomeOrgTransport1::Modes(IDvInvocation& /*aResponse*/, IDvI
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::ModeInfo(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aNextAvailable*/, IDvInvocationResponseBool& /*aPrevAvailable*/, IDvInvocationResponseBool& /*aRepeatAvailable*/, IDvInvocationResponseBool& /*aRandomAvailable*/)
+void DvProviderAvOpenhomeOrgTransport1::ModeInfo(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aNextAvailable*/, IDvInvocationResponseBool& /*aPreviousAvailable*/, IDvInvocationResponseBool& /*aRepeatAvailable*/, IDvInvocationResponseBool& /*aShuffleAvailable*/)
 {
     ASSERTS();
 }
@@ -614,12 +614,12 @@ void DvProviderAvOpenhomeOrgTransport1::StreamId(IDvInvocation& /*aResponse*/, I
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::Repeat(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aRepeat*/)
+void DvProviderAvOpenhomeOrgTransport1::Repeat(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aRepeat*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::Random(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aRandom*/)
+void DvProviderAvOpenhomeOrgTransport1::Shuffle(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aShuffle*/)
 {
     ASSERTS();
 }

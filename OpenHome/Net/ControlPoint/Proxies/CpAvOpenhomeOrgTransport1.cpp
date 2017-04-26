@@ -55,10 +55,10 @@ private:
     CpProxyAvOpenhomeOrgTransport1& iService;
 };
 
-class SyncPrevAvOpenhomeOrgTransport1 : public SyncProxyAction
+class SyncPreviousAvOpenhomeOrgTransport1 : public SyncProxyAction
 {
 public:
-    SyncPrevAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
+    SyncPreviousAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgTransport1& iService;
@@ -73,28 +73,28 @@ private:
     CpProxyAvOpenhomeOrgTransport1& iService;
 };
 
-class SyncSetRandomAvOpenhomeOrgTransport1 : public SyncProxyAction
+class SyncSetShuffleAvOpenhomeOrgTransport1 : public SyncProxyAction
 {
 public:
-    SyncSetRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
+    SyncSetShuffleAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgTransport1& iService;
 };
 
-class SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1 : public SyncProxyAction
+class SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1 : public SyncProxyAction
 {
 public:
-    SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
+    SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgTransport1& iService;
 };
 
-class SyncSeekSecondsRelativeAvOpenhomeOrgTransport1 : public SyncProxyAction
+class SyncSeekSecondRelativeAvOpenhomeOrgTransport1 : public SyncProxyAction
 {
 public:
-    SyncSeekSecondsRelativeAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
+    SyncSeekSecondRelativeAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgTransport1& iService;
@@ -123,14 +123,14 @@ private:
 class SyncModeInfoAvOpenhomeOrgTransport1 : public SyncProxyAction
 {
 public:
-    SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable);
+    SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgTransport1& iService;
     TBool& iNextAvailable;
-    TBool& iPrevAvailable;
+    TBool& iPreviousAvailable;
     TBool& iRepeatAvailable;
-    TBool& iRandomAvailable;
+    TBool& iShuffleAvailable;
 };
 
 class SyncStreamInfoAvOpenhomeOrgTransport1 : public SyncProxyAction
@@ -158,21 +158,21 @@ private:
 class SyncRepeatAvOpenhomeOrgTransport1 : public SyncProxyAction
 {
 public:
-    SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aRepeat);
+    SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TUint& aRepeat);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgTransport1& iService;
-    TBool& iRepeat;
+    TUint& iRepeat;
 };
 
-class SyncRandomAvOpenhomeOrgTransport1 : public SyncProxyAction
+class SyncShuffleAvOpenhomeOrgTransport1 : public SyncProxyAction
 {
 public:
-    SyncRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aRandom);
+    SyncShuffleAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TUint& aShuffle);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgTransport1& iService;
-    TBool& iRandom;
+    TUint& iShuffle;
 };
 
 } // namespace Net
@@ -243,16 +243,16 @@ void SyncNextAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
     iService.EndNext(aAsync);
 }
 
-// SyncPrevAvOpenhomeOrgTransport1
+// SyncPreviousAvOpenhomeOrgTransport1
 
-SyncPrevAvOpenhomeOrgTransport1::SyncPrevAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
+SyncPreviousAvOpenhomeOrgTransport1::SyncPreviousAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncPrevAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
+void SyncPreviousAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndPrev(aAsync);
+    iService.EndPrevious(aAsync);
 }
 
 // SyncSetRepeatAvOpenhomeOrgTransport1
@@ -267,40 +267,40 @@ void SyncSetRepeatAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
     iService.EndSetRepeat(aAsync);
 }
 
-// SyncSetRandomAvOpenhomeOrgTransport1
+// SyncSetShuffleAvOpenhomeOrgTransport1
 
-SyncSetRandomAvOpenhomeOrgTransport1::SyncSetRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
+SyncSetShuffleAvOpenhomeOrgTransport1::SyncSetShuffleAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncSetRandomAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
+void SyncSetShuffleAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndSetRandom(aAsync);
+    iService.EndSetShuffle(aAsync);
 }
 
-// SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1
+// SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1
 
-SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1::SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
+SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1::SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
+void SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndSeekSecondsAbsolute(aAsync);
+    iService.EndSeekSecondAbsolute(aAsync);
 }
 
-// SyncSeekSecondsRelativeAvOpenhomeOrgTransport1
+// SyncSeekSecondRelativeAvOpenhomeOrgTransport1
 
-SyncSeekSecondsRelativeAvOpenhomeOrgTransport1::SyncSeekSecondsRelativeAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
+SyncSeekSecondRelativeAvOpenhomeOrgTransport1::SyncSeekSecondRelativeAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncSeekSecondsRelativeAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
+void SyncSeekSecondRelativeAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndSeekSecondsRelative(aAsync);
+    iService.EndSeekSecondRelative(aAsync);
 }
 
 // SyncTransportStateAvOpenhomeOrgTransport1
@@ -331,18 +331,18 @@ void SyncModesAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 
 // SyncModeInfoAvOpenhomeOrgTransport1
 
-SyncModeInfoAvOpenhomeOrgTransport1::SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable)
+SyncModeInfoAvOpenhomeOrgTransport1::SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable)
     : iService(aProxy)
     , iNextAvailable(aNextAvailable)
-    , iPrevAvailable(aPrevAvailable)
+    , iPreviousAvailable(aPreviousAvailable)
     , iRepeatAvailable(aRepeatAvailable)
-    , iRandomAvailable(aRandomAvailable)
+    , iShuffleAvailable(aShuffleAvailable)
 {
 }
 
 void SyncModeInfoAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndModeInfo(aAsync, iNextAvailable, iPrevAvailable, iRepeatAvailable, iRandomAvailable);
+    iService.EndModeInfo(aAsync, iNextAvailable, iPreviousAvailable, iRepeatAvailable, iShuffleAvailable);
 }
 
 // SyncStreamInfoAvOpenhomeOrgTransport1
@@ -375,7 +375,7 @@ void SyncStreamIdAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 
 // SyncRepeatAvOpenhomeOrgTransport1
 
-SyncRepeatAvOpenhomeOrgTransport1::SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aRepeat)
+SyncRepeatAvOpenhomeOrgTransport1::SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TUint& aRepeat)
     : iService(aProxy)
     , iRepeat(aRepeat)
 {
@@ -386,17 +386,17 @@ void SyncRepeatAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
     iService.EndRepeat(aAsync, iRepeat);
 }
 
-// SyncRandomAvOpenhomeOrgTransport1
+// SyncShuffleAvOpenhomeOrgTransport1
 
-SyncRandomAvOpenhomeOrgTransport1::SyncRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TBool& aRandom)
+SyncShuffleAvOpenhomeOrgTransport1::SyncShuffleAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1& aProxy, TUint& aShuffle)
     : iService(aProxy)
-    , iRandom(aRandom)
+    , iShuffle(aShuffle)
 {
 }
 
-void SyncRandomAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
+void SyncShuffleAvOpenhomeOrgTransport1::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndRandom(aAsync, iRandom);
+    iService.EndShuffle(aAsync, iShuffle);
 }
 
 
@@ -423,27 +423,27 @@ CpProxyAvOpenhomeOrgTransport1::CpProxyAvOpenhomeOrgTransport1(CpDevice& aDevice
 
     iActionNext = new Action("Next");
 
-    iActionPrev = new Action("Prev");
+    iActionPrevious = new Action("Previous");
 
     iActionSetRepeat = new Action("SetRepeat");
     param = new OpenHome::Net::ParameterBool("Repeat");
     iActionSetRepeat->AddInputParameter(param);
 
-    iActionSetRandom = new Action("SetRandom");
-    param = new OpenHome::Net::ParameterBool("Random");
-    iActionSetRandom->AddInputParameter(param);
+    iActionSetShuffle = new Action("SetShuffle");
+    param = new OpenHome::Net::ParameterBool("Shuffle");
+    iActionSetShuffle->AddInputParameter(param);
 
-    iActionSeekSecondsAbsolute = new Action("SeekSecondsAbsolute");
+    iActionSeekSecondAbsolute = new Action("SeekSecondAbsolute");
     param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionSeekSecondsAbsolute->AddInputParameter(param);
+    iActionSeekSecondAbsolute->AddInputParameter(param);
     param = new OpenHome::Net::ParameterUint("SecondsAbsolute");
-    iActionSeekSecondsAbsolute->AddInputParameter(param);
+    iActionSeekSecondAbsolute->AddInputParameter(param);
 
-    iActionSeekSecondsRelative = new Action("SeekSecondsRelative");
+    iActionSeekSecondRelative = new Action("SeekSecondRelative");
     param = new OpenHome::Net::ParameterUint("StreamId");
-    iActionSeekSecondsRelative->AddInputParameter(param);
+    iActionSeekSecondRelative->AddInputParameter(param);
     param = new OpenHome::Net::ParameterInt("SecondsRelative");
-    iActionSeekSecondsRelative->AddInputParameter(param);
+    iActionSeekSecondRelative->AddInputParameter(param);
 
     iActionTransportState = new Action("TransportState");
     index = 0;
@@ -464,11 +464,11 @@ CpProxyAvOpenhomeOrgTransport1::CpProxyAvOpenhomeOrgTransport1(CpDevice& aDevice
     iActionModeInfo = new Action("ModeInfo");
     param = new OpenHome::Net::ParameterBool("NextAvailable");
     iActionModeInfo->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterBool("PrevAvailable");
+    param = new OpenHome::Net::ParameterBool("PreviousAvailable");
     iActionModeInfo->AddOutputParameter(param);
     param = new OpenHome::Net::ParameterBool("RepeatAvailable");
     iActionModeInfo->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterBool("RandomAvailable");
+    param = new OpenHome::Net::ParameterBool("ShuffleAvailable");
     iActionModeInfo->AddOutputParameter(param);
 
     iActionStreamInfo = new Action("StreamInfo");
@@ -484,12 +484,12 @@ CpProxyAvOpenhomeOrgTransport1::CpProxyAvOpenhomeOrgTransport1(CpDevice& aDevice
     iActionStreamId->AddOutputParameter(param);
 
     iActionRepeat = new Action("Repeat");
-    param = new OpenHome::Net::ParameterBool("Repeat");
+    param = new OpenHome::Net::ParameterUint("Repeat");
     iActionRepeat->AddOutputParameter(param);
 
-    iActionRandom = new Action("Random");
-    param = new OpenHome::Net::ParameterBool("Random");
-    iActionRandom->AddOutputParameter(param);
+    iActionShuffle = new Action("Shuffle");
+    param = new OpenHome::Net::ParameterUint("Shuffle");
+    iActionShuffle->AddOutputParameter(param);
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::ModesPropertyChanged);
@@ -498,15 +498,15 @@ CpProxyAvOpenhomeOrgTransport1::CpProxyAvOpenhomeOrgTransport1(CpDevice& aDevice
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::NextAvailablePropertyChanged);
     iNextAvailable = new PropertyBool("NextAvailable", functor);
     AddProperty(iNextAvailable);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::PrevAvailablePropertyChanged);
-    iPrevAvailable = new PropertyBool("PrevAvailable", functor);
-    AddProperty(iPrevAvailable);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::PreviousAvailablePropertyChanged);
+    iPreviousAvailable = new PropertyBool("PreviousAvailable", functor);
+    AddProperty(iPreviousAvailable);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::RepeatAvailablePropertyChanged);
     iRepeatAvailable = new PropertyBool("RepeatAvailable", functor);
     AddProperty(iRepeatAvailable);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::RandomAvailablePropertyChanged);
-    iRandomAvailable = new PropertyBool("RandomAvailable", functor);
-    AddProperty(iRandomAvailable);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::ShuffleAvailablePropertyChanged);
+    iShuffleAvailable = new PropertyBool("ShuffleAvailable", functor);
+    AddProperty(iShuffleAvailable);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::StreamIdPropertyChanged);
     iStreamId = new PropertyUint("StreamId", functor);
     AddProperty(iStreamId);
@@ -520,11 +520,11 @@ CpProxyAvOpenhomeOrgTransport1::CpProxyAvOpenhomeOrgTransport1(CpDevice& aDevice
     iTransportState = new PropertyString("TransportState", functor);
     AddProperty(iTransportState);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::RepeatPropertyChanged);
-    iRepeat = new PropertyBool("Repeat", functor);
+    iRepeat = new PropertyUint("Repeat", functor);
     AddProperty(iRepeat);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::RandomPropertyChanged);
-    iRandom = new PropertyBool("Random", functor);
-    AddProperty(iRandom);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1::ShufflePropertyChanged);
+    iShuffle = new PropertyUint("Shuffle", functor);
+    AddProperty(iShuffle);
 }
 
 CpProxyAvOpenhomeOrgTransport1::~CpProxyAvOpenhomeOrgTransport1()
@@ -535,18 +535,18 @@ CpProxyAvOpenhomeOrgTransport1::~CpProxyAvOpenhomeOrgTransport1()
     delete iActionPause;
     delete iActionStop;
     delete iActionNext;
-    delete iActionPrev;
+    delete iActionPrevious;
     delete iActionSetRepeat;
-    delete iActionSetRandom;
-    delete iActionSeekSecondsAbsolute;
-    delete iActionSeekSecondsRelative;
+    delete iActionSetShuffle;
+    delete iActionSeekSecondAbsolute;
+    delete iActionSeekSecondRelative;
     delete iActionTransportState;
     delete iActionModes;
     delete iActionModeInfo;
     delete iActionStreamInfo;
     delete iActionStreamId;
     delete iActionRepeat;
-    delete iActionRandom;
+    delete iActionShuffle;
 }
 
 void CpProxyAvOpenhomeOrgTransport1::SyncPlayAs(const Brx& aMode, const Brx& aCommand)
@@ -688,24 +688,24 @@ void CpProxyAvOpenhomeOrgTransport1::EndNext(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncPrev()
+void CpProxyAvOpenhomeOrgTransport1::SyncPrevious()
 {
-    SyncPrevAvOpenhomeOrgTransport1 sync(*this);
-    BeginPrev(sync.Functor());
+    SyncPreviousAvOpenhomeOrgTransport1 sync(*this);
+    BeginPrevious(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginPrev(FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginPrevious(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPrev, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPrevious, aFunctor);
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::EndPrev(IAsync& aAsync)
+void CpProxyAvOpenhomeOrgTransport1::EndPrevious(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("Prev"));
+    ASSERT(invocation.Action().Name() == Brn("Previous"));
 
     Error::ELevel level;
     TUint code;
@@ -745,27 +745,27 @@ void CpProxyAvOpenhomeOrgTransport1::EndSetRepeat(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncSetRandom(TBool aRandom)
+void CpProxyAvOpenhomeOrgTransport1::SyncSetShuffle(TBool aShuffle)
 {
-    SyncSetRandomAvOpenhomeOrgTransport1 sync(*this);
-    BeginSetRandom(aRandom, sync.Functor());
+    SyncSetShuffleAvOpenhomeOrgTransport1 sync(*this);
+    BeginSetShuffle(aShuffle, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginSetRandom(TBool aRandom, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginSetShuffle(TBool aShuffle, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetRandom, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetShuffle, aFunctor);
     TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSetRandom->InputParameters();
-    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aRandom));
+    const Action::VectorParameters& inParams = iActionSetShuffle->InputParameters();
+    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aShuffle));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::EndSetRandom(IAsync& aAsync)
+void CpProxyAvOpenhomeOrgTransport1::EndSetShuffle(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SetRandom"));
+    ASSERT(invocation.Action().Name() == Brn("SetShuffle"));
 
     Error::ELevel level;
     TUint code;
@@ -775,28 +775,28 @@ void CpProxyAvOpenhomeOrgTransport1::EndSetRandom(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondsAbsolute(TUint aStreamId, TUint aSecondsAbsolute)
+void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute)
 {
-    SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1 sync(*this);
-    BeginSeekSecondsAbsolute(aStreamId, aSecondsAbsolute, sync.Functor());
+    SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1 sync(*this);
+    BeginSeekSecondAbsolute(aStreamId, aSecondsAbsolute, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondsAbsolute(TUint aStreamId, TUint aSecondsAbsolute, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondsAbsolute, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondAbsolute, aFunctor);
     TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSeekSecondsAbsolute->InputParameters();
+    const Action::VectorParameters& inParams = iActionSeekSecondAbsolute->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aSecondsAbsolute));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::EndSeekSecondsAbsolute(IAsync& aAsync)
+void CpProxyAvOpenhomeOrgTransport1::EndSeekSecondAbsolute(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SeekSecondsAbsolute"));
+    ASSERT(invocation.Action().Name() == Brn("SeekSecondAbsolute"));
 
     Error::ELevel level;
     TUint code;
@@ -806,28 +806,28 @@ void CpProxyAvOpenhomeOrgTransport1::EndSeekSecondsAbsolute(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondsRelative(TUint aStreamId, TInt aSecondsRelative)
+void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative)
 {
-    SyncSeekSecondsRelativeAvOpenhomeOrgTransport1 sync(*this);
-    BeginSeekSecondsRelative(aStreamId, aSecondsRelative, sync.Functor());
+    SyncSeekSecondRelativeAvOpenhomeOrgTransport1 sync(*this);
+    BeginSeekSecondRelative(aStreamId, aSecondsRelative, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondsRelative(TUint aStreamId, TInt aSecondsRelative, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondsRelative, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondRelative, aFunctor);
     TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSeekSecondsRelative->InputParameters();
+    const Action::VectorParameters& inParams = iActionSeekSecondRelative->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
     invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aSecondsRelative));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::EndSeekSecondsRelative(IAsync& aAsync)
+void CpProxyAvOpenhomeOrgTransport1::EndSeekSecondRelative(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SeekSecondsRelative"));
+    ASSERT(invocation.Action().Name() == Brn("SeekSecondRelative"));
 
     Error::ELevel level;
     TUint code;
@@ -901,9 +901,9 @@ void CpProxyAvOpenhomeOrgTransport1::EndModes(IAsync& aAsync, Brh& aModes)
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aModes);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncModeInfo(TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable)
+void CpProxyAvOpenhomeOrgTransport1::SyncModeInfo(TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable)
 {
-    SyncModeInfoAvOpenhomeOrgTransport1 sync(*this, aNextAvailable, aPrevAvailable, aRepeatAvailable, aRandomAvailable);
+    SyncModeInfoAvOpenhomeOrgTransport1 sync(*this, aNextAvailable, aPreviousAvailable, aRepeatAvailable, aShuffleAvailable);
     BeginModeInfo(sync.Functor());
     sync.Wait();
 }
@@ -920,7 +920,7 @@ void CpProxyAvOpenhomeOrgTransport1::BeginModeInfo(FunctorAsync& aFunctor)
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPrevAvailable, TBool& aRepeatAvailable, TBool& aRandomAvailable)
+void CpProxyAvOpenhomeOrgTransport1::EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
@@ -934,9 +934,9 @@ void CpProxyAvOpenhomeOrgTransport1::EndModeInfo(IAsync& aAsync, TBool& aNextAva
     }
     TUint index = 0;
     aNextAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
-    aPrevAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aPreviousAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
     aRepeatAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
-    aRandomAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aShuffleAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1::SyncStreamInfo(TUint& aStreamId, TBool& aSeekable, TBool& aPausable)
@@ -1007,7 +1007,7 @@ void CpProxyAvOpenhomeOrgTransport1::EndStreamId(IAsync& aAsync, TUint& aStreamI
     aStreamId = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncRepeat(TBool& aRepeat)
+void CpProxyAvOpenhomeOrgTransport1::SyncRepeat(TUint& aRepeat)
 {
     SyncRepeatAvOpenhomeOrgTransport1 sync(*this, aRepeat);
     BeginRepeat(sync.Functor());
@@ -1019,11 +1019,11 @@ void CpProxyAvOpenhomeOrgTransport1::BeginRepeat(FunctorAsync& aFunctor)
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRepeat, aFunctor);
     TUint outIndex = 0;
     const Action::VectorParameters& outParams = iActionRepeat->OutputParameters();
-    invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
+    invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::EndRepeat(IAsync& aAsync, TBool& aRepeat)
+void CpProxyAvOpenhomeOrgTransport1::EndRepeat(IAsync& aAsync, TUint& aRepeat)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
@@ -1036,30 +1036,30 @@ void CpProxyAvOpenhomeOrgTransport1::EndRepeat(IAsync& aAsync, TBool& aRepeat)
         THROW_PROXYERROR(level, code);
     }
     TUint index = 0;
-    aRepeat = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aRepeat = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncRandom(TBool& aRandom)
+void CpProxyAvOpenhomeOrgTransport1::SyncShuffle(TUint& aShuffle)
 {
-    SyncRandomAvOpenhomeOrgTransport1 sync(*this, aRandom);
-    BeginRandom(sync.Functor());
+    SyncShuffleAvOpenhomeOrgTransport1 sync(*this, aShuffle);
+    BeginShuffle(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginRandom(FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginShuffle(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRandom, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionShuffle, aFunctor);
     TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionRandom->OutputParameters();
-    invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
+    const Action::VectorParameters& outParams = iActionShuffle->OutputParameters();
+    invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::EndRandom(IAsync& aAsync, TBool& aRandom)
+void CpProxyAvOpenhomeOrgTransport1::EndShuffle(IAsync& aAsync, TUint& aShuffle)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("Random"));
+    ASSERT(invocation.Action().Name() == Brn("Shuffle"));
 
     Error::ELevel level;
     TUint code;
@@ -1068,7 +1068,7 @@ void CpProxyAvOpenhomeOrgTransport1::EndRandom(IAsync& aAsync, TBool& aRandom)
         THROW_PROXYERROR(level, code);
     }
     TUint index = 0;
-    aRandom = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aShuffle = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1::SetPropertyModesChanged(Functor& aFunctor)
@@ -1085,10 +1085,10 @@ void CpProxyAvOpenhomeOrgTransport1::SetPropertyNextAvailableChanged(Functor& aF
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SetPropertyPrevAvailableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::SetPropertyPreviousAvailableChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iPrevAvailableChanged = aFunctor;
+    iPreviousAvailableChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
@@ -1099,10 +1099,10 @@ void CpProxyAvOpenhomeOrgTransport1::SetPropertyRepeatAvailableChanged(Functor& 
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SetPropertyRandomAvailableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::SetPropertyShuffleAvailableChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iRandomAvailableChanged = aFunctor;
+    iShuffleAvailableChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
@@ -1141,10 +1141,10 @@ void CpProxyAvOpenhomeOrgTransport1::SetPropertyRepeatChanged(Functor& aFunctor)
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SetPropertyRandomChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::SetPropertyShuffleChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iRandomChanged = aFunctor;
+    iShuffleChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
@@ -1166,13 +1166,13 @@ void CpProxyAvOpenhomeOrgTransport1::PropertyNextAvailable(TBool& aNextAvailable
     aNextAvailable = iNextAvailable->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::PropertyPrevAvailable(TBool& aPrevAvailable) const
+void CpProxyAvOpenhomeOrgTransport1::PropertyPreviousAvailable(TBool& aPreviousAvailable) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aPrevAvailable = iPrevAvailable->Value();
+    aPreviousAvailable = iPreviousAvailable->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1::PropertyRepeatAvailable(TBool& aRepeatAvailable) const
@@ -1184,13 +1184,13 @@ void CpProxyAvOpenhomeOrgTransport1::PropertyRepeatAvailable(TBool& aRepeatAvail
     aRepeatAvailable = iRepeatAvailable->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::PropertyRandomAvailable(TBool& aRandomAvailable) const
+void CpProxyAvOpenhomeOrgTransport1::PropertyShuffleAvailable(TBool& aShuffleAvailable) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aRandomAvailable = iRandomAvailable->Value();
+    aShuffleAvailable = iShuffleAvailable->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1::PropertyStreamId(TUint& aStreamId) const
@@ -1229,7 +1229,7 @@ void CpProxyAvOpenhomeOrgTransport1::PropertyTransportState(Brhz& aTransportStat
     aTransportState.Set(iTransportState->Value());
 }
 
-void CpProxyAvOpenhomeOrgTransport1::PropertyRepeat(TBool& aRepeat) const
+void CpProxyAvOpenhomeOrgTransport1::PropertyRepeat(TUint& aRepeat) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
@@ -1238,13 +1238,13 @@ void CpProxyAvOpenhomeOrgTransport1::PropertyRepeat(TBool& aRepeat) const
     aRepeat = iRepeat->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::PropertyRandom(TBool& aRandom) const
+void CpProxyAvOpenhomeOrgTransport1::PropertyShuffle(TUint& aShuffle) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aRandom = iRandom->Value();
+    aShuffle = iShuffle->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1::ModesPropertyChanged()
@@ -1257,9 +1257,9 @@ void CpProxyAvOpenhomeOrgTransport1::NextAvailablePropertyChanged()
     ReportEvent(iNextAvailableChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::PrevAvailablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1::PreviousAvailablePropertyChanged()
 {
-    ReportEvent(iPrevAvailableChanged);
+    ReportEvent(iPreviousAvailableChanged);
 }
 
 void CpProxyAvOpenhomeOrgTransport1::RepeatAvailablePropertyChanged()
@@ -1267,9 +1267,9 @@ void CpProxyAvOpenhomeOrgTransport1::RepeatAvailablePropertyChanged()
     ReportEvent(iRepeatAvailableChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::RandomAvailablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1::ShuffleAvailablePropertyChanged()
 {
-    ReportEvent(iRandomAvailableChanged);
+    ReportEvent(iShuffleAvailableChanged);
 }
 
 void CpProxyAvOpenhomeOrgTransport1::StreamIdPropertyChanged()
@@ -1297,9 +1297,9 @@ void CpProxyAvOpenhomeOrgTransport1::RepeatPropertyChanged()
     ReportEvent(iRepeatChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1::RandomPropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1::ShufflePropertyChanged()
 {
-    ReportEvent(iRandomChanged);
+    ReportEvent(iShuffleChanged);
 }
 
 

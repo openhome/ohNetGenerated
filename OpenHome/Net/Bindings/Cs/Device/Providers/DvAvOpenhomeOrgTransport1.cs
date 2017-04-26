@@ -36,17 +36,17 @@ namespace OpenHome.Net.Device.Providers
         bool PropertyNextAvailable();
 
         /// <summary>
-        /// Set the value of the PrevAvailable property
+        /// Set the value of the PreviousAvailable property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyPrevAvailable(bool aValue);
+        bool SetPropertyPreviousAvailable(bool aValue);
 
         /// <summary>
-        /// Get a copy of the value of the PrevAvailable property
+        /// Get a copy of the value of the PreviousAvailable property
         /// </summary>
-        /// <returns>Value of the PrevAvailable property.</param>
-        bool PropertyPrevAvailable();
+        /// <returns>Value of the PreviousAvailable property.</param>
+        bool PropertyPreviousAvailable();
 
         /// <summary>
         /// Set the value of the RepeatAvailable property
@@ -62,17 +62,17 @@ namespace OpenHome.Net.Device.Providers
         bool PropertyRepeatAvailable();
 
         /// <summary>
-        /// Set the value of the RandomAvailable property
+        /// Set the value of the ShuffleAvailable property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyRandomAvailable(bool aValue);
+        bool SetPropertyShuffleAvailable(bool aValue);
 
         /// <summary>
-        /// Get a copy of the value of the RandomAvailable property
+        /// Get a copy of the value of the ShuffleAvailable property
         /// </summary>
-        /// <returns>Value of the RandomAvailable property.</param>
-        bool PropertyRandomAvailable();
+        /// <returns>Value of the ShuffleAvailable property.</param>
+        bool PropertyShuffleAvailable();
 
         /// <summary>
         /// Set the value of the StreamId property
@@ -131,26 +131,26 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyRepeat(bool aValue);
+        bool SetPropertyRepeat(uint aValue);
 
         /// <summary>
         /// Get a copy of the value of the Repeat property
         /// </summary>
         /// <returns>Value of the Repeat property.</param>
-        bool PropertyRepeat();
+        uint PropertyRepeat();
 
         /// <summary>
-        /// Set the value of the Random property
+        /// Set the value of the Shuffle property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyRandom(bool aValue);
+        bool SetPropertyShuffle(uint aValue);
 
         /// <summary>
-        /// Get a copy of the value of the Random property
+        /// Get a copy of the value of the Shuffle property
         /// </summary>
-        /// <returns>Value of the Random property.</param>
-        bool PropertyRandom();
+        /// <returns>Value of the Shuffle property.</param>
+        uint PropertyShuffle();
         
     }
     /// <summary>
@@ -164,29 +164,29 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegatePause;
         private ActionDelegate iDelegateStop;
         private ActionDelegate iDelegateNext;
-        private ActionDelegate iDelegatePrev;
+        private ActionDelegate iDelegatePrevious;
         private ActionDelegate iDelegateSetRepeat;
-        private ActionDelegate iDelegateSetRandom;
-        private ActionDelegate iDelegateSeekSecondsAbsolute;
-        private ActionDelegate iDelegateSeekSecondsRelative;
+        private ActionDelegate iDelegateSetShuffle;
+        private ActionDelegate iDelegateSeekSecondAbsolute;
+        private ActionDelegate iDelegateSeekSecondRelative;
         private ActionDelegate iDelegateTransportState;
         private ActionDelegate iDelegateModes;
         private ActionDelegate iDelegateModeInfo;
         private ActionDelegate iDelegateStreamInfo;
         private ActionDelegate iDelegateStreamId;
         private ActionDelegate iDelegateRepeat;
-        private ActionDelegate iDelegateRandom;
+        private ActionDelegate iDelegateShuffle;
         private PropertyString iPropertyModes;
         private PropertyBool iPropertyNextAvailable;
-        private PropertyBool iPropertyPrevAvailable;
+        private PropertyBool iPropertyPreviousAvailable;
         private PropertyBool iPropertyRepeatAvailable;
-        private PropertyBool iPropertyRandomAvailable;
+        private PropertyBool iPropertyShuffleAvailable;
         private PropertyUint iPropertyStreamId;
         private PropertyBool iPropertySeekable;
         private PropertyBool iPropertyPausable;
         private PropertyString iPropertyTransportState;
-        private PropertyBool iPropertyRepeat;
-        private PropertyBool iPropertyRandom;
+        private PropertyUint iPropertyRepeat;
+        private PropertyUint iPropertyShuffle;
 
         /// <summary>
         /// Constructor
@@ -218,12 +218,12 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Enable the PrevAvailable property.
+        /// Enable the PreviousAvailable property.
         /// </summary>
-        public void EnablePropertyPrevAvailable()
+        public void EnablePropertyPreviousAvailable()
         {
-            iPropertyPrevAvailable = new PropertyBool(new ParameterBool("PrevAvailable"));
-            AddProperty(iPropertyPrevAvailable);
+            iPropertyPreviousAvailable = new PropertyBool(new ParameterBool("PreviousAvailable"));
+            AddProperty(iPropertyPreviousAvailable);
         }
 
         /// <summary>
@@ -236,12 +236,12 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Enable the RandomAvailable property.
+        /// Enable the ShuffleAvailable property.
         /// </summary>
-        public void EnablePropertyRandomAvailable()
+        public void EnablePropertyShuffleAvailable()
         {
-            iPropertyRandomAvailable = new PropertyBool(new ParameterBool("RandomAvailable"));
-            AddProperty(iPropertyRandomAvailable);
+            iPropertyShuffleAvailable = new PropertyBool(new ParameterBool("ShuffleAvailable"));
+            AddProperty(iPropertyShuffleAvailable);
         }
 
         /// <summary>
@@ -292,17 +292,17 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         public void EnablePropertyRepeat()
         {
-            iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
+            iPropertyRepeat = new PropertyUint(new ParameterUint("Repeat"));
             AddProperty(iPropertyRepeat);
         }
 
         /// <summary>
-        /// Enable the Random property.
+        /// Enable the Shuffle property.
         /// </summary>
-        public void EnablePropertyRandom()
+        public void EnablePropertyShuffle()
         {
-            iPropertyRandom = new PropertyBool(new ParameterBool("Random"));
-            AddProperty(iPropertyRandom);
+            iPropertyShuffle = new PropertyUint(new ParameterUint("Shuffle"));
+            AddProperty(iPropertyShuffle);
         }
 
         /// <summary>
@@ -356,28 +356,28 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Set the value of the PrevAvailable property
+        /// Set the value of the PreviousAvailable property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyPrevAvailable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyPreviousAvailable has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyPrevAvailable(bool aValue)
+        public bool SetPropertyPreviousAvailable(bool aValue)
         {
-            if (iPropertyPrevAvailable == null)
+            if (iPropertyPreviousAvailable == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyPrevAvailable, aValue);
+            return SetPropertyBool(iPropertyPreviousAvailable, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the PrevAvailable property
+        /// Get a copy of the value of the PreviousAvailable property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyPrevAvailable has previously been called.</remarks>
-        /// <returns>Value of the PrevAvailable property.</returns>
-        public bool PropertyPrevAvailable()
+        /// <remarks>Can only be called if EnablePropertyPreviousAvailable has previously been called.</remarks>
+        /// <returns>Value of the PreviousAvailable property.</returns>
+        public bool PropertyPreviousAvailable()
         {
-            if (iPropertyPrevAvailable == null)
+            if (iPropertyPreviousAvailable == null)
                 throw new PropertyDisabledError();
-            return iPropertyPrevAvailable.Value();
+            return iPropertyPreviousAvailable.Value();
         }
 
         /// <summary>
@@ -406,28 +406,28 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Set the value of the RandomAvailable property
+        /// Set the value of the ShuffleAvailable property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyRandomAvailable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyShuffleAvailable has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyRandomAvailable(bool aValue)
+        public bool SetPropertyShuffleAvailable(bool aValue)
         {
-            if (iPropertyRandomAvailable == null)
+            if (iPropertyShuffleAvailable == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyRandomAvailable, aValue);
+            return SetPropertyBool(iPropertyShuffleAvailable, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the RandomAvailable property
+        /// Get a copy of the value of the ShuffleAvailable property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyRandomAvailable has previously been called.</remarks>
-        /// <returns>Value of the RandomAvailable property.</returns>
-        public bool PropertyRandomAvailable()
+        /// <remarks>Can only be called if EnablePropertyShuffleAvailable has previously been called.</remarks>
+        /// <returns>Value of the ShuffleAvailable property.</returns>
+        public bool PropertyShuffleAvailable()
         {
-            if (iPropertyRandomAvailable == null)
+            if (iPropertyShuffleAvailable == null)
                 throw new PropertyDisabledError();
-            return iPropertyRandomAvailable.Value();
+            return iPropertyShuffleAvailable.Value();
         }
 
         /// <summary>
@@ -536,11 +536,11 @@ namespace OpenHome.Net.Device.Providers
         /// <remarks>Can only be called if EnablePropertyRepeat has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyRepeat(bool aValue)
+        public bool SetPropertyRepeat(uint aValue)
         {
             if (iPropertyRepeat == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyRepeat, aValue);
+            return SetPropertyUint(iPropertyRepeat, aValue);
         }
 
         /// <summary>
@@ -548,7 +548,7 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <remarks>Can only be called if EnablePropertyRepeat has previously been called.</remarks>
         /// <returns>Value of the Repeat property.</returns>
-        public bool PropertyRepeat()
+        public uint PropertyRepeat()
         {
             if (iPropertyRepeat == null)
                 throw new PropertyDisabledError();
@@ -556,28 +556,28 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Set the value of the Random property
+        /// Set the value of the Shuffle property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyRandom has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyShuffle has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyRandom(bool aValue)
+        public bool SetPropertyShuffle(uint aValue)
         {
-            if (iPropertyRandom == null)
+            if (iPropertyShuffle == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyRandom, aValue);
+            return SetPropertyUint(iPropertyShuffle, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the Random property
+        /// Get a copy of the value of the Shuffle property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyRandom has previously been called.</remarks>
-        /// <returns>Value of the Random property.</returns>
-        public bool PropertyRandom()
+        /// <remarks>Can only be called if EnablePropertyShuffle has previously been called.</remarks>
+        /// <returns>Value of the Shuffle property.</returns>
+        public uint PropertyShuffle()
         {
-            if (iPropertyRandom == null)
+            if (iPropertyShuffle == null)
                 throw new PropertyDisabledError();
-            return iPropertyRandom.Value();
+            return iPropertyShuffle.Value();
         }
 
         /// <summary>
@@ -644,15 +644,15 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action Prev is supported.
+        /// Signal that the action Previous is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// Prev must be overridden if this is called.</remarks>
-        protected void EnableActionPrev()
+        /// Previous must be overridden if this is called.</remarks>
+        protected void EnableActionPrevious()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Prev");
-            iDelegatePrev = new ActionDelegate(DoPrev);
-            EnableAction(action, iDelegatePrev, GCHandle.ToIntPtr(iGch));
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Previous");
+            iDelegatePrevious = new ActionDelegate(DoPrevious);
+            EnableAction(action, iDelegatePrevious, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -669,44 +669,44 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action SetRandom is supported.
+        /// Signal that the action SetShuffle is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// SetRandom must be overridden if this is called.</remarks>
-        protected void EnableActionSetRandom()
+        /// SetShuffle must be overridden if this is called.</remarks>
+        protected void EnableActionSetShuffle()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetRandom");
-            action.AddInputParameter(new ParameterBool("Random"));
-            iDelegateSetRandom = new ActionDelegate(DoSetRandom);
-            EnableAction(action, iDelegateSetRandom, GCHandle.ToIntPtr(iGch));
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetShuffle");
+            action.AddInputParameter(new ParameterBool("Shuffle"));
+            iDelegateSetShuffle = new ActionDelegate(DoSetShuffle);
+            EnableAction(action, iDelegateSetShuffle, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
-        /// Signal that the action SeekSecondsAbsolute is supported.
+        /// Signal that the action SeekSecondAbsolute is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// SeekSecondsAbsolute must be overridden if this is called.</remarks>
-        protected void EnableActionSeekSecondsAbsolute()
+        /// SeekSecondAbsolute must be overridden if this is called.</remarks>
+        protected void EnableActionSeekSecondAbsolute()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SeekSecondsAbsolute");
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SeekSecondAbsolute");
             action.AddInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
             action.AddInputParameter(new ParameterUint("SecondsAbsolute"));
-            iDelegateSeekSecondsAbsolute = new ActionDelegate(DoSeekSecondsAbsolute);
-            EnableAction(action, iDelegateSeekSecondsAbsolute, GCHandle.ToIntPtr(iGch));
+            iDelegateSeekSecondAbsolute = new ActionDelegate(DoSeekSecondAbsolute);
+            EnableAction(action, iDelegateSeekSecondAbsolute, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
-        /// Signal that the action SeekSecondsRelative is supported.
+        /// Signal that the action SeekSecondRelative is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// SeekSecondsRelative must be overridden if this is called.</remarks>
-        protected void EnableActionSeekSecondsRelative()
+        /// SeekSecondRelative must be overridden if this is called.</remarks>
+        protected void EnableActionSeekSecondRelative()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SeekSecondsRelative");
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SeekSecondRelative");
             action.AddInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
             action.AddInputParameter(new ParameterInt("SecondsRelative"));
-            iDelegateSeekSecondsRelative = new ActionDelegate(DoSeekSecondsRelative);
-            EnableAction(action, iDelegateSeekSecondsRelative, GCHandle.ToIntPtr(iGch));
+            iDelegateSeekSecondRelative = new ActionDelegate(DoSeekSecondRelative);
+            EnableAction(action, iDelegateSeekSecondRelative, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -744,9 +744,9 @@ namespace OpenHome.Net.Device.Providers
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("ModeInfo");
             action.AddOutputParameter(new ParameterRelated("NextAvailable", iPropertyNextAvailable));
-            action.AddOutputParameter(new ParameterRelated("PrevAvailable", iPropertyPrevAvailable));
+            action.AddOutputParameter(new ParameterRelated("PreviousAvailable", iPropertyPreviousAvailable));
             action.AddOutputParameter(new ParameterRelated("RepeatAvailable", iPropertyRepeatAvailable));
-            action.AddOutputParameter(new ParameterRelated("RandomAvailable", iPropertyRandomAvailable));
+            action.AddOutputParameter(new ParameterRelated("ShuffleAvailable", iPropertyShuffleAvailable));
             iDelegateModeInfo = new ActionDelegate(DoModeInfo);
             EnableAction(action, iDelegateModeInfo, GCHandle.ToIntPtr(iGch));
         }
@@ -793,16 +793,16 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action Random is supported.
+        /// Signal that the action Shuffle is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// Random must be overridden if this is called.</remarks>
-        protected void EnableActionRandom()
+        /// Shuffle must be overridden if this is called.</remarks>
+        protected void EnableActionShuffle()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Random");
-            action.AddOutputParameter(new ParameterRelated("Random", iPropertyRandom));
-            iDelegateRandom = new ActionDelegate(DoRandom);
-            EnableAction(action, iDelegateRandom, GCHandle.ToIntPtr(iGch));
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Shuffle");
+            action.AddOutputParameter(new ParameterRelated("Shuffle", iPropertyShuffle));
+            iDelegateShuffle = new ActionDelegate(DoShuffle);
+            EnableAction(action, iDelegateShuffle, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -873,14 +873,14 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Prev action.
+        /// Previous action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// Prev action for the owning device.
+        /// Previous action for the owning device.
         ///
-        /// Must be implemented iff EnableActionPrev was called.</remarks>
+        /// Must be implemented iff EnableActionPrevious was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        protected virtual void Prev(IDvInvocation aInvocation)
+        protected virtual void Previous(IDvInvocation aInvocation)
         {
             throw (new ActionDisabledError());
         }
@@ -900,45 +900,45 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// SetRandom action.
+        /// SetShuffle action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// SetRandom action for the owning device.
+        /// SetShuffle action for the owning device.
         ///
-        /// Must be implemented iff EnableActionSetRandom was called.</remarks>
+        /// Must be implemented iff EnableActionSetShuffle was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aRandom"></param>
-        protected virtual void SetRandom(IDvInvocation aInvocation, bool aRandom)
+        /// <param name="aShuffle"></param>
+        protected virtual void SetShuffle(IDvInvocation aInvocation, bool aShuffle)
         {
             throw (new ActionDisabledError());
         }
 
         /// <summary>
-        /// SeekSecondsAbsolute action.
+        /// SeekSecondAbsolute action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// SeekSecondsAbsolute action for the owning device.
+        /// SeekSecondAbsolute action for the owning device.
         ///
-        /// Must be implemented iff EnableActionSeekSecondsAbsolute was called.</remarks>
+        /// Must be implemented iff EnableActionSeekSecondAbsolute was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aStreamId"></param>
         /// <param name="aSecondsAbsolute"></param>
-        protected virtual void SeekSecondsAbsolute(IDvInvocation aInvocation, uint aStreamId, uint aSecondsAbsolute)
+        protected virtual void SeekSecondAbsolute(IDvInvocation aInvocation, uint aStreamId, uint aSecondsAbsolute)
         {
             throw (new ActionDisabledError());
         }
 
         /// <summary>
-        /// SeekSecondsRelative action.
+        /// SeekSecondRelative action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// SeekSecondsRelative action for the owning device.
+        /// SeekSecondRelative action for the owning device.
         ///
-        /// Must be implemented iff EnableActionSeekSecondsRelative was called.</remarks>
+        /// Must be implemented iff EnableActionSeekSecondRelative was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aStreamId"></param>
         /// <param name="aSecondsRelative"></param>
-        protected virtual void SeekSecondsRelative(IDvInvocation aInvocation, uint aStreamId, int aSecondsRelative)
+        protected virtual void SeekSecondRelative(IDvInvocation aInvocation, uint aStreamId, int aSecondsRelative)
         {
             throw (new ActionDisabledError());
         }
@@ -980,10 +980,10 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionModeInfo was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aNextAvailable"></param>
-        /// <param name="aPrevAvailable"></param>
+        /// <param name="aPreviousAvailable"></param>
         /// <param name="aRepeatAvailable"></param>
-        /// <param name="aRandomAvailable"></param>
-        protected virtual void ModeInfo(IDvInvocation aInvocation, out bool aNextAvailable, out bool aPrevAvailable, out bool aRepeatAvailable, out bool aRandomAvailable)
+        /// <param name="aShuffleAvailable"></param>
+        protected virtual void ModeInfo(IDvInvocation aInvocation, out bool aNextAvailable, out bool aPreviousAvailable, out bool aRepeatAvailable, out bool aShuffleAvailable)
         {
             throw (new ActionDisabledError());
         }
@@ -1027,21 +1027,21 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionRepeat was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aRepeat"></param>
-        protected virtual void Repeat(IDvInvocation aInvocation, out bool aRepeat)
+        protected virtual void Repeat(IDvInvocation aInvocation, out uint aRepeat)
         {
             throw (new ActionDisabledError());
         }
 
         /// <summary>
-        /// Random action.
+        /// Shuffle action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// Random action for the owning device.
+        /// Shuffle action for the owning device.
         ///
-        /// Must be implemented iff EnableActionRandom was called.</remarks>
+        /// Must be implemented iff EnableActionShuffle was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aRandom"></param>
-        protected virtual void Random(IDvInvocation aInvocation, out bool aRandom)
+        /// <param name="aShuffle"></param>
+        protected virtual void Shuffle(IDvInvocation aInvocation, out uint aShuffle)
         {
             throw (new ActionDisabledError());
         }
@@ -1270,7 +1270,7 @@ namespace OpenHome.Net.Device.Providers
             return 0;
         }
 
-        private static int DoPrev(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoPrevious(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
@@ -1279,21 +1279,21 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.Prev(invocation);
+                self.Previous(invocation);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "Prev");
+                invocation.ReportActionError(e, "Previous");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Prev" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Previous" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Prev" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Previous" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -1308,7 +1308,7 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Prev" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Previous" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
@@ -1360,32 +1360,32 @@ namespace OpenHome.Net.Device.Providers
             return 0;
         }
 
-        private static int DoSetRandom(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoSetShuffle(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            bool random;
+            bool shuffle;
             try
             {
                 invocation.ReadStart();
-                random = invocation.ReadBool("Random");
+                shuffle = invocation.ReadBool("Shuffle");
                 invocation.ReadEnd();
-                self.SetRandom(invocation, random);
+                self.SetShuffle(invocation, shuffle);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "SetRandom");
+                invocation.ReportActionError(e, "SetShuffle");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetRandom" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetShuffle" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetRandom" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetShuffle" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -1400,13 +1400,13 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetRandom" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetShuffle" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
         }
 
-        private static int DoSeekSecondsAbsolute(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoSeekSecondAbsolute(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
@@ -1419,21 +1419,21 @@ namespace OpenHome.Net.Device.Providers
                 streamId = invocation.ReadUint("StreamId");
                 secondsAbsolute = invocation.ReadUint("SecondsAbsolute");
                 invocation.ReadEnd();
-                self.SeekSecondsAbsolute(invocation, streamId, secondsAbsolute);
+                self.SeekSecondAbsolute(invocation, streamId, secondsAbsolute);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "SeekSecondsAbsolute");
+                invocation.ReportActionError(e, "SeekSecondAbsolute");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SeekSecondsAbsolute" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SeekSecondAbsolute" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondsAbsolute" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondAbsolute" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -1448,13 +1448,13 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondsAbsolute" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondAbsolute" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
         }
 
-        private static int DoSeekSecondsRelative(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoSeekSecondRelative(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
@@ -1467,21 +1467,21 @@ namespace OpenHome.Net.Device.Providers
                 streamId = invocation.ReadUint("StreamId");
                 secondsRelative = invocation.ReadInt("SecondsRelative");
                 invocation.ReadEnd();
-                self.SeekSecondsRelative(invocation, streamId, secondsRelative);
+                self.SeekSecondRelative(invocation, streamId, secondsRelative);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "SeekSecondsRelative");
+                invocation.ReportActionError(e, "SeekSecondRelative");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SeekSecondsRelative" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SeekSecondRelative" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondsRelative" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondRelative" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -1496,7 +1496,7 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondsRelative" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SeekSecondRelative" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
@@ -1600,14 +1600,14 @@ namespace OpenHome.Net.Device.Providers
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
             bool nextAvailable;
-            bool prevAvailable;
+            bool previousAvailable;
             bool repeatAvailable;
-            bool randomAvailable;
+            bool shuffleAvailable;
             try
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.ModeInfo(invocation, out nextAvailable, out prevAvailable, out repeatAvailable, out randomAvailable);
+                self.ModeInfo(invocation, out nextAvailable, out previousAvailable, out repeatAvailable, out shuffleAvailable);
             }
             catch (ActionError e)
             {
@@ -1629,9 +1629,9 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.WriteStart();
                 invocation.WriteBool("NextAvailable", nextAvailable);
-                invocation.WriteBool("PrevAvailable", prevAvailable);
+                invocation.WriteBool("PreviousAvailable", previousAvailable);
                 invocation.WriteBool("RepeatAvailable", repeatAvailable);
-                invocation.WriteBool("RandomAvailable", randomAvailable);
+                invocation.WriteBool("ShuffleAvailable", shuffleAvailable);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -1747,7 +1747,7 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            bool repeat;
+            uint repeat;
             try
             {
                 invocation.ReadStart();
@@ -1773,7 +1773,7 @@ namespace OpenHome.Net.Device.Providers
             try
             {
                 invocation.WriteStart();
-                invocation.WriteBool("Repeat", repeat);
+                invocation.WriteUint("Repeat", repeat);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -1788,38 +1788,38 @@ namespace OpenHome.Net.Device.Providers
             return 0;
         }
 
-        private static int DoRandom(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoShuffle(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            bool random;
+            uint shuffle;
             try
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.Random(invocation, out random);
+                self.Shuffle(invocation, out shuffle);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "Random");
+                invocation.ReportActionError(e, "Shuffle");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Random" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Shuffle" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Random" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Shuffle" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
             try
             {
                 invocation.WriteStart();
-                invocation.WriteBool("Random", random);
+                invocation.WriteUint("Shuffle", shuffle);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -1828,7 +1828,7 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Random" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Shuffle" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

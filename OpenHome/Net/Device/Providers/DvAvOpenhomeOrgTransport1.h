@@ -54,19 +54,19 @@ public:
      */
     void GetPropertyNextAvailable(TBool& aValue);
     /**
-     * Set the value of the PrevAvailable property
+     * Set the value of the PreviousAvailable property
      *
-     * Can only be called if EnablePropertyPrevAvailable has previously been called.
+     * Can only be called if EnablePropertyPreviousAvailable has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyPrevAvailable(TBool aValue);
+    TBool SetPropertyPreviousAvailable(TBool aValue);
     /**
-     * Get a copy of the value of the PrevAvailable property
+     * Get a copy of the value of the PreviousAvailable property
      *
-     * Can only be called if EnablePropertyPrevAvailable has previously been called.
+     * Can only be called if EnablePropertyPreviousAvailable has previously been called.
      */
-    void GetPropertyPrevAvailable(TBool& aValue);
+    void GetPropertyPreviousAvailable(TBool& aValue);
     /**
      * Set the value of the RepeatAvailable property
      *
@@ -82,19 +82,19 @@ public:
      */
     void GetPropertyRepeatAvailable(TBool& aValue);
     /**
-     * Set the value of the RandomAvailable property
+     * Set the value of the ShuffleAvailable property
      *
-     * Can only be called if EnablePropertyRandomAvailable has previously been called.
+     * Can only be called if EnablePropertyShuffleAvailable has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyRandomAvailable(TBool aValue);
+    TBool SetPropertyShuffleAvailable(TBool aValue);
     /**
-     * Get a copy of the value of the RandomAvailable property
+     * Get a copy of the value of the ShuffleAvailable property
      *
-     * Can only be called if EnablePropertyRandomAvailable has previously been called.
+     * Can only be called if EnablePropertyShuffleAvailable has previously been called.
      */
-    void GetPropertyRandomAvailable(TBool& aValue);
+    void GetPropertyShuffleAvailable(TBool& aValue);
     /**
      * Set the value of the StreamId property
      *
@@ -158,27 +158,27 @@ public:
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyRepeat(TBool aValue);
+    TBool SetPropertyRepeat(TUint aValue);
     /**
      * Get a copy of the value of the Repeat property
      *
      * Can only be called if EnablePropertyRepeat has previously been called.
      */
-    void GetPropertyRepeat(TBool& aValue);
+    void GetPropertyRepeat(TUint& aValue);
     /**
-     * Set the value of the Random property
+     * Set the value of the Shuffle property
      *
-     * Can only be called if EnablePropertyRandom has previously been called.
+     * Can only be called if EnablePropertyShuffle has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyRandom(TBool aValue);
+    TBool SetPropertyShuffle(TUint aValue);
     /**
-     * Get a copy of the value of the Random property
+     * Get a copy of the value of the Shuffle property
      *
-     * Can only be called if EnablePropertyRandom has previously been called.
+     * Can only be called if EnablePropertyShuffle has previously been called.
      */
-    void GetPropertyRandom(TBool& aValue);
+    void GetPropertyShuffle(TUint& aValue);
 protected:
     /**
      * Constructor
@@ -201,17 +201,17 @@ protected:
      */
     void EnablePropertyNextAvailable();
     /**
-     * Enable the PrevAvailable property.
+     * Enable the PreviousAvailable property.
      */
-    void EnablePropertyPrevAvailable();
+    void EnablePropertyPreviousAvailable();
     /**
      * Enable the RepeatAvailable property.
      */
     void EnablePropertyRepeatAvailable();
     /**
-     * Enable the RandomAvailable property.
+     * Enable the ShuffleAvailable property.
      */
-    void EnablePropertyRandomAvailable();
+    void EnablePropertyShuffleAvailable();
     /**
      * Enable the StreamId property.
      */
@@ -233,9 +233,9 @@ protected:
      */
     void EnablePropertyRepeat();
     /**
-     * Enable the Random property.
+     * Enable the Shuffle property.
      */
-    void EnablePropertyRandom();
+    void EnablePropertyShuffle();
     /**
      * Signal that the action PlayAs is supported.
      * The action's availability will be published in the device's service.xml.
@@ -267,11 +267,11 @@ protected:
      */
     void EnableActionNext();
     /**
-     * Signal that the action Prev is supported.
+     * Signal that the action Previous is supported.
      * The action's availability will be published in the device's service.xml.
-     * Prev must be overridden if this is called.
+     * Previous must be overridden if this is called.
      */
-    void EnableActionPrev();
+    void EnableActionPrevious();
     /**
      * Signal that the action SetRepeat is supported.
      * The action's availability will be published in the device's service.xml.
@@ -279,23 +279,23 @@ protected:
      */
     void EnableActionSetRepeat();
     /**
-     * Signal that the action SetRandom is supported.
+     * Signal that the action SetShuffle is supported.
      * The action's availability will be published in the device's service.xml.
-     * SetRandom must be overridden if this is called.
+     * SetShuffle must be overridden if this is called.
      */
-    void EnableActionSetRandom();
+    void EnableActionSetShuffle();
     /**
-     * Signal that the action SeekSecondsAbsolute is supported.
+     * Signal that the action SeekSecondAbsolute is supported.
      * The action's availability will be published in the device's service.xml.
-     * SeekSecondsAbsolute must be overridden if this is called.
+     * SeekSecondAbsolute must be overridden if this is called.
      */
-    void EnableActionSeekSecondsAbsolute();
+    void EnableActionSeekSecondAbsolute();
     /**
-     * Signal that the action SeekSecondsRelative is supported.
+     * Signal that the action SeekSecondRelative is supported.
      * The action's availability will be published in the device's service.xml.
-     * SeekSecondsRelative must be overridden if this is called.
+     * SeekSecondRelative must be overridden if this is called.
      */
-    void EnableActionSeekSecondsRelative();
+    void EnableActionSeekSecondRelative();
     /**
      * Signal that the action TransportState is supported.
      * The action's availability will be published in the device's service.xml.
@@ -333,11 +333,11 @@ protected:
      */
     void EnableActionRepeat();
     /**
-     * Signal that the action Random is supported.
+     * Signal that the action Shuffle is supported.
      * The action's availability will be published in the device's service.xml.
-     * Random must be overridden if this is called.
+     * Shuffle must be overridden if this is called.
      */
-    void EnableActionRandom();
+    void EnableActionShuffle();
 private:
     /**
      * PlayAs action.
@@ -380,13 +380,13 @@ private:
      */
     virtual void Next(IDvInvocation& aInvocation);
     /**
-     * Prev action.
+     * Previous action.
      *
      * Will be called when the device stack receives an invocation of the
-     * Prev action for the owning device.
-     * Must be implemented iff EnableActionPrev was called.
+     * Previous action for the owning device.
+     * Must be implemented iff EnableActionPrevious was called.
      */
-    virtual void Prev(IDvInvocation& aInvocation);
+    virtual void Previous(IDvInvocation& aInvocation);
     /**
      * SetRepeat action.
      *
@@ -396,29 +396,29 @@ private:
      */
     virtual void SetRepeat(IDvInvocation& aInvocation, TBool aRepeat);
     /**
-     * SetRandom action.
+     * SetShuffle action.
      *
      * Will be called when the device stack receives an invocation of the
-     * SetRandom action for the owning device.
-     * Must be implemented iff EnableActionSetRandom was called.
+     * SetShuffle action for the owning device.
+     * Must be implemented iff EnableActionSetShuffle was called.
      */
-    virtual void SetRandom(IDvInvocation& aInvocation, TBool aRandom);
+    virtual void SetShuffle(IDvInvocation& aInvocation, TBool aShuffle);
     /**
-     * SeekSecondsAbsolute action.
+     * SeekSecondAbsolute action.
      *
      * Will be called when the device stack receives an invocation of the
-     * SeekSecondsAbsolute action for the owning device.
-     * Must be implemented iff EnableActionSeekSecondsAbsolute was called.
+     * SeekSecondAbsolute action for the owning device.
+     * Must be implemented iff EnableActionSeekSecondAbsolute was called.
      */
-    virtual void SeekSecondsAbsolute(IDvInvocation& aInvocation, TUint aStreamId, TUint aSecondsAbsolute);
+    virtual void SeekSecondAbsolute(IDvInvocation& aInvocation, TUint aStreamId, TUint aSecondsAbsolute);
     /**
-     * SeekSecondsRelative action.
+     * SeekSecondRelative action.
      *
      * Will be called when the device stack receives an invocation of the
-     * SeekSecondsRelative action for the owning device.
-     * Must be implemented iff EnableActionSeekSecondsRelative was called.
+     * SeekSecondRelative action for the owning device.
+     * Must be implemented iff EnableActionSeekSecondRelative was called.
      */
-    virtual void SeekSecondsRelative(IDvInvocation& aInvocation, TUint aStreamId, TInt aSecondsRelative);
+    virtual void SeekSecondRelative(IDvInvocation& aInvocation, TUint aStreamId, TInt aSecondsRelative);
     /**
      * TransportState action.
      *
@@ -442,7 +442,7 @@ private:
      * ModeInfo action for the owning device.
      * Must be implemented iff EnableActionModeInfo was called.
      */
-    virtual void ModeInfo(IDvInvocation& aInvocation, IDvInvocationResponseBool& aNextAvailable, IDvInvocationResponseBool& aPrevAvailable, IDvInvocationResponseBool& aRepeatAvailable, IDvInvocationResponseBool& aRandomAvailable);
+    virtual void ModeInfo(IDvInvocation& aInvocation, IDvInvocationResponseBool& aNextAvailable, IDvInvocationResponseBool& aPreviousAvailable, IDvInvocationResponseBool& aRepeatAvailable, IDvInvocationResponseBool& aShuffleAvailable);
     /**
      * StreamInfo action.
      *
@@ -466,15 +466,15 @@ private:
      * Repeat action for the owning device.
      * Must be implemented iff EnableActionRepeat was called.
      */
-    virtual void Repeat(IDvInvocation& aInvocation, IDvInvocationResponseBool& aRepeat);
+    virtual void Repeat(IDvInvocation& aInvocation, IDvInvocationResponseUint& aRepeat);
     /**
-     * Random action.
+     * Shuffle action.
      *
      * Will be called when the device stack receives an invocation of the
-     * Random action for the owning device.
-     * Must be implemented iff EnableActionRandom was called.
+     * Shuffle action for the owning device.
+     * Must be implemented iff EnableActionShuffle was called.
      */
-    virtual void Random(IDvInvocation& aInvocation, IDvInvocationResponseBool& aRandom);
+    virtual void Shuffle(IDvInvocation& aInvocation, IDvInvocationResponseUint& aShuffle);
 private:
     DvProviderAvOpenhomeOrgTransport1();
     void Construct();
@@ -483,30 +483,30 @@ private:
     void DoPause(IDviInvocation& aInvocation);
     void DoStop(IDviInvocation& aInvocation);
     void DoNext(IDviInvocation& aInvocation);
-    void DoPrev(IDviInvocation& aInvocation);
+    void DoPrevious(IDviInvocation& aInvocation);
     void DoSetRepeat(IDviInvocation& aInvocation);
-    void DoSetRandom(IDviInvocation& aInvocation);
-    void DoSeekSecondsAbsolute(IDviInvocation& aInvocation);
-    void DoSeekSecondsRelative(IDviInvocation& aInvocation);
+    void DoSetShuffle(IDviInvocation& aInvocation);
+    void DoSeekSecondAbsolute(IDviInvocation& aInvocation);
+    void DoSeekSecondRelative(IDviInvocation& aInvocation);
     void DoTransportState(IDviInvocation& aInvocation);
     void DoModes(IDviInvocation& aInvocation);
     void DoModeInfo(IDviInvocation& aInvocation);
     void DoStreamInfo(IDviInvocation& aInvocation);
     void DoStreamId(IDviInvocation& aInvocation);
     void DoRepeat(IDviInvocation& aInvocation);
-    void DoRandom(IDviInvocation& aInvocation);
+    void DoShuffle(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyModes;
     PropertyBool* iPropertyNextAvailable;
-    PropertyBool* iPropertyPrevAvailable;
+    PropertyBool* iPropertyPreviousAvailable;
     PropertyBool* iPropertyRepeatAvailable;
-    PropertyBool* iPropertyRandomAvailable;
+    PropertyBool* iPropertyShuffleAvailable;
     PropertyUint* iPropertyStreamId;
     PropertyBool* iPropertySeekable;
     PropertyBool* iPropertyPausable;
     PropertyString* iPropertyTransportState;
-    PropertyBool* iPropertyRepeat;
-    PropertyBool* iPropertyRandom;
+    PropertyUint* iPropertyRepeat;
+    PropertyUint* iPropertyShuffle;
 };
 
 } // namespace Net

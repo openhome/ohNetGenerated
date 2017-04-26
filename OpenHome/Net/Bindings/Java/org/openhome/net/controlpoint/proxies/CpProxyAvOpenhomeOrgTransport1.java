@@ -25,21 +25,21 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public void syncNext();
     public void beginNext(ICpProxyListener aCallback);
     public void endNext(long aAsyncHandle);
-    public void syncPrev();
-    public void beginPrev(ICpProxyListener aCallback);
-    public void endPrev(long aAsyncHandle);
+    public void syncPrevious();
+    public void beginPrevious(ICpProxyListener aCallback);
+    public void endPrevious(long aAsyncHandle);
     public void syncSetRepeat(boolean aRepeat);
     public void beginSetRepeat(boolean aRepeat, ICpProxyListener aCallback);
     public void endSetRepeat(long aAsyncHandle);
-    public void syncSetRandom(boolean aRandom);
-    public void beginSetRandom(boolean aRandom, ICpProxyListener aCallback);
-    public void endSetRandom(long aAsyncHandle);
-    public void syncSeekSecondsAbsolute(long aStreamId, long aSecondsAbsolute);
-    public void beginSeekSecondsAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback);
-    public void endSeekSecondsAbsolute(long aAsyncHandle);
-    public void syncSeekSecondsRelative(long aStreamId, int aSecondsRelative);
-    public void beginSeekSecondsRelative(long aStreamId, int aSecondsRelative, ICpProxyListener aCallback);
-    public void endSeekSecondsRelative(long aAsyncHandle);
+    public void syncSetShuffle(boolean aShuffle);
+    public void beginSetShuffle(boolean aShuffle, ICpProxyListener aCallback);
+    public void endSetShuffle(long aAsyncHandle);
+    public void syncSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute);
+    public void beginSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback);
+    public void endSeekSecondAbsolute(long aAsyncHandle);
+    public void syncSeekSecondRelative(long aStreamId, int aSecondsRelative);
+    public void beginSeekSecondRelative(long aStreamId, int aSecondsRelative, ICpProxyListener aCallback);
+    public void endSeekSecondRelative(long aAsyncHandle);
     public String syncTransportState();
     public void beginTransportState(ICpProxyListener aCallback);
     public String endTransportState(long aAsyncHandle);
@@ -55,22 +55,22 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public long syncStreamId();
     public void beginStreamId(ICpProxyListener aCallback);
     public long endStreamId(long aAsyncHandle);
-    public boolean syncRepeat();
+    public long syncRepeat();
     public void beginRepeat(ICpProxyListener aCallback);
-    public boolean endRepeat(long aAsyncHandle);
-    public boolean syncRandom();
-    public void beginRandom(ICpProxyListener aCallback);
-    public boolean endRandom(long aAsyncHandle);
+    public long endRepeat(long aAsyncHandle);
+    public long syncShuffle();
+    public void beginShuffle(ICpProxyListener aCallback);
+    public long endShuffle(long aAsyncHandle);
     public void setPropertyModesChanged(IPropertyChangeListener aModesChanged);
     public String getPropertyModes();
     public void setPropertyNextAvailableChanged(IPropertyChangeListener aNextAvailableChanged);
     public boolean getPropertyNextAvailable();
-    public void setPropertyPrevAvailableChanged(IPropertyChangeListener aPrevAvailableChanged);
-    public boolean getPropertyPrevAvailable();
+    public void setPropertyPreviousAvailableChanged(IPropertyChangeListener aPreviousAvailableChanged);
+    public boolean getPropertyPreviousAvailable();
     public void setPropertyRepeatAvailableChanged(IPropertyChangeListener aRepeatAvailableChanged);
     public boolean getPropertyRepeatAvailable();
-    public void setPropertyRandomAvailableChanged(IPropertyChangeListener aRandomAvailableChanged);
-    public boolean getPropertyRandomAvailable();
+    public void setPropertyShuffleAvailableChanged(IPropertyChangeListener aShuffleAvailableChanged);
+    public boolean getPropertyShuffleAvailable();
     public void setPropertyStreamIdChanged(IPropertyChangeListener aStreamIdChanged);
     public long getPropertyStreamId();
     public void setPropertySeekableChanged(IPropertyChangeListener aSeekableChanged);
@@ -80,9 +80,9 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public void setPropertyTransportStateChanged(IPropertyChangeListener aTransportStateChanged);
     public String getPropertyTransportState();
     public void setPropertyRepeatChanged(IPropertyChangeListener aRepeatChanged);
-    public boolean getPropertyRepeat();
-    public void setPropertyRandomChanged(IPropertyChangeListener aRandomChanged);
-    public boolean getPropertyRandom();
+    public long getPropertyRepeat();
+    public void setPropertyShuffleChanged(IPropertyChangeListener aShuffleChanged);
+    public long getPropertyShuffle();
 }
 
 class SyncPlayAsAvOpenhomeOrgTransport1 extends SyncProxyAction
@@ -160,17 +160,17 @@ class SyncNextAvOpenhomeOrgTransport1 extends SyncProxyAction
     }
 }
 
-class SyncPrevAvOpenhomeOrgTransport1 extends SyncProxyAction
+class SyncPreviousAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
 
-    public SyncPrevAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    public SyncPreviousAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
         iService = aProxy;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        iService.endPrev(aAsyncHandle);
+        iService.endPrevious(aAsyncHandle);
         
     }
 }
@@ -190,47 +190,47 @@ class SyncSetRepeatAvOpenhomeOrgTransport1 extends SyncProxyAction
     }
 }
 
-class SyncSetRandomAvOpenhomeOrgTransport1 extends SyncProxyAction
+class SyncSetShuffleAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
 
-    public SyncSetRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    public SyncSetShuffleAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
         iService = aProxy;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        iService.endSetRandom(aAsyncHandle);
+        iService.endSetShuffle(aAsyncHandle);
         
     }
 }
 
-class SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1 extends SyncProxyAction
+class SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
 
-    public SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    public SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
         iService = aProxy;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        iService.endSeekSecondsAbsolute(aAsyncHandle);
+        iService.endSeekSecondAbsolute(aAsyncHandle);
         
     }
 }
 
-class SyncSeekSecondsRelativeAvOpenhomeOrgTransport1 extends SyncProxyAction
+class SyncSeekSecondRelativeAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
 
-    public SyncSeekSecondsRelativeAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    public SyncSeekSecondRelativeAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
         iService = aProxy;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        iService.endSeekSecondsRelative(aAsyncHandle);
+        iService.endSeekSecondRelative(aAsyncHandle);
         
     }
 }
@@ -281,9 +281,9 @@ class SyncModeInfoAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
     private boolean iNextAvailable;
-    private boolean iPrevAvailable;
+    private boolean iPreviousAvailable;
     private boolean iRepeatAvailable;
-    private boolean iRandomAvailable;
+    private boolean iShuffleAvailable;
 
     public SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
@@ -293,26 +293,26 @@ class SyncModeInfoAvOpenhomeOrgTransport1 extends SyncProxyAction
     {
         return iNextAvailable;
     }
-    public boolean getPrevAvailable()
+    public boolean getPreviousAvailable()
     {
-        return iPrevAvailable;
+        return iPreviousAvailable;
     }
     public boolean getRepeatAvailable()
     {
         return iRepeatAvailable;
     }
-    public boolean getRandomAvailable()
+    public boolean getShuffleAvailable()
     {
-        return iRandomAvailable;
+        return iShuffleAvailable;
     }
     protected void completeRequest(long aAsyncHandle)
     {
         ModeInfo result = iService.endModeInfo(aAsyncHandle);
         
         iNextAvailable = result.getNextAvailable();
-        iPrevAvailable = result.getPrevAvailable();
+        iPreviousAvailable = result.getPreviousAvailable();
         iRepeatAvailable = result.getRepeatAvailable();
-        iRandomAvailable = result.getRandomAvailable();
+        iShuffleAvailable = result.getShuffleAvailable();
     }
 }
 
@@ -373,42 +373,42 @@ class SyncStreamIdAvOpenhomeOrgTransport1 extends SyncProxyAction
 class SyncRepeatAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
-    private boolean iRepeat;
+    private long iRepeat;
 
     public SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
         iService = aProxy;
     }
-    public boolean getRepeat()
+    public long getRepeat()
     {
         return iRepeat;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        boolean result = iService.endRepeat(aAsyncHandle);
+        long result = iService.endRepeat(aAsyncHandle);
         
         iRepeat = result;
     }
 }
 
-class SyncRandomAvOpenhomeOrgTransport1 extends SyncProxyAction
+class SyncShuffleAvOpenhomeOrgTransport1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgTransport1 iService;
-    private boolean iRandom;
+    private long iShuffle;
 
-    public SyncRandomAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+    public SyncShuffleAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
     {
         iService = aProxy;
     }
-    public boolean getRandom()
+    public long getShuffle()
     {
-        return iRandom;
+        return iShuffle;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        boolean result = iService.endRandom(aAsyncHandle);
+        long result = iService.endShuffle(aAsyncHandle);
         
-        iRandom = result;
+        iShuffle = result;
     }
 }
 
@@ -421,37 +421,37 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     public class ModeInfo
     {
         private boolean iNextAvailable;
-        private boolean iPrevAvailable;
+        private boolean iPreviousAvailable;
         private boolean iRepeatAvailable;
-        private boolean iRandomAvailable;
+        private boolean iShuffleAvailable;
 
         public ModeInfo(
             boolean aNextAvailable,
-            boolean aPrevAvailable,
+            boolean aPreviousAvailable,
             boolean aRepeatAvailable,
-            boolean aRandomAvailable
+            boolean aShuffleAvailable
         )
         {
             iNextAvailable = aNextAvailable;
-            iPrevAvailable = aPrevAvailable;
+            iPreviousAvailable = aPreviousAvailable;
             iRepeatAvailable = aRepeatAvailable;
-            iRandomAvailable = aRandomAvailable;
+            iShuffleAvailable = aShuffleAvailable;
         }
         public boolean getNextAvailable()
         {
             return iNextAvailable;
         }
-        public boolean getPrevAvailable()
+        public boolean getPreviousAvailable()
         {
-            return iPrevAvailable;
+            return iPreviousAvailable;
         }
         public boolean getRepeatAvailable()
         {
             return iRepeatAvailable;
         }
-        public boolean getRandomAvailable()
+        public boolean getShuffleAvailable()
         {
-            return iRandomAvailable;
+            return iShuffleAvailable;
         }
     }
 
@@ -490,40 +490,40 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     private Action iActionPause;
     private Action iActionStop;
     private Action iActionNext;
-    private Action iActionPrev;
+    private Action iActionPrevious;
     private Action iActionSetRepeat;
-    private Action iActionSetRandom;
-    private Action iActionSeekSecondsAbsolute;
-    private Action iActionSeekSecondsRelative;
+    private Action iActionSetShuffle;
+    private Action iActionSeekSecondAbsolute;
+    private Action iActionSeekSecondRelative;
     private Action iActionTransportState;
     private Action iActionModes;
     private Action iActionModeInfo;
     private Action iActionStreamInfo;
     private Action iActionStreamId;
     private Action iActionRepeat;
-    private Action iActionRandom;
+    private Action iActionShuffle;
     private PropertyString iModes;
     private PropertyBool iNextAvailable;
-    private PropertyBool iPrevAvailable;
+    private PropertyBool iPreviousAvailable;
     private PropertyBool iRepeatAvailable;
-    private PropertyBool iRandomAvailable;
+    private PropertyBool iShuffleAvailable;
     private PropertyUint iStreamId;
     private PropertyBool iSeekable;
     private PropertyBool iPausable;
     private PropertyString iTransportState;
-    private PropertyBool iRepeat;
-    private PropertyBool iRandom;
+    private PropertyUint iRepeat;
+    private PropertyUint iShuffle;
     private IPropertyChangeListener iModesChanged;
     private IPropertyChangeListener iNextAvailableChanged;
-    private IPropertyChangeListener iPrevAvailableChanged;
+    private IPropertyChangeListener iPreviousAvailableChanged;
     private IPropertyChangeListener iRepeatAvailableChanged;
-    private IPropertyChangeListener iRandomAvailableChanged;
+    private IPropertyChangeListener iShuffleAvailableChanged;
     private IPropertyChangeListener iStreamIdChanged;
     private IPropertyChangeListener iSeekableChanged;
     private IPropertyChangeListener iPausableChanged;
     private IPropertyChangeListener iTransportStateChanged;
     private IPropertyChangeListener iRepeatChanged;
-    private IPropertyChangeListener iRandomChanged;
+    private IPropertyChangeListener iShuffleChanged;
     private Object iPropertyLock;
 
     /**
@@ -553,27 +553,27 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
 
         iActionNext = new Action("Next");
 
-        iActionPrev = new Action("Prev");
+        iActionPrevious = new Action("Previous");
 
         iActionSetRepeat = new Action("SetRepeat");
         param = new ParameterBool("Repeat");
         iActionSetRepeat.addInputParameter(param);
 
-        iActionSetRandom = new Action("SetRandom");
-        param = new ParameterBool("Random");
-        iActionSetRandom.addInputParameter(param);
+        iActionSetShuffle = new Action("SetShuffle");
+        param = new ParameterBool("Shuffle");
+        iActionSetShuffle.addInputParameter(param);
 
-        iActionSeekSecondsAbsolute = new Action("SeekSecondsAbsolute");
+        iActionSeekSecondAbsolute = new Action("SeekSecondAbsolute");
         param = new ParameterUint("StreamId");
-        iActionSeekSecondsAbsolute.addInputParameter(param);
+        iActionSeekSecondAbsolute.addInputParameter(param);
         param = new ParameterUint("SecondsAbsolute");
-        iActionSeekSecondsAbsolute.addInputParameter(param);
+        iActionSeekSecondAbsolute.addInputParameter(param);
 
-        iActionSeekSecondsRelative = new Action("SeekSecondsRelative");
+        iActionSeekSecondRelative = new Action("SeekSecondRelative");
         param = new ParameterUint("StreamId");
-        iActionSeekSecondsRelative.addInputParameter(param);
+        iActionSeekSecondRelative.addInputParameter(param);
         param = new ParameterInt("SecondsRelative");
-        iActionSeekSecondsRelative.addInputParameter(param);
+        iActionSeekSecondRelative.addInputParameter(param);
 
         iActionTransportState = new Action("TransportState");
         allowedValues.add("Playing");
@@ -592,11 +592,11 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         iActionModeInfo = new Action("ModeInfo");
         param = new ParameterBool("NextAvailable");
         iActionModeInfo.addOutputParameter(param);
-        param = new ParameterBool("PrevAvailable");
+        param = new ParameterBool("PreviousAvailable");
         iActionModeInfo.addOutputParameter(param);
         param = new ParameterBool("RepeatAvailable");
         iActionModeInfo.addOutputParameter(param);
-        param = new ParameterBool("RandomAvailable");
+        param = new ParameterBool("ShuffleAvailable");
         iActionModeInfo.addOutputParameter(param);
 
         iActionStreamInfo = new Action("StreamInfo");
@@ -612,12 +612,12 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         iActionStreamId.addOutputParameter(param);
 
         iActionRepeat = new Action("Repeat");
-        param = new ParameterBool("Repeat");
+        param = new ParameterUint("Repeat");
         iActionRepeat.addOutputParameter(param);
 
-        iActionRandom = new Action("Random");
-        param = new ParameterBool("Random");
-        iActionRandom.addOutputParameter(param);
+        iActionShuffle = new Action("Shuffle");
+        param = new ParameterUint("Shuffle");
+        iActionShuffle.addOutputParameter(param);
 
         iModesChanged = new PropertyChangeListener();
         iModes = new PropertyString("Modes",
@@ -637,15 +637,15 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             }
         );
         addProperty(iNextAvailable);
-        iPrevAvailableChanged = new PropertyChangeListener();
-        iPrevAvailable = new PropertyBool("PrevAvailable",
+        iPreviousAvailableChanged = new PropertyChangeListener();
+        iPreviousAvailable = new PropertyBool("PreviousAvailable",
             new PropertyChangeListener() {
                 public void notifyChange() {
-                    prevAvailablePropertyChanged();
+                    previousAvailablePropertyChanged();
                 }
             }
         );
-        addProperty(iPrevAvailable);
+        addProperty(iPreviousAvailable);
         iRepeatAvailableChanged = new PropertyChangeListener();
         iRepeatAvailable = new PropertyBool("RepeatAvailable",
             new PropertyChangeListener() {
@@ -655,15 +655,15 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             }
         );
         addProperty(iRepeatAvailable);
-        iRandomAvailableChanged = new PropertyChangeListener();
-        iRandomAvailable = new PropertyBool("RandomAvailable",
+        iShuffleAvailableChanged = new PropertyChangeListener();
+        iShuffleAvailable = new PropertyBool("ShuffleAvailable",
             new PropertyChangeListener() {
                 public void notifyChange() {
-                    randomAvailablePropertyChanged();
+                    shuffleAvailablePropertyChanged();
                 }
             }
         );
-        addProperty(iRandomAvailable);
+        addProperty(iShuffleAvailable);
         iStreamIdChanged = new PropertyChangeListener();
         iStreamId = new PropertyUint("StreamId",
             new PropertyChangeListener() {
@@ -701,7 +701,7 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         );
         addProperty(iTransportState);
         iRepeatChanged = new PropertyChangeListener();
-        iRepeat = new PropertyBool("Repeat",
+        iRepeat = new PropertyUint("Repeat",
             new PropertyChangeListener() {
                 public void notifyChange() {
                     repeatPropertyChanged();
@@ -709,15 +709,15 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             }
         );
         addProperty(iRepeat);
-        iRandomChanged = new PropertyChangeListener();
-        iRandom = new PropertyBool("Random",
+        iShuffleChanged = new PropertyChangeListener();
+        iShuffle = new PropertyUint("Shuffle",
             new PropertyChangeListener() {
                 public void notifyChange() {
-                    randomPropertyChanged();
+                    shufflePropertyChanged();
                 }
             }
         );
-        addProperty(iRandom);
+        addProperty(iShuffle);
         iPropertyLock = new Object();
     }
     /**
@@ -955,10 +955,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncPrev()
+    public void syncPrevious()
     {
-        SyncPrevAvOpenhomeOrgTransport1 sync = new SyncPrevAvOpenhomeOrgTransport1(this);
-        beginPrev(sync.getListener());
+        SyncPreviousAvOpenhomeOrgTransport1 sync = new SyncPreviousAvOpenhomeOrgTransport1(this);
+        beginPrevious(sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -967,26 +967,26 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endPrev}.
+     * calling {@link #endPrevious}.
      * 
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginPrev(ICpProxyListener aCallback)
+    public void beginPrevious(ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionPrev, aCallback);
+        Invocation invocation = iService.getInvocation(iActionPrevious, aCallback);
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginPrev} method.
+     * {@link #beginPrevious} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginPrev} method.
+     *          {@link #beginPrevious} method.
      */
-    public void endPrev(long aAsyncHandle)
+    public void endPrevious(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -1048,10 +1048,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSetRandom(boolean aRandom)
+    public void syncSetShuffle(boolean aShuffle)
     {
-        SyncSetRandomAvOpenhomeOrgTransport1 sync = new SyncSetRandomAvOpenhomeOrgTransport1(this);
-        beginSetRandom(aRandom, sync.getListener());
+        SyncSetShuffleAvOpenhomeOrgTransport1 sync = new SyncSetShuffleAvOpenhomeOrgTransport1(this);
+        beginSetShuffle(aShuffle, sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -1060,29 +1060,29 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endSetRandom}.
+     * calling {@link #endSetShuffle}.
      * 
-     * @param aRandom
+     * @param aShuffle
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSetRandom(boolean aRandom, ICpProxyListener aCallback)
+    public void beginSetShuffle(boolean aShuffle, ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionSetRandom, aCallback);
+        Invocation invocation = iService.getInvocation(iActionSetShuffle, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentBool((ParameterBool)iActionSetRandom.getInputParameter(inIndex++), aRandom));
+        invocation.addInput(new ArgumentBool((ParameterBool)iActionSetShuffle.getInputParameter(inIndex++), aShuffle));
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginSetRandom} method.
+     * {@link #beginSetShuffle} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginSetRandom} method.
+     *          {@link #beginSetShuffle} method.
      */
-    public void endSetRandom(long aAsyncHandle)
+    public void endSetShuffle(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -1096,10 +1096,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSeekSecondsAbsolute(long aStreamId, long aSecondsAbsolute)
+    public void syncSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute)
     {
-        SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1 sync = new SyncSeekSecondsAbsoluteAvOpenhomeOrgTransport1(this);
-        beginSeekSecondsAbsolute(aStreamId, aSecondsAbsolute, sync.getListener());
+        SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1 sync = new SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1(this);
+        beginSeekSecondAbsolute(aStreamId, aSecondsAbsolute, sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -1108,31 +1108,31 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endSeekSecondsAbsolute}.
+     * calling {@link #endSeekSecondAbsolute}.
      * 
      * @param aStreamId
      * @param aSecondsAbsolute
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSeekSecondsAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback)
+    public void beginSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionSeekSecondsAbsolute, aCallback);
+        Invocation invocation = iService.getInvocation(iActionSeekSecondAbsolute, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondsAbsolute.getInputParameter(inIndex++), aStreamId));
-        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondsAbsolute.getInputParameter(inIndex++), aSecondsAbsolute));
+        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.getInputParameter(inIndex++), aStreamId));
+        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.getInputParameter(inIndex++), aSecondsAbsolute));
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginSeekSecondsAbsolute} method.
+     * {@link #beginSeekSecondAbsolute} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginSeekSecondsAbsolute} method.
+     *          {@link #beginSeekSecondAbsolute} method.
      */
-    public void endSeekSecondsAbsolute(long aAsyncHandle)
+    public void endSeekSecondAbsolute(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -1146,10 +1146,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSeekSecondsRelative(long aStreamId, int aSecondsRelative)
+    public void syncSeekSecondRelative(long aStreamId, int aSecondsRelative)
     {
-        SyncSeekSecondsRelativeAvOpenhomeOrgTransport1 sync = new SyncSeekSecondsRelativeAvOpenhomeOrgTransport1(this);
-        beginSeekSecondsRelative(aStreamId, aSecondsRelative, sync.getListener());
+        SyncSeekSecondRelativeAvOpenhomeOrgTransport1 sync = new SyncSeekSecondRelativeAvOpenhomeOrgTransport1(this);
+        beginSeekSecondRelative(aStreamId, aSecondsRelative, sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -1158,31 +1158,31 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endSeekSecondsRelative}.
+     * calling {@link #endSeekSecondRelative}.
      * 
      * @param aStreamId
      * @param aSecondsRelative
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSeekSecondsRelative(long aStreamId, int aSecondsRelative, ICpProxyListener aCallback)
+    public void beginSeekSecondRelative(long aStreamId, int aSecondsRelative, ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionSeekSecondsRelative, aCallback);
+        Invocation invocation = iService.getInvocation(iActionSeekSecondRelative, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondsRelative.getInputParameter(inIndex++), aStreamId));
-        invocation.addInput(new ArgumentInt((ParameterInt)iActionSeekSecondsRelative.getInputParameter(inIndex++), aSecondsRelative));
+        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondRelative.getInputParameter(inIndex++), aStreamId));
+        invocation.addInput(new ArgumentInt((ParameterInt)iActionSeekSecondRelative.getInputParameter(inIndex++), aSecondsRelative));
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginSeekSecondsRelative} method.
+     * {@link #beginSeekSecondRelative} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginSeekSecondsRelative} method.
+     *          {@link #beginSeekSecondRelative} method.
      */
-    public void endSeekSecondsRelative(long aAsyncHandle)
+    public void endSeekSecondRelative(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -1317,9 +1317,9 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
 
         return new ModeInfo(
             sync.getNextAvailable(),
-            sync.getPrevAvailable(),
+            sync.getPreviousAvailable(),
             sync.getRepeatAvailable(),
-            sync.getRandomAvailable()
+            sync.getShuffleAvailable()
         );
     }
     
@@ -1361,14 +1361,14 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         }
         int index = 0;
         boolean nextAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
-        boolean prevAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
+        boolean previousAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
         boolean repeatAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
-        boolean randomAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
+        boolean shuffleAvailable = Invocation.getOutputBool(aAsyncHandle, index++);
         return new ModeInfo(
             nextAvailable,
-            prevAvailable,
+            previousAvailable,
             repeatAvailable,
-            randomAvailable
+            shuffleAvailable
         );
     }
         
@@ -1501,7 +1501,7 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      *
      * @return the result of the invoked action.
      */
-    public boolean syncRepeat()
+    public long syncRepeat()
     {
         SyncRepeatAvOpenhomeOrgTransport1 sync = new SyncRepeatAvOpenhomeOrgTransport1(this);
         beginRepeat(sync.getListener());
@@ -1524,7 +1524,7 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     {
         Invocation invocation = iService.getInvocation(iActionRepeat, aCallback);
         int outIndex = 0;
-        invocation.addOutput(new ArgumentBool((ParameterBool)iActionRepeat.getOutputParameter(outIndex++)));
+        invocation.addOutput(new ArgumentUint((ParameterUint)iActionRepeat.getOutputParameter(outIndex++)));
         iService.invokeAction(invocation);
     }
 
@@ -1537,7 +1537,7 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      *          {@link #beginRepeat} method.
      * @return the result of the previously invoked action.
      */
-    public boolean endRepeat(long aAsyncHandle)
+    public long endRepeat(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -1545,7 +1545,7 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             throw errObj;
         }
         int index = 0;
-        boolean repeat = Invocation.getOutputBool(aAsyncHandle, index++);
+        long repeat = Invocation.getOutputUint(aAsyncHandle, index++);
         return repeat;
     }
         
@@ -1556,43 +1556,43 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      *
      * @return the result of the invoked action.
      */
-    public boolean syncRandom()
+    public long syncShuffle()
     {
-        SyncRandomAvOpenhomeOrgTransport1 sync = new SyncRandomAvOpenhomeOrgTransport1(this);
-        beginRandom(sync.getListener());
+        SyncShuffleAvOpenhomeOrgTransport1 sync = new SyncShuffleAvOpenhomeOrgTransport1(this);
+        beginShuffle(sync.getListener());
         sync.waitToComplete();
         sync.reportError();
 
-        return sync.getRandom();
+        return sync.getShuffle();
     }
     
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endRandom}.
+     * calling {@link #endShuffle}.
      * 
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginRandom(ICpProxyListener aCallback)
+    public void beginShuffle(ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionRandom, aCallback);
+        Invocation invocation = iService.getInvocation(iActionShuffle, aCallback);
         int outIndex = 0;
-        invocation.addOutput(new ArgumentBool((ParameterBool)iActionRandom.getOutputParameter(outIndex++)));
+        invocation.addOutput(new ArgumentUint((ParameterUint)iActionShuffle.getOutputParameter(outIndex++)));
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginRandom} method.
+     * {@link #beginShuffle} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginRandom} method.
+     *          {@link #beginShuffle} method.
      * @return the result of the previously invoked action.
      */
-    public boolean endRandom(long aAsyncHandle)
+    public long endShuffle(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -1600,8 +1600,8 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             throw errObj;
         }
         int index = 0;
-        boolean random = Invocation.getOutputBool(aAsyncHandle, index++);
-        return random;
+        long shuffle = Invocation.getOutputUint(aAsyncHandle, index++);
+        return shuffle;
     }
         
     /**
@@ -1651,26 +1651,26 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         }
     }
     /**
-     * Set a delegate to be run when the PrevAvailable state variable changes.
+     * Set a delegate to be run when the PreviousAvailable state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
-     * @param aPrevAvailableChanged   the listener to call back when the state
+     * @param aPreviousAvailableChanged   the listener to call back when the state
      *          variable changes.
      */
-    public void setPropertyPrevAvailableChanged(IPropertyChangeListener aPrevAvailableChanged)
+    public void setPropertyPreviousAvailableChanged(IPropertyChangeListener aPreviousAvailableChanged)
     {
         synchronized (iPropertyLock)
         {
-            iPrevAvailableChanged = aPrevAvailableChanged;
+            iPreviousAvailableChanged = aPreviousAvailableChanged;
         }
     }
 
-    private void prevAvailablePropertyChanged()
+    private void previousAvailablePropertyChanged()
     {
         synchronized (iPropertyLock)
         {
-            reportEvent(iPrevAvailableChanged);
+            reportEvent(iPreviousAvailableChanged);
         }
     }
     /**
@@ -1697,26 +1697,26 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         }
     }
     /**
-     * Set a delegate to be run when the RandomAvailable state variable changes.
+     * Set a delegate to be run when the ShuffleAvailable state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
-     * @param aRandomAvailableChanged   the listener to call back when the state
+     * @param aShuffleAvailableChanged   the listener to call back when the state
      *          variable changes.
      */
-    public void setPropertyRandomAvailableChanged(IPropertyChangeListener aRandomAvailableChanged)
+    public void setPropertyShuffleAvailableChanged(IPropertyChangeListener aShuffleAvailableChanged)
     {
         synchronized (iPropertyLock)
         {
-            iRandomAvailableChanged = aRandomAvailableChanged;
+            iShuffleAvailableChanged = aShuffleAvailableChanged;
         }
     }
 
-    private void randomAvailablePropertyChanged()
+    private void shuffleAvailablePropertyChanged()
     {
         synchronized (iPropertyLock)
         {
-            reportEvent(iRandomAvailableChanged);
+            reportEvent(iShuffleAvailableChanged);
         }
     }
     /**
@@ -1835,26 +1835,26 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         }
     }
     /**
-     * Set a delegate to be run when the Random state variable changes.
+     * Set a delegate to be run when the Shuffle state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
-     * @param aRandomChanged   the listener to call back when the state
+     * @param aShuffleChanged   the listener to call back when the state
      *          variable changes.
      */
-    public void setPropertyRandomChanged(IPropertyChangeListener aRandomChanged)
+    public void setPropertyShuffleChanged(IPropertyChangeListener aShuffleChanged)
     {
         synchronized (iPropertyLock)
         {
-            iRandomChanged = aRandomChanged;
+            iShuffleChanged = aShuffleChanged;
         }
     }
 
-    private void randomPropertyChanged()
+    private void shufflePropertyChanged()
     {
         synchronized (iPropertyLock)
         {
-            reportEvent(iRandomChanged);
+            reportEvent(iShuffleChanged);
         }
     }
 
@@ -1891,17 +1891,17 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     }
     
     /**
-     * Query the value of the PrevAvailable property.
+     * Query the value of the PreviousAvailable property.
      * This function is thread-safe and can only be called if {@link 
      * #subscribe} has been called and a first eventing callback received
      * more recently than any call to {@link #unsubscribe}.
      *
-     * @return  value of the PrevAvailable property.
+     * @return  value of the PreviousAvailable property.
      */
-    public boolean getPropertyPrevAvailable()
+    public boolean getPropertyPreviousAvailable()
     {
         propertyReadLock();
-        boolean val = iPrevAvailable.getValue();
+        boolean val = iPreviousAvailable.getValue();
         propertyReadUnlock();
         return val;
     }
@@ -1923,17 +1923,17 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
     }
     
     /**
-     * Query the value of the RandomAvailable property.
+     * Query the value of the ShuffleAvailable property.
      * This function is thread-safe and can only be called if {@link 
      * #subscribe} has been called and a first eventing callback received
      * more recently than any call to {@link #unsubscribe}.
      *
-     * @return  value of the RandomAvailable property.
+     * @return  value of the ShuffleAvailable property.
      */
-    public boolean getPropertyRandomAvailable()
+    public boolean getPropertyShuffleAvailable()
     {
         propertyReadLock();
-        boolean val = iRandomAvailable.getValue();
+        boolean val = iShuffleAvailable.getValue();
         propertyReadUnlock();
         return val;
     }
@@ -2010,26 +2010,26 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      *
      * @return  value of the Repeat property.
      */
-    public boolean getPropertyRepeat()
+    public long getPropertyRepeat()
     {
         propertyReadLock();
-        boolean val = iRepeat.getValue();
+        long val = iRepeat.getValue();
         propertyReadUnlock();
         return val;
     }
     
     /**
-     * Query the value of the Random property.
+     * Query the value of the Shuffle property.
      * This function is thread-safe and can only be called if {@link 
      * #subscribe} has been called and a first eventing callback received
      * more recently than any call to {@link #unsubscribe}.
      *
-     * @return  value of the Random property.
+     * @return  value of the Shuffle property.
      */
-    public boolean getPropertyRandom()
+    public long getPropertyShuffle()
     {
         propertyReadLock();
-        boolean val = iRandom.getValue();
+        long val = iShuffle.getValue();
         propertyReadUnlock();
         return val;
     }
@@ -2054,29 +2054,29 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
             iActionPause.destroy();
             iActionStop.destroy();
             iActionNext.destroy();
-            iActionPrev.destroy();
+            iActionPrevious.destroy();
             iActionSetRepeat.destroy();
-            iActionSetRandom.destroy();
-            iActionSeekSecondsAbsolute.destroy();
-            iActionSeekSecondsRelative.destroy();
+            iActionSetShuffle.destroy();
+            iActionSeekSecondAbsolute.destroy();
+            iActionSeekSecondRelative.destroy();
             iActionTransportState.destroy();
             iActionModes.destroy();
             iActionModeInfo.destroy();
             iActionStreamInfo.destroy();
             iActionStreamId.destroy();
             iActionRepeat.destroy();
-            iActionRandom.destroy();
+            iActionShuffle.destroy();
             iModes.destroy();
             iNextAvailable.destroy();
-            iPrevAvailable.destroy();
+            iPreviousAvailable.destroy();
             iRepeatAvailable.destroy();
-            iRandomAvailable.destroy();
+            iShuffleAvailable.destroy();
             iStreamId.destroy();
             iSeekable.destroy();
             iPausable.destroy();
             iTransportState.destroy();
             iRepeat.destroy();
-            iRandom.destroy();
+            iShuffle.destroy();
         }
     }
 }

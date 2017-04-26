@@ -39,52 +39,52 @@ public:
     virtual void SyncNext() = 0;
     virtual void BeginNext(FunctorAsync& aFunctor) = 0;
     virtual void EndNext(IAsync& aAsync) = 0;
-    virtual void SyncPrev() = 0;
-    virtual void BeginPrev(FunctorAsync& aFunctor) = 0;
-    virtual void EndPrev(IAsync& aAsync) = 0;
+    virtual void SyncPrevious() = 0;
+    virtual void BeginPrevious(FunctorAsync& aFunctor) = 0;
+    virtual void EndPrevious(IAsync& aAsync) = 0;
     virtual void SyncSetRepeat(bool aRepeat) = 0;
     virtual void BeginSetRepeat(bool aRepeat, FunctorAsync& aFunctor) = 0;
     virtual void EndSetRepeat(IAsync& aAsync) = 0;
-    virtual void SyncSetRandom(bool aRandom) = 0;
-    virtual void BeginSetRandom(bool aRandom, FunctorAsync& aFunctor) = 0;
-    virtual void EndSetRandom(IAsync& aAsync) = 0;
-    virtual void SyncSeekSecondsAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute) = 0;
-    virtual void BeginSeekSecondsAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute, FunctorAsync& aFunctor) = 0;
-    virtual void EndSeekSecondsAbsolute(IAsync& aAsync) = 0;
-    virtual void SyncSeekSecondsRelative(uint32_t aStreamId, int32_t aSecondsRelative) = 0;
-    virtual void BeginSeekSecondsRelative(uint32_t aStreamId, int32_t aSecondsRelative, FunctorAsync& aFunctor) = 0;
-    virtual void EndSeekSecondsRelative(IAsync& aAsync) = 0;
+    virtual void SyncSetShuffle(bool aShuffle) = 0;
+    virtual void BeginSetShuffle(bool aShuffle, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetShuffle(IAsync& aAsync) = 0;
+    virtual void SyncSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute) = 0;
+    virtual void BeginSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekSecondAbsolute(IAsync& aAsync) = 0;
+    virtual void SyncSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative) = 0;
+    virtual void BeginSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative, FunctorAsync& aFunctor) = 0;
+    virtual void EndSeekSecondRelative(IAsync& aAsync) = 0;
     virtual void SyncTransportState(std::string& aState) = 0;
     virtual void BeginTransportState(FunctorAsync& aFunctor) = 0;
     virtual void EndTransportState(IAsync& aAsync, std::string& aState) = 0;
     virtual void SyncModes(std::string& aModes) = 0;
     virtual void BeginModes(FunctorAsync& aFunctor) = 0;
     virtual void EndModes(IAsync& aAsync, std::string& aModes) = 0;
-    virtual void SyncModeInfo(bool& aNextAvailable, bool& aPrevAvailable, bool& aRepeatAvailable, bool& aRandomAvailable) = 0;
+    virtual void SyncModeInfo(bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable) = 0;
     virtual void BeginModeInfo(FunctorAsync& aFunctor) = 0;
-    virtual void EndModeInfo(IAsync& aAsync, bool& aNextAvailable, bool& aPrevAvailable, bool& aRepeatAvailable, bool& aRandomAvailable) = 0;
+    virtual void EndModeInfo(IAsync& aAsync, bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable) = 0;
     virtual void SyncStreamInfo(uint32_t& aStreamId, bool& aSeekable, bool& aPausable) = 0;
     virtual void BeginStreamInfo(FunctorAsync& aFunctor) = 0;
     virtual void EndStreamInfo(IAsync& aAsync, uint32_t& aStreamId, bool& aSeekable, bool& aPausable) = 0;
     virtual void SyncStreamId(uint32_t& aStreamId) = 0;
     virtual void BeginStreamId(FunctorAsync& aFunctor) = 0;
     virtual void EndStreamId(IAsync& aAsync, uint32_t& aStreamId) = 0;
-    virtual void SyncRepeat(bool& aRepeat) = 0;
+    virtual void SyncRepeat(uint32_t& aRepeat) = 0;
     virtual void BeginRepeat(FunctorAsync& aFunctor) = 0;
-    virtual void EndRepeat(IAsync& aAsync, bool& aRepeat) = 0;
-    virtual void SyncRandom(bool& aRandom) = 0;
-    virtual void BeginRandom(FunctorAsync& aFunctor) = 0;
-    virtual void EndRandom(IAsync& aAsync, bool& aRandom) = 0;
+    virtual void EndRepeat(IAsync& aAsync, uint32_t& aRepeat) = 0;
+    virtual void SyncShuffle(uint32_t& aShuffle) = 0;
+    virtual void BeginShuffle(FunctorAsync& aFunctor) = 0;
+    virtual void EndShuffle(IAsync& aAsync, uint32_t& aShuffle) = 0;
     virtual void SetPropertyModesChanged(Functor& aModesChanged) = 0;
     virtual void PropertyModes(std::string& aModes) const = 0;
     virtual void SetPropertyNextAvailableChanged(Functor& aNextAvailableChanged) = 0;
     virtual void PropertyNextAvailable(bool& aNextAvailable) const = 0;
-    virtual void SetPropertyPrevAvailableChanged(Functor& aPrevAvailableChanged) = 0;
-    virtual void PropertyPrevAvailable(bool& aPrevAvailable) const = 0;
+    virtual void SetPropertyPreviousAvailableChanged(Functor& aPreviousAvailableChanged) = 0;
+    virtual void PropertyPreviousAvailable(bool& aPreviousAvailable) const = 0;
     virtual void SetPropertyRepeatAvailableChanged(Functor& aRepeatAvailableChanged) = 0;
     virtual void PropertyRepeatAvailable(bool& aRepeatAvailable) const = 0;
-    virtual void SetPropertyRandomAvailableChanged(Functor& aRandomAvailableChanged) = 0;
-    virtual void PropertyRandomAvailable(bool& aRandomAvailable) const = 0;
+    virtual void SetPropertyShuffleAvailableChanged(Functor& aShuffleAvailableChanged) = 0;
+    virtual void PropertyShuffleAvailable(bool& aShuffleAvailable) const = 0;
     virtual void SetPropertyStreamIdChanged(Functor& aStreamIdChanged) = 0;
     virtual void PropertyStreamId(uint32_t& aStreamId) const = 0;
     virtual void SetPropertySeekableChanged(Functor& aSeekableChanged) = 0;
@@ -94,9 +94,9 @@ public:
     virtual void SetPropertyTransportStateChanged(Functor& aTransportStateChanged) = 0;
     virtual void PropertyTransportState(std::string& aTransportState) const = 0;
     virtual void SetPropertyRepeatChanged(Functor& aRepeatChanged) = 0;
-    virtual void PropertyRepeat(bool& aRepeat) const = 0;
-    virtual void SetPropertyRandomChanged(Functor& aRandomChanged) = 0;
-    virtual void PropertyRandom(bool& aRandom) const = 0;
+    virtual void PropertyRepeat(uint32_t& aRepeat) const = 0;
+    virtual void SetPropertyShuffleChanged(Functor& aShuffleChanged) = 0;
+    virtual void PropertyShuffle(uint32_t& aShuffle) const = 0;
 };
 
 /**
@@ -248,24 +248,24 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      */
-    void SyncPrev();
+    void SyncPrevious();
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndPrev().
+     * EndPrevious().
      *
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginPrev(FunctorAsync& aFunctor);
+    void BeginPrevious(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndPrev(IAsync& aAsync);
+    void EndPrevious(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -297,27 +297,27 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
-     * @param[in]  aRandom
+     * @param[in]  aShuffle
      */
-    void SyncSetRandom(bool aRandom);
+    void SyncSetShuffle(bool aShuffle);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndSetRandom().
+     * EndSetShuffle().
      *
-     * @param[in] aRandom
+     * @param[in] aShuffle
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetRandom(bool aRandom, FunctorAsync& aFunctor);
+    void BeginSetShuffle(bool aShuffle, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndSetRandom(IAsync& aAsync);
+    void EndSetShuffle(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -326,26 +326,26 @@ public:
      * @param[in]  aStreamId
      * @param[in]  aSecondsAbsolute
      */
-    void SyncSeekSecondsAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute);
+    void SyncSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndSeekSecondsAbsolute().
+     * EndSeekSecondAbsolute().
      *
      * @param[in] aStreamId
      * @param[in] aSecondsAbsolute
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSeekSecondsAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute, FunctorAsync& aFunctor);
+    void BeginSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndSeekSecondsAbsolute(IAsync& aAsync);
+    void EndSeekSecondAbsolute(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -354,26 +354,26 @@ public:
      * @param[in]  aStreamId
      * @param[in]  aSecondsRelative
      */
-    void SyncSeekSecondsRelative(uint32_t aStreamId, int32_t aSecondsRelative);
+    void SyncSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndSeekSecondsRelative().
+     * EndSeekSecondRelative().
      *
      * @param[in] aStreamId
      * @param[in] aSecondsRelative
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSeekSecondsRelative(uint32_t aStreamId, int32_t aSecondsRelative, FunctorAsync& aFunctor);
+    void BeginSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndSeekSecondsRelative(IAsync& aAsync);
+    void EndSeekSecondRelative(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -432,11 +432,11 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[out] aNextAvailable
-     * @param[out] aPrevAvailable
+     * @param[out] aPreviousAvailable
      * @param[out] aRepeatAvailable
-     * @param[out] aRandomAvailable
+     * @param[out] aShuffleAvailable
      */
-    void SyncModeInfo(bool& aNextAvailable, bool& aPrevAvailable, bool& aRepeatAvailable, bool& aRandomAvailable);
+    void SyncModeInfo(bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -453,11 +453,11 @@ public:
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      * @param[out] aNextAvailable
-     * @param[out] aPrevAvailable
+     * @param[out] aPreviousAvailable
      * @param[out] aRepeatAvailable
-     * @param[out] aRandomAvailable
+     * @param[out] aShuffleAvailable
      */
-    void EndModeInfo(IAsync& aAsync, bool& aNextAvailable, bool& aPrevAvailable, bool& aRepeatAvailable, bool& aRandomAvailable);
+    void EndModeInfo(IAsync& aAsync, bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -521,7 +521,7 @@ public:
      *
      * @param[out] aRepeat
      */
-    void SyncRepeat(bool& aRepeat);
+    void SyncRepeat(uint32_t& aRepeat);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -539,33 +539,33 @@ public:
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      * @param[out] aRepeat
      */
-    void EndRepeat(IAsync& aAsync, bool& aRepeat);
+    void EndRepeat(IAsync& aAsync, uint32_t& aRepeat);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
-     * @param[out] aRandom
+     * @param[out] aShuffle
      */
-    void SyncRandom(bool& aRandom);
+    void SyncShuffle(uint32_t& aShuffle);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndRandom().
+     * EndShuffle().
      *
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginRandom(FunctorAsync& aFunctor);
+    void BeginShuffle(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     * @param[out] aRandom
+     * @param[out] aShuffle
      */
-    void EndRandom(IAsync& aAsync, bool& aRandom);
+    void EndShuffle(IAsync& aAsync, uint32_t& aShuffle);
 
     /**
      * Set a callback to be run when the Modes state variable changes.
@@ -586,14 +586,14 @@ public:
      */
     void SetPropertyNextAvailableChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the PrevAvailable state variable changes.
+     * Set a callback to be run when the PreviousAvailable state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1Cpp instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyPrevAvailableChanged(Functor& aFunctor);
+    void SetPropertyPreviousAvailableChanged(Functor& aFunctor);
     /**
      * Set a callback to be run when the RepeatAvailable state variable changes.
      *
@@ -604,14 +604,14 @@ public:
      */
     void SetPropertyRepeatAvailableChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the RandomAvailable state variable changes.
+     * Set a callback to be run when the ShuffleAvailable state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1Cpp instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyRandomAvailableChanged(Functor& aFunctor);
+    void SetPropertyShuffleAvailableChanged(Functor& aFunctor);
     /**
      * Set a callback to be run when the StreamId state variable changes.
      *
@@ -658,14 +658,14 @@ public:
      */
     void SetPropertyRepeatChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the Random state variable changes.
+     * Set a callback to be run when the Shuffle state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1Cpp instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyRandomChanged(Functor& aFunctor);
+    void SetPropertyShuffleChanged(Functor& aFunctor);
 
     /**
      * Query the value of the Modes property.
@@ -688,15 +688,15 @@ public:
      */
     void PropertyNextAvailable(bool& aNextAvailable) const;
     /**
-     * Query the value of the PrevAvailable property.
+     * Query the value of the PreviousAvailable property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aPrevAvailable
+     * @param[out] aPreviousAvailable
      */
-    void PropertyPrevAvailable(bool& aPrevAvailable) const;
+    void PropertyPreviousAvailable(bool& aPreviousAvailable) const;
     /**
      * Query the value of the RepeatAvailable property.
      *
@@ -708,15 +708,15 @@ public:
      */
     void PropertyRepeatAvailable(bool& aRepeatAvailable) const;
     /**
-     * Query the value of the RandomAvailable property.
+     * Query the value of the ShuffleAvailable property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aRandomAvailable
+     * @param[out] aShuffleAvailable
      */
-    void PropertyRandomAvailable(bool& aRandomAvailable) const;
+    void PropertyShuffleAvailable(bool& aShuffleAvailable) const;
     /**
      * Query the value of the StreamId property.
      *
@@ -766,17 +766,17 @@ public:
      *
      * @param[out] aRepeat
      */
-    void PropertyRepeat(bool& aRepeat) const;
+    void PropertyRepeat(uint32_t& aRepeat) const;
     /**
-     * Query the value of the Random property.
+     * Query the value of the Shuffle property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aRandom
+     * @param[out] aShuffle
      */
-    void PropertyRandom(bool& aRandom) const;
+    void PropertyShuffle(uint32_t& aShuffle) const;
     /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
     */
@@ -813,55 +813,55 @@ private:
     CpProxy iCpProxy;
     void ModesPropertyChanged();
     void NextAvailablePropertyChanged();
-    void PrevAvailablePropertyChanged();
+    void PreviousAvailablePropertyChanged();
     void RepeatAvailablePropertyChanged();
-    void RandomAvailablePropertyChanged();
+    void ShuffleAvailablePropertyChanged();
     void StreamIdPropertyChanged();
     void SeekablePropertyChanged();
     void PausablePropertyChanged();
     void TransportStatePropertyChanged();
     void RepeatPropertyChanged();
-    void RandomPropertyChanged();
+    void ShufflePropertyChanged();
 private:
     Action* iActionPlayAs;
     Action* iActionPlay;
     Action* iActionPause;
     Action* iActionStop;
     Action* iActionNext;
-    Action* iActionPrev;
+    Action* iActionPrevious;
     Action* iActionSetRepeat;
-    Action* iActionSetRandom;
-    Action* iActionSeekSecondsAbsolute;
-    Action* iActionSeekSecondsRelative;
+    Action* iActionSetShuffle;
+    Action* iActionSeekSecondAbsolute;
+    Action* iActionSeekSecondRelative;
     Action* iActionTransportState;
     Action* iActionModes;
     Action* iActionModeInfo;
     Action* iActionStreamInfo;
     Action* iActionStreamId;
     Action* iActionRepeat;
-    Action* iActionRandom;
+    Action* iActionShuffle;
     PropertyString* iModes;
     PropertyBool* iNextAvailable;
-    PropertyBool* iPrevAvailable;
+    PropertyBool* iPreviousAvailable;
     PropertyBool* iRepeatAvailable;
-    PropertyBool* iRandomAvailable;
+    PropertyBool* iShuffleAvailable;
     PropertyUint* iStreamId;
     PropertyBool* iSeekable;
     PropertyBool* iPausable;
     PropertyString* iTransportState;
-    PropertyBool* iRepeat;
-    PropertyBool* iRandom;
+    PropertyUint* iRepeat;
+    PropertyUint* iShuffle;
     Functor iModesChanged;
     Functor iNextAvailableChanged;
-    Functor iPrevAvailableChanged;
+    Functor iPreviousAvailableChanged;
     Functor iRepeatAvailableChanged;
-    Functor iRandomAvailableChanged;
+    Functor iShuffleAvailableChanged;
     Functor iStreamIdChanged;
     Functor iSeekableChanged;
     Functor iPausableChanged;
     Functor iTransportStateChanged;
     Functor iRepeatChanged;
-    Functor iRandomChanged;
+    Functor iShuffleChanged;
 };
 
 } // namespace Net

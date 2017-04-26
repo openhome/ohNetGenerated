@@ -42,20 +42,20 @@ interface IDvProviderAvOpenhomeOrgTransport1
     public boolean getPropertyNextAvailable();
 
     /**
-     * Set the value of the PrevAvailable property
+     * Set the value of the PreviousAvailable property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyPrevAvailable(boolean aValue);
+    public boolean setPropertyPreviousAvailable(boolean aValue);
 
     /**
-     * Get a copy of the value of the PrevAvailable property
+     * Get a copy of the value of the PreviousAvailable property
      *
-     * @return value of the PrevAvailable property.
+     * @return value of the PreviousAvailable property.
      */
-    public boolean getPropertyPrevAvailable();
+    public boolean getPropertyPreviousAvailable();
 
     /**
      * Set the value of the RepeatAvailable property
@@ -74,20 +74,20 @@ interface IDvProviderAvOpenhomeOrgTransport1
     public boolean getPropertyRepeatAvailable();
 
     /**
-     * Set the value of the RandomAvailable property
+     * Set the value of the ShuffleAvailable property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyRandomAvailable(boolean aValue);
+    public boolean setPropertyShuffleAvailable(boolean aValue);
 
     /**
-     * Get a copy of the value of the RandomAvailable property
+     * Get a copy of the value of the ShuffleAvailable property
      *
-     * @return value of the RandomAvailable property.
+     * @return value of the ShuffleAvailable property.
      */
-    public boolean getPropertyRandomAvailable();
+    public boolean getPropertyShuffleAvailable();
 
     /**
      * Set the value of the StreamId property
@@ -160,30 +160,30 @@ interface IDvProviderAvOpenhomeOrgTransport1
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyRepeat(boolean aValue);
+    public boolean setPropertyRepeat(long aValue);
 
     /**
      * Get a copy of the value of the Repeat property
      *
      * @return value of the Repeat property.
      */
-    public boolean getPropertyRepeat();
+    public long getPropertyRepeat();
 
     /**
-     * Set the value of the Random property
+     * Set the value of the Shuffle property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyRandom(boolean aValue);
+    public boolean setPropertyShuffle(long aValue);
 
     /**
-     * Get a copy of the value of the Random property
+     * Get a copy of the value of the Shuffle property
      *
-     * @return value of the Random property.
+     * @return value of the Shuffle property.
      */
-    public boolean getPropertyRandom();
+    public long getPropertyShuffle();
         
 }
 
@@ -196,37 +196,37 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     public class ModeInfo
     {
         private boolean iNextAvailable;
-        private boolean iPrevAvailable;
+        private boolean iPreviousAvailable;
         private boolean iRepeatAvailable;
-        private boolean iRandomAvailable;
+        private boolean iShuffleAvailable;
 
         public ModeInfo(
             boolean aNextAvailable,
-            boolean aPrevAvailable,
+            boolean aPreviousAvailable,
             boolean aRepeatAvailable,
-            boolean aRandomAvailable
+            boolean aShuffleAvailable
         )
         {
             iNextAvailable = aNextAvailable;
-            iPrevAvailable = aPrevAvailable;
+            iPreviousAvailable = aPreviousAvailable;
             iRepeatAvailable = aRepeatAvailable;
-            iRandomAvailable = aRandomAvailable;
+            iShuffleAvailable = aShuffleAvailable;
         }
         public boolean getNextAvailable()
         {
             return iNextAvailable;
         }
-        public boolean getPrevAvailable()
+        public boolean getPreviousAvailable()
         {
-            return iPrevAvailable;
+            return iPreviousAvailable;
         }
         public boolean getRepeatAvailable()
         {
             return iRepeatAvailable;
         }
-        public boolean getRandomAvailable()
+        public boolean getShuffleAvailable()
         {
-            return iRandomAvailable;
+            return iShuffleAvailable;
         }
     }
 
@@ -265,29 +265,29 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     private IDvInvocationListener iDelegatePause;
     private IDvInvocationListener iDelegateStop;
     private IDvInvocationListener iDelegateNext;
-    private IDvInvocationListener iDelegatePrev;
+    private IDvInvocationListener iDelegatePrevious;
     private IDvInvocationListener iDelegateSetRepeat;
-    private IDvInvocationListener iDelegateSetRandom;
-    private IDvInvocationListener iDelegateSeekSecondsAbsolute;
-    private IDvInvocationListener iDelegateSeekSecondsRelative;
+    private IDvInvocationListener iDelegateSetShuffle;
+    private IDvInvocationListener iDelegateSeekSecondAbsolute;
+    private IDvInvocationListener iDelegateSeekSecondRelative;
     private IDvInvocationListener iDelegateTransportState;
     private IDvInvocationListener iDelegateModes;
     private IDvInvocationListener iDelegateModeInfo;
     private IDvInvocationListener iDelegateStreamInfo;
     private IDvInvocationListener iDelegateStreamId;
     private IDvInvocationListener iDelegateRepeat;
-    private IDvInvocationListener iDelegateRandom;
+    private IDvInvocationListener iDelegateShuffle;
     private PropertyString iPropertyModes;
     private PropertyBool iPropertyNextAvailable;
-    private PropertyBool iPropertyPrevAvailable;
+    private PropertyBool iPropertyPreviousAvailable;
     private PropertyBool iPropertyRepeatAvailable;
-    private PropertyBool iPropertyRandomAvailable;
+    private PropertyBool iPropertyShuffleAvailable;
     private PropertyUint iPropertyStreamId;
     private PropertyBool iPropertySeekable;
     private PropertyBool iPropertyPausable;
     private PropertyString iPropertyTransportState;
-    private PropertyBool iPropertyRepeat;
-    private PropertyBool iPropertyRandom;
+    private PropertyUint iPropertyRepeat;
+    private PropertyUint iPropertyShuffle;
 
     /**
      * Constructor
@@ -319,12 +319,12 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Enable the PrevAvailable property.
+     * Enable the PreviousAvailable property.
      */
-    public void enablePropertyPrevAvailable()
+    public void enablePropertyPreviousAvailable()
     {
-        iPropertyPrevAvailable = new PropertyBool(new ParameterBool("PrevAvailable"));
-        addProperty(iPropertyPrevAvailable);
+        iPropertyPreviousAvailable = new PropertyBool(new ParameterBool("PreviousAvailable"));
+        addProperty(iPropertyPreviousAvailable);
     }
 
     /**
@@ -337,12 +337,12 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Enable the RandomAvailable property.
+     * Enable the ShuffleAvailable property.
      */
-    public void enablePropertyRandomAvailable()
+    public void enablePropertyShuffleAvailable()
     {
-        iPropertyRandomAvailable = new PropertyBool(new ParameterBool("RandomAvailable"));
-        addProperty(iPropertyRandomAvailable);
+        iPropertyShuffleAvailable = new PropertyBool(new ParameterBool("ShuffleAvailable"));
+        addProperty(iPropertyShuffleAvailable);
     }
 
     /**
@@ -393,17 +393,17 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      */
     public void enablePropertyRepeat()
     {
-        iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
+        iPropertyRepeat = new PropertyUint(new ParameterUint("Repeat"));
         addProperty(iPropertyRepeat);
     }
 
     /**
-     * Enable the Random property.
+     * Enable the Shuffle property.
      */
-    public void enablePropertyRandom()
+    public void enablePropertyShuffle()
     {
-        iPropertyRandom = new PropertyBool(new ParameterBool("Random"));
-        addProperty(iPropertyRandom);
+        iPropertyShuffle = new PropertyUint(new ParameterUint("Shuffle"));
+        addProperty(iPropertyShuffle);
     }
 
     /**
@@ -451,25 +451,25 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Set the value of the PrevAvailable property
+     * Set the value of the PreviousAvailable property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyPrevAvailable(boolean aValue)
+    public boolean setPropertyPreviousAvailable(boolean aValue)
     {
-        return setPropertyBool(iPropertyPrevAvailable, aValue);
+        return setPropertyBool(iPropertyPreviousAvailable, aValue);
     }
 
     /**
-     * Get a copy of the value of the PrevAvailable property
+     * Get a copy of the value of the PreviousAvailable property
      *
-     * @return  value of the PrevAvailable property.
+     * @return  value of the PreviousAvailable property.
      */
-    public boolean getPropertyPrevAvailable()
+    public boolean getPropertyPreviousAvailable()
     {
-        return iPropertyPrevAvailable.getValue();
+        return iPropertyPreviousAvailable.getValue();
     }
 
     /**
@@ -495,25 +495,25 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Set the value of the RandomAvailable property
+     * Set the value of the ShuffleAvailable property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyRandomAvailable(boolean aValue)
+    public boolean setPropertyShuffleAvailable(boolean aValue)
     {
-        return setPropertyBool(iPropertyRandomAvailable, aValue);
+        return setPropertyBool(iPropertyShuffleAvailable, aValue);
     }
 
     /**
-     * Get a copy of the value of the RandomAvailable property
+     * Get a copy of the value of the ShuffleAvailable property
      *
-     * @return  value of the RandomAvailable property.
+     * @return  value of the ShuffleAvailable property.
      */
-    public boolean getPropertyRandomAvailable()
+    public boolean getPropertyShuffleAvailable()
     {
-        return iPropertyRandomAvailable.getValue();
+        return iPropertyShuffleAvailable.getValue();
     }
 
     /**
@@ -611,9 +611,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyRepeat(boolean aValue)
+    public boolean setPropertyRepeat(long aValue)
     {
-        return setPropertyBool(iPropertyRepeat, aValue);
+        return setPropertyUint(iPropertyRepeat, aValue);
     }
 
     /**
@@ -621,31 +621,31 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @return  value of the Repeat property.
      */
-    public boolean getPropertyRepeat()
+    public long getPropertyRepeat()
     {
         return iPropertyRepeat.getValue();
     }
 
     /**
-     * Set the value of the Random property
+     * Set the value of the Shuffle property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyRandom(boolean aValue)
+    public boolean setPropertyShuffle(long aValue)
     {
-        return setPropertyBool(iPropertyRandom, aValue);
+        return setPropertyUint(iPropertyShuffle, aValue);
     }
 
     /**
-     * Get a copy of the value of the Random property
+     * Get a copy of the value of the Shuffle property
      *
-     * @return  value of the Random property.
+     * @return  value of the Shuffle property.
      */
-    public boolean getPropertyRandom()
+    public long getPropertyShuffle()
     {
-        return iPropertyRandom.getValue();
+        return iPropertyShuffle.getValue();
     }
 
     /**
@@ -716,16 +716,16 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Signal that the action Prev is supported.
+     * Signal that the action Previous is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * Prev must be overridden if this is called.
+     * Previous must be overridden if this is called.
      */      
-    protected void enableActionPrev()
+    protected void enableActionPrevious()
     {
-        Action action = new Action("Prev");
-        iDelegatePrev = new DoPrev();
-        enableAction(action, iDelegatePrev);
+        Action action = new Action("Previous");
+        iDelegatePrevious = new DoPrevious();
+        enableAction(action, iDelegatePrevious);
     }
 
     /**
@@ -743,47 +743,47 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Signal that the action SetRandom is supported.
+     * Signal that the action SetShuffle is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * SetRandom must be overridden if this is called.
+     * SetShuffle must be overridden if this is called.
      */      
-    protected void enableActionSetRandom()
+    protected void enableActionSetShuffle()
     {
-        Action action = new Action("SetRandom");
-        action.addInputParameter(new ParameterBool("Random"));
-        iDelegateSetRandom = new DoSetRandom();
-        enableAction(action, iDelegateSetRandom);
+        Action action = new Action("SetShuffle");
+        action.addInputParameter(new ParameterBool("Shuffle"));
+        iDelegateSetShuffle = new DoSetShuffle();
+        enableAction(action, iDelegateSetShuffle);
     }
 
     /**
-     * Signal that the action SeekSecondsAbsolute is supported.
+     * Signal that the action SeekSecondAbsolute is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * SeekSecondsAbsolute must be overridden if this is called.
+     * SeekSecondAbsolute must be overridden if this is called.
      */      
-    protected void enableActionSeekSecondsAbsolute()
+    protected void enableActionSeekSecondAbsolute()
     {
-        Action action = new Action("SeekSecondsAbsolute");
+        Action action = new Action("SeekSecondAbsolute");
         action.addInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
         action.addInputParameter(new ParameterUint("SecondsAbsolute"));
-        iDelegateSeekSecondsAbsolute = new DoSeekSecondsAbsolute();
-        enableAction(action, iDelegateSeekSecondsAbsolute);
+        iDelegateSeekSecondAbsolute = new DoSeekSecondAbsolute();
+        enableAction(action, iDelegateSeekSecondAbsolute);
     }
 
     /**
-     * Signal that the action SeekSecondsRelative is supported.
+     * Signal that the action SeekSecondRelative is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * SeekSecondsRelative must be overridden if this is called.
+     * SeekSecondRelative must be overridden if this is called.
      */      
-    protected void enableActionSeekSecondsRelative()
+    protected void enableActionSeekSecondRelative()
     {
-        Action action = new Action("SeekSecondsRelative");
+        Action action = new Action("SeekSecondRelative");
         action.addInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
         action.addInputParameter(new ParameterInt("SecondsRelative"));
-        iDelegateSeekSecondsRelative = new DoSeekSecondsRelative();
-        enableAction(action, iDelegateSeekSecondsRelative);
+        iDelegateSeekSecondRelative = new DoSeekSecondRelative();
+        enableAction(action, iDelegateSeekSecondRelative);
     }
 
     /**
@@ -824,9 +824,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     {
         Action action = new Action("ModeInfo");
         action.addOutputParameter(new ParameterRelated("NextAvailable", iPropertyNextAvailable));
-        action.addOutputParameter(new ParameterRelated("PrevAvailable", iPropertyPrevAvailable));
+        action.addOutputParameter(new ParameterRelated("PreviousAvailable", iPropertyPreviousAvailable));
         action.addOutputParameter(new ParameterRelated("RepeatAvailable", iPropertyRepeatAvailable));
-        action.addOutputParameter(new ParameterRelated("RandomAvailable", iPropertyRandomAvailable));
+        action.addOutputParameter(new ParameterRelated("ShuffleAvailable", iPropertyShuffleAvailable));
         iDelegateModeInfo = new DoModeInfo();
         enableAction(action, iDelegateModeInfo);
     }
@@ -876,17 +876,17 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Signal that the action Random is supported.
+     * Signal that the action Shuffle is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * Random must be overridden if this is called.
+     * Shuffle must be overridden if this is called.
      */      
-    protected void enableActionRandom()
+    protected void enableActionShuffle()
     {
-        Action action = new Action("Random");
-        action.addOutputParameter(new ParameterRelated("Random", iPropertyRandom));
-        iDelegateRandom = new DoRandom();
-        enableAction(action, iDelegateRandom);
+        Action action = new Action("Shuffle");
+        action.addOutputParameter(new ParameterRelated("Shuffle", iPropertyShuffle));
+        iDelegateShuffle = new DoShuffle();
+        enableAction(action, iDelegateShuffle);
     }
 
     /**
@@ -967,16 +967,16 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Prev action.
+     * Previous action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * Prev action for the owning device.
+     * Previous action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionPrev} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionPrevious} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected void prev(IDvInvocation aInvocation)
+    protected void previous(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -998,51 +998,51 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * SetRandom action.
+     * SetShuffle action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * SetRandom action for the owning device.
+     * SetShuffle action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionSetRandom} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionSetShuffle} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     * @param aRandom
+     * @param aShuffle
      */
-    protected void setRandom(IDvInvocation aInvocation, boolean aRandom)
+    protected void setShuffle(IDvInvocation aInvocation, boolean aShuffle)
     {
         throw (new ActionDisabledError());
     }
 
     /**
-     * SeekSecondsAbsolute action.
+     * SeekSecondAbsolute action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * SeekSecondsAbsolute action for the owning device.
+     * SeekSecondAbsolute action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionSeekSecondsAbsolute} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionSeekSecondAbsolute} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aStreamId
      * @param aSecondsAbsolute
      */
-    protected void seekSecondsAbsolute(IDvInvocation aInvocation, long aStreamId, long aSecondsAbsolute)
+    protected void seekSecondAbsolute(IDvInvocation aInvocation, long aStreamId, long aSecondsAbsolute)
     {
         throw (new ActionDisabledError());
     }
 
     /**
-     * SeekSecondsRelative action.
+     * SeekSecondRelative action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * SeekSecondsRelative action for the owning device.
+     * SeekSecondRelative action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionSeekSecondsRelative} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionSeekSecondRelative} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aStreamId
      * @param aSecondsRelative
      */
-    protected void seekSecondsRelative(IDvInvocation aInvocation, long aStreamId, int aSecondsRelative)
+    protected void seekSecondRelative(IDvInvocation aInvocation, long aStreamId, int aSecondsRelative)
     {
         throw (new ActionDisabledError());
     }
@@ -1132,22 +1132,22 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected boolean repeat(IDvInvocation aInvocation)
+    protected long repeat(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
 
     /**
-     * Random action.
+     * Shuffle action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * Random action for the owning device.
+     * Shuffle action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionRandom} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionShuffle} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected boolean random(IDvInvocation aInvocation)
+    protected long shuffle(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -1403,7 +1403,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
-    private class DoPrev implements IDvInvocationListener
+    private class DoPrevious implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
@@ -1412,11 +1412,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             {
                 invocation.readStart();
                 invocation.readEnd();
-                prev(invocation);
+                previous(invocation);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "Prev");
+                invocation.reportActionError(ae, "Previous");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -1497,22 +1497,22 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
-    private class DoSetRandom implements IDvInvocationListener
+    private class DoSetShuffle implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean random;
+            boolean shuffle;
             try
             {
                 invocation.readStart();
-                random = invocation.readBool("Random");
+                shuffle = invocation.readBool("Shuffle");
                 invocation.readEnd();
-                setRandom(invocation, random);
+                setShuffle(invocation, shuffle);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "SetRandom");
+                invocation.reportActionError(ae, "SetShuffle");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -1545,7 +1545,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
-    private class DoSeekSecondsAbsolute implements IDvInvocationListener
+    private class DoSeekSecondAbsolute implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
@@ -1558,11 +1558,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
                 streamId = invocation.readUint("StreamId");
                 secondsAbsolute = invocation.readUint("SecondsAbsolute");
                 invocation.readEnd();
-                seekSecondsAbsolute(invocation, streamId, secondsAbsolute);
+                seekSecondAbsolute(invocation, streamId, secondsAbsolute);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "SeekSecondsAbsolute");
+                invocation.reportActionError(ae, "SeekSecondAbsolute");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -1595,7 +1595,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
-    private class DoSeekSecondsRelative implements IDvInvocationListener
+    private class DoSeekSecondRelative implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
@@ -1608,11 +1608,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
                 streamId = invocation.readUint("StreamId");
                 secondsRelative = invocation.readInt("SecondsRelative");
                 invocation.readEnd();
-                seekSecondsRelative(invocation, streamId, secondsRelative);
+                seekSecondRelative(invocation, streamId, secondsRelative);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "SeekSecondsRelative");
+                invocation.reportActionError(ae, "SeekSecondRelative");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -1747,9 +1747,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
             boolean nextAvailable;
-            boolean prevAvailable;
+            boolean previousAvailable;
             boolean repeatAvailable;
-            boolean randomAvailable;
+            boolean shuffleAvailable;
             try
             {
                 invocation.readStart();
@@ -1757,9 +1757,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
 
             ModeInfo outArgs = modeInfo(invocation);
             nextAvailable = outArgs.getNextAvailable();
-            prevAvailable = outArgs.getPrevAvailable();
+            previousAvailable = outArgs.getPreviousAvailable();
             repeatAvailable = outArgs.getRepeatAvailable();
-            randomAvailable = outArgs.getRandomAvailable();
+            shuffleAvailable = outArgs.getShuffleAvailable();
             }
             catch (ActionError ae)
             {
@@ -1782,9 +1782,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             {
                 invocation.writeStart();
                 invocation.writeBool("NextAvailable", nextAvailable);
-                invocation.writeBool("PrevAvailable", prevAvailable);
+                invocation.writeBool("PreviousAvailable", previousAvailable);
                 invocation.writeBool("RepeatAvailable", repeatAvailable);
-                invocation.writeBool("RandomAvailable", randomAvailable);
+                invocation.writeBool("ShuffleAvailable", shuffleAvailable);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -1909,7 +1909,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean repeat;
+            long repeat;
             try
             {
                 invocation.readStart();
@@ -1936,7 +1936,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             try
             {
                 invocation.writeStart();
-                invocation.writeBool("Repeat", repeat);
+                invocation.writeUint("Repeat", repeat);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -1952,21 +1952,21 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
-    private class DoRandom implements IDvInvocationListener
+    private class DoShuffle implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean random;
+            long shuffle;
             try
             {
                 invocation.readStart();
                 invocation.readEnd();
-                 random = random(invocation);
+                 shuffle = shuffle(invocation);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "Random");
+                invocation.reportActionError(ae, "Shuffle");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -1984,7 +1984,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             try
             {
                 invocation.writeStart();
-                invocation.writeBool("Random", random);
+                invocation.writeUint("Shuffle", shuffle);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

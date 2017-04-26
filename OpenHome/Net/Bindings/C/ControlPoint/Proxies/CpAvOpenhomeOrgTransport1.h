@@ -225,7 +225,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndNext(THandle aHandle,
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrevious(THandle aHandle);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -237,7 +237,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncPrev(THandle aHandle
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginPrev(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginPrevious(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -248,7 +248,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginPrev(THandle aHandle, 
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndPrev(THandle aHandle, OhNetHandleAsync aAsync);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndPrevious(THandle aHandle, OhNetHandleAsync aAsync);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -291,12 +291,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSetRepeat(THandle aHa
  * on the device and sets any output arguments.
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[in]  aRandom
+ * @param[in]  aShuffle
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSetRandom(THandle aHandle, uint32_t aRandom);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSetShuffle(THandle aHandle, uint32_t aShuffle);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -304,12 +304,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSetRandom(THandle aH
  * EndGetProtocolInfo().
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[in]  aRandom
+ * @param[in]  aShuffle
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSetRandom(THandle aHandle, uint32_t aRandom, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSetShuffle(THandle aHandle, uint32_t aShuffle, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -320,7 +320,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSetRandom(THandle aHan
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSetRandom(THandle aHandle, OhNetHandleAsync aAsync);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSetShuffle(THandle aHandle, OhNetHandleAsync aAsync);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -333,7 +333,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSetRandom(THandle aHa
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondsAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondsAbsolute);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondsAbsolute);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -347,7 +347,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondsAbsolute(
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondsAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondsAbsolute, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondsAbsolute, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -358,7 +358,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondsAbsolute(TH
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSeekSecondsAbsolute(THandle aHandle, OhNetHandleAsync aAsync);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSeekSecondAbsolute(THandle aHandle, OhNetHandleAsync aAsync);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -371,7 +371,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSeekSecondsAbsolute(T
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondsRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondsRelative);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondsRelative);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -385,7 +385,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondsRelative(
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondsRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondsRelative, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondsRelative, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -396,7 +396,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondsRelative(TH
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSeekSecondsRelative(THandle aHandle, OhNetHandleAsync aAsync);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSeekSecondRelative(THandle aHandle, OhNetHandleAsync aAsync);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -476,14 +476,14 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndModes(THandle aHandle
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
  * @param[out] aNextAvailable
- * @param[out] aPrevAvailable
+ * @param[out] aPreviousAvailable
  * @param[out] aRepeatAvailable
- * @param[out] aRandomAvailable
+ * @param[out] aShuffleAvailable
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncModeInfo(THandle aHandle, uint32_t* aNextAvailable, uint32_t* aPrevAvailable, uint32_t* aRepeatAvailable, uint32_t* aRandomAvailable);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncModeInfo(THandle aHandle, uint32_t* aNextAvailable, uint32_t* aPreviousAvailable, uint32_t* aRepeatAvailable, uint32_t* aShuffleAvailable);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -503,14 +503,14 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginModeInfo(THandle aHand
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
  * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
  * @param[out] aNextAvailable
- * @param[out] aPrevAvailable
+ * @param[out] aPreviousAvailable
  * @param[out] aRepeatAvailable
- * @param[out] aRandomAvailable
+ * @param[out] aShuffleAvailable
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndModeInfo(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aNextAvailable, uint32_t* aPrevAvailable, uint32_t* aRepeatAvailable, uint32_t* aRandomAvailable);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndModeInfo(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aNextAvailable, uint32_t* aPreviousAvailable, uint32_t* aRepeatAvailable, uint32_t* aShuffleAvailable);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -629,12 +629,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndRepeat(THandle aHandl
  * on the device and sets any output arguments.
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[out] aRandom
+ * @param[out] aShuffle
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncRandom(THandle aHandle, uint32_t* aRandom);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncShuffle(THandle aHandle, uint32_t* aShuffle);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -646,19 +646,19 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncRandom(THandle aHand
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginRandom(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginShuffle(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
  * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
- * @param[out] aRandom
+ * @param[out] aShuffle
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndRandom(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aRandom);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndShuffle(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aShuffle);
 /**
  * Set a callback to be run when the Modes state variable changes.
  *
@@ -682,7 +682,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyModesChanged(THa
  */
 DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyNextAvailableChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 /**
- * Set a callback to be run when the PrevAvailable state variable changes.
+ * Set a callback to be run when the PreviousAvailable state variable changes.
  *
  * Callbacks may be run in different threads but callbacks for a
  * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
@@ -691,7 +691,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyNextAvailableCha
  * @param[in]  aCallback The callback to run when the state variable changes
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyPrevAvailableChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyPreviousAvailableChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 /**
  * Set a callback to be run when the RepeatAvailable state variable changes.
  *
@@ -704,7 +704,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyPrevAvailableCha
  */
 DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyRepeatAvailableChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 /**
- * Set a callback to be run when the RandomAvailable state variable changes.
+ * Set a callback to be run when the ShuffleAvailable state variable changes.
  *
  * Callbacks may be run in different threads but callbacks for a
  * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
@@ -713,7 +713,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyRepeatAvailableC
  * @param[in]  aCallback The callback to run when the state variable changes
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyRandomAvailableChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyShuffleAvailableChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 /**
  * Set a callback to be run when the StreamId state variable changes.
  *
@@ -770,7 +770,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyTransportStateCh
  */
 DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyRepeatChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 /**
- * Set a callback to be run when the Random state variable changes.
+ * Set a callback to be run when the Shuffle state variable changes.
  *
  * Callbacks may be run in different threads but callbacks for a
  * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
@@ -779,7 +779,7 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyRepeatChanged(TH
  * @param[in]  aCallback The callback to run when the state variable changes
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyRandomChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1SetPropertyShuffleChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 
 /**
  * Query the value of the Modes property.
@@ -806,17 +806,17 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyModes(THandle aH
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyNextAvailable(THandle aHandle, uint32_t* aNextAvailable);
 /**
- * Query the value of the PrevAvailable property.
+ * Query the value of the PreviousAvailable property.
  *
  * This function is threadsafe and can only be called after the first callback
  * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[out] aPrevAvailable
+ * @param[out] aPreviousAvailable
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyPrevAvailable(THandle aHandle, uint32_t* aPrevAvailable);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyPreviousAvailable(THandle aHandle, uint32_t* aPreviousAvailable);
 /**
  * Query the value of the RepeatAvailable property.
  *
@@ -830,17 +830,17 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyPrevAvailable(TH
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyRepeatAvailable(THandle aHandle, uint32_t* aRepeatAvailable);
 /**
- * Query the value of the RandomAvailable property.
+ * Query the value of the ShuffleAvailable property.
  *
  * This function is threadsafe and can only be called after the first callback
  * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[out] aRandomAvailable
+ * @param[out] aShuffleAvailable
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyRandomAvailable(THandle aHandle, uint32_t* aRandomAvailable);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyShuffleAvailable(THandle aHandle, uint32_t* aShuffleAvailable);
 /**
  * Query the value of the StreamId property.
  *
@@ -902,17 +902,17 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyTransportState(T
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyRepeat(THandle aHandle, uint32_t* aRepeat);
 /**
- * Query the value of the Random property.
+ * Query the value of the Shuffle property.
  *
  * This function is threadsafe and can only be called after the first callback
  * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
- * @param[out] aRandom
+ * @param[out] aShuffle
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyRandom(THandle aHandle, uint32_t* aRandom);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1PropertyShuffle(THandle aHandle, uint32_t* aShuffle);
 
 /* @} */
 

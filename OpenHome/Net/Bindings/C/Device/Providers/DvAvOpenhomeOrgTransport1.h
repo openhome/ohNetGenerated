@@ -77,16 +77,16 @@ typedef int32_t (STDCALL *CallbackTransport1Stop)(void* aPtr, IDvInvocationC* aI
  */
 typedef int32_t (STDCALL *CallbackTransport1Next)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
- * Callback which runs when the Prev action is invoked
+ * Callback which runs when the Previous action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionPrev
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionPrevious
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1Prev)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
+typedef int32_t (STDCALL *CallbackTransport1Previous)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
  * Callback which runs when the SetRepeat action is invoked
  *
@@ -100,21 +100,21 @@ typedef int32_t (STDCALL *CallbackTransport1Prev)(void* aPtr, IDvInvocationC* aI
  */
 typedef int32_t (STDCALL *CallbackTransport1SetRepeat)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aRepeat);
 /**
- * Callback which runs when the SetRandom action is invoked
+ * Callback which runs when the SetShuffle action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSetRandom
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSetShuffle
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[in]  aRandom
+ * @param[in]  aShuffle
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1SetRandom)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aRandom);
+typedef int32_t (STDCALL *CallbackTransport1SetShuffle)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aShuffle);
 /**
- * Callback which runs when the SeekSecondsAbsolute action is invoked
+ * Callback which runs when the SeekSecondAbsolute action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondsAbsolute
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondAbsolute
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
@@ -123,11 +123,11 @@ typedef int32_t (STDCALL *CallbackTransport1SetRandom)(void* aPtr, IDvInvocation
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1SeekSecondsAbsolute)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, uint32_t aSecondsAbsolute);
+typedef int32_t (STDCALL *CallbackTransport1SeekSecondAbsolute)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, uint32_t aSecondsAbsolute);
 /**
- * Callback which runs when the SeekSecondsRelative action is invoked
+ * Callback which runs when the SeekSecondRelative action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondsRelative
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondRelative
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
@@ -136,7 +136,7 @@ typedef int32_t (STDCALL *CallbackTransport1SeekSecondsAbsolute)(void* aPtr, IDv
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1SeekSecondsRelative)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, int32_t aSecondsRelative);
+typedef int32_t (STDCALL *CallbackTransport1SeekSecondRelative)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, int32_t aSecondsRelative);
 /**
  * Callback which runs when the TransportState action is invoked
  *
@@ -169,13 +169,13 @@ typedef int32_t (STDCALL *CallbackTransport1Modes)(void* aPtr, IDvInvocationC* a
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[out] aNextAvailable
- * @param[out] aPrevAvailable
+ * @param[out] aPreviousAvailable
  * @param[out] aRepeatAvailable
- * @param[out] aRandomAvailable
+ * @param[out] aShuffleAvailable
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1ModeInfo)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aNextAvailable, uint32_t* aPrevAvailable, uint32_t* aRepeatAvailable, uint32_t* aRandomAvailable);
+typedef int32_t (STDCALL *CallbackTransport1ModeInfo)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aNextAvailable, uint32_t* aPreviousAvailable, uint32_t* aRepeatAvailable, uint32_t* aShuffleAvailable);
 /**
  * Callback which runs when the StreamInfo action is invoked
  *
@@ -215,17 +215,17 @@ typedef int32_t (STDCALL *CallbackTransport1StreamId)(void* aPtr, IDvInvocationC
  */
 typedef int32_t (STDCALL *CallbackTransport1Repeat)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aRepeat);
 /**
- * Callback which runs when the Random action is invoked
+ * Callback which runs when the Shuffle action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionRandom
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionShuffle
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[out] aRandom
+ * @param[out] aShuffle
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1Random)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aRandom);
+typedef int32_t (STDCALL *CallbackTransport1Shuffle)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aShuffle);
 
 /**
  * Provider constructor
@@ -252,17 +252,17 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyModes(THan
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyNextAvailable(THandle aProvider);
 /**
- * Enable the PrevAvailable property.
+ * Enable the PreviousAvailable property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyPrevAvailable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyPreviousAvailable(THandle aProvider);
 /**
  * Enable the RepeatAvailable property.
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyRepeatAvailable(THandle aProvider);
 /**
- * Enable the RandomAvailable property.
+ * Enable the ShuffleAvailable property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyRandomAvailable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffleAvailable(THandle aProvider);
 /**
  * Enable the StreamId property.
  */
@@ -284,9 +284,9 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyTransportS
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyRepeat(THandle aProvider);
 /**
- * Enable the Random property.
+ * Enable the Shuffle property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyRandom(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffle(THandle aProvider);
 
 /**
  * Register a callback for the action PlayAs
@@ -344,7 +344,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionStop(THandle
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionNext(THandle aProvider, CallbackTransport1Next aCallback, void* aPtr);
 /**
- * Register a callback for the action Prev
+ * Register a callback for the action Previous
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -353,7 +353,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionNext(THandle
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionPrev(THandle aProvider, CallbackTransport1Prev aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionPrevious(THandle aProvider, CallbackTransport1Previous aCallback, void* aPtr);
 /**
  * Register a callback for the action SetRepeat
  *
@@ -366,7 +366,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionPrev(THandle
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSetRepeat(THandle aProvider, CallbackTransport1SetRepeat aCallback, void* aPtr);
 /**
- * Register a callback for the action SetRandom
+ * Register a callback for the action SetShuffle
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -375,9 +375,9 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSetRepeat(TH
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSetRandom(THandle aProvider, CallbackTransport1SetRandom aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSetShuffle(THandle aProvider, CallbackTransport1SetShuffle aCallback, void* aPtr);
 /**
- * Register a callback for the action SeekSecondsAbsolute
+ * Register a callback for the action SeekSecondAbsolute
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -386,9 +386,9 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSetRandom(TH
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondsAbsolute(THandle aProvider, CallbackTransport1SeekSecondsAbsolute aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondAbsolute(THandle aProvider, CallbackTransport1SeekSecondAbsolute aCallback, void* aPtr);
 /**
- * Register a callback for the action SeekSecondsRelative
+ * Register a callback for the action SeekSecondRelative
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -397,7 +397,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondsA
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondsRelative(THandle aProvider, CallbackTransport1SeekSecondsRelative aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSeekSecondRelative(THandle aProvider, CallbackTransport1SeekSecondRelative aCallback, void* aPtr);
 /**
  * Register a callback for the action TransportState
  *
@@ -465,7 +465,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionStreamId(THa
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionRepeat(THandle aProvider, CallbackTransport1Repeat aCallback, void* aPtr);
 /**
- * Register a callback for the action Random
+ * Register a callback for the action Shuffle
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -474,7 +474,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionRepeat(THand
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionRandom(THandle aProvider, CallbackTransport1Random aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionShuffle(THandle aProvider, CallbackTransport1Shuffle aCallback, void* aPtr);
 
 /**
  * Set the value of the Modes property
@@ -521,9 +521,9 @@ DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyNextAvaila
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyNextAvailable(THandle aProvider, uint32_t* aValue);
 /**
- * Set the value of the PrevAvailable property
+ * Set the value of the PreviousAvailable property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPrevAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPreviousAvailable has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[in]  aValue     New value for the property
@@ -532,16 +532,16 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyNextAvailable
  * @return  0 if the property was successfully set; non-zero if there was an error (including
  *          an attempt to set a property to a value not in its allowed range/set)
  */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyPrevAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyPreviousAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
 /**
- * Get a copy of the value of the PrevAvailable property
+ * Get a copy of the value of the PreviousAvailable property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPrevAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPreviousAvailable has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[out] aValue     Value for the property
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyPrevAvailable(THandle aProvider, uint32_t* aValue);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyPreviousAvailable(THandle aProvider, uint32_t* aValue);
 /**
  * Set the value of the RepeatAvailable property
  *
@@ -565,9 +565,9 @@ DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyRepeatAvai
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRepeatAvailable(THandle aProvider, uint32_t* aValue);
 /**
- * Set the value of the RandomAvailable property
+ * Set the value of the ShuffleAvailable property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyRandomAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffleAvailable has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[in]  aValue     New value for the property
@@ -576,16 +576,16 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRepeatAvailab
  * @return  0 if the property was successfully set; non-zero if there was an error (including
  *          an attempt to set a property to a value not in its allowed range/set)
  */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyRandomAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyShuffleAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
 /**
- * Get a copy of the value of the RandomAvailable property
+ * Get a copy of the value of the ShuffleAvailable property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyRandomAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffleAvailable has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[out] aValue     Value for the property
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRandomAvailable(THandle aProvider, uint32_t* aValue);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyShuffleAvailable(THandle aProvider, uint32_t* aValue);
 /**
  * Set the value of the StreamId property
  *
@@ -697,9 +697,9 @@ DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyRepeat(THa
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRepeat(THandle aProvider, uint32_t* aValue);
 /**
- * Set the value of the Random property
+ * Set the value of the Shuffle property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyRandom has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffle has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[in]  aValue     New value for the property
@@ -708,16 +708,16 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRepeat(THandl
  * @return  0 if the property was successfully set; non-zero if there was an error (including
  *          an attempt to set a property to a value not in its allowed range/set)
  */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyRandom(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyShuffle(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
 /**
- * Get a copy of the value of the Random property
+ * Get a copy of the value of the Shuffle property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyRandom has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffle has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[out] aValue     Value for the property
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRandom(THandle aProvider, uint32_t* aValue);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyShuffle(THandle aProvider, uint32_t* aValue);
 
 /* @} */
 

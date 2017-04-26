@@ -20,15 +20,15 @@ var CpProxyAvOpenhomeOrgTransport1 = function(udn){
     this.serviceProperties = {};
     this.serviceProperties["Modes"] = new ohnet.serviceproperty("Modes","string");
     this.serviceProperties["NextAvailable"] = new ohnet.serviceproperty("NextAvailable","bool");
-    this.serviceProperties["PrevAvailable"] = new ohnet.serviceproperty("PrevAvailable","bool");
+    this.serviceProperties["PreviousAvailable"] = new ohnet.serviceproperty("PreviousAvailable","bool");
     this.serviceProperties["RepeatAvailable"] = new ohnet.serviceproperty("RepeatAvailable","bool");
-    this.serviceProperties["RandomAvailable"] = new ohnet.serviceproperty("RandomAvailable","bool");
+    this.serviceProperties["ShuffleAvailable"] = new ohnet.serviceproperty("ShuffleAvailable","bool");
     this.serviceProperties["StreamId"] = new ohnet.serviceproperty("StreamId","int");
     this.serviceProperties["Seekable"] = new ohnet.serviceproperty("Seekable","bool");
     this.serviceProperties["Pausable"] = new ohnet.serviceproperty("Pausable","bool");
     this.serviceProperties["TransportState"] = new ohnet.serviceproperty("TransportState","string");
-    this.serviceProperties["Repeat"] = new ohnet.serviceproperty("Repeat","bool");
-    this.serviceProperties["Random"] = new ohnet.serviceproperty("Random","bool");
+    this.serviceProperties["Repeat"] = new ohnet.serviceproperty("Repeat","int");
+    this.serviceProperties["Shuffle"] = new ohnet.serviceproperty("Shuffle","int");
 
                                                             
     this.TransportStateAllowedValues = [];
@@ -90,12 +90,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.NextAvailable_Changed = function (state
     
 
 /**
-* Adds a listener to handle "PrevAvailable" property change events
-* @method PrevAvailable_Changed
+* Adds a listener to handle "PreviousAvailable" property change events
+* @method PreviousAvailable_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.PrevAvailable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.PrevAvailable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.PreviousAvailable_Changed = function (stateChangedFunction) {
+    this.serviceProperties.PreviousAvailable.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -116,12 +116,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.RepeatAvailable_Changed = function (sta
     
 
 /**
-* Adds a listener to handle "RandomAvailable" property change events
-* @method RandomAvailable_Changed
+* Adds a listener to handle "ShuffleAvailable" property change events
+* @method ShuffleAvailable_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.RandomAvailable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.RandomAvailable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.ShuffleAvailable_Changed = function (stateChangedFunction) {
+    this.serviceProperties.ShuffleAvailable.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -188,20 +188,20 @@ CpProxyAvOpenhomeOrgTransport1.prototype.TransportState_Changed = function (stat
 CpProxyAvOpenhomeOrgTransport1.prototype.Repeat_Changed = function (stateChangedFunction) {
     this.serviceProperties.Repeat.addListener(function (state) 
     { 
-        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
+        stateChangedFunction(ohnet.soaprequest.readIntParameter(state)); 
     });
 }
     
 
 /**
-* Adds a listener to handle "Random" property change events
-* @method Random_Changed
+* Adds a listener to handle "Shuffle" property change events
+* @method Shuffle_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Random_Changed = function (stateChangedFunction) {
-    this.serviceProperties.Random.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.Shuffle_Changed = function (stateChangedFunction) {
+    this.serviceProperties.Shuffle.addListener(function (state) 
     { 
-        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
+        stateChangedFunction(ohnet.soaprequest.readIntParameter(state)); 
     });
 }
 
@@ -306,13 +306,13 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Next = function(successFunction, errorF
 
 
 /**
-* A service action to Prev
-* @method Prev
+* A service action to Previous
+* @method Previous
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Prev = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("Prev", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgTransport1.prototype.Previous = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("Previous", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
     
         if (successFunction){
@@ -346,15 +346,15 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SetRepeat = function(Repeat, successFun
 
 
 /**
-* A service action to SetRandom
-* @method SetRandom
-* @param {Boolean} Random An action parameter
+* A service action to SetShuffle
+* @method SetShuffle
+* @param {Boolean} Shuffle An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.SetRandom = function(Random, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("SetRandom", this.url, this.domain, this.type, this.version);     
-    request.writeBoolParameter("Random", Random);
+CpProxyAvOpenhomeOrgTransport1.prototype.SetShuffle = function(Shuffle, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetShuffle", this.url, this.domain, this.type, this.version);     
+    request.writeBoolParameter("Shuffle", Shuffle);
     request.send(function(result){
     
         if (successFunction){
@@ -367,15 +367,15 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SetRandom = function(Random, successFun
 
 
 /**
-* A service action to SeekSecondsAbsolute
-* @method SeekSecondsAbsolute
+* A service action to SeekSecondAbsolute
+* @method SeekSecondAbsolute
 * @param {Int} StreamId An action parameter
 * @param {Int} SecondsAbsolute An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondsAbsolute = function(StreamId, SecondsAbsolute, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("SeekSecondsAbsolute", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondAbsolute = function(StreamId, SecondsAbsolute, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SeekSecondAbsolute", this.url, this.domain, this.type, this.version);     
     request.writeIntParameter("StreamId", StreamId);
     request.writeIntParameter("SecondsAbsolute", SecondsAbsolute);
     request.send(function(result){
@@ -390,15 +390,15 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondsAbsolute = function(StreamId
 
 
 /**
-* A service action to SeekSecondsRelative
-* @method SeekSecondsRelative
+* A service action to SeekSecondRelative
+* @method SeekSecondRelative
 * @param {Int} StreamId An action parameter
 * @param {Int} SecondsRelative An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondsRelative = function(StreamId, SecondsRelative, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("SeekSecondsRelative", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondRelative = function(StreamId, SecondsRelative, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SeekSecondRelative", this.url, this.domain, this.type, this.version);     
     request.writeIntParameter("StreamId", StreamId);
     request.writeIntParameter("SecondsRelative", SecondsRelative);
     request.send(function(result){
@@ -462,9 +462,9 @@ CpProxyAvOpenhomeOrgTransport1.prototype.ModeInfo = function(successFunction, er
     var request = new ohnet.soaprequest("ModeInfo", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
         result["NextAvailable"] = ohnet.soaprequest.readBoolParameter(result["NextAvailable"]); 
-        result["PrevAvailable"] = ohnet.soaprequest.readBoolParameter(result["PrevAvailable"]); 
+        result["PreviousAvailable"] = ohnet.soaprequest.readBoolParameter(result["PreviousAvailable"]); 
         result["RepeatAvailable"] = ohnet.soaprequest.readBoolParameter(result["RepeatAvailable"]); 
-        result["RandomAvailable"] = ohnet.soaprequest.readBoolParameter(result["RandomAvailable"]); 
+        result["ShuffleAvailable"] = ohnet.soaprequest.readBoolParameter(result["ShuffleAvailable"]); 
     
         if (successFunction){
             successFunction(result);
@@ -526,7 +526,7 @@ CpProxyAvOpenhomeOrgTransport1.prototype.StreamId = function(successFunction, er
 CpProxyAvOpenhomeOrgTransport1.prototype.Repeat = function(successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("Repeat", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
-        result["Repeat"] = ohnet.soaprequest.readBoolParameter(result["Repeat"]); 
+        result["Repeat"] = ohnet.soaprequest.readIntParameter(result["Repeat"]); 
     
         if (successFunction){
             successFunction(result);
@@ -538,15 +538,15 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Repeat = function(successFunction, erro
 
 
 /**
-* A service action to Random
-* @method Random
+* A service action to Shuffle
+* @method Shuffle
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Random = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("Random", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgTransport1.prototype.Shuffle = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("Shuffle", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
-        result["Random"] = ohnet.soaprequest.readBoolParameter(result["Random"]); 
+        result["Shuffle"] = ohnet.soaprequest.readIntParameter(result["Shuffle"]); 
     
         if (successFunction){
             successFunction(result);
