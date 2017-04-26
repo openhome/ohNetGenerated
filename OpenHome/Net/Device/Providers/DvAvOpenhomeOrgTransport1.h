@@ -394,7 +394,7 @@ private:
      * SetRepeat action for the owning device.
      * Must be implemented iff EnableActionSetRepeat was called.
      */
-    virtual void SetRepeat(IDvInvocation& aInvocation, TBool aRepeat);
+    virtual void SetRepeat(IDvInvocation& aInvocation, TUint aRepeat);
     /**
      * SetShuffle action.
      *
@@ -402,7 +402,7 @@ private:
      * SetShuffle action for the owning device.
      * Must be implemented iff EnableActionSetShuffle was called.
      */
-    virtual void SetShuffle(IDvInvocation& aInvocation, TBool aShuffle);
+    virtual void SetShuffle(IDvInvocation& aInvocation, TUint aShuffle);
     /**
      * SeekSecondAbsolute action.
      *

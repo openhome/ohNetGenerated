@@ -41,11 +41,11 @@ public:
     virtual void SyncPrevious() = 0;
     virtual void BeginPrevious(FunctorAsync& aFunctor) = 0;
     virtual void EndPrevious(IAsync& aAsync) = 0;
-    virtual void SyncSetRepeat(TBool aRepeat) = 0;
-    virtual void BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSetRepeat(TUint aRepeat) = 0;
+    virtual void BeginSetRepeat(TUint aRepeat, FunctorAsync& aFunctor) = 0;
     virtual void EndSetRepeat(IAsync& aAsync) = 0;
-    virtual void SyncSetShuffle(TBool aShuffle) = 0;
-    virtual void BeginSetShuffle(TBool aShuffle, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSetShuffle(TUint aShuffle) = 0;
+    virtual void BeginSetShuffle(TUint aShuffle, FunctorAsync& aFunctor) = 0;
     virtual void EndSetShuffle(IAsync& aAsync) = 0;
     virtual void SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute) = 0;
     virtual void BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute, FunctorAsync& aFunctor) = 0;
@@ -272,7 +272,7 @@ public:
      *
      * @param[in]  aRepeat
      */
-    void SyncSetRepeat(TBool aRepeat);
+    void SyncSetRepeat(TUint aRepeat);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -283,7 +283,7 @@ public:
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor);
+    void BeginSetRepeat(TUint aRepeat, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -298,7 +298,7 @@ public:
      *
      * @param[in]  aShuffle
      */
-    void SyncSetShuffle(TBool aShuffle);
+    void SyncSetShuffle(TUint aShuffle);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -309,7 +309,7 @@ public:
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetShuffle(TBool aShuffle, FunctorAsync& aFunctor);
+    void BeginSetShuffle(TUint aShuffle, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.

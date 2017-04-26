@@ -42,11 +42,11 @@ public:
     virtual void SyncPrevious() = 0;
     virtual void BeginPrevious(FunctorAsync& aFunctor) = 0;
     virtual void EndPrevious(IAsync& aAsync) = 0;
-    virtual void SyncSetRepeat(bool aRepeat) = 0;
-    virtual void BeginSetRepeat(bool aRepeat, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSetRepeat(uint32_t aRepeat) = 0;
+    virtual void BeginSetRepeat(uint32_t aRepeat, FunctorAsync& aFunctor) = 0;
     virtual void EndSetRepeat(IAsync& aAsync) = 0;
-    virtual void SyncSetShuffle(bool aShuffle) = 0;
-    virtual void BeginSetShuffle(bool aShuffle, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSetShuffle(uint32_t aShuffle) = 0;
+    virtual void BeginSetShuffle(uint32_t aShuffle, FunctorAsync& aFunctor) = 0;
     virtual void EndSetShuffle(IAsync& aAsync) = 0;
     virtual void SyncSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute) = 0;
     virtual void BeginSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute, FunctorAsync& aFunctor) = 0;
@@ -273,7 +273,7 @@ public:
      *
      * @param[in]  aRepeat
      */
-    void SyncSetRepeat(bool aRepeat);
+    void SyncSetRepeat(uint32_t aRepeat);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -284,7 +284,7 @@ public:
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetRepeat(bool aRepeat, FunctorAsync& aFunctor);
+    void BeginSetRepeat(uint32_t aRepeat, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -299,7 +299,7 @@ public:
      *
      * @param[in]  aShuffle
      */
-    void SyncSetShuffle(bool aShuffle);
+    void SyncSetShuffle(uint32_t aShuffle);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -310,7 +310,7 @@ public:
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetShuffle(bool aShuffle, FunctorAsync& aFunctor);
+    void BeginSetShuffle(uint32_t aShuffle, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.

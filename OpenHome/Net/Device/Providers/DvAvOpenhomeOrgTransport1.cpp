@@ -289,7 +289,7 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionPrevious()
 void DvProviderAvOpenhomeOrgTransport1::EnableActionSetRepeat()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetRepeat");
-    action->AddInputParameter(new ParameterBool("Repeat"));
+    action->AddInputParameter(new ParameterUint("Repeat"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSetRepeat);
     iService->AddAction(action, functor);
 }
@@ -297,7 +297,7 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionSetRepeat()
 void DvProviderAvOpenhomeOrgTransport1::EnableActionSetShuffle()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetShuffle");
-    action->AddInputParameter(new ParameterBool("Shuffle"));
+    action->AddInputParameter(new ParameterUint("Shuffle"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSetShuffle);
     iService->AddAction(action, functor);
 }
@@ -436,7 +436,7 @@ void DvProviderAvOpenhomeOrgTransport1::DoPrevious(IDviInvocation& aInvocation)
 void DvProviderAvOpenhomeOrgTransport1::DoSetRepeat(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    TBool Repeat = aInvocation.InvocationReadBool("Repeat");
+    TUint Repeat = aInvocation.InvocationReadUint("Repeat");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     SetRepeat(invocation, Repeat);
@@ -445,7 +445,7 @@ void DvProviderAvOpenhomeOrgTransport1::DoSetRepeat(IDviInvocation& aInvocation)
 void DvProviderAvOpenhomeOrgTransport1::DoSetShuffle(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    TBool Shuffle = aInvocation.InvocationReadBool("Shuffle");
+    TUint Shuffle = aInvocation.InvocationReadUint("Shuffle");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     SetShuffle(invocation, Shuffle);
@@ -569,12 +569,12 @@ void DvProviderAvOpenhomeOrgTransport1::Previous(IDvInvocation& /*aResponse*/)
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::SetRepeat(IDvInvocation& /*aResponse*/, TBool /*aRepeat*/)
+void DvProviderAvOpenhomeOrgTransport1::SetRepeat(IDvInvocation& /*aResponse*/, TUint /*aRepeat*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::SetShuffle(IDvInvocation& /*aResponse*/, TBool /*aShuffle*/)
+void DvProviderAvOpenhomeOrgTransport1::SetShuffle(IDvInvocation& /*aResponse*/, TUint /*aShuffle*/)
 {
     ASSERTS();
 }

@@ -418,7 +418,7 @@ void DvProviderAvOpenhomeOrgTransport1C::EnableActionSetRepeat(CallbackTransport
     iCallbackSetRepeat = aCallback;
     iPtrSetRepeat = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetRepeat");
-    action->AddInputParameter(new ParameterBool("Repeat"));
+    action->AddInputParameter(new ParameterUint("Repeat"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1C::DoSetRepeat);
     iService->AddAction(action, functor);
 }
@@ -428,7 +428,7 @@ void DvProviderAvOpenhomeOrgTransport1C::EnableActionSetShuffle(CallbackTranspor
     iCallbackSetShuffle = aCallback;
     iPtrSetShuffle = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetShuffle");
-    action->AddInputParameter(new ParameterBool("Shuffle"));
+    action->AddInputParameter(new ParameterUint("Shuffle"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1C::DoSetShuffle);
     iService->AddAction(action, functor);
 }
@@ -649,7 +649,7 @@ void DvProviderAvOpenhomeOrgTransport1C::DoSetRepeat(IDviInvocation& aInvocation
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    TBool Repeat = aInvocation.InvocationReadBool("Repeat");
+    TUint Repeat = aInvocation.InvocationReadUint("Repeat");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSetRepeat != NULL);
@@ -668,7 +668,7 @@ void DvProviderAvOpenhomeOrgTransport1C::DoSetShuffle(IDviInvocation& aInvocatio
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    TBool Shuffle = aInvocation.InvocationReadBool("Shuffle");
+    TUint Shuffle = aInvocation.InvocationReadUint("Shuffle");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSetShuffle != NULL);

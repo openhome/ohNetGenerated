@@ -327,13 +327,13 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Previous = function(successFunction, er
 /**
 * A service action to SetRepeat
 * @method SetRepeat
-* @param {Boolean} Repeat An action parameter
+* @param {Int} Repeat An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
 CpProxyAvOpenhomeOrgTransport1.prototype.SetRepeat = function(Repeat, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SetRepeat", this.url, this.domain, this.type, this.version);     
-    request.writeBoolParameter("Repeat", Repeat);
+    request.writeIntParameter("Repeat", Repeat);
     request.send(function(result){
     
         if (successFunction){
@@ -348,13 +348,13 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SetRepeat = function(Repeat, successFun
 /**
 * A service action to SetShuffle
 * @method SetShuffle
-* @param {Boolean} Shuffle An action parameter
+* @param {Int} Shuffle An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
 CpProxyAvOpenhomeOrgTransport1.prototype.SetShuffle = function(Shuffle, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SetShuffle", this.url, this.domain, this.type, this.version);     
-    request.writeBoolParameter("Shuffle", Shuffle);
+    request.writeIntParameter("Shuffle", Shuffle);
     request.send(function(result){
     
         if (successFunction){

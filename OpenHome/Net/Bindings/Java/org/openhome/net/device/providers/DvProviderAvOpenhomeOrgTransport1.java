@@ -737,7 +737,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     protected void enableActionSetRepeat()
     {
         Action action = new Action("SetRepeat");
-        action.addInputParameter(new ParameterBool("Repeat"));
+        action.addInputParameter(new ParameterUint("Repeat"));
         iDelegateSetRepeat = new DoSetRepeat();
         enableAction(action, iDelegateSetRepeat);
     }
@@ -751,7 +751,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     protected void enableActionSetShuffle()
     {
         Action action = new Action("SetShuffle");
-        action.addInputParameter(new ParameterBool("Shuffle"));
+        action.addInputParameter(new ParameterUint("Shuffle"));
         iDelegateSetShuffle = new DoSetShuffle();
         enableAction(action, iDelegateSetShuffle);
     }
@@ -992,7 +992,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aRepeat
      */
-    protected void setRepeat(IDvInvocation aInvocation, boolean aRepeat)
+    protected void setRepeat(IDvInvocation aInvocation, long aRepeat)
     {
         throw (new ActionDisabledError());
     }
@@ -1008,7 +1008,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aShuffle
      */
-    protected void setShuffle(IDvInvocation aInvocation, boolean aShuffle)
+    protected void setShuffle(IDvInvocation aInvocation, long aShuffle)
     {
         throw (new ActionDisabledError());
     }
@@ -1454,11 +1454,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean repeat;
+            long repeat;
             try
             {
                 invocation.readStart();
-                repeat = invocation.readBool("Repeat");
+                repeat = invocation.readUint("Repeat");
                 invocation.readEnd();
                 setRepeat(invocation, repeat);
             }
@@ -1502,11 +1502,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean shuffle;
+            long shuffle;
             try
             {
                 invocation.readStart();
-                shuffle = invocation.readBool("Shuffle");
+                shuffle = invocation.readUint("Shuffle");
                 invocation.readEnd();
                 setShuffle(invocation, shuffle);
             }

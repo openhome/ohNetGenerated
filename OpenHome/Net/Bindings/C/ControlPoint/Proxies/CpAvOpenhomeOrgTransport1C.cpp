@@ -47,12 +47,12 @@ public:
     void BeginPrevious(FunctorAsync& aFunctor);
     void EndPrevious(IAsync& aAsync);
 
-    void SyncSetRepeat(TBool aRepeat);
-    void BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor);
+    void SyncSetRepeat(TUint aRepeat);
+    void BeginSetRepeat(TUint aRepeat, FunctorAsync& aFunctor);
     void EndSetRepeat(IAsync& aAsync);
 
-    void SyncSetShuffle(TBool aShuffle);
-    void BeginSetShuffle(TBool aShuffle, FunctorAsync& aFunctor);
+    void SyncSetShuffle(TUint aShuffle);
+    void BeginSetShuffle(TUint aShuffle, FunctorAsync& aFunctor);
     void EndSetShuffle(IAsync& aAsync);
 
     void SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute);
@@ -575,11 +575,11 @@ CpProxyAvOpenhomeOrgTransport1C::CpProxyAvOpenhomeOrgTransport1C(CpDeviceC aDevi
     iActionPrevious = new Action("Previous");
 
     iActionSetRepeat = new Action("SetRepeat");
-    param = new OpenHome::Net::ParameterBool("Repeat");
+    param = new OpenHome::Net::ParameterUint("Repeat");
     iActionSetRepeat->AddInputParameter(param);
 
     iActionSetShuffle = new Action("SetShuffle");
-    param = new OpenHome::Net::ParameterBool("Shuffle");
+    param = new OpenHome::Net::ParameterUint("Shuffle");
     iActionSetShuffle->AddInputParameter(param);
 
     iActionSeekSecondAbsolute = new Action("SeekSecondAbsolute");
@@ -864,19 +864,19 @@ void CpProxyAvOpenhomeOrgTransport1C::EndPrevious(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::SyncSetRepeat(TBool aRepeat)
+void CpProxyAvOpenhomeOrgTransport1C::SyncSetRepeat(TUint aRepeat)
 {
     SyncSetRepeatAvOpenhomeOrgTransport1C sync(*this);
     BeginSetRepeat(aRepeat, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1C::BeginSetRepeat(TUint aRepeat, FunctorAsync& aFunctor)
 {
     Invocation* invocation = Service()->Invocation(*iActionSetRepeat, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetRepeat->InputParameters();
-    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aRepeat));
+    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aRepeat));
     Invocable().InvokeAction(*invocation);
 }
 
@@ -894,19 +894,19 @@ void CpProxyAvOpenhomeOrgTransport1C::EndSetRepeat(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::SyncSetShuffle(TBool aShuffle)
+void CpProxyAvOpenhomeOrgTransport1C::SyncSetShuffle(TUint aShuffle)
 {
     SyncSetShuffleAvOpenhomeOrgTransport1C sync(*this);
     BeginSetShuffle(aShuffle, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1C::BeginSetShuffle(TBool aShuffle, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1C::BeginSetShuffle(TUint aShuffle, FunctorAsync& aFunctor)
 {
     Invocation* invocation = Service()->Invocation(*iActionSetShuffle, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetShuffle->InputParameters();
-    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aShuffle));
+    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aShuffle));
     Invocable().InvokeAction(*invocation);
 }
 
@@ -1679,7 +1679,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSetRepeat(THandle aHandle, uin
     ASSERT(proxyC != NULL);
     int32_t err = 0;
     try {
-        proxyC->SyncSetRepeat((aRepeat==0? false : true));
+        proxyC->SyncSetRepeat(aRepeat);
     }
     catch (ProxyError& ) {
         err = -1;
@@ -1692,7 +1692,7 @@ void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSetRepeat(THandle aHandle, uint3
     CpProxyAvOpenhomeOrgTransport1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTransport1C*>(aHandle);
     ASSERT(proxyC != NULL);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginSetRepeat((aRepeat==0? false : true), functor);
+    proxyC->BeginSetRepeat(aRepeat, functor);
 }
 
 int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSetRepeat(THandle aHandle, OhNetHandleAsync aAsync)
@@ -1717,7 +1717,7 @@ int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSetShuffle(THandle aHandle, ui
     ASSERT(proxyC != NULL);
     int32_t err = 0;
     try {
-        proxyC->SyncSetShuffle((aShuffle==0? false : true));
+        proxyC->SyncSetShuffle(aShuffle);
     }
     catch (ProxyError& ) {
         err = -1;
@@ -1730,7 +1730,7 @@ void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSetShuffle(THandle aHandle, uint
     CpProxyAvOpenhomeOrgTransport1C* proxyC = reinterpret_cast<CpProxyAvOpenhomeOrgTransport1C*>(aHandle);
     ASSERT(proxyC != NULL);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginSetShuffle((aShuffle==0? false : true), functor);
+    proxyC->BeginSetShuffle(aShuffle, functor);
 }
 
 int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSetShuffle(THandle aHandle, OhNetHandleAsync aAsync)

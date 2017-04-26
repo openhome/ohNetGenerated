@@ -418,11 +418,11 @@ CpProxyAvOpenhomeOrgTransport1Cpp::CpProxyAvOpenhomeOrgTransport1Cpp(CpDeviceCpp
     iActionPrevious = new Action("Previous");
 
     iActionSetRepeat = new Action("SetRepeat");
-    param = new OpenHome::Net::ParameterBool("Repeat");
+    param = new OpenHome::Net::ParameterUint("Repeat");
     iActionSetRepeat->AddInputParameter(param);
 
     iActionSetShuffle = new Action("SetShuffle");
-    param = new OpenHome::Net::ParameterBool("Shuffle");
+    param = new OpenHome::Net::ParameterUint("Shuffle");
     iActionSetShuffle->AddInputParameter(param);
 
     iActionSeekSecondAbsolute = new Action("SeekSecondAbsolute");
@@ -713,19 +713,19 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndPrevious(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncSetRepeat(bool aRepeat)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncSetRepeat(uint32_t aRepeat)
 {
     SyncSetRepeatAvOpenhomeOrgTransport1Cpp sync(*this);
     BeginSetRepeat(aRepeat, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::BeginSetRepeat(bool aRepeat, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::BeginSetRepeat(uint32_t aRepeat, FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetRepeat, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetRepeat->InputParameters();
-    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aRepeat));
+    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aRepeat));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
@@ -743,19 +743,19 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndSetRepeat(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncSetShuffle(bool aShuffle)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncSetShuffle(uint32_t aShuffle)
 {
     SyncSetShuffleAvOpenhomeOrgTransport1Cpp sync(*this);
     BeginSetShuffle(aShuffle, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::BeginSetShuffle(bool aShuffle, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::BeginSetShuffle(uint32_t aShuffle, FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetShuffle, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetShuffle->InputParameters();
-    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aShuffle));
+    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aShuffle));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 

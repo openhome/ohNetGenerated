@@ -28,11 +28,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncPrevious();
         void BeginPrevious(CpProxy.CallbackAsyncComplete aCallback);
         void EndPrevious(IntPtr aAsyncHandle);
-        void SyncSetRepeat(bool aRepeat);
-        void BeginSetRepeat(bool aRepeat, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSetRepeat(uint aRepeat);
+        void BeginSetRepeat(uint aRepeat, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetRepeat(IntPtr aAsyncHandle);
-        void SyncSetShuffle(bool aShuffle);
-        void BeginSetShuffle(bool aShuffle, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSetShuffle(uint aShuffle);
+        void BeginSetShuffle(uint aShuffle, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetShuffle(IntPtr aAsyncHandle);
         void SyncSeekSecondAbsolute(uint aStreamId, uint aSecondsAbsolute);
         void BeginSeekSecondAbsolute(uint aStreamId, uint aSecondsAbsolute, CpProxy.CallbackAsyncComplete aCallback);
@@ -457,11 +457,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionPrevious = new OpenHome.Net.Core.Action("Previous");
 
             iActionSetRepeat = new OpenHome.Net.Core.Action("SetRepeat");
-            param = new ParameterBool("Repeat");
+            param = new ParameterUint("Repeat");
             iActionSetRepeat.AddInputParameter(param);
 
             iActionSetShuffle = new OpenHome.Net.Core.Action("SetShuffle");
-            param = new ParameterBool("Shuffle");
+            param = new ParameterUint("Shuffle");
             iActionSetShuffle.AddInputParameter(param);
 
             iActionSeekSecondAbsolute = new OpenHome.Net.Core.Action("SeekSecondAbsolute");
@@ -811,7 +811,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aRepeat"></param>
-        public void SyncSetRepeat(bool aRepeat)
+        public void SyncSetRepeat(uint aRepeat)
         {
             SyncSetRepeatAvOpenhomeOrgTransport1 sync = new SyncSetRepeatAvOpenhomeOrgTransport1(this);
             BeginSetRepeat(aRepeat, sync.AsyncComplete());
@@ -828,11 +828,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aRepeat"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetRepeat(bool aRepeat, CallbackAsyncComplete aCallback)
+        public void BeginSetRepeat(uint aRepeat, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSetRepeat, aCallback);
             int inIndex = 0;
-            invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetRepeat.InputParameter(inIndex++), aRepeat));
+            invocation.AddInput(new ArgumentUint((ParameterUint)iActionSetRepeat.InputParameter(inIndex++), aRepeat));
             iService.InvokeAction(invocation);
         }
 
@@ -857,7 +857,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aShuffle"></param>
-        public void SyncSetShuffle(bool aShuffle)
+        public void SyncSetShuffle(uint aShuffle)
         {
             SyncSetShuffleAvOpenhomeOrgTransport1 sync = new SyncSetShuffleAvOpenhomeOrgTransport1(this);
             BeginSetShuffle(aShuffle, sync.AsyncComplete());
@@ -874,11 +874,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aShuffle"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetShuffle(bool aShuffle, CallbackAsyncComplete aCallback)
+        public void BeginSetShuffle(uint aShuffle, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSetShuffle, aCallback);
             int inIndex = 0;
-            invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetShuffle.InputParameter(inIndex++), aShuffle));
+            invocation.AddInput(new ArgumentUint((ParameterUint)iActionSetShuffle.InputParameter(inIndex++), aShuffle));
             iService.InvokeAction(invocation);
         }
 

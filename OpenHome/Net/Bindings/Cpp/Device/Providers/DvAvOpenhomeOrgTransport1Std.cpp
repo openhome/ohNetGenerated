@@ -283,7 +283,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionPrevious()
 void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionSetRepeat()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetRepeat");
-    action->AddInputParameter(new ParameterBool("Repeat"));
+    action->AddInputParameter(new ParameterUint("Repeat"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1Cpp::DoSetRepeat);
     iService->AddAction(action, functor);
 }
@@ -291,7 +291,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionSetRepeat()
 void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionSetShuffle()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetShuffle");
-    action->AddInputParameter(new ParameterBool("Shuffle"));
+    action->AddInputParameter(new ParameterUint("Shuffle"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1Cpp::DoSetShuffle);
     iService->AddAction(action, functor);
 }
@@ -444,7 +444,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoPrevious(IDviInvocation& aInvocatio
 void DvProviderAvOpenhomeOrgTransport1Cpp::DoSetRepeat(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    bool Repeat = aInvocation.InvocationReadBool("Repeat");
+    uint32_t Repeat = aInvocation.InvocationReadUint("Repeat");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
     SetRepeat(invocation, Repeat);
@@ -455,7 +455,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoSetRepeat(IDviInvocation& aInvocati
 void DvProviderAvOpenhomeOrgTransport1Cpp::DoSetShuffle(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    bool Shuffle = aInvocation.InvocationReadBool("Shuffle");
+    uint32_t Shuffle = aInvocation.InvocationReadUint("Shuffle");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
     SetShuffle(invocation, Shuffle);
@@ -627,12 +627,12 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::Previous(IDvInvocationStd& /*aInvocat
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::SetRepeat(IDvInvocationStd& /*aInvocation*/, bool /*aRepeat*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::SetRepeat(IDvInvocationStd& /*aInvocation*/, uint32_t /*aRepeat*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::SetShuffle(IDvInvocationStd& /*aInvocation*/, bool /*aShuffle*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::SetShuffle(IDvInvocationStd& /*aInvocation*/, uint32_t /*aShuffle*/)
 {
     ASSERTS();
 }

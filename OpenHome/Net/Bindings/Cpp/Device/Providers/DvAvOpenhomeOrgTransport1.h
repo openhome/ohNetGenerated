@@ -390,7 +390,7 @@ private:
      * SetRepeat action for the owning device.
      * Must be implemented iff EnableActionSetRepeat was called.
      */
-    virtual void SetRepeat(IDvInvocationStd& aInvocation, bool aRepeat);
+    virtual void SetRepeat(IDvInvocationStd& aInvocation, uint32_t aRepeat);
     /**
      * SetShuffle action.
      *
@@ -398,7 +398,7 @@ private:
      * SetShuffle action for the owning device.
      * Must be implemented iff EnableActionSetShuffle was called.
      */
-    virtual void SetShuffle(IDvInvocationStd& aInvocation, bool aShuffle);
+    virtual void SetShuffle(IDvInvocationStd& aInvocation, uint32_t aShuffle);
     /**
      * SeekSecondAbsolute action.
      *

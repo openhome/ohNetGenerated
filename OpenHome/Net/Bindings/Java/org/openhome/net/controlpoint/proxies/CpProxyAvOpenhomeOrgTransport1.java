@@ -28,11 +28,11 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public void syncPrevious();
     public void beginPrevious(ICpProxyListener aCallback);
     public void endPrevious(long aAsyncHandle);
-    public void syncSetRepeat(boolean aRepeat);
-    public void beginSetRepeat(boolean aRepeat, ICpProxyListener aCallback);
+    public void syncSetRepeat(long aRepeat);
+    public void beginSetRepeat(long aRepeat, ICpProxyListener aCallback);
     public void endSetRepeat(long aAsyncHandle);
-    public void syncSetShuffle(boolean aShuffle);
-    public void beginSetShuffle(boolean aShuffle, ICpProxyListener aCallback);
+    public void syncSetShuffle(long aShuffle);
+    public void beginSetShuffle(long aShuffle, ICpProxyListener aCallback);
     public void endSetShuffle(long aAsyncHandle);
     public void syncSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute);
     public void beginSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback);
@@ -556,11 +556,11 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         iActionPrevious = new Action("Previous");
 
         iActionSetRepeat = new Action("SetRepeat");
-        param = new ParameterBool("Repeat");
+        param = new ParameterUint("Repeat");
         iActionSetRepeat.addInputParameter(param);
 
         iActionSetShuffle = new Action("SetShuffle");
-        param = new ParameterBool("Shuffle");
+        param = new ParameterUint("Shuffle");
         iActionSetShuffle.addInputParameter(param);
 
         iActionSeekSecondAbsolute = new Action("SeekSecondAbsolute");
@@ -1000,7 +1000,7 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSetRepeat(boolean aRepeat)
+    public void syncSetRepeat(long aRepeat)
     {
         SyncSetRepeatAvOpenhomeOrgTransport1 sync = new SyncSetRepeatAvOpenhomeOrgTransport1(this);
         beginSetRepeat(aRepeat, sync.getListener());
@@ -1018,11 +1018,11 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSetRepeat(boolean aRepeat, ICpProxyListener aCallback)
+    public void beginSetRepeat(long aRepeat, ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionSetRepeat, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentBool((ParameterBool)iActionSetRepeat.getInputParameter(inIndex++), aRepeat));
+        invocation.addInput(new ArgumentUint((ParameterUint)iActionSetRepeat.getInputParameter(inIndex++), aRepeat));
         iService.invokeAction(invocation);
     }
 
@@ -1048,7 +1048,7 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSetShuffle(boolean aShuffle)
+    public void syncSetShuffle(long aShuffle)
     {
         SyncSetShuffleAvOpenhomeOrgTransport1 sync = new SyncSetShuffleAvOpenhomeOrgTransport1(this);
         beginSetShuffle(aShuffle, sync.getListener());
@@ -1066,11 +1066,11 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSetShuffle(boolean aShuffle, ICpProxyListener aCallback)
+    public void beginSetShuffle(long aShuffle, ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionSetShuffle, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentBool((ParameterBool)iActionSetShuffle.getInputParameter(inIndex++), aShuffle));
+        invocation.addInput(new ArgumentUint((ParameterUint)iActionSetShuffle.getInputParameter(inIndex++), aShuffle));
         iService.invokeAction(invocation);
     }
 
