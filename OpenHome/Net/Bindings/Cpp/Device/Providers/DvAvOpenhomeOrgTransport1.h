@@ -406,7 +406,7 @@ private:
      * SeekSecondAbsolute action for the owning device.
      * Must be implemented iff EnableActionSeekSecondAbsolute was called.
      */
-    virtual void SeekSecondAbsolute(IDvInvocationStd& aInvocation, uint32_t aStreamId, uint32_t aSecondsAbsolute);
+    virtual void SeekSecondAbsolute(IDvInvocationStd& aInvocation, uint32_t aStreamId, uint32_t aSecondAbsolute);
     /**
      * SeekSecondRelative action.
      *
@@ -414,7 +414,7 @@ private:
      * SeekSecondRelative action for the owning device.
      * Must be implemented iff EnableActionSeekSecondRelative was called.
      */
-    virtual void SeekSecondRelative(IDvInvocationStd& aInvocation, uint32_t aStreamId, int32_t aSecondsRelative);
+    virtual void SeekSecondRelative(IDvInvocationStd& aInvocation, uint32_t aStreamId, int32_t aSecondRelative);
     /**
      * TransportState action.
      *

@@ -766,7 +766,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     {
         Action action = new Action("SeekSecondAbsolute");
         action.addInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
-        action.addInputParameter(new ParameterUint("SecondsAbsolute"));
+        action.addInputParameter(new ParameterUint("SecondAbsolute"));
         iDelegateSeekSecondAbsolute = new DoSeekSecondAbsolute();
         enableAction(action, iDelegateSeekSecondAbsolute);
     }
@@ -781,7 +781,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     {
         Action action = new Action("SeekSecondRelative");
         action.addInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
-        action.addInputParameter(new ParameterInt("SecondsRelative"));
+        action.addInputParameter(new ParameterInt("SecondRelative"));
         iDelegateSeekSecondRelative = new DoSeekSecondRelative();
         enableAction(action, iDelegateSeekSecondRelative);
     }
@@ -1023,9 +1023,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aStreamId
-     * @param aSecondsAbsolute
+     * @param aSecondAbsolute
      */
-    protected void seekSecondAbsolute(IDvInvocation aInvocation, long aStreamId, long aSecondsAbsolute)
+    protected void seekSecondAbsolute(IDvInvocation aInvocation, long aStreamId, long aSecondAbsolute)
     {
         throw (new ActionDisabledError());
     }
@@ -1040,9 +1040,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aStreamId
-     * @param aSecondsRelative
+     * @param aSecondRelative
      */
-    protected void seekSecondRelative(IDvInvocation aInvocation, long aStreamId, int aSecondsRelative)
+    protected void seekSecondRelative(IDvInvocation aInvocation, long aStreamId, int aSecondRelative)
     {
         throw (new ActionDisabledError());
     }
@@ -1551,14 +1551,14 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
             long streamId;
-            long secondsAbsolute;
+            long secondAbsolute;
             try
             {
                 invocation.readStart();
                 streamId = invocation.readUint("StreamId");
-                secondsAbsolute = invocation.readUint("SecondsAbsolute");
+                secondAbsolute = invocation.readUint("SecondAbsolute");
                 invocation.readEnd();
-                seekSecondAbsolute(invocation, streamId, secondsAbsolute);
+                seekSecondAbsolute(invocation, streamId, secondAbsolute);
             }
             catch (ActionError ae)
             {
@@ -1601,14 +1601,14 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
             long streamId;
-            int secondsRelative;
+            int secondRelative;
             try
             {
                 invocation.readStart();
                 streamId = invocation.readUint("StreamId");
-                secondsRelative = invocation.readInt("SecondsRelative");
+                secondRelative = invocation.readInt("SecondRelative");
                 invocation.readEnd();
-                seekSecondRelative(invocation, streamId, secondsRelative);
+                seekSecondRelative(invocation, streamId, secondRelative);
             }
             catch (ActionError ae)
             {

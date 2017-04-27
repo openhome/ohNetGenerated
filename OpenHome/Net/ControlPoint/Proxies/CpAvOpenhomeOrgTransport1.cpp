@@ -436,13 +436,13 @@ CpProxyAvOpenhomeOrgTransport1::CpProxyAvOpenhomeOrgTransport1(CpDevice& aDevice
     iActionSeekSecondAbsolute = new Action("SeekSecondAbsolute");
     param = new OpenHome::Net::ParameterUint("StreamId");
     iActionSeekSecondAbsolute->AddInputParameter(param);
-    param = new OpenHome::Net::ParameterUint("SecondsAbsolute");
+    param = new OpenHome::Net::ParameterUint("SecondAbsolute");
     iActionSeekSecondAbsolute->AddInputParameter(param);
 
     iActionSeekSecondRelative = new Action("SeekSecondRelative");
     param = new OpenHome::Net::ParameterUint("StreamId");
     iActionSeekSecondRelative->AddInputParameter(param);
-    param = new OpenHome::Net::ParameterInt("SecondsRelative");
+    param = new OpenHome::Net::ParameterInt("SecondRelative");
     iActionSeekSecondRelative->AddInputParameter(param);
 
     iActionTransportState = new Action("TransportState");
@@ -775,20 +775,20 @@ void CpProxyAvOpenhomeOrgTransport1::EndSetShuffle(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute)
+void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute)
 {
     SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1 sync(*this);
-    BeginSeekSecondAbsolute(aStreamId, aSecondsAbsolute, sync.Functor());
+    BeginSeekSecondAbsolute(aStreamId, aSecondAbsolute, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute, FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondAbsolute, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekSecondAbsolute->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
-    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aSecondsAbsolute));
+    invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aSecondAbsolute));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
@@ -806,20 +806,20 @@ void CpProxyAvOpenhomeOrgTransport1::EndSeekSecondAbsolute(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative)
+void CpProxyAvOpenhomeOrgTransport1::SyncSeekSecondRelative(TUint aStreamId, TInt aSecondRelative)
 {
     SyncSeekSecondRelativeAvOpenhomeOrgTransport1 sync(*this);
-    BeginSeekSecondRelative(aStreamId, aSecondsRelative, sync.Functor());
+    BeginSeekSecondRelative(aStreamId, aSecondRelative, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative, FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1::BeginSeekSecondRelative(TUint aStreamId, TInt aSecondRelative, FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSeekSecondRelative, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSeekSecondRelative->InputParameters();
     invocation->AddInput(new ArgumentUint(*inParams[inIndex++], aStreamId));
-    invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aSecondsRelative));
+    invocation->AddInput(new ArgumentInt(*inParams[inIndex++], aSecondRelative));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 

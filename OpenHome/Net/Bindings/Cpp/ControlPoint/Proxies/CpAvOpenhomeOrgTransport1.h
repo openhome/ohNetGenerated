@@ -48,11 +48,11 @@ public:
     virtual void SyncSetShuffle(uint32_t aShuffle) = 0;
     virtual void BeginSetShuffle(uint32_t aShuffle, FunctorAsync& aFunctor) = 0;
     virtual void EndSetShuffle(IAsync& aAsync) = 0;
-    virtual void SyncSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute) = 0;
-    virtual void BeginSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondAbsolute) = 0;
+    virtual void BeginSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondAbsolute, FunctorAsync& aFunctor) = 0;
     virtual void EndSeekSecondAbsolute(IAsync& aAsync) = 0;
-    virtual void SyncSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative) = 0;
-    virtual void BeginSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSeekSecondRelative(uint32_t aStreamId, int32_t aSecondRelative) = 0;
+    virtual void BeginSeekSecondRelative(uint32_t aStreamId, int32_t aSecondRelative, FunctorAsync& aFunctor) = 0;
     virtual void EndSeekSecondRelative(IAsync& aAsync) = 0;
     virtual void SyncTransportState(std::string& aState) = 0;
     virtual void BeginTransportState(FunctorAsync& aFunctor) = 0;
@@ -324,9 +324,9 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[in]  aStreamId
-     * @param[in]  aSecondsAbsolute
+     * @param[in]  aSecondAbsolute
      */
-    void SyncSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute);
+    void SyncSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondAbsolute);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -334,11 +334,11 @@ public:
      * EndSeekSecondAbsolute().
      *
      * @param[in] aStreamId
-     * @param[in] aSecondsAbsolute
+     * @param[in] aSecondAbsolute
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondsAbsolute, FunctorAsync& aFunctor);
+    void BeginSeekSecondAbsolute(uint32_t aStreamId, uint32_t aSecondAbsolute, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -352,9 +352,9 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[in]  aStreamId
-     * @param[in]  aSecondsRelative
+     * @param[in]  aSecondRelative
      */
-    void SyncSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative);
+    void SyncSeekSecondRelative(uint32_t aStreamId, int32_t aSecondRelative);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -362,11 +362,11 @@ public:
      * EndSeekSecondRelative().
      *
      * @param[in] aStreamId
-     * @param[in] aSecondsRelative
+     * @param[in] aSecondRelative
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSeekSecondRelative(uint32_t aStreamId, int32_t aSecondsRelative, FunctorAsync& aFunctor);
+    void BeginSeekSecondRelative(uint32_t aStreamId, int32_t aSecondRelative, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.

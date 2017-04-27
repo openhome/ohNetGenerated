@@ -300,7 +300,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionSeekSecondAbsolute()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondAbsolute");
     action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
-    action->AddInputParameter(new ParameterUint("SecondsAbsolute"));
+    action->AddInputParameter(new ParameterUint("SecondAbsolute"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1Cpp::DoSeekSecondAbsolute);
     iService->AddAction(action, functor);
 }
@@ -309,7 +309,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::EnableActionSeekSecondRelative()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondRelative");
     action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
-    action->AddInputParameter(new ParameterInt("SecondsRelative"));
+    action->AddInputParameter(new ParameterInt("SecondRelative"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1Cpp::DoSeekSecondRelative);
     iService->AddAction(action, functor);
 }
@@ -467,10 +467,10 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoSeekSecondAbsolute(IDviInvocation& 
 {
     aInvocation.InvocationReadStart();
     uint32_t StreamId = aInvocation.InvocationReadUint("StreamId");
-    uint32_t SecondsAbsolute = aInvocation.InvocationReadUint("SecondsAbsolute");
+    uint32_t SecondAbsolute = aInvocation.InvocationReadUint("SecondAbsolute");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
-    SeekSecondAbsolute(invocation, StreamId, SecondsAbsolute);
+    SeekSecondAbsolute(invocation, StreamId, SecondAbsolute);
     aInvocation.InvocationWriteStart();
     aInvocation.InvocationWriteEnd();
 }
@@ -479,10 +479,10 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoSeekSecondRelative(IDviInvocation& 
 {
     aInvocation.InvocationReadStart();
     uint32_t StreamId = aInvocation.InvocationReadUint("StreamId");
-    int32_t SecondsRelative = aInvocation.InvocationReadInt("SecondsRelative");
+    int32_t SecondRelative = aInvocation.InvocationReadInt("SecondRelative");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
-    SeekSecondRelative(invocation, StreamId, SecondsRelative);
+    SeekSecondRelative(invocation, StreamId, SecondRelative);
     aInvocation.InvocationWriteStart();
     aInvocation.InvocationWriteEnd();
 }
@@ -637,12 +637,12 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::SetShuffle(IDvInvocationStd& /*aInvoc
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::SeekSecondAbsolute(IDvInvocationStd& /*aInvocation*/, uint32_t /*aStreamId*/, uint32_t /*aSecondsAbsolute*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::SeekSecondAbsolute(IDvInvocationStd& /*aInvocation*/, uint32_t /*aStreamId*/, uint32_t /*aSecondAbsolute*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::SeekSecondRelative(IDvInvocationStd& /*aInvocation*/, uint32_t /*aStreamId*/, int32_t /*aSecondsRelative*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::SeekSecondRelative(IDvInvocationStd& /*aInvocation*/, uint32_t /*aStreamId*/, int32_t /*aSecondRelative*/)
 {
     ASSERTS();
 }

@@ -34,11 +34,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSetShuffle(uint aShuffle);
         void BeginSetShuffle(uint aShuffle, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetShuffle(IntPtr aAsyncHandle);
-        void SyncSeekSecondAbsolute(uint aStreamId, uint aSecondsAbsolute);
-        void BeginSeekSecondAbsolute(uint aStreamId, uint aSecondsAbsolute, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSeekSecondAbsolute(uint aStreamId, uint aSecondAbsolute);
+        void BeginSeekSecondAbsolute(uint aStreamId, uint aSecondAbsolute, CpProxy.CallbackAsyncComplete aCallback);
         void EndSeekSecondAbsolute(IntPtr aAsyncHandle);
-        void SyncSeekSecondRelative(uint aStreamId, int aSecondsRelative);
-        void BeginSeekSecondRelative(uint aStreamId, int aSecondsRelative, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSeekSecondRelative(uint aStreamId, int aSecondRelative);
+        void BeginSeekSecondRelative(uint aStreamId, int aSecondRelative, CpProxy.CallbackAsyncComplete aCallback);
         void EndSeekSecondRelative(IntPtr aAsyncHandle);
         void SyncTransportState(out String aState);
         void BeginTransportState(CpProxy.CallbackAsyncComplete aCallback);
@@ -467,13 +467,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionSeekSecondAbsolute = new OpenHome.Net.Core.Action("SeekSecondAbsolute");
             param = new ParameterUint("StreamId");
             iActionSeekSecondAbsolute.AddInputParameter(param);
-            param = new ParameterUint("SecondsAbsolute");
+            param = new ParameterUint("SecondAbsolute");
             iActionSeekSecondAbsolute.AddInputParameter(param);
 
             iActionSeekSecondRelative = new OpenHome.Net.Core.Action("SeekSecondRelative");
             param = new ParameterUint("StreamId");
             iActionSeekSecondRelative.AddInputParameter(param);
-            param = new ParameterInt("SecondsRelative");
+            param = new ParameterInt("SecondRelative");
             iActionSeekSecondRelative.AddInputParameter(param);
 
             iActionTransportState = new OpenHome.Net.Core.Action("TransportState");
@@ -903,11 +903,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aStreamId"></param>
-        /// <param name="aSecondsAbsolute"></param>
-        public void SyncSeekSecondAbsolute(uint aStreamId, uint aSecondsAbsolute)
+        /// <param name="aSecondAbsolute"></param>
+        public void SyncSeekSecondAbsolute(uint aStreamId, uint aSecondAbsolute)
         {
             SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1 sync = new SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1(this);
-            BeginSeekSecondAbsolute(aStreamId, aSecondsAbsolute, sync.AsyncComplete());
+            BeginSeekSecondAbsolute(aStreamId, aSecondAbsolute, sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -919,15 +919,15 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// later completes.  Any output arguments can then be retrieved by calling
         /// EndSeekSecondAbsolute().</remarks>
         /// <param name="aStreamId"></param>
-        /// <param name="aSecondsAbsolute"></param>
+        /// <param name="aSecondAbsolute"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSeekSecondAbsolute(uint aStreamId, uint aSecondsAbsolute, CallbackAsyncComplete aCallback)
+        public void BeginSeekSecondAbsolute(uint aStreamId, uint aSecondAbsolute, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSeekSecondAbsolute, aCallback);
             int inIndex = 0;
             invocation.AddInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.InputParameter(inIndex++), aStreamId));
-            invocation.AddInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.InputParameter(inIndex++), aSecondsAbsolute));
+            invocation.AddInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.InputParameter(inIndex++), aSecondAbsolute));
             iService.InvokeAction(invocation);
         }
 
@@ -952,11 +952,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aStreamId"></param>
-        /// <param name="aSecondsRelative"></param>
-        public void SyncSeekSecondRelative(uint aStreamId, int aSecondsRelative)
+        /// <param name="aSecondRelative"></param>
+        public void SyncSeekSecondRelative(uint aStreamId, int aSecondRelative)
         {
             SyncSeekSecondRelativeAvOpenhomeOrgTransport1 sync = new SyncSeekSecondRelativeAvOpenhomeOrgTransport1(this);
-            BeginSeekSecondRelative(aStreamId, aSecondsRelative, sync.AsyncComplete());
+            BeginSeekSecondRelative(aStreamId, aSecondRelative, sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -968,15 +968,15 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// later completes.  Any output arguments can then be retrieved by calling
         /// EndSeekSecondRelative().</remarks>
         /// <param name="aStreamId"></param>
-        /// <param name="aSecondsRelative"></param>
+        /// <param name="aSecondRelative"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSeekSecondRelative(uint aStreamId, int aSecondsRelative, CallbackAsyncComplete aCallback)
+        public void BeginSeekSecondRelative(uint aStreamId, int aSecondRelative, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSeekSecondRelative, aCallback);
             int inIndex = 0;
             invocation.AddInput(new ArgumentUint((ParameterUint)iActionSeekSecondRelative.InputParameter(inIndex++), aStreamId));
-            invocation.AddInput(new ArgumentInt((ParameterInt)iActionSeekSecondRelative.InputParameter(inIndex++), aSecondsRelative));
+            invocation.AddInput(new ArgumentInt((ParameterInt)iActionSeekSecondRelative.InputParameter(inIndex++), aSecondRelative));
             iService.InvokeAction(invocation);
         }
 

@@ -439,7 +439,7 @@ void DvProviderAvOpenhomeOrgTransport1C::EnableActionSeekSecondAbsolute(Callback
     iPtrSeekSecondAbsolute = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondAbsolute");
     action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
-    action->AddInputParameter(new ParameterUint("SecondsAbsolute"));
+    action->AddInputParameter(new ParameterUint("SecondAbsolute"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1C::DoSeekSecondAbsolute);
     iService->AddAction(action, functor);
 }
@@ -450,7 +450,7 @@ void DvProviderAvOpenhomeOrgTransport1C::EnableActionSeekSecondRelative(Callback
     iPtrSeekSecondRelative = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SeekSecondRelative");
     action->AddInputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
-    action->AddInputParameter(new ParameterInt("SecondsRelative"));
+    action->AddInputParameter(new ParameterInt("SecondRelative"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1C::DoSeekSecondRelative);
     iService->AddAction(action, functor);
 }
@@ -688,11 +688,11 @@ void DvProviderAvOpenhomeOrgTransport1C::DoSeekSecondAbsolute(IDviInvocation& aI
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
     TUint StreamId = aInvocation.InvocationReadUint("StreamId");
-    TUint SecondsAbsolute = aInvocation.InvocationReadUint("SecondsAbsolute");
+    TUint SecondAbsolute = aInvocation.InvocationReadUint("SecondAbsolute");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSeekSecondAbsolute != NULL);
-    if (0 != iCallbackSeekSecondAbsolute(iPtrSeekSecondAbsolute, invocationC, invocationCPtr, StreamId, SecondsAbsolute)) {
+    if (0 != iCallbackSeekSecondAbsolute(iPtrSeekSecondAbsolute, invocationC, invocationCPtr, StreamId, SecondAbsolute)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
@@ -708,11 +708,11 @@ void DvProviderAvOpenhomeOrgTransport1C::DoSeekSecondRelative(IDviInvocation& aI
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
     TUint StreamId = aInvocation.InvocationReadUint("StreamId");
-    TInt SecondsRelative = aInvocation.InvocationReadInt("SecondsRelative");
+    TInt SecondRelative = aInvocation.InvocationReadInt("SecondRelative");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSeekSecondRelative != NULL);
-    if (0 != iCallbackSeekSecondRelative(iPtrSeekSecondRelative, invocationC, invocationCPtr, StreamId, SecondsRelative)) {
+    if (0 != iCallbackSeekSecondRelative(iPtrSeekSecondRelative, invocationC, invocationCPtr, StreamId, SecondRelative)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }

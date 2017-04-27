@@ -690,7 +690,7 @@ namespace OpenHome.Net.Device.Providers
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SeekSecondAbsolute");
             action.AddInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
-            action.AddInputParameter(new ParameterUint("SecondsAbsolute"));
+            action.AddInputParameter(new ParameterUint("SecondAbsolute"));
             iDelegateSeekSecondAbsolute = new ActionDelegate(DoSeekSecondAbsolute);
             EnableAction(action, iDelegateSeekSecondAbsolute, GCHandle.ToIntPtr(iGch));
         }
@@ -704,7 +704,7 @@ namespace OpenHome.Net.Device.Providers
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SeekSecondRelative");
             action.AddInputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
-            action.AddInputParameter(new ParameterInt("SecondsRelative"));
+            action.AddInputParameter(new ParameterInt("SecondRelative"));
             iDelegateSeekSecondRelative = new ActionDelegate(DoSeekSecondRelative);
             EnableAction(action, iDelegateSeekSecondRelative, GCHandle.ToIntPtr(iGch));
         }
@@ -922,8 +922,8 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionSeekSecondAbsolute was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aStreamId"></param>
-        /// <param name="aSecondsAbsolute"></param>
-        protected virtual void SeekSecondAbsolute(IDvInvocation aInvocation, uint aStreamId, uint aSecondsAbsolute)
+        /// <param name="aSecondAbsolute"></param>
+        protected virtual void SeekSecondAbsolute(IDvInvocation aInvocation, uint aStreamId, uint aSecondAbsolute)
         {
             throw (new ActionDisabledError());
         }
@@ -937,8 +937,8 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionSeekSecondRelative was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aStreamId"></param>
-        /// <param name="aSecondsRelative"></param>
-        protected virtual void SeekSecondRelative(IDvInvocation aInvocation, uint aStreamId, int aSecondsRelative)
+        /// <param name="aSecondRelative"></param>
+        protected virtual void SeekSecondRelative(IDvInvocation aInvocation, uint aStreamId, int aSecondRelative)
         {
             throw (new ActionDisabledError());
         }
@@ -1412,14 +1412,14 @@ namespace OpenHome.Net.Device.Providers
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
             uint streamId;
-            uint secondsAbsolute;
+            uint secondAbsolute;
             try
             {
                 invocation.ReadStart();
                 streamId = invocation.ReadUint("StreamId");
-                secondsAbsolute = invocation.ReadUint("SecondsAbsolute");
+                secondAbsolute = invocation.ReadUint("SecondAbsolute");
                 invocation.ReadEnd();
-                self.SeekSecondAbsolute(invocation, streamId, secondsAbsolute);
+                self.SeekSecondAbsolute(invocation, streamId, secondAbsolute);
             }
             catch (ActionError e)
             {
@@ -1460,14 +1460,14 @@ namespace OpenHome.Net.Device.Providers
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
             uint streamId;
-            int secondsRelative;
+            int secondRelative;
             try
             {
                 invocation.ReadStart();
                 streamId = invocation.ReadUint("StreamId");
-                secondsRelative = invocation.ReadInt("SecondsRelative");
+                secondRelative = invocation.ReadInt("SecondRelative");
                 invocation.ReadEnd();
-                self.SeekSecondRelative(invocation, streamId, secondsRelative);
+                self.SeekSecondRelative(invocation, streamId, secondRelative);
             }
             catch (ActionError e)
             {

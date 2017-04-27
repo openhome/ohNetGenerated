@@ -119,11 +119,11 @@ typedef int32_t (STDCALL *CallbackTransport1SetShuffle)(void* aPtr, IDvInvocatio
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[in]  aStreamId
- * @param[in]  aSecondsAbsolute
+ * @param[in]  aSecondAbsolute
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1SeekSecondAbsolute)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, uint32_t aSecondsAbsolute);
+typedef int32_t (STDCALL *CallbackTransport1SeekSecondAbsolute)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, uint32_t aSecondAbsolute);
 /**
  * Callback which runs when the SeekSecondRelative action is invoked
  *
@@ -132,11 +132,11 @@ typedef int32_t (STDCALL *CallbackTransport1SeekSecondAbsolute)(void* aPtr, IDvI
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[in]  aStreamId
- * @param[in]  aSecondsRelative
+ * @param[in]  aSecondRelative
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1SeekSecondRelative)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, int32_t aSecondsRelative);
+typedef int32_t (STDCALL *CallbackTransport1SeekSecondRelative)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aStreamId, int32_t aSecondRelative);
 /**
  * Callback which runs when the TransportState action is invoked
  *

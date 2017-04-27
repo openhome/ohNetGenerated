@@ -370,14 +370,14 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SetShuffle = function(Shuffle, successF
 * A service action to SeekSecondAbsolute
 * @method SeekSecondAbsolute
 * @param {Int} StreamId An action parameter
-* @param {Int} SecondsAbsolute An action parameter
+* @param {Int} SecondAbsolute An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondAbsolute = function(StreamId, SecondsAbsolute, successFunction, errorFunction){ 
+CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondAbsolute = function(StreamId, SecondAbsolute, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SeekSecondAbsolute", this.url, this.domain, this.type, this.version);     
     request.writeIntParameter("StreamId", StreamId);
-    request.writeIntParameter("SecondsAbsolute", SecondsAbsolute);
+    request.writeIntParameter("SecondAbsolute", SecondAbsolute);
     request.send(function(result){
     
         if (successFunction){
@@ -393,14 +393,14 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondAbsolute = function(StreamId,
 * A service action to SeekSecondRelative
 * @method SeekSecondRelative
 * @param {Int} StreamId An action parameter
-* @param {Int} SecondsRelative An action parameter
+* @param {Int} SecondRelative An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondRelative = function(StreamId, SecondsRelative, successFunction, errorFunction){ 
+CpProxyAvOpenhomeOrgTransport1.prototype.SeekSecondRelative = function(StreamId, SecondRelative, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SeekSecondRelative", this.url, this.domain, this.type, this.version);     
     request.writeIntParameter("StreamId", StreamId);
-    request.writeIntParameter("SecondsRelative", SecondsRelative);
+    request.writeIntParameter("SecondRelative", SecondRelative);
     request.send(function(result){
     
         if (successFunction){

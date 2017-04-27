@@ -47,11 +47,11 @@ public:
     virtual void SyncSetShuffle(TUint aShuffle) = 0;
     virtual void BeginSetShuffle(TUint aShuffle, FunctorAsync& aFunctor) = 0;
     virtual void EndSetShuffle(IAsync& aAsync) = 0;
-    virtual void SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute) = 0;
-    virtual void BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute) = 0;
+    virtual void BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute, FunctorAsync& aFunctor) = 0;
     virtual void EndSeekSecondAbsolute(IAsync& aAsync) = 0;
-    virtual void SyncSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative) = 0;
-    virtual void BeginSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSeekSecondRelative(TUint aStreamId, TInt aSecondRelative) = 0;
+    virtual void BeginSeekSecondRelative(TUint aStreamId, TInt aSecondRelative, FunctorAsync& aFunctor) = 0;
     virtual void EndSeekSecondRelative(IAsync& aAsync) = 0;
     virtual void SyncTransportState(Brh& aState) = 0;
     virtual void BeginTransportState(FunctorAsync& aFunctor) = 0;
@@ -323,9 +323,9 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[in]  aStreamId
-     * @param[in]  aSecondsAbsolute
+     * @param[in]  aSecondAbsolute
      */
-    void SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute);
+    void SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -333,11 +333,11 @@ public:
      * EndSeekSecondAbsolute().
      *
      * @param[in] aStreamId
-     * @param[in] aSecondsAbsolute
+     * @param[in] aSecondAbsolute
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondsAbsolute, FunctorAsync& aFunctor);
+    void BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -351,9 +351,9 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[in]  aStreamId
-     * @param[in]  aSecondsRelative
+     * @param[in]  aSecondRelative
      */
-    void SyncSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative);
+    void SyncSeekSecondRelative(TUint aStreamId, TInt aSecondRelative);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -361,11 +361,11 @@ public:
      * EndSeekSecondRelative().
      *
      * @param[in] aStreamId
-     * @param[in] aSecondsRelative
+     * @param[in] aSecondRelative
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSeekSecondRelative(TUint aStreamId, TInt aSecondsRelative, FunctorAsync& aFunctor);
+    void BeginSeekSecondRelative(TUint aStreamId, TInt aSecondRelative, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.

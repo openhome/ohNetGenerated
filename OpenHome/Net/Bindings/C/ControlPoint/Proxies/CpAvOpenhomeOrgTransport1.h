@@ -328,12 +328,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSetShuffle(THandle aH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
  * @param[in]  aStreamId
- * @param[in]  aSecondsAbsolute
+ * @param[in]  aSecondAbsolute
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondsAbsolute);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondAbsolute);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -342,12 +342,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondAbsolute(T
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
  * @param[in]  aStreamId
- * @param[in]  aSecondsAbsolute
+ * @param[in]  aSecondAbsolute
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondsAbsolute, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondAbsolute(THandle aHandle, uint32_t aStreamId, uint32_t aSecondAbsolute, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -366,12 +366,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1EndSeekSecondAbsolute(TH
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
  * @param[in]  aStreamId
- * @param[in]  aSecondsRelative
+ * @param[in]  aSecondRelative
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondsRelative);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondRelative);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -380,12 +380,12 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgTransport1SyncSeekSecondRelative(T
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgTransport1Create
  * @param[in]  aStreamId
- * @param[in]  aSecondsRelative
+ * @param[in]  aSecondRelative
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondsRelative, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgTransport1BeginSeekSecondRelative(THandle aHandle, uint32_t aStreamId, int32_t aSecondRelative, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.

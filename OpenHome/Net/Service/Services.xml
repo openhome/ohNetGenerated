@@ -206,6 +206,13 @@
     <publisher>OpenHome</publisher>
     <dcpdir></dcpdir>
     <domain>av.openhome.org</domain>
+    <type>Sender</type>
+    <version>2</version>
+  </service>
+  <service>
+    <publisher>OpenHome</publisher>
+    <dcpdir></dcpdir>
+    <domain>av.openhome.org</domain>
     <type>Debug</type>
     <version>1</version>
   </service>

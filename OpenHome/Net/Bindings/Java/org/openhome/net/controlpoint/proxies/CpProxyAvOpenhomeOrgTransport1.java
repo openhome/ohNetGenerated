@@ -34,11 +34,11 @@ interface ICpProxyAvOpenhomeOrgTransport1 extends ICpProxy
     public void syncSetShuffle(long aShuffle);
     public void beginSetShuffle(long aShuffle, ICpProxyListener aCallback);
     public void endSetShuffle(long aAsyncHandle);
-    public void syncSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute);
-    public void beginSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback);
+    public void syncSeekSecondAbsolute(long aStreamId, long aSecondAbsolute);
+    public void beginSeekSecondAbsolute(long aStreamId, long aSecondAbsolute, ICpProxyListener aCallback);
     public void endSeekSecondAbsolute(long aAsyncHandle);
-    public void syncSeekSecondRelative(long aStreamId, int aSecondsRelative);
-    public void beginSeekSecondRelative(long aStreamId, int aSecondsRelative, ICpProxyListener aCallback);
+    public void syncSeekSecondRelative(long aStreamId, int aSecondRelative);
+    public void beginSeekSecondRelative(long aStreamId, int aSecondRelative, ICpProxyListener aCallback);
     public void endSeekSecondRelative(long aAsyncHandle);
     public String syncTransportState();
     public void beginTransportState(ICpProxyListener aCallback);
@@ -566,13 +566,13 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
         iActionSeekSecondAbsolute = new Action("SeekSecondAbsolute");
         param = new ParameterUint("StreamId");
         iActionSeekSecondAbsolute.addInputParameter(param);
-        param = new ParameterUint("SecondsAbsolute");
+        param = new ParameterUint("SecondAbsolute");
         iActionSeekSecondAbsolute.addInputParameter(param);
 
         iActionSeekSecondRelative = new Action("SeekSecondRelative");
         param = new ParameterUint("StreamId");
         iActionSeekSecondRelative.addInputParameter(param);
-        param = new ParameterInt("SecondsRelative");
+        param = new ParameterInt("SecondRelative");
         iActionSeekSecondRelative.addInputParameter(param);
 
         iActionTransportState = new Action("TransportState");
@@ -1096,10 +1096,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute)
+    public void syncSeekSecondAbsolute(long aStreamId, long aSecondAbsolute)
     {
         SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1 sync = new SyncSeekSecondAbsoluteAvOpenhomeOrgTransport1(this);
-        beginSeekSecondAbsolute(aStreamId, aSecondsAbsolute, sync.getListener());
+        beginSeekSecondAbsolute(aStreamId, aSecondAbsolute, sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -1111,16 +1111,16 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * calling {@link #endSeekSecondAbsolute}.
      * 
      * @param aStreamId
-     * @param aSecondsAbsolute
+     * @param aSecondAbsolute
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSeekSecondAbsolute(long aStreamId, long aSecondsAbsolute, ICpProxyListener aCallback)
+    public void beginSeekSecondAbsolute(long aStreamId, long aSecondAbsolute, ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionSeekSecondAbsolute, aCallback);
         int inIndex = 0;
         invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.getInputParameter(inIndex++), aStreamId));
-        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.getInputParameter(inIndex++), aSecondsAbsolute));
+        invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondAbsolute.getInputParameter(inIndex++), aSecondAbsolute));
         iService.invokeAction(invocation);
     }
 
@@ -1146,10 +1146,10 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSeekSecondRelative(long aStreamId, int aSecondsRelative)
+    public void syncSeekSecondRelative(long aStreamId, int aSecondRelative)
     {
         SyncSeekSecondRelativeAvOpenhomeOrgTransport1 sync = new SyncSeekSecondRelativeAvOpenhomeOrgTransport1(this);
-        beginSeekSecondRelative(aStreamId, aSecondsRelative, sync.getListener());
+        beginSeekSecondRelative(aStreamId, aSecondRelative, sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -1161,16 +1161,16 @@ public class CpProxyAvOpenhomeOrgTransport1 extends CpProxy implements ICpProxyA
      * calling {@link #endSeekSecondRelative}.
      * 
      * @param aStreamId
-     * @param aSecondsRelative
+     * @param aSecondRelative
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSeekSecondRelative(long aStreamId, int aSecondsRelative, ICpProxyListener aCallback)
+    public void beginSeekSecondRelative(long aStreamId, int aSecondRelative, ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionSeekSecondRelative, aCallback);
         int inIndex = 0;
         invocation.addInput(new ArgumentUint((ParameterUint)iActionSeekSecondRelative.getInputParameter(inIndex++), aStreamId));
-        invocation.addInput(new ArgumentInt((ParameterInt)iActionSeekSecondRelative.getInputParameter(inIndex++), aSecondsRelative));
+        invocation.addInput(new ArgumentInt((ParameterInt)iActionSeekSecondRelative.getInputParameter(inIndex++), aSecondRelative));
         iService.invokeAction(invocation);
     }
 
