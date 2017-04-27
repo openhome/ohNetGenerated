@@ -66,27 +66,27 @@ typedef int32_t (STDCALL *CallbackTransport1Pause)(void* aPtr, IDvInvocationC* a
  */
 typedef int32_t (STDCALL *CallbackTransport1Stop)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
- * Callback which runs when the Next action is invoked
+ * Callback which runs when the SkipNext action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionNext
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSkipNext
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1Next)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
+typedef int32_t (STDCALL *CallbackTransport1SkipNext)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
- * Callback which runs when the Previous action is invoked
+ * Callback which runs when the SkipPrevious action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionPrevious
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgTransport1EnableActionSkipPrevious
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1Previous)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
+typedef int32_t (STDCALL *CallbackTransport1SkipPrevious)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
  * Callback which runs when the SetRepeat action is invoked
  *
@@ -168,14 +168,14 @@ typedef int32_t (STDCALL *CallbackTransport1Modes)(void* aPtr, IDvInvocationC* a
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[out] aNextAvailable
- * @param[out] aPreviousAvailable
- * @param[out] aRepeatAvailable
- * @param[out] aShuffleAvailable
+ * @param[out] aCanSkipNext
+ * @param[out] aCanSkipPrevious
+ * @param[out] aCanRepeat
+ * @param[out] aCanShuffle
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1ModeInfo)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aNextAvailable, uint32_t* aPreviousAvailable, uint32_t* aRepeatAvailable, uint32_t* aShuffleAvailable);
+typedef int32_t (STDCALL *CallbackTransport1ModeInfo)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aCanSkipNext, uint32_t* aCanSkipPrevious, uint32_t* aCanRepeat, uint32_t* aCanShuffle);
 /**
  * Callback which runs when the StreamInfo action is invoked
  *
@@ -184,12 +184,12 @@ typedef int32_t (STDCALL *CallbackTransport1ModeInfo)(void* aPtr, IDvInvocationC
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[out] aStreamId
- * @param[out] aSeekable
- * @param[out] aPausable
+ * @param[out] aCanSeek
+ * @param[out] aCanPause
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackTransport1StreamInfo)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aStreamId, uint32_t* aSeekable, uint32_t* aPausable);
+typedef int32_t (STDCALL *CallbackTransport1StreamInfo)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aStreamId, uint32_t* aCanSeek, uint32_t* aCanPause);
 /**
  * Callback which runs when the StreamId action is invoked
  *
@@ -248,33 +248,33 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1Destroy(THandle aProvide
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyModes(THandle aProvider);
 /**
- * Enable the NextAvailable property.
+ * Enable the CanSkipNext property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyNextAvailable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSkipNext(THandle aProvider);
 /**
- * Enable the PreviousAvailable property.
+ * Enable the CanSkipPrevious property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyPreviousAvailable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSkipPrevious(THandle aProvider);
 /**
- * Enable the RepeatAvailable property.
+ * Enable the CanRepeat property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyRepeatAvailable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyCanRepeat(THandle aProvider);
 /**
- * Enable the ShuffleAvailable property.
+ * Enable the CanShuffle property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffleAvailable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyCanShuffle(THandle aProvider);
 /**
  * Enable the StreamId property.
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyStreamId(THandle aProvider);
 /**
- * Enable the Seekable property.
+ * Enable the CanSeek property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertySeekable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSeek(THandle aProvider);
 /**
- * Enable the Pausable property.
+ * Enable the CanPause property.
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyPausable(THandle aProvider);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyCanPause(THandle aProvider);
 /**
  * Enable the TransportState property.
  */
@@ -333,7 +333,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionPause(THandl
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionStop(THandle aProvider, CallbackTransport1Stop aCallback, void* aPtr);
 /**
- * Register a callback for the action Next
+ * Register a callback for the action SkipNext
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -342,9 +342,9 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionStop(THandle
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionNext(THandle aProvider, CallbackTransport1Next aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSkipNext(THandle aProvider, CallbackTransport1SkipNext aCallback, void* aPtr);
 /**
- * Register a callback for the action Previous
+ * Register a callback for the action SkipPrevious
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -353,7 +353,7 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionNext(THandle
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionPrevious(THandle aProvider, CallbackTransport1Previous aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1EnableActionSkipPrevious(THandle aProvider, CallbackTransport1SkipPrevious aCallback, void* aPtr);
 /**
  * Register a callback for the action SetRepeat
  *
@@ -499,31 +499,9 @@ DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyModes(THan
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyModes(THandle aProvider, char** aValue);
 /**
- * Set the value of the NextAvailable property
+ * Set the value of the CanSkipNext property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyNextAvailable has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
- * @param[in]  aValue     New value for the property
- * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
- *
- * @return  0 if the property was successfully set; non-zero if there was an error (including
- *          an attempt to set a property to a value not in its allowed range/set)
- */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyNextAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
-/**
- * Get a copy of the value of the NextAvailable property
- *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyNextAvailable has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
- * @param[out] aValue     Value for the property
- */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyNextAvailable(THandle aProvider, uint32_t* aValue);
-/**
- * Set the value of the PreviousAvailable property
- *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPreviousAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSkipNext has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[in]  aValue     New value for the property
@@ -532,20 +510,20 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyNextAvailable
  * @return  0 if the property was successfully set; non-zero if there was an error (including
  *          an attempt to set a property to a value not in its allowed range/set)
  */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyPreviousAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyCanSkipNext(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
 /**
- * Get a copy of the value of the PreviousAvailable property
+ * Get a copy of the value of the CanSkipNext property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPreviousAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSkipNext has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[out] aValue     Value for the property
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyPreviousAvailable(THandle aProvider, uint32_t* aValue);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyCanSkipNext(THandle aProvider, uint32_t* aValue);
 /**
- * Set the value of the RepeatAvailable property
+ * Set the value of the CanSkipPrevious property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyRepeatAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSkipPrevious has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[in]  aValue     New value for the property
@@ -554,20 +532,20 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyPreviousAvail
  * @return  0 if the property was successfully set; non-zero if there was an error (including
  *          an attempt to set a property to a value not in its allowed range/set)
  */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyRepeatAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyCanSkipPrevious(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
 /**
- * Get a copy of the value of the RepeatAvailable property
+ * Get a copy of the value of the CanSkipPrevious property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyRepeatAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSkipPrevious has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[out] aValue     Value for the property
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRepeatAvailable(THandle aProvider, uint32_t* aValue);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyCanSkipPrevious(THandle aProvider, uint32_t* aValue);
 /**
- * Set the value of the ShuffleAvailable property
+ * Set the value of the CanRepeat property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffleAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanRepeat has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[in]  aValue     New value for the property
@@ -576,16 +554,38 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRepeatAvailab
  * @return  0 if the property was successfully set; non-zero if there was an error (including
  *          an attempt to set a property to a value not in its allowed range/set)
  */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyShuffleAvailable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyCanRepeat(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
 /**
- * Get a copy of the value of the ShuffleAvailable property
+ * Get a copy of the value of the CanRepeat property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyShuffleAvailable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanRepeat has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[out] aValue     Value for the property
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyShuffleAvailable(THandle aProvider, uint32_t* aValue);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyCanRepeat(THandle aProvider, uint32_t* aValue);
+/**
+ * Set the value of the CanShuffle property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanShuffle has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
+ * @param[in]  aValue     New value for the property
+ * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
+ *
+ * @return  0 if the property was successfully set; non-zero if there was an error (including
+ *          an attempt to set a property to a value not in its allowed range/set)
+ */
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyCanShuffle(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+/**
+ * Get a copy of the value of the CanShuffle property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanShuffle has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
+ * @param[out] aValue     Value for the property
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyCanShuffle(THandle aProvider, uint32_t* aValue);
 /**
  * Set the value of the StreamId property
  *
@@ -609,31 +609,9 @@ DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyStreamId(T
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyStreamId(THandle aProvider, uint32_t* aValue);
 /**
- * Set the value of the Seekable property
+ * Set the value of the CanSeek property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertySeekable has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
- * @param[in]  aValue     New value for the property
- * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
- *
- * @return  0 if the property was successfully set; non-zero if there was an error (including
- *          an attempt to set a property to a value not in its allowed range/set)
- */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertySeekable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
-/**
- * Get a copy of the value of the Seekable property
- *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertySeekable has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
- * @param[out] aValue     Value for the property
- */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertySeekable(THandle aProvider, uint32_t* aValue);
-/**
- * Set the value of the Pausable property
- *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPausable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSeek has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[in]  aValue     New value for the property
@@ -642,16 +620,38 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertySeekable(THan
  * @return  0 if the property was successfully set; non-zero if there was an error (including
  *          an attempt to set a property to a value not in its allowed range/set)
  */
-DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyPausable(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyCanSeek(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
 /**
- * Get a copy of the value of the Pausable property
+ * Get a copy of the value of the CanSeek property
  *
- * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyPausable has previously been called.
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanSeek has previously been called.
  *
  * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
  * @param[out] aValue     Value for the property
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyPausable(THandle aProvider, uint32_t* aValue);
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyCanSeek(THandle aProvider, uint32_t* aValue);
+/**
+ * Set the value of the CanPause property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanPause has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
+ * @param[in]  aValue     New value for the property
+ * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
+ *
+ * @return  0 if the property was successfully set; non-zero if there was an error (including
+ *          an attempt to set a property to a value not in its allowed range/set)
+ */
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyCanPause(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+/**
+ * Get a copy of the value of the CanPause property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgTransport1EnablePropertyCanPause has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgTransport1Create
+ * @param[out] aValue     Value for the property
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyCanPause(THandle aProvider, uint32_t* aValue);
 /**
  * Set the value of the TransportState property
  *

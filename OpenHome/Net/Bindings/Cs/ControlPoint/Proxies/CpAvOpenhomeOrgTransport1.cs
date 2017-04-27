@@ -22,12 +22,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncStop();
         void BeginStop(CpProxy.CallbackAsyncComplete aCallback);
         void EndStop(IntPtr aAsyncHandle);
-        void SyncNext();
-        void BeginNext(CpProxy.CallbackAsyncComplete aCallback);
-        void EndNext(IntPtr aAsyncHandle);
-        void SyncPrevious();
-        void BeginPrevious(CpProxy.CallbackAsyncComplete aCallback);
-        void EndPrevious(IntPtr aAsyncHandle);
+        void SyncSkipNext();
+        void BeginSkipNext(CpProxy.CallbackAsyncComplete aCallback);
+        void EndSkipNext(IntPtr aAsyncHandle);
+        void SyncSkipPrevious();
+        void BeginSkipPrevious(CpProxy.CallbackAsyncComplete aCallback);
+        void EndSkipPrevious(IntPtr aAsyncHandle);
         void SyncSetRepeat(uint aRepeat);
         void BeginSetRepeat(uint aRepeat, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetRepeat(IntPtr aAsyncHandle);
@@ -46,12 +46,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncModes(out String aModes);
         void BeginModes(CpProxy.CallbackAsyncComplete aCallback);
         void EndModes(IntPtr aAsyncHandle, out String aModes);
-        void SyncModeInfo(out bool aNextAvailable, out bool aPreviousAvailable, out bool aRepeatAvailable, out bool aShuffleAvailable);
+        void SyncModeInfo(out bool aCanSkipNext, out bool aCanSkipPrevious, out bool aCanRepeat, out bool aCanShuffle);
         void BeginModeInfo(CpProxy.CallbackAsyncComplete aCallback);
-        void EndModeInfo(IntPtr aAsyncHandle, out bool aNextAvailable, out bool aPreviousAvailable, out bool aRepeatAvailable, out bool aShuffleAvailable);
-        void SyncStreamInfo(out uint aStreamId, out bool aSeekable, out bool aPausable);
+        void EndModeInfo(IntPtr aAsyncHandle, out bool aCanSkipNext, out bool aCanSkipPrevious, out bool aCanRepeat, out bool aCanShuffle);
+        void SyncStreamInfo(out uint aStreamId, out bool aCanSeek, out bool aCanPause);
         void BeginStreamInfo(CpProxy.CallbackAsyncComplete aCallback);
-        void EndStreamInfo(IntPtr aAsyncHandle, out uint aStreamId, out bool aSeekable, out bool aPausable);
+        void EndStreamInfo(IntPtr aAsyncHandle, out uint aStreamId, out bool aCanSeek, out bool aCanPause);
         void SyncStreamId(out uint aStreamId);
         void BeginStreamId(CpProxy.CallbackAsyncComplete aCallback);
         void EndStreamId(IntPtr aAsyncHandle, out uint aStreamId);
@@ -63,20 +63,20 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void EndShuffle(IntPtr aAsyncHandle, out uint aShuffle);
         void SetPropertyModesChanged(System.Action aModesChanged);
         String PropertyModes();
-        void SetPropertyNextAvailableChanged(System.Action aNextAvailableChanged);
-        bool PropertyNextAvailable();
-        void SetPropertyPreviousAvailableChanged(System.Action aPreviousAvailableChanged);
-        bool PropertyPreviousAvailable();
-        void SetPropertyRepeatAvailableChanged(System.Action aRepeatAvailableChanged);
-        bool PropertyRepeatAvailable();
-        void SetPropertyShuffleAvailableChanged(System.Action aShuffleAvailableChanged);
-        bool PropertyShuffleAvailable();
+        void SetPropertyCanSkipNextChanged(System.Action aCanSkipNextChanged);
+        bool PropertyCanSkipNext();
+        void SetPropertyCanSkipPreviousChanged(System.Action aCanSkipPreviousChanged);
+        bool PropertyCanSkipPrevious();
+        void SetPropertyCanRepeatChanged(System.Action aCanRepeatChanged);
+        bool PropertyCanRepeat();
+        void SetPropertyCanShuffleChanged(System.Action aCanShuffleChanged);
+        bool PropertyCanShuffle();
         void SetPropertyStreamIdChanged(System.Action aStreamIdChanged);
         uint PropertyStreamId();
-        void SetPropertySeekableChanged(System.Action aSeekableChanged);
-        bool PropertySeekable();
-        void SetPropertyPausableChanged(System.Action aPausableChanged);
-        bool PropertyPausable();
+        void SetPropertyCanSeekChanged(System.Action aCanSeekChanged);
+        bool PropertyCanSeek();
+        void SetPropertyCanPauseChanged(System.Action aCanPauseChanged);
+        bool PropertyCanPause();
         void SetPropertyTransportStateChanged(System.Action aTransportStateChanged);
         String PropertyTransportState();
         void SetPropertyRepeatChanged(System.Action aRepeatChanged);
@@ -141,31 +141,31 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
-    internal class SyncNextAvOpenhomeOrgTransport1 : SyncProxyAction
+    internal class SyncSkipNextAvOpenhomeOrgTransport1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgTransport1 iService;
 
-        public SyncNextAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+        public SyncSkipNextAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
         {
             iService = aProxy;
         }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndNext(aAsyncHandle);
+            iService.EndSkipNext(aAsyncHandle);
         }
     };
 
-    internal class SyncPreviousAvOpenhomeOrgTransport1 : SyncProxyAction
+    internal class SyncSkipPreviousAvOpenhomeOrgTransport1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgTransport1 iService;
 
-        public SyncPreviousAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
+        public SyncSkipPreviousAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
         {
             iService = aProxy;
         }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndPrevious(aAsyncHandle);
+            iService.EndSkipPrevious(aAsyncHandle);
         }
     };
 
@@ -266,34 +266,34 @@ namespace OpenHome.Net.ControlPoint.Proxies
     internal class SyncModeInfoAvOpenhomeOrgTransport1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgTransport1 iService;
-        private bool iNextAvailable;
-        private bool iPreviousAvailable;
-        private bool iRepeatAvailable;
-        private bool iShuffleAvailable;
+        private bool iCanSkipNext;
+        private bool iCanSkipPrevious;
+        private bool iCanRepeat;
+        private bool iCanShuffle;
 
         public SyncModeInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
         {
             iService = aProxy;
         }
-        public bool NextAvailable()
+        public bool CanSkipNext()
         {
-            return iNextAvailable;
+            return iCanSkipNext;
         }
-        public bool PreviousAvailable()
+        public bool CanSkipPrevious()
         {
-            return iPreviousAvailable;
+            return iCanSkipPrevious;
         }
-        public bool RepeatAvailable()
+        public bool CanRepeat()
         {
-            return iRepeatAvailable;
+            return iCanRepeat;
         }
-        public bool ShuffleAvailable()
+        public bool CanShuffle()
         {
-            return iShuffleAvailable;
+            return iCanShuffle;
         }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndModeInfo(aAsyncHandle, out iNextAvailable, out iPreviousAvailable, out iRepeatAvailable, out iShuffleAvailable);
+            iService.EndModeInfo(aAsyncHandle, out iCanSkipNext, out iCanSkipPrevious, out iCanRepeat, out iCanShuffle);
         }
     };
 
@@ -301,8 +301,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
     {
         private CpProxyAvOpenhomeOrgTransport1 iService;
         private uint iStreamId;
-        private bool iSeekable;
-        private bool iPausable;
+        private bool iCanSeek;
+        private bool iCanPause;
 
         public SyncStreamInfoAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
         {
@@ -312,17 +312,17 @@ namespace OpenHome.Net.ControlPoint.Proxies
         {
             return iStreamId;
         }
-        public bool Seekable()
+        public bool CanSeek()
         {
-            return iSeekable;
+            return iCanSeek;
         }
-        public bool Pausable()
+        public bool CanPause()
         {
-            return iPausable;
+            return iCanPause;
         }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndStreamInfo(aAsyncHandle, out iStreamId, out iSeekable, out iPausable);
+            iService.EndStreamInfo(aAsyncHandle, out iStreamId, out iCanSeek, out iCanPause);
         }
     };
 
@@ -392,8 +392,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionPlay;
         private OpenHome.Net.Core.Action iActionPause;
         private OpenHome.Net.Core.Action iActionStop;
-        private OpenHome.Net.Core.Action iActionNext;
-        private OpenHome.Net.Core.Action iActionPrevious;
+        private OpenHome.Net.Core.Action iActionSkipNext;
+        private OpenHome.Net.Core.Action iActionSkipPrevious;
         private OpenHome.Net.Core.Action iActionSetRepeat;
         private OpenHome.Net.Core.Action iActionSetShuffle;
         private OpenHome.Net.Core.Action iActionSeekSecondAbsolute;
@@ -406,24 +406,24 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionRepeat;
         private OpenHome.Net.Core.Action iActionShuffle;
         private PropertyString iModes;
-        private PropertyBool iNextAvailable;
-        private PropertyBool iPreviousAvailable;
-        private PropertyBool iRepeatAvailable;
-        private PropertyBool iShuffleAvailable;
+        private PropertyBool iCanSkipNext;
+        private PropertyBool iCanSkipPrevious;
+        private PropertyBool iCanRepeat;
+        private PropertyBool iCanShuffle;
         private PropertyUint iStreamId;
-        private PropertyBool iSeekable;
-        private PropertyBool iPausable;
+        private PropertyBool iCanSeek;
+        private PropertyBool iCanPause;
         private PropertyString iTransportState;
         private PropertyUint iRepeat;
         private PropertyUint iShuffle;
         private System.Action iModesChanged;
-        private System.Action iNextAvailableChanged;
-        private System.Action iPreviousAvailableChanged;
-        private System.Action iRepeatAvailableChanged;
-        private System.Action iShuffleAvailableChanged;
+        private System.Action iCanSkipNextChanged;
+        private System.Action iCanSkipPreviousChanged;
+        private System.Action iCanRepeatChanged;
+        private System.Action iCanShuffleChanged;
         private System.Action iStreamIdChanged;
-        private System.Action iSeekableChanged;
-        private System.Action iPausableChanged;
+        private System.Action iCanSeekChanged;
+        private System.Action iCanPauseChanged;
         private System.Action iTransportStateChanged;
         private System.Action iRepeatChanged;
         private System.Action iShuffleChanged;
@@ -452,9 +452,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
 
             iActionStop = new OpenHome.Net.Core.Action("Stop");
 
-            iActionNext = new OpenHome.Net.Core.Action("Next");
+            iActionSkipNext = new OpenHome.Net.Core.Action("SkipNext");
 
-            iActionPrevious = new OpenHome.Net.Core.Action("Previous");
+            iActionSkipPrevious = new OpenHome.Net.Core.Action("SkipPrevious");
 
             iActionSetRepeat = new OpenHome.Net.Core.Action("SetRepeat");
             param = new ParameterUint("Repeat");
@@ -491,21 +491,21 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionModes.AddOutputParameter(param);
 
             iActionModeInfo = new OpenHome.Net.Core.Action("ModeInfo");
-            param = new ParameterBool("NextAvailable");
+            param = new ParameterBool("CanSkipNext");
             iActionModeInfo.AddOutputParameter(param);
-            param = new ParameterBool("PreviousAvailable");
+            param = new ParameterBool("CanSkipPrevious");
             iActionModeInfo.AddOutputParameter(param);
-            param = new ParameterBool("RepeatAvailable");
+            param = new ParameterBool("CanRepeat");
             iActionModeInfo.AddOutputParameter(param);
-            param = new ParameterBool("ShuffleAvailable");
+            param = new ParameterBool("CanShuffle");
             iActionModeInfo.AddOutputParameter(param);
 
             iActionStreamInfo = new OpenHome.Net.Core.Action("StreamInfo");
             param = new ParameterUint("StreamId");
             iActionStreamInfo.AddOutputParameter(param);
-            param = new ParameterBool("Seekable");
+            param = new ParameterBool("CanSeek");
             iActionStreamInfo.AddOutputParameter(param);
-            param = new ParameterBool("Pausable");
+            param = new ParameterBool("CanPause");
             iActionStreamInfo.AddOutputParameter(param);
 
             iActionStreamId = new OpenHome.Net.Core.Action("StreamId");
@@ -522,20 +522,20 @@ namespace OpenHome.Net.ControlPoint.Proxies
 
             iModes = new PropertyString("Modes", ModesPropertyChanged);
             AddProperty(iModes);
-            iNextAvailable = new PropertyBool("NextAvailable", NextAvailablePropertyChanged);
-            AddProperty(iNextAvailable);
-            iPreviousAvailable = new PropertyBool("PreviousAvailable", PreviousAvailablePropertyChanged);
-            AddProperty(iPreviousAvailable);
-            iRepeatAvailable = new PropertyBool("RepeatAvailable", RepeatAvailablePropertyChanged);
-            AddProperty(iRepeatAvailable);
-            iShuffleAvailable = new PropertyBool("ShuffleAvailable", ShuffleAvailablePropertyChanged);
-            AddProperty(iShuffleAvailable);
+            iCanSkipNext = new PropertyBool("CanSkipNext", CanSkipNextPropertyChanged);
+            AddProperty(iCanSkipNext);
+            iCanSkipPrevious = new PropertyBool("CanSkipPrevious", CanSkipPreviousPropertyChanged);
+            AddProperty(iCanSkipPrevious);
+            iCanRepeat = new PropertyBool("CanRepeat", CanRepeatPropertyChanged);
+            AddProperty(iCanRepeat);
+            iCanShuffle = new PropertyBool("CanShuffle", CanShufflePropertyChanged);
+            AddProperty(iCanShuffle);
             iStreamId = new PropertyUint("StreamId", StreamIdPropertyChanged);
             AddProperty(iStreamId);
-            iSeekable = new PropertyBool("Seekable", SeekablePropertyChanged);
-            AddProperty(iSeekable);
-            iPausable = new PropertyBool("Pausable", PausablePropertyChanged);
-            AddProperty(iPausable);
+            iCanSeek = new PropertyBool("CanSeek", CanSeekPropertyChanged);
+            AddProperty(iCanSeek);
+            iCanPause = new PropertyBool("CanPause", CanPausePropertyChanged);
+            AddProperty(iCanPause);
             iTransportState = new PropertyString("TransportState", TransportStatePropertyChanged);
             AddProperty(iTransportState);
             iRepeat = new PropertyUint("Repeat", RepeatPropertyChanged);
@@ -726,10 +726,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
-        public void SyncNext()
+        public void SyncSkipNext()
         {
-            SyncNextAvOpenhomeOrgTransport1 sync = new SyncNextAvOpenhomeOrgTransport1(this);
-            BeginNext(sync.AsyncComplete());
+            SyncSkipNextAvOpenhomeOrgTransport1 sync = new SyncSkipNextAvOpenhomeOrgTransport1(this);
+            BeginSkipNext(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -739,12 +739,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndNext().</remarks>
+        /// EndSkipNext().</remarks>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginNext(CallbackAsyncComplete aCallback)
+        public void BeginSkipNext(CallbackAsyncComplete aCallback)
         {
-            Invocation invocation = iService.Invocation(iActionNext, aCallback);
+            Invocation invocation = iService.Invocation(iActionSkipNext, aCallback);
             iService.InvokeAction(invocation);
         }
 
@@ -753,7 +753,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        public void EndNext(IntPtr aAsyncHandle)
+        public void EndSkipNext(IntPtr aAsyncHandle)
         {
             uint code;
             string desc;
@@ -768,10 +768,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
-        public void SyncPrevious()
+        public void SyncSkipPrevious()
         {
-            SyncPreviousAvOpenhomeOrgTransport1 sync = new SyncPreviousAvOpenhomeOrgTransport1(this);
-            BeginPrevious(sync.AsyncComplete());
+            SyncSkipPreviousAvOpenhomeOrgTransport1 sync = new SyncSkipPreviousAvOpenhomeOrgTransport1(this);
+            BeginSkipPrevious(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -781,12 +781,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndPrevious().</remarks>
+        /// EndSkipPrevious().</remarks>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginPrevious(CallbackAsyncComplete aCallback)
+        public void BeginSkipPrevious(CallbackAsyncComplete aCallback)
         {
-            Invocation invocation = iService.Invocation(iActionPrevious, aCallback);
+            Invocation invocation = iService.Invocation(iActionSkipPrevious, aCallback);
             iService.InvokeAction(invocation);
         }
 
@@ -795,7 +795,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        public void EndPrevious(IntPtr aAsyncHandle)
+        public void EndSkipPrevious(IntPtr aAsyncHandle)
         {
             uint code;
             string desc;
@@ -1098,20 +1098,20 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
-        /// <param name="aNextAvailable"></param>
-        /// <param name="aPreviousAvailable"></param>
-        /// <param name="aRepeatAvailable"></param>
-        /// <param name="aShuffleAvailable"></param>
-        public void SyncModeInfo(out bool aNextAvailable, out bool aPreviousAvailable, out bool aRepeatAvailable, out bool aShuffleAvailable)
+        /// <param name="aCanSkipNext"></param>
+        /// <param name="aCanSkipPrevious"></param>
+        /// <param name="aCanRepeat"></param>
+        /// <param name="aCanShuffle"></param>
+        public void SyncModeInfo(out bool aCanSkipNext, out bool aCanSkipPrevious, out bool aCanRepeat, out bool aCanShuffle)
         {
             SyncModeInfoAvOpenhomeOrgTransport1 sync = new SyncModeInfoAvOpenhomeOrgTransport1(this);
             BeginModeInfo(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
-            aNextAvailable = sync.NextAvailable();
-            aPreviousAvailable = sync.PreviousAvailable();
-            aRepeatAvailable = sync.RepeatAvailable();
-            aShuffleAvailable = sync.ShuffleAvailable();
+            aCanSkipNext = sync.CanSkipNext();
+            aCanSkipPrevious = sync.CanSkipPrevious();
+            aCanRepeat = sync.CanRepeat();
+            aCanShuffle = sync.CanShuffle();
         }
 
         /// <summary>
@@ -1138,11 +1138,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        /// <param name="aNextAvailable"></param>
-        /// <param name="aPreviousAvailable"></param>
-        /// <param name="aRepeatAvailable"></param>
-        /// <param name="aShuffleAvailable"></param>
-        public void EndModeInfo(IntPtr aAsyncHandle, out bool aNextAvailable, out bool aPreviousAvailable, out bool aRepeatAvailable, out bool aShuffleAvailable)
+        /// <param name="aCanSkipNext"></param>
+        /// <param name="aCanSkipPrevious"></param>
+        /// <param name="aCanRepeat"></param>
+        /// <param name="aCanShuffle"></param>
+        public void EndModeInfo(IntPtr aAsyncHandle, out bool aCanSkipNext, out bool aCanSkipPrevious, out bool aCanRepeat, out bool aCanShuffle)
         {
             uint code;
             string desc;
@@ -1151,10 +1151,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
                 throw new ProxyError(code, desc);
             }
             uint index = 0;
-            aNextAvailable = Invocation.OutputBool(aAsyncHandle, index++);
-            aPreviousAvailable = Invocation.OutputBool(aAsyncHandle, index++);
-            aRepeatAvailable = Invocation.OutputBool(aAsyncHandle, index++);
-            aShuffleAvailable = Invocation.OutputBool(aAsyncHandle, index++);
+            aCanSkipNext = Invocation.OutputBool(aAsyncHandle, index++);
+            aCanSkipPrevious = Invocation.OutputBool(aAsyncHandle, index++);
+            aCanRepeat = Invocation.OutputBool(aAsyncHandle, index++);
+            aCanShuffle = Invocation.OutputBool(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -1163,17 +1163,17 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aStreamId"></param>
-        /// <param name="aSeekable"></param>
-        /// <param name="aPausable"></param>
-        public void SyncStreamInfo(out uint aStreamId, out bool aSeekable, out bool aPausable)
+        /// <param name="aCanSeek"></param>
+        /// <param name="aCanPause"></param>
+        public void SyncStreamInfo(out uint aStreamId, out bool aCanSeek, out bool aCanPause)
         {
             SyncStreamInfoAvOpenhomeOrgTransport1 sync = new SyncStreamInfoAvOpenhomeOrgTransport1(this);
             BeginStreamInfo(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
             aStreamId = sync.StreamId();
-            aSeekable = sync.Seekable();
-            aPausable = sync.Pausable();
+            aCanSeek = sync.CanSeek();
+            aCanPause = sync.CanPause();
         }
 
         /// <summary>
@@ -1200,9 +1200,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
         /// <param name="aStreamId"></param>
-        /// <param name="aSeekable"></param>
-        /// <param name="aPausable"></param>
-        public void EndStreamInfo(IntPtr aAsyncHandle, out uint aStreamId, out bool aSeekable, out bool aPausable)
+        /// <param name="aCanSeek"></param>
+        /// <param name="aCanPause"></param>
+        public void EndStreamInfo(IntPtr aAsyncHandle, out uint aStreamId, out bool aCanSeek, out bool aCanPause)
         {
             uint code;
             string desc;
@@ -1212,8 +1212,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             uint index = 0;
             aStreamId = Invocation.OutputUint(aAsyncHandle, index++);
-            aSeekable = Invocation.OutputBool(aAsyncHandle, index++);
-            aPausable = Invocation.OutputBool(aAsyncHandle, index++);
+            aCanSeek = Invocation.OutputBool(aAsyncHandle, index++);
+            aCanPause = Invocation.OutputBool(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -1386,90 +1386,90 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Set a delegate to be run when the NextAvailable state variable changes.
+        /// Set a delegate to be run when the CanSkipNext state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
         /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
-        /// <param name="aNextAvailableChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyNextAvailableChanged(System.Action aNextAvailableChanged)
+        /// <param name="aCanSkipNextChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyCanSkipNextChanged(System.Action aCanSkipNextChanged)
         {
             lock (iPropertyLock)
             {
-                iNextAvailableChanged = aNextAvailableChanged;
+                iCanSkipNextChanged = aCanSkipNextChanged;
             }
         }
 
-        private void NextAvailablePropertyChanged()
+        private void CanSkipNextPropertyChanged()
         {
             lock (iPropertyLock)
             {
-                ReportEvent(iNextAvailableChanged);
+                ReportEvent(iCanSkipNextChanged);
             }
         }
 
         /// <summary>
-        /// Set a delegate to be run when the PreviousAvailable state variable changes.
+        /// Set a delegate to be run when the CanSkipPrevious state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
         /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
-        /// <param name="aPreviousAvailableChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyPreviousAvailableChanged(System.Action aPreviousAvailableChanged)
+        /// <param name="aCanSkipPreviousChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyCanSkipPreviousChanged(System.Action aCanSkipPreviousChanged)
         {
             lock (iPropertyLock)
             {
-                iPreviousAvailableChanged = aPreviousAvailableChanged;
+                iCanSkipPreviousChanged = aCanSkipPreviousChanged;
             }
         }
 
-        private void PreviousAvailablePropertyChanged()
+        private void CanSkipPreviousPropertyChanged()
         {
             lock (iPropertyLock)
             {
-                ReportEvent(iPreviousAvailableChanged);
+                ReportEvent(iCanSkipPreviousChanged);
             }
         }
 
         /// <summary>
-        /// Set a delegate to be run when the RepeatAvailable state variable changes.
+        /// Set a delegate to be run when the CanRepeat state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
         /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
-        /// <param name="aRepeatAvailableChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyRepeatAvailableChanged(System.Action aRepeatAvailableChanged)
+        /// <param name="aCanRepeatChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyCanRepeatChanged(System.Action aCanRepeatChanged)
         {
             lock (iPropertyLock)
             {
-                iRepeatAvailableChanged = aRepeatAvailableChanged;
+                iCanRepeatChanged = aCanRepeatChanged;
             }
         }
 
-        private void RepeatAvailablePropertyChanged()
+        private void CanRepeatPropertyChanged()
         {
             lock (iPropertyLock)
             {
-                ReportEvent(iRepeatAvailableChanged);
+                ReportEvent(iCanRepeatChanged);
             }
         }
 
         /// <summary>
-        /// Set a delegate to be run when the ShuffleAvailable state variable changes.
+        /// Set a delegate to be run when the CanShuffle state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
         /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
-        /// <param name="aShuffleAvailableChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyShuffleAvailableChanged(System.Action aShuffleAvailableChanged)
+        /// <param name="aCanShuffleChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyCanShuffleChanged(System.Action aCanShuffleChanged)
         {
             lock (iPropertyLock)
             {
-                iShuffleAvailableChanged = aShuffleAvailableChanged;
+                iCanShuffleChanged = aCanShuffleChanged;
             }
         }
 
-        private void ShuffleAvailablePropertyChanged()
+        private void CanShufflePropertyChanged()
         {
             lock (iPropertyLock)
             {
-                ReportEvent(iShuffleAvailableChanged);
+                ReportEvent(iCanShuffleChanged);
             }
         }
 
@@ -1496,46 +1496,46 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Set a delegate to be run when the Seekable state variable changes.
+        /// Set a delegate to be run when the CanSeek state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
         /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
-        /// <param name="aSeekableChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertySeekableChanged(System.Action aSeekableChanged)
+        /// <param name="aCanSeekChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyCanSeekChanged(System.Action aCanSeekChanged)
         {
             lock (iPropertyLock)
             {
-                iSeekableChanged = aSeekableChanged;
+                iCanSeekChanged = aCanSeekChanged;
             }
         }
 
-        private void SeekablePropertyChanged()
+        private void CanSeekPropertyChanged()
         {
             lock (iPropertyLock)
             {
-                ReportEvent(iSeekableChanged);
+                ReportEvent(iCanSeekChanged);
             }
         }
 
         /// <summary>
-        /// Set a delegate to be run when the Pausable state variable changes.
+        /// Set a delegate to be run when the CanPause state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
         /// CpProxyAvOpenhomeOrgTransport1 instance will not overlap.</remarks>
-        /// <param name="aPausableChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyPausableChanged(System.Action aPausableChanged)
+        /// <param name="aCanPauseChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyCanPauseChanged(System.Action aCanPauseChanged)
         {
             lock (iPropertyLock)
             {
-                iPausableChanged = aPausableChanged;
+                iCanPauseChanged = aCanPauseChanged;
             }
         }
 
-        private void PausablePropertyChanged()
+        private void CanPausePropertyChanged()
         {
             lock (iPropertyLock)
             {
-                ReportEvent(iPausableChanged);
+                ReportEvent(iCanPauseChanged);
             }
         }
 
@@ -1628,19 +1628,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the NextAvailable property.
+        /// Query the value of the CanSkipNext property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
-        /// <returns>Value of the NextAvailable property</returns>
-        public bool PropertyNextAvailable()
+        /// <returns>Value of the CanSkipNext property</returns>
+        public bool PropertyCanSkipNext()
         {
             PropertyReadLock();
             bool val;
             try
             {
-                val = iNextAvailable.Value();
+                val = iCanSkipNext.Value();
             }
             finally
             {
@@ -1650,19 +1650,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the PreviousAvailable property.
+        /// Query the value of the CanSkipPrevious property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
-        /// <returns>Value of the PreviousAvailable property</returns>
-        public bool PropertyPreviousAvailable()
+        /// <returns>Value of the CanSkipPrevious property</returns>
+        public bool PropertyCanSkipPrevious()
         {
             PropertyReadLock();
             bool val;
             try
             {
-                val = iPreviousAvailable.Value();
+                val = iCanSkipPrevious.Value();
             }
             finally
             {
@@ -1672,19 +1672,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the RepeatAvailable property.
+        /// Query the value of the CanRepeat property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
-        /// <returns>Value of the RepeatAvailable property</returns>
-        public bool PropertyRepeatAvailable()
+        /// <returns>Value of the CanRepeat property</returns>
+        public bool PropertyCanRepeat()
         {
             PropertyReadLock();
             bool val;
             try
             {
-                val = iRepeatAvailable.Value();
+                val = iCanRepeat.Value();
             }
             finally
             {
@@ -1694,19 +1694,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the ShuffleAvailable property.
+        /// Query the value of the CanShuffle property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
-        /// <returns>Value of the ShuffleAvailable property</returns>
-        public bool PropertyShuffleAvailable()
+        /// <returns>Value of the CanShuffle property</returns>
+        public bool PropertyCanShuffle()
         {
             PropertyReadLock();
             bool val;
             try
             {
-                val = iShuffleAvailable.Value();
+                val = iCanShuffle.Value();
             }
             finally
             {
@@ -1738,19 +1738,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the Seekable property.
+        /// Query the value of the CanSeek property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
-        /// <returns>Value of the Seekable property</returns>
-        public bool PropertySeekable()
+        /// <returns>Value of the CanSeek property</returns>
+        public bool PropertyCanSeek()
         {
             PropertyReadLock();
             bool val;
             try
             {
-                val = iSeekable.Value();
+                val = iCanSeek.Value();
             }
             finally
             {
@@ -1760,19 +1760,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the Pausable property.
+        /// Query the value of the CanPause property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
-        /// <returns>Value of the Pausable property</returns>
-        public bool PropertyPausable()
+        /// <returns>Value of the CanPause property</returns>
+        public bool PropertyCanPause()
         {
             PropertyReadLock();
             bool val;
             try
             {
-                val = iPausable.Value();
+                val = iCanPause.Value();
             }
             finally
             {
@@ -1863,8 +1863,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionPlay.Dispose();
             iActionPause.Dispose();
             iActionStop.Dispose();
-            iActionNext.Dispose();
-            iActionPrevious.Dispose();
+            iActionSkipNext.Dispose();
+            iActionSkipPrevious.Dispose();
             iActionSetRepeat.Dispose();
             iActionSetShuffle.Dispose();
             iActionSeekSecondAbsolute.Dispose();
@@ -1877,13 +1877,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionRepeat.Dispose();
             iActionShuffle.Dispose();
             iModes.Dispose();
-            iNextAvailable.Dispose();
-            iPreviousAvailable.Dispose();
-            iRepeatAvailable.Dispose();
-            iShuffleAvailable.Dispose();
+            iCanSkipNext.Dispose();
+            iCanSkipPrevious.Dispose();
+            iCanRepeat.Dispose();
+            iCanShuffle.Dispose();
             iStreamId.Dispose();
-            iSeekable.Dispose();
-            iPausable.Dispose();
+            iCanSeek.Dispose();
+            iCanPause.Dispose();
             iTransportState.Dispose();
             iRepeat.Dispose();
             iShuffle.Dispose();

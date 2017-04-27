@@ -23,56 +23,56 @@ namespace OpenHome.Net.Device.Providers
         string PropertyModes();
 
         /// <summary>
-        /// Set the value of the NextAvailable property
+        /// Set the value of the CanSkipNext property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyNextAvailable(bool aValue);
+        bool SetPropertyCanSkipNext(bool aValue);
 
         /// <summary>
-        /// Get a copy of the value of the NextAvailable property
+        /// Get a copy of the value of the CanSkipNext property
         /// </summary>
-        /// <returns>Value of the NextAvailable property.</param>
-        bool PropertyNextAvailable();
+        /// <returns>Value of the CanSkipNext property.</param>
+        bool PropertyCanSkipNext();
 
         /// <summary>
-        /// Set the value of the PreviousAvailable property
-        /// </summary>
-        /// <param name="aValue">New value for the property</param>
-        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyPreviousAvailable(bool aValue);
-
-        /// <summary>
-        /// Get a copy of the value of the PreviousAvailable property
-        /// </summary>
-        /// <returns>Value of the PreviousAvailable property.</param>
-        bool PropertyPreviousAvailable();
-
-        /// <summary>
-        /// Set the value of the RepeatAvailable property
+        /// Set the value of the CanSkipPrevious property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyRepeatAvailable(bool aValue);
+        bool SetPropertyCanSkipPrevious(bool aValue);
 
         /// <summary>
-        /// Get a copy of the value of the RepeatAvailable property
+        /// Get a copy of the value of the CanSkipPrevious property
         /// </summary>
-        /// <returns>Value of the RepeatAvailable property.</param>
-        bool PropertyRepeatAvailable();
+        /// <returns>Value of the CanSkipPrevious property.</param>
+        bool PropertyCanSkipPrevious();
 
         /// <summary>
-        /// Set the value of the ShuffleAvailable property
+        /// Set the value of the CanRepeat property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyShuffleAvailable(bool aValue);
+        bool SetPropertyCanRepeat(bool aValue);
 
         /// <summary>
-        /// Get a copy of the value of the ShuffleAvailable property
+        /// Get a copy of the value of the CanRepeat property
         /// </summary>
-        /// <returns>Value of the ShuffleAvailable property.</param>
-        bool PropertyShuffleAvailable();
+        /// <returns>Value of the CanRepeat property.</param>
+        bool PropertyCanRepeat();
+
+        /// <summary>
+        /// Set the value of the CanShuffle property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyCanShuffle(bool aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the CanShuffle property
+        /// </summary>
+        /// <returns>Value of the CanShuffle property.</param>
+        bool PropertyCanShuffle();
 
         /// <summary>
         /// Set the value of the StreamId property
@@ -88,30 +88,30 @@ namespace OpenHome.Net.Device.Providers
         uint PropertyStreamId();
 
         /// <summary>
-        /// Set the value of the Seekable property
+        /// Set the value of the CanSeek property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertySeekable(bool aValue);
+        bool SetPropertyCanSeek(bool aValue);
 
         /// <summary>
-        /// Get a copy of the value of the Seekable property
+        /// Get a copy of the value of the CanSeek property
         /// </summary>
-        /// <returns>Value of the Seekable property.</param>
-        bool PropertySeekable();
+        /// <returns>Value of the CanSeek property.</param>
+        bool PropertyCanSeek();
 
         /// <summary>
-        /// Set the value of the Pausable property
+        /// Set the value of the CanPause property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyPausable(bool aValue);
+        bool SetPropertyCanPause(bool aValue);
 
         /// <summary>
-        /// Get a copy of the value of the Pausable property
+        /// Get a copy of the value of the CanPause property
         /// </summary>
-        /// <returns>Value of the Pausable property.</param>
-        bool PropertyPausable();
+        /// <returns>Value of the CanPause property.</param>
+        bool PropertyCanPause();
 
         /// <summary>
         /// Set the value of the TransportState property
@@ -163,8 +163,8 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegatePlay;
         private ActionDelegate iDelegatePause;
         private ActionDelegate iDelegateStop;
-        private ActionDelegate iDelegateNext;
-        private ActionDelegate iDelegatePrevious;
+        private ActionDelegate iDelegateSkipNext;
+        private ActionDelegate iDelegateSkipPrevious;
         private ActionDelegate iDelegateSetRepeat;
         private ActionDelegate iDelegateSetShuffle;
         private ActionDelegate iDelegateSeekSecondAbsolute;
@@ -177,13 +177,13 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegateRepeat;
         private ActionDelegate iDelegateShuffle;
         private PropertyString iPropertyModes;
-        private PropertyBool iPropertyNextAvailable;
-        private PropertyBool iPropertyPreviousAvailable;
-        private PropertyBool iPropertyRepeatAvailable;
-        private PropertyBool iPropertyShuffleAvailable;
+        private PropertyBool iPropertyCanSkipNext;
+        private PropertyBool iPropertyCanSkipPrevious;
+        private PropertyBool iPropertyCanRepeat;
+        private PropertyBool iPropertyCanShuffle;
         private PropertyUint iPropertyStreamId;
-        private PropertyBool iPropertySeekable;
-        private PropertyBool iPropertyPausable;
+        private PropertyBool iPropertyCanSeek;
+        private PropertyBool iPropertyCanPause;
         private PropertyString iPropertyTransportState;
         private PropertyUint iPropertyRepeat;
         private PropertyUint iPropertyShuffle;
@@ -209,39 +209,39 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Enable the NextAvailable property.
+        /// Enable the CanSkipNext property.
         /// </summary>
-        public void EnablePropertyNextAvailable()
+        public void EnablePropertyCanSkipNext()
         {
-            iPropertyNextAvailable = new PropertyBool(new ParameterBool("NextAvailable"));
-            AddProperty(iPropertyNextAvailable);
+            iPropertyCanSkipNext = new PropertyBool(new ParameterBool("CanSkipNext"));
+            AddProperty(iPropertyCanSkipNext);
         }
 
         /// <summary>
-        /// Enable the PreviousAvailable property.
+        /// Enable the CanSkipPrevious property.
         /// </summary>
-        public void EnablePropertyPreviousAvailable()
+        public void EnablePropertyCanSkipPrevious()
         {
-            iPropertyPreviousAvailable = new PropertyBool(new ParameterBool("PreviousAvailable"));
-            AddProperty(iPropertyPreviousAvailable);
+            iPropertyCanSkipPrevious = new PropertyBool(new ParameterBool("CanSkipPrevious"));
+            AddProperty(iPropertyCanSkipPrevious);
         }
 
         /// <summary>
-        /// Enable the RepeatAvailable property.
+        /// Enable the CanRepeat property.
         /// </summary>
-        public void EnablePropertyRepeatAvailable()
+        public void EnablePropertyCanRepeat()
         {
-            iPropertyRepeatAvailable = new PropertyBool(new ParameterBool("RepeatAvailable"));
-            AddProperty(iPropertyRepeatAvailable);
+            iPropertyCanRepeat = new PropertyBool(new ParameterBool("CanRepeat"));
+            AddProperty(iPropertyCanRepeat);
         }
 
         /// <summary>
-        /// Enable the ShuffleAvailable property.
+        /// Enable the CanShuffle property.
         /// </summary>
-        public void EnablePropertyShuffleAvailable()
+        public void EnablePropertyCanShuffle()
         {
-            iPropertyShuffleAvailable = new PropertyBool(new ParameterBool("ShuffleAvailable"));
-            AddProperty(iPropertyShuffleAvailable);
+            iPropertyCanShuffle = new PropertyBool(new ParameterBool("CanShuffle"));
+            AddProperty(iPropertyCanShuffle);
         }
 
         /// <summary>
@@ -254,21 +254,21 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Enable the Seekable property.
+        /// Enable the CanSeek property.
         /// </summary>
-        public void EnablePropertySeekable()
+        public void EnablePropertyCanSeek()
         {
-            iPropertySeekable = new PropertyBool(new ParameterBool("Seekable"));
-            AddProperty(iPropertySeekable);
+            iPropertyCanSeek = new PropertyBool(new ParameterBool("CanSeek"));
+            AddProperty(iPropertyCanSeek);
         }
 
         /// <summary>
-        /// Enable the Pausable property.
+        /// Enable the CanPause property.
         /// </summary>
-        public void EnablePropertyPausable()
+        public void EnablePropertyCanPause()
         {
-            iPropertyPausable = new PropertyBool(new ParameterBool("Pausable"));
-            AddProperty(iPropertyPausable);
+            iPropertyCanPause = new PropertyBool(new ParameterBool("CanPause"));
+            AddProperty(iPropertyCanPause);
         }
 
         /// <summary>
@@ -331,103 +331,103 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Set the value of the NextAvailable property
+        /// Set the value of the CanSkipNext property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyNextAvailable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyCanSkipNext has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyNextAvailable(bool aValue)
+        public bool SetPropertyCanSkipNext(bool aValue)
         {
-            if (iPropertyNextAvailable == null)
+            if (iPropertyCanSkipNext == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyNextAvailable, aValue);
+            return SetPropertyBool(iPropertyCanSkipNext, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the NextAvailable property
+        /// Get a copy of the value of the CanSkipNext property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyNextAvailable has previously been called.</remarks>
-        /// <returns>Value of the NextAvailable property.</returns>
-        public bool PropertyNextAvailable()
+        /// <remarks>Can only be called if EnablePropertyCanSkipNext has previously been called.</remarks>
+        /// <returns>Value of the CanSkipNext property.</returns>
+        public bool PropertyCanSkipNext()
         {
-            if (iPropertyNextAvailable == null)
+            if (iPropertyCanSkipNext == null)
                 throw new PropertyDisabledError();
-            return iPropertyNextAvailable.Value();
+            return iPropertyCanSkipNext.Value();
         }
 
         /// <summary>
-        /// Set the value of the PreviousAvailable property
+        /// Set the value of the CanSkipPrevious property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyPreviousAvailable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyCanSkipPrevious has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyPreviousAvailable(bool aValue)
+        public bool SetPropertyCanSkipPrevious(bool aValue)
         {
-            if (iPropertyPreviousAvailable == null)
+            if (iPropertyCanSkipPrevious == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyPreviousAvailable, aValue);
+            return SetPropertyBool(iPropertyCanSkipPrevious, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the PreviousAvailable property
+        /// Get a copy of the value of the CanSkipPrevious property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyPreviousAvailable has previously been called.</remarks>
-        /// <returns>Value of the PreviousAvailable property.</returns>
-        public bool PropertyPreviousAvailable()
+        /// <remarks>Can only be called if EnablePropertyCanSkipPrevious has previously been called.</remarks>
+        /// <returns>Value of the CanSkipPrevious property.</returns>
+        public bool PropertyCanSkipPrevious()
         {
-            if (iPropertyPreviousAvailable == null)
+            if (iPropertyCanSkipPrevious == null)
                 throw new PropertyDisabledError();
-            return iPropertyPreviousAvailable.Value();
+            return iPropertyCanSkipPrevious.Value();
         }
 
         /// <summary>
-        /// Set the value of the RepeatAvailable property
+        /// Set the value of the CanRepeat property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyRepeatAvailable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyCanRepeat has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyRepeatAvailable(bool aValue)
+        public bool SetPropertyCanRepeat(bool aValue)
         {
-            if (iPropertyRepeatAvailable == null)
+            if (iPropertyCanRepeat == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyRepeatAvailable, aValue);
+            return SetPropertyBool(iPropertyCanRepeat, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the RepeatAvailable property
+        /// Get a copy of the value of the CanRepeat property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyRepeatAvailable has previously been called.</remarks>
-        /// <returns>Value of the RepeatAvailable property.</returns>
-        public bool PropertyRepeatAvailable()
+        /// <remarks>Can only be called if EnablePropertyCanRepeat has previously been called.</remarks>
+        /// <returns>Value of the CanRepeat property.</returns>
+        public bool PropertyCanRepeat()
         {
-            if (iPropertyRepeatAvailable == null)
+            if (iPropertyCanRepeat == null)
                 throw new PropertyDisabledError();
-            return iPropertyRepeatAvailable.Value();
+            return iPropertyCanRepeat.Value();
         }
 
         /// <summary>
-        /// Set the value of the ShuffleAvailable property
+        /// Set the value of the CanShuffle property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyShuffleAvailable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyCanShuffle has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyShuffleAvailable(bool aValue)
+        public bool SetPropertyCanShuffle(bool aValue)
         {
-            if (iPropertyShuffleAvailable == null)
+            if (iPropertyCanShuffle == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyShuffleAvailable, aValue);
+            return SetPropertyBool(iPropertyCanShuffle, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the ShuffleAvailable property
+        /// Get a copy of the value of the CanShuffle property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyShuffleAvailable has previously been called.</remarks>
-        /// <returns>Value of the ShuffleAvailable property.</returns>
-        public bool PropertyShuffleAvailable()
+        /// <remarks>Can only be called if EnablePropertyCanShuffle has previously been called.</remarks>
+        /// <returns>Value of the CanShuffle property.</returns>
+        public bool PropertyCanShuffle()
         {
-            if (iPropertyShuffleAvailable == null)
+            if (iPropertyCanShuffle == null)
                 throw new PropertyDisabledError();
-            return iPropertyShuffleAvailable.Value();
+            return iPropertyCanShuffle.Value();
         }
 
         /// <summary>
@@ -456,53 +456,53 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Set the value of the Seekable property
+        /// Set the value of the CanSeek property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertySeekable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyCanSeek has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertySeekable(bool aValue)
+        public bool SetPropertyCanSeek(bool aValue)
         {
-            if (iPropertySeekable == null)
+            if (iPropertyCanSeek == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertySeekable, aValue);
+            return SetPropertyBool(iPropertyCanSeek, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the Seekable property
+        /// Get a copy of the value of the CanSeek property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertySeekable has previously been called.</remarks>
-        /// <returns>Value of the Seekable property.</returns>
-        public bool PropertySeekable()
+        /// <remarks>Can only be called if EnablePropertyCanSeek has previously been called.</remarks>
+        /// <returns>Value of the CanSeek property.</returns>
+        public bool PropertyCanSeek()
         {
-            if (iPropertySeekable == null)
+            if (iPropertyCanSeek == null)
                 throw new PropertyDisabledError();
-            return iPropertySeekable.Value();
+            return iPropertyCanSeek.Value();
         }
 
         /// <summary>
-        /// Set the value of the Pausable property
+        /// Set the value of the CanPause property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyPausable has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertyCanPause has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyPausable(bool aValue)
+        public bool SetPropertyCanPause(bool aValue)
         {
-            if (iPropertyPausable == null)
+            if (iPropertyCanPause == null)
                 throw new PropertyDisabledError();
-            return SetPropertyBool(iPropertyPausable, aValue);
+            return SetPropertyBool(iPropertyCanPause, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the Pausable property
+        /// Get a copy of the value of the CanPause property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyPausable has previously been called.</remarks>
-        /// <returns>Value of the Pausable property.</returns>
-        public bool PropertyPausable()
+        /// <remarks>Can only be called if EnablePropertyCanPause has previously been called.</remarks>
+        /// <returns>Value of the CanPause property.</returns>
+        public bool PropertyCanPause()
         {
-            if (iPropertyPausable == null)
+            if (iPropertyCanPause == null)
                 throw new PropertyDisabledError();
-            return iPropertyPausable.Value();
+            return iPropertyCanPause.Value();
         }
 
         /// <summary>
@@ -632,27 +632,27 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action Next is supported.
+        /// Signal that the action SkipNext is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// Next must be overridden if this is called.</remarks>
-        protected void EnableActionNext()
+        /// SkipNext must be overridden if this is called.</remarks>
+        protected void EnableActionSkipNext()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Next");
-            iDelegateNext = new ActionDelegate(DoNext);
-            EnableAction(action, iDelegateNext, GCHandle.ToIntPtr(iGch));
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SkipNext");
+            iDelegateSkipNext = new ActionDelegate(DoSkipNext);
+            EnableAction(action, iDelegateSkipNext, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
-        /// Signal that the action Previous is supported.
+        /// Signal that the action SkipPrevious is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// Previous must be overridden if this is called.</remarks>
-        protected void EnableActionPrevious()
+        /// SkipPrevious must be overridden if this is called.</remarks>
+        protected void EnableActionSkipPrevious()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Previous");
-            iDelegatePrevious = new ActionDelegate(DoPrevious);
-            EnableAction(action, iDelegatePrevious, GCHandle.ToIntPtr(iGch));
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SkipPrevious");
+            iDelegateSkipPrevious = new ActionDelegate(DoSkipPrevious);
+            EnableAction(action, iDelegateSkipPrevious, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -663,7 +663,7 @@ namespace OpenHome.Net.Device.Providers
         protected void EnableActionSetRepeat()
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetRepeat");
-            action.AddInputParameter(new ParameterUint("Repeat"));
+            action.AddInputParameter(new ParameterRelated("Repeat", iPropertyRepeat));
             iDelegateSetRepeat = new ActionDelegate(DoSetRepeat);
             EnableAction(action, iDelegateSetRepeat, GCHandle.ToIntPtr(iGch));
         }
@@ -676,7 +676,7 @@ namespace OpenHome.Net.Device.Providers
         protected void EnableActionSetShuffle()
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetShuffle");
-            action.AddInputParameter(new ParameterUint("Shuffle"));
+            action.AddInputParameter(new ParameterRelated("Shuffle", iPropertyShuffle));
             iDelegateSetShuffle = new ActionDelegate(DoSetShuffle);
             EnableAction(action, iDelegateSetShuffle, GCHandle.ToIntPtr(iGch));
         }
@@ -743,10 +743,10 @@ namespace OpenHome.Net.Device.Providers
         protected void EnableActionModeInfo()
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("ModeInfo");
-            action.AddOutputParameter(new ParameterRelated("NextAvailable", iPropertyNextAvailable));
-            action.AddOutputParameter(new ParameterRelated("PreviousAvailable", iPropertyPreviousAvailable));
-            action.AddOutputParameter(new ParameterRelated("RepeatAvailable", iPropertyRepeatAvailable));
-            action.AddOutputParameter(new ParameterRelated("ShuffleAvailable", iPropertyShuffleAvailable));
+            action.AddOutputParameter(new ParameterRelated("CanSkipNext", iPropertyCanSkipNext));
+            action.AddOutputParameter(new ParameterRelated("CanSkipPrevious", iPropertyCanSkipPrevious));
+            action.AddOutputParameter(new ParameterRelated("CanRepeat", iPropertyCanRepeat));
+            action.AddOutputParameter(new ParameterRelated("CanShuffle", iPropertyCanShuffle));
             iDelegateModeInfo = new ActionDelegate(DoModeInfo);
             EnableAction(action, iDelegateModeInfo, GCHandle.ToIntPtr(iGch));
         }
@@ -760,8 +760,8 @@ namespace OpenHome.Net.Device.Providers
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("StreamInfo");
             action.AddOutputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
-            action.AddOutputParameter(new ParameterRelated("Seekable", iPropertySeekable));
-            action.AddOutputParameter(new ParameterRelated("Pausable", iPropertyPausable));
+            action.AddOutputParameter(new ParameterRelated("CanSeek", iPropertyCanSeek));
+            action.AddOutputParameter(new ParameterRelated("CanPause", iPropertyCanPause));
             iDelegateStreamInfo = new ActionDelegate(DoStreamInfo);
             EnableAction(action, iDelegateStreamInfo, GCHandle.ToIntPtr(iGch));
         }
@@ -860,27 +860,27 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Next action.
+        /// SkipNext action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// Next action for the owning device.
+        /// SkipNext action for the owning device.
         ///
-        /// Must be implemented iff EnableActionNext was called.</remarks>
+        /// Must be implemented iff EnableActionSkipNext was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        protected virtual void Next(IDvInvocation aInvocation)
+        protected virtual void SkipNext(IDvInvocation aInvocation)
         {
             throw (new ActionDisabledError());
         }
 
         /// <summary>
-        /// Previous action.
+        /// SkipPrevious action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// Previous action for the owning device.
+        /// SkipPrevious action for the owning device.
         ///
-        /// Must be implemented iff EnableActionPrevious was called.</remarks>
+        /// Must be implemented iff EnableActionSkipPrevious was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        protected virtual void Previous(IDvInvocation aInvocation)
+        protected virtual void SkipPrevious(IDvInvocation aInvocation)
         {
             throw (new ActionDisabledError());
         }
@@ -979,11 +979,11 @@ namespace OpenHome.Net.Device.Providers
         ///
         /// Must be implemented iff EnableActionModeInfo was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aNextAvailable"></param>
-        /// <param name="aPreviousAvailable"></param>
-        /// <param name="aRepeatAvailable"></param>
-        /// <param name="aShuffleAvailable"></param>
-        protected virtual void ModeInfo(IDvInvocation aInvocation, out bool aNextAvailable, out bool aPreviousAvailable, out bool aRepeatAvailable, out bool aShuffleAvailable)
+        /// <param name="aCanSkipNext"></param>
+        /// <param name="aCanSkipPrevious"></param>
+        /// <param name="aCanRepeat"></param>
+        /// <param name="aCanShuffle"></param>
+        protected virtual void ModeInfo(IDvInvocation aInvocation, out bool aCanSkipNext, out bool aCanSkipPrevious, out bool aCanRepeat, out bool aCanShuffle)
         {
             throw (new ActionDisabledError());
         }
@@ -997,9 +997,9 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionStreamInfo was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aStreamId"></param>
-        /// <param name="aSeekable"></param>
-        /// <param name="aPausable"></param>
-        protected virtual void StreamInfo(IDvInvocation aInvocation, out uint aStreamId, out bool aSeekable, out bool aPausable)
+        /// <param name="aCanSeek"></param>
+        /// <param name="aCanPause"></param>
+        protected virtual void StreamInfo(IDvInvocation aInvocation, out uint aStreamId, out bool aCanSeek, out bool aCanPause)
         {
             throw (new ActionDisabledError());
         }
@@ -1226,7 +1226,7 @@ namespace OpenHome.Net.Device.Providers
             return 0;
         }
 
-        private static int DoNext(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoSkipNext(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
@@ -1235,21 +1235,21 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.Next(invocation);
+                self.SkipNext(invocation);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "Next");
+                invocation.ReportActionError(e, "SkipNext");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Next" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SkipNext" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Next" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SkipNext" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -1264,13 +1264,13 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Next" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SkipNext" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
         }
 
-        private static int DoPrevious(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoSkipPrevious(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
@@ -1279,21 +1279,21 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.Previous(invocation);
+                self.SkipPrevious(invocation);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "Previous");
+                invocation.ReportActionError(e, "SkipPrevious");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Previous" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SkipPrevious" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Previous" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SkipPrevious" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -1308,7 +1308,7 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Previous" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SkipPrevious" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
@@ -1599,15 +1599,15 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            bool nextAvailable;
-            bool previousAvailable;
-            bool repeatAvailable;
-            bool shuffleAvailable;
+            bool canSkipNext;
+            bool canSkipPrevious;
+            bool canRepeat;
+            bool canShuffle;
             try
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.ModeInfo(invocation, out nextAvailable, out previousAvailable, out repeatAvailable, out shuffleAvailable);
+                self.ModeInfo(invocation, out canSkipNext, out canSkipPrevious, out canRepeat, out canShuffle);
             }
             catch (ActionError e)
             {
@@ -1628,10 +1628,10 @@ namespace OpenHome.Net.Device.Providers
             try
             {
                 invocation.WriteStart();
-                invocation.WriteBool("NextAvailable", nextAvailable);
-                invocation.WriteBool("PreviousAvailable", previousAvailable);
-                invocation.WriteBool("RepeatAvailable", repeatAvailable);
-                invocation.WriteBool("ShuffleAvailable", shuffleAvailable);
+                invocation.WriteBool("CanSkipNext", canSkipNext);
+                invocation.WriteBool("CanSkipPrevious", canSkipPrevious);
+                invocation.WriteBool("CanRepeat", canRepeat);
+                invocation.WriteBool("CanShuffle", canShuffle);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -1652,13 +1652,13 @@ namespace OpenHome.Net.Device.Providers
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
             uint streamId;
-            bool seekable;
-            bool pausable;
+            bool canSeek;
+            bool canPause;
             try
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.StreamInfo(invocation, out streamId, out seekable, out pausable);
+                self.StreamInfo(invocation, out streamId, out canSeek, out canPause);
             }
             catch (ActionError e)
             {
@@ -1680,8 +1680,8 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.WriteStart();
                 invocation.WriteUint("StreamId", streamId);
-                invocation.WriteBool("Seekable", seekable);
-                invocation.WriteBool("Pausable", pausable);
+                invocation.WriteBool("CanSeek", canSeek);
+                invocation.WriteBool("CanPause", canPause);
                 invocation.WriteEnd();
             }
             catch (ActionError)

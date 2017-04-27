@@ -26,68 +26,68 @@ interface IDvProviderAvOpenhomeOrgTransport1
     public String getPropertyModes();
 
     /**
-     * Set the value of the NextAvailable property
+     * Set the value of the CanSkipNext property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyNextAvailable(boolean aValue);
+    public boolean setPropertyCanSkipNext(boolean aValue);
 
     /**
-     * Get a copy of the value of the NextAvailable property
+     * Get a copy of the value of the CanSkipNext property
      *
-     * @return value of the NextAvailable property.
+     * @return value of the CanSkipNext property.
      */
-    public boolean getPropertyNextAvailable();
+    public boolean getPropertyCanSkipNext();
 
     /**
-     * Set the value of the PreviousAvailable property
+     * Set the value of the CanSkipPrevious property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyPreviousAvailable(boolean aValue);
+    public boolean setPropertyCanSkipPrevious(boolean aValue);
 
     /**
-     * Get a copy of the value of the PreviousAvailable property
+     * Get a copy of the value of the CanSkipPrevious property
      *
-     * @return value of the PreviousAvailable property.
+     * @return value of the CanSkipPrevious property.
      */
-    public boolean getPropertyPreviousAvailable();
+    public boolean getPropertyCanSkipPrevious();
 
     /**
-     * Set the value of the RepeatAvailable property
+     * Set the value of the CanRepeat property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyRepeatAvailable(boolean aValue);
+    public boolean setPropertyCanRepeat(boolean aValue);
 
     /**
-     * Get a copy of the value of the RepeatAvailable property
+     * Get a copy of the value of the CanRepeat property
      *
-     * @return value of the RepeatAvailable property.
+     * @return value of the CanRepeat property.
      */
-    public boolean getPropertyRepeatAvailable();
+    public boolean getPropertyCanRepeat();
 
     /**
-     * Set the value of the ShuffleAvailable property
+     * Set the value of the CanShuffle property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyShuffleAvailable(boolean aValue);
+    public boolean setPropertyCanShuffle(boolean aValue);
 
     /**
-     * Get a copy of the value of the ShuffleAvailable property
+     * Get a copy of the value of the CanShuffle property
      *
-     * @return value of the ShuffleAvailable property.
+     * @return value of the CanShuffle property.
      */
-    public boolean getPropertyShuffleAvailable();
+    public boolean getPropertyCanShuffle();
 
     /**
      * Set the value of the StreamId property
@@ -106,36 +106,36 @@ interface IDvProviderAvOpenhomeOrgTransport1
     public long getPropertyStreamId();
 
     /**
-     * Set the value of the Seekable property
+     * Set the value of the CanSeek property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertySeekable(boolean aValue);
+    public boolean setPropertyCanSeek(boolean aValue);
 
     /**
-     * Get a copy of the value of the Seekable property
+     * Get a copy of the value of the CanSeek property
      *
-     * @return value of the Seekable property.
+     * @return value of the CanSeek property.
      */
-    public boolean getPropertySeekable();
+    public boolean getPropertyCanSeek();
 
     /**
-     * Set the value of the Pausable property
+     * Set the value of the CanPause property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyPausable(boolean aValue);
+    public boolean setPropertyCanPause(boolean aValue);
 
     /**
-     * Get a copy of the value of the Pausable property
+     * Get a copy of the value of the CanPause property
      *
-     * @return value of the Pausable property.
+     * @return value of the CanPause property.
      */
-    public boolean getPropertyPausable();
+    public boolean getPropertyCanPause();
 
     /**
      * Set the value of the TransportState property
@@ -195,68 +195,68 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
 
     public class ModeInfo
     {
-        private boolean iNextAvailable;
-        private boolean iPreviousAvailable;
-        private boolean iRepeatAvailable;
-        private boolean iShuffleAvailable;
+        private boolean iCanSkipNext;
+        private boolean iCanSkipPrevious;
+        private boolean iCanRepeat;
+        private boolean iCanShuffle;
 
         public ModeInfo(
-            boolean aNextAvailable,
-            boolean aPreviousAvailable,
-            boolean aRepeatAvailable,
-            boolean aShuffleAvailable
+            boolean aCanSkipNext,
+            boolean aCanSkipPrevious,
+            boolean aCanRepeat,
+            boolean aCanShuffle
         )
         {
-            iNextAvailable = aNextAvailable;
-            iPreviousAvailable = aPreviousAvailable;
-            iRepeatAvailable = aRepeatAvailable;
-            iShuffleAvailable = aShuffleAvailable;
+            iCanSkipNext = aCanSkipNext;
+            iCanSkipPrevious = aCanSkipPrevious;
+            iCanRepeat = aCanRepeat;
+            iCanShuffle = aCanShuffle;
         }
-        public boolean getNextAvailable()
+        public boolean getCanSkipNext()
         {
-            return iNextAvailable;
+            return iCanSkipNext;
         }
-        public boolean getPreviousAvailable()
+        public boolean getCanSkipPrevious()
         {
-            return iPreviousAvailable;
+            return iCanSkipPrevious;
         }
-        public boolean getRepeatAvailable()
+        public boolean getCanRepeat()
         {
-            return iRepeatAvailable;
+            return iCanRepeat;
         }
-        public boolean getShuffleAvailable()
+        public boolean getCanShuffle()
         {
-            return iShuffleAvailable;
+            return iCanShuffle;
         }
     }
 
     public class StreamInfo
     {
         private long iStreamId;
-        private boolean iSeekable;
-        private boolean iPausable;
+        private boolean iCanSeek;
+        private boolean iCanPause;
 
         public StreamInfo(
             long aStreamId,
-            boolean aSeekable,
-            boolean aPausable
+            boolean aCanSeek,
+            boolean aCanPause
         )
         {
             iStreamId = aStreamId;
-            iSeekable = aSeekable;
-            iPausable = aPausable;
+            iCanSeek = aCanSeek;
+            iCanPause = aCanPause;
         }
         public long getStreamId()
         {
             return iStreamId;
         }
-        public boolean getSeekable()
+        public boolean getCanSeek()
         {
-            return iSeekable;
+            return iCanSeek;
         }
-        public boolean getPausable()
+        public boolean getCanPause()
         {
-            return iPausable;
+            return iCanPause;
         }
     }
 
@@ -264,8 +264,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     private IDvInvocationListener iDelegatePlay;
     private IDvInvocationListener iDelegatePause;
     private IDvInvocationListener iDelegateStop;
-    private IDvInvocationListener iDelegateNext;
-    private IDvInvocationListener iDelegatePrevious;
+    private IDvInvocationListener iDelegateSkipNext;
+    private IDvInvocationListener iDelegateSkipPrevious;
     private IDvInvocationListener iDelegateSetRepeat;
     private IDvInvocationListener iDelegateSetShuffle;
     private IDvInvocationListener iDelegateSeekSecondAbsolute;
@@ -278,13 +278,13 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     private IDvInvocationListener iDelegateRepeat;
     private IDvInvocationListener iDelegateShuffle;
     private PropertyString iPropertyModes;
-    private PropertyBool iPropertyNextAvailable;
-    private PropertyBool iPropertyPreviousAvailable;
-    private PropertyBool iPropertyRepeatAvailable;
-    private PropertyBool iPropertyShuffleAvailable;
+    private PropertyBool iPropertyCanSkipNext;
+    private PropertyBool iPropertyCanSkipPrevious;
+    private PropertyBool iPropertyCanRepeat;
+    private PropertyBool iPropertyCanShuffle;
     private PropertyUint iPropertyStreamId;
-    private PropertyBool iPropertySeekable;
-    private PropertyBool iPropertyPausable;
+    private PropertyBool iPropertyCanSeek;
+    private PropertyBool iPropertyCanPause;
     private PropertyString iPropertyTransportState;
     private PropertyUint iPropertyRepeat;
     private PropertyUint iPropertyShuffle;
@@ -310,39 +310,39 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Enable the NextAvailable property.
+     * Enable the CanSkipNext property.
      */
-    public void enablePropertyNextAvailable()
+    public void enablePropertyCanSkipNext()
     {
-        iPropertyNextAvailable = new PropertyBool(new ParameterBool("NextAvailable"));
-        addProperty(iPropertyNextAvailable);
+        iPropertyCanSkipNext = new PropertyBool(new ParameterBool("CanSkipNext"));
+        addProperty(iPropertyCanSkipNext);
     }
 
     /**
-     * Enable the PreviousAvailable property.
+     * Enable the CanSkipPrevious property.
      */
-    public void enablePropertyPreviousAvailable()
+    public void enablePropertyCanSkipPrevious()
     {
-        iPropertyPreviousAvailable = new PropertyBool(new ParameterBool("PreviousAvailable"));
-        addProperty(iPropertyPreviousAvailable);
+        iPropertyCanSkipPrevious = new PropertyBool(new ParameterBool("CanSkipPrevious"));
+        addProperty(iPropertyCanSkipPrevious);
     }
 
     /**
-     * Enable the RepeatAvailable property.
+     * Enable the CanRepeat property.
      */
-    public void enablePropertyRepeatAvailable()
+    public void enablePropertyCanRepeat()
     {
-        iPropertyRepeatAvailable = new PropertyBool(new ParameterBool("RepeatAvailable"));
-        addProperty(iPropertyRepeatAvailable);
+        iPropertyCanRepeat = new PropertyBool(new ParameterBool("CanRepeat"));
+        addProperty(iPropertyCanRepeat);
     }
 
     /**
-     * Enable the ShuffleAvailable property.
+     * Enable the CanShuffle property.
      */
-    public void enablePropertyShuffleAvailable()
+    public void enablePropertyCanShuffle()
     {
-        iPropertyShuffleAvailable = new PropertyBool(new ParameterBool("ShuffleAvailable"));
-        addProperty(iPropertyShuffleAvailable);
+        iPropertyCanShuffle = new PropertyBool(new ParameterBool("CanShuffle"));
+        addProperty(iPropertyCanShuffle);
     }
 
     /**
@@ -355,21 +355,21 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Enable the Seekable property.
+     * Enable the CanSeek property.
      */
-    public void enablePropertySeekable()
+    public void enablePropertyCanSeek()
     {
-        iPropertySeekable = new PropertyBool(new ParameterBool("Seekable"));
-        addProperty(iPropertySeekable);
+        iPropertyCanSeek = new PropertyBool(new ParameterBool("CanSeek"));
+        addProperty(iPropertyCanSeek);
     }
 
     /**
-     * Enable the Pausable property.
+     * Enable the CanPause property.
      */
-    public void enablePropertyPausable()
+    public void enablePropertyCanPause()
     {
-        iPropertyPausable = new PropertyBool(new ParameterBool("Pausable"));
-        addProperty(iPropertyPausable);
+        iPropertyCanPause = new PropertyBool(new ParameterBool("CanPause"));
+        addProperty(iPropertyCanPause);
     }
 
     /**
@@ -429,91 +429,91 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Set the value of the NextAvailable property
+     * Set the value of the CanSkipNext property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyNextAvailable(boolean aValue)
+    public boolean setPropertyCanSkipNext(boolean aValue)
     {
-        return setPropertyBool(iPropertyNextAvailable, aValue);
+        return setPropertyBool(iPropertyCanSkipNext, aValue);
     }
 
     /**
-     * Get a copy of the value of the NextAvailable property
+     * Get a copy of the value of the CanSkipNext property
      *
-     * @return  value of the NextAvailable property.
+     * @return  value of the CanSkipNext property.
      */
-    public boolean getPropertyNextAvailable()
+    public boolean getPropertyCanSkipNext()
     {
-        return iPropertyNextAvailable.getValue();
+        return iPropertyCanSkipNext.getValue();
     }
 
     /**
-     * Set the value of the PreviousAvailable property
-     *
-     * @param aValue    new value for the property.
-     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
-     * if <tt>aValue</tt> was the same as the previous value.
-     */
-    public boolean setPropertyPreviousAvailable(boolean aValue)
-    {
-        return setPropertyBool(iPropertyPreviousAvailable, aValue);
-    }
-
-    /**
-     * Get a copy of the value of the PreviousAvailable property
-     *
-     * @return  value of the PreviousAvailable property.
-     */
-    public boolean getPropertyPreviousAvailable()
-    {
-        return iPropertyPreviousAvailable.getValue();
-    }
-
-    /**
-     * Set the value of the RepeatAvailable property
+     * Set the value of the CanSkipPrevious property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyRepeatAvailable(boolean aValue)
+    public boolean setPropertyCanSkipPrevious(boolean aValue)
     {
-        return setPropertyBool(iPropertyRepeatAvailable, aValue);
+        return setPropertyBool(iPropertyCanSkipPrevious, aValue);
     }
 
     /**
-     * Get a copy of the value of the RepeatAvailable property
+     * Get a copy of the value of the CanSkipPrevious property
      *
-     * @return  value of the RepeatAvailable property.
+     * @return  value of the CanSkipPrevious property.
      */
-    public boolean getPropertyRepeatAvailable()
+    public boolean getPropertyCanSkipPrevious()
     {
-        return iPropertyRepeatAvailable.getValue();
+        return iPropertyCanSkipPrevious.getValue();
     }
 
     /**
-     * Set the value of the ShuffleAvailable property
+     * Set the value of the CanRepeat property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyShuffleAvailable(boolean aValue)
+    public boolean setPropertyCanRepeat(boolean aValue)
     {
-        return setPropertyBool(iPropertyShuffleAvailable, aValue);
+        return setPropertyBool(iPropertyCanRepeat, aValue);
     }
 
     /**
-     * Get a copy of the value of the ShuffleAvailable property
+     * Get a copy of the value of the CanRepeat property
      *
-     * @return  value of the ShuffleAvailable property.
+     * @return  value of the CanRepeat property.
      */
-    public boolean getPropertyShuffleAvailable()
+    public boolean getPropertyCanRepeat()
     {
-        return iPropertyShuffleAvailable.getValue();
+        return iPropertyCanRepeat.getValue();
+    }
+
+    /**
+     * Set the value of the CanShuffle property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyCanShuffle(boolean aValue)
+    {
+        return setPropertyBool(iPropertyCanShuffle, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the CanShuffle property
+     *
+     * @return  value of the CanShuffle property.
+     */
+    public boolean getPropertyCanShuffle()
+    {
+        return iPropertyCanShuffle.getValue();
     }
 
     /**
@@ -539,47 +539,47 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Set the value of the Seekable property
+     * Set the value of the CanSeek property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertySeekable(boolean aValue)
+    public boolean setPropertyCanSeek(boolean aValue)
     {
-        return setPropertyBool(iPropertySeekable, aValue);
+        return setPropertyBool(iPropertyCanSeek, aValue);
     }
 
     /**
-     * Get a copy of the value of the Seekable property
+     * Get a copy of the value of the CanSeek property
      *
-     * @return  value of the Seekable property.
+     * @return  value of the CanSeek property.
      */
-    public boolean getPropertySeekable()
+    public boolean getPropertyCanSeek()
     {
-        return iPropertySeekable.getValue();
+        return iPropertyCanSeek.getValue();
     }
 
     /**
-     * Set the value of the Pausable property
+     * Set the value of the CanPause property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyPausable(boolean aValue)
+    public boolean setPropertyCanPause(boolean aValue)
     {
-        return setPropertyBool(iPropertyPausable, aValue);
+        return setPropertyBool(iPropertyCanPause, aValue);
     }
 
     /**
-     * Get a copy of the value of the Pausable property
+     * Get a copy of the value of the CanPause property
      *
-     * @return  value of the Pausable property.
+     * @return  value of the CanPause property.
      */
-    public boolean getPropertyPausable()
+    public boolean getPropertyCanPause()
     {
-        return iPropertyPausable.getValue();
+        return iPropertyCanPause.getValue();
     }
 
     /**
@@ -703,29 +703,29 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Signal that the action Next is supported.
+     * Signal that the action SkipNext is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * Next must be overridden if this is called.
+     * SkipNext must be overridden if this is called.
      */      
-    protected void enableActionNext()
+    protected void enableActionSkipNext()
     {
-        Action action = new Action("Next");
-        iDelegateNext = new DoNext();
-        enableAction(action, iDelegateNext);
+        Action action = new Action("SkipNext");
+        iDelegateSkipNext = new DoSkipNext();
+        enableAction(action, iDelegateSkipNext);
     }
 
     /**
-     * Signal that the action Previous is supported.
+     * Signal that the action SkipPrevious is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * Previous must be overridden if this is called.
+     * SkipPrevious must be overridden if this is called.
      */      
-    protected void enableActionPrevious()
+    protected void enableActionSkipPrevious()
     {
-        Action action = new Action("Previous");
-        iDelegatePrevious = new DoPrevious();
-        enableAction(action, iDelegatePrevious);
+        Action action = new Action("SkipPrevious");
+        iDelegateSkipPrevious = new DoSkipPrevious();
+        enableAction(action, iDelegateSkipPrevious);
     }
 
     /**
@@ -737,7 +737,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     protected void enableActionSetRepeat()
     {
         Action action = new Action("SetRepeat");
-        action.addInputParameter(new ParameterUint("Repeat"));
+        action.addInputParameter(new ParameterRelated("Repeat", iPropertyRepeat));
         iDelegateSetRepeat = new DoSetRepeat();
         enableAction(action, iDelegateSetRepeat);
     }
@@ -751,7 +751,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     protected void enableActionSetShuffle()
     {
         Action action = new Action("SetShuffle");
-        action.addInputParameter(new ParameterUint("Shuffle"));
+        action.addInputParameter(new ParameterRelated("Shuffle", iPropertyShuffle));
         iDelegateSetShuffle = new DoSetShuffle();
         enableAction(action, iDelegateSetShuffle);
     }
@@ -823,10 +823,10 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     protected void enableActionModeInfo()
     {
         Action action = new Action("ModeInfo");
-        action.addOutputParameter(new ParameterRelated("NextAvailable", iPropertyNextAvailable));
-        action.addOutputParameter(new ParameterRelated("PreviousAvailable", iPropertyPreviousAvailable));
-        action.addOutputParameter(new ParameterRelated("RepeatAvailable", iPropertyRepeatAvailable));
-        action.addOutputParameter(new ParameterRelated("ShuffleAvailable", iPropertyShuffleAvailable));
+        action.addOutputParameter(new ParameterRelated("CanSkipNext", iPropertyCanSkipNext));
+        action.addOutputParameter(new ParameterRelated("CanSkipPrevious", iPropertyCanSkipPrevious));
+        action.addOutputParameter(new ParameterRelated("CanRepeat", iPropertyCanRepeat));
+        action.addOutputParameter(new ParameterRelated("CanShuffle", iPropertyCanShuffle));
         iDelegateModeInfo = new DoModeInfo();
         enableAction(action, iDelegateModeInfo);
     }
@@ -841,8 +841,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     {
         Action action = new Action("StreamInfo");
         action.addOutputParameter(new ParameterRelated("StreamId", iPropertyStreamId));
-        action.addOutputParameter(new ParameterRelated("Seekable", iPropertySeekable));
-        action.addOutputParameter(new ParameterRelated("Pausable", iPropertyPausable));
+        action.addOutputParameter(new ParameterRelated("CanSeek", iPropertyCanSeek));
+        action.addOutputParameter(new ParameterRelated("CanPause", iPropertyCanPause));
         iDelegateStreamInfo = new DoStreamInfo();
         enableAction(action, iDelegateStreamInfo);
     }
@@ -952,31 +952,31 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     }
 
     /**
-     * Next action.
+     * SkipNext action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * Next action for the owning device.
+     * SkipNext action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionNext} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionSkipNext} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected void next(IDvInvocation aInvocation)
+    protected void skipNext(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
 
     /**
-     * Previous action.
+     * SkipPrevious action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * Previous action for the owning device.
+     * SkipPrevious action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionPrevious} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionSkipPrevious} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected void previous(IDvInvocation aInvocation)
+    protected void skipPrevious(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -1357,7 +1357,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
-    private class DoNext implements IDvInvocationListener
+    private class DoSkipNext implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
@@ -1366,11 +1366,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             {
                 invocation.readStart();
                 invocation.readEnd();
-                next(invocation);
+                skipNext(invocation);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "Next");
+                invocation.reportActionError(ae, "SkipNext");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -1403,7 +1403,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         }
     }
 
-    private class DoPrevious implements IDvInvocationListener
+    private class DoSkipPrevious implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
@@ -1412,11 +1412,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             {
                 invocation.readStart();
                 invocation.readEnd();
-                previous(invocation);
+                skipPrevious(invocation);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "Previous");
+                invocation.reportActionError(ae, "SkipPrevious");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -1746,20 +1746,20 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean nextAvailable;
-            boolean previousAvailable;
-            boolean repeatAvailable;
-            boolean shuffleAvailable;
+            boolean canSkipNext;
+            boolean canSkipPrevious;
+            boolean canRepeat;
+            boolean canShuffle;
             try
             {
                 invocation.readStart();
                 invocation.readEnd();
 
             ModeInfo outArgs = modeInfo(invocation);
-            nextAvailable = outArgs.getNextAvailable();
-            previousAvailable = outArgs.getPreviousAvailable();
-            repeatAvailable = outArgs.getRepeatAvailable();
-            shuffleAvailable = outArgs.getShuffleAvailable();
+            canSkipNext = outArgs.getCanSkipNext();
+            canSkipPrevious = outArgs.getCanSkipPrevious();
+            canRepeat = outArgs.getCanRepeat();
+            canShuffle = outArgs.getCanShuffle();
             }
             catch (ActionError ae)
             {
@@ -1781,10 +1781,10 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             try
             {
                 invocation.writeStart();
-                invocation.writeBool("NextAvailable", nextAvailable);
-                invocation.writeBool("PreviousAvailable", previousAvailable);
-                invocation.writeBool("RepeatAvailable", repeatAvailable);
-                invocation.writeBool("ShuffleAvailable", shuffleAvailable);
+                invocation.writeBool("CanSkipNext", canSkipNext);
+                invocation.writeBool("CanSkipPrevious", canSkipPrevious);
+                invocation.writeBool("CanRepeat", canRepeat);
+                invocation.writeBool("CanShuffle", canShuffle);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -1806,8 +1806,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
             long streamId;
-            boolean seekable;
-            boolean pausable;
+            boolean canSeek;
+            boolean canPause;
             try
             {
                 invocation.readStart();
@@ -1815,8 +1815,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
 
             StreamInfo outArgs = streamInfo(invocation);
             streamId = outArgs.getStreamId();
-            seekable = outArgs.getSeekable();
-            pausable = outArgs.getPausable();
+            canSeek = outArgs.getCanSeek();
+            canPause = outArgs.getCanPause();
             }
             catch (ActionError ae)
             {
@@ -1839,8 +1839,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             {
                 invocation.writeStart();
                 invocation.writeUint("StreamId", streamId);
-                invocation.writeBool("Seekable", seekable);
-                invocation.writeBool("Pausable", pausable);
+                invocation.writeBool("CanSeek", canSeek);
+                invocation.writeBool("CanPause", canPause);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

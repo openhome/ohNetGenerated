@@ -20,52 +20,52 @@ void DvProviderAvOpenhomeOrgTransport1::GetPropertyModes(Brhz& aValue)
     aValue.Set(iPropertyModes->Value());
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyNextAvailable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyCanSkipNext(TBool aValue)
 {
-    ASSERT(iPropertyNextAvailable != NULL);
-    return SetPropertyBool(*iPropertyNextAvailable, aValue);
+    ASSERT(iPropertyCanSkipNext != NULL);
+    return SetPropertyBool(*iPropertyCanSkipNext, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyNextAvailable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyCanSkipNext(TBool& aValue)
 {
-    ASSERT(iPropertyNextAvailable != NULL);
-    aValue = iPropertyNextAvailable->Value();
+    ASSERT(iPropertyCanSkipNext != NULL);
+    aValue = iPropertyCanSkipNext->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyPreviousAvailable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyCanSkipPrevious(TBool aValue)
 {
-    ASSERT(iPropertyPreviousAvailable != NULL);
-    return SetPropertyBool(*iPropertyPreviousAvailable, aValue);
+    ASSERT(iPropertyCanSkipPrevious != NULL);
+    return SetPropertyBool(*iPropertyCanSkipPrevious, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyPreviousAvailable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyCanSkipPrevious(TBool& aValue)
 {
-    ASSERT(iPropertyPreviousAvailable != NULL);
-    aValue = iPropertyPreviousAvailable->Value();
+    ASSERT(iPropertyCanSkipPrevious != NULL);
+    aValue = iPropertyCanSkipPrevious->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyRepeatAvailable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyCanRepeat(TBool aValue)
 {
-    ASSERT(iPropertyRepeatAvailable != NULL);
-    return SetPropertyBool(*iPropertyRepeatAvailable, aValue);
+    ASSERT(iPropertyCanRepeat != NULL);
+    return SetPropertyBool(*iPropertyCanRepeat, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyRepeatAvailable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyCanRepeat(TBool& aValue)
 {
-    ASSERT(iPropertyRepeatAvailable != NULL);
-    aValue = iPropertyRepeatAvailable->Value();
+    ASSERT(iPropertyCanRepeat != NULL);
+    aValue = iPropertyCanRepeat->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyShuffleAvailable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyCanShuffle(TBool aValue)
 {
-    ASSERT(iPropertyShuffleAvailable != NULL);
-    return SetPropertyBool(*iPropertyShuffleAvailable, aValue);
+    ASSERT(iPropertyCanShuffle != NULL);
+    return SetPropertyBool(*iPropertyCanShuffle, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyShuffleAvailable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyCanShuffle(TBool& aValue)
 {
-    ASSERT(iPropertyShuffleAvailable != NULL);
-    aValue = iPropertyShuffleAvailable->Value();
+    ASSERT(iPropertyCanShuffle != NULL);
+    aValue = iPropertyCanShuffle->Value();
 }
 
 TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyStreamId(TUint aValue)
@@ -80,28 +80,28 @@ void DvProviderAvOpenhomeOrgTransport1::GetPropertyStreamId(TUint& aValue)
     aValue = iPropertyStreamId->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertySeekable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyCanSeek(TBool aValue)
 {
-    ASSERT(iPropertySeekable != NULL);
-    return SetPropertyBool(*iPropertySeekable, aValue);
+    ASSERT(iPropertyCanSeek != NULL);
+    return SetPropertyBool(*iPropertyCanSeek, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertySeekable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyCanSeek(TBool& aValue)
 {
-    ASSERT(iPropertySeekable != NULL);
-    aValue = iPropertySeekable->Value();
+    ASSERT(iPropertyCanSeek != NULL);
+    aValue = iPropertyCanSeek->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyPausable(TBool aValue)
+TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyCanPause(TBool aValue)
 {
-    ASSERT(iPropertyPausable != NULL);
-    return SetPropertyBool(*iPropertyPausable, aValue);
+    ASSERT(iPropertyCanPause != NULL);
+    return SetPropertyBool(*iPropertyCanPause, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::GetPropertyPausable(TBool& aValue)
+void DvProviderAvOpenhomeOrgTransport1::GetPropertyCanPause(TBool& aValue)
 {
-    ASSERT(iPropertyPausable != NULL);
-    aValue = iPropertyPausable->Value();
+    ASSERT(iPropertyCanPause != NULL);
+    aValue = iPropertyCanPause->Value();
 }
 
 TBool DvProviderAvOpenhomeOrgTransport1::SetPropertyTransportState(const Brx& aValue)
@@ -155,13 +155,13 @@ DvProviderAvOpenhomeOrgTransport1::DvProviderAvOpenhomeOrgTransport1(DviDevice& 
 void DvProviderAvOpenhomeOrgTransport1::Construct()
 {
     iPropertyModes = NULL;
-    iPropertyNextAvailable = NULL;
-    iPropertyPreviousAvailable = NULL;
-    iPropertyRepeatAvailable = NULL;
-    iPropertyShuffleAvailable = NULL;
+    iPropertyCanSkipNext = NULL;
+    iPropertyCanSkipPrevious = NULL;
+    iPropertyCanRepeat = NULL;
+    iPropertyCanShuffle = NULL;
     iPropertyStreamId = NULL;
-    iPropertySeekable = NULL;
-    iPropertyPausable = NULL;
+    iPropertyCanSeek = NULL;
+    iPropertyCanPause = NULL;
     iPropertyTransportState = NULL;
     iPropertyRepeat = NULL;
     iPropertyShuffle = NULL;
@@ -173,28 +173,28 @@ void DvProviderAvOpenhomeOrgTransport1::EnablePropertyModes()
     iService->AddProperty(iPropertyModes); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyNextAvailable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyCanSkipNext()
 {
-    iPropertyNextAvailable = new PropertyBool(new ParameterBool("NextAvailable"));
-    iService->AddProperty(iPropertyNextAvailable); // passes ownership
+    iPropertyCanSkipNext = new PropertyBool(new ParameterBool("CanSkipNext"));
+    iService->AddProperty(iPropertyCanSkipNext); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyPreviousAvailable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyCanSkipPrevious()
 {
-    iPropertyPreviousAvailable = new PropertyBool(new ParameterBool("PreviousAvailable"));
-    iService->AddProperty(iPropertyPreviousAvailable); // passes ownership
+    iPropertyCanSkipPrevious = new PropertyBool(new ParameterBool("CanSkipPrevious"));
+    iService->AddProperty(iPropertyCanSkipPrevious); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyRepeatAvailable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyCanRepeat()
 {
-    iPropertyRepeatAvailable = new PropertyBool(new ParameterBool("RepeatAvailable"));
-    iService->AddProperty(iPropertyRepeatAvailable); // passes ownership
+    iPropertyCanRepeat = new PropertyBool(new ParameterBool("CanRepeat"));
+    iService->AddProperty(iPropertyCanRepeat); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyShuffleAvailable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyCanShuffle()
 {
-    iPropertyShuffleAvailable = new PropertyBool(new ParameterBool("ShuffleAvailable"));
-    iService->AddProperty(iPropertyShuffleAvailable); // passes ownership
+    iPropertyCanShuffle = new PropertyBool(new ParameterBool("CanShuffle"));
+    iService->AddProperty(iPropertyCanShuffle); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgTransport1::EnablePropertyStreamId()
@@ -203,16 +203,16 @@ void DvProviderAvOpenhomeOrgTransport1::EnablePropertyStreamId()
     iService->AddProperty(iPropertyStreamId); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertySeekable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyCanSeek()
 {
-    iPropertySeekable = new PropertyBool(new ParameterBool("Seekable"));
-    iService->AddProperty(iPropertySeekable); // passes ownership
+    iPropertyCanSeek = new PropertyBool(new ParameterBool("CanSeek"));
+    iService->AddProperty(iPropertyCanSeek); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnablePropertyPausable()
+void DvProviderAvOpenhomeOrgTransport1::EnablePropertyCanPause()
 {
-    iPropertyPausable = new PropertyBool(new ParameterBool("Pausable"));
-    iService->AddProperty(iPropertyPausable); // passes ownership
+    iPropertyCanPause = new PropertyBool(new ParameterBool("CanPause"));
+    iService->AddProperty(iPropertyCanPause); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgTransport1::EnablePropertyTransportState()
@@ -272,24 +272,24 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionStop()
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnableActionNext()
+void DvProviderAvOpenhomeOrgTransport1::EnableActionSkipNext()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("Next");
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoNext);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SkipNext");
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSkipNext);
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::EnableActionPrevious()
+void DvProviderAvOpenhomeOrgTransport1::EnableActionSkipPrevious()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("Previous");
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoPrevious);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SkipPrevious");
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSkipPrevious);
     iService->AddAction(action, functor);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::EnableActionSetRepeat()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetRepeat");
-    action->AddInputParameter(new ParameterUint("Repeat"));
+    action->AddInputParameter(new ParameterRelated("Repeat", *iPropertyRepeat));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSetRepeat);
     iService->AddAction(action, functor);
 }
@@ -297,7 +297,7 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionSetRepeat()
 void DvProviderAvOpenhomeOrgTransport1::EnableActionSetShuffle()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetShuffle");
-    action->AddInputParameter(new ParameterUint("Shuffle"));
+    action->AddInputParameter(new ParameterRelated("Shuffle", *iPropertyShuffle));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoSetShuffle);
     iService->AddAction(action, functor);
 }
@@ -339,10 +339,10 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionModes()
 void DvProviderAvOpenhomeOrgTransport1::EnableActionModeInfo()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("ModeInfo");
-    action->AddOutputParameter(new ParameterRelated("NextAvailable", *iPropertyNextAvailable));
-    action->AddOutputParameter(new ParameterRelated("PreviousAvailable", *iPropertyPreviousAvailable));
-    action->AddOutputParameter(new ParameterRelated("RepeatAvailable", *iPropertyRepeatAvailable));
-    action->AddOutputParameter(new ParameterRelated("ShuffleAvailable", *iPropertyShuffleAvailable));
+    action->AddOutputParameter(new ParameterRelated("CanSkipNext", *iPropertyCanSkipNext));
+    action->AddOutputParameter(new ParameterRelated("CanSkipPrevious", *iPropertyCanSkipPrevious));
+    action->AddOutputParameter(new ParameterRelated("CanRepeat", *iPropertyCanRepeat));
+    action->AddOutputParameter(new ParameterRelated("CanShuffle", *iPropertyCanShuffle));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoModeInfo);
     iService->AddAction(action, functor);
 }
@@ -351,8 +351,8 @@ void DvProviderAvOpenhomeOrgTransport1::EnableActionStreamInfo()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("StreamInfo");
     action->AddOutputParameter(new ParameterRelated("StreamId", *iPropertyStreamId));
-    action->AddOutputParameter(new ParameterRelated("Seekable", *iPropertySeekable));
-    action->AddOutputParameter(new ParameterRelated("Pausable", *iPropertyPausable));
+    action->AddOutputParameter(new ParameterRelated("CanSeek", *iPropertyCanSeek));
+    action->AddOutputParameter(new ParameterRelated("CanPause", *iPropertyCanPause));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgTransport1::DoStreamInfo);
     iService->AddAction(action, functor);
 }
@@ -417,20 +417,20 @@ void DvProviderAvOpenhomeOrgTransport1::DoStop(IDviInvocation& aInvocation)
     Stop(invocation);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::DoNext(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgTransport1::DoSkipNext(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    Next(invocation);
+    SkipNext(invocation);
 }
 
-void DvProviderAvOpenhomeOrgTransport1::DoPrevious(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgTransport1::DoSkipPrevious(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    Previous(invocation);
+    SkipPrevious(invocation);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoSetRepeat(IDviInvocation& aInvocation)
@@ -494,11 +494,11 @@ void DvProviderAvOpenhomeOrgTransport1::DoModeInfo(IDviInvocation& aInvocation)
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    DviInvocationResponseBool respNextAvailable(aInvocation, "NextAvailable");
-    DviInvocationResponseBool respPreviousAvailable(aInvocation, "PreviousAvailable");
-    DviInvocationResponseBool respRepeatAvailable(aInvocation, "RepeatAvailable");
-    DviInvocationResponseBool respShuffleAvailable(aInvocation, "ShuffleAvailable");
-    ModeInfo(invocation, respNextAvailable, respPreviousAvailable, respRepeatAvailable, respShuffleAvailable);
+    DviInvocationResponseBool respCanSkipNext(aInvocation, "CanSkipNext");
+    DviInvocationResponseBool respCanSkipPrevious(aInvocation, "CanSkipPrevious");
+    DviInvocationResponseBool respCanRepeat(aInvocation, "CanRepeat");
+    DviInvocationResponseBool respCanShuffle(aInvocation, "CanShuffle");
+    ModeInfo(invocation, respCanSkipNext, respCanSkipPrevious, respCanRepeat, respCanShuffle);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoStreamInfo(IDviInvocation& aInvocation)
@@ -507,9 +507,9 @@ void DvProviderAvOpenhomeOrgTransport1::DoStreamInfo(IDviInvocation& aInvocation
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     DviInvocationResponseUint respStreamId(aInvocation, "StreamId");
-    DviInvocationResponseBool respSeekable(aInvocation, "Seekable");
-    DviInvocationResponseBool respPausable(aInvocation, "Pausable");
-    StreamInfo(invocation, respStreamId, respSeekable, respPausable);
+    DviInvocationResponseBool respCanSeek(aInvocation, "CanSeek");
+    DviInvocationResponseBool respCanPause(aInvocation, "CanPause");
+    StreamInfo(invocation, respStreamId, respCanSeek, respCanPause);
 }
 
 void DvProviderAvOpenhomeOrgTransport1::DoStreamId(IDviInvocation& aInvocation)
@@ -559,12 +559,12 @@ void DvProviderAvOpenhomeOrgTransport1::Stop(IDvInvocation& /*aResponse*/)
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::Next(IDvInvocation& /*aResponse*/)
+void DvProviderAvOpenhomeOrgTransport1::SkipNext(IDvInvocation& /*aResponse*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::Previous(IDvInvocation& /*aResponse*/)
+void DvProviderAvOpenhomeOrgTransport1::SkipPrevious(IDvInvocation& /*aResponse*/)
 {
     ASSERTS();
 }
@@ -599,12 +599,12 @@ void DvProviderAvOpenhomeOrgTransport1::Modes(IDvInvocation& /*aResponse*/, IDvI
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::ModeInfo(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aNextAvailable*/, IDvInvocationResponseBool& /*aPreviousAvailable*/, IDvInvocationResponseBool& /*aRepeatAvailable*/, IDvInvocationResponseBool& /*aShuffleAvailable*/)
+void DvProviderAvOpenhomeOrgTransport1::ModeInfo(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aCanSkipNext*/, IDvInvocationResponseBool& /*aCanSkipPrevious*/, IDvInvocationResponseBool& /*aCanRepeat*/, IDvInvocationResponseBool& /*aCanShuffle*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1::StreamInfo(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aStreamId*/, IDvInvocationResponseBool& /*aSeekable*/, IDvInvocationResponseBool& /*aPausable*/)
+void DvProviderAvOpenhomeOrgTransport1::StreamInfo(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aStreamId*/, IDvInvocationResponseBool& /*aCanSeek*/, IDvInvocationResponseBool& /*aCanPause*/)
 {
     ASSERTS();
 }

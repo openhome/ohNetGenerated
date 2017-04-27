@@ -97,45 +97,45 @@ void SyncStopAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
-class SyncNextAvOpenhomeOrgTransport1Cpp : public SyncProxyAction
+class SyncSkipNextAvOpenhomeOrgTransport1Cpp : public SyncProxyAction
 {
 public:
-    SyncNextAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy);
+    SyncSkipNextAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncNextAvOpenhomeOrgTransport1Cpp() {}
+    virtual ~SyncSkipNextAvOpenhomeOrgTransport1Cpp() {}
 private:
     CpProxyAvOpenhomeOrgTransport1Cpp& iService;
 };
 
-SyncNextAvOpenhomeOrgTransport1Cpp::SyncNextAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy)
+SyncSkipNextAvOpenhomeOrgTransport1Cpp::SyncSkipNextAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncNextAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
+void SyncSkipNextAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndNext(aAsync);
+    iService.EndSkipNext(aAsync);
 }
 
 
-class SyncPreviousAvOpenhomeOrgTransport1Cpp : public SyncProxyAction
+class SyncSkipPreviousAvOpenhomeOrgTransport1Cpp : public SyncProxyAction
 {
 public:
-    SyncPreviousAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy);
+    SyncSkipPreviousAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncPreviousAvOpenhomeOrgTransport1Cpp() {}
+    virtual ~SyncSkipPreviousAvOpenhomeOrgTransport1Cpp() {}
 private:
     CpProxyAvOpenhomeOrgTransport1Cpp& iService;
 };
 
-SyncPreviousAvOpenhomeOrgTransport1Cpp::SyncPreviousAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy)
+SyncSkipPreviousAvOpenhomeOrgTransport1Cpp::SyncSkipPreviousAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncPreviousAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
+void SyncSkipPreviousAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndPrevious(aAsync);
+    iService.EndSkipPrevious(aAsync);
 }
 
 
@@ -272,56 +272,56 @@ void SyncModesAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
 class SyncModeInfoAvOpenhomeOrgTransport1Cpp : public SyncProxyAction
 {
 public:
-    SyncModeInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable);
+    SyncModeInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, bool& aCanSkipNext, bool& aCanSkipPrevious, bool& aCanRepeat, bool& aCanShuffle);
     virtual void CompleteRequest(IAsync& aAsync);
     virtual ~SyncModeInfoAvOpenhomeOrgTransport1Cpp() {}
 private:
     CpProxyAvOpenhomeOrgTransport1Cpp& iService;
-    bool& iNextAvailable;
-    bool& iPreviousAvailable;
-    bool& iRepeatAvailable;
-    bool& iShuffleAvailable;
+    bool& iCanSkipNext;
+    bool& iCanSkipPrevious;
+    bool& iCanRepeat;
+    bool& iCanShuffle;
 };
 
-SyncModeInfoAvOpenhomeOrgTransport1Cpp::SyncModeInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable)
+SyncModeInfoAvOpenhomeOrgTransport1Cpp::SyncModeInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, bool& aCanSkipNext, bool& aCanSkipPrevious, bool& aCanRepeat, bool& aCanShuffle)
     : iService(aProxy)
-    , iNextAvailable(aNextAvailable)
-    , iPreviousAvailable(aPreviousAvailable)
-    , iRepeatAvailable(aRepeatAvailable)
-    , iShuffleAvailable(aShuffleAvailable)
+    , iCanSkipNext(aCanSkipNext)
+    , iCanSkipPrevious(aCanSkipPrevious)
+    , iCanRepeat(aCanRepeat)
+    , iCanShuffle(aCanShuffle)
 {
 }
 
 void SyncModeInfoAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndModeInfo(aAsync, iNextAvailable, iPreviousAvailable, iRepeatAvailable, iShuffleAvailable);
+    iService.EndModeInfo(aAsync, iCanSkipNext, iCanSkipPrevious, iCanRepeat, iCanShuffle);
 }
 
 
 class SyncStreamInfoAvOpenhomeOrgTransport1Cpp : public SyncProxyAction
 {
 public:
-    SyncStreamInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, uint32_t& aStreamId, bool& aSeekable, bool& aPausable);
+    SyncStreamInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, uint32_t& aStreamId, bool& aCanSeek, bool& aCanPause);
     virtual void CompleteRequest(IAsync& aAsync);
     virtual ~SyncStreamInfoAvOpenhomeOrgTransport1Cpp() {}
 private:
     CpProxyAvOpenhomeOrgTransport1Cpp& iService;
     uint32_t& iStreamId;
-    bool& iSeekable;
-    bool& iPausable;
+    bool& iCanSeek;
+    bool& iCanPause;
 };
 
-SyncStreamInfoAvOpenhomeOrgTransport1Cpp::SyncStreamInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, uint32_t& aStreamId, bool& aSeekable, bool& aPausable)
+SyncStreamInfoAvOpenhomeOrgTransport1Cpp::SyncStreamInfoAvOpenhomeOrgTransport1Cpp(CpProxyAvOpenhomeOrgTransport1Cpp& aProxy, uint32_t& aStreamId, bool& aCanSeek, bool& aCanPause)
     : iService(aProxy)
     , iStreamId(aStreamId)
-    , iSeekable(aSeekable)
-    , iPausable(aPausable)
+    , iCanSeek(aCanSeek)
+    , iCanPause(aCanPause)
 {
 }
 
 void SyncStreamInfoAvOpenhomeOrgTransport1Cpp::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndStreamInfo(aAsync, iStreamId, iSeekable, iPausable);
+    iService.EndStreamInfo(aAsync, iStreamId, iCanSeek, iCanPause);
 }
 
 
@@ -413,9 +413,9 @@ CpProxyAvOpenhomeOrgTransport1Cpp::CpProxyAvOpenhomeOrgTransport1Cpp(CpDeviceCpp
 
     iActionStop = new Action("Stop");
 
-    iActionNext = new Action("Next");
+    iActionSkipNext = new Action("SkipNext");
 
-    iActionPrevious = new Action("Previous");
+    iActionSkipPrevious = new Action("SkipPrevious");
 
     iActionSetRepeat = new Action("SetRepeat");
     param = new OpenHome::Net::ParameterUint("Repeat");
@@ -454,21 +454,21 @@ CpProxyAvOpenhomeOrgTransport1Cpp::CpProxyAvOpenhomeOrgTransport1Cpp(CpDeviceCpp
     iActionModes->AddOutputParameter(param);
 
     iActionModeInfo = new Action("ModeInfo");
-    param = new OpenHome::Net::ParameterBool("NextAvailable");
+    param = new OpenHome::Net::ParameterBool("CanSkipNext");
     iActionModeInfo->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterBool("PreviousAvailable");
+    param = new OpenHome::Net::ParameterBool("CanSkipPrevious");
     iActionModeInfo->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterBool("RepeatAvailable");
+    param = new OpenHome::Net::ParameterBool("CanRepeat");
     iActionModeInfo->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterBool("ShuffleAvailable");
+    param = new OpenHome::Net::ParameterBool("CanShuffle");
     iActionModeInfo->AddOutputParameter(param);
 
     iActionStreamInfo = new Action("StreamInfo");
     param = new OpenHome::Net::ParameterUint("StreamId");
     iActionStreamInfo->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterBool("Seekable");
+    param = new OpenHome::Net::ParameterBool("CanSeek");
     iActionStreamInfo->AddOutputParameter(param);
-    param = new OpenHome::Net::ParameterBool("Pausable");
+    param = new OpenHome::Net::ParameterBool("CanPause");
     iActionStreamInfo->AddOutputParameter(param);
 
     iActionStreamId = new Action("StreamId");
@@ -487,27 +487,27 @@ CpProxyAvOpenhomeOrgTransport1Cpp::CpProxyAvOpenhomeOrgTransport1Cpp(CpDeviceCpp
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::ModesPropertyChanged);
     iModes = new PropertyString("Modes", functor);
     AddProperty(iModes);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::NextAvailablePropertyChanged);
-    iNextAvailable = new PropertyBool("NextAvailable", functor);
-    AddProperty(iNextAvailable);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::PreviousAvailablePropertyChanged);
-    iPreviousAvailable = new PropertyBool("PreviousAvailable", functor);
-    AddProperty(iPreviousAvailable);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::RepeatAvailablePropertyChanged);
-    iRepeatAvailable = new PropertyBool("RepeatAvailable", functor);
-    AddProperty(iRepeatAvailable);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::ShuffleAvailablePropertyChanged);
-    iShuffleAvailable = new PropertyBool("ShuffleAvailable", functor);
-    AddProperty(iShuffleAvailable);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::CanSkipNextPropertyChanged);
+    iCanSkipNext = new PropertyBool("CanSkipNext", functor);
+    AddProperty(iCanSkipNext);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::CanSkipPreviousPropertyChanged);
+    iCanSkipPrevious = new PropertyBool("CanSkipPrevious", functor);
+    AddProperty(iCanSkipPrevious);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::CanRepeatPropertyChanged);
+    iCanRepeat = new PropertyBool("CanRepeat", functor);
+    AddProperty(iCanRepeat);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::CanShufflePropertyChanged);
+    iCanShuffle = new PropertyBool("CanShuffle", functor);
+    AddProperty(iCanShuffle);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::StreamIdPropertyChanged);
     iStreamId = new PropertyUint("StreamId", functor);
     AddProperty(iStreamId);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::SeekablePropertyChanged);
-    iSeekable = new PropertyBool("Seekable", functor);
-    AddProperty(iSeekable);
-    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::PausablePropertyChanged);
-    iPausable = new PropertyBool("Pausable", functor);
-    AddProperty(iPausable);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::CanSeekPropertyChanged);
+    iCanSeek = new PropertyBool("CanSeek", functor);
+    AddProperty(iCanSeek);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::CanPausePropertyChanged);
+    iCanPause = new PropertyBool("CanPause", functor);
+    AddProperty(iCanPause);
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgTransport1Cpp::TransportStatePropertyChanged);
     iTransportState = new PropertyString("TransportState", functor);
     AddProperty(iTransportState);
@@ -526,8 +526,8 @@ CpProxyAvOpenhomeOrgTransport1Cpp::~CpProxyAvOpenhomeOrgTransport1Cpp()
     delete iActionPlay;
     delete iActionPause;
     delete iActionStop;
-    delete iActionNext;
-    delete iActionPrevious;
+    delete iActionSkipNext;
+    delete iActionSkipPrevious;
     delete iActionSetRepeat;
     delete iActionSetShuffle;
     delete iActionSeekSecondAbsolute;
@@ -659,24 +659,24 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndStop(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncNext()
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncSkipNext()
 {
-    SyncNextAvOpenhomeOrgTransport1Cpp sync(*this);
-    BeginNext(sync.Functor());
+    SyncSkipNextAvOpenhomeOrgTransport1Cpp sync(*this);
+    BeginSkipNext(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::BeginNext(FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::BeginSkipNext(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionNext, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSkipNext, aFunctor);
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::EndNext(IAsync& aAsync)
+void CpProxyAvOpenhomeOrgTransport1Cpp::EndSkipNext(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("Next"));
+    ASSERT(invocation.Action().Name() == Brn("SkipNext"));
 
     Error::ELevel level;
     TUint code;
@@ -686,24 +686,24 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndNext(IAsync& aAsync)
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncPrevious()
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncSkipPrevious()
 {
-    SyncPreviousAvOpenhomeOrgTransport1Cpp sync(*this);
-    BeginPrevious(sync.Functor());
+    SyncSkipPreviousAvOpenhomeOrgTransport1Cpp sync(*this);
+    BeginSkipPrevious(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::BeginPrevious(FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::BeginSkipPrevious(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionPrevious, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSkipPrevious, aFunctor);
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::EndPrevious(IAsync& aAsync)
+void CpProxyAvOpenhomeOrgTransport1Cpp::EndSkipPrevious(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("Previous"));
+    ASSERT(invocation.Action().Name() == Brn("SkipPrevious"));
 
     Error::ELevel level;
     TUint code;
@@ -905,9 +905,9 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndModes(IAsync& aAsync, std::string& aM
     }
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncModeInfo(bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncModeInfo(bool& aCanSkipNext, bool& aCanSkipPrevious, bool& aCanRepeat, bool& aCanShuffle)
 {
-    SyncModeInfoAvOpenhomeOrgTransport1Cpp sync(*this, aNextAvailable, aPreviousAvailable, aRepeatAvailable, aShuffleAvailable);
+    SyncModeInfoAvOpenhomeOrgTransport1Cpp sync(*this, aCanSkipNext, aCanSkipPrevious, aCanRepeat, aCanShuffle);
     BeginModeInfo(sync.Functor());
     sync.Wait();
 }
@@ -924,7 +924,7 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::BeginModeInfo(FunctorAsync& aFunctor)
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::EndModeInfo(IAsync& aAsync, bool& aNextAvailable, bool& aPreviousAvailable, bool& aRepeatAvailable, bool& aShuffleAvailable)
+void CpProxyAvOpenhomeOrgTransport1Cpp::EndModeInfo(IAsync& aAsync, bool& aCanSkipNext, bool& aCanSkipPrevious, bool& aCanRepeat, bool& aCanShuffle)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
@@ -937,15 +937,15 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndModeInfo(IAsync& aAsync, bool& aNextA
         THROW_PROXYERROR(level, code);
     }
     TUint index = 0;
-    aNextAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
-    aPreviousAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
-    aRepeatAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
-    aShuffleAvailable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aCanSkipNext = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aCanSkipPrevious = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aCanRepeat = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aCanShuffle = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SyncStreamInfo(uint32_t& aStreamId, bool& aSeekable, bool& aPausable)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SyncStreamInfo(uint32_t& aStreamId, bool& aCanSeek, bool& aCanPause)
 {
-    SyncStreamInfoAvOpenhomeOrgTransport1Cpp sync(*this, aStreamId, aSeekable, aPausable);
+    SyncStreamInfoAvOpenhomeOrgTransport1Cpp sync(*this, aStreamId, aCanSeek, aCanPause);
     BeginStreamInfo(sync.Functor());
     sync.Wait();
 }
@@ -961,7 +961,7 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::BeginStreamInfo(FunctorAsync& aFunctor)
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::EndStreamInfo(IAsync& aAsync, uint32_t& aStreamId, bool& aSeekable, bool& aPausable)
+void CpProxyAvOpenhomeOrgTransport1Cpp::EndStreamInfo(IAsync& aAsync, uint32_t& aStreamId, bool& aCanSeek, bool& aCanPause)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
@@ -975,8 +975,8 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::EndStreamInfo(IAsync& aAsync, uint32_t& 
     }
     TUint index = 0;
     aStreamId = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
-    aSeekable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
-    aPausable = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aCanSeek = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+    aCanPause = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1Cpp::SyncStreamId(uint32_t& aStreamId)
@@ -1082,31 +1082,31 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyModesChanged(Functor& aFuncto
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyNextAvailableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyCanSkipNextChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iNextAvailableChanged = aFunctor;
+    iCanSkipNextChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyPreviousAvailableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyCanSkipPreviousChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iPreviousAvailableChanged = aFunctor;
+    iCanSkipPreviousChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyRepeatAvailableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyCanRepeatChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iRepeatAvailableChanged = aFunctor;
+    iCanRepeatChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyShuffleAvailableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyCanShuffleChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iShuffleAvailableChanged = aFunctor;
+    iCanShuffleChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
@@ -1117,17 +1117,17 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyStreamIdChanged(Functor& aFun
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertySeekableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyCanSeekChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iSeekableChanged = aFunctor;
+    iCanSeekChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyPausableChanged(Functor& aFunctor)
+void CpProxyAvOpenhomeOrgTransport1Cpp::SetPropertyCanPauseChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
-    iPausableChanged = aFunctor;
+    iCanPauseChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
@@ -1162,40 +1162,40 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyModes(std::string& aModes) const
     aModes.assign((const char*)val.Ptr(), val.Bytes());
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyNextAvailable(bool& aNextAvailable) const
+void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyCanSkipNext(bool& aCanSkipNext) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aNextAvailable = iNextAvailable->Value();
+    aCanSkipNext = iCanSkipNext->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyPreviousAvailable(bool& aPreviousAvailable) const
+void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyCanSkipPrevious(bool& aCanSkipPrevious) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aPreviousAvailable = iPreviousAvailable->Value();
+    aCanSkipPrevious = iCanSkipPrevious->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyRepeatAvailable(bool& aRepeatAvailable) const
+void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyCanRepeat(bool& aCanRepeat) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aRepeatAvailable = iRepeatAvailable->Value();
+    aCanRepeat = iCanRepeat->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyShuffleAvailable(bool& aShuffleAvailable) const
+void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyCanShuffle(bool& aCanShuffle) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aShuffleAvailable = iShuffleAvailable->Value();
+    aCanShuffle = iCanShuffle->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyStreamId(uint32_t& aStreamId) const
@@ -1207,22 +1207,22 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyStreamId(uint32_t& aStreamId) co
     aStreamId = iStreamId->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PropertySeekable(bool& aSeekable) const
+void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyCanSeek(bool& aCanSeek) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aSeekable = iSeekable->Value();
+    aCanSeek = iCanSeek->Value();
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyPausable(bool& aPausable) const
+void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyCanPause(bool& aCanPause) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
     if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
         THROW(ProxyNotSubscribed);
     }
-    aPausable = iPausable->Value();
+    aCanPause = iCanPause->Value();
 }
 
 void CpProxyAvOpenhomeOrgTransport1Cpp::PropertyTransportState(std::string& aTransportState) const
@@ -1258,24 +1258,24 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::ModesPropertyChanged()
     ReportEvent(iModesChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::NextAvailablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1Cpp::CanSkipNextPropertyChanged()
 {
-    ReportEvent(iNextAvailableChanged);
+    ReportEvent(iCanSkipNextChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PreviousAvailablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1Cpp::CanSkipPreviousPropertyChanged()
 {
-    ReportEvent(iPreviousAvailableChanged);
+    ReportEvent(iCanSkipPreviousChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::RepeatAvailablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1Cpp::CanRepeatPropertyChanged()
 {
-    ReportEvent(iRepeatAvailableChanged);
+    ReportEvent(iCanRepeatChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::ShuffleAvailablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1Cpp::CanShufflePropertyChanged()
 {
-    ReportEvent(iShuffleAvailableChanged);
+    ReportEvent(iCanShuffleChanged);
 }
 
 void CpProxyAvOpenhomeOrgTransport1Cpp::StreamIdPropertyChanged()
@@ -1283,14 +1283,14 @@ void CpProxyAvOpenhomeOrgTransport1Cpp::StreamIdPropertyChanged()
     ReportEvent(iStreamIdChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::SeekablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1Cpp::CanSeekPropertyChanged()
 {
-    ReportEvent(iSeekableChanged);
+    ReportEvent(iCanSeekChanged);
 }
 
-void CpProxyAvOpenhomeOrgTransport1Cpp::PausablePropertyChanged()
+void CpProxyAvOpenhomeOrgTransport1Cpp::CanPausePropertyChanged()
 {
-    ReportEvent(iPausableChanged);
+    ReportEvent(iCanPauseChanged);
 }
 
 void CpProxyAvOpenhomeOrgTransport1Cpp::TransportStatePropertyChanged()

@@ -35,12 +35,12 @@ public:
     virtual void SyncStop() = 0;
     virtual void BeginStop(FunctorAsync& aFunctor) = 0;
     virtual void EndStop(IAsync& aAsync) = 0;
-    virtual void SyncNext() = 0;
-    virtual void BeginNext(FunctorAsync& aFunctor) = 0;
-    virtual void EndNext(IAsync& aAsync) = 0;
-    virtual void SyncPrevious() = 0;
-    virtual void BeginPrevious(FunctorAsync& aFunctor) = 0;
-    virtual void EndPrevious(IAsync& aAsync) = 0;
+    virtual void SyncSkipNext() = 0;
+    virtual void BeginSkipNext(FunctorAsync& aFunctor) = 0;
+    virtual void EndSkipNext(IAsync& aAsync) = 0;
+    virtual void SyncSkipPrevious() = 0;
+    virtual void BeginSkipPrevious(FunctorAsync& aFunctor) = 0;
+    virtual void EndSkipPrevious(IAsync& aAsync) = 0;
     virtual void SyncSetRepeat(TUint aRepeat) = 0;
     virtual void BeginSetRepeat(TUint aRepeat, FunctorAsync& aFunctor) = 0;
     virtual void EndSetRepeat(IAsync& aAsync) = 0;
@@ -59,12 +59,12 @@ public:
     virtual void SyncModes(Brh& aModes) = 0;
     virtual void BeginModes(FunctorAsync& aFunctor) = 0;
     virtual void EndModes(IAsync& aAsync, Brh& aModes) = 0;
-    virtual void SyncModeInfo(TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable) = 0;
+    virtual void SyncModeInfo(TBool& aCanSkipNext, TBool& aCanSkipPrevious, TBool& aCanRepeat, TBool& aCanShuffle) = 0;
     virtual void BeginModeInfo(FunctorAsync& aFunctor) = 0;
-    virtual void EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable) = 0;
-    virtual void SyncStreamInfo(TUint& aStreamId, TBool& aSeekable, TBool& aPausable) = 0;
+    virtual void EndModeInfo(IAsync& aAsync, TBool& aCanSkipNext, TBool& aCanSkipPrevious, TBool& aCanRepeat, TBool& aCanShuffle) = 0;
+    virtual void SyncStreamInfo(TUint& aStreamId, TBool& aCanSeek, TBool& aCanPause) = 0;
     virtual void BeginStreamInfo(FunctorAsync& aFunctor) = 0;
-    virtual void EndStreamInfo(IAsync& aAsync, TUint& aStreamId, TBool& aSeekable, TBool& aPausable) = 0;
+    virtual void EndStreamInfo(IAsync& aAsync, TUint& aStreamId, TBool& aCanSeek, TBool& aCanPause) = 0;
     virtual void SyncStreamId(TUint& aStreamId) = 0;
     virtual void BeginStreamId(FunctorAsync& aFunctor) = 0;
     virtual void EndStreamId(IAsync& aAsync, TUint& aStreamId) = 0;
@@ -76,20 +76,20 @@ public:
     virtual void EndShuffle(IAsync& aAsync, TUint& aShuffle) = 0;
     virtual void SetPropertyModesChanged(Functor& aModesChanged) = 0;
     virtual void PropertyModes(Brhz& aModes) const = 0;
-    virtual void SetPropertyNextAvailableChanged(Functor& aNextAvailableChanged) = 0;
-    virtual void PropertyNextAvailable(TBool& aNextAvailable) const = 0;
-    virtual void SetPropertyPreviousAvailableChanged(Functor& aPreviousAvailableChanged) = 0;
-    virtual void PropertyPreviousAvailable(TBool& aPreviousAvailable) const = 0;
-    virtual void SetPropertyRepeatAvailableChanged(Functor& aRepeatAvailableChanged) = 0;
-    virtual void PropertyRepeatAvailable(TBool& aRepeatAvailable) const = 0;
-    virtual void SetPropertyShuffleAvailableChanged(Functor& aShuffleAvailableChanged) = 0;
-    virtual void PropertyShuffleAvailable(TBool& aShuffleAvailable) const = 0;
+    virtual void SetPropertyCanSkipNextChanged(Functor& aCanSkipNextChanged) = 0;
+    virtual void PropertyCanSkipNext(TBool& aCanSkipNext) const = 0;
+    virtual void SetPropertyCanSkipPreviousChanged(Functor& aCanSkipPreviousChanged) = 0;
+    virtual void PropertyCanSkipPrevious(TBool& aCanSkipPrevious) const = 0;
+    virtual void SetPropertyCanRepeatChanged(Functor& aCanRepeatChanged) = 0;
+    virtual void PropertyCanRepeat(TBool& aCanRepeat) const = 0;
+    virtual void SetPropertyCanShuffleChanged(Functor& aCanShuffleChanged) = 0;
+    virtual void PropertyCanShuffle(TBool& aCanShuffle) const = 0;
     virtual void SetPropertyStreamIdChanged(Functor& aStreamIdChanged) = 0;
     virtual void PropertyStreamId(TUint& aStreamId) const = 0;
-    virtual void SetPropertySeekableChanged(Functor& aSeekableChanged) = 0;
-    virtual void PropertySeekable(TBool& aSeekable) const = 0;
-    virtual void SetPropertyPausableChanged(Functor& aPausableChanged) = 0;
-    virtual void PropertyPausable(TBool& aPausable) const = 0;
+    virtual void SetPropertyCanSeekChanged(Functor& aCanSeekChanged) = 0;
+    virtual void PropertyCanSeek(TBool& aCanSeek) const = 0;
+    virtual void SetPropertyCanPauseChanged(Functor& aCanPauseChanged) = 0;
+    virtual void PropertyCanPause(TBool& aCanPause) const = 0;
     virtual void SetPropertyTransportStateChanged(Functor& aTransportStateChanged) = 0;
     virtual void PropertyTransportState(Brhz& aTransportState) const = 0;
     virtual void SetPropertyRepeatChanged(Functor& aRepeatChanged) = 0;
@@ -224,47 +224,47 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      */
-    void SyncNext();
+    void SyncSkipNext();
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndNext().
+     * EndSkipNext().
      *
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginNext(FunctorAsync& aFunctor);
+    void BeginSkipNext(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndNext(IAsync& aAsync);
+    void EndSkipNext(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      */
-    void SyncPrevious();
+    void SyncSkipPrevious();
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndPrevious().
+     * EndSkipPrevious().
      *
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginPrevious(FunctorAsync& aFunctor);
+    void BeginSkipPrevious(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndPrevious(IAsync& aAsync);
+    void EndSkipPrevious(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -430,12 +430,12 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
-     * @param[out] aNextAvailable
-     * @param[out] aPreviousAvailable
-     * @param[out] aRepeatAvailable
-     * @param[out] aShuffleAvailable
+     * @param[out] aCanSkipNext
+     * @param[out] aCanSkipPrevious
+     * @param[out] aCanRepeat
+     * @param[out] aCanShuffle
      */
-    void SyncModeInfo(TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable);
+    void SyncModeInfo(TBool& aCanSkipNext, TBool& aCanSkipPrevious, TBool& aCanRepeat, TBool& aCanShuffle);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -451,22 +451,22 @@ public:
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     * @param[out] aNextAvailable
-     * @param[out] aPreviousAvailable
-     * @param[out] aRepeatAvailable
-     * @param[out] aShuffleAvailable
+     * @param[out] aCanSkipNext
+     * @param[out] aCanSkipPrevious
+     * @param[out] aCanRepeat
+     * @param[out] aCanShuffle
      */
-    void EndModeInfo(IAsync& aAsync, TBool& aNextAvailable, TBool& aPreviousAvailable, TBool& aRepeatAvailable, TBool& aShuffleAvailable);
+    void EndModeInfo(IAsync& aAsync, TBool& aCanSkipNext, TBool& aCanSkipPrevious, TBool& aCanRepeat, TBool& aCanShuffle);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
      * @param[out] aStreamId
-     * @param[out] aSeekable
-     * @param[out] aPausable
+     * @param[out] aCanSeek
+     * @param[out] aCanPause
      */
-    void SyncStreamInfo(TUint& aStreamId, TBool& aSeekable, TBool& aPausable);
+    void SyncStreamInfo(TUint& aStreamId, TBool& aCanSeek, TBool& aCanPause);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -483,10 +483,10 @@ public:
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      * @param[out] aStreamId
-     * @param[out] aSeekable
-     * @param[out] aPausable
+     * @param[out] aCanSeek
+     * @param[out] aCanPause
      */
-    void EndStreamInfo(IAsync& aAsync, TUint& aStreamId, TBool& aSeekable, TBool& aPausable);
+    void EndStreamInfo(IAsync& aAsync, TUint& aStreamId, TBool& aCanSeek, TBool& aCanPause);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -576,41 +576,41 @@ public:
      */
     void SetPropertyModesChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the NextAvailable state variable changes.
+     * Set a callback to be run when the CanSkipNext state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyNextAvailableChanged(Functor& aFunctor);
+    void SetPropertyCanSkipNextChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the PreviousAvailable state variable changes.
+     * Set a callback to be run when the CanSkipPrevious state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyPreviousAvailableChanged(Functor& aFunctor);
+    void SetPropertyCanSkipPreviousChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the RepeatAvailable state variable changes.
+     * Set a callback to be run when the CanRepeat state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyRepeatAvailableChanged(Functor& aFunctor);
+    void SetPropertyCanRepeatChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the ShuffleAvailable state variable changes.
+     * Set a callback to be run when the CanShuffle state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyShuffleAvailableChanged(Functor& aFunctor);
+    void SetPropertyCanShuffleChanged(Functor& aFunctor);
     /**
      * Set a callback to be run when the StreamId state variable changes.
      *
@@ -621,23 +621,23 @@ public:
      */
     void SetPropertyStreamIdChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the Seekable state variable changes.
+     * Set a callback to be run when the CanSeek state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertySeekableChanged(Functor& aFunctor);
+    void SetPropertyCanSeekChanged(Functor& aFunctor);
     /**
-     * Set a callback to be run when the Pausable state variable changes.
+     * Set a callback to be run when the CanPause state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyAvOpenhomeOrgTransport1 instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyPausableChanged(Functor& aFunctor);
+    void SetPropertyCanPauseChanged(Functor& aFunctor);
     /**
      * Set a callback to be run when the TransportState state variable changes.
      *
@@ -677,45 +677,45 @@ public:
      */
     void PropertyModes(Brhz& aModes) const;
     /**
-     * Query the value of the NextAvailable property.
+     * Query the value of the CanSkipNext property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aNextAvailable
+     * @param[out] aCanSkipNext
      */
-    void PropertyNextAvailable(TBool& aNextAvailable) const;
+    void PropertyCanSkipNext(TBool& aCanSkipNext) const;
     /**
-     * Query the value of the PreviousAvailable property.
+     * Query the value of the CanSkipPrevious property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aPreviousAvailable
+     * @param[out] aCanSkipPrevious
      */
-    void PropertyPreviousAvailable(TBool& aPreviousAvailable) const;
+    void PropertyCanSkipPrevious(TBool& aCanSkipPrevious) const;
     /**
-     * Query the value of the RepeatAvailable property.
+     * Query the value of the CanRepeat property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aRepeatAvailable
+     * @param[out] aCanRepeat
      */
-    void PropertyRepeatAvailable(TBool& aRepeatAvailable) const;
+    void PropertyCanRepeat(TBool& aCanRepeat) const;
     /**
-     * Query the value of the ShuffleAvailable property.
+     * Query the value of the CanShuffle property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aShuffleAvailable
+     * @param[out] aCanShuffle
      */
-    void PropertyShuffleAvailable(TBool& aShuffleAvailable) const;
+    void PropertyCanShuffle(TBool& aCanShuffle) const;
     /**
      * Query the value of the StreamId property.
      *
@@ -727,25 +727,25 @@ public:
      */
     void PropertyStreamId(TUint& aStreamId) const;
     /**
-     * Query the value of the Seekable property.
+     * Query the value of the CanSeek property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aSeekable
+     * @param[out] aCanSeek
      */
-    void PropertySeekable(TBool& aSeekable) const;
+    void PropertyCanSeek(TBool& aCanSeek) const;
     /**
-     * Query the value of the Pausable property.
+     * Query the value of the CanPause property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aPausable
+     * @param[out] aCanPause
      */
-    void PropertyPausable(TBool& aPausable) const;
+    void PropertyCanPause(TBool& aCanPause) const;
     /**
      * Query the value of the TransportState property.
      *
@@ -811,13 +811,13 @@ public:
 private:
     CpProxy iCpProxy;
     void ModesPropertyChanged();
-    void NextAvailablePropertyChanged();
-    void PreviousAvailablePropertyChanged();
-    void RepeatAvailablePropertyChanged();
-    void ShuffleAvailablePropertyChanged();
+    void CanSkipNextPropertyChanged();
+    void CanSkipPreviousPropertyChanged();
+    void CanRepeatPropertyChanged();
+    void CanShufflePropertyChanged();
     void StreamIdPropertyChanged();
-    void SeekablePropertyChanged();
-    void PausablePropertyChanged();
+    void CanSeekPropertyChanged();
+    void CanPausePropertyChanged();
     void TransportStatePropertyChanged();
     void RepeatPropertyChanged();
     void ShufflePropertyChanged();
@@ -826,8 +826,8 @@ private:
     Action* iActionPlay;
     Action* iActionPause;
     Action* iActionStop;
-    Action* iActionNext;
-    Action* iActionPrevious;
+    Action* iActionSkipNext;
+    Action* iActionSkipPrevious;
     Action* iActionSetRepeat;
     Action* iActionSetShuffle;
     Action* iActionSeekSecondAbsolute;
@@ -840,24 +840,24 @@ private:
     Action* iActionRepeat;
     Action* iActionShuffle;
     PropertyString* iModes;
-    PropertyBool* iNextAvailable;
-    PropertyBool* iPreviousAvailable;
-    PropertyBool* iRepeatAvailable;
-    PropertyBool* iShuffleAvailable;
+    PropertyBool* iCanSkipNext;
+    PropertyBool* iCanSkipPrevious;
+    PropertyBool* iCanRepeat;
+    PropertyBool* iCanShuffle;
     PropertyUint* iStreamId;
-    PropertyBool* iSeekable;
-    PropertyBool* iPausable;
+    PropertyBool* iCanSeek;
+    PropertyBool* iCanPause;
     PropertyString* iTransportState;
     PropertyUint* iRepeat;
     PropertyUint* iShuffle;
     Functor iModesChanged;
-    Functor iNextAvailableChanged;
-    Functor iPreviousAvailableChanged;
-    Functor iRepeatAvailableChanged;
-    Functor iShuffleAvailableChanged;
+    Functor iCanSkipNextChanged;
+    Functor iCanSkipPreviousChanged;
+    Functor iCanRepeatChanged;
+    Functor iCanShuffleChanged;
     Functor iStreamIdChanged;
-    Functor iSeekableChanged;
-    Functor iPausableChanged;
+    Functor iCanSeekChanged;
+    Functor iCanPauseChanged;
     Functor iTransportStateChanged;
     Functor iRepeatChanged;
     Functor iShuffleChanged;

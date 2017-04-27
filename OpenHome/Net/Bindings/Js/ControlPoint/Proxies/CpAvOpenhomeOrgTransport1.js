@@ -19,13 +19,13 @@ var CpProxyAvOpenhomeOrgTransport1 = function(udn){
     // Collection of service properties
     this.serviceProperties = {};
     this.serviceProperties["Modes"] = new ohnet.serviceproperty("Modes","string");
-    this.serviceProperties["NextAvailable"] = new ohnet.serviceproperty("NextAvailable","bool");
-    this.serviceProperties["PreviousAvailable"] = new ohnet.serviceproperty("PreviousAvailable","bool");
-    this.serviceProperties["RepeatAvailable"] = new ohnet.serviceproperty("RepeatAvailable","bool");
-    this.serviceProperties["ShuffleAvailable"] = new ohnet.serviceproperty("ShuffleAvailable","bool");
+    this.serviceProperties["CanSkipNext"] = new ohnet.serviceproperty("CanSkipNext","bool");
+    this.serviceProperties["CanSkipPrevious"] = new ohnet.serviceproperty("CanSkipPrevious","bool");
+    this.serviceProperties["CanRepeat"] = new ohnet.serviceproperty("CanRepeat","bool");
+    this.serviceProperties["CanShuffle"] = new ohnet.serviceproperty("CanShuffle","bool");
     this.serviceProperties["StreamId"] = new ohnet.serviceproperty("StreamId","int");
-    this.serviceProperties["Seekable"] = new ohnet.serviceproperty("Seekable","bool");
-    this.serviceProperties["Pausable"] = new ohnet.serviceproperty("Pausable","bool");
+    this.serviceProperties["CanSeek"] = new ohnet.serviceproperty("CanSeek","bool");
+    this.serviceProperties["CanPause"] = new ohnet.serviceproperty("CanPause","bool");
     this.serviceProperties["TransportState"] = new ohnet.serviceproperty("TransportState","string");
     this.serviceProperties["Repeat"] = new ohnet.serviceproperty("Repeat","int");
     this.serviceProperties["Shuffle"] = new ohnet.serviceproperty("Shuffle","int");
@@ -77,12 +77,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Modes_Changed = function (stateChangedF
     
 
 /**
-* Adds a listener to handle "NextAvailable" property change events
-* @method NextAvailable_Changed
+* Adds a listener to handle "CanSkipNext" property change events
+* @method CanSkipNext_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.NextAvailable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.NextAvailable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.CanSkipNext_Changed = function (stateChangedFunction) {
+    this.serviceProperties.CanSkipNext.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -90,12 +90,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.NextAvailable_Changed = function (state
     
 
 /**
-* Adds a listener to handle "PreviousAvailable" property change events
-* @method PreviousAvailable_Changed
+* Adds a listener to handle "CanSkipPrevious" property change events
+* @method CanSkipPrevious_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.PreviousAvailable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.PreviousAvailable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.CanSkipPrevious_Changed = function (stateChangedFunction) {
+    this.serviceProperties.CanSkipPrevious.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -103,12 +103,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.PreviousAvailable_Changed = function (s
     
 
 /**
-* Adds a listener to handle "RepeatAvailable" property change events
-* @method RepeatAvailable_Changed
+* Adds a listener to handle "CanRepeat" property change events
+* @method CanRepeat_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.RepeatAvailable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.RepeatAvailable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.CanRepeat_Changed = function (stateChangedFunction) {
+    this.serviceProperties.CanRepeat.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -116,12 +116,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.RepeatAvailable_Changed = function (sta
     
 
 /**
-* Adds a listener to handle "ShuffleAvailable" property change events
-* @method ShuffleAvailable_Changed
+* Adds a listener to handle "CanShuffle" property change events
+* @method CanShuffle_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.ShuffleAvailable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.ShuffleAvailable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.CanShuffle_Changed = function (stateChangedFunction) {
+    this.serviceProperties.CanShuffle.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -142,12 +142,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.StreamId_Changed = function (stateChang
     
 
 /**
-* Adds a listener to handle "Seekable" property change events
-* @method Seekable_Changed
+* Adds a listener to handle "CanSeek" property change events
+* @method CanSeek_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Seekable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.Seekable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.CanSeek_Changed = function (stateChangedFunction) {
+    this.serviceProperties.CanSeek.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -155,12 +155,12 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Seekable_Changed = function (stateChang
     
 
 /**
-* Adds a listener to handle "Pausable" property change events
-* @method Pausable_Changed
+* Adds a listener to handle "CanPause" property change events
+* @method CanPause_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Pausable_Changed = function (stateChangedFunction) {
-    this.serviceProperties.Pausable.addListener(function (state) 
+CpProxyAvOpenhomeOrgTransport1.prototype.CanPause_Changed = function (stateChangedFunction) {
+    this.serviceProperties.CanPause.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
@@ -287,13 +287,13 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Stop = function(successFunction, errorF
 
 
 /**
-* A service action to Next
-* @method Next
+* A service action to SkipNext
+* @method SkipNext
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Next = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("Next", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgTransport1.prototype.SkipNext = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SkipNext", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
     
         if (successFunction){
@@ -306,13 +306,13 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Next = function(successFunction, errorF
 
 
 /**
-* A service action to Previous
-* @method Previous
+* A service action to SkipPrevious
+* @method SkipPrevious
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgTransport1.prototype.Previous = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("Previous", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgTransport1.prototype.SkipPrevious = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SkipPrevious", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
     
         if (successFunction){
@@ -461,10 +461,10 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Modes = function(successFunction, error
 CpProxyAvOpenhomeOrgTransport1.prototype.ModeInfo = function(successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("ModeInfo", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
-        result["NextAvailable"] = ohnet.soaprequest.readBoolParameter(result["NextAvailable"]); 
-        result["PreviousAvailable"] = ohnet.soaprequest.readBoolParameter(result["PreviousAvailable"]); 
-        result["RepeatAvailable"] = ohnet.soaprequest.readBoolParameter(result["RepeatAvailable"]); 
-        result["ShuffleAvailable"] = ohnet.soaprequest.readBoolParameter(result["ShuffleAvailable"]); 
+        result["CanSkipNext"] = ohnet.soaprequest.readBoolParameter(result["CanSkipNext"]); 
+        result["CanSkipPrevious"] = ohnet.soaprequest.readBoolParameter(result["CanSkipPrevious"]); 
+        result["CanRepeat"] = ohnet.soaprequest.readBoolParameter(result["CanRepeat"]); 
+        result["CanShuffle"] = ohnet.soaprequest.readBoolParameter(result["CanShuffle"]); 
     
         if (successFunction){
             successFunction(result);
@@ -485,8 +485,8 @@ CpProxyAvOpenhomeOrgTransport1.prototype.StreamInfo = function(successFunction, 
     var request = new ohnet.soaprequest("StreamInfo", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
         result["StreamId"] = ohnet.soaprequest.readIntParameter(result["StreamId"]); 
-        result["Seekable"] = ohnet.soaprequest.readBoolParameter(result["Seekable"]); 
-        result["Pausable"] = ohnet.soaprequest.readBoolParameter(result["Pausable"]); 
+        result["CanSeek"] = ohnet.soaprequest.readBoolParameter(result["CanSeek"]); 
+        result["CanPause"] = ohnet.soaprequest.readBoolParameter(result["CanPause"]); 
     
         if (successFunction){
             successFunction(result);

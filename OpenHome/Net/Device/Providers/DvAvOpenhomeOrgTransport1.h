@@ -40,61 +40,61 @@ public:
      */
     void GetPropertyModes(Brhz& aValue);
     /**
-     * Set the value of the NextAvailable property
+     * Set the value of the CanSkipNext property
      *
-     * Can only be called if EnablePropertyNextAvailable has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    TBool SetPropertyNextAvailable(TBool aValue);
-    /**
-     * Get a copy of the value of the NextAvailable property
-     *
-     * Can only be called if EnablePropertyNextAvailable has previously been called.
-     */
-    void GetPropertyNextAvailable(TBool& aValue);
-    /**
-     * Set the value of the PreviousAvailable property
-     *
-     * Can only be called if EnablePropertyPreviousAvailable has previously been called.
+     * Can only be called if EnablePropertyCanSkipNext has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyPreviousAvailable(TBool aValue);
+    TBool SetPropertyCanSkipNext(TBool aValue);
     /**
-     * Get a copy of the value of the PreviousAvailable property
+     * Get a copy of the value of the CanSkipNext property
      *
-     * Can only be called if EnablePropertyPreviousAvailable has previously been called.
+     * Can only be called if EnablePropertyCanSkipNext has previously been called.
      */
-    void GetPropertyPreviousAvailable(TBool& aValue);
+    void GetPropertyCanSkipNext(TBool& aValue);
     /**
-     * Set the value of the RepeatAvailable property
+     * Set the value of the CanSkipPrevious property
      *
-     * Can only be called if EnablePropertyRepeatAvailable has previously been called.
+     * Can only be called if EnablePropertyCanSkipPrevious has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyRepeatAvailable(TBool aValue);
+    TBool SetPropertyCanSkipPrevious(TBool aValue);
     /**
-     * Get a copy of the value of the RepeatAvailable property
+     * Get a copy of the value of the CanSkipPrevious property
      *
-     * Can only be called if EnablePropertyRepeatAvailable has previously been called.
+     * Can only be called if EnablePropertyCanSkipPrevious has previously been called.
      */
-    void GetPropertyRepeatAvailable(TBool& aValue);
+    void GetPropertyCanSkipPrevious(TBool& aValue);
     /**
-     * Set the value of the ShuffleAvailable property
+     * Set the value of the CanRepeat property
      *
-     * Can only be called if EnablePropertyShuffleAvailable has previously been called.
+     * Can only be called if EnablePropertyCanRepeat has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyShuffleAvailable(TBool aValue);
+    TBool SetPropertyCanRepeat(TBool aValue);
     /**
-     * Get a copy of the value of the ShuffleAvailable property
+     * Get a copy of the value of the CanRepeat property
      *
-     * Can only be called if EnablePropertyShuffleAvailable has previously been called.
+     * Can only be called if EnablePropertyCanRepeat has previously been called.
      */
-    void GetPropertyShuffleAvailable(TBool& aValue);
+    void GetPropertyCanRepeat(TBool& aValue);
+    /**
+     * Set the value of the CanShuffle property
+     *
+     * Can only be called if EnablePropertyCanShuffle has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyCanShuffle(TBool aValue);
+    /**
+     * Get a copy of the value of the CanShuffle property
+     *
+     * Can only be called if EnablePropertyCanShuffle has previously been called.
+     */
+    void GetPropertyCanShuffle(TBool& aValue);
     /**
      * Set the value of the StreamId property
      *
@@ -110,33 +110,33 @@ public:
      */
     void GetPropertyStreamId(TUint& aValue);
     /**
-     * Set the value of the Seekable property
+     * Set the value of the CanSeek property
      *
-     * Can only be called if EnablePropertySeekable has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    TBool SetPropertySeekable(TBool aValue);
-    /**
-     * Get a copy of the value of the Seekable property
-     *
-     * Can only be called if EnablePropertySeekable has previously been called.
-     */
-    void GetPropertySeekable(TBool& aValue);
-    /**
-     * Set the value of the Pausable property
-     *
-     * Can only be called if EnablePropertyPausable has previously been called.
+     * Can only be called if EnablePropertyCanSeek has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyPausable(TBool aValue);
+    TBool SetPropertyCanSeek(TBool aValue);
     /**
-     * Get a copy of the value of the Pausable property
+     * Get a copy of the value of the CanSeek property
      *
-     * Can only be called if EnablePropertyPausable has previously been called.
+     * Can only be called if EnablePropertyCanSeek has previously been called.
      */
-    void GetPropertyPausable(TBool& aValue);
+    void GetPropertyCanSeek(TBool& aValue);
+    /**
+     * Set the value of the CanPause property
+     *
+     * Can only be called if EnablePropertyCanPause has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyCanPause(TBool aValue);
+    /**
+     * Get a copy of the value of the CanPause property
+     *
+     * Can only be called if EnablePropertyCanPause has previously been called.
+     */
+    void GetPropertyCanPause(TBool& aValue);
     /**
      * Set the value of the TransportState property
      *
@@ -197,33 +197,33 @@ protected:
      */
     void EnablePropertyModes();
     /**
-     * Enable the NextAvailable property.
+     * Enable the CanSkipNext property.
      */
-    void EnablePropertyNextAvailable();
+    void EnablePropertyCanSkipNext();
     /**
-     * Enable the PreviousAvailable property.
+     * Enable the CanSkipPrevious property.
      */
-    void EnablePropertyPreviousAvailable();
+    void EnablePropertyCanSkipPrevious();
     /**
-     * Enable the RepeatAvailable property.
+     * Enable the CanRepeat property.
      */
-    void EnablePropertyRepeatAvailable();
+    void EnablePropertyCanRepeat();
     /**
-     * Enable the ShuffleAvailable property.
+     * Enable the CanShuffle property.
      */
-    void EnablePropertyShuffleAvailable();
+    void EnablePropertyCanShuffle();
     /**
      * Enable the StreamId property.
      */
     void EnablePropertyStreamId();
     /**
-     * Enable the Seekable property.
+     * Enable the CanSeek property.
      */
-    void EnablePropertySeekable();
+    void EnablePropertyCanSeek();
     /**
-     * Enable the Pausable property.
+     * Enable the CanPause property.
      */
-    void EnablePropertyPausable();
+    void EnablePropertyCanPause();
     /**
      * Enable the TransportState property.
      */
@@ -261,17 +261,17 @@ protected:
      */
     void EnableActionStop();
     /**
-     * Signal that the action Next is supported.
+     * Signal that the action SkipNext is supported.
      * The action's availability will be published in the device's service.xml.
-     * Next must be overridden if this is called.
+     * SkipNext must be overridden if this is called.
      */
-    void EnableActionNext();
+    void EnableActionSkipNext();
     /**
-     * Signal that the action Previous is supported.
+     * Signal that the action SkipPrevious is supported.
      * The action's availability will be published in the device's service.xml.
-     * Previous must be overridden if this is called.
+     * SkipPrevious must be overridden if this is called.
      */
-    void EnableActionPrevious();
+    void EnableActionSkipPrevious();
     /**
      * Signal that the action SetRepeat is supported.
      * The action's availability will be published in the device's service.xml.
@@ -372,21 +372,21 @@ private:
      */
     virtual void Stop(IDvInvocation& aInvocation);
     /**
-     * Next action.
+     * SkipNext action.
      *
      * Will be called when the device stack receives an invocation of the
-     * Next action for the owning device.
-     * Must be implemented iff EnableActionNext was called.
+     * SkipNext action for the owning device.
+     * Must be implemented iff EnableActionSkipNext was called.
      */
-    virtual void Next(IDvInvocation& aInvocation);
+    virtual void SkipNext(IDvInvocation& aInvocation);
     /**
-     * Previous action.
+     * SkipPrevious action.
      *
      * Will be called when the device stack receives an invocation of the
-     * Previous action for the owning device.
-     * Must be implemented iff EnableActionPrevious was called.
+     * SkipPrevious action for the owning device.
+     * Must be implemented iff EnableActionSkipPrevious was called.
      */
-    virtual void Previous(IDvInvocation& aInvocation);
+    virtual void SkipPrevious(IDvInvocation& aInvocation);
     /**
      * SetRepeat action.
      *
@@ -442,7 +442,7 @@ private:
      * ModeInfo action for the owning device.
      * Must be implemented iff EnableActionModeInfo was called.
      */
-    virtual void ModeInfo(IDvInvocation& aInvocation, IDvInvocationResponseBool& aNextAvailable, IDvInvocationResponseBool& aPreviousAvailable, IDvInvocationResponseBool& aRepeatAvailable, IDvInvocationResponseBool& aShuffleAvailable);
+    virtual void ModeInfo(IDvInvocation& aInvocation, IDvInvocationResponseBool& aCanSkipNext, IDvInvocationResponseBool& aCanSkipPrevious, IDvInvocationResponseBool& aCanRepeat, IDvInvocationResponseBool& aCanShuffle);
     /**
      * StreamInfo action.
      *
@@ -450,7 +450,7 @@ private:
      * StreamInfo action for the owning device.
      * Must be implemented iff EnableActionStreamInfo was called.
      */
-    virtual void StreamInfo(IDvInvocation& aInvocation, IDvInvocationResponseUint& aStreamId, IDvInvocationResponseBool& aSeekable, IDvInvocationResponseBool& aPausable);
+    virtual void StreamInfo(IDvInvocation& aInvocation, IDvInvocationResponseUint& aStreamId, IDvInvocationResponseBool& aCanSeek, IDvInvocationResponseBool& aCanPause);
     /**
      * StreamId action.
      *
@@ -482,8 +482,8 @@ private:
     void DoPlay(IDviInvocation& aInvocation);
     void DoPause(IDviInvocation& aInvocation);
     void DoStop(IDviInvocation& aInvocation);
-    void DoNext(IDviInvocation& aInvocation);
-    void DoPrevious(IDviInvocation& aInvocation);
+    void DoSkipNext(IDviInvocation& aInvocation);
+    void DoSkipPrevious(IDviInvocation& aInvocation);
     void DoSetRepeat(IDviInvocation& aInvocation);
     void DoSetShuffle(IDviInvocation& aInvocation);
     void DoSeekSecondAbsolute(IDviInvocation& aInvocation);
@@ -497,13 +497,13 @@ private:
     void DoShuffle(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyModes;
-    PropertyBool* iPropertyNextAvailable;
-    PropertyBool* iPropertyPreviousAvailable;
-    PropertyBool* iPropertyRepeatAvailable;
-    PropertyBool* iPropertyShuffleAvailable;
+    PropertyBool* iPropertyCanSkipNext;
+    PropertyBool* iPropertyCanSkipPrevious;
+    PropertyBool* iPropertyCanRepeat;
+    PropertyBool* iPropertyCanShuffle;
     PropertyUint* iPropertyStreamId;
-    PropertyBool* iPropertySeekable;
-    PropertyBool* iPropertyPausable;
+    PropertyBool* iPropertyCanSeek;
+    PropertyBool* iPropertyCanPause;
     PropertyString* iPropertyTransportState;
     PropertyUint* iPropertyRepeat;
     PropertyUint* iPropertyShuffle;
