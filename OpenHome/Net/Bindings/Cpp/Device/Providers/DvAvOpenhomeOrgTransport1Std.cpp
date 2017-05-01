@@ -121,25 +121,25 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::GetPropertyTransportState(std::string
     aValue.assign((const char*)val.Ptr(), val.Bytes());
 }
 
-bool DvProviderAvOpenhomeOrgTransport1Cpp::SetPropertyRepeat(uint32_t aValue)
+bool DvProviderAvOpenhomeOrgTransport1Cpp::SetPropertyRepeat(bool aValue)
 {
     ASSERT(iPropertyRepeat != NULL);
-    return SetPropertyUint(*iPropertyRepeat, aValue);
+    return SetPropertyBool(*iPropertyRepeat, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::GetPropertyRepeat(uint32_t& aValue)
+void DvProviderAvOpenhomeOrgTransport1Cpp::GetPropertyRepeat(bool& aValue)
 {
     ASSERT(iPropertyRepeat != NULL);
     aValue = iPropertyRepeat->Value();
 }
 
-bool DvProviderAvOpenhomeOrgTransport1Cpp::SetPropertyShuffle(uint32_t aValue)
+bool DvProviderAvOpenhomeOrgTransport1Cpp::SetPropertyShuffle(bool aValue)
 {
     ASSERT(iPropertyShuffle != NULL);
-    return SetPropertyUint(*iPropertyShuffle, aValue);
+    return SetPropertyBool(*iPropertyShuffle, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::GetPropertyShuffle(uint32_t& aValue)
+void DvProviderAvOpenhomeOrgTransport1Cpp::GetPropertyShuffle(bool& aValue)
 {
     ASSERT(iPropertyShuffle != NULL);
     aValue = iPropertyShuffle->Value();
@@ -226,13 +226,13 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::EnablePropertyTransportState()
 
 void DvProviderAvOpenhomeOrgTransport1Cpp::EnablePropertyRepeat()
 {
-    iPropertyRepeat = new PropertyUint(new ParameterUint("Repeat"));
+    iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
     iService->AddProperty(iPropertyRepeat); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgTransport1Cpp::EnablePropertyShuffle()
 {
-    iPropertyShuffle = new PropertyUint(new ParameterUint("Shuffle"));
+    iPropertyShuffle = new PropertyBool(new ParameterBool("Shuffle"));
     iService->AddProperty(iPropertyShuffle); // passes ownership
 }
 
@@ -444,7 +444,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoSkipPrevious(IDviInvocation& aInvoc
 void DvProviderAvOpenhomeOrgTransport1Cpp::DoSetRepeat(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    uint32_t Repeat = aInvocation.InvocationReadUint("Repeat");
+    bool Repeat = aInvocation.InvocationReadBool("Repeat");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
     SetRepeat(invocation, Repeat);
@@ -455,7 +455,7 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoSetRepeat(IDviInvocation& aInvocati
 void DvProviderAvOpenhomeOrgTransport1Cpp::DoSetShuffle(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    uint32_t Shuffle = aInvocation.InvocationReadUint("Shuffle");
+    bool Shuffle = aInvocation.InvocationReadBool("Shuffle");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
     SetShuffle(invocation, Shuffle);
@@ -575,11 +575,11 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoRepeat(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
-    uint32_t respRepeat;
+    bool respRepeat;
     DvInvocationStd invocation(aInvocation);
     Repeat(invocation, respRepeat);
     aInvocation.InvocationWriteStart();
-    DviInvocationResponseUint respWriterRepeat(aInvocation, "Repeat");
+    DviInvocationResponseBool respWriterRepeat(aInvocation, "Repeat");
     respWriterRepeat.Write(respRepeat);
     aInvocation.InvocationWriteEnd();
 }
@@ -588,11 +588,11 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::DoShuffle(IDviInvocation& aInvocation
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
-    uint32_t respShuffle;
+    bool respShuffle;
     DvInvocationStd invocation(aInvocation);
     Shuffle(invocation, respShuffle);
     aInvocation.InvocationWriteStart();
-    DviInvocationResponseUint respWriterShuffle(aInvocation, "Shuffle");
+    DviInvocationResponseBool respWriterShuffle(aInvocation, "Shuffle");
     respWriterShuffle.Write(respShuffle);
     aInvocation.InvocationWriteEnd();
 }
@@ -627,12 +627,12 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::SkipPrevious(IDvInvocationStd& /*aInv
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::SetRepeat(IDvInvocationStd& /*aInvocation*/, uint32_t /*aRepeat*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::SetRepeat(IDvInvocationStd& /*aInvocation*/, bool /*aRepeat*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::SetShuffle(IDvInvocationStd& /*aInvocation*/, uint32_t /*aShuffle*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::SetShuffle(IDvInvocationStd& /*aInvocation*/, bool /*aShuffle*/)
 {
     ASSERTS();
 }
@@ -672,12 +672,12 @@ void DvProviderAvOpenhomeOrgTransport1Cpp::StreamId(IDvInvocationStd& /*aInvocat
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::Repeat(IDvInvocationStd& /*aInvocation*/, uint32_t& /*aRepeat*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::Repeat(IDvInvocationStd& /*aInvocation*/, bool& /*aRepeat*/)
 {
     ASSERTS();
 }
 
-void DvProviderAvOpenhomeOrgTransport1Cpp::Shuffle(IDvInvocationStd& /*aInvocation*/, uint32_t& /*aShuffle*/)
+void DvProviderAvOpenhomeOrgTransport1Cpp::Shuffle(IDvInvocationStd& /*aInvocation*/, bool& /*aShuffle*/)
 {
     ASSERTS();
 }

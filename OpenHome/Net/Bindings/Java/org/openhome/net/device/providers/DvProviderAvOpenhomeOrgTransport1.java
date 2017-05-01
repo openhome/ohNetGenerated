@@ -160,14 +160,14 @@ interface IDvProviderAvOpenhomeOrgTransport1
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyRepeat(long aValue);
+    public boolean setPropertyRepeat(boolean aValue);
 
     /**
      * Get a copy of the value of the Repeat property
      *
      * @return value of the Repeat property.
      */
-    public long getPropertyRepeat();
+    public boolean getPropertyRepeat();
 
     /**
      * Set the value of the Shuffle property
@@ -176,14 +176,14 @@ interface IDvProviderAvOpenhomeOrgTransport1
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyShuffle(long aValue);
+    public boolean setPropertyShuffle(boolean aValue);
 
     /**
      * Get a copy of the value of the Shuffle property
      *
      * @return value of the Shuffle property.
      */
-    public long getPropertyShuffle();
+    public boolean getPropertyShuffle();
         
 }
 
@@ -286,8 +286,8 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
     private PropertyBool iPropertyCanSeek;
     private PropertyBool iPropertyCanPause;
     private PropertyString iPropertyTransportState;
-    private PropertyUint iPropertyRepeat;
-    private PropertyUint iPropertyShuffle;
+    private PropertyBool iPropertyRepeat;
+    private PropertyBool iPropertyShuffle;
 
     /**
      * Constructor
@@ -393,7 +393,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      */
     public void enablePropertyRepeat()
     {
-        iPropertyRepeat = new PropertyUint(new ParameterUint("Repeat"));
+        iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
         addProperty(iPropertyRepeat);
     }
 
@@ -402,7 +402,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      */
     public void enablePropertyShuffle()
     {
-        iPropertyShuffle = new PropertyUint(new ParameterUint("Shuffle"));
+        iPropertyShuffle = new PropertyBool(new ParameterBool("Shuffle"));
         addProperty(iPropertyShuffle);
     }
 
@@ -611,9 +611,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyRepeat(long aValue)
+    public boolean setPropertyRepeat(boolean aValue)
     {
-        return setPropertyUint(iPropertyRepeat, aValue);
+        return setPropertyBool(iPropertyRepeat, aValue);
     }
 
     /**
@@ -621,7 +621,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @return  value of the Repeat property.
      */
-    public long getPropertyRepeat()
+    public boolean getPropertyRepeat()
     {
         return iPropertyRepeat.getValue();
     }
@@ -633,9 +633,9 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyShuffle(long aValue)
+    public boolean setPropertyShuffle(boolean aValue)
     {
-        return setPropertyUint(iPropertyShuffle, aValue);
+        return setPropertyBool(iPropertyShuffle, aValue);
     }
 
     /**
@@ -643,7 +643,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @return  value of the Shuffle property.
      */
-    public long getPropertyShuffle()
+    public boolean getPropertyShuffle()
     {
         return iPropertyShuffle.getValue();
     }
@@ -992,7 +992,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aRepeat
      */
-    protected void setRepeat(IDvInvocation aInvocation, long aRepeat)
+    protected void setRepeat(IDvInvocation aInvocation, boolean aRepeat)
     {
         throw (new ActionDisabledError());
     }
@@ -1008,7 +1008,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      * @param aShuffle
      */
-    protected void setShuffle(IDvInvocation aInvocation, long aShuffle)
+    protected void setShuffle(IDvInvocation aInvocation, boolean aShuffle)
     {
         throw (new ActionDisabledError());
     }
@@ -1132,7 +1132,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected long repeat(IDvInvocation aInvocation)
+    protected boolean repeat(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -1147,7 +1147,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected long shuffle(IDvInvocation aInvocation)
+    protected boolean shuffle(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -1454,11 +1454,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            long repeat;
+            boolean repeat;
             try
             {
                 invocation.readStart();
-                repeat = invocation.readUint("Repeat");
+                repeat = invocation.readBool("Repeat");
                 invocation.readEnd();
                 setRepeat(invocation, repeat);
             }
@@ -1502,11 +1502,11 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            long shuffle;
+            boolean shuffle;
             try
             {
                 invocation.readStart();
-                shuffle = invocation.readUint("Shuffle");
+                shuffle = invocation.readBool("Shuffle");
                 invocation.readEnd();
                 setShuffle(invocation, shuffle);
             }
@@ -1909,7 +1909,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            long repeat;
+            boolean repeat;
             try
             {
                 invocation.readStart();
@@ -1936,7 +1936,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             try
             {
                 invocation.writeStart();
-                invocation.writeUint("Repeat", repeat);
+                invocation.writeBool("Repeat", repeat);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -1957,7 +1957,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            long shuffle;
+            boolean shuffle;
             try
             {
                 invocation.readStart();
@@ -1984,7 +1984,7 @@ public class DvProviderAvOpenhomeOrgTransport1 extends DvProvider implements IDv
             try
             {
                 invocation.writeStart();
-                invocation.writeUint("Shuffle", shuffle);
+                invocation.writeBool("Shuffle", shuffle);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

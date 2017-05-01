@@ -41,11 +41,11 @@ public:
     virtual void SyncSkipPrevious() = 0;
     virtual void BeginSkipPrevious(FunctorAsync& aFunctor) = 0;
     virtual void EndSkipPrevious(IAsync& aAsync) = 0;
-    virtual void SyncSetRepeat(TUint aRepeat) = 0;
-    virtual void BeginSetRepeat(TUint aRepeat, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSetRepeat(TBool aRepeat) = 0;
+    virtual void BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor) = 0;
     virtual void EndSetRepeat(IAsync& aAsync) = 0;
-    virtual void SyncSetShuffle(TUint aShuffle) = 0;
-    virtual void BeginSetShuffle(TUint aShuffle, FunctorAsync& aFunctor) = 0;
+    virtual void SyncSetShuffle(TBool aShuffle) = 0;
+    virtual void BeginSetShuffle(TBool aShuffle, FunctorAsync& aFunctor) = 0;
     virtual void EndSetShuffle(IAsync& aAsync) = 0;
     virtual void SyncSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute) = 0;
     virtual void BeginSeekSecondAbsolute(TUint aStreamId, TUint aSecondAbsolute, FunctorAsync& aFunctor) = 0;
@@ -68,12 +68,12 @@ public:
     virtual void SyncStreamId(TUint& aStreamId) = 0;
     virtual void BeginStreamId(FunctorAsync& aFunctor) = 0;
     virtual void EndStreamId(IAsync& aAsync, TUint& aStreamId) = 0;
-    virtual void SyncRepeat(TUint& aRepeat) = 0;
+    virtual void SyncRepeat(TBool& aRepeat) = 0;
     virtual void BeginRepeat(FunctorAsync& aFunctor) = 0;
-    virtual void EndRepeat(IAsync& aAsync, TUint& aRepeat) = 0;
-    virtual void SyncShuffle(TUint& aShuffle) = 0;
+    virtual void EndRepeat(IAsync& aAsync, TBool& aRepeat) = 0;
+    virtual void SyncShuffle(TBool& aShuffle) = 0;
     virtual void BeginShuffle(FunctorAsync& aFunctor) = 0;
-    virtual void EndShuffle(IAsync& aAsync, TUint& aShuffle) = 0;
+    virtual void EndShuffle(IAsync& aAsync, TBool& aShuffle) = 0;
     virtual void SetPropertyModesChanged(Functor& aModesChanged) = 0;
     virtual void PropertyModes(Brhz& aModes) const = 0;
     virtual void SetPropertyCanSkipNextChanged(Functor& aCanSkipNextChanged) = 0;
@@ -93,9 +93,9 @@ public:
     virtual void SetPropertyTransportStateChanged(Functor& aTransportStateChanged) = 0;
     virtual void PropertyTransportState(Brhz& aTransportState) const = 0;
     virtual void SetPropertyRepeatChanged(Functor& aRepeatChanged) = 0;
-    virtual void PropertyRepeat(TUint& aRepeat) const = 0;
+    virtual void PropertyRepeat(TBool& aRepeat) const = 0;
     virtual void SetPropertyShuffleChanged(Functor& aShuffleChanged) = 0;
-    virtual void PropertyShuffle(TUint& aShuffle) const = 0;
+    virtual void PropertyShuffle(TBool& aShuffle) const = 0;
 };
 
 /**
@@ -272,7 +272,7 @@ public:
      *
      * @param[in]  aRepeat
      */
-    void SyncSetRepeat(TUint aRepeat);
+    void SyncSetRepeat(TBool aRepeat);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -283,7 +283,7 @@ public:
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetRepeat(TUint aRepeat, FunctorAsync& aFunctor);
+    void BeginSetRepeat(TBool aRepeat, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -298,7 +298,7 @@ public:
      *
      * @param[in]  aShuffle
      */
-    void SyncSetShuffle(TUint aShuffle);
+    void SyncSetShuffle(TBool aShuffle);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -309,7 +309,7 @@ public:
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetShuffle(TUint aShuffle, FunctorAsync& aFunctor);
+    void BeginSetShuffle(TBool aShuffle, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -520,7 +520,7 @@ public:
      *
      * @param[out] aRepeat
      */
-    void SyncRepeat(TUint& aRepeat);
+    void SyncRepeat(TBool& aRepeat);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -538,7 +538,7 @@ public:
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      * @param[out] aRepeat
      */
-    void EndRepeat(IAsync& aAsync, TUint& aRepeat);
+    void EndRepeat(IAsync& aAsync, TBool& aRepeat);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -546,7 +546,7 @@ public:
      *
      * @param[out] aShuffle
      */
-    void SyncShuffle(TUint& aShuffle);
+    void SyncShuffle(TBool& aShuffle);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
@@ -564,7 +564,7 @@ public:
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      * @param[out] aShuffle
      */
-    void EndShuffle(IAsync& aAsync, TUint& aShuffle);
+    void EndShuffle(IAsync& aAsync, TBool& aShuffle);
 
     /**
      * Set a callback to be run when the Modes state variable changes.
@@ -765,7 +765,7 @@ public:
      *
      * @param[out] aRepeat
      */
-    void PropertyRepeat(TUint& aRepeat) const;
+    void PropertyRepeat(TBool& aRepeat) const;
     /**
      * Query the value of the Shuffle property.
      *
@@ -775,7 +775,7 @@ public:
      *
      * @param[out] aShuffle
      */
-    void PropertyShuffle(TUint& aShuffle) const;
+    void PropertyShuffle(TBool& aShuffle) const;
     /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
     */
@@ -848,8 +848,8 @@ private:
     PropertyBool* iCanSeek;
     PropertyBool* iCanPause;
     PropertyString* iTransportState;
-    PropertyUint* iRepeat;
-    PropertyUint* iShuffle;
+    PropertyBool* iRepeat;
+    PropertyBool* iShuffle;
     Functor iModesChanged;
     Functor iCanSkipNextChanged;
     Functor iCanSkipPreviousChanged;

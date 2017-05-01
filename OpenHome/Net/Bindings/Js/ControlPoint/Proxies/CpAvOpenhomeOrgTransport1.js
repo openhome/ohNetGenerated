@@ -27,8 +27,8 @@ var CpProxyAvOpenhomeOrgTransport1 = function(udn){
     this.serviceProperties["CanSeek"] = new ohnet.serviceproperty("CanSeek","bool");
     this.serviceProperties["CanPause"] = new ohnet.serviceproperty("CanPause","bool");
     this.serviceProperties["TransportState"] = new ohnet.serviceproperty("TransportState","string");
-    this.serviceProperties["Repeat"] = new ohnet.serviceproperty("Repeat","int");
-    this.serviceProperties["Shuffle"] = new ohnet.serviceproperty("Shuffle","int");
+    this.serviceProperties["Repeat"] = new ohnet.serviceproperty("Repeat","bool");
+    this.serviceProperties["Shuffle"] = new ohnet.serviceproperty("Shuffle","bool");
 
                                                             
     this.TransportStateAllowedValues = [];
@@ -188,7 +188,7 @@ CpProxyAvOpenhomeOrgTransport1.prototype.TransportState_Changed = function (stat
 CpProxyAvOpenhomeOrgTransport1.prototype.Repeat_Changed = function (stateChangedFunction) {
     this.serviceProperties.Repeat.addListener(function (state) 
     { 
-        stateChangedFunction(ohnet.soaprequest.readIntParameter(state)); 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
 }
     
@@ -201,7 +201,7 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Repeat_Changed = function (stateChanged
 CpProxyAvOpenhomeOrgTransport1.prototype.Shuffle_Changed = function (stateChangedFunction) {
     this.serviceProperties.Shuffle.addListener(function (state) 
     { 
-        stateChangedFunction(ohnet.soaprequest.readIntParameter(state)); 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
 }
 
@@ -327,13 +327,13 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SkipPrevious = function(successFunction
 /**
 * A service action to SetRepeat
 * @method SetRepeat
-* @param {Int} Repeat An action parameter
+* @param {Boolean} Repeat An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
 CpProxyAvOpenhomeOrgTransport1.prototype.SetRepeat = function(Repeat, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SetRepeat", this.url, this.domain, this.type, this.version);     
-    request.writeIntParameter("Repeat", Repeat);
+    request.writeBoolParameter("Repeat", Repeat);
     request.send(function(result){
     
         if (successFunction){
@@ -348,13 +348,13 @@ CpProxyAvOpenhomeOrgTransport1.prototype.SetRepeat = function(Repeat, successFun
 /**
 * A service action to SetShuffle
 * @method SetShuffle
-* @param {Int} Shuffle An action parameter
+* @param {Boolean} Shuffle An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
 CpProxyAvOpenhomeOrgTransport1.prototype.SetShuffle = function(Shuffle, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SetShuffle", this.url, this.domain, this.type, this.version);     
-    request.writeIntParameter("Shuffle", Shuffle);
+    request.writeBoolParameter("Shuffle", Shuffle);
     request.send(function(result){
     
         if (successFunction){
@@ -526,7 +526,7 @@ CpProxyAvOpenhomeOrgTransport1.prototype.StreamId = function(successFunction, er
 CpProxyAvOpenhomeOrgTransport1.prototype.Repeat = function(successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("Repeat", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
-        result["Repeat"] = ohnet.soaprequest.readIntParameter(result["Repeat"]); 
+        result["Repeat"] = ohnet.soaprequest.readBoolParameter(result["Repeat"]); 
     
         if (successFunction){
             successFunction(result);
@@ -546,7 +546,7 @@ CpProxyAvOpenhomeOrgTransport1.prototype.Repeat = function(successFunction, erro
 CpProxyAvOpenhomeOrgTransport1.prototype.Shuffle = function(successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("Shuffle", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
-        result["Shuffle"] = ohnet.soaprequest.readIntParameter(result["Shuffle"]); 
+        result["Shuffle"] = ohnet.soaprequest.readBoolParameter(result["Shuffle"]); 
     
         if (successFunction){
             successFunction(result);

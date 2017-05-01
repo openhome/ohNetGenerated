@@ -28,11 +28,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSkipPrevious();
         void BeginSkipPrevious(CpProxy.CallbackAsyncComplete aCallback);
         void EndSkipPrevious(IntPtr aAsyncHandle);
-        void SyncSetRepeat(uint aRepeat);
-        void BeginSetRepeat(uint aRepeat, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSetRepeat(bool aRepeat);
+        void BeginSetRepeat(bool aRepeat, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetRepeat(IntPtr aAsyncHandle);
-        void SyncSetShuffle(uint aShuffle);
-        void BeginSetShuffle(uint aShuffle, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSetShuffle(bool aShuffle);
+        void BeginSetShuffle(bool aShuffle, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetShuffle(IntPtr aAsyncHandle);
         void SyncSeekSecondAbsolute(uint aStreamId, uint aSecondAbsolute);
         void BeginSeekSecondAbsolute(uint aStreamId, uint aSecondAbsolute, CpProxy.CallbackAsyncComplete aCallback);
@@ -55,12 +55,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncStreamId(out uint aStreamId);
         void BeginStreamId(CpProxy.CallbackAsyncComplete aCallback);
         void EndStreamId(IntPtr aAsyncHandle, out uint aStreamId);
-        void SyncRepeat(out uint aRepeat);
+        void SyncRepeat(out bool aRepeat);
         void BeginRepeat(CpProxy.CallbackAsyncComplete aCallback);
-        void EndRepeat(IntPtr aAsyncHandle, out uint aRepeat);
-        void SyncShuffle(out uint aShuffle);
+        void EndRepeat(IntPtr aAsyncHandle, out bool aRepeat);
+        void SyncShuffle(out bool aShuffle);
         void BeginShuffle(CpProxy.CallbackAsyncComplete aCallback);
-        void EndShuffle(IntPtr aAsyncHandle, out uint aShuffle);
+        void EndShuffle(IntPtr aAsyncHandle, out bool aShuffle);
         void SetPropertyModesChanged(System.Action aModesChanged);
         String PropertyModes();
         void SetPropertyCanSkipNextChanged(System.Action aCanSkipNextChanged);
@@ -80,9 +80,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SetPropertyTransportStateChanged(System.Action aTransportStateChanged);
         String PropertyTransportState();
         void SetPropertyRepeatChanged(System.Action aRepeatChanged);
-        uint PropertyRepeat();
+        bool PropertyRepeat();
         void SetPropertyShuffleChanged(System.Action aShuffleChanged);
-        uint PropertyShuffle();
+        bool PropertyShuffle();
     }
 
     internal class SyncPlayAsAvOpenhomeOrgTransport1 : SyncProxyAction
@@ -348,13 +348,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
     internal class SyncRepeatAvOpenhomeOrgTransport1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgTransport1 iService;
-        private uint iRepeat;
+        private bool iRepeat;
 
         public SyncRepeatAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
         {
             iService = aProxy;
         }
-        public uint Repeat()
+        public bool Repeat()
         {
             return iRepeat;
         }
@@ -367,13 +367,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
     internal class SyncShuffleAvOpenhomeOrgTransport1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgTransport1 iService;
-        private uint iShuffle;
+        private bool iShuffle;
 
         public SyncShuffleAvOpenhomeOrgTransport1(CpProxyAvOpenhomeOrgTransport1 aProxy)
         {
             iService = aProxy;
         }
-        public uint Shuffle()
+        public bool Shuffle()
         {
             return iShuffle;
         }
@@ -414,8 +414,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private PropertyBool iCanSeek;
         private PropertyBool iCanPause;
         private PropertyString iTransportState;
-        private PropertyUint iRepeat;
-        private PropertyUint iShuffle;
+        private PropertyBool iRepeat;
+        private PropertyBool iShuffle;
         private System.Action iModesChanged;
         private System.Action iCanSkipNextChanged;
         private System.Action iCanSkipPreviousChanged;
@@ -457,11 +457,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionSkipPrevious = new OpenHome.Net.Core.Action("SkipPrevious");
 
             iActionSetRepeat = new OpenHome.Net.Core.Action("SetRepeat");
-            param = new ParameterUint("Repeat");
+            param = new ParameterBool("Repeat");
             iActionSetRepeat.AddInputParameter(param);
 
             iActionSetShuffle = new OpenHome.Net.Core.Action("SetShuffle");
-            param = new ParameterUint("Shuffle");
+            param = new ParameterBool("Shuffle");
             iActionSetShuffle.AddInputParameter(param);
 
             iActionSeekSecondAbsolute = new OpenHome.Net.Core.Action("SeekSecondAbsolute");
@@ -513,11 +513,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionStreamId.AddOutputParameter(param);
 
             iActionRepeat = new OpenHome.Net.Core.Action("Repeat");
-            param = new ParameterUint("Repeat");
+            param = new ParameterBool("Repeat");
             iActionRepeat.AddOutputParameter(param);
 
             iActionShuffle = new OpenHome.Net.Core.Action("Shuffle");
-            param = new ParameterUint("Shuffle");
+            param = new ParameterBool("Shuffle");
             iActionShuffle.AddOutputParameter(param);
 
             iModes = new PropertyString("Modes", ModesPropertyChanged);
@@ -538,9 +538,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
             AddProperty(iCanPause);
             iTransportState = new PropertyString("TransportState", TransportStatePropertyChanged);
             AddProperty(iTransportState);
-            iRepeat = new PropertyUint("Repeat", RepeatPropertyChanged);
+            iRepeat = new PropertyBool("Repeat", RepeatPropertyChanged);
             AddProperty(iRepeat);
-            iShuffle = new PropertyUint("Shuffle", ShufflePropertyChanged);
+            iShuffle = new PropertyBool("Shuffle", ShufflePropertyChanged);
             AddProperty(iShuffle);
             
             iPropertyLock = new Mutex();
@@ -811,7 +811,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aRepeat"></param>
-        public void SyncSetRepeat(uint aRepeat)
+        public void SyncSetRepeat(bool aRepeat)
         {
             SyncSetRepeatAvOpenhomeOrgTransport1 sync = new SyncSetRepeatAvOpenhomeOrgTransport1(this);
             BeginSetRepeat(aRepeat, sync.AsyncComplete());
@@ -828,11 +828,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aRepeat"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetRepeat(uint aRepeat, CallbackAsyncComplete aCallback)
+        public void BeginSetRepeat(bool aRepeat, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSetRepeat, aCallback);
             int inIndex = 0;
-            invocation.AddInput(new ArgumentUint((ParameterUint)iActionSetRepeat.InputParameter(inIndex++), aRepeat));
+            invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetRepeat.InputParameter(inIndex++), aRepeat));
             iService.InvokeAction(invocation);
         }
 
@@ -857,7 +857,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aShuffle"></param>
-        public void SyncSetShuffle(uint aShuffle)
+        public void SyncSetShuffle(bool aShuffle)
         {
             SyncSetShuffleAvOpenhomeOrgTransport1 sync = new SyncSetShuffleAvOpenhomeOrgTransport1(this);
             BeginSetShuffle(aShuffle, sync.AsyncComplete());
@@ -874,11 +874,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aShuffle"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetShuffle(uint aShuffle, CallbackAsyncComplete aCallback)
+        public void BeginSetShuffle(bool aShuffle, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSetShuffle, aCallback);
             int inIndex = 0;
-            invocation.AddInput(new ArgumentUint((ParameterUint)iActionSetShuffle.InputParameter(inIndex++), aShuffle));
+            invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetShuffle.InputParameter(inIndex++), aShuffle));
             iService.InvokeAction(invocation);
         }
 
@@ -1271,7 +1271,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aRepeat"></param>
-        public void SyncRepeat(out uint aRepeat)
+        public void SyncRepeat(out bool aRepeat)
         {
             SyncRepeatAvOpenhomeOrgTransport1 sync = new SyncRepeatAvOpenhomeOrgTransport1(this);
             BeginRepeat(sync.AsyncComplete());
@@ -1292,7 +1292,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         {
             Invocation invocation = iService.Invocation(iActionRepeat, aCallback);
             int outIndex = 0;
-            invocation.AddOutput(new ArgumentUint((ParameterUint)iActionRepeat.OutputParameter(outIndex++)));
+            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionRepeat.OutputParameter(outIndex++)));
             iService.InvokeAction(invocation);
         }
 
@@ -1302,7 +1302,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
         /// <param name="aRepeat"></param>
-        public void EndRepeat(IntPtr aAsyncHandle, out uint aRepeat)
+        public void EndRepeat(IntPtr aAsyncHandle, out bool aRepeat)
         {
             uint code;
             string desc;
@@ -1311,7 +1311,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
                 throw new ProxyError(code, desc);
             }
             uint index = 0;
-            aRepeat = Invocation.OutputUint(aAsyncHandle, index++);
+            aRepeat = Invocation.OutputBool(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -1320,7 +1320,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aShuffle"></param>
-        public void SyncShuffle(out uint aShuffle)
+        public void SyncShuffle(out bool aShuffle)
         {
             SyncShuffleAvOpenhomeOrgTransport1 sync = new SyncShuffleAvOpenhomeOrgTransport1(this);
             BeginShuffle(sync.AsyncComplete());
@@ -1341,7 +1341,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         {
             Invocation invocation = iService.Invocation(iActionShuffle, aCallback);
             int outIndex = 0;
-            invocation.AddOutput(new ArgumentUint((ParameterUint)iActionShuffle.OutputParameter(outIndex++)));
+            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionShuffle.OutputParameter(outIndex++)));
             iService.InvokeAction(invocation);
         }
 
@@ -1351,7 +1351,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
         /// <param name="aShuffle"></param>
-        public void EndShuffle(IntPtr aAsyncHandle, out uint aShuffle)
+        public void EndShuffle(IntPtr aAsyncHandle, out bool aShuffle)
         {
             uint code;
             string desc;
@@ -1360,7 +1360,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
                 throw new ProxyError(code, desc);
             }
             uint index = 0;
-            aShuffle = Invocation.OutputUint(aAsyncHandle, index++);
+            aShuffle = Invocation.OutputBool(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -1810,10 +1810,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
         /// <returns>Value of the Repeat property</returns>
-        public uint PropertyRepeat()
+        public bool PropertyRepeat()
         {
             PropertyReadLock();
-            uint val;
+            bool val;
             try
             {
                 val = iRepeat.Value();
@@ -1832,10 +1832,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// called and a first eventing callback received more recently than any call
         /// to Unsubscribe().</remarks>
         /// <returns>Value of the Shuffle property</returns>
-        public uint PropertyShuffle()
+        public bool PropertyShuffle()
         {
             PropertyReadLock();
-            uint val;
+            bool val;
             try
             {
                 val = iShuffle.Value();

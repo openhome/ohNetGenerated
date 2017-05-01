@@ -158,13 +158,13 @@ public:
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyRepeat(TUint aValue);
+    TBool SetPropertyRepeat(TBool aValue);
     /**
      * Get a copy of the value of the Repeat property
      *
      * Can only be called if EnablePropertyRepeat has previously been called.
      */
-    void GetPropertyRepeat(TUint& aValue);
+    void GetPropertyRepeat(TBool& aValue);
     /**
      * Set the value of the Shuffle property
      *
@@ -172,13 +172,13 @@ public:
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    TBool SetPropertyShuffle(TUint aValue);
+    TBool SetPropertyShuffle(TBool aValue);
     /**
      * Get a copy of the value of the Shuffle property
      *
      * Can only be called if EnablePropertyShuffle has previously been called.
      */
-    void GetPropertyShuffle(TUint& aValue);
+    void GetPropertyShuffle(TBool& aValue);
 protected:
     /**
      * Constructor
@@ -394,7 +394,7 @@ private:
      * SetRepeat action for the owning device.
      * Must be implemented iff EnableActionSetRepeat was called.
      */
-    virtual void SetRepeat(IDvInvocation& aInvocation, TUint aRepeat);
+    virtual void SetRepeat(IDvInvocation& aInvocation, TBool aRepeat);
     /**
      * SetShuffle action.
      *
@@ -402,7 +402,7 @@ private:
      * SetShuffle action for the owning device.
      * Must be implemented iff EnableActionSetShuffle was called.
      */
-    virtual void SetShuffle(IDvInvocation& aInvocation, TUint aShuffle);
+    virtual void SetShuffle(IDvInvocation& aInvocation, TBool aShuffle);
     /**
      * SeekSecondAbsolute action.
      *
@@ -466,7 +466,7 @@ private:
      * Repeat action for the owning device.
      * Must be implemented iff EnableActionRepeat was called.
      */
-    virtual void Repeat(IDvInvocation& aInvocation, IDvInvocationResponseUint& aRepeat);
+    virtual void Repeat(IDvInvocation& aInvocation, IDvInvocationResponseBool& aRepeat);
     /**
      * Shuffle action.
      *
@@ -474,7 +474,7 @@ private:
      * Shuffle action for the owning device.
      * Must be implemented iff EnableActionShuffle was called.
      */
-    virtual void Shuffle(IDvInvocation& aInvocation, IDvInvocationResponseUint& aShuffle);
+    virtual void Shuffle(IDvInvocation& aInvocation, IDvInvocationResponseBool& aShuffle);
 private:
     DvProviderAvOpenhomeOrgTransport1();
     void Construct();
@@ -505,8 +505,8 @@ private:
     PropertyBool* iPropertyCanSeek;
     PropertyBool* iPropertyCanPause;
     PropertyString* iPropertyTransportState;
-    PropertyUint* iPropertyRepeat;
-    PropertyUint* iPropertyShuffle;
+    PropertyBool* iPropertyRepeat;
+    PropertyBool* iPropertyShuffle;
 };
 
 } // namespace Net

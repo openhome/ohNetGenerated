@@ -131,26 +131,26 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyRepeat(uint aValue);
+        bool SetPropertyRepeat(bool aValue);
 
         /// <summary>
         /// Get a copy of the value of the Repeat property
         /// </summary>
         /// <returns>Value of the Repeat property.</param>
-        uint PropertyRepeat();
+        bool PropertyRepeat();
 
         /// <summary>
         /// Set the value of the Shuffle property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyShuffle(uint aValue);
+        bool SetPropertyShuffle(bool aValue);
 
         /// <summary>
         /// Get a copy of the value of the Shuffle property
         /// </summary>
         /// <returns>Value of the Shuffle property.</param>
-        uint PropertyShuffle();
+        bool PropertyShuffle();
         
     }
     /// <summary>
@@ -185,8 +185,8 @@ namespace OpenHome.Net.Device.Providers
         private PropertyBool iPropertyCanSeek;
         private PropertyBool iPropertyCanPause;
         private PropertyString iPropertyTransportState;
-        private PropertyUint iPropertyRepeat;
-        private PropertyUint iPropertyShuffle;
+        private PropertyBool iPropertyRepeat;
+        private PropertyBool iPropertyShuffle;
 
         /// <summary>
         /// Constructor
@@ -292,7 +292,7 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         public void EnablePropertyRepeat()
         {
-            iPropertyRepeat = new PropertyUint(new ParameterUint("Repeat"));
+            iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
             AddProperty(iPropertyRepeat);
         }
 
@@ -301,7 +301,7 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         public void EnablePropertyShuffle()
         {
-            iPropertyShuffle = new PropertyUint(new ParameterUint("Shuffle"));
+            iPropertyShuffle = new PropertyBool(new ParameterBool("Shuffle"));
             AddProperty(iPropertyShuffle);
         }
 
@@ -536,11 +536,11 @@ namespace OpenHome.Net.Device.Providers
         /// <remarks>Can only be called if EnablePropertyRepeat has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyRepeat(uint aValue)
+        public bool SetPropertyRepeat(bool aValue)
         {
             if (iPropertyRepeat == null)
                 throw new PropertyDisabledError();
-            return SetPropertyUint(iPropertyRepeat, aValue);
+            return SetPropertyBool(iPropertyRepeat, aValue);
         }
 
         /// <summary>
@@ -548,7 +548,7 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <remarks>Can only be called if EnablePropertyRepeat has previously been called.</remarks>
         /// <returns>Value of the Repeat property.</returns>
-        public uint PropertyRepeat()
+        public bool PropertyRepeat()
         {
             if (iPropertyRepeat == null)
                 throw new PropertyDisabledError();
@@ -561,11 +561,11 @@ namespace OpenHome.Net.Device.Providers
         /// <remarks>Can only be called if EnablePropertyShuffle has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyShuffle(uint aValue)
+        public bool SetPropertyShuffle(bool aValue)
         {
             if (iPropertyShuffle == null)
                 throw new PropertyDisabledError();
-            return SetPropertyUint(iPropertyShuffle, aValue);
+            return SetPropertyBool(iPropertyShuffle, aValue);
         }
 
         /// <summary>
@@ -573,7 +573,7 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <remarks>Can only be called if EnablePropertyShuffle has previously been called.</remarks>
         /// <returns>Value of the Shuffle property.</returns>
-        public uint PropertyShuffle()
+        public bool PropertyShuffle()
         {
             if (iPropertyShuffle == null)
                 throw new PropertyDisabledError();
@@ -894,7 +894,7 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionSetRepeat was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aRepeat"></param>
-        protected virtual void SetRepeat(IDvInvocation aInvocation, uint aRepeat)
+        protected virtual void SetRepeat(IDvInvocation aInvocation, bool aRepeat)
         {
             throw (new ActionDisabledError());
         }
@@ -908,7 +908,7 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionSetShuffle was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aShuffle"></param>
-        protected virtual void SetShuffle(IDvInvocation aInvocation, uint aShuffle)
+        protected virtual void SetShuffle(IDvInvocation aInvocation, bool aShuffle)
         {
             throw (new ActionDisabledError());
         }
@@ -1027,7 +1027,7 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionRepeat was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aRepeat"></param>
-        protected virtual void Repeat(IDvInvocation aInvocation, out uint aRepeat)
+        protected virtual void Repeat(IDvInvocation aInvocation, out bool aRepeat)
         {
             throw (new ActionDisabledError());
         }
@@ -1041,7 +1041,7 @@ namespace OpenHome.Net.Device.Providers
         /// Must be implemented iff EnableActionShuffle was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aShuffle"></param>
-        protected virtual void Shuffle(IDvInvocation aInvocation, out uint aShuffle)
+        protected virtual void Shuffle(IDvInvocation aInvocation, out bool aShuffle)
         {
             throw (new ActionDisabledError());
         }
@@ -1319,11 +1319,11 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            uint repeat;
+            bool repeat;
             try
             {
                 invocation.ReadStart();
-                repeat = invocation.ReadUint("Repeat");
+                repeat = invocation.ReadBool("Repeat");
                 invocation.ReadEnd();
                 self.SetRepeat(invocation, repeat);
             }
@@ -1365,11 +1365,11 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            uint shuffle;
+            bool shuffle;
             try
             {
                 invocation.ReadStart();
-                shuffle = invocation.ReadUint("Shuffle");
+                shuffle = invocation.ReadBool("Shuffle");
                 invocation.ReadEnd();
                 self.SetShuffle(invocation, shuffle);
             }
@@ -1747,7 +1747,7 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            uint repeat;
+            bool repeat;
             try
             {
                 invocation.ReadStart();
@@ -1773,7 +1773,7 @@ namespace OpenHome.Net.Device.Providers
             try
             {
                 invocation.WriteStart();
-                invocation.WriteUint("Repeat", repeat);
+                invocation.WriteBool("Repeat", repeat);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -1793,7 +1793,7 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgTransport1 self = (DvProviderAvOpenhomeOrgTransport1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            uint shuffle;
+            bool shuffle;
             try
             {
                 invocation.ReadStart();
@@ -1819,7 +1819,7 @@ namespace OpenHome.Net.Device.Providers
             try
             {
                 invocation.WriteStart();
-                invocation.WriteUint("Shuffle", shuffle);
+                invocation.WriteBool("Shuffle", shuffle);
                 invocation.WriteEnd();
             }
             catch (ActionError)

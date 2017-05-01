@@ -36,10 +36,10 @@ public:
     void GetPropertyCanPause(TBool& aValue);
     TBool SetPropertyTransportState(const Brx& aValue);
     void GetPropertyTransportState(Brhz& aValue);
-    TBool SetPropertyRepeat(TUint aValue);
-    void GetPropertyRepeat(TUint& aValue);
-    TBool SetPropertyShuffle(TUint aValue);
-    void GetPropertyShuffle(TUint& aValue);
+    TBool SetPropertyRepeat(TBool aValue);
+    void GetPropertyRepeat(TBool& aValue);
+    TBool SetPropertyShuffle(TBool aValue);
+    void GetPropertyShuffle(TBool& aValue);
     void EnablePropertyModes();
     void EnablePropertyCanSkipNext();
     void EnablePropertyCanSkipPrevious();
@@ -130,8 +130,8 @@ private:
     PropertyBool* iPropertyCanSeek;
     PropertyBool* iPropertyCanPause;
     PropertyString* iPropertyTransportState;
-    PropertyUint* iPropertyRepeat;
-    PropertyUint* iPropertyShuffle;
+    PropertyBool* iPropertyRepeat;
+    PropertyBool* iPropertyShuffle;
 };
 
 DvProviderAvOpenhomeOrgTransport1C::DvProviderAvOpenhomeOrgTransport1C(DvDeviceC aDevice)
@@ -258,25 +258,25 @@ void DvProviderAvOpenhomeOrgTransport1C::GetPropertyTransportState(Brhz& aValue)
     aValue.Set(iPropertyTransportState->Value());
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1C::SetPropertyRepeat(TUint aValue)
+TBool DvProviderAvOpenhomeOrgTransport1C::SetPropertyRepeat(TBool aValue)
 {
     ASSERT(iPropertyRepeat != NULL);
-    return SetPropertyUint(*iPropertyRepeat, aValue);
+    return SetPropertyBool(*iPropertyRepeat, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1C::GetPropertyRepeat(TUint& aValue)
+void DvProviderAvOpenhomeOrgTransport1C::GetPropertyRepeat(TBool& aValue)
 {
     ASSERT(iPropertyRepeat != NULL);
     aValue = iPropertyRepeat->Value();
 }
 
-TBool DvProviderAvOpenhomeOrgTransport1C::SetPropertyShuffle(TUint aValue)
+TBool DvProviderAvOpenhomeOrgTransport1C::SetPropertyShuffle(TBool aValue)
 {
     ASSERT(iPropertyShuffle != NULL);
-    return SetPropertyUint(*iPropertyShuffle, aValue);
+    return SetPropertyBool(*iPropertyShuffle, aValue);
 }
 
-void DvProviderAvOpenhomeOrgTransport1C::GetPropertyShuffle(TUint& aValue)
+void DvProviderAvOpenhomeOrgTransport1C::GetPropertyShuffle(TBool& aValue)
 {
     ASSERT(iPropertyShuffle != NULL);
     aValue = iPropertyShuffle->Value();
@@ -347,13 +347,13 @@ void DvProviderAvOpenhomeOrgTransport1C::EnablePropertyTransportState()
 
 void DvProviderAvOpenhomeOrgTransport1C::EnablePropertyRepeat()
 {
-    iPropertyRepeat = new PropertyUint(new ParameterUint("Repeat"));
+    iPropertyRepeat = new PropertyBool(new ParameterBool("Repeat"));
     iService->AddProperty(iPropertyRepeat); // passes ownership
 }
 
 void DvProviderAvOpenhomeOrgTransport1C::EnablePropertyShuffle()
 {
-    iPropertyShuffle = new PropertyUint(new ParameterUint("Shuffle"));
+    iPropertyShuffle = new PropertyBool(new ParameterBool("Shuffle"));
     iService->AddProperty(iPropertyShuffle); // passes ownership
 }
 
@@ -649,7 +649,7 @@ void DvProviderAvOpenhomeOrgTransport1C::DoSetRepeat(IDviInvocation& aInvocation
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    TUint Repeat = aInvocation.InvocationReadUint("Repeat");
+    TBool Repeat = aInvocation.InvocationReadBool("Repeat");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSetRepeat != NULL);
@@ -668,7 +668,7 @@ void DvProviderAvOpenhomeOrgTransport1C::DoSetShuffle(IDviInvocation& aInvocatio
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    TUint Shuffle = aInvocation.InvocationReadUint("Shuffle");
+    TBool Shuffle = aInvocation.InvocationReadBool("Shuffle");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSetShuffle != NULL);
@@ -861,9 +861,9 @@ void DvProviderAvOpenhomeOrgTransport1C::DoRepeat(IDviInvocation& aInvocation)
         invocation.Error(502, Brn("Action failed"));
         return;
     }
-    DviInvocationResponseUint respRepeat(aInvocation, "Repeat");
+    DviInvocationResponseBool respRepeat(aInvocation, "Repeat");
     invocation.StartResponse();
-    respRepeat.Write(Repeat);
+    respRepeat.Write((Repeat!=0));
     invocation.EndResponse();
 }
 
@@ -882,9 +882,9 @@ void DvProviderAvOpenhomeOrgTransport1C::DoShuffle(IDviInvocation& aInvocation)
         invocation.Error(502, Brn("Action failed"));
         return;
     }
-    DviInvocationResponseUint respShuffle(aInvocation, "Shuffle");
+    DviInvocationResponseBool respShuffle(aInvocation, "Shuffle");
     invocation.StartResponse();
-    respShuffle.Write(Shuffle);
+    respShuffle.Write((Shuffle!=0));
     invocation.EndResponse();
 }
 
@@ -1106,28 +1106,28 @@ void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyTransportState(THandle 
 
 int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyRepeat(THandle aProvider, uint32_t aValue, uint32_t* aChanged)
 {
-    *aChanged = (reinterpret_cast<DvProviderAvOpenhomeOrgTransport1C*>(aProvider)->SetPropertyRepeat(aValue)? 1 : 0);
+    *aChanged = (reinterpret_cast<DvProviderAvOpenhomeOrgTransport1C*>(aProvider)->SetPropertyRepeat((aValue!=0))? 1 : 0);
     return 0;
 }
 
 void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyRepeat(THandle aProvider, uint32_t* aValue)
 {
-    uint32_t val;
+    TBool val;
     reinterpret_cast<DvProviderAvOpenhomeOrgTransport1C*>(aProvider)->GetPropertyRepeat(val);
-    *aValue = val;
+    *aValue = (val? 1 : 0);
 }
 
 int32_t STDCALL DvProviderAvOpenhomeOrgTransport1SetPropertyShuffle(THandle aProvider, uint32_t aValue, uint32_t* aChanged)
 {
-    *aChanged = (reinterpret_cast<DvProviderAvOpenhomeOrgTransport1C*>(aProvider)->SetPropertyShuffle(aValue)? 1 : 0);
+    *aChanged = (reinterpret_cast<DvProviderAvOpenhomeOrgTransport1C*>(aProvider)->SetPropertyShuffle((aValue!=0))? 1 : 0);
     return 0;
 }
 
 void STDCALL DvProviderAvOpenhomeOrgTransport1GetPropertyShuffle(THandle aProvider, uint32_t* aValue)
 {
-    uint32_t val;
+    TBool val;
     reinterpret_cast<DvProviderAvOpenhomeOrgTransport1C*>(aProvider)->GetPropertyShuffle(val);
-    *aValue = val;
+    *aValue = (val? 1 : 0);
 }
 
 void STDCALL DvProviderAvOpenhomeOrgTransport1EnablePropertyModes(THandle aProvider)
