@@ -13,12 +13,20 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncGetChallengeResponse(String aChallenge, out String aResponse);
         void BeginGetChallengeResponse(String aChallenge, CpProxy.CallbackAsyncComplete aCallback);
         void EndGetChallengeResponse(IntPtr aAsyncHandle, out String aResponse);
+        void SyncSetAssociationStatus(String aStatus);
+        void BeginSetAssociationStatus(String aStatus, CpProxy.CallbackAsyncComplete aCallback);
+        void EndSetAssociationStatus(IntPtr aAsyncHandle);
+        void SyncGetAssociationStatus(out String aStatus);
+        void BeginGetAssociationStatus(CpProxy.CallbackAsyncComplete aCallback);
+        void EndGetAssociationStatus(IntPtr aAsyncHandle, out String aStatus);
         void SyncSetControlEnabled(bool aEnabled);
         void BeginSetControlEnabled(bool aEnabled, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetControlEnabled(IntPtr aAsyncHandle);
         void SyncGetControlEnabled(out bool aEnabled);
         void BeginGetControlEnabled(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetControlEnabled(IntPtr aAsyncHandle, out bool aEnabled);
+        void SetPropertyAssociationStatusChanged(System.Action aAssociationStatusChanged);
+        String PropertyAssociationStatus();
         void SetPropertyControlEnabledChanged(System.Action aControlEnabledChanged);
         bool PropertyControlEnabled();
     }
@@ -39,6 +47,39 @@ namespace OpenHome.Net.ControlPoint.Proxies
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
             iService.EndGetChallengeResponse(aAsyncHandle, out iResponse);
+        }
+    };
+
+    internal class SyncSetAssociationStatusLinnCoUkCloud1 : SyncProxyAction
+    {
+        private CpProxyLinnCoUkCloud1 iService;
+
+        public SyncSetAssociationStatusLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndSetAssociationStatus(aAsyncHandle);
+        }
+    };
+
+    internal class SyncGetAssociationStatusLinnCoUkCloud1 : SyncProxyAction
+    {
+        private CpProxyLinnCoUkCloud1 iService;
+        private String iStatus;
+
+        public SyncGetAssociationStatusLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
+        {
+            iService = aProxy;
+        }
+        public String Status()
+        {
+            return iStatus;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndGetAssociationStatus(aAsyncHandle, out iStatus);
         }
     };
 
@@ -81,9 +122,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
     public class CpProxyLinnCoUkCloud1 : CpProxy, IDisposable, ICpProxyLinnCoUkCloud1
     {
         private OpenHome.Net.Core.Action iActionGetChallengeResponse;
+        private OpenHome.Net.Core.Action iActionSetAssociationStatus;
+        private OpenHome.Net.Core.Action iActionGetAssociationStatus;
         private OpenHome.Net.Core.Action iActionSetControlEnabled;
         private OpenHome.Net.Core.Action iActionGetControlEnabled;
+        private PropertyString iAssociationStatus;
         private PropertyBool iControlEnabled;
+        private System.Action iAssociationStatusChanged;
         private System.Action iControlEnabledChanged;
         private Mutex iPropertyLock;
 
@@ -104,6 +149,22 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterString("Response", allowedValues);
             iActionGetChallengeResponse.AddOutputParameter(param);
 
+            iActionSetAssociationStatus = new OpenHome.Net.Core.Action("SetAssociationStatus");
+            allowedValues.Add("Associated");
+            allowedValues.Add("NotAssociated");
+            allowedValues.Add("Unconfigured");
+            param = new ParameterString("Status", allowedValues);
+            iActionSetAssociationStatus.AddInputParameter(param);
+            allowedValues.Clear();
+
+            iActionGetAssociationStatus = new OpenHome.Net.Core.Action("GetAssociationStatus");
+            allowedValues.Add("Associated");
+            allowedValues.Add("NotAssociated");
+            allowedValues.Add("Unconfigured");
+            param = new ParameterString("Status", allowedValues);
+            iActionGetAssociationStatus.AddOutputParameter(param);
+            allowedValues.Clear();
+
             iActionSetControlEnabled = new OpenHome.Net.Core.Action("SetControlEnabled");
             param = new ParameterBool("Enabled");
             iActionSetControlEnabled.AddInputParameter(param);
@@ -112,6 +173,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterBool("Enabled");
             iActionGetControlEnabled.AddOutputParameter(param);
 
+            iAssociationStatus = new PropertyString("AssociationStatus", AssociationStatusPropertyChanged);
+            AddProperty(iAssociationStatus);
             iControlEnabled = new PropertyBool("ControlEnabled", ControlEnabledPropertyChanged);
             AddProperty(iControlEnabled);
             
@@ -169,6 +232,101 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             uint index = 0;
             aResponse = Invocation.OutputString(aAsyncHandle, index++);
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aStatus"></param>
+        public void SyncSetAssociationStatus(String aStatus)
+        {
+            SyncSetAssociationStatusLinnCoUkCloud1 sync = new SyncSetAssociationStatusLinnCoUkCloud1(this);
+            BeginSetAssociationStatus(aStatus, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndSetAssociationStatus().</remarks>
+        /// <param name="aStatus"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginSetAssociationStatus(String aStatus, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionSetAssociationStatus, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentString((ParameterString)iActionSetAssociationStatus.InputParameter(inIndex++), aStatus));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndSetAssociationStatus(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aStatus"></param>
+        public void SyncGetAssociationStatus(out String aStatus)
+        {
+            SyncGetAssociationStatusLinnCoUkCloud1 sync = new SyncGetAssociationStatusLinnCoUkCloud1(this);
+            BeginGetAssociationStatus(sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aStatus = sync.Status();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndGetAssociationStatus().</remarks>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginGetAssociationStatus(CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionGetAssociationStatus, aCallback);
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentString((ParameterString)iActionGetAssociationStatus.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aStatus"></param>
+        public void EndGetAssociationStatus(IntPtr aAsyncHandle, out String aStatus)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
+            aStatus = Invocation.OutputString(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -267,6 +425,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Set a delegate to be run when the AssociationStatus state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyLinnCoUkCloud1 instance will not overlap.</remarks>
+        /// <param name="aAssociationStatusChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyAssociationStatusChanged(System.Action aAssociationStatusChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iAssociationStatusChanged = aAssociationStatusChanged;
+            }
+        }
+
+        private void AssociationStatusPropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iAssociationStatusChanged);
+            }
+        }
+
+        /// <summary>
         /// Set a delegate to be run when the ControlEnabled state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
@@ -286,6 +466,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
             {
                 ReportEvent(iControlEnabledChanged);
             }
+        }
+
+        /// <summary>
+        /// Query the value of the AssociationStatus property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the AssociationStatus property</returns>
+        public String PropertyAssociationStatus()
+        {
+            PropertyReadLock();
+            String val;
+            try
+            {
+                val = iAssociationStatus.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
         }
 
         /// <summary>
@@ -323,8 +525,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
                 iHandle = IntPtr.Zero;
             }
             iActionGetChallengeResponse.Dispose();
+            iActionSetAssociationStatus.Dispose();
+            iActionGetAssociationStatus.Dispose();
             iActionSetControlEnabled.Dispose();
             iActionGetControlEnabled.Dispose();
+            iAssociationStatus.Dispose();
             iControlEnabled.Dispose();
         }
     }

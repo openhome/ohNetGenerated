@@ -13,12 +13,20 @@ interface ICpProxyLinnCoUkCloud1 extends ICpProxy
     public String syncGetChallengeResponse(String aChallenge);
     public void beginGetChallengeResponse(String aChallenge, ICpProxyListener aCallback);
     public String endGetChallengeResponse(long aAsyncHandle);
+    public void syncSetAssociationStatus(String aStatus);
+    public void beginSetAssociationStatus(String aStatus, ICpProxyListener aCallback);
+    public void endSetAssociationStatus(long aAsyncHandle);
+    public String syncGetAssociationStatus();
+    public void beginGetAssociationStatus(ICpProxyListener aCallback);
+    public String endGetAssociationStatus(long aAsyncHandle);
     public void syncSetControlEnabled(boolean aEnabled);
     public void beginSetControlEnabled(boolean aEnabled, ICpProxyListener aCallback);
     public void endSetControlEnabled(long aAsyncHandle);
     public boolean syncGetControlEnabled();
     public void beginGetControlEnabled(ICpProxyListener aCallback);
     public boolean endGetControlEnabled(long aAsyncHandle);
+    public void setPropertyAssociationStatusChanged(IPropertyChangeListener aAssociationStatusChanged);
+    public String getPropertyAssociationStatus();
     public void setPropertyControlEnabledChanged(IPropertyChangeListener aControlEnabledChanged);
     public boolean getPropertyControlEnabled();
 }
@@ -41,6 +49,42 @@ class SyncGetChallengeResponseLinnCoUkCloud1 extends SyncProxyAction
         String result = iService.endGetChallengeResponse(aAsyncHandle);
         
         iResponse = result;
+    }
+}
+
+class SyncSetAssociationStatusLinnCoUkCloud1 extends SyncProxyAction
+{
+    private CpProxyLinnCoUkCloud1 iService;
+
+    public SyncSetAssociationStatusLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endSetAssociationStatus(aAsyncHandle);
+        
+    }
+}
+
+class SyncGetAssociationStatusLinnCoUkCloud1 extends SyncProxyAction
+{
+    private CpProxyLinnCoUkCloud1 iService;
+    private String iStatus;
+
+    public SyncGetAssociationStatusLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
+    {
+        iService = aProxy;
+    }
+    public String getStatus()
+    {
+        return iStatus;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        String result = iService.endGetAssociationStatus(aAsyncHandle);
+        
+        iStatus = result;
     }
 }
 
@@ -87,9 +131,13 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
 {
 
     private Action iActionGetChallengeResponse;
+    private Action iActionSetAssociationStatus;
+    private Action iActionGetAssociationStatus;
     private Action iActionSetControlEnabled;
     private Action iActionGetControlEnabled;
+    private PropertyString iAssociationStatus;
     private PropertyBool iControlEnabled;
+    private IPropertyChangeListener iAssociationStatusChanged;
     private IPropertyChangeListener iControlEnabledChanged;
     private Object iPropertyLock;
 
@@ -112,6 +160,22 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
         param = new ParameterString("Response", allowedValues);
         iActionGetChallengeResponse.addOutputParameter(param);
 
+        iActionSetAssociationStatus = new Action("SetAssociationStatus");
+        allowedValues.add("Associated");
+        allowedValues.add("NotAssociated");
+        allowedValues.add("Unconfigured");
+        param = new ParameterString("Status", allowedValues);
+        iActionSetAssociationStatus.addInputParameter(param);
+        allowedValues.clear();
+
+        iActionGetAssociationStatus = new Action("GetAssociationStatus");
+        allowedValues.add("Associated");
+        allowedValues.add("NotAssociated");
+        allowedValues.add("Unconfigured");
+        param = new ParameterString("Status", allowedValues);
+        iActionGetAssociationStatus.addOutputParameter(param);
+        allowedValues.clear();
+
         iActionSetControlEnabled = new Action("SetControlEnabled");
         param = new ParameterBool("Enabled");
         iActionSetControlEnabled.addInputParameter(param);
@@ -120,6 +184,15 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
         param = new ParameterBool("Enabled");
         iActionGetControlEnabled.addOutputParameter(param);
 
+        iAssociationStatusChanged = new PropertyChangeListener();
+        iAssociationStatus = new PropertyString("AssociationStatus",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    associationStatusPropertyChanged();
+                }
+            }
+        );
+        addProperty(iAssociationStatus);
         iControlEnabledChanged = new PropertyChangeListener();
         iControlEnabled = new PropertyBool("ControlEnabled",
             new PropertyChangeListener() {
@@ -187,6 +260,109 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
         int index = 0;
         String response = Invocation.getOutputString(aAsyncHandle, index++);
         return response;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncSetAssociationStatus(String aStatus)
+    {
+        SyncSetAssociationStatusLinnCoUkCloud1 sync = new SyncSetAssociationStatusLinnCoUkCloud1(this);
+        beginSetAssociationStatus(aStatus, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endSetAssociationStatus}.
+     * 
+     * @param aStatus
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginSetAssociationStatus(String aStatus, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionSetAssociationStatus, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionSetAssociationStatus.getInputParameter(inIndex++), aStatus));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginSetAssociationStatus} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginSetAssociationStatus} method.
+     */
+    public void endSetAssociationStatus(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
+    public String syncGetAssociationStatus()
+    {
+        SyncGetAssociationStatusLinnCoUkCloud1 sync = new SyncGetAssociationStatusLinnCoUkCloud1(this);
+        beginGetAssociationStatus(sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getStatus();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endGetAssociationStatus}.
+     * 
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginGetAssociationStatus(ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionGetAssociationStatus, aCallback);
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentString((ParameterString)iActionGetAssociationStatus.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginGetAssociationStatus} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginGetAssociationStatus} method.
+     * @return the result of the previously invoked action.
+     */
+    public String endGetAssociationStatus(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        String status = Invocation.getOutputString(aAsyncHandle, index++);
+        return status;
     }
         
     /**
@@ -293,6 +469,29 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
     }
         
     /**
+     * Set a delegate to be run when the AssociationStatus state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyLinnCoUkCloud1 instance will not overlap.
+     *
+     * @param aAssociationStatusChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyAssociationStatusChanged(IPropertyChangeListener aAssociationStatusChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iAssociationStatusChanged = aAssociationStatusChanged;
+        }
+    }
+
+    private void associationStatusPropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iAssociationStatusChanged);
+        }
+    }
+    /**
      * Set a delegate to be run when the ControlEnabled state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyLinnCoUkCloud1 instance will not overlap.
@@ -316,6 +515,22 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
         }
     }
 
+    /**
+     * Query the value of the AssociationStatus property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the AssociationStatus property.
+     */
+    public String getPropertyAssociationStatus()
+    {
+        propertyReadLock();
+        String val = iAssociationStatus.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
     /**
      * Query the value of the ControlEnabled property.
      * This function is thread-safe and can only be called if {@link 
@@ -348,8 +563,11 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
             disposeProxy();
             iHandle = 0;
             iActionGetChallengeResponse.destroy();
+            iActionSetAssociationStatus.destroy();
+            iActionGetAssociationStatus.destroy();
             iActionSetControlEnabled.destroy();
             iActionGetControlEnabled.destroy();
+            iAssociationStatus.destroy();
             iControlEnabled.destroy();
         }
     }

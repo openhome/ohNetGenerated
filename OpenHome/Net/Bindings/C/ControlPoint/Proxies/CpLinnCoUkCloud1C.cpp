@@ -27,6 +27,14 @@ public:
     void BeginGetChallengeResponse(const Brx& aChallenge, FunctorAsync& aFunctor);
     void EndGetChallengeResponse(IAsync& aAsync, Brh& aResponse);
 
+    void SyncSetAssociationStatus(const Brx& aStatus);
+    void BeginSetAssociationStatus(const Brx& aStatus, FunctorAsync& aFunctor);
+    void EndSetAssociationStatus(IAsync& aAsync);
+
+    void SyncGetAssociationStatus(Brh& aStatus);
+    void BeginGetAssociationStatus(FunctorAsync& aFunctor);
+    void EndGetAssociationStatus(IAsync& aAsync, Brh& aStatus);
+
     void SyncSetControlEnabled(TBool aEnabled);
     void BeginSetControlEnabled(TBool aEnabled, FunctorAsync& aFunctor);
     void EndSetControlEnabled(IAsync& aAsync);
@@ -35,17 +43,24 @@ public:
     void BeginGetControlEnabled(FunctorAsync& aFunctor);
     void EndGetControlEnabled(IAsync& aAsync, TBool& aEnabled);
 
+    void SetPropertyAssociationStatusChanged(Functor& aFunctor);
     void SetPropertyControlEnabledChanged(Functor& aFunctor);
 
+    void PropertyAssociationStatus(Brhz& aAssociationStatus) const;
     void PropertyControlEnabled(TBool& aControlEnabled) const;
 private:
+    void AssociationStatusPropertyChanged();
     void ControlEnabledPropertyChanged();
 private:
     Mutex iLock;
     Action* iActionGetChallengeResponse;
+    Action* iActionSetAssociationStatus;
+    Action* iActionGetAssociationStatus;
     Action* iActionSetControlEnabled;
     Action* iActionGetControlEnabled;
+    PropertyString* iAssociationStatus;
     PropertyBool* iControlEnabled;
+    Functor iAssociationStatusChanged;
     Functor iControlEnabledChanged;
 };
 
@@ -70,6 +85,50 @@ SyncGetChallengeResponseLinnCoUkCloud1C::SyncGetChallengeResponseLinnCoUkCloud1C
 void SyncGetChallengeResponseLinnCoUkCloud1C::CompleteRequest(IAsync& aAsync)
 {
     iService.EndGetChallengeResponse(aAsync, iResponse);
+}
+
+
+class SyncSetAssociationStatusLinnCoUkCloud1C : public SyncProxyAction
+{
+public:
+    SyncSetAssociationStatusLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncSetAssociationStatusLinnCoUkCloud1C() {};
+private:
+    CpProxyLinnCoUkCloud1C& iService;
+};
+
+SyncSetAssociationStatusLinnCoUkCloud1C::SyncSetAssociationStatusLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSetAssociationStatusLinnCoUkCloud1C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSetAssociationStatus(aAsync);
+}
+
+
+class SyncGetAssociationStatusLinnCoUkCloud1C : public SyncProxyAction
+{
+public:
+    SyncGetAssociationStatusLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy, Brh& aStatus);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncGetAssociationStatusLinnCoUkCloud1C() {};
+private:
+    CpProxyLinnCoUkCloud1C& iService;
+    Brh& iStatus;
+};
+
+SyncGetAssociationStatusLinnCoUkCloud1C::SyncGetAssociationStatusLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy, Brh& aStatus)
+    : iService(aProxy)
+    , iStatus(aStatus)
+{
+}
+
+void SyncGetAssociationStatusLinnCoUkCloud1C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetAssociationStatus(aAsync, iStatus);
 }
 
 
@@ -121,12 +180,34 @@ CpProxyLinnCoUkCloud1C::CpProxyLinnCoUkCloud1C(CpDeviceC aDevice)
     , iLock("MPCS")
 {
     OpenHome::Net::Parameter* param;
+    TChar** allowedValues;
+    TUint index;
 
     iActionGetChallengeResponse = new Action("GetChallengeResponse");
     param = new OpenHome::Net::ParameterString("Challenge");
     iActionGetChallengeResponse->AddInputParameter(param);
     param = new OpenHome::Net::ParameterString("Response");
     iActionGetChallengeResponse->AddOutputParameter(param);
+
+    iActionSetAssociationStatus = new Action("SetAssociationStatus");
+    index = 0;
+    allowedValues = new TChar*[3];
+    allowedValues[index++] = (TChar*)"Associated";
+    allowedValues[index++] = (TChar*)"NotAssociated";
+    allowedValues[index++] = (TChar*)"Unconfigured";
+    param = new OpenHome::Net::ParameterString("Status", allowedValues, 3);
+    iActionSetAssociationStatus->AddInputParameter(param);
+    delete[] allowedValues;
+
+    iActionGetAssociationStatus = new Action("GetAssociationStatus");
+    index = 0;
+    allowedValues = new TChar*[3];
+    allowedValues[index++] = (TChar*)"Associated";
+    allowedValues[index++] = (TChar*)"NotAssociated";
+    allowedValues[index++] = (TChar*)"Unconfigured";
+    param = new OpenHome::Net::ParameterString("Status", allowedValues, 3);
+    iActionGetAssociationStatus->AddOutputParameter(param);
+    delete[] allowedValues;
 
     iActionSetControlEnabled = new Action("SetControlEnabled");
     param = new OpenHome::Net::ParameterBool("Enabled");
@@ -137,6 +218,9 @@ CpProxyLinnCoUkCloud1C::CpProxyLinnCoUkCloud1C(CpDeviceC aDevice)
     iActionGetControlEnabled->AddOutputParameter(param);
 
     Functor functor;
+    functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1C::AssociationStatusPropertyChanged);
+    iAssociationStatus = new PropertyString("AssociationStatus", functor);
+    AddProperty(iAssociationStatus);
     functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1C::ControlEnabledPropertyChanged);
     iControlEnabled = new PropertyBool("ControlEnabled", functor);
     AddProperty(iControlEnabled);
@@ -146,6 +230,8 @@ CpProxyLinnCoUkCloud1C::~CpProxyLinnCoUkCloud1C()
 {
     DestroyService();
     delete iActionGetChallengeResponse;
+    delete iActionSetAssociationStatus;
+    delete iActionGetAssociationStatus;
     delete iActionSetControlEnabled;
     delete iActionGetControlEnabled;
 }
@@ -183,6 +269,68 @@ void CpProxyLinnCoUkCloud1C::EndGetChallengeResponse(IAsync& aAsync, Brh& aRespo
     }
     TUint index = 0;
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aResponse);
+}
+
+void CpProxyLinnCoUkCloud1C::SyncSetAssociationStatus(const Brx& aStatus)
+{
+    SyncSetAssociationStatusLinnCoUkCloud1C sync(*this);
+    BeginSetAssociationStatus(aStatus, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkCloud1C::BeginSetAssociationStatus(const Brx& aStatus, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionSetAssociationStatus, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSetAssociationStatus->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aStatus));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkCloud1C::EndSetAssociationStatus(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SetAssociationStatus"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
+void CpProxyLinnCoUkCloud1C::SyncGetAssociationStatus(Brh& aStatus)
+{
+    SyncGetAssociationStatusLinnCoUkCloud1C sync(*this, aStatus);
+    BeginGetAssociationStatus(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkCloud1C::BeginGetAssociationStatus(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionGetAssociationStatus, aFunctor);
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetAssociationStatus->OutputParameters();
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkCloud1C::EndGetAssociationStatus(IAsync& aAsync, Brh& aStatus)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetAssociationStatus"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aStatus);
 }
 
 void CpProxyLinnCoUkCloud1C::SyncSetControlEnabled(TBool aEnabled)
@@ -247,6 +395,13 @@ void CpProxyLinnCoUkCloud1C::EndGetControlEnabled(IAsync& aAsync, TBool& aEnable
     aEnabled = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
 }
 
+void CpProxyLinnCoUkCloud1C::SetPropertyAssociationStatusChanged(Functor& aFunctor)
+{
+    iLock.Wait();
+    iAssociationStatusChanged = aFunctor;
+    iLock.Signal();
+}
+
 void CpProxyLinnCoUkCloud1C::SetPropertyControlEnabledChanged(Functor& aFunctor)
 {
     iLock.Wait();
@@ -254,11 +409,23 @@ void CpProxyLinnCoUkCloud1C::SetPropertyControlEnabledChanged(Functor& aFunctor)
     iLock.Signal();
 }
 
+void CpProxyLinnCoUkCloud1C::PropertyAssociationStatus(Brhz& aAssociationStatus) const
+{
+    AutoMutex a(GetPropertyReadLock());
+    CheckSubscribed();
+    aAssociationStatus.Set(iAssociationStatus->Value());
+}
+
 void CpProxyLinnCoUkCloud1C::PropertyControlEnabled(TBool& aControlEnabled) const
 {
     AutoMutex a(GetPropertyReadLock());
     CheckSubscribed();
     aControlEnabled = iControlEnabled->Value();
+}
+
+void CpProxyLinnCoUkCloud1C::AssociationStatusPropertyChanged()
+{
+    ReportEvent(iAssociationStatusChanged);
 }
 
 void CpProxyLinnCoUkCloud1C::ControlEnabledPropertyChanged()
@@ -317,6 +484,90 @@ int32_t STDCALL CpProxyLinnCoUkCloud1EndGetChallengeResponse(THandle aHandle, Oh
     try {
         proxyC->EndGetChallengeResponse(*async, buf_aResponse);
         *aResponse = buf_aResponse.Extract();
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
+int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociationStatus(THandle aHandle, const char* aStatus)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aStatus(aStatus);
+    int32_t err = 0;
+    try {
+        proxyC->SyncSetAssociationStatus(buf_aStatus);
+    }
+    catch (ProxyError& ) {
+        err = -1;
+    }
+    return err;
+}
+
+void STDCALL CpProxyLinnCoUkCloud1BeginSetAssociationStatus(THandle aHandle, const char* aStatus, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aStatus(aStatus);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginSetAssociationStatus(buf_aStatus, functor);
+}
+
+int32_t STDCALL CpProxyLinnCoUkCloud1EndSetAssociationStatus(THandle aHandle, OhNetHandleAsync aAsync)
+{
+    int32_t err = 0;
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    try {
+        proxyC->EndSetAssociationStatus(*async);
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
+int32_t STDCALL CpProxyLinnCoUkCloud1SyncGetAssociationStatus(THandle aHandle, char** aStatus)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aStatus;
+    int32_t err = 0;
+    try {
+        proxyC->SyncGetAssociationStatus(buf_aStatus);
+        *aStatus = buf_aStatus.Extract();
+    }
+    catch (ProxyError& ) {
+        err = -1;
+        *aStatus = NULL;
+    }
+    return err;
+}
+
+void STDCALL CpProxyLinnCoUkCloud1BeginGetAssociationStatus(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginGetAssociationStatus(functor);
+}
+
+int32_t STDCALL CpProxyLinnCoUkCloud1EndGetAssociationStatus(THandle aHandle, OhNetHandleAsync aAsync, char** aStatus)
+{
+    int32_t err = 0;
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    Brh buf_aStatus;
+    *aStatus = NULL;
+    try {
+        proxyC->EndGetAssociationStatus(*async, buf_aStatus);
+        *aStatus = buf_aStatus.Extract();
     }
     catch(...) {
         err = -1;
@@ -405,12 +656,35 @@ int32_t STDCALL CpProxyLinnCoUkCloud1EndGetControlEnabled(THandle aHandle, OhNet
     return err;
 }
 
+void STDCALL CpProxyLinnCoUkCloud1SetPropertyAssociationStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Functor functor = MakeFunctor(aPtr, aCallback);
+    proxyC->SetPropertyAssociationStatusChanged(functor);
+}
+
 void STDCALL CpProxyLinnCoUkCloud1SetPropertyControlEnabledChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
 {
     CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Functor functor = MakeFunctor(aPtr, aCallback);
     proxyC->SetPropertyControlEnabledChanged(functor);
+}
+
+int32_t STDCALL CpProxyLinnCoUkCloud1PropertyAssociationStatus(THandle aHandle, char** aAssociationStatus)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brhz buf_aAssociationStatus;
+    try {
+        proxyC->PropertyAssociationStatus(buf_aAssociationStatus);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    *aAssociationStatus = buf_aAssociationStatus.Transfer();
+    return 0;
 }
 
 int32_t STDCALL CpProxyLinnCoUkCloud1PropertyControlEnabled(THandle aHandle, uint32_t* aControlEnabled)

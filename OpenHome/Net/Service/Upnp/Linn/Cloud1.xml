@@ -21,6 +21,26 @@
       </argumentList>
     </action>
     <action>
+      <name>SetAssociationStatus</name>
+      <argumentList>
+        <argument>
+          <name>Status</name>
+          <direction>in</direction>
+          <relatedStateVariable>AssociationStatus</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>GetAssociationStatus</name>
+      <argumentList>
+        <argument>
+          <name>Status</name>
+          <direction>out</direction>
+          <relatedStateVariable>AssociationStatus</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
       <name>SetControlEnabled</name>
       <argumentList>
         <argument>
@@ -42,6 +62,15 @@
     </action>
   </actionList>
   <serviceStateTable>
+    <stateVariable sendEvents="yes">
+      <name>AssociationStatus</name>
+      <dataType>string</dataType>
+      <allowedValueList>
+        <allowedValue>Associated</allowedValue>
+        <allowedValue>NotAssociated</allowedValue>
+        <allowedValue>Unconfigured</allowedValue>
+      </allowedValueList>
+    </stateVariable>
     <stateVariable sendEvents="yes">
       <name>ControlEnabled</name>
       <dataType>boolean</dataType>

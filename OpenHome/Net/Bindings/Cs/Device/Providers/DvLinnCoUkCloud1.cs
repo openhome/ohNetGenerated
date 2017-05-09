@@ -10,6 +10,19 @@ namespace OpenHome.Net.Device.Providers
     {
 
         /// <summary>
+        /// Set the value of the AssociationStatus property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyAssociationStatus(string aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the AssociationStatus property
+        /// </summary>
+        /// <returns>Value of the AssociationStatus property.</param>
+        string PropertyAssociationStatus();
+
+        /// <summary>
         /// Set the value of the ControlEnabled property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
@@ -30,8 +43,11 @@ namespace OpenHome.Net.Device.Providers
     {
         private GCHandle iGch;
         private ActionDelegate iDelegateGetChallengeResponse;
+        private ActionDelegate iDelegateSetAssociationStatus;
+        private ActionDelegate iDelegateGetAssociationStatus;
         private ActionDelegate iDelegateSetControlEnabled;
         private ActionDelegate iDelegateGetControlEnabled;
+        private PropertyString iPropertyAssociationStatus;
         private PropertyBool iPropertyControlEnabled;
 
         /// <summary>
@@ -45,12 +61,51 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
+        /// Enable the AssociationStatus property.
+        /// </summary>
+        public void EnablePropertyAssociationStatus()
+        {
+            List<String> allowedValues = new List<String>();
+            allowedValues.Add("Associated");
+            allowedValues.Add("NotAssociated");
+            allowedValues.Add("Unconfigured");
+            iPropertyAssociationStatus = new PropertyString(new ParameterString("AssociationStatus", allowedValues));
+            AddProperty(iPropertyAssociationStatus);
+            allowedValues.Clear();
+        }
+
+        /// <summary>
         /// Enable the ControlEnabled property.
         /// </summary>
         public void EnablePropertyControlEnabled()
         {
             iPropertyControlEnabled = new PropertyBool(new ParameterBool("ControlEnabled"));
             AddProperty(iPropertyControlEnabled);
+        }
+
+        /// <summary>
+        /// Set the value of the AssociationStatus property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyAssociationStatus has previously been called.</remarks>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        public bool SetPropertyAssociationStatus(string aValue)
+        {
+            if (iPropertyAssociationStatus == null)
+                throw new PropertyDisabledError();
+            return SetPropertyString(iPropertyAssociationStatus, aValue);
+        }
+
+        /// <summary>
+        /// Get a copy of the value of the AssociationStatus property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyAssociationStatus has previously been called.</remarks>
+        /// <returns>Value of the AssociationStatus property.</returns>
+        public string PropertyAssociationStatus()
+        {
+            if (iPropertyAssociationStatus == null)
+                throw new PropertyDisabledError();
+            return iPropertyAssociationStatus.Value();
         }
 
         /// <summary>
@@ -94,6 +149,32 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
+        /// Signal that the action SetAssociationStatus is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// SetAssociationStatus must be overridden if this is called.</remarks>
+        protected void EnableActionSetAssociationStatus()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetAssociationStatus");
+            action.AddInputParameter(new ParameterRelated("Status", iPropertyAssociationStatus));
+            iDelegateSetAssociationStatus = new ActionDelegate(DoSetAssociationStatus);
+            EnableAction(action, iDelegateSetAssociationStatus, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action GetAssociationStatus is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// GetAssociationStatus must be overridden if this is called.</remarks>
+        protected void EnableActionGetAssociationStatus()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetAssociationStatus");
+            action.AddOutputParameter(new ParameterRelated("Status", iPropertyAssociationStatus));
+            iDelegateGetAssociationStatus = new ActionDelegate(DoGetAssociationStatus);
+            EnableAction(action, iDelegateGetAssociationStatus, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
         /// Signal that the action SetControlEnabled is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
@@ -130,6 +211,34 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aChallenge"></param>
         /// <param name="aResponse"></param>
         protected virtual void GetChallengeResponse(IDvInvocation aInvocation, string aChallenge, out string aResponse)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// SetAssociationStatus action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// SetAssociationStatus action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionSetAssociationStatus was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aStatus"></param>
+        protected virtual void SetAssociationStatus(IDvInvocation aInvocation, string aStatus)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// GetAssociationStatus action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// GetAssociationStatus action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionGetAssociationStatus was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aStatus"></param>
+        protected virtual void GetAssociationStatus(IDvInvocation aInvocation, out string aStatus)
         {
             throw (new ActionDisabledError());
         }
@@ -205,6 +314,98 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetChallengeResponse" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoSetAssociationStatus(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string status;
+            try
+            {
+                invocation.ReadStart();
+                status = invocation.ReadString("Status");
+                invocation.ReadEnd();
+                self.SetAssociationStatus(invocation, status);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "SetAssociationStatus");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetAssociationStatus" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAssociationStatus" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAssociationStatus" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoGetAssociationStatus(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string status;
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.GetAssociationStatus(invocation, out status);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "GetAssociationStatus");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetAssociationStatus" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetAssociationStatus" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteString("Status", status);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetAssociationStatus" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

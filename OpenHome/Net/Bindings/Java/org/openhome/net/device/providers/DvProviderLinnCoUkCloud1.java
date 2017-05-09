@@ -10,6 +10,22 @@ interface IDvProviderLinnCoUkCloud1
 {
 
     /**
+     * Set the value of the AssociationStatus property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyAssociationStatus(String aValue);
+
+    /**
+     * Get a copy of the value of the AssociationStatus property
+     *
+     * @return value of the AssociationStatus property.
+     */
+    public String getPropertyAssociationStatus();
+
+    /**
      * Set the value of the ControlEnabled property
      *
      * @param aValue    new value for the property.
@@ -34,8 +50,11 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
 {
 
     private IDvInvocationListener iDelegateGetChallengeResponse;
+    private IDvInvocationListener iDelegateSetAssociationStatus;
+    private IDvInvocationListener iDelegateGetAssociationStatus;
     private IDvInvocationListener iDelegateSetControlEnabled;
     private IDvInvocationListener iDelegateGetControlEnabled;
+    private PropertyString iPropertyAssociationStatus;
     private PropertyBool iPropertyControlEnabled;
 
     /**
@@ -49,12 +68,48 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
     }
 
     /**
+     * Enable the AssociationStatus property.
+     */
+    public void enablePropertyAssociationStatus()
+    {
+        List<String> allowedValues = new LinkedList<String>();
+        allowedValues.add("Associated");
+        allowedValues.add("NotAssociated");
+        allowedValues.add("Unconfigured");
+        iPropertyAssociationStatus = new PropertyString(new ParameterString("AssociationStatus", allowedValues));
+        addProperty(iPropertyAssociationStatus);
+            allowedValues.clear();
+    }
+
+    /**
      * Enable the ControlEnabled property.
      */
     public void enablePropertyControlEnabled()
     {
         iPropertyControlEnabled = new PropertyBool(new ParameterBool("ControlEnabled"));
         addProperty(iPropertyControlEnabled);
+    }
+
+    /**
+     * Set the value of the AssociationStatus property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyAssociationStatus(String aValue)
+    {
+        return setPropertyString(iPropertyAssociationStatus, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the AssociationStatus property
+     *
+     * @return  value of the AssociationStatus property.
+     */
+    public String getPropertyAssociationStatus()
+    {
+        return iPropertyAssociationStatus.getValue();
     }
 
     /**
@@ -92,6 +147,34 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
         action.addOutputParameter(new ParameterString("Response", allowedValues));
         iDelegateGetChallengeResponse = new DoGetChallengeResponse();
         enableAction(action, iDelegateGetChallengeResponse);
+    }
+
+    /**
+     * Signal that the action SetAssociationStatus is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * SetAssociationStatus must be overridden if this is called.
+     */      
+    protected void enableActionSetAssociationStatus()
+    {
+        Action action = new Action("SetAssociationStatus");
+        action.addInputParameter(new ParameterRelated("Status", iPropertyAssociationStatus));
+        iDelegateSetAssociationStatus = new DoSetAssociationStatus();
+        enableAction(action, iDelegateSetAssociationStatus);
+    }
+
+    /**
+     * Signal that the action GetAssociationStatus is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * GetAssociationStatus must be overridden if this is called.
+     */      
+    protected void enableActionGetAssociationStatus()
+    {
+        Action action = new Action("GetAssociationStatus");
+        action.addOutputParameter(new ParameterRelated("Status", iPropertyAssociationStatus));
+        iDelegateGetAssociationStatus = new DoGetAssociationStatus();
+        enableAction(action, iDelegateGetAssociationStatus);
     }
 
     /**
@@ -134,6 +217,37 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
      * @param aChallenge
      */
     protected String getChallengeResponse(IDvInvocation aInvocation, String aChallenge)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * SetAssociationStatus action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * SetAssociationStatus action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionSetAssociationStatus} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aStatus
+     */
+    protected void setAssociationStatus(IDvInvocation aInvocation, String aStatus)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * GetAssociationStatus action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * GetAssociationStatus action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionGetAssociationStatus} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected String getAssociationStatus(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -221,6 +335,102 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
             {
                 invocation.writeStart();
                 invocation.writeString("Response", response);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoSetAssociationStatus implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String status;
+            try
+            {
+                invocation.readStart();
+                status = invocation.readString("Status");
+                invocation.readEnd();
+                setAssociationStatus(invocation, status);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "SetAssociationStatus");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoGetAssociationStatus implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String status;
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                 status = getAssociationStatus(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "GetAssociationStatus");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeString("Status", status);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

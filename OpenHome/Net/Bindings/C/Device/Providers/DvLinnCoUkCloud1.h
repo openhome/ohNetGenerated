@@ -33,6 +33,30 @@ extern "C" {
  */
 typedef int32_t (STDCALL *CallbackCloud1GetChallengeResponse)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aChallenge, char** aResponse);
 /**
+ * Callback which runs when the SetAssociationStatus action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkCloud1EnableActionSetAssociationStatus
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ * @param[in]  aStatus
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackCloud1SetAssociationStatus)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aStatus);
+/**
+ * Callback which runs when the GetAssociationStatus action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkCloud1EnableActionGetAssociationStatus
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ * @param[out] aStatus
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackCloud1GetAssociationStatus)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, char** aStatus);
+/**
  * Callback which runs when the SetControlEnabled action is invoked
  *
  * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkCloud1EnableActionSetControlEnabled
@@ -74,6 +98,10 @@ DllExport THandle STDCALL DvProviderLinnCoUkCloud1Create(DvDeviceC aDevice);
 DllExport void STDCALL DvProviderLinnCoUkCloud1Destroy(THandle aProvider);
 
 /**
+ * Enable the AssociationStatus property.
+ */
+DllExport void STDCALL DvProviderLinnCoUkCloud1EnablePropertyAssociationStatus(THandle aProvider);
+/**
  * Enable the ControlEnabled property.
  */
 DllExport void STDCALL DvProviderLinnCoUkCloud1EnablePropertyControlEnabled(THandle aProvider);
@@ -89,6 +117,28 @@ DllExport void STDCALL DvProviderLinnCoUkCloud1EnablePropertyControlEnabled(THan
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
 DllExport void STDCALL DvProviderLinnCoUkCloud1EnableActionGetChallengeResponse(THandle aProvider, CallbackCloud1GetChallengeResponse aCallback, void* aPtr);
+/**
+ * Register a callback for the action SetAssociationStatus
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderLinnCoUkCloud1Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderLinnCoUkCloud1EnableActionSetAssociationStatus(THandle aProvider, CallbackCloud1SetAssociationStatus aCallback, void* aPtr);
+/**
+ * Register a callback for the action GetAssociationStatus
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderLinnCoUkCloud1Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderLinnCoUkCloud1EnableActionGetAssociationStatus(THandle aProvider, CallbackCloud1GetAssociationStatus aCallback, void* aPtr);
 /**
  * Register a callback for the action SetControlEnabled
  *
@@ -112,6 +162,28 @@ DllExport void STDCALL DvProviderLinnCoUkCloud1EnableActionSetControlEnabled(THa
  */
 DllExport void STDCALL DvProviderLinnCoUkCloud1EnableActionGetControlEnabled(THandle aProvider, CallbackCloud1GetControlEnabled aCallback, void* aPtr);
 
+/**
+ * Set the value of the AssociationStatus property
+ *
+ * Can only be called if DvProviderLinnCoUkCloud1EnablePropertyAssociationStatus has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderLinnCoUkCloud1Create
+ * @param[in]  aValue     New value for the property (will be copied)
+ * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
+ *
+ * @return  0 if the property was successfully set; non-zero if there was an error (including
+ *          an attempt to set a property to a value not in its allowed range/set)
+ */
+DllExport int32_t STDCALL DvProviderLinnCoUkCloud1SetPropertyAssociationStatus(THandle aProvider, const char* aValue, uint32_t* aChanged);
+/**
+ * Get a copy of the value of the AssociationStatus property
+ *
+ * Can only be called if DvProviderLinnCoUkCloud1EnablePropertyAssociationStatus has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderLinnCoUkCloud1Create
+ * @param[out] aValue     Value for the property.  Caller is responsible for freeing this.
+ */
+DllExport void STDCALL DvProviderLinnCoUkCloud1GetPropertyAssociationStatus(THandle aProvider, char** aValue);
 /**
  * Set the value of the ControlEnabled property
  *

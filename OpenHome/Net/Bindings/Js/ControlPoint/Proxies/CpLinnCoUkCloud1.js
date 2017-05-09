@@ -18,9 +18,15 @@ var CpProxyLinnCoUkCloud1 = function(udn){
     
     // Collection of service properties
     this.serviceProperties = {};
+    this.serviceProperties["AssociationStatus"] = new ohnet.serviceproperty("AssociationStatus","string");
     this.serviceProperties["ControlEnabled"] = new ohnet.serviceproperty("ControlEnabled","bool");
 
-          
+            
+    this.AssociationStatusAllowedValues = [];
+    this.AssociationStatusAllowedValues.push("Associated");
+    this.AssociationStatusAllowedValues.push("NotAssociated");
+    this.AssociationStatusAllowedValues.push("Unconfigured");
+      
 }
 
 
@@ -44,6 +50,19 @@ CpProxyLinnCoUkCloud1.prototype.unsubscribe = function () {
 }
 
 
+    
+
+/**
+* Adds a listener to handle "AssociationStatus" property change events
+* @method AssociationStatus_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyLinnCoUkCloud1.prototype.AssociationStatus_Changed = function (stateChangedFunction) {
+    this.serviceProperties.AssociationStatus.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
+    });
+}
     
 
 /**
@@ -71,6 +90,47 @@ CpProxyLinnCoUkCloud1.prototype.GetChallengeResponse = function(Challenge, succe
     request.writeStringParameter("Challenge", Challenge);
     request.send(function(result){
         result["Response"] = ohnet.soaprequest.readStringParameter(result["Response"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to SetAssociationStatus
+* @method SetAssociationStatus
+* @param {String} Status An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkCloud1.prototype.SetAssociationStatus = function(Status, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetAssociationStatus", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("Status", Status);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to GetAssociationStatus
+* @method GetAssociationStatus
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkCloud1.prototype.GetAssociationStatus = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetAssociationStatus", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["Status"] = ohnet.soaprequest.readStringParameter(result["Status"]); 
     
         if (successFunction){
             successFunction(result);

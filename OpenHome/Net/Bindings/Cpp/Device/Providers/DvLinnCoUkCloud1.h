@@ -28,6 +28,20 @@ class DvProviderLinnCoUkCloud1Cpp : public DvProvider
 public:
     virtual ~DvProviderLinnCoUkCloud1Cpp() {}
     /**
+     * Set the value of the AssociationStatus property
+     *
+     * Can only be called if EnablePropertyAssociationStatus has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    bool SetPropertyAssociationStatus(const std::string& aValue);
+    /**
+     * Get a copy of the value of the AssociationStatus property
+     *
+     * Can only be called if EnablePropertyAssociationStatus has previously been called.
+     */
+    void GetPropertyAssociationStatus(std::string& aValue);
+    /**
      * Set the value of the ControlEnabled property
      *
      * Can only be called if EnablePropertyControlEnabled has previously been called.
@@ -49,6 +63,10 @@ protected:
      */
     DvProviderLinnCoUkCloud1Cpp(DvDeviceStd& aDevice);
     /**
+     * Enable the AssociationStatus property.
+     */
+    void EnablePropertyAssociationStatus();
+    /**
      * Enable the ControlEnabled property.
      */
     void EnablePropertyControlEnabled();
@@ -58,6 +76,18 @@ protected:
      * GetChallengeResponse must be overridden if this is called.
      */
     void EnableActionGetChallengeResponse();
+    /**
+     * Signal that the action SetAssociationStatus is supported.
+     * The action's availability will be published in the device's service.xml.
+     * SetAssociationStatus must be overridden if this is called.
+     */
+    void EnableActionSetAssociationStatus();
+    /**
+     * Signal that the action GetAssociationStatus is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetAssociationStatus must be overridden if this is called.
+     */
+    void EnableActionGetAssociationStatus();
     /**
      * Signal that the action SetControlEnabled is supported.
      * The action's availability will be published in the device's service.xml.
@@ -80,6 +110,22 @@ private:
      */
     virtual void GetChallengeResponse(IDvInvocationStd& aInvocation, const std::string& aChallenge, std::string& aResponse);
     /**
+     * SetAssociationStatus action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * SetAssociationStatus action for the owning device.
+     * Must be implemented iff EnableActionSetAssociationStatus was called.
+     */
+    virtual void SetAssociationStatus(IDvInvocationStd& aInvocation, const std::string& aStatus);
+    /**
+     * GetAssociationStatus action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetAssociationStatus action for the owning device.
+     * Must be implemented iff EnableActionGetAssociationStatus was called.
+     */
+    virtual void GetAssociationStatus(IDvInvocationStd& aInvocation, std::string& aStatus);
+    /**
      * SetControlEnabled action.
      *
      * Will be called when the device stack receives an invocation of the
@@ -98,9 +144,12 @@ private:
 private:
     DvProviderLinnCoUkCloud1Cpp();
     void DoGetChallengeResponse(IDviInvocation& aInvocation);
+    void DoSetAssociationStatus(IDviInvocation& aInvocation);
+    void DoGetAssociationStatus(IDviInvocation& aInvocation);
     void DoSetControlEnabled(IDviInvocation& aInvocation);
     void DoGetControlEnabled(IDviInvocation& aInvocation);
 private:
+    PropertyString* iPropertyAssociationStatus;
     PropertyBool* iPropertyControlEnabled;
 };
 
