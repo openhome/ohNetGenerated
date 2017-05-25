@@ -53,6 +53,34 @@ public:
      * Can only be called if EnablePropertyControlEnabled has previously been called.
      */
     void GetPropertyControlEnabled(TBool& aValue);
+    /**
+     * Set the value of the Connected property
+     *
+     * Can only be called if EnablePropertyConnected has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyConnected(TBool aValue);
+    /**
+     * Get a copy of the value of the Connected property
+     *
+     * Can only be called if EnablePropertyConnected has previously been called.
+     */
+    void GetPropertyConnected(TBool& aValue);
+    /**
+     * Set the value of the PublicKey property
+     *
+     * Can only be called if EnablePropertyPublicKey has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    TBool SetPropertyPublicKey(const Brx& aValue);
+    /**
+     * Get a copy of the value of the PublicKey property
+     *
+     * Can only be called if EnablePropertyPublicKey has previously been called.
+     */
+    void GetPropertyPublicKey(Brhz& aValue);
 protected:
     /**
      * Constructor
@@ -75,23 +103,19 @@ protected:
      */
     void EnablePropertyControlEnabled();
     /**
-     * Signal that the action GetChallengeResponse is supported.
-     * The action's availability will be published in the device's service.xml.
-     * GetChallengeResponse must be overridden if this is called.
+     * Enable the Connected property.
      */
-    void EnableActionGetChallengeResponse();
+    void EnablePropertyConnected();
     /**
-     * Signal that the action SetAssociationStatus is supported.
-     * The action's availability will be published in the device's service.xml.
-     * SetAssociationStatus must be overridden if this is called.
+     * Enable the PublicKey property.
      */
-    void EnableActionSetAssociationStatus();
+    void EnablePropertyPublicKey();
     /**
-     * Signal that the action GetAssociationStatus is supported.
+     * Signal that the action SetAssociated is supported.
      * The action's availability will be published in the device's service.xml.
-     * GetAssociationStatus must be overridden if this is called.
+     * SetAssociated must be overridden if this is called.
      */
-    void EnableActionGetAssociationStatus();
+    void EnableActionSetAssociated();
     /**
      * Signal that the action SetControlEnabled is supported.
      * The action's availability will be published in the device's service.xml.
@@ -104,31 +128,27 @@ protected:
      * GetControlEnabled must be overridden if this is called.
      */
     void EnableActionGetControlEnabled();
+    /**
+     * Signal that the action GetConnected is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetConnected must be overridden if this is called.
+     */
+    void EnableActionGetConnected();
+    /**
+     * Signal that the action GetPublicKey is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetPublicKey must be overridden if this is called.
+     */
+    void EnableActionGetPublicKey();
 private:
     /**
-     * GetChallengeResponse action.
+     * SetAssociated action.
      *
      * Will be called when the device stack receives an invocation of the
-     * GetChallengeResponse action for the owning device.
-     * Must be implemented iff EnableActionGetChallengeResponse was called.
+     * SetAssociated action for the owning device.
+     * Must be implemented iff EnableActionSetAssociated was called.
      */
-    virtual void GetChallengeResponse(IDvInvocation& aInvocation, const Brx& aChallenge, IDvInvocationResponseString& aResponse);
-    /**
-     * SetAssociationStatus action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * SetAssociationStatus action for the owning device.
-     * Must be implemented iff EnableActionSetAssociationStatus was called.
-     */
-    virtual void SetAssociationStatus(IDvInvocation& aInvocation, const Brx& aStatus);
-    /**
-     * GetAssociationStatus action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * GetAssociationStatus action for the owning device.
-     * Must be implemented iff EnableActionGetAssociationStatus was called.
-     */
-    virtual void GetAssociationStatus(IDvInvocation& aInvocation, IDvInvocationResponseString& aStatus);
+    virtual void SetAssociated(IDvInvocation& aInvocation, const Brx& aTokenEncrypted, TBool aAssociated);
     /**
      * SetControlEnabled action.
      *
@@ -145,17 +165,35 @@ private:
      * Must be implemented iff EnableActionGetControlEnabled was called.
      */
     virtual void GetControlEnabled(IDvInvocation& aInvocation, IDvInvocationResponseBool& aEnabled);
+    /**
+     * GetConnected action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetConnected action for the owning device.
+     * Must be implemented iff EnableActionGetConnected was called.
+     */
+    virtual void GetConnected(IDvInvocation& aInvocation, IDvInvocationResponseBool& aConnected);
+    /**
+     * GetPublicKey action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetPublicKey action for the owning device.
+     * Must be implemented iff EnableActionGetPublicKey was called.
+     */
+    virtual void GetPublicKey(IDvInvocation& aInvocation, IDvInvocationResponseString& aPublicKey);
 private:
     DvProviderLinnCoUkCloud1();
     void Construct();
-    void DoGetChallengeResponse(IDviInvocation& aInvocation);
-    void DoSetAssociationStatus(IDviInvocation& aInvocation);
-    void DoGetAssociationStatus(IDviInvocation& aInvocation);
+    void DoSetAssociated(IDviInvocation& aInvocation);
     void DoSetControlEnabled(IDviInvocation& aInvocation);
     void DoGetControlEnabled(IDviInvocation& aInvocation);
+    void DoGetConnected(IDviInvocation& aInvocation);
+    void DoGetPublicKey(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyAssociationStatus;
     PropertyBool* iPropertyControlEnabled;
+    PropertyBool* iPropertyConnected;
+    PropertyString* iPropertyPublicKey;
 };
 
 } // namespace Net

@@ -34,6 +34,32 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <returns>Value of the ControlEnabled property.</param>
         bool PropertyControlEnabled();
+
+        /// <summary>
+        /// Set the value of the Connected property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyConnected(bool aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the Connected property
+        /// </summary>
+        /// <returns>Value of the Connected property.</param>
+        bool PropertyConnected();
+
+        /// <summary>
+        /// Set the value of the PublicKey property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyPublicKey(string aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the PublicKey property
+        /// </summary>
+        /// <returns>Value of the PublicKey property.</param>
+        string PropertyPublicKey();
         
     }
     /// <summary>
@@ -42,13 +68,15 @@ namespace OpenHome.Net.Device.Providers
     public class DvProviderLinnCoUkCloud1 : DvProvider, IDisposable, IDvProviderLinnCoUkCloud1
     {
         private GCHandle iGch;
-        private ActionDelegate iDelegateGetChallengeResponse;
-        private ActionDelegate iDelegateSetAssociationStatus;
-        private ActionDelegate iDelegateGetAssociationStatus;
+        private ActionDelegate iDelegateSetAssociated;
         private ActionDelegate iDelegateSetControlEnabled;
         private ActionDelegate iDelegateGetControlEnabled;
+        private ActionDelegate iDelegateGetConnected;
+        private ActionDelegate iDelegateGetPublicKey;
         private PropertyString iPropertyAssociationStatus;
         private PropertyBool iPropertyControlEnabled;
+        private PropertyBool iPropertyConnected;
+        private PropertyString iPropertyPublicKey;
 
         /// <summary>
         /// Constructor
@@ -81,6 +109,25 @@ namespace OpenHome.Net.Device.Providers
         {
             iPropertyControlEnabled = new PropertyBool(new ParameterBool("ControlEnabled"));
             AddProperty(iPropertyControlEnabled);
+        }
+
+        /// <summary>
+        /// Enable the Connected property.
+        /// </summary>
+        public void EnablePropertyConnected()
+        {
+            iPropertyConnected = new PropertyBool(new ParameterBool("Connected"));
+            AddProperty(iPropertyConnected);
+        }
+
+        /// <summary>
+        /// Enable the PublicKey property.
+        /// </summary>
+        public void EnablePropertyPublicKey()
+        {
+            List<String> allowedValues = new List<String>();
+            iPropertyPublicKey = new PropertyString(new ParameterString("PublicKey", allowedValues));
+            AddProperty(iPropertyPublicKey);
         }
 
         /// <summary>
@@ -134,44 +181,68 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action GetChallengeResponse is supported.
+        /// Set the value of the Connected property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyConnected has previously been called.</remarks>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        public bool SetPropertyConnected(bool aValue)
+        {
+            if (iPropertyConnected == null)
+                throw new PropertyDisabledError();
+            return SetPropertyBool(iPropertyConnected, aValue);
+        }
+
+        /// <summary>
+        /// Get a copy of the value of the Connected property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyConnected has previously been called.</remarks>
+        /// <returns>Value of the Connected property.</returns>
+        public bool PropertyConnected()
+        {
+            if (iPropertyConnected == null)
+                throw new PropertyDisabledError();
+            return iPropertyConnected.Value();
+        }
+
+        /// <summary>
+        /// Set the value of the PublicKey property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyPublicKey has previously been called.</remarks>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        public bool SetPropertyPublicKey(string aValue)
+        {
+            if (iPropertyPublicKey == null)
+                throw new PropertyDisabledError();
+            return SetPropertyString(iPropertyPublicKey, aValue);
+        }
+
+        /// <summary>
+        /// Get a copy of the value of the PublicKey property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyPublicKey has previously been called.</remarks>
+        /// <returns>Value of the PublicKey property.</returns>
+        public string PropertyPublicKey()
+        {
+            if (iPropertyPublicKey == null)
+                throw new PropertyDisabledError();
+            return iPropertyPublicKey.Value();
+        }
+
+        /// <summary>
+        /// Signal that the action SetAssociated is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// GetChallengeResponse must be overridden if this is called.</remarks>
-        protected void EnableActionGetChallengeResponse()
+        /// SetAssociated must be overridden if this is called.</remarks>
+        protected void EnableActionSetAssociated()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetChallengeResponse");
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetAssociated");
             List<String> allowedValues = new List<String>();
-            action.AddInputParameter(new ParameterString("Challenge", allowedValues));
-            action.AddOutputParameter(new ParameterString("Response", allowedValues));
-            iDelegateGetChallengeResponse = new ActionDelegate(DoGetChallengeResponse);
-            EnableAction(action, iDelegateGetChallengeResponse, GCHandle.ToIntPtr(iGch));
-        }
-
-        /// <summary>
-        /// Signal that the action SetAssociationStatus is supported.
-        /// </summary>
-        /// <remarks>The action's availability will be published in the device's service.xml.
-        /// SetAssociationStatus must be overridden if this is called.</remarks>
-        protected void EnableActionSetAssociationStatus()
-        {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetAssociationStatus");
-            action.AddInputParameter(new ParameterRelated("Status", iPropertyAssociationStatus));
-            iDelegateSetAssociationStatus = new ActionDelegate(DoSetAssociationStatus);
-            EnableAction(action, iDelegateSetAssociationStatus, GCHandle.ToIntPtr(iGch));
-        }
-
-        /// <summary>
-        /// Signal that the action GetAssociationStatus is supported.
-        /// </summary>
-        /// <remarks>The action's availability will be published in the device's service.xml.
-        /// GetAssociationStatus must be overridden if this is called.</remarks>
-        protected void EnableActionGetAssociationStatus()
-        {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetAssociationStatus");
-            action.AddOutputParameter(new ParameterRelated("Status", iPropertyAssociationStatus));
-            iDelegateGetAssociationStatus = new ActionDelegate(DoGetAssociationStatus);
-            EnableAction(action, iDelegateGetAssociationStatus, GCHandle.ToIntPtr(iGch));
+            action.AddInputParameter(new ParameterString("TokenEncrypted", allowedValues));
+            action.AddInputParameter(new ParameterBool("Associated"));
+            iDelegateSetAssociated = new ActionDelegate(DoSetAssociated);
+            EnableAction(action, iDelegateSetAssociated, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -201,44 +272,42 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// GetChallengeResponse action.
+        /// Signal that the action GetConnected is supported.
         /// </summary>
-        /// <remarks>Will be called when the device stack receives an invocation of the
-        /// GetChallengeResponse action for the owning device.
-        ///
-        /// Must be implemented iff EnableActionGetChallengeResponse was called.</remarks>
-        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aChallenge"></param>
-        /// <param name="aResponse"></param>
-        protected virtual void GetChallengeResponse(IDvInvocation aInvocation, string aChallenge, out string aResponse)
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// GetConnected must be overridden if this is called.</remarks>
+        protected void EnableActionGetConnected()
         {
-            throw (new ActionDisabledError());
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetConnected");
+            action.AddOutputParameter(new ParameterRelated("Connected", iPropertyConnected));
+            iDelegateGetConnected = new ActionDelegate(DoGetConnected);
+            EnableAction(action, iDelegateGetConnected, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
-        /// SetAssociationStatus action.
+        /// Signal that the action GetPublicKey is supported.
         /// </summary>
-        /// <remarks>Will be called when the device stack receives an invocation of the
-        /// SetAssociationStatus action for the owning device.
-        ///
-        /// Must be implemented iff EnableActionSetAssociationStatus was called.</remarks>
-        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aStatus"></param>
-        protected virtual void SetAssociationStatus(IDvInvocation aInvocation, string aStatus)
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// GetPublicKey must be overridden if this is called.</remarks>
+        protected void EnableActionGetPublicKey()
         {
-            throw (new ActionDisabledError());
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetPublicKey");
+            action.AddOutputParameter(new ParameterRelated("PublicKey", iPropertyPublicKey));
+            iDelegateGetPublicKey = new ActionDelegate(DoGetPublicKey);
+            EnableAction(action, iDelegateGetPublicKey, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
-        /// GetAssociationStatus action.
+        /// SetAssociated action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// GetAssociationStatus action for the owning device.
+        /// SetAssociated action for the owning device.
         ///
-        /// Must be implemented iff EnableActionGetAssociationStatus was called.</remarks>
+        /// Must be implemented iff EnableActionSetAssociated was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aStatus"></param>
-        protected virtual void GetAssociationStatus(IDvInvocation aInvocation, out string aStatus)
+        /// <param name="aTokenEncrypted"></param>
+        /// <param name="aAssociated"></param>
+        protected virtual void SetAssociated(IDvInvocation aInvocation, string aTokenEncrypted, bool aAssociated)
         {
             throw (new ActionDisabledError());
         }
@@ -271,132 +340,68 @@ namespace OpenHome.Net.Device.Providers
             throw (new ActionDisabledError());
         }
 
-        private static int DoGetChallengeResponse(IntPtr aPtr, IntPtr aInvocation)
+        /// <summary>
+        /// GetConnected action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// GetConnected action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionGetConnected was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aConnected"></param>
+        protected virtual void GetConnected(IDvInvocation aInvocation, out bool aConnected)
         {
-            GCHandle gch = GCHandle.FromIntPtr(aPtr);
-            DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            string challenge;
-            string response;
-            try
-            {
-                invocation.ReadStart();
-                challenge = invocation.ReadString("Challenge");
-                invocation.ReadEnd();
-                self.GetChallengeResponse(invocation, challenge, out response);
-            }
-            catch (ActionError e)
-            {
-                invocation.ReportActionError(e, "GetChallengeResponse");
-                return -1;
-            }
-            catch (PropertyUpdateError)
-            {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetChallengeResponse" }));
-                return -1;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetChallengeResponse" });
-                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
-                return -1;
-            }
-            try
-            {
-                invocation.WriteStart();
-                invocation.WriteString("Response", response);
-                invocation.WriteEnd();
-            }
-            catch (ActionError)
-            {
-                return -1;
-            }
-            catch (System.Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetChallengeResponse" });
-                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
-            }
-            return 0;
+            throw (new ActionDisabledError());
         }
 
-        private static int DoSetAssociationStatus(IntPtr aPtr, IntPtr aInvocation)
+        /// <summary>
+        /// GetPublicKey action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// GetPublicKey action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionGetPublicKey was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aPublicKey"></param>
+        protected virtual void GetPublicKey(IDvInvocation aInvocation, out string aPublicKey)
         {
-            GCHandle gch = GCHandle.FromIntPtr(aPtr);
-            DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            string status;
-            try
-            {
-                invocation.ReadStart();
-                status = invocation.ReadString("Status");
-                invocation.ReadEnd();
-                self.SetAssociationStatus(invocation, status);
-            }
-            catch (ActionError e)
-            {
-                invocation.ReportActionError(e, "SetAssociationStatus");
-                return -1;
-            }
-            catch (PropertyUpdateError)
-            {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetAssociationStatus" }));
-                return -1;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAssociationStatus" });
-                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
-                return -1;
-            }
-            try
-            {
-                invocation.WriteStart();
-                invocation.WriteEnd();
-            }
-            catch (ActionError)
-            {
-                return -1;
-            }
-            catch (System.Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAssociationStatus" });
-                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
-            }
-            return 0;
+            throw (new ActionDisabledError());
         }
 
-        private static int DoGetAssociationStatus(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoSetAssociated(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            string status;
+            string tokenEncrypted;
+            bool associated;
             try
             {
                 invocation.ReadStart();
+                tokenEncrypted = invocation.ReadString("TokenEncrypted");
+                associated = invocation.ReadBool("Associated");
                 invocation.ReadEnd();
-                self.GetAssociationStatus(invocation, out status);
+                self.SetAssociated(invocation, tokenEncrypted, associated);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "GetAssociationStatus");
+                invocation.ReportActionError(e, "SetAssociated");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetAssociationStatus" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetAssociated" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetAssociationStatus" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAssociated" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
             try
             {
                 invocation.WriteStart();
-                invocation.WriteString("Status", status);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -405,7 +410,7 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetAssociationStatus" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetAssociated" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
@@ -498,6 +503,98 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetControlEnabled" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoGetConnected(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            bool connected;
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.GetConnected(invocation, out connected);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "GetConnected");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetConnected" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetConnected" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteBool("Connected", connected);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetConnected" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoGetPublicKey(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string publicKey;
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.GetPublicKey(invocation, out publicKey);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "GetPublicKey");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetPublicKey" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetPublicKey" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteString("PublicKey", publicKey);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetPublicKey" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

@@ -20,13 +20,15 @@ var CpProxyLinnCoUkCloud1 = function(udn){
     this.serviceProperties = {};
     this.serviceProperties["AssociationStatus"] = new ohnet.serviceproperty("AssociationStatus","string");
     this.serviceProperties["ControlEnabled"] = new ohnet.serviceproperty("ControlEnabled","bool");
+    this.serviceProperties["Connected"] = new ohnet.serviceproperty("Connected","bool");
+    this.serviceProperties["PublicKey"] = new ohnet.serviceproperty("PublicKey","string");
 
             
     this.AssociationStatusAllowedValues = [];
     this.AssociationStatusAllowedValues.push("Associated");
     this.AssociationStatusAllowedValues.push("NotAssociated");
     this.AssociationStatusAllowedValues.push("Unconfigured");
-      
+                  
 }
 
 
@@ -76,61 +78,47 @@ CpProxyLinnCoUkCloud1.prototype.ControlEnabled_Changed = function (stateChangedF
         stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
 }
-
+    
 
 /**
-* A service action to GetChallengeResponse
-* @method GetChallengeResponse
-* @param {String} Challenge An action parameter
-* @param {Function} successFunction The function that is executed when the action has completed successfully
-* @param {Function} errorFunction The function that is executed when the action has cause an error
+* Adds a listener to handle "Connected" property change events
+* @method Connected_Changed
+* @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyLinnCoUkCloud1.prototype.GetChallengeResponse = function(Challenge, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("GetChallengeResponse", this.url, this.domain, this.type, this.version);     
-    request.writeStringParameter("Challenge", Challenge);
-    request.send(function(result){
-        result["Response"] = ohnet.soaprequest.readStringParameter(result["Response"]); 
+CpProxyLinnCoUkCloud1.prototype.Connected_Changed = function (stateChangedFunction) {
+    this.serviceProperties.Connected.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
+    });
+}
     
-        if (successFunction){
-            successFunction(result);
-        }
-    }, function(message, transport) {
-        if (errorFunction) {errorFunction(message, transport);}
+
+/**
+* Adds a listener to handle "PublicKey" property change events
+* @method PublicKey_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyLinnCoUkCloud1.prototype.PublicKey_Changed = function (stateChangedFunction) {
+    this.serviceProperties.PublicKey.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
     });
 }
 
 
 /**
-* A service action to SetAssociationStatus
-* @method SetAssociationStatus
-* @param {String} Status An action parameter
+* A service action to SetAssociated
+* @method SetAssociated
+* @param {String} TokenEncrypted An action parameter
+* @param {Boolean} Associated An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyLinnCoUkCloud1.prototype.SetAssociationStatus = function(Status, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("SetAssociationStatus", this.url, this.domain, this.type, this.version);     
-    request.writeStringParameter("Status", Status);
+CpProxyLinnCoUkCloud1.prototype.SetAssociated = function(TokenEncrypted, Associated, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetAssociated", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("TokenEncrypted", TokenEncrypted);
+    request.writeBoolParameter("Associated", Associated);
     request.send(function(result){
-    
-        if (successFunction){
-            successFunction(result);
-        }
-    }, function(message, transport) {
-        if (errorFunction) {errorFunction(message, transport);}
-    });
-}
-
-
-/**
-* A service action to GetAssociationStatus
-* @method GetAssociationStatus
-* @param {Function} successFunction The function that is executed when the action has completed successfully
-* @param {Function} errorFunction The function that is executed when the action has cause an error
-*/
-CpProxyLinnCoUkCloud1.prototype.GetAssociationStatus = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("GetAssociationStatus", this.url, this.domain, this.type, this.version);     
-    request.send(function(result){
-        result["Status"] = ohnet.soaprequest.readStringParameter(result["Status"]); 
     
         if (successFunction){
             successFunction(result);
@@ -172,6 +160,46 @@ CpProxyLinnCoUkCloud1.prototype.GetControlEnabled = function(successFunction, er
     var request = new ohnet.soaprequest("GetControlEnabled", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
         result["Enabled"] = ohnet.soaprequest.readBoolParameter(result["Enabled"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to GetConnected
+* @method GetConnected
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkCloud1.prototype.GetConnected = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetConnected", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["Connected"] = ohnet.soaprequest.readBoolParameter(result["Connected"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to GetPublicKey
+* @method GetPublicKey
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkCloud1.prototype.GetPublicKey = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetPublicKey", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["PublicKey"] = ohnet.soaprequest.readStringParameter(result["PublicKey"]); 
     
         if (successFunction){
             successFunction(result);

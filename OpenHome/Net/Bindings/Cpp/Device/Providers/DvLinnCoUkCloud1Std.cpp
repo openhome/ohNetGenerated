@@ -35,11 +35,39 @@ void DvProviderLinnCoUkCloud1Cpp::GetPropertyControlEnabled(bool& aValue)
     aValue = iPropertyControlEnabled->Value();
 }
 
+bool DvProviderLinnCoUkCloud1Cpp::SetPropertyConnected(bool aValue)
+{
+    ASSERT(iPropertyConnected != NULL);
+    return SetPropertyBool(*iPropertyConnected, aValue);
+}
+
+void DvProviderLinnCoUkCloud1Cpp::GetPropertyConnected(bool& aValue)
+{
+    ASSERT(iPropertyConnected != NULL);
+    aValue = iPropertyConnected->Value();
+}
+
+bool DvProviderLinnCoUkCloud1Cpp::SetPropertyPublicKey(const std::string& aValue)
+{
+    ASSERT(iPropertyPublicKey != NULL);
+    Brn buf((const TByte*)aValue.c_str(), (TUint)aValue.length());
+    return SetPropertyString(*iPropertyPublicKey, buf);
+}
+
+void DvProviderLinnCoUkCloud1Cpp::GetPropertyPublicKey(std::string& aValue)
+{
+    ASSERT(iPropertyPublicKey != NULL);
+    const Brx& val = iPropertyPublicKey->Value();
+    aValue.assign((const char*)val.Ptr(), val.Bytes());
+}
+
 DvProviderLinnCoUkCloud1Cpp::DvProviderLinnCoUkCloud1Cpp(DvDeviceStd& aDevice)
     : DvProvider(aDevice.Device(), "linn.co.uk", "Cloud", 1)
 {
     iPropertyAssociationStatus = NULL;
     iPropertyControlEnabled = NULL;
+    iPropertyConnected = NULL;
+    iPropertyPublicKey = NULL;
 }
 
 void DvProviderLinnCoUkCloud1Cpp::EnablePropertyAssociationStatus()
@@ -61,28 +89,24 @@ void DvProviderLinnCoUkCloud1Cpp::EnablePropertyControlEnabled()
     iService->AddProperty(iPropertyControlEnabled); // passes ownership
 }
 
-void DvProviderLinnCoUkCloud1Cpp::EnableActionGetChallengeResponse()
+void DvProviderLinnCoUkCloud1Cpp::EnablePropertyConnected()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetChallengeResponse");
-    action->AddInputParameter(new ParameterString("Challenge"));
-    action->AddOutputParameter(new ParameterString("Response"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoGetChallengeResponse);
-    iService->AddAction(action, functor);
+    iPropertyConnected = new PropertyBool(new ParameterBool("Connected"));
+    iService->AddProperty(iPropertyConnected); // passes ownership
 }
 
-void DvProviderLinnCoUkCloud1Cpp::EnableActionSetAssociationStatus()
+void DvProviderLinnCoUkCloud1Cpp::EnablePropertyPublicKey()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociationStatus");
-    action->AddInputParameter(new ParameterRelated("Status", *iPropertyAssociationStatus));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoSetAssociationStatus);
-    iService->AddAction(action, functor);
+    iPropertyPublicKey = new PropertyString(new ParameterString("PublicKey"));
+    iService->AddProperty(iPropertyPublicKey); // passes ownership
 }
 
-void DvProviderLinnCoUkCloud1Cpp::EnableActionGetAssociationStatus()
+void DvProviderLinnCoUkCloud1Cpp::EnableActionSetAssociated()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetAssociationStatus");
-    action->AddOutputParameter(new ParameterRelated("Status", *iPropertyAssociationStatus));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoGetAssociationStatus);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociated");
+    action->AddInputParameter(new ParameterString("TokenEncrypted"));
+    action->AddInputParameter(new ParameterBool("Associated"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoSetAssociated);
     iService->AddAction(action, functor);
 }
 
@@ -102,49 +126,33 @@ void DvProviderLinnCoUkCloud1Cpp::EnableActionGetControlEnabled()
     iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkCloud1Cpp::DoGetChallengeResponse(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkCloud1Cpp::EnableActionGetConnected()
 {
-    aInvocation.InvocationReadStart();
-    Brhz buf_Challenge;
-    aInvocation.InvocationReadString("Challenge", buf_Challenge);
-    std::string Challenge((const char*)buf_Challenge.Ptr(), buf_Challenge.Bytes());
-    aInvocation.InvocationReadEnd();
-    std::string respResponse;
-    DvInvocationStd invocation(aInvocation);
-    GetChallengeResponse(invocation, Challenge, respResponse);
-    aInvocation.InvocationWriteStart();
-    DviInvocationResponseString respWriterResponse(aInvocation, "Response");
-    Brn buf_Response((const TByte*)respResponse.c_str(), (TUint)respResponse.length());
-    respWriterResponse.Write(buf_Response);
-    aInvocation.InvocationWriteStringEnd("Response");
-    aInvocation.InvocationWriteEnd();
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetConnected");
+    action->AddOutputParameter(new ParameterRelated("Connected", *iPropertyConnected));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoGetConnected);
+    iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkCloud1Cpp::DoSetAssociationStatus(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkCloud1Cpp::EnableActionGetPublicKey()
 {
-    aInvocation.InvocationReadStart();
-    Brhz buf_Status;
-    aInvocation.InvocationReadString("Status", buf_Status);
-    std::string Status((const char*)buf_Status.Ptr(), buf_Status.Bytes());
-    aInvocation.InvocationReadEnd();
-    DvInvocationStd invocation(aInvocation);
-    SetAssociationStatus(invocation, Status);
-    aInvocation.InvocationWriteStart();
-    aInvocation.InvocationWriteEnd();
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetPublicKey");
+    action->AddOutputParameter(new ParameterRelated("PublicKey", *iPropertyPublicKey));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoGetPublicKey);
+    iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkCloud1Cpp::DoGetAssociationStatus(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkCloud1Cpp::DoSetAssociated(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
+    Brhz buf_TokenEncrypted;
+    aInvocation.InvocationReadString("TokenEncrypted", buf_TokenEncrypted);
+    std::string TokenEncrypted((const char*)buf_TokenEncrypted.Ptr(), buf_TokenEncrypted.Bytes());
+    bool Associated = aInvocation.InvocationReadBool("Associated");
     aInvocation.InvocationReadEnd();
-    std::string respStatus;
     DvInvocationStd invocation(aInvocation);
-    GetAssociationStatus(invocation, respStatus);
+    SetAssociated(invocation, TokenEncrypted, Associated);
     aInvocation.InvocationWriteStart();
-    DviInvocationResponseString respWriterStatus(aInvocation, "Status");
-    Brn buf_Status((const TByte*)respStatus.c_str(), (TUint)respStatus.length());
-    respWriterStatus.Write(buf_Status);
-    aInvocation.InvocationWriteStringEnd("Status");
     aInvocation.InvocationWriteEnd();
 }
 
@@ -172,17 +180,35 @@ void DvProviderLinnCoUkCloud1Cpp::DoGetControlEnabled(IDviInvocation& aInvocatio
     aInvocation.InvocationWriteEnd();
 }
 
-void DvProviderLinnCoUkCloud1Cpp::GetChallengeResponse(IDvInvocationStd& /*aInvocation*/, const std::string& /*aChallenge*/, std::string& /*aResponse*/)
+void DvProviderLinnCoUkCloud1Cpp::DoGetConnected(IDviInvocation& aInvocation)
 {
-    ASSERTS();
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    bool respConnected;
+    DvInvocationStd invocation(aInvocation);
+    GetConnected(invocation, respConnected);
+    aInvocation.InvocationWriteStart();
+    DviInvocationResponseBool respWriterConnected(aInvocation, "Connected");
+    respWriterConnected.Write(respConnected);
+    aInvocation.InvocationWriteEnd();
 }
 
-void DvProviderLinnCoUkCloud1Cpp::SetAssociationStatus(IDvInvocationStd& /*aInvocation*/, const std::string& /*aStatus*/)
+void DvProviderLinnCoUkCloud1Cpp::DoGetPublicKey(IDviInvocation& aInvocation)
 {
-    ASSERTS();
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    std::string respPublicKey;
+    DvInvocationStd invocation(aInvocation);
+    GetPublicKey(invocation, respPublicKey);
+    aInvocation.InvocationWriteStart();
+    DviInvocationResponseString respWriterPublicKey(aInvocation, "PublicKey");
+    Brn buf_PublicKey((const TByte*)respPublicKey.c_str(), (TUint)respPublicKey.length());
+    respWriterPublicKey.Write(buf_PublicKey);
+    aInvocation.InvocationWriteStringEnd("PublicKey");
+    aInvocation.InvocationWriteEnd();
 }
 
-void DvProviderLinnCoUkCloud1Cpp::GetAssociationStatus(IDvInvocationStd& /*aInvocation*/, std::string& /*aStatus*/)
+void DvProviderLinnCoUkCloud1Cpp::SetAssociated(IDvInvocationStd& /*aInvocation*/, const std::string& /*aTokenEncrypted*/, bool /*aAssociated*/)
 {
     ASSERTS();
 }
@@ -193,6 +219,16 @@ void DvProviderLinnCoUkCloud1Cpp::SetControlEnabled(IDvInvocationStd& /*aInvocat
 }
 
 void DvProviderLinnCoUkCloud1Cpp::GetControlEnabled(IDvInvocationStd& /*aInvocation*/, bool& /*aEnabled*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkCloud1Cpp::GetConnected(IDvInvocationStd& /*aInvocation*/, bool& /*aConnected*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkCloud1Cpp::GetPublicKey(IDvInvocationStd& /*aInvocation*/, std::string& /*aPublicKey*/)
 {
     ASSERTS();
 }

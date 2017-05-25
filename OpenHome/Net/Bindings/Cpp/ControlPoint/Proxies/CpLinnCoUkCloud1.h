@@ -24,25 +24,29 @@ class ICpProxyLinnCoUkCloud1Cpp : public ICpProxy
 {
 public:
     virtual ~ICpProxyLinnCoUkCloud1Cpp() {}
-    virtual void SyncGetChallengeResponse(const std::string& aChallenge, std::string& aResponse) = 0;
-    virtual void BeginGetChallengeResponse(const std::string& aChallenge, FunctorAsync& aFunctor) = 0;
-    virtual void EndGetChallengeResponse(IAsync& aAsync, std::string& aResponse) = 0;
-    virtual void SyncSetAssociationStatus(const std::string& aStatus) = 0;
-    virtual void BeginSetAssociationStatus(const std::string& aStatus, FunctorAsync& aFunctor) = 0;
-    virtual void EndSetAssociationStatus(IAsync& aAsync) = 0;
-    virtual void SyncGetAssociationStatus(std::string& aStatus) = 0;
-    virtual void BeginGetAssociationStatus(FunctorAsync& aFunctor) = 0;
-    virtual void EndGetAssociationStatus(IAsync& aAsync, std::string& aStatus) = 0;
+    virtual void SyncSetAssociated(const std::string& aTokenEncrypted, bool aAssociated) = 0;
+    virtual void BeginSetAssociated(const std::string& aTokenEncrypted, bool aAssociated, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetAssociated(IAsync& aAsync) = 0;
     virtual void SyncSetControlEnabled(bool aEnabled) = 0;
     virtual void BeginSetControlEnabled(bool aEnabled, FunctorAsync& aFunctor) = 0;
     virtual void EndSetControlEnabled(IAsync& aAsync) = 0;
     virtual void SyncGetControlEnabled(bool& aEnabled) = 0;
     virtual void BeginGetControlEnabled(FunctorAsync& aFunctor) = 0;
     virtual void EndGetControlEnabled(IAsync& aAsync, bool& aEnabled) = 0;
+    virtual void SyncGetConnected(bool& aConnected) = 0;
+    virtual void BeginGetConnected(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetConnected(IAsync& aAsync, bool& aConnected) = 0;
+    virtual void SyncGetPublicKey(std::string& aPublicKey) = 0;
+    virtual void BeginGetPublicKey(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetPublicKey(IAsync& aAsync, std::string& aPublicKey) = 0;
     virtual void SetPropertyAssociationStatusChanged(Functor& aAssociationStatusChanged) = 0;
     virtual void PropertyAssociationStatus(std::string& aAssociationStatus) const = 0;
     virtual void SetPropertyControlEnabledChanged(Functor& aControlEnabledChanged) = 0;
     virtual void PropertyControlEnabled(bool& aControlEnabled) const = 0;
+    virtual void SetPropertyConnectedChanged(Functor& aConnectedChanged) = 0;
+    virtual void PropertyConnected(bool& aConnected) const = 0;
+    virtual void SetPropertyPublicKeyChanged(Functor& aPublicKeyChanged) = 0;
+    virtual void PropertyPublicKey(std::string& aPublicKey) const = 0;
 };
 
 /**
@@ -74,81 +78,29 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
-     * @param[in]  aChallenge
-     * @param[out] aResponse
+     * @param[in]  aTokenEncrypted
+     * @param[in]  aAssociated
      */
-    void SyncGetChallengeResponse(const std::string& aChallenge, std::string& aResponse);
+    void SyncSetAssociated(const std::string& aTokenEncrypted, bool aAssociated);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndGetChallengeResponse().
+     * EndSetAssociated().
      *
-     * @param[in] aChallenge
+     * @param[in] aTokenEncrypted
+     * @param[in] aAssociated
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginGetChallengeResponse(const std::string& aChallenge, FunctorAsync& aFunctor);
-    /**
-     * Retrieve the output arguments from an asynchronously invoked action.
-     * This may only be called from the callback set in the above Begin function.
-     *
-     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     * @param[out] aResponse
-     */
-    void EndGetChallengeResponse(IAsync& aAsync, std::string& aResponse);
-
-    /**
-     * Invoke the action synchronously.  Blocks until the action has been processed
-     * on the device and sets any output arguments.
-     *
-     * @param[in]  aStatus
-     */
-    void SyncSetAssociationStatus(const std::string& aStatus);
-    /**
-     * Invoke the action asynchronously.
-     * Returns immediately and will run the client-specified callback when the action
-     * later completes.  Any output arguments can then be retrieved by calling
-     * EndSetAssociationStatus().
-     *
-     * @param[in] aStatus
-     * @param[in] aFunctor   Callback to run when the action completes.
-     *                       This is guaranteed to be run but may indicate an error
-     */
-    void BeginSetAssociationStatus(const std::string& aStatus, FunctorAsync& aFunctor);
+    void BeginSetAssociated(const std::string& aTokenEncrypted, bool aAssociated, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndSetAssociationStatus(IAsync& aAsync);
-
-    /**
-     * Invoke the action synchronously.  Blocks until the action has been processed
-     * on the device and sets any output arguments.
-     *
-     * @param[out] aStatus
-     */
-    void SyncGetAssociationStatus(std::string& aStatus);
-    /**
-     * Invoke the action asynchronously.
-     * Returns immediately and will run the client-specified callback when the action
-     * later completes.  Any output arguments can then be retrieved by calling
-     * EndGetAssociationStatus().
-     *
-     * @param[in] aFunctor   Callback to run when the action completes.
-     *                       This is guaranteed to be run but may indicate an error
-     */
-    void BeginGetAssociationStatus(FunctorAsync& aFunctor);
-    /**
-     * Retrieve the output arguments from an asynchronously invoked action.
-     * This may only be called from the callback set in the above Begin function.
-     *
-     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     * @param[out] aStatus
-     */
-    void EndGetAssociationStatus(IAsync& aAsync, std::string& aStatus);
+    void EndSetAssociated(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -203,6 +155,58 @@ public:
     void EndGetControlEnabled(IAsync& aAsync, bool& aEnabled);
 
     /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aConnected
+     */
+    void SyncGetConnected(bool& aConnected);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetConnected().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetConnected(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aConnected
+     */
+    void EndGetConnected(IAsync& aAsync, bool& aConnected);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aPublicKey
+     */
+    void SyncGetPublicKey(std::string& aPublicKey);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetPublicKey().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetPublicKey(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aPublicKey
+     */
+    void EndGetPublicKey(IAsync& aAsync, std::string& aPublicKey);
+
+    /**
      * Set a callback to be run when the AssociationStatus state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
@@ -220,6 +224,24 @@ public:
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
     void SetPropertyControlEnabledChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the Connected state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyLinnCoUkCloud1Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyConnectedChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the PublicKey state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyLinnCoUkCloud1Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyPublicKeyChanged(Functor& aFunctor);
 
     /**
      * Query the value of the AssociationStatus property.
@@ -241,6 +263,26 @@ public:
      * @param[out] aControlEnabled
      */
     void PropertyControlEnabled(bool& aControlEnabled) const;
+    /**
+     * Query the value of the Connected property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aConnected
+     */
+    void PropertyConnected(bool& aConnected) const;
+    /**
+     * Query the value of the PublicKey property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aPublicKey
+     */
+    void PropertyPublicKey(std::string& aPublicKey) const;
     /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
     */
@@ -277,16 +319,22 @@ private:
     CpProxy iCpProxy;
     void AssociationStatusPropertyChanged();
     void ControlEnabledPropertyChanged();
+    void ConnectedPropertyChanged();
+    void PublicKeyPropertyChanged();
 private:
-    Action* iActionGetChallengeResponse;
-    Action* iActionSetAssociationStatus;
-    Action* iActionGetAssociationStatus;
+    Action* iActionSetAssociated;
     Action* iActionSetControlEnabled;
     Action* iActionGetControlEnabled;
+    Action* iActionGetConnected;
+    Action* iActionGetPublicKey;
     PropertyString* iAssociationStatus;
     PropertyBool* iControlEnabled;
+    PropertyBool* iConnected;
+    PropertyString* iPublicKey;
     Functor iAssociationStatusChanged;
     Functor iControlEnabledChanged;
+    Functor iConnectedChanged;
+    Functor iPublicKeyChanged;
 };
 
 } // namespace Net

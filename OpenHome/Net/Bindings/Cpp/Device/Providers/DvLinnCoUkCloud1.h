@@ -55,6 +55,34 @@ public:
      * Can only be called if EnablePropertyControlEnabled has previously been called.
      */
     void GetPropertyControlEnabled(bool& aValue);
+    /**
+     * Set the value of the Connected property
+     *
+     * Can only be called if EnablePropertyConnected has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    bool SetPropertyConnected(bool aValue);
+    /**
+     * Get a copy of the value of the Connected property
+     *
+     * Can only be called if EnablePropertyConnected has previously been called.
+     */
+    void GetPropertyConnected(bool& aValue);
+    /**
+     * Set the value of the PublicKey property
+     *
+     * Can only be called if EnablePropertyPublicKey has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    bool SetPropertyPublicKey(const std::string& aValue);
+    /**
+     * Get a copy of the value of the PublicKey property
+     *
+     * Can only be called if EnablePropertyPublicKey has previously been called.
+     */
+    void GetPropertyPublicKey(std::string& aValue);
 protected:
     /**
      * Constructor
@@ -71,23 +99,19 @@ protected:
      */
     void EnablePropertyControlEnabled();
     /**
-     * Signal that the action GetChallengeResponse is supported.
-     * The action's availability will be published in the device's service.xml.
-     * GetChallengeResponse must be overridden if this is called.
+     * Enable the Connected property.
      */
-    void EnableActionGetChallengeResponse();
+    void EnablePropertyConnected();
     /**
-     * Signal that the action SetAssociationStatus is supported.
-     * The action's availability will be published in the device's service.xml.
-     * SetAssociationStatus must be overridden if this is called.
+     * Enable the PublicKey property.
      */
-    void EnableActionSetAssociationStatus();
+    void EnablePropertyPublicKey();
     /**
-     * Signal that the action GetAssociationStatus is supported.
+     * Signal that the action SetAssociated is supported.
      * The action's availability will be published in the device's service.xml.
-     * GetAssociationStatus must be overridden if this is called.
+     * SetAssociated must be overridden if this is called.
      */
-    void EnableActionGetAssociationStatus();
+    void EnableActionSetAssociated();
     /**
      * Signal that the action SetControlEnabled is supported.
      * The action's availability will be published in the device's service.xml.
@@ -100,31 +124,27 @@ protected:
      * GetControlEnabled must be overridden if this is called.
      */
     void EnableActionGetControlEnabled();
+    /**
+     * Signal that the action GetConnected is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetConnected must be overridden if this is called.
+     */
+    void EnableActionGetConnected();
+    /**
+     * Signal that the action GetPublicKey is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetPublicKey must be overridden if this is called.
+     */
+    void EnableActionGetPublicKey();
 private:
     /**
-     * GetChallengeResponse action.
+     * SetAssociated action.
      *
      * Will be called when the device stack receives an invocation of the
-     * GetChallengeResponse action for the owning device.
-     * Must be implemented iff EnableActionGetChallengeResponse was called.
+     * SetAssociated action for the owning device.
+     * Must be implemented iff EnableActionSetAssociated was called.
      */
-    virtual void GetChallengeResponse(IDvInvocationStd& aInvocation, const std::string& aChallenge, std::string& aResponse);
-    /**
-     * SetAssociationStatus action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * SetAssociationStatus action for the owning device.
-     * Must be implemented iff EnableActionSetAssociationStatus was called.
-     */
-    virtual void SetAssociationStatus(IDvInvocationStd& aInvocation, const std::string& aStatus);
-    /**
-     * GetAssociationStatus action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * GetAssociationStatus action for the owning device.
-     * Must be implemented iff EnableActionGetAssociationStatus was called.
-     */
-    virtual void GetAssociationStatus(IDvInvocationStd& aInvocation, std::string& aStatus);
+    virtual void SetAssociated(IDvInvocationStd& aInvocation, const std::string& aTokenEncrypted, bool aAssociated);
     /**
      * SetControlEnabled action.
      *
@@ -141,16 +161,34 @@ private:
      * Must be implemented iff EnableActionGetControlEnabled was called.
      */
     virtual void GetControlEnabled(IDvInvocationStd& aInvocation, bool& aEnabled);
+    /**
+     * GetConnected action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetConnected action for the owning device.
+     * Must be implemented iff EnableActionGetConnected was called.
+     */
+    virtual void GetConnected(IDvInvocationStd& aInvocation, bool& aConnected);
+    /**
+     * GetPublicKey action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetPublicKey action for the owning device.
+     * Must be implemented iff EnableActionGetPublicKey was called.
+     */
+    virtual void GetPublicKey(IDvInvocationStd& aInvocation, std::string& aPublicKey);
 private:
     DvProviderLinnCoUkCloud1Cpp();
-    void DoGetChallengeResponse(IDviInvocation& aInvocation);
-    void DoSetAssociationStatus(IDviInvocation& aInvocation);
-    void DoGetAssociationStatus(IDviInvocation& aInvocation);
+    void DoSetAssociated(IDviInvocation& aInvocation);
     void DoSetControlEnabled(IDviInvocation& aInvocation);
     void DoGetControlEnabled(IDviInvocation& aInvocation);
+    void DoGetConnected(IDviInvocation& aInvocation);
+    void DoGetPublicKey(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyAssociationStatus;
     PropertyBool* iPropertyControlEnabled;
+    PropertyBool* iPropertyConnected;
+    PropertyString* iPropertyPublicKey;
 };
 
 } // namespace Net

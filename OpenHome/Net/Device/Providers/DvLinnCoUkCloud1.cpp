@@ -32,6 +32,30 @@ void DvProviderLinnCoUkCloud1::GetPropertyControlEnabled(TBool& aValue)
     aValue = iPropertyControlEnabled->Value();
 }
 
+TBool DvProviderLinnCoUkCloud1::SetPropertyConnected(TBool aValue)
+{
+    ASSERT(iPropertyConnected != NULL);
+    return SetPropertyBool(*iPropertyConnected, aValue);
+}
+
+void DvProviderLinnCoUkCloud1::GetPropertyConnected(TBool& aValue)
+{
+    ASSERT(iPropertyConnected != NULL);
+    aValue = iPropertyConnected->Value();
+}
+
+TBool DvProviderLinnCoUkCloud1::SetPropertyPublicKey(const Brx& aValue)
+{
+    ASSERT(iPropertyPublicKey != NULL);
+    return SetPropertyString(*iPropertyPublicKey, aValue);
+}
+
+void DvProviderLinnCoUkCloud1::GetPropertyPublicKey(Brhz& aValue)
+{
+    ASSERT(iPropertyPublicKey != NULL);
+    aValue.Set(iPropertyPublicKey->Value());
+}
+
 DvProviderLinnCoUkCloud1::DvProviderLinnCoUkCloud1(DvDevice& aDevice)
     : DvProvider(aDevice.Device(), "linn.co.uk", "Cloud", 1)
 {
@@ -48,6 +72,8 @@ void DvProviderLinnCoUkCloud1::Construct()
 {
     iPropertyAssociationStatus = NULL;
     iPropertyControlEnabled = NULL;
+    iPropertyConnected = NULL;
+    iPropertyPublicKey = NULL;
 }
 
 void DvProviderLinnCoUkCloud1::EnablePropertyAssociationStatus()
@@ -69,28 +95,24 @@ void DvProviderLinnCoUkCloud1::EnablePropertyControlEnabled()
     iService->AddProperty(iPropertyControlEnabled); // passes ownership
 }
 
-void DvProviderLinnCoUkCloud1::EnableActionGetChallengeResponse()
+void DvProviderLinnCoUkCloud1::EnablePropertyConnected()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetChallengeResponse");
-    action->AddInputParameter(new ParameterString("Challenge"));
-    action->AddOutputParameter(new ParameterString("Response"));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoGetChallengeResponse);
-    iService->AddAction(action, functor);
+    iPropertyConnected = new PropertyBool(new ParameterBool("Connected"));
+    iService->AddProperty(iPropertyConnected); // passes ownership
 }
 
-void DvProviderLinnCoUkCloud1::EnableActionSetAssociationStatus()
+void DvProviderLinnCoUkCloud1::EnablePropertyPublicKey()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociationStatus");
-    action->AddInputParameter(new ParameterRelated("Status", *iPropertyAssociationStatus));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoSetAssociationStatus);
-    iService->AddAction(action, functor);
+    iPropertyPublicKey = new PropertyString(new ParameterString("PublicKey"));
+    iService->AddProperty(iPropertyPublicKey); // passes ownership
 }
 
-void DvProviderLinnCoUkCloud1::EnableActionGetAssociationStatus()
+void DvProviderLinnCoUkCloud1::EnableActionSetAssociated()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetAssociationStatus");
-    action->AddOutputParameter(new ParameterRelated("Status", *iPropertyAssociationStatus));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoGetAssociationStatus);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociated");
+    action->AddInputParameter(new ParameterString("TokenEncrypted"));
+    action->AddInputParameter(new ParameterBool("Associated"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoSetAssociated);
     iService->AddAction(action, functor);
 }
 
@@ -110,34 +132,31 @@ void DvProviderLinnCoUkCloud1::EnableActionGetControlEnabled()
     iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkCloud1::DoGetChallengeResponse(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkCloud1::EnableActionGetConnected()
 {
-    aInvocation.InvocationReadStart();
-    Brhz Challenge;
-    aInvocation.InvocationReadString("Challenge", Challenge);
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    DviInvocationResponseString respResponse(aInvocation, "Response");
-    GetChallengeResponse(invocation, Challenge, respResponse);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetConnected");
+    action->AddOutputParameter(new ParameterRelated("Connected", *iPropertyConnected));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoGetConnected);
+    iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkCloud1::DoSetAssociationStatus(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkCloud1::EnableActionGetPublicKey()
 {
-    aInvocation.InvocationReadStart();
-    Brhz Status;
-    aInvocation.InvocationReadString("Status", Status);
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    SetAssociationStatus(invocation, Status);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetPublicKey");
+    action->AddOutputParameter(new ParameterRelated("PublicKey", *iPropertyPublicKey));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoGetPublicKey);
+    iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkCloud1::DoGetAssociationStatus(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkCloud1::DoSetAssociated(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
+    Brhz TokenEncrypted;
+    aInvocation.InvocationReadString("TokenEncrypted", TokenEncrypted);
+    TBool Associated = aInvocation.InvocationReadBool("Associated");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    DviInvocationResponseString respStatus(aInvocation, "Status");
-    GetAssociationStatus(invocation, respStatus);
+    SetAssociated(invocation, TokenEncrypted, Associated);
 }
 
 void DvProviderLinnCoUkCloud1::DoSetControlEnabled(IDviInvocation& aInvocation)
@@ -158,17 +177,25 @@ void DvProviderLinnCoUkCloud1::DoGetControlEnabled(IDviInvocation& aInvocation)
     GetControlEnabled(invocation, respEnabled);
 }
 
-void DvProviderLinnCoUkCloud1::GetChallengeResponse(IDvInvocation& /*aResponse*/, const Brx& /*aChallenge*/, IDvInvocationResponseString& /*aResponse*/)
+void DvProviderLinnCoUkCloud1::DoGetConnected(IDviInvocation& aInvocation)
 {
-    ASSERTS();
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    DviInvocationResponseBool respConnected(aInvocation, "Connected");
+    GetConnected(invocation, respConnected);
 }
 
-void DvProviderLinnCoUkCloud1::SetAssociationStatus(IDvInvocation& /*aResponse*/, const Brx& /*aStatus*/)
+void DvProviderLinnCoUkCloud1::DoGetPublicKey(IDviInvocation& aInvocation)
 {
-    ASSERTS();
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    DviInvocationResponseString respPublicKey(aInvocation, "PublicKey");
+    GetPublicKey(invocation, respPublicKey);
 }
 
-void DvProviderLinnCoUkCloud1::GetAssociationStatus(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aStatus*/)
+void DvProviderLinnCoUkCloud1::SetAssociated(IDvInvocation& /*aResponse*/, const Brx& /*aTokenEncrypted*/, TBool /*aAssociated*/)
 {
     ASSERTS();
 }
@@ -179,6 +206,16 @@ void DvProviderLinnCoUkCloud1::SetControlEnabled(IDvInvocation& /*aResponse*/, T
 }
 
 void DvProviderLinnCoUkCloud1::GetControlEnabled(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aEnabled*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkCloud1::GetConnected(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aConnected*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkCloud1::GetPublicKey(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aPublicKey*/)
 {
     ASSERTS();
 }

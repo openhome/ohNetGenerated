@@ -13,70 +13,24 @@ using namespace OpenHome;
 using namespace OpenHome::Net;
 
 
-class SyncGetChallengeResponseLinnCoUkCloud1Cpp : public SyncProxyAction
+class SyncSetAssociatedLinnCoUkCloud1Cpp : public SyncProxyAction
 {
 public:
-    SyncGetChallengeResponseLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, std::string& aResponse);
+    SyncSetAssociatedLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetChallengeResponseLinnCoUkCloud1Cpp() {}
-private:
-    CpProxyLinnCoUkCloud1Cpp& iService;
-    std::string& iResponse;
-};
-
-SyncGetChallengeResponseLinnCoUkCloud1Cpp::SyncGetChallengeResponseLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, std::string& aResponse)
-    : iService(aProxy)
-    , iResponse(aResponse)
-{
-}
-
-void SyncGetChallengeResponseLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndGetChallengeResponse(aAsync, iResponse);
-}
-
-
-class SyncSetAssociationStatusLinnCoUkCloud1Cpp : public SyncProxyAction
-{
-public:
-    SyncSetAssociationStatusLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetAssociationStatusLinnCoUkCloud1Cpp() {}
+    virtual ~SyncSetAssociatedLinnCoUkCloud1Cpp() {}
 private:
     CpProxyLinnCoUkCloud1Cpp& iService;
 };
 
-SyncSetAssociationStatusLinnCoUkCloud1Cpp::SyncSetAssociationStatusLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy)
+SyncSetAssociatedLinnCoUkCloud1Cpp::SyncSetAssociatedLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncSetAssociationStatusLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
+void SyncSetAssociatedLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndSetAssociationStatus(aAsync);
-}
-
-
-class SyncGetAssociationStatusLinnCoUkCloud1Cpp : public SyncProxyAction
-{
-public:
-    SyncGetAssociationStatusLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, std::string& aStatus);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetAssociationStatusLinnCoUkCloud1Cpp() {}
-private:
-    CpProxyLinnCoUkCloud1Cpp& iService;
-    std::string& iStatus;
-};
-
-SyncGetAssociationStatusLinnCoUkCloud1Cpp::SyncGetAssociationStatusLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, std::string& aStatus)
-    : iService(aProxy)
-    , iStatus(aStatus)
-{
-}
-
-void SyncGetAssociationStatusLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndGetAssociationStatus(aAsync, iStatus);
+    iService.EndSetAssociated(aAsync);
 }
 
 
@@ -124,38 +78,62 @@ void SyncGetControlEnabledLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
+class SyncGetConnectedLinnCoUkCloud1Cpp : public SyncProxyAction
+{
+public:
+    SyncGetConnectedLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, bool& aConnected);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncGetConnectedLinnCoUkCloud1Cpp() {}
+private:
+    CpProxyLinnCoUkCloud1Cpp& iService;
+    bool& iConnected;
+};
+
+SyncGetConnectedLinnCoUkCloud1Cpp::SyncGetConnectedLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, bool& aConnected)
+    : iService(aProxy)
+    , iConnected(aConnected)
+{
+}
+
+void SyncGetConnectedLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetConnected(aAsync, iConnected);
+}
+
+
+class SyncGetPublicKeyLinnCoUkCloud1Cpp : public SyncProxyAction
+{
+public:
+    SyncGetPublicKeyLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, std::string& aPublicKey);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncGetPublicKeyLinnCoUkCloud1Cpp() {}
+private:
+    CpProxyLinnCoUkCloud1Cpp& iService;
+    std::string& iPublicKey;
+};
+
+SyncGetPublicKeyLinnCoUkCloud1Cpp::SyncGetPublicKeyLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, std::string& aPublicKey)
+    : iService(aProxy)
+    , iPublicKey(aPublicKey)
+{
+}
+
+void SyncGetPublicKeyLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetPublicKey(aAsync, iPublicKey);
+}
+
+
 CpProxyLinnCoUkCloud1Cpp::CpProxyLinnCoUkCloud1Cpp(CpDeviceCpp& aDevice)
     : iCpProxy("linn-co-uk", "Cloud", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
-    TChar** allowedValues;
-    TUint index;
 
-    iActionGetChallengeResponse = new Action("GetChallengeResponse");
-    param = new OpenHome::Net::ParameterString("Challenge");
-    iActionGetChallengeResponse->AddInputParameter(param);
-    param = new OpenHome::Net::ParameterString("Response");
-    iActionGetChallengeResponse->AddOutputParameter(param);
-
-    iActionSetAssociationStatus = new Action("SetAssociationStatus");
-    index = 0;
-    allowedValues = new TChar*[3];
-    allowedValues[index++] = (TChar*)"Associated";
-    allowedValues[index++] = (TChar*)"NotAssociated";
-    allowedValues[index++] = (TChar*)"Unconfigured";
-    param = new OpenHome::Net::ParameterString("Status", allowedValues, 3);
-    iActionSetAssociationStatus->AddInputParameter(param);
-    delete[] allowedValues;
-
-    iActionGetAssociationStatus = new Action("GetAssociationStatus");
-    index = 0;
-    allowedValues = new TChar*[3];
-    allowedValues[index++] = (TChar*)"Associated";
-    allowedValues[index++] = (TChar*)"NotAssociated";
-    allowedValues[index++] = (TChar*)"Unconfigured";
-    param = new OpenHome::Net::ParameterString("Status", allowedValues, 3);
-    iActionGetAssociationStatus->AddOutputParameter(param);
-    delete[] allowedValues;
+    iActionSetAssociated = new Action("SetAssociated");
+    param = new OpenHome::Net::ParameterString("TokenEncrypted");
+    iActionSetAssociated->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterBool("Associated");
+    iActionSetAssociated->AddInputParameter(param);
 
     iActionSetControlEnabled = new Action("SetControlEnabled");
     param = new OpenHome::Net::ParameterBool("Enabled");
@@ -165,6 +143,14 @@ CpProxyLinnCoUkCloud1Cpp::CpProxyLinnCoUkCloud1Cpp(CpDeviceCpp& aDevice)
     param = new OpenHome::Net::ParameterBool("Enabled");
     iActionGetControlEnabled->AddOutputParameter(param);
 
+    iActionGetConnected = new Action("GetConnected");
+    param = new OpenHome::Net::ParameterBool("Connected");
+    iActionGetConnected->AddOutputParameter(param);
+
+    iActionGetPublicKey = new Action("GetPublicKey");
+    param = new OpenHome::Net::ParameterString("PublicKey");
+    iActionGetPublicKey->AddOutputParameter(param);
+
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1Cpp::AssociationStatusPropertyChanged);
     iAssociationStatus = new PropertyString("AssociationStatus", functor);
@@ -172,124 +158,55 @@ CpProxyLinnCoUkCloud1Cpp::CpProxyLinnCoUkCloud1Cpp(CpDeviceCpp& aDevice)
     functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1Cpp::ControlEnabledPropertyChanged);
     iControlEnabled = new PropertyBool("ControlEnabled", functor);
     AddProperty(iControlEnabled);
+    functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1Cpp::ConnectedPropertyChanged);
+    iConnected = new PropertyBool("Connected", functor);
+    AddProperty(iConnected);
+    functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1Cpp::PublicKeyPropertyChanged);
+    iPublicKey = new PropertyString("PublicKey", functor);
+    AddProperty(iPublicKey);
 }
 
 CpProxyLinnCoUkCloud1Cpp::~CpProxyLinnCoUkCloud1Cpp()
 {
     DestroyService();
-    delete iActionGetChallengeResponse;
-    delete iActionSetAssociationStatus;
-    delete iActionGetAssociationStatus;
+    delete iActionSetAssociated;
     delete iActionSetControlEnabled;
     delete iActionGetControlEnabled;
+    delete iActionGetConnected;
+    delete iActionGetPublicKey;
 }
 
-void CpProxyLinnCoUkCloud1Cpp::SyncGetChallengeResponse(const std::string& aChallenge, std::string& aResponse)
+void CpProxyLinnCoUkCloud1Cpp::SyncSetAssociated(const std::string& aTokenEncrypted, bool aAssociated)
 {
-    SyncGetChallengeResponseLinnCoUkCloud1Cpp sync(*this, aResponse);
-    BeginGetChallengeResponse(aChallenge, sync.Functor());
+    SyncSetAssociatedLinnCoUkCloud1Cpp sync(*this);
+    BeginSetAssociated(aTokenEncrypted, aAssociated, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyLinnCoUkCloud1Cpp::BeginGetChallengeResponse(const std::string& aChallenge, FunctorAsync& aFunctor)
+void CpProxyLinnCoUkCloud1Cpp::BeginSetAssociated(const std::string& aTokenEncrypted, bool aAssociated, FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetChallengeResponse, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetAssociated, aFunctor);
     TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionGetChallengeResponse->InputParameters();
+    const Action::VectorParameters& inParams = iActionSetAssociated->InputParameters();
     {
-        Brn buf((const TByte*)aChallenge.c_str(), (TUint)aChallenge.length());
+        Brn buf((const TByte*)aTokenEncrypted.c_str(), (TUint)aTokenEncrypted.length());
         invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
     }
-    TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionGetChallengeResponse->OutputParameters();
-    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aAssociated));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyLinnCoUkCloud1Cpp::EndGetChallengeResponse(IAsync& aAsync, std::string& aResponse)
+void CpProxyLinnCoUkCloud1Cpp::EndSetAssociated(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("GetChallengeResponse"));
+    ASSERT(invocation.Action().Name() == Brn("SetAssociated"));
 
     Error::ELevel level;
     TUint code;
     const TChar* ignore;
     if (invocation.Error(level, code, ignore)) {
         THROW_PROXYERROR(level, code);
-    }
-    TUint index = 0;
-    {
-        const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
-        aResponse.assign((const char*)val.Ptr(), val.Bytes());
-    }
-}
-
-void CpProxyLinnCoUkCloud1Cpp::SyncSetAssociationStatus(const std::string& aStatus)
-{
-    SyncSetAssociationStatusLinnCoUkCloud1Cpp sync(*this);
-    BeginSetAssociationStatus(aStatus, sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkCloud1Cpp::BeginSetAssociationStatus(const std::string& aStatus, FunctorAsync& aFunctor)
-{
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetAssociationStatus, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSetAssociationStatus->InputParameters();
-    {
-        Brn buf((const TByte*)aStatus.c_str(), (TUint)aStatus.length());
-        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
-    }
-    iCpProxy.GetInvocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkCloud1Cpp::EndSetAssociationStatus(IAsync& aAsync)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SetAssociationStatus"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-}
-
-void CpProxyLinnCoUkCloud1Cpp::SyncGetAssociationStatus(std::string& aStatus)
-{
-    SyncGetAssociationStatusLinnCoUkCloud1Cpp sync(*this, aStatus);
-    BeginGetAssociationStatus(sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkCloud1Cpp::BeginGetAssociationStatus(FunctorAsync& aFunctor)
-{
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetAssociationStatus, aFunctor);
-    TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionGetAssociationStatus->OutputParameters();
-    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iCpProxy.GetInvocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkCloud1Cpp::EndGetAssociationStatus(IAsync& aAsync, std::string& aStatus)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("GetAssociationStatus"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-    TUint index = 0;
-    {
-        const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
-        aStatus.assign((const char*)val.Ptr(), val.Bytes());
     }
 }
 
@@ -355,6 +272,73 @@ void CpProxyLinnCoUkCloud1Cpp::EndGetControlEnabled(IAsync& aAsync, bool& aEnabl
     aEnabled = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
 }
 
+void CpProxyLinnCoUkCloud1Cpp::SyncGetConnected(bool& aConnected)
+{
+    SyncGetConnectedLinnCoUkCloud1Cpp sync(*this, aConnected);
+    BeginGetConnected(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkCloud1Cpp::BeginGetConnected(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetConnected, aFunctor);
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetConnected->OutputParameters();
+    invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkCloud1Cpp::EndGetConnected(IAsync& aAsync, bool& aConnected)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetConnected"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    aConnected = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
+}
+
+void CpProxyLinnCoUkCloud1Cpp::SyncGetPublicKey(std::string& aPublicKey)
+{
+    SyncGetPublicKeyLinnCoUkCloud1Cpp sync(*this, aPublicKey);
+    BeginGetPublicKey(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkCloud1Cpp::BeginGetPublicKey(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetPublicKey, aFunctor);
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetPublicKey->OutputParameters();
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkCloud1Cpp::EndGetPublicKey(IAsync& aAsync, std::string& aPublicKey)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetPublicKey"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    {
+        const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
+        aPublicKey.assign((const char*)val.Ptr(), val.Bytes());
+    }
+}
+
 void CpProxyLinnCoUkCloud1Cpp::SetPropertyAssociationStatusChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
@@ -366,6 +350,20 @@ void CpProxyLinnCoUkCloud1Cpp::SetPropertyControlEnabledChanged(Functor& aFuncto
 {
     iCpProxy.GetLock().Wait();
     iControlEnabledChanged = aFunctor;
+    iCpProxy.GetLock().Signal();
+}
+
+void CpProxyLinnCoUkCloud1Cpp::SetPropertyConnectedChanged(Functor& aFunctor)
+{
+    iCpProxy.GetLock().Wait();
+    iConnectedChanged = aFunctor;
+    iCpProxy.GetLock().Signal();
+}
+
+void CpProxyLinnCoUkCloud1Cpp::SetPropertyPublicKeyChanged(Functor& aFunctor)
+{
+    iCpProxy.GetLock().Wait();
+    iPublicKeyChanged = aFunctor;
     iCpProxy.GetLock().Signal();
 }
 
@@ -388,6 +386,25 @@ void CpProxyLinnCoUkCloud1Cpp::PropertyControlEnabled(bool& aControlEnabled) con
     aControlEnabled = iControlEnabled->Value();
 }
 
+void CpProxyLinnCoUkCloud1Cpp::PropertyConnected(bool& aConnected) const
+{
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
+    aConnected = iConnected->Value();
+}
+
+void CpProxyLinnCoUkCloud1Cpp::PropertyPublicKey(std::string& aPublicKey) const
+{
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
+    const Brx& val = iPublicKey->Value();
+    aPublicKey.assign((const char*)val.Ptr(), val.Bytes());
+}
+
 void CpProxyLinnCoUkCloud1Cpp::AssociationStatusPropertyChanged()
 {
     ReportEvent(iAssociationStatusChanged);
@@ -396,6 +413,16 @@ void CpProxyLinnCoUkCloud1Cpp::AssociationStatusPropertyChanged()
 void CpProxyLinnCoUkCloud1Cpp::ControlEnabledPropertyChanged()
 {
     ReportEvent(iControlEnabledChanged);
+}
+
+void CpProxyLinnCoUkCloud1Cpp::ConnectedPropertyChanged()
+{
+    ReportEvent(iConnectedChanged);
+}
+
+void CpProxyLinnCoUkCloud1Cpp::PublicKeyPropertyChanged()
+{
+    ReportEvent(iPublicKeyChanged);
 }
 
 void CpProxyLinnCoUkCloud1Cpp::Subscribe()

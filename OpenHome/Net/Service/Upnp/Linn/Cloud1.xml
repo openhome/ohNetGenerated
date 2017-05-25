@@ -6,37 +6,17 @@
   </specVersion>
   <actionList>
     <action>
-      <name>GetChallengeResponse</name>
+      <name>SetAssociated</name>
       <argumentList>
         <argument>
-          <name>Challenge</name>
+          <name>TokenEncrypted</name>
           <direction>in</direction>
           <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
         </argument>
         <argument>
-          <name>Response</name>
-          <direction>out</direction>
-          <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
-        </argument>
-      </argumentList>
-    </action>
-    <action>
-      <name>SetAssociationStatus</name>
-      <argumentList>
-        <argument>
-          <name>Status</name>
+          <name>Associated</name>
           <direction>in</direction>
-          <relatedStateVariable>AssociationStatus</relatedStateVariable>
-        </argument>
-      </argumentList>
-    </action>
-    <action>
-      <name>GetAssociationStatus</name>
-      <argumentList>
-        <argument>
-          <name>Status</name>
-          <direction>out</direction>
-          <relatedStateVariable>AssociationStatus</relatedStateVariable>
+          <relatedStateVariable>A_ARG_TYPE_Bool</relatedStateVariable>
         </argument>
       </argumentList>
     </action>
@@ -60,6 +40,26 @@
         </argument>
       </argumentList>
     </action>
+  <action>
+    <name>GetConnected</name>
+    <argumentList>
+      <argument>
+        <name>Connected</name>
+        <direction>out</direction>
+        <relatedStateVariable>Connected</relatedStateVariable>
+      </argument>
+    </argumentList>
+  </action>
+    <action>
+      <name>GetPublicKey</name>
+      <argumentList>
+        <argument>
+          <name>PublicKey</name>
+          <direction>out</direction>
+          <relatedStateVariable>PublicKey</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
   </actionList>
   <serviceStateTable>
     <stateVariable sendEvents="yes">
@@ -75,9 +75,21 @@
       <name>ControlEnabled</name>
       <dataType>boolean</dataType>
     </stateVariable>
+    <stateVariable sendEvents="yes">
+      <name>Connected</name>
+      <dataType>boolean</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="yes">
+      <name>PublicKey</name>
+      <dataType>string</dataType>
+    </stateVariable>
     <stateVariable sendEvents="no">
       <name>A_ARG_TYPE_String</name>
       <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>A_ARG_TYPE_Bool</name>
+      <dataType>boolean</dataType>
     </stateVariable>
   </serviceStateTable>
 </scpd>
