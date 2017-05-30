@@ -239,8 +239,8 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
      */      
     protected void enableActionSetAssociated()
     {
-        Action action = new Action("SetAssociated");        List<String> allowedValues = new LinkedList<String>();
-        action.addInputParameter(new ParameterString("TokenEncrypted", allowedValues));
+        Action action = new Action("SetAssociated");
+        action.addInputParameter(new ParameterBinary("TokenEncrypted"));
         action.addInputParameter(new ParameterBool("Associated"));
         iDelegateSetAssociated = new DoSetAssociated();
         enableAction(action, iDelegateSetAssociated);
@@ -314,7 +314,7 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
      * @param aTokenEncrypted
      * @param aAssociated
      */
-    protected void setAssociated(IDvInvocation aInvocation, String aTokenEncrypted, boolean aAssociated)
+    protected void setAssociated(IDvInvocation aInvocation, byte[] aTokenEncrypted, boolean aAssociated)
     {
         throw (new ActionDisabledError());
     }
@@ -402,12 +402,12 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            String tokenEncrypted;
+            byte[] tokenEncrypted;
             boolean associated;
             try
             {
                 invocation.readStart();
-                tokenEncrypted = invocation.readString("TokenEncrypted");
+                tokenEncrypted = invocation.readBinary("TokenEncrypted");
                 associated = invocation.readBool("Associated");
                 invocation.readEnd();
                 setAssociated(invocation, tokenEncrypted, associated);

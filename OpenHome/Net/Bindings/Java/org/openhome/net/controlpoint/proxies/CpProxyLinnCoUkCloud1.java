@@ -10,8 +10,8 @@ import org.openhome.net.core.*;
     
 interface ICpProxyLinnCoUkCloud1 extends ICpProxy
 {
-    public void syncSetAssociated(String aTokenEncrypted, boolean aAssociated);
-    public void beginSetAssociated(String aTokenEncrypted, boolean aAssociated, ICpProxyListener aCallback);
+    public void syncSetAssociated(byte[] aTokenEncrypted, boolean aAssociated);
+    public void beginSetAssociated(byte[] aTokenEncrypted, boolean aAssociated, ICpProxyListener aCallback);
     public void endSetAssociated(long aAsyncHandle);
     public void syncSetControlEnabled(boolean aEnabled);
     public void beginSetControlEnabled(boolean aEnabled, ICpProxyListener aCallback);
@@ -163,7 +163,7 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
         List<String> allowedValues = new LinkedList<String>();
 
         iActionSetAssociated = new Action("SetAssociated");
-        param = new ParameterString("TokenEncrypted", allowedValues);
+        param = new ParameterBinary("TokenEncrypted");
         iActionSetAssociated.addInputParameter(param);
         param = new ParameterBool("Associated");
         iActionSetAssociated.addInputParameter(param);
@@ -227,7 +227,7 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
      */
-    public void syncSetAssociated(String aTokenEncrypted, boolean aAssociated)
+    public void syncSetAssociated(byte[] aTokenEncrypted, boolean aAssociated)
     {
         SyncSetAssociatedLinnCoUkCloud1 sync = new SyncSetAssociatedLinnCoUkCloud1(this);
         beginSetAssociated(aTokenEncrypted, aAssociated, sync.getListener());
@@ -246,11 +246,11 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSetAssociated(String aTokenEncrypted, boolean aAssociated, ICpProxyListener aCallback)
+    public void beginSetAssociated(byte[] aTokenEncrypted, boolean aAssociated, ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionSetAssociated, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentString((ParameterString)iActionSetAssociated.getInputParameter(inIndex++), aTokenEncrypted));
+        invocation.addInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.getInputParameter(inIndex++), aTokenEncrypted));
         invocation.addInput(new ArgumentBool((ParameterBool)iActionSetAssociated.getInputParameter(inIndex++), aAssociated));
         iService.invokeAction(invocation);
     }

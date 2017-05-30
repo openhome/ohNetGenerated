@@ -11,7 +11,7 @@
         <argument>
           <name>TokenEncrypted</name>
           <direction>in</direction>
-          <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+          <relatedStateVariable>A_ARG_TYPE_Binary</relatedStateVariable>
         </argument>
         <argument>
           <name>Associated</name>
@@ -84,8 +84,8 @@
       <dataType>string</dataType>
     </stateVariable>
     <stateVariable sendEvents="no">
-      <name>A_ARG_TYPE_String</name>
-      <dataType>string</dataType>
+      <name>A_ARG_TYPE_Binary</name>
+      <dataType>bin.base64</dataType>
     </stateVariable>
     <stateVariable sendEvents="no">
       <name>A_ARG_TYPE_Bool</name>

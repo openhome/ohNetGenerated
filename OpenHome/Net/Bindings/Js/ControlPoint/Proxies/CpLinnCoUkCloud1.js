@@ -116,7 +116,7 @@ CpProxyLinnCoUkCloud1.prototype.PublicKey_Changed = function (stateChangedFuncti
 */
 CpProxyLinnCoUkCloud1.prototype.SetAssociated = function(TokenEncrypted, Associated, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SetAssociated", this.url, this.domain, this.type, this.version);     
-    request.writeStringParameter("TokenEncrypted", TokenEncrypted);
+    request.writeBinaryParameter("TokenEncrypted", TokenEncrypted);
     request.writeBoolParameter("Associated", Associated);
     request.send(function(result){
     

@@ -104,7 +104,7 @@ void DvProviderLinnCoUkCloud1Cpp::EnablePropertyPublicKey()
 void DvProviderLinnCoUkCloud1Cpp::EnableActionSetAssociated()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociated");
-    action->AddInputParameter(new ParameterString("TokenEncrypted"));
+    action->AddInputParameter(new ParameterBinary("TokenEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoSetAssociated);
     iService->AddAction(action, functor);
@@ -145,8 +145,8 @@ void DvProviderLinnCoUkCloud1Cpp::EnableActionGetPublicKey()
 void DvProviderLinnCoUkCloud1Cpp::DoSetAssociated(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    Brhz buf_TokenEncrypted;
-    aInvocation.InvocationReadString("TokenEncrypted", buf_TokenEncrypted);
+    Brh buf_TokenEncrypted;
+    aInvocation.InvocationReadBinary("TokenEncrypted", buf_TokenEncrypted);
     std::string TokenEncrypted((const char*)buf_TokenEncrypted.Ptr(), buf_TokenEncrypted.Bytes());
     bool Associated = aInvocation.InvocationReadBool("Associated");
     aInvocation.InvocationReadEnd();

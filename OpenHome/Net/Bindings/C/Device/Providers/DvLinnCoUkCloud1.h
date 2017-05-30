@@ -27,11 +27,12 @@ extern "C" {
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[in]  aTokenEncrypted
+ * @param[in]  aTokenEncryptedLen
  * @param[in]  aAssociated
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackCloud1SetAssociated)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aTokenEncrypted, uint32_t aAssociated);
+typedef int32_t (STDCALL *CallbackCloud1SetAssociated)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated);
 /**
  * Callback which runs when the SetControlEnabled action is invoked
  *

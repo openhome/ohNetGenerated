@@ -10,8 +10,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
 {
     public interface ICpProxyLinnCoUkCloud1 : ICpProxy, IDisposable
     {
-        void SyncSetAssociated(String aTokenEncrypted, bool aAssociated);
-        void BeginSetAssociated(String aTokenEncrypted, bool aAssociated, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncSetAssociated(byte[] aTokenEncrypted, bool aAssociated);
+        void BeginSetAssociated(byte[] aTokenEncrypted, bool aAssociated, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetAssociated(IntPtr aAsyncHandle);
         void SyncSetControlEnabled(bool aEnabled);
         void BeginSetControlEnabled(bool aEnabled, CpProxy.CallbackAsyncComplete aCallback);
@@ -152,7 +152,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             List<String> allowedValues = new List<String>();
 
             iActionSetAssociated = new OpenHome.Net.Core.Action("SetAssociated");
-            param = new ParameterString("TokenEncrypted", allowedValues);
+            param = new ParameterBinary("TokenEncrypted");
             iActionSetAssociated.AddInputParameter(param);
             param = new ParameterBool("Associated");
             iActionSetAssociated.AddInputParameter(param);
@@ -192,7 +192,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// on the device and sets any output arguments</remarks>
         /// <param name="aTokenEncrypted"></param>
         /// <param name="aAssociated"></param>
-        public void SyncSetAssociated(String aTokenEncrypted, bool aAssociated)
+        public void SyncSetAssociated(byte[] aTokenEncrypted, bool aAssociated)
         {
             SyncSetAssociatedLinnCoUkCloud1 sync = new SyncSetAssociatedLinnCoUkCloud1(this);
             BeginSetAssociated(aTokenEncrypted, aAssociated, sync.AsyncComplete());
@@ -210,11 +210,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <param name="aAssociated"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetAssociated(String aTokenEncrypted, bool aAssociated, CallbackAsyncComplete aCallback)
+        public void BeginSetAssociated(byte[] aTokenEncrypted, bool aAssociated, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSetAssociated, aCallback);
             int inIndex = 0;
-            invocation.AddInput(new ArgumentString((ParameterString)iActionSetAssociated.InputParameter(inIndex++), aTokenEncrypted));
+            invocation.AddInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.InputParameter(inIndex++), aTokenEncrypted));
             invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetAssociated.InputParameter(inIndex++), aAssociated));
             iService.InvokeAction(invocation);
         }

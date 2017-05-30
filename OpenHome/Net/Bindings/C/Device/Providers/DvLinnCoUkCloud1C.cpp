@@ -151,7 +151,7 @@ void DvProviderLinnCoUkCloud1C::EnableActionSetAssociated(CallbackCloud1SetAssoc
     iCallbackSetAssociated = aCallback;
     iPtrSetAssociated = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociated");
-    action->AddInputParameter(new ParameterString("TokenEncrypted"));
+    action->AddInputParameter(new ParameterBinary("TokenEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1C::DoSetAssociated);
     iService->AddAction(action, functor);
@@ -204,13 +204,13 @@ void DvProviderLinnCoUkCloud1C::DoSetAssociated(IDviInvocation& aInvocation)
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    Brhz TokenEncrypted;
-    aInvocation.InvocationReadString("TokenEncrypted", TokenEncrypted);
+    Brh TokenEncrypted;
+    aInvocation.InvocationReadBinary("TokenEncrypted", TokenEncrypted);
     TBool Associated = aInvocation.InvocationReadBool("Associated");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSetAssociated != NULL);
-    if (0 != iCallbackSetAssociated(iPtrSetAssociated, invocationC, invocationCPtr, (const char*)TokenEncrypted.Ptr(), Associated)) {
+    if (0 != iCallbackSetAssociated(iPtrSetAssociated, invocationC, invocationCPtr, (const char*)TokenEncrypted.Ptr(), TokenEncrypted.Bytes(), Associated)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }

@@ -192,7 +192,7 @@ CpProxyLinnCoUkCloud1C::CpProxyLinnCoUkCloud1C(CpDeviceC aDevice)
     OpenHome::Net::Parameter* param;
 
     iActionSetAssociated = new Action("SetAssociated");
-    param = new OpenHome::Net::ParameterString("TokenEncrypted");
+    param = new OpenHome::Net::ParameterBinary("TokenEncrypted");
     iActionSetAssociated->AddInputParameter(param);
     param = new OpenHome::Net::ParameterBool("Associated");
     iActionSetAssociated->AddInputParameter(param);
@@ -250,7 +250,7 @@ void CpProxyLinnCoUkCloud1C::BeginSetAssociated(const Brx& aTokenEncrypted, TBoo
     Invocation* invocation = Service()->Invocation(*iActionSetAssociated, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetAssociated->InputParameters();
-    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aTokenEncrypted));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aTokenEncrypted));
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aAssociated));
     Invocable().InvokeAction(*invocation);
 }
@@ -483,11 +483,12 @@ void STDCALL CpProxyLinnCoUkCloud1Destroy(THandle aHandle)
     delete proxyC;
 }
 
-int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aAssociated)
+int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated)
 {
     CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    Brh buf_aTokenEncrypted(aTokenEncrypted);
+    Brh buf_aTokenEncrypted;
+    buf_aTokenEncrypted.Set((const TByte*)aTokenEncrypted, aTokenEncryptedLen);
     int32_t err = 0;
     try {
         proxyC->SyncSetAssociated(buf_aTokenEncrypted, (aAssociated==0? false : true));
@@ -498,11 +499,12 @@ int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const ch
     return err;
 }
 
-void STDCALL CpProxyLinnCoUkCloud1BeginSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aAssociated, OhNetCallbackAsync aCallback, void* aPtr)
+void STDCALL CpProxyLinnCoUkCloud1BeginSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated, OhNetCallbackAsync aCallback, void* aPtr)
 {
     CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    Brh buf_aTokenEncrypted(aTokenEncrypted);
+    Brh buf_aTokenEncrypted;
+    buf_aTokenEncrypted.Set((const TByte*)aTokenEncrypted, aTokenEncryptedLen);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
     proxyC->BeginSetAssociated(buf_aTokenEncrypted, (aAssociated==0? false : true), functor);
 }

@@ -238,8 +238,7 @@ namespace OpenHome.Net.Device.Providers
         protected void EnableActionSetAssociated()
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetAssociated");
-            List<String> allowedValues = new List<String>();
-            action.AddInputParameter(new ParameterString("TokenEncrypted", allowedValues));
+            action.AddInputParameter(new ParameterBinary("TokenEncrypted"));
             action.AddInputParameter(new ParameterBool("Associated"));
             iDelegateSetAssociated = new ActionDelegate(DoSetAssociated);
             EnableAction(action, iDelegateSetAssociated, GCHandle.ToIntPtr(iGch));
@@ -307,7 +306,7 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aTokenEncrypted"></param>
         /// <param name="aAssociated"></param>
-        protected virtual void SetAssociated(IDvInvocation aInvocation, string aTokenEncrypted, bool aAssociated)
+        protected virtual void SetAssociated(IDvInvocation aInvocation, byte[] aTokenEncrypted, bool aAssociated)
         {
             throw (new ActionDisabledError());
         }
@@ -373,12 +372,12 @@ namespace OpenHome.Net.Device.Providers
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            string tokenEncrypted;
+            byte[] tokenEncrypted;
             bool associated;
             try
             {
                 invocation.ReadStart();
-                tokenEncrypted = invocation.ReadString("TokenEncrypted");
+                tokenEncrypted = invocation.ReadBinary("TokenEncrypted");
                 associated = invocation.ReadBool("Associated");
                 invocation.ReadEnd();
                 self.SetAssociated(invocation, tokenEncrypted, associated);

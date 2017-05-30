@@ -130,7 +130,7 @@ CpProxyLinnCoUkCloud1Cpp::CpProxyLinnCoUkCloud1Cpp(CpDeviceCpp& aDevice)
     OpenHome::Net::Parameter* param;
 
     iActionSetAssociated = new Action("SetAssociated");
-    param = new OpenHome::Net::ParameterString("TokenEncrypted");
+    param = new OpenHome::Net::ParameterBinary("TokenEncrypted");
     iActionSetAssociated->AddInputParameter(param);
     param = new OpenHome::Net::ParameterBool("Associated");
     iActionSetAssociated->AddInputParameter(param);
@@ -190,7 +190,7 @@ void CpProxyLinnCoUkCloud1Cpp::BeginSetAssociated(const std::string& aTokenEncry
     const Action::VectorParameters& inParams = iActionSetAssociated->InputParameters();
     {
         Brn buf((const TByte*)aTokenEncrypted.c_str(), (TUint)aTokenEncrypted.length());
-        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
+        invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], buf));
     }
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aAssociated));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
