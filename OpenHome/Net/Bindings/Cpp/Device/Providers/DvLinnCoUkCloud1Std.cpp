@@ -101,10 +101,21 @@ void DvProviderLinnCoUkCloud1Cpp::EnablePropertyPublicKey()
     iService->AddProperty(iPropertyPublicKey); // passes ownership
 }
 
+void DvProviderLinnCoUkCloud1Cpp::EnableActionGetChallengeResponse()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetChallengeResponse");
+    action->AddInputParameter(new ParameterString("Challenge"));
+    action->AddOutputParameter(new ParameterString("Response"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoGetChallengeResponse);
+    iService->AddAction(action, functor);
+}
+
 void DvProviderLinnCoUkCloud1Cpp::EnableActionSetAssociated()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociated");
-    action->AddInputParameter(new ParameterBinary("TokenEncrypted"));
+    action->AddInputParameter(new ParameterBinary("AesKeyRsaEncrypted"));
+    action->AddInputParameter(new ParameterBinary("InitVectorRsaEncrypted"));
+    action->AddInputParameter(new ParameterBinary("TokenAesEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoSetAssociated);
     iService->AddAction(action, functor);
@@ -142,16 +153,40 @@ void DvProviderLinnCoUkCloud1Cpp::EnableActionGetPublicKey()
     iService->AddAction(action, functor);
 }
 
+void DvProviderLinnCoUkCloud1Cpp::DoGetChallengeResponse(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz buf_Challenge;
+    aInvocation.InvocationReadString("Challenge", buf_Challenge);
+    std::string Challenge((const char*)buf_Challenge.Ptr(), buf_Challenge.Bytes());
+    aInvocation.InvocationReadEnd();
+    std::string respResponse;
+    DvInvocationStd invocation(aInvocation);
+    GetChallengeResponse(invocation, Challenge, respResponse);
+    aInvocation.InvocationWriteStart();
+    DviInvocationResponseString respWriterResponse(aInvocation, "Response");
+    Brn buf_Response((const TByte*)respResponse.c_str(), (TUint)respResponse.length());
+    respWriterResponse.Write(buf_Response);
+    aInvocation.InvocationWriteStringEnd("Response");
+    aInvocation.InvocationWriteEnd();
+}
+
 void DvProviderLinnCoUkCloud1Cpp::DoSetAssociated(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    Brh buf_TokenEncrypted;
-    aInvocation.InvocationReadBinary("TokenEncrypted", buf_TokenEncrypted);
-    std::string TokenEncrypted((const char*)buf_TokenEncrypted.Ptr(), buf_TokenEncrypted.Bytes());
+    Brh buf_AesKeyRsaEncrypted;
+    aInvocation.InvocationReadBinary("AesKeyRsaEncrypted", buf_AesKeyRsaEncrypted);
+    std::string AesKeyRsaEncrypted((const char*)buf_AesKeyRsaEncrypted.Ptr(), buf_AesKeyRsaEncrypted.Bytes());
+    Brh buf_InitVectorRsaEncrypted;
+    aInvocation.InvocationReadBinary("InitVectorRsaEncrypted", buf_InitVectorRsaEncrypted);
+    std::string InitVectorRsaEncrypted((const char*)buf_InitVectorRsaEncrypted.Ptr(), buf_InitVectorRsaEncrypted.Bytes());
+    Brh buf_TokenAesEncrypted;
+    aInvocation.InvocationReadBinary("TokenAesEncrypted", buf_TokenAesEncrypted);
+    std::string TokenAesEncrypted((const char*)buf_TokenAesEncrypted.Ptr(), buf_TokenAesEncrypted.Bytes());
     bool Associated = aInvocation.InvocationReadBool("Associated");
     aInvocation.InvocationReadEnd();
     DvInvocationStd invocation(aInvocation);
-    SetAssociated(invocation, TokenEncrypted, Associated);
+    SetAssociated(invocation, AesKeyRsaEncrypted, InitVectorRsaEncrypted, TokenAesEncrypted, Associated);
     aInvocation.InvocationWriteStart();
     aInvocation.InvocationWriteEnd();
 }
@@ -208,7 +243,12 @@ void DvProviderLinnCoUkCloud1Cpp::DoGetPublicKey(IDviInvocation& aInvocation)
     aInvocation.InvocationWriteEnd();
 }
 
-void DvProviderLinnCoUkCloud1Cpp::SetAssociated(IDvInvocationStd& /*aInvocation*/, const std::string& /*aTokenEncrypted*/, bool /*aAssociated*/)
+void DvProviderLinnCoUkCloud1Cpp::GetChallengeResponse(IDvInvocationStd& /*aInvocation*/, const std::string& /*aChallenge*/, std::string& /*aResponse*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkCloud1Cpp::SetAssociated(IDvInvocationStd& /*aInvocation*/, const std::string& /*aAesKeyRsaEncrypted*/, const std::string& /*aInitVectorRsaEncrypted*/, const std::string& /*aTokenAesEncrypted*/, bool /*aAssociated*/)
 {
     ASSERTS();
 }

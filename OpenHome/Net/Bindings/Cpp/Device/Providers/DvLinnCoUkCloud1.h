@@ -107,6 +107,12 @@ protected:
      */
     void EnablePropertyPublicKey();
     /**
+     * Signal that the action GetChallengeResponse is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetChallengeResponse must be overridden if this is called.
+     */
+    void EnableActionGetChallengeResponse();
+    /**
      * Signal that the action SetAssociated is supported.
      * The action's availability will be published in the device's service.xml.
      * SetAssociated must be overridden if this is called.
@@ -138,13 +144,21 @@ protected:
     void EnableActionGetPublicKey();
 private:
     /**
+     * GetChallengeResponse action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetChallengeResponse action for the owning device.
+     * Must be implemented iff EnableActionGetChallengeResponse was called.
+     */
+    virtual void GetChallengeResponse(IDvInvocationStd& aInvocation, const std::string& aChallenge, std::string& aResponse);
+    /**
      * SetAssociated action.
      *
      * Will be called when the device stack receives an invocation of the
      * SetAssociated action for the owning device.
      * Must be implemented iff EnableActionSetAssociated was called.
      */
-    virtual void SetAssociated(IDvInvocationStd& aInvocation, const std::string& aTokenEncrypted, bool aAssociated);
+    virtual void SetAssociated(IDvInvocationStd& aInvocation, const std::string& aAesKeyRsaEncrypted, const std::string& aInitVectorRsaEncrypted, const std::string& aTokenAesEncrypted, bool aAssociated);
     /**
      * SetControlEnabled action.
      *
@@ -179,6 +193,7 @@ private:
     virtual void GetPublicKey(IDvInvocationStd& aInvocation, std::string& aPublicKey);
 private:
     DvProviderLinnCoUkCloud1Cpp();
+    void DoGetChallengeResponse(IDviInvocation& aInvocation);
     void DoSetAssociated(IDviInvocation& aInvocation);
     void DoSetControlEnabled(IDviInvocation& aInvocation);
     void DoGetControlEnabled(IDviInvocation& aInvocation);

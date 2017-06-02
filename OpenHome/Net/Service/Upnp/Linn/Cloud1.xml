@@ -6,10 +6,35 @@
   </specVersion>
   <actionList>
     <action>
+      <name>GetChallengeResponse</name>
+      <argumentList>
+        <argument>
+          <name>Challenge</name>
+          <direction>in</direction>
+          <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Response</name>
+          <direction>out</direction>
+          <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
       <name>SetAssociated</name>
       <argumentList>
         <argument>
-          <name>TokenEncrypted</name>
+          <name>AesKeyRsaEncrypted</name>
+          <direction>in</direction>
+          <relatedStateVariable>A_ARG_TYPE_Binary</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>InitVectorRsaEncrypted</name>
+          <direction>in</direction>
+          <relatedStateVariable>A_ARG_TYPE_Binary</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>TokenAesEncrypted</name>
           <direction>in</direction>
           <relatedStateVariable>A_ARG_TYPE_Binary</relatedStateVariable>
         </argument>
@@ -40,16 +65,16 @@
         </argument>
       </argumentList>
     </action>
-  <action>
-    <name>GetConnected</name>
-    <argumentList>
-      <argument>
-        <name>Connected</name>
-        <direction>out</direction>
-        <relatedStateVariable>Connected</relatedStateVariable>
-      </argument>
-    </argumentList>
-  </action>
+    <action>
+      <name>GetConnected</name>
+      <argumentList>
+        <argument>
+          <name>Connected</name>
+          <direction>out</direction>
+          <relatedStateVariable>Connected</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
     <action>
       <name>GetPublicKey</name>
       <argumentList>
@@ -81,6 +106,10 @@
     </stateVariable>
     <stateVariable sendEvents="yes">
       <name>PublicKey</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>A_ARG_TYPE_String</name>
       <dataType>string</dataType>
     </stateVariable>
     <stateVariable sendEvents="no">

@@ -20,19 +20,36 @@ extern "C" {
  */
 
 /**
+ * Callback which runs when the GetChallengeResponse action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkCloud1EnableActionGetChallengeResponse
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ * @param[in]  aChallenge
+ * @param[out] aResponse
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackCloud1GetChallengeResponse)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aChallenge, char** aResponse);
+/**
  * Callback which runs when the SetAssociated action is invoked
  *
  * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkCloud1EnableActionSetAssociated
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[in]  aTokenEncrypted
- * @param[in]  aTokenEncryptedLen
+ * @param[in]  aAesKeyRsaEncrypted
+ * @param[in]  aAesKeyRsaEncryptedLen
+ * @param[in]  aInitVectorRsaEncrypted
+ * @param[in]  aInitVectorRsaEncryptedLen
+ * @param[in]  aTokenAesEncrypted
+ * @param[in]  aTokenAesEncryptedLen
  * @param[in]  aAssociated
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackCloud1SetAssociated)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated);
+typedef int32_t (STDCALL *CallbackCloud1SetAssociated)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aAesKeyRsaEncrypted, uint32_t aAesKeyRsaEncryptedLen, const char* aInitVectorRsaEncrypted, uint32_t aInitVectorRsaEncryptedLen, const char* aTokenAesEncrypted, uint32_t aTokenAesEncryptedLen, uint32_t aAssociated);
 /**
  * Callback which runs when the SetControlEnabled action is invoked
  *
@@ -115,6 +132,17 @@ DllExport void STDCALL DvProviderLinnCoUkCloud1EnablePropertyConnected(THandle a
  */
 DllExport void STDCALL DvProviderLinnCoUkCloud1EnablePropertyPublicKey(THandle aProvider);
 
+/**
+ * Register a callback for the action GetChallengeResponse
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderLinnCoUkCloud1Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderLinnCoUkCloud1EnableActionGetChallengeResponse(THandle aProvider, CallbackCloud1GetChallengeResponse aCallback, void* aPtr);
 /**
  * Register a callback for the action SetAssociated
  *

@@ -111,6 +111,12 @@ protected:
      */
     void EnablePropertyPublicKey();
     /**
+     * Signal that the action GetChallengeResponse is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetChallengeResponse must be overridden if this is called.
+     */
+    void EnableActionGetChallengeResponse();
+    /**
      * Signal that the action SetAssociated is supported.
      * The action's availability will be published in the device's service.xml.
      * SetAssociated must be overridden if this is called.
@@ -142,13 +148,21 @@ protected:
     void EnableActionGetPublicKey();
 private:
     /**
+     * GetChallengeResponse action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetChallengeResponse action for the owning device.
+     * Must be implemented iff EnableActionGetChallengeResponse was called.
+     */
+    virtual void GetChallengeResponse(IDvInvocation& aInvocation, const Brx& aChallenge, IDvInvocationResponseString& aResponse);
+    /**
      * SetAssociated action.
      *
      * Will be called when the device stack receives an invocation of the
      * SetAssociated action for the owning device.
      * Must be implemented iff EnableActionSetAssociated was called.
      */
-    virtual void SetAssociated(IDvInvocation& aInvocation, const Brx& aTokenEncrypted, TBool aAssociated);
+    virtual void SetAssociated(IDvInvocation& aInvocation, const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated);
     /**
      * SetControlEnabled action.
      *
@@ -184,6 +198,7 @@ private:
 private:
     DvProviderLinnCoUkCloud1();
     void Construct();
+    void DoGetChallengeResponse(IDviInvocation& aInvocation);
     void DoSetAssociated(IDviInvocation& aInvocation);
     void DoSetControlEnabled(IDviInvocation& aInvocation);
     void DoGetControlEnabled(IDviInvocation& aInvocation);

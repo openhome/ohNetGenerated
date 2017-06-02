@@ -107,16 +107,42 @@ CpProxyLinnCoUkCloud1.prototype.PublicKey_Changed = function (stateChangedFuncti
 
 
 /**
+* A service action to GetChallengeResponse
+* @method GetChallengeResponse
+* @param {String} Challenge An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkCloud1.prototype.GetChallengeResponse = function(Challenge, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetChallengeResponse", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("Challenge", Challenge);
+    request.send(function(result){
+        result["Response"] = ohnet.soaprequest.readStringParameter(result["Response"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
 * A service action to SetAssociated
 * @method SetAssociated
-* @param {String} TokenEncrypted An action parameter
+* @param {String} AesKeyRsaEncrypted An action parameter
+* @param {String} InitVectorRsaEncrypted An action parameter
+* @param {String} TokenAesEncrypted An action parameter
 * @param {Boolean} Associated An action parameter
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyLinnCoUkCloud1.prototype.SetAssociated = function(TokenEncrypted, Associated, successFunction, errorFunction){ 
+CpProxyLinnCoUkCloud1.prototype.SetAssociated = function(AesKeyRsaEncrypted, InitVectorRsaEncrypted, TokenAesEncrypted, Associated, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("SetAssociated", this.url, this.domain, this.type, this.version);     
-    request.writeBinaryParameter("TokenEncrypted", TokenEncrypted);
+    request.writeBinaryParameter("AesKeyRsaEncrypted", AesKeyRsaEncrypted);
+    request.writeBinaryParameter("InitVectorRsaEncrypted", InitVectorRsaEncrypted);
+    request.writeBinaryParameter("TokenAesEncrypted", TokenAesEncrypted);
     request.writeBoolParameter("Associated", Associated);
     request.send(function(result){
     

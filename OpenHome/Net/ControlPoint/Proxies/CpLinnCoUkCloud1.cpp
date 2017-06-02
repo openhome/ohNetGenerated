@@ -10,6 +10,16 @@
 namespace OpenHome {
 namespace Net {
 
+class SyncGetChallengeResponseLinnCoUkCloud1 : public SyncProxyAction
+{
+public:
+    SyncGetChallengeResponseLinnCoUkCloud1(CpProxyLinnCoUkCloud1& aProxy, Brh& aResponse);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkCloud1& iService;
+    Brh& iResponse;
+};
+
 class SyncSetAssociatedLinnCoUkCloud1 : public SyncProxyAction
 {
 public:
@@ -65,6 +75,19 @@ private:
 using namespace OpenHome;
 using namespace OpenHome::Net;
 
+
+// SyncGetChallengeResponseLinnCoUkCloud1
+
+SyncGetChallengeResponseLinnCoUkCloud1::SyncGetChallengeResponseLinnCoUkCloud1(CpProxyLinnCoUkCloud1& aProxy, Brh& aResponse)
+    : iService(aProxy)
+    , iResponse(aResponse)
+{
+}
+
+void SyncGetChallengeResponseLinnCoUkCloud1::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetChallengeResponse(aAsync, iResponse);
+}
 
 // SyncSetAssociatedLinnCoUkCloud1
 
@@ -137,8 +160,18 @@ CpProxyLinnCoUkCloud1::CpProxyLinnCoUkCloud1(CpDevice& aDevice)
 {
     OpenHome::Net::Parameter* param;
 
+    iActionGetChallengeResponse = new Action("GetChallengeResponse");
+    param = new OpenHome::Net::ParameterString("Challenge");
+    iActionGetChallengeResponse->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("Response");
+    iActionGetChallengeResponse->AddOutputParameter(param);
+
     iActionSetAssociated = new Action("SetAssociated");
-    param = new OpenHome::Net::ParameterBinary("TokenEncrypted");
+    param = new OpenHome::Net::ParameterBinary("AesKeyRsaEncrypted");
+    iActionSetAssociated->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterBinary("InitVectorRsaEncrypted");
+    iActionSetAssociated->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterBinary("TokenAesEncrypted");
     iActionSetAssociated->AddInputParameter(param);
     param = new OpenHome::Net::ParameterBool("Associated");
     iActionSetAssociated->AddInputParameter(param);
@@ -177,6 +210,7 @@ CpProxyLinnCoUkCloud1::CpProxyLinnCoUkCloud1(CpDevice& aDevice)
 CpProxyLinnCoUkCloud1::~CpProxyLinnCoUkCloud1()
 {
     DestroyService();
+    delete iActionGetChallengeResponse;
     delete iActionSetAssociated;
     delete iActionSetControlEnabled;
     delete iActionGetControlEnabled;
@@ -184,19 +218,56 @@ CpProxyLinnCoUkCloud1::~CpProxyLinnCoUkCloud1()
     delete iActionGetPublicKey;
 }
 
-void CpProxyLinnCoUkCloud1::SyncSetAssociated(const Brx& aTokenEncrypted, TBool aAssociated)
+void CpProxyLinnCoUkCloud1::SyncGetChallengeResponse(const Brx& aChallenge, Brh& aResponse)
 {
-    SyncSetAssociatedLinnCoUkCloud1 sync(*this);
-    BeginSetAssociated(aTokenEncrypted, aAssociated, sync.Functor());
+    SyncGetChallengeResponseLinnCoUkCloud1 sync(*this, aResponse);
+    BeginGetChallengeResponse(aChallenge, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyLinnCoUkCloud1::BeginSetAssociated(const Brx& aTokenEncrypted, TBool aAssociated, FunctorAsync& aFunctor)
+void CpProxyLinnCoUkCloud1::BeginGetChallengeResponse(const Brx& aChallenge, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetChallengeResponse, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionGetChallengeResponse->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aChallenge));
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetChallengeResponse->OutputParameters();
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkCloud1::EndGetChallengeResponse(IAsync& aAsync, Brh& aResponse)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetChallengeResponse"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aResponse);
+}
+
+void CpProxyLinnCoUkCloud1::SyncSetAssociated(const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated)
+{
+    SyncSetAssociatedLinnCoUkCloud1 sync(*this);
+    BeginSetAssociated(aAesKeyRsaEncrypted, aInitVectorRsaEncrypted, aTokenAesEncrypted, aAssociated, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkCloud1::BeginSetAssociated(const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated, FunctorAsync& aFunctor)
 {
     Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetAssociated, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetAssociated->InputParameters();
-    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aTokenEncrypted));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aAesKeyRsaEncrypted));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aInitVectorRsaEncrypted));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aTokenAesEncrypted));
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aAssociated));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }

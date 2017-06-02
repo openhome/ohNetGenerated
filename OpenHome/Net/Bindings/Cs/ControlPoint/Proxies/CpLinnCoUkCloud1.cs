@@ -10,8 +10,11 @@ namespace OpenHome.Net.ControlPoint.Proxies
 {
     public interface ICpProxyLinnCoUkCloud1 : ICpProxy, IDisposable
     {
-        void SyncSetAssociated(byte[] aTokenEncrypted, bool aAssociated);
-        void BeginSetAssociated(byte[] aTokenEncrypted, bool aAssociated, CpProxy.CallbackAsyncComplete aCallback);
+        void SyncGetChallengeResponse(String aChallenge, out String aResponse);
+        void BeginGetChallengeResponse(String aChallenge, CpProxy.CallbackAsyncComplete aCallback);
+        void EndGetChallengeResponse(IntPtr aAsyncHandle, out String aResponse);
+        void SyncSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, bool aAssociated);
+        void BeginSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, bool aAssociated, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetAssociated(IntPtr aAsyncHandle);
         void SyncSetControlEnabled(bool aEnabled);
         void BeginSetControlEnabled(bool aEnabled, CpProxy.CallbackAsyncComplete aCallback);
@@ -34,6 +37,25 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SetPropertyPublicKeyChanged(System.Action aPublicKeyChanged);
         String PropertyPublicKey();
     }
+
+    internal class SyncGetChallengeResponseLinnCoUkCloud1 : SyncProxyAction
+    {
+        private CpProxyLinnCoUkCloud1 iService;
+        private String iResponse;
+
+        public SyncGetChallengeResponseLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
+        {
+            iService = aProxy;
+        }
+        public String Response()
+        {
+            return iResponse;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndGetChallengeResponse(aAsyncHandle, out iResponse);
+        }
+    };
 
     internal class SyncSetAssociatedLinnCoUkCloud1 : SyncProxyAction
     {
@@ -125,6 +147,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
     /// </summary>
     public class CpProxyLinnCoUkCloud1 : CpProxy, IDisposable, ICpProxyLinnCoUkCloud1
     {
+        private OpenHome.Net.Core.Action iActionGetChallengeResponse;
         private OpenHome.Net.Core.Action iActionSetAssociated;
         private OpenHome.Net.Core.Action iActionSetControlEnabled;
         private OpenHome.Net.Core.Action iActionGetControlEnabled;
@@ -151,8 +174,18 @@ namespace OpenHome.Net.ControlPoint.Proxies
             OpenHome.Net.Core.Parameter param;
             List<String> allowedValues = new List<String>();
 
+            iActionGetChallengeResponse = new OpenHome.Net.Core.Action("GetChallengeResponse");
+            param = new ParameterString("Challenge", allowedValues);
+            iActionGetChallengeResponse.AddInputParameter(param);
+            param = new ParameterString("Response", allowedValues);
+            iActionGetChallengeResponse.AddOutputParameter(param);
+
             iActionSetAssociated = new OpenHome.Net.Core.Action("SetAssociated");
-            param = new ParameterBinary("TokenEncrypted");
+            param = new ParameterBinary("AesKeyRsaEncrypted");
+            iActionSetAssociated.AddInputParameter(param);
+            param = new ParameterBinary("InitVectorRsaEncrypted");
+            iActionSetAssociated.AddInputParameter(param);
+            param = new ParameterBinary("TokenAesEncrypted");
             iActionSetAssociated.AddInputParameter(param);
             param = new ParameterBool("Associated");
             iActionSetAssociated.AddInputParameter(param);
@@ -190,12 +223,67 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
-        /// <param name="aTokenEncrypted"></param>
+        /// <param name="aChallenge"></param>
+        /// <param name="aResponse"></param>
+        public void SyncGetChallengeResponse(String aChallenge, out String aResponse)
+        {
+            SyncGetChallengeResponseLinnCoUkCloud1 sync = new SyncGetChallengeResponseLinnCoUkCloud1(this);
+            BeginGetChallengeResponse(aChallenge, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aResponse = sync.Response();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndGetChallengeResponse().</remarks>
+        /// <param name="aChallenge"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginGetChallengeResponse(String aChallenge, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionGetChallengeResponse, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentString((ParameterString)iActionGetChallengeResponse.InputParameter(inIndex++), aChallenge));
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentString((ParameterString)iActionGetChallengeResponse.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aResponse"></param>
+        public void EndGetChallengeResponse(IntPtr aAsyncHandle, out String aResponse)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
+            aResponse = Invocation.OutputString(aAsyncHandle, index++);
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aAesKeyRsaEncrypted"></param>
+        /// <param name="aInitVectorRsaEncrypted"></param>
+        /// <param name="aTokenAesEncrypted"></param>
         /// <param name="aAssociated"></param>
-        public void SyncSetAssociated(byte[] aTokenEncrypted, bool aAssociated)
+        public void SyncSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, bool aAssociated)
         {
             SyncSetAssociatedLinnCoUkCloud1 sync = new SyncSetAssociatedLinnCoUkCloud1(this);
-            BeginSetAssociated(aTokenEncrypted, aAssociated, sync.AsyncComplete());
+            BeginSetAssociated(aAesKeyRsaEncrypted, aInitVectorRsaEncrypted, aTokenAesEncrypted, aAssociated, sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -206,15 +294,19 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
         /// EndSetAssociated().</remarks>
-        /// <param name="aTokenEncrypted"></param>
+        /// <param name="aAesKeyRsaEncrypted"></param>
+        /// <param name="aInitVectorRsaEncrypted"></param>
+        /// <param name="aTokenAesEncrypted"></param>
         /// <param name="aAssociated"></param>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetAssociated(byte[] aTokenEncrypted, bool aAssociated, CallbackAsyncComplete aCallback)
+        public void BeginSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, bool aAssociated, CallbackAsyncComplete aCallback)
         {
             Invocation invocation = iService.Invocation(iActionSetAssociated, aCallback);
             int inIndex = 0;
-            invocation.AddInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.InputParameter(inIndex++), aTokenEncrypted));
+            invocation.AddInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.InputParameter(inIndex++), aAesKeyRsaEncrypted));
+            invocation.AddInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.InputParameter(inIndex++), aInitVectorRsaEncrypted));
+            invocation.AddInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.InputParameter(inIndex++), aTokenAesEncrypted));
             invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetAssociated.InputParameter(inIndex++), aAssociated));
             iService.InvokeAction(invocation);
         }
@@ -615,6 +707,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
                 DisposeProxy();
                 iHandle = IntPtr.Zero;
             }
+            iActionGetChallengeResponse.Dispose();
             iActionSetAssociated.Dispose();
             iActionSetControlEnabled.Dispose();
             iActionGetControlEnabled.Dispose();

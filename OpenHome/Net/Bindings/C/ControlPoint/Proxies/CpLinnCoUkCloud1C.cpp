@@ -23,8 +23,12 @@ public:
     ~CpProxyLinnCoUkCloud1C();
     //CpProxyLinnCoUkCloud1* Proxy() { return static_cast<CpProxyLinnCoUkCloud1*>(iProxy); }
 
-    void SyncSetAssociated(const Brx& aTokenEncrypted, TBool aAssociated);
-    void BeginSetAssociated(const Brx& aTokenEncrypted, TBool aAssociated, FunctorAsync& aFunctor);
+    void SyncGetChallengeResponse(const Brx& aChallenge, Brh& aResponse);
+    void BeginGetChallengeResponse(const Brx& aChallenge, FunctorAsync& aFunctor);
+    void EndGetChallengeResponse(IAsync& aAsync, Brh& aResponse);
+
+    void SyncSetAssociated(const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated);
+    void BeginSetAssociated(const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated, FunctorAsync& aFunctor);
     void EndSetAssociated(IAsync& aAsync);
 
     void SyncSetControlEnabled(TBool aEnabled);
@@ -59,6 +63,7 @@ private:
     void PublicKeyPropertyChanged();
 private:
     Mutex iLock;
+    Action* iActionGetChallengeResponse;
     Action* iActionSetAssociated;
     Action* iActionSetControlEnabled;
     Action* iActionGetControlEnabled;
@@ -73,6 +78,29 @@ private:
     Functor iConnectedChanged;
     Functor iPublicKeyChanged;
 };
+
+
+class SyncGetChallengeResponseLinnCoUkCloud1C : public SyncProxyAction
+{
+public:
+    SyncGetChallengeResponseLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy, Brh& aResponse);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncGetChallengeResponseLinnCoUkCloud1C() {};
+private:
+    CpProxyLinnCoUkCloud1C& iService;
+    Brh& iResponse;
+};
+
+SyncGetChallengeResponseLinnCoUkCloud1C::SyncGetChallengeResponseLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy, Brh& aResponse)
+    : iService(aProxy)
+    , iResponse(aResponse)
+{
+}
+
+void SyncGetChallengeResponseLinnCoUkCloud1C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetChallengeResponse(aAsync, iResponse);
+}
 
 
 class SyncSetAssociatedLinnCoUkCloud1C : public SyncProxyAction
@@ -191,8 +219,18 @@ CpProxyLinnCoUkCloud1C::CpProxyLinnCoUkCloud1C(CpDeviceC aDevice)
 {
     OpenHome::Net::Parameter* param;
 
+    iActionGetChallengeResponse = new Action("GetChallengeResponse");
+    param = new OpenHome::Net::ParameterString("Challenge");
+    iActionGetChallengeResponse->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("Response");
+    iActionGetChallengeResponse->AddOutputParameter(param);
+
     iActionSetAssociated = new Action("SetAssociated");
-    param = new OpenHome::Net::ParameterBinary("TokenEncrypted");
+    param = new OpenHome::Net::ParameterBinary("AesKeyRsaEncrypted");
+    iActionSetAssociated->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterBinary("InitVectorRsaEncrypted");
+    iActionSetAssociated->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterBinary("TokenAesEncrypted");
     iActionSetAssociated->AddInputParameter(param);
     param = new OpenHome::Net::ParameterBool("Associated");
     iActionSetAssociated->AddInputParameter(param);
@@ -231,6 +269,7 @@ CpProxyLinnCoUkCloud1C::CpProxyLinnCoUkCloud1C(CpDeviceC aDevice)
 CpProxyLinnCoUkCloud1C::~CpProxyLinnCoUkCloud1C()
 {
     DestroyService();
+    delete iActionGetChallengeResponse;
     delete iActionSetAssociated;
     delete iActionSetControlEnabled;
     delete iActionGetControlEnabled;
@@ -238,19 +277,56 @@ CpProxyLinnCoUkCloud1C::~CpProxyLinnCoUkCloud1C()
     delete iActionGetPublicKey;
 }
 
-void CpProxyLinnCoUkCloud1C::SyncSetAssociated(const Brx& aTokenEncrypted, TBool aAssociated)
+void CpProxyLinnCoUkCloud1C::SyncGetChallengeResponse(const Brx& aChallenge, Brh& aResponse)
 {
-    SyncSetAssociatedLinnCoUkCloud1C sync(*this);
-    BeginSetAssociated(aTokenEncrypted, aAssociated, sync.Functor());
+    SyncGetChallengeResponseLinnCoUkCloud1C sync(*this, aResponse);
+    BeginGetChallengeResponse(aChallenge, sync.Functor());
     sync.Wait();
 }
 
-void CpProxyLinnCoUkCloud1C::BeginSetAssociated(const Brx& aTokenEncrypted, TBool aAssociated, FunctorAsync& aFunctor)
+void CpProxyLinnCoUkCloud1C::BeginGetChallengeResponse(const Brx& aChallenge, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionGetChallengeResponse, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionGetChallengeResponse->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aChallenge));
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetChallengeResponse->OutputParameters();
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkCloud1C::EndGetChallengeResponse(IAsync& aAsync, Brh& aResponse)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetChallengeResponse"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aResponse);
+}
+
+void CpProxyLinnCoUkCloud1C::SyncSetAssociated(const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated)
+{
+    SyncSetAssociatedLinnCoUkCloud1C sync(*this);
+    BeginSetAssociated(aAesKeyRsaEncrypted, aInitVectorRsaEncrypted, aTokenAesEncrypted, aAssociated, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkCloud1C::BeginSetAssociated(const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated, FunctorAsync& aFunctor)
 {
     Invocation* invocation = Service()->Invocation(*iActionSetAssociated, aFunctor);
     TUint inIndex = 0;
     const Action::VectorParameters& inParams = iActionSetAssociated->InputParameters();
-    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aTokenEncrypted));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aAesKeyRsaEncrypted));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aInitVectorRsaEncrypted));
+    invocation->AddInput(new ArgumentBinary(*inParams[inIndex++], aTokenAesEncrypted));
     invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aAssociated));
     Invocable().InvokeAction(*invocation);
 }
@@ -483,15 +559,65 @@ void STDCALL CpProxyLinnCoUkCloud1Destroy(THandle aHandle)
     delete proxyC;
 }
 
-int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated)
+int32_t STDCALL CpProxyLinnCoUkCloud1SyncGetChallengeResponse(THandle aHandle, const char* aChallenge, char** aResponse)
 {
     CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    Brh buf_aTokenEncrypted;
-    buf_aTokenEncrypted.Set((const TByte*)aTokenEncrypted, aTokenEncryptedLen);
+    Brh buf_aChallenge(aChallenge);
+    Brh buf_aResponse;
     int32_t err = 0;
     try {
-        proxyC->SyncSetAssociated(buf_aTokenEncrypted, (aAssociated==0? false : true));
+        proxyC->SyncGetChallengeResponse(buf_aChallenge, buf_aResponse);
+        *aResponse = buf_aResponse.Extract();
+    }
+    catch (ProxyError& ) {
+        err = -1;
+        *aResponse = NULL;
+    }
+    return err;
+}
+
+void STDCALL CpProxyLinnCoUkCloud1BeginGetChallengeResponse(THandle aHandle, const char* aChallenge, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aChallenge(aChallenge);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginGetChallengeResponse(buf_aChallenge, functor);
+}
+
+int32_t STDCALL CpProxyLinnCoUkCloud1EndGetChallengeResponse(THandle aHandle, OhNetHandleAsync aAsync, char** aResponse)
+{
+    int32_t err = 0;
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    Brh buf_aResponse;
+    *aResponse = NULL;
+    try {
+        proxyC->EndGetChallengeResponse(*async, buf_aResponse);
+        *aResponse = buf_aResponse.Extract();
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
+int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const char* aAesKeyRsaEncrypted, uint32_t aAesKeyRsaEncryptedLen, const char* aInitVectorRsaEncrypted, uint32_t aInitVectorRsaEncryptedLen, const char* aTokenAesEncrypted, uint32_t aTokenAesEncryptedLen, uint32_t aAssociated)
+{
+    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aAesKeyRsaEncrypted;
+    buf_aAesKeyRsaEncrypted.Set((const TByte*)aAesKeyRsaEncrypted, aAesKeyRsaEncryptedLen);
+    Brh buf_aInitVectorRsaEncrypted;
+    buf_aInitVectorRsaEncrypted.Set((const TByte*)aInitVectorRsaEncrypted, aInitVectorRsaEncryptedLen);
+    Brh buf_aTokenAesEncrypted;
+    buf_aTokenAesEncrypted.Set((const TByte*)aTokenAesEncrypted, aTokenAesEncryptedLen);
+    int32_t err = 0;
+    try {
+        proxyC->SyncSetAssociated(buf_aAesKeyRsaEncrypted, buf_aInitVectorRsaEncrypted, buf_aTokenAesEncrypted, (aAssociated==0? false : true));
     }
     catch (ProxyError& ) {
         err = -1;
@@ -499,14 +625,18 @@ int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const ch
     return err;
 }
 
-void STDCALL CpProxyLinnCoUkCloud1BeginSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated, OhNetCallbackAsync aCallback, void* aPtr)
+void STDCALL CpProxyLinnCoUkCloud1BeginSetAssociated(THandle aHandle, const char* aAesKeyRsaEncrypted, uint32_t aAesKeyRsaEncryptedLen, const char* aInitVectorRsaEncrypted, uint32_t aInitVectorRsaEncryptedLen, const char* aTokenAesEncrypted, uint32_t aTokenAesEncryptedLen, uint32_t aAssociated, OhNetCallbackAsync aCallback, void* aPtr)
 {
     CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    Brh buf_aTokenEncrypted;
-    buf_aTokenEncrypted.Set((const TByte*)aTokenEncrypted, aTokenEncryptedLen);
+    Brh buf_aAesKeyRsaEncrypted;
+    buf_aAesKeyRsaEncrypted.Set((const TByte*)aAesKeyRsaEncrypted, aAesKeyRsaEncryptedLen);
+    Brh buf_aInitVectorRsaEncrypted;
+    buf_aInitVectorRsaEncrypted.Set((const TByte*)aInitVectorRsaEncrypted, aInitVectorRsaEncryptedLen);
+    Brh buf_aTokenAesEncrypted;
+    buf_aTokenAesEncrypted.Set((const TByte*)aTokenAesEncrypted, aTokenAesEncryptedLen);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginSetAssociated(buf_aTokenEncrypted, (aAssociated==0? false : true), functor);
+    proxyC->BeginSetAssociated(buf_aAesKeyRsaEncrypted, buf_aInitVectorRsaEncrypted, buf_aTokenAesEncrypted, (aAssociated==0? false : true), functor);
 }
 
 int32_t STDCALL CpProxyLinnCoUkCloud1EndSetAssociated(THandle aHandle, OhNetHandleAsync aAsync)

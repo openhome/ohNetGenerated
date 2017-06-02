@@ -47,14 +47,13 @@ DllExport void STDCALL CpProxyLinnCoUkCloud1Destroy(THandle aHandle);
  * on the device and sets any output arguments.
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aTokenEncrypted
- * @param[in]  aTokenEncryptedLen
- * @param[in]  aAssociated
+ * @param[in]  aChallenge
+ * @param[out] aResponse
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated);
+DllExport int32_t STDCALL CpProxyLinnCoUkCloud1SyncGetChallengeResponse(THandle aHandle, const char* aChallenge, char** aResponse);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -62,14 +61,61 @@ DllExport int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle
  * EndGetProtocolInfo().
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aTokenEncrypted
- * @param[in]  aTokenEncryptedLen
+ * @param[in]  aChallenge
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyLinnCoUkCloud1BeginGetChallengeResponse(THandle aHandle, const char* aChallenge, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ * @param[out] aResponse
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyLinnCoUkCloud1EndGetChallengeResponse(THandle aHandle, OhNetHandleAsync aAsync, char** aResponse);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
+ * @param[in]  aAesKeyRsaEncrypted
+ * @param[in]  aAesKeyRsaEncryptedLen
+ * @param[in]  aInitVectorRsaEncrypted
+ * @param[in]  aInitVectorRsaEncryptedLen
+ * @param[in]  aTokenAesEncrypted
+ * @param[in]  aTokenAesEncryptedLen
+ * @param[in]  aAssociated
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetAssociated(THandle aHandle, const char* aAesKeyRsaEncrypted, uint32_t aAesKeyRsaEncryptedLen, const char* aInitVectorRsaEncrypted, uint32_t aInitVectorRsaEncryptedLen, const char* aTokenAesEncrypted, uint32_t aTokenAesEncryptedLen, uint32_t aAssociated);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
+ * @param[in]  aAesKeyRsaEncrypted
+ * @param[in]  aAesKeyRsaEncryptedLen
+ * @param[in]  aInitVectorRsaEncrypted
+ * @param[in]  aInitVectorRsaEncryptedLen
+ * @param[in]  aTokenAesEncrypted
+ * @param[in]  aTokenAesEncryptedLen
  * @param[in]  aAssociated
  * @param[in]  aCallback Callback to run when the action completes.
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyLinnCoUkCloud1BeginSetAssociated(THandle aHandle, const char* aTokenEncrypted, uint32_t aTokenEncryptedLen, uint32_t aAssociated, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyLinnCoUkCloud1BeginSetAssociated(THandle aHandle, const char* aAesKeyRsaEncrypted, uint32_t aAesKeyRsaEncryptedLen, const char* aInitVectorRsaEncrypted, uint32_t aInitVectorRsaEncryptedLen, const char* aTokenAesEncrypted, uint32_t aTokenAesEncryptedLen, uint32_t aAssociated, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.

@@ -24,8 +24,11 @@ class ICpProxyLinnCoUkCloud1Cpp : public ICpProxy
 {
 public:
     virtual ~ICpProxyLinnCoUkCloud1Cpp() {}
-    virtual void SyncSetAssociated(const std::string& aTokenEncrypted, bool aAssociated) = 0;
-    virtual void BeginSetAssociated(const std::string& aTokenEncrypted, bool aAssociated, FunctorAsync& aFunctor) = 0;
+    virtual void SyncGetChallengeResponse(const std::string& aChallenge, std::string& aResponse) = 0;
+    virtual void BeginGetChallengeResponse(const std::string& aChallenge, FunctorAsync& aFunctor) = 0;
+    virtual void EndGetChallengeResponse(IAsync& aAsync, std::string& aResponse) = 0;
+    virtual void SyncSetAssociated(const std::string& aAesKeyRsaEncrypted, const std::string& aInitVectorRsaEncrypted, const std::string& aTokenAesEncrypted, bool aAssociated) = 0;
+    virtual void BeginSetAssociated(const std::string& aAesKeyRsaEncrypted, const std::string& aInitVectorRsaEncrypted, const std::string& aTokenAesEncrypted, bool aAssociated, FunctorAsync& aFunctor) = 0;
     virtual void EndSetAssociated(IAsync& aAsync) = 0;
     virtual void SyncSetControlEnabled(bool aEnabled) = 0;
     virtual void BeginSetControlEnabled(bool aEnabled, FunctorAsync& aFunctor) = 0;
@@ -78,22 +81,54 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
-     * @param[in]  aTokenEncrypted
+     * @param[in]  aChallenge
+     * @param[out] aResponse
+     */
+    void SyncGetChallengeResponse(const std::string& aChallenge, std::string& aResponse);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetChallengeResponse().
+     *
+     * @param[in] aChallenge
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetChallengeResponse(const std::string& aChallenge, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aResponse
+     */
+    void EndGetChallengeResponse(IAsync& aAsync, std::string& aResponse);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aAesKeyRsaEncrypted
+     * @param[in]  aInitVectorRsaEncrypted
+     * @param[in]  aTokenAesEncrypted
      * @param[in]  aAssociated
      */
-    void SyncSetAssociated(const std::string& aTokenEncrypted, bool aAssociated);
+    void SyncSetAssociated(const std::string& aAesKeyRsaEncrypted, const std::string& aInitVectorRsaEncrypted, const std::string& aTokenAesEncrypted, bool aAssociated);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
      * EndSetAssociated().
      *
-     * @param[in] aTokenEncrypted
+     * @param[in] aAesKeyRsaEncrypted
+     * @param[in] aInitVectorRsaEncrypted
+     * @param[in] aTokenAesEncrypted
      * @param[in] aAssociated
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginSetAssociated(const std::string& aTokenEncrypted, bool aAssociated, FunctorAsync& aFunctor);
+    void BeginSetAssociated(const std::string& aAesKeyRsaEncrypted, const std::string& aInitVectorRsaEncrypted, const std::string& aTokenAesEncrypted, bool aAssociated, FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
@@ -322,6 +357,7 @@ private:
     void ConnectedPropertyChanged();
     void PublicKeyPropertyChanged();
 private:
+    Action* iActionGetChallengeResponse;
     Action* iActionSetAssociated;
     Action* iActionSetControlEnabled;
     Action* iActionGetControlEnabled;

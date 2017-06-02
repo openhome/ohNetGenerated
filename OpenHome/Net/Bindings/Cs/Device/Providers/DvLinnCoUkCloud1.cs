@@ -68,6 +68,7 @@ namespace OpenHome.Net.Device.Providers
     public class DvProviderLinnCoUkCloud1 : DvProvider, IDisposable, IDvProviderLinnCoUkCloud1
     {
         private GCHandle iGch;
+        private ActionDelegate iDelegateGetChallengeResponse;
         private ActionDelegate iDelegateSetAssociated;
         private ActionDelegate iDelegateSetControlEnabled;
         private ActionDelegate iDelegateGetControlEnabled;
@@ -231,6 +232,21 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
+        /// Signal that the action GetChallengeResponse is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// GetChallengeResponse must be overridden if this is called.</remarks>
+        protected void EnableActionGetChallengeResponse()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetChallengeResponse");
+            List<String> allowedValues = new List<String>();
+            action.AddInputParameter(new ParameterString("Challenge", allowedValues));
+            action.AddOutputParameter(new ParameterString("Response", allowedValues));
+            iDelegateGetChallengeResponse = new ActionDelegate(DoGetChallengeResponse);
+            EnableAction(action, iDelegateGetChallengeResponse, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
         /// Signal that the action SetAssociated is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
@@ -238,7 +254,9 @@ namespace OpenHome.Net.Device.Providers
         protected void EnableActionSetAssociated()
         {
             OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetAssociated");
-            action.AddInputParameter(new ParameterBinary("TokenEncrypted"));
+            action.AddInputParameter(new ParameterBinary("AesKeyRsaEncrypted"));
+            action.AddInputParameter(new ParameterBinary("InitVectorRsaEncrypted"));
+            action.AddInputParameter(new ParameterBinary("TokenAesEncrypted"));
             action.AddInputParameter(new ParameterBool("Associated"));
             iDelegateSetAssociated = new ActionDelegate(DoSetAssociated);
             EnableAction(action, iDelegateSetAssociated, GCHandle.ToIntPtr(iGch));
@@ -297,6 +315,21 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
+        /// GetChallengeResponse action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// GetChallengeResponse action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionGetChallengeResponse was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aChallenge"></param>
+        /// <param name="aResponse"></param>
+        protected virtual void GetChallengeResponse(IDvInvocation aInvocation, string aChallenge, out string aResponse)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
         /// SetAssociated action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
@@ -304,9 +337,11 @@ namespace OpenHome.Net.Device.Providers
         ///
         /// Must be implemented iff EnableActionSetAssociated was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aTokenEncrypted"></param>
+        /// <param name="aAesKeyRsaEncrypted"></param>
+        /// <param name="aInitVectorRsaEncrypted"></param>
+        /// <param name="aTokenAesEncrypted"></param>
         /// <param name="aAssociated"></param>
-        protected virtual void SetAssociated(IDvInvocation aInvocation, byte[] aTokenEncrypted, bool aAssociated)
+        protected virtual void SetAssociated(IDvInvocation aInvocation, byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, bool aAssociated)
         {
             throw (new ActionDisabledError());
         }
@@ -367,20 +402,72 @@ namespace OpenHome.Net.Device.Providers
             throw (new ActionDisabledError());
         }
 
+        private static int DoGetChallengeResponse(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string challenge;
+            string response;
+            try
+            {
+                invocation.ReadStart();
+                challenge = invocation.ReadString("Challenge");
+                invocation.ReadEnd();
+                self.GetChallengeResponse(invocation, challenge, out response);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "GetChallengeResponse");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetChallengeResponse" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetChallengeResponse" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteString("Response", response);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetChallengeResponse" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
         private static int DoSetAssociated(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderLinnCoUkCloud1 self = (DvProviderLinnCoUkCloud1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            byte[] tokenEncrypted;
+            byte[] aesKeyRsaEncrypted;
+            byte[] initVectorRsaEncrypted;
+            byte[] tokenAesEncrypted;
             bool associated;
             try
             {
                 invocation.ReadStart();
-                tokenEncrypted = invocation.ReadBinary("TokenEncrypted");
+                aesKeyRsaEncrypted = invocation.ReadBinary("AesKeyRsaEncrypted");
+                initVectorRsaEncrypted = invocation.ReadBinary("InitVectorRsaEncrypted");
+                tokenAesEncrypted = invocation.ReadBinary("TokenAesEncrypted");
                 associated = invocation.ReadBool("Associated");
                 invocation.ReadEnd();
-                self.SetAssociated(invocation, tokenEncrypted, associated);
+                self.SetAssociated(invocation, aesKeyRsaEncrypted, initVectorRsaEncrypted, tokenAesEncrypted, associated);
             }
             catch (ActionError e)
             {

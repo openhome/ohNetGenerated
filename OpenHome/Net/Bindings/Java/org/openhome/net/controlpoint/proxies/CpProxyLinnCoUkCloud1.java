@@ -10,8 +10,11 @@ import org.openhome.net.core.*;
     
 interface ICpProxyLinnCoUkCloud1 extends ICpProxy
 {
-    public void syncSetAssociated(byte[] aTokenEncrypted, boolean aAssociated);
-    public void beginSetAssociated(byte[] aTokenEncrypted, boolean aAssociated, ICpProxyListener aCallback);
+    public String syncGetChallengeResponse(String aChallenge);
+    public void beginGetChallengeResponse(String aChallenge, ICpProxyListener aCallback);
+    public String endGetChallengeResponse(long aAsyncHandle);
+    public void syncSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, boolean aAssociated);
+    public void beginSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, boolean aAssociated, ICpProxyListener aCallback);
     public void endSetAssociated(long aAsyncHandle);
     public void syncSetControlEnabled(boolean aEnabled);
     public void beginSetControlEnabled(boolean aEnabled, ICpProxyListener aCallback);
@@ -33,6 +36,27 @@ interface ICpProxyLinnCoUkCloud1 extends ICpProxy
     public boolean getPropertyConnected();
     public void setPropertyPublicKeyChanged(IPropertyChangeListener aPublicKeyChanged);
     public String getPropertyPublicKey();
+}
+
+class SyncGetChallengeResponseLinnCoUkCloud1 extends SyncProxyAction
+{
+    private CpProxyLinnCoUkCloud1 iService;
+    private String iResponse;
+
+    public SyncGetChallengeResponseLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
+    {
+        iService = aProxy;
+    }
+    public String getResponse()
+    {
+        return iResponse;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        String result = iService.endGetChallengeResponse(aAsyncHandle);
+        
+        iResponse = result;
+    }
 }
 
 class SyncSetAssociatedLinnCoUkCloud1 extends SyncProxyAction
@@ -134,6 +158,7 @@ class SyncGetPublicKeyLinnCoUkCloud1 extends SyncProxyAction
 public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCloud1
 {
 
+    private Action iActionGetChallengeResponse;
     private Action iActionSetAssociated;
     private Action iActionSetControlEnabled;
     private Action iActionGetControlEnabled;
@@ -162,8 +187,18 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
         Parameter param;
         List<String> allowedValues = new LinkedList<String>();
 
+        iActionGetChallengeResponse = new Action("GetChallengeResponse");
+        param = new ParameterString("Challenge", allowedValues);
+        iActionGetChallengeResponse.addInputParameter(param);
+        param = new ParameterString("Response", allowedValues);
+        iActionGetChallengeResponse.addOutputParameter(param);
+
         iActionSetAssociated = new Action("SetAssociated");
-        param = new ParameterBinary("TokenEncrypted");
+        param = new ParameterBinary("AesKeyRsaEncrypted");
+        iActionSetAssociated.addInputParameter(param);
+        param = new ParameterBinary("InitVectorRsaEncrypted");
+        iActionSetAssociated.addInputParameter(param);
+        param = new ParameterBinary("TokenAesEncrypted");
         iActionSetAssociated.addInputParameter(param);
         param = new ParameterBool("Associated");
         iActionSetAssociated.addInputParameter(param);
@@ -226,11 +261,69 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
      * Invoke the action synchronously.
      * Blocks until the action has been processed on the device and sets any
      * output arguments.
+     *
+     * @return the result of the invoked action.
      */
-    public void syncSetAssociated(byte[] aTokenEncrypted, boolean aAssociated)
+    public String syncGetChallengeResponse(String aChallenge)
+    {
+        SyncGetChallengeResponseLinnCoUkCloud1 sync = new SyncGetChallengeResponseLinnCoUkCloud1(this);
+        beginGetChallengeResponse(aChallenge, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getResponse();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endGetChallengeResponse}.
+     * 
+     * @param aChallenge
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginGetChallengeResponse(String aChallenge, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionGetChallengeResponse, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionGetChallengeResponse.getInputParameter(inIndex++), aChallenge));
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentString((ParameterString)iActionGetChallengeResponse.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginGetChallengeResponse} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginGetChallengeResponse} method.
+     * @return the result of the previously invoked action.
+     */
+    public String endGetChallengeResponse(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        String response = Invocation.getOutputString(aAsyncHandle, index++);
+        return response;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, boolean aAssociated)
     {
         SyncSetAssociatedLinnCoUkCloud1 sync = new SyncSetAssociatedLinnCoUkCloud1(this);
-        beginSetAssociated(aTokenEncrypted, aAssociated, sync.getListener());
+        beginSetAssociated(aAesKeyRsaEncrypted, aInitVectorRsaEncrypted, aTokenAesEncrypted, aAssociated, sync.getListener());
         sync.waitToComplete();
         sync.reportError();
     }
@@ -241,16 +334,20 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
      * action later completes.  Any output arguments can then be retrieved by
      * calling {@link #endSetAssociated}.
      * 
-     * @param aTokenEncrypted
+     * @param aAesKeyRsaEncrypted
+     * @param aInitVectorRsaEncrypted
+     * @param aTokenAesEncrypted
      * @param aAssociated
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginSetAssociated(byte[] aTokenEncrypted, boolean aAssociated, ICpProxyListener aCallback)
+    public void beginSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, boolean aAssociated, ICpProxyListener aCallback)
     {
         Invocation invocation = iService.getInvocation(iActionSetAssociated, aCallback);
         int inIndex = 0;
-        invocation.addInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.getInputParameter(inIndex++), aTokenEncrypted));
+        invocation.addInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.getInputParameter(inIndex++), aAesKeyRsaEncrypted));
+        invocation.addInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.getInputParameter(inIndex++), aInitVectorRsaEncrypted));
+        invocation.addInput(new ArgumentBinary((ParameterBinary)iActionSetAssociated.getInputParameter(inIndex++), aTokenAesEncrypted));
         invocation.addInput(new ArgumentBool((ParameterBool)iActionSetAssociated.getInputParameter(inIndex++), aAssociated));
         iService.invokeAction(invocation);
     }
@@ -657,6 +754,7 @@ public class CpProxyLinnCoUkCloud1 extends CpProxy implements ICpProxyLinnCoUkCl
             }
             disposeProxy();
             iHandle = 0;
+            iActionGetChallengeResponse.destroy();
             iActionSetAssociated.destroy();
             iActionSetControlEnabled.destroy();
             iActionGetControlEnabled.destroy();

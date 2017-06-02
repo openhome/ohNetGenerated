@@ -30,18 +30,22 @@ public:
     void EnablePropertyControlEnabled();
     void EnablePropertyConnected();
     void EnablePropertyPublicKey();
+    void EnableActionGetChallengeResponse(CallbackCloud1GetChallengeResponse aCallback, void* aPtr);
     void EnableActionSetAssociated(CallbackCloud1SetAssociated aCallback, void* aPtr);
     void EnableActionSetControlEnabled(CallbackCloud1SetControlEnabled aCallback, void* aPtr);
     void EnableActionGetControlEnabled(CallbackCloud1GetControlEnabled aCallback, void* aPtr);
     void EnableActionGetConnected(CallbackCloud1GetConnected aCallback, void* aPtr);
     void EnableActionGetPublicKey(CallbackCloud1GetPublicKey aCallback, void* aPtr);
 private:
+    void DoGetChallengeResponse(IDviInvocation& aInvocation);
     void DoSetAssociated(IDviInvocation& aInvocation);
     void DoSetControlEnabled(IDviInvocation& aInvocation);
     void DoGetControlEnabled(IDviInvocation& aInvocation);
     void DoGetConnected(IDviInvocation& aInvocation);
     void DoGetPublicKey(IDviInvocation& aInvocation);
 private:
+    CallbackCloud1GetChallengeResponse iCallbackGetChallengeResponse;
+    void* iPtrGetChallengeResponse;
     CallbackCloud1SetAssociated iCallbackSetAssociated;
     void* iPtrSetAssociated;
     CallbackCloud1SetControlEnabled iCallbackSetControlEnabled;
@@ -146,12 +150,25 @@ void DvProviderLinnCoUkCloud1C::EnablePropertyPublicKey()
     iService->AddProperty(iPropertyPublicKey); // passes ownership
 }
 
+void DvProviderLinnCoUkCloud1C::EnableActionGetChallengeResponse(CallbackCloud1GetChallengeResponse aCallback, void* aPtr)
+{
+    iCallbackGetChallengeResponse = aCallback;
+    iPtrGetChallengeResponse = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetChallengeResponse");
+    action->AddInputParameter(new ParameterString("Challenge"));
+    action->AddOutputParameter(new ParameterString("Response"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1C::DoGetChallengeResponse);
+    iService->AddAction(action, functor);
+}
+
 void DvProviderLinnCoUkCloud1C::EnableActionSetAssociated(CallbackCloud1SetAssociated aCallback, void* aPtr)
 {
     iCallbackSetAssociated = aCallback;
     iPtrSetAssociated = aPtr;
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociated");
-    action->AddInputParameter(new ParameterBinary("TokenEncrypted"));
+    action->AddInputParameter(new ParameterBinary("AesKeyRsaEncrypted"));
+    action->AddInputParameter(new ParameterBinary("InitVectorRsaEncrypted"));
+    action->AddInputParameter(new ParameterBinary("TokenAesEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1C::DoSetAssociated);
     iService->AddAction(action, functor);
@@ -197,6 +214,32 @@ void DvProviderLinnCoUkCloud1C::EnableActionGetPublicKey(CallbackCloud1GetPublic
     iService->AddAction(action, functor);
 }
 
+void DvProviderLinnCoUkCloud1C::DoGetChallengeResponse(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    Brhz Challenge;
+    aInvocation.InvocationReadString("Challenge", Challenge);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    char* Response;
+    ASSERT(iCallbackGetChallengeResponse != NULL);
+    if (0 != iCallbackGetChallengeResponse(iPtrGetChallengeResponse, invocationC, invocationCPtr, (const char*)Challenge.Ptr(), &Response)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    DviInvocationResponseString respResponse(aInvocation, "Response");
+    invocation.StartResponse();
+    Brhz bufResponse((const TChar*)Response);
+    OhNetFreeExternal(Response);
+    respResponse.Write(bufResponse);
+    respResponse.WriteFlush();
+    invocation.EndResponse();
+}
+
 void DvProviderLinnCoUkCloud1C::DoSetAssociated(IDviInvocation& aInvocation)
 {
     DvInvocationCPrivate invocationWrapper(aInvocation);
@@ -204,13 +247,17 @@ void DvProviderLinnCoUkCloud1C::DoSetAssociated(IDviInvocation& aInvocation)
     void* invocationCPtr;
     invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
     aInvocation.InvocationReadStart();
-    Brh TokenEncrypted;
-    aInvocation.InvocationReadBinary("TokenEncrypted", TokenEncrypted);
+    Brh AesKeyRsaEncrypted;
+    aInvocation.InvocationReadBinary("AesKeyRsaEncrypted", AesKeyRsaEncrypted);
+    Brh InitVectorRsaEncrypted;
+    aInvocation.InvocationReadBinary("InitVectorRsaEncrypted", InitVectorRsaEncrypted);
+    Brh TokenAesEncrypted;
+    aInvocation.InvocationReadBinary("TokenAesEncrypted", TokenAesEncrypted);
     TBool Associated = aInvocation.InvocationReadBool("Associated");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackSetAssociated != NULL);
-    if (0 != iCallbackSetAssociated(iPtrSetAssociated, invocationC, invocationCPtr, (const char*)TokenEncrypted.Ptr(), TokenEncrypted.Bytes(), Associated)) {
+    if (0 != iCallbackSetAssociated(iPtrSetAssociated, invocationC, invocationCPtr, (const char*)AesKeyRsaEncrypted.Ptr(), AesKeyRsaEncrypted.Bytes(), (const char*)InitVectorRsaEncrypted.Ptr(), InitVectorRsaEncrypted.Bytes(), (const char*)TokenAesEncrypted.Ptr(), TokenAesEncrypted.Bytes(), Associated)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
@@ -313,6 +360,11 @@ THandle STDCALL DvProviderLinnCoUkCloud1Create(DvDeviceC aDevice)
 void STDCALL DvProviderLinnCoUkCloud1Destroy(THandle aProvider)
 {
     delete reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider);
+}
+
+void STDCALL DvProviderLinnCoUkCloud1EnableActionGetChallengeResponse(THandle aProvider, CallbackCloud1GetChallengeResponse aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->EnableActionGetChallengeResponse(aCallback, aPtr);
 }
 
 void STDCALL DvProviderLinnCoUkCloud1EnableActionSetAssociated(THandle aProvider, CallbackCloud1SetAssociated aCallback, void* aPtr)

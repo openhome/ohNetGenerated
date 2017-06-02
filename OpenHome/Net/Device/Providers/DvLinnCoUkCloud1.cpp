@@ -107,10 +107,21 @@ void DvProviderLinnCoUkCloud1::EnablePropertyPublicKey()
     iService->AddProperty(iPropertyPublicKey); // passes ownership
 }
 
+void DvProviderLinnCoUkCloud1::EnableActionGetChallengeResponse()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetChallengeResponse");
+    action->AddInputParameter(new ParameterString("Challenge"));
+    action->AddOutputParameter(new ParameterString("Response"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoGetChallengeResponse);
+    iService->AddAction(action, functor);
+}
+
 void DvProviderLinnCoUkCloud1::EnableActionSetAssociated()
 {
     OpenHome::Net::Action* action = new OpenHome::Net::Action("SetAssociated");
-    action->AddInputParameter(new ParameterBinary("TokenEncrypted"));
+    action->AddInputParameter(new ParameterBinary("AesKeyRsaEncrypted"));
+    action->AddInputParameter(new ParameterBinary("InitVectorRsaEncrypted"));
+    action->AddInputParameter(new ParameterBinary("TokenAesEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoSetAssociated);
     iService->AddAction(action, functor);
@@ -148,15 +159,30 @@ void DvProviderLinnCoUkCloud1::EnableActionGetPublicKey()
     iService->AddAction(action, functor);
 }
 
+void DvProviderLinnCoUkCloud1::DoGetChallengeResponse(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz Challenge;
+    aInvocation.InvocationReadString("Challenge", Challenge);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    DviInvocationResponseString respResponse(aInvocation, "Response");
+    GetChallengeResponse(invocation, Challenge, respResponse);
+}
+
 void DvProviderLinnCoUkCloud1::DoSetAssociated(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
-    Brh TokenEncrypted;
-    aInvocation.InvocationReadBinary("TokenEncrypted", TokenEncrypted);
+    Brh AesKeyRsaEncrypted;
+    aInvocation.InvocationReadBinary("AesKeyRsaEncrypted", AesKeyRsaEncrypted);
+    Brh InitVectorRsaEncrypted;
+    aInvocation.InvocationReadBinary("InitVectorRsaEncrypted", InitVectorRsaEncrypted);
+    Brh TokenAesEncrypted;
+    aInvocation.InvocationReadBinary("TokenAesEncrypted", TokenAesEncrypted);
     TBool Associated = aInvocation.InvocationReadBool("Associated");
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    SetAssociated(invocation, TokenEncrypted, Associated);
+    SetAssociated(invocation, AesKeyRsaEncrypted, InitVectorRsaEncrypted, TokenAesEncrypted, Associated);
 }
 
 void DvProviderLinnCoUkCloud1::DoSetControlEnabled(IDviInvocation& aInvocation)
@@ -195,7 +221,12 @@ void DvProviderLinnCoUkCloud1::DoGetPublicKey(IDviInvocation& aInvocation)
     GetPublicKey(invocation, respPublicKey);
 }
 
-void DvProviderLinnCoUkCloud1::SetAssociated(IDvInvocation& /*aResponse*/, const Brx& /*aTokenEncrypted*/, TBool /*aAssociated*/)
+void DvProviderLinnCoUkCloud1::GetChallengeResponse(IDvInvocation& /*aResponse*/, const Brx& /*aChallenge*/, IDvInvocationResponseString& /*aResponse*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkCloud1::SetAssociated(IDvInvocation& /*aResponse*/, const Brx& /*aAesKeyRsaEncrypted*/, const Brx& /*aInitVectorRsaEncrypted*/, const Brx& /*aTokenAesEncrypted*/, TBool /*aAssociated*/)
 {
     ASSERTS();
 }
