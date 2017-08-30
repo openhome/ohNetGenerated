@@ -69,12 +69,16 @@ class JenkinsBuild():
     def set_platform_args(self):
         os_platform = self.platform['os']
         arch = self.platform['arch']
+        system = self.platform['system']
         args=[]
 
-        if os_platform == 'windows' and arch == 'x86':
+        if system == 'Windows10':
+            args.append('C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat')
+            args.append('x86')
+        elif os_platform == 'windows' and arch == 'x86':
             args.append('C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\VC\\Auxiliary\\Build\\vcvarsall.bat')
             args.append('x86')
-        if os_platform == 'windows' and arch == 'x64':
+        elif os_platform == 'windows' and arch == 'x64':
             args.append('C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\VC\\Auxiliary\\Build\\vcvarsall.bat')
             args.append('amd64')
             os.environ['CS_PLATFORM'] = 'x64'
