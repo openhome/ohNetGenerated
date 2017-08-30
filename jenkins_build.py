@@ -47,7 +47,7 @@ class JenkinsBuild():
                 'Linux-ppc32': { 'os':'linux', 'arch':'ppc32', 'publish':True, 'system':'Linux', 'make_target':''},
                 'Windows-x86': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows', 'make_target':''},
                 'Windows-x64': { 'os': 'windows', 'arch':'x64', 'publish':True, 'system':'Windows', 'make_target':''},
-                'Windows10-anycpu': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows10', 'make_target':''},
+                'Windows10-x86': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows10', 'make_target':''},
                 'Macos-x64': { 'os': 'macos', 'arch':'x86', 'publish':False, 'system':'Mac', 'make_target':''}, # Old Jenkins label
                 'Mac-x64': { 'os': 'macos', 'arch':'x64', 'publish':True, 'system':'Mac', 'make_target':'mac-64=1'}, # New Jenkins label, matches downstream builds
                 'Mac-x86': { 'os': 'macos', 'arch':'x86', 'publish':True, 'system':'Mac', 'make_target':''}, # New Jenkins label, matches downstream builds
