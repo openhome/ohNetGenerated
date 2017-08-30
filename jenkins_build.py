@@ -15,7 +15,7 @@ class JenkinsBuild():
 
         parser = OptionParser()
         parser.add_option("-p", "--platform", dest="platform",
-            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Linux-ARM, Linux-armhf, Linux-ppc32, Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-arm64, iOs-x86, Qnap-x86")
+            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Windows10-anycpu, Linux-ARM, Linux-armhf, Linux-ppc32, Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-arm64, iOs-x86, Qnap-x86")
         parser.add_option("-r", "--publish",
           action="store_true", dest="release", default=False,
           help="publish release")
@@ -47,6 +47,7 @@ class JenkinsBuild():
                 'Linux-ppc32': { 'os':'linux', 'arch':'ppc32', 'publish':True, 'system':'Linux', 'make_target':''},
                 'Windows-x86': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows', 'make_target':''},
                 'Windows-x64': { 'os': 'windows', 'arch':'x64', 'publish':True, 'system':'Windows', 'make_target':''},
+                'Windows10-anycpu': { 'os': 'windows', 'arch':'x86', 'publish':True, 'system':'Windows10', 'make_target':''},
                 'Macos-x64': { 'os': 'macos', 'arch':'x86', 'publish':False, 'system':'Mac', 'make_target':''}, # Old Jenkins label
                 'Mac-x64': { 'os': 'macos', 'arch':'x64', 'publish':True, 'system':'Mac', 'make_target':'mac-64=1'}, # New Jenkins label, matches downstream builds
                 'Mac-x86': { 'os': 'macos', 'arch':'x86', 'publish':True, 'system':'Mac', 'make_target':''}, # New Jenkins label, matches downstream builds
@@ -98,6 +99,8 @@ class JenkinsBuild():
             args.append('Qnap-anycpu=1')
         if (arch == 'x64' and not os_platform in ['windows', 'linux', 'macos']):
             args.append('native_only=yes')
+        if self.platform['system'] == 'Windows10':
+            args.append('windows_store_10=1')
         self.make_args = args
 
     def do_build(self, debug):
