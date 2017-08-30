@@ -17,6 +17,9 @@ openhome_architecture=x86
 !endif
 
 depsPlatform = Windows-$(openhome_architecture)
+!if "$(windows_store_10)"=="1"
+depsPlatform = Windows10-$(openhome_architecture)
+!endif
 
 csharp_pcl_profile = PCLProfileNone
 !if "$(windows_store_10)"=="1"
