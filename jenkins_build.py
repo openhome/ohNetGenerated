@@ -133,15 +133,19 @@ class JenkinsBuild():
             args.extend(platform_args)
             args.append('&&')
         args.append('make')
-        args.append('all')
-        if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
-            args.append('JavaAll')
-        elif os_platform in ['iOs', 'macos', 'Android']:
-            make_target = self.platform['make_target']
-            if len(make_target) > 0:
-                args.append(make_target)
-            if os_platform == 'Android':
+        if self.platform['system'] == 'Windows10':
+            args.append('CpProxyDotNetAssemblies')
+            args.append('DvDeviceDotNetAssemblies')
+        else
+            args.append('all')
+            if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
                 args.append('JavaAll')
+            elif os_platform in ['iOs', 'macos', 'Android']:
+                make_target = self.platform['make_target']
+                if len(make_target) > 0:
+                    args.append(make_target)
+                if os_platform == 'Android':
+                    args.append('JavaAll')
         args.extend(self.make_args)
         if debug:
             args.append('debug=1')
