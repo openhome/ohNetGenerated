@@ -136,7 +136,7 @@ class JenkinsBuild():
         if self.platform['system'] == 'Windows10':
             args.append('CpProxyDotNetAssemblies')
             args.append('DvDeviceDotNetAssemblies')
-        else
+        else:
             args.append('all')
             if (os_platform == 'linux' or os_platform == 'windows') and arch == 'x86':
                 args.append('JavaAll')
