@@ -74,7 +74,8 @@ class JenkinsBuild():
 
         if system == 'Windows10':
             args.append('C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat')
-            args.append('x86')
+            args.append('amd64_x86')
+            args.append('store')
         elif os_platform == 'windows' and arch == 'x86':
             args.append('C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\VC\\Auxiliary\\Build\\vcvarsall.bat')
             args.append('x86')
