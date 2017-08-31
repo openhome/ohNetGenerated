@@ -39,6 +39,9 @@ ALL_TARGETS = {
         BuildTarget("Windows", "x86",   "Release"): BuildInfo(builddir="Build/Obj/Windows/Release"),
         BuildTarget("Windows", "x64",   "Release"): BuildInfo(builddir="Build/Obj/Windows/Release"),
 
+        BuildTarget("Windows10", "x86",   "Debug"): BuildInfo(builddir="Build/Obj/Windows/Release"),
+        BuildTarget("Windows10", "x86",   "Release"): BuildInfo(builddir="Build/Obj/Windows/Release"),
+
         BuildTarget("Linux",   "x86",   "Debug"):   BuildInfo(builddir="Build/Obj/Posix/Debug"),
         BuildTarget("Linux",   "x64",   "Debug"):   BuildInfo(builddir="Build/Obj/Posix/Debug"),
         BuildTarget("Linux",   "armel", "Debug"):   BuildInfo(builddir="Build/Obj/Posix/Debug"),
@@ -142,7 +145,7 @@ def main():
 
     tf = tarfile.open(bundle_path, 'w:gz')
 
-    if options.managed_only:
+    if options.managed_only or options.system == 'Windows10':
         recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_managed)
     else:
         recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_binary)
