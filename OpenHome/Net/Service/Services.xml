@@ -293,4 +293,25 @@
     <type>Cloud</type>
     <version>1</version>
   </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>Configuration</type>
+    <version>1</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>LipSync</type>
+    <version>1</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>Exakt</type>
+    <version>1</version>
+  </service>
 </servicelist>

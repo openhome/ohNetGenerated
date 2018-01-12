@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+
+    <actionList>
+
+        <action>
+            <name>DeviceList</name>
+            <argumentList>
+                <argument>
+                    <name>List</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>DeviceList</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>DeviceSettings</name>
+            <argumentList>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Settings</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SettingsAvailable</name>
+            <argumentList>
+                <argument>
+                    <name>SettingsAvailable</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>SettingsAvailable</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SettingsChangedCount</name>
+            <argumentList>
+                <argument>
+                    <name>SettingsChangedCount</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>SettingsChangedCount</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>Update</name>
+            <argumentList>
+                <argument>
+                    <name>ManifestUri</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uri</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>UpdateBlocking</name>
+            <argumentList>
+                <argument>
+                    <name>ManifestUri</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uri</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetUpdateStatus</name>
+            <argumentList>
+                <argument>
+                    <name>UpdateStatus</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>UpdateStatus</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>UpdateTotalPercentage</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>UpdateTotalPercentage</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>UpdateTotalJobs</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>UpdateTotalJobs</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>UpdateJob</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>UpdateJob</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>UpdateJobPercentage</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>UpdateJobPercentage</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>UpdateJobDescription</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>UpdateJobDescription</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>ChannelMap</name>
+            <argumentList>
+                <argument>
+                    <name>ChannelMap</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>ChannelMap</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SetChannelMap</name>
+            <argumentList>
+                <argument>
+                    <name>ChannelMap</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>ChannelMap</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>AudioChannels</name>
+            <argumentList>
+                <argument>
+                    <name>AudioChannels</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>AudioChannels</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SetAudioChannels</name>
+            <argumentList>
+                <argument>
+                    <name>AudioChannels</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>AudioChannels</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>Version</name>
+            <argumentList>
+                <argument>
+                    <name>Version</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>Version</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <!--
+        <action>
+            <name>GetFeed</name>
+            <argumentList>
+                <argument>
+                    <name>Feed</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>Feed</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SetFeed</name>
+            <argumentList>
+                <argument>
+                    <name>Feed</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>Feed</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetAutoUpdate</name>
+            <argumentList>
+                <argument>
+                    <name>AutoUpdate</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>AutoUpdate</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>SetAutoUpdate</name>
+            <argumentList>
+                <argument>
+                    <name>AutoUpdate</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>AutoUpdate</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>ApplyUpdate</name>
+        </action>
+        -->
+
+    </actionList>
+
+    <serviceStateTable>
+        <stateVariable sendEvents="yes">
+            <name>DeviceList</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>SettingsAvailable</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>SettingsChangedCount</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>UpdateStatus</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>UpdateTotalPercentage</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>UpdateTotalJobs</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>UpdateJob</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>UpdateJobPercentage</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>UpdateJobDescription</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>ChannelMap</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>AudioChannels</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>Version</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <!-->
+        <stateVariable sendEvents="yes">
+            <name>Feed</name>
+            <dataType>uri</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>AutoUpdate</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+        -->
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_String</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_Uint</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_Bool</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_Uri</name>
+            <dataType>uri</dataType>
+        </stateVariable>
+    </serviceStateTable>
+
+</scpd>
