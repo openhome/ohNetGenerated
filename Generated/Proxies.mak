@@ -97,6 +97,9 @@ objects_proxies = \
                   $(objdir)CpAvOpenhomeOrgDebug1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgDebug1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgDebug1Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgPins1.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgPins1C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgPins1Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgPlaylistManager1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgPlaylistManager1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgPlaylistManager1Std.$(objext) \
@@ -185,6 +188,7 @@ proxy_dotnet_assemblies = \
         CpAvOpenhomeOrgSender1.net.dll \
         CpAvOpenhomeOrgSender2.net.dll \
         CpAvOpenhomeOrgDebug1.net.dll \
+        CpAvOpenhomeOrgPins1.net.dll \
         CpAvOpenhomeOrgPlaylistManager1.net.dll \
         CpAvOpenhomeOrgMediaServer1.net.dll \
         CpAvOpenhomeOrgNetworkMonitor1.net.dll \
@@ -232,6 +236,7 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpAvOpenhomeOrgSender1.net.dll \
         $(objdir)CpAvOpenhomeOrgSender2.net.dll \
         $(objdir)CpAvOpenhomeOrgDebug1.net.dll \
+        $(objdir)CpAvOpenhomeOrgPins1.net.dll \
         $(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
         $(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
         $(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
@@ -279,6 +284,7 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender2.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPins1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylistManager1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgMediaServer1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgNetworkMonitor1.class \
@@ -483,6 +489,12 @@ $(objdir)CpAvOpenhomeOrgDebug1C.$(objext) : $(proxyC)CpAvOpenhomeOrgDebug1C.cpp 
 	$(compiler)CpAvOpenhomeOrgDebug1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgDebug1C.cpp
 $(objdir)CpAvOpenhomeOrgDebug1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgDebug1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgDebug1.h
 	$(compiler)CpAvOpenhomeOrgDebug1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgDebug1Std.cpp
+$(objdir)CpAvOpenhomeOrgPins1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgPins1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgPins1.h
+	$(compiler)CpAvOpenhomeOrgPins1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgPins1.cpp
+$(objdir)CpAvOpenhomeOrgPins1C.$(objext) : $(proxyC)CpAvOpenhomeOrgPins1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgPins1.h
+	$(compiler)CpAvOpenhomeOrgPins1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgPins1C.cpp
+$(objdir)CpAvOpenhomeOrgPins1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgPins1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgPins1.h
+	$(compiler)CpAvOpenhomeOrgPins1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgPins1Std.cpp
 $(objdir)CpAvOpenhomeOrgPlaylistManager1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgPlaylistManager1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgPlaylistManager1.h
 	$(compiler)CpAvOpenhomeOrgPlaylistManager1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgPlaylistManager1.cpp
 $(objdir)CpAvOpenhomeOrgPlaylistManager1C.$(objext) : $(proxyC)CpAvOpenhomeOrgPlaylistManager1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgPlaylistManager1.h
@@ -727,6 +739,11 @@ $(objdir)CpAvOpenhomeOrgDebug1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvO
         /out:$(objdir)CpAvOpenhomeOrgDebug1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgDebug1.cs
+$(objdir)CpAvOpenhomeOrgPins1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPins1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgPins1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgPins1.cs
 $(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
@@ -864,6 +881,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender2.class
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgSender2.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgDebug1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgDebug1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPins1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgPins1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgPins1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylistManager1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgPlaylistManager1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgPlaylistManager1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgMediaServer1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgMediaServer1.java
