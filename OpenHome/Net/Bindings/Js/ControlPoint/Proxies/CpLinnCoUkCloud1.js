@@ -19,7 +19,6 @@ var CpProxyLinnCoUkCloud1 = function(udn){
     // Collection of service properties
     this.serviceProperties = {};
     this.serviceProperties["AssociationStatus"] = new ohnet.serviceproperty("AssociationStatus","string");
-    this.serviceProperties["ControlEnabled"] = new ohnet.serviceproperty("ControlEnabled","bool");
     this.serviceProperties["Connected"] = new ohnet.serviceproperty("Connected","bool");
     this.serviceProperties["PublicKey"] = new ohnet.serviceproperty("PublicKey","string");
 
@@ -28,7 +27,7 @@ var CpProxyLinnCoUkCloud1 = function(udn){
     this.AssociationStatusAllowedValues.push("Associated");
     this.AssociationStatusAllowedValues.push("NotAssociated");
     this.AssociationStatusAllowedValues.push("Unconfigured");
-                  
+            
 }
 
 
@@ -63,19 +62,6 @@ CpProxyLinnCoUkCloud1.prototype.AssociationStatus_Changed = function (stateChang
     this.serviceProperties.AssociationStatus.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
-    });
-}
-    
-
-/**
-* Adds a listener to handle "ControlEnabled" property change events
-* @method ControlEnabled_Changed
-* @param {Function} stateChangedFunction The handler for state changes
-*/
-CpProxyLinnCoUkCloud1.prototype.ControlEnabled_Changed = function (stateChangedFunction) {
-    this.serviceProperties.ControlEnabled.addListener(function (state) 
-    { 
-        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
     });
 }
     
@@ -145,47 +131,6 @@ CpProxyLinnCoUkCloud1.prototype.SetAssociated = function(AesKeyRsaEncrypted, Ini
     request.writeBinaryParameter("TokenAesEncrypted", TokenAesEncrypted);
     request.writeBoolParameter("Associated", Associated);
     request.send(function(result){
-    
-        if (successFunction){
-            successFunction(result);
-        }
-    }, function(message, transport) {
-        if (errorFunction) {errorFunction(message, transport);}
-    });
-}
-
-
-/**
-* A service action to SetControlEnabled
-* @method SetControlEnabled
-* @param {Boolean} Enabled An action parameter
-* @param {Function} successFunction The function that is executed when the action has completed successfully
-* @param {Function} errorFunction The function that is executed when the action has cause an error
-*/
-CpProxyLinnCoUkCloud1.prototype.SetControlEnabled = function(Enabled, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("SetControlEnabled", this.url, this.domain, this.type, this.version);     
-    request.writeBoolParameter("Enabled", Enabled);
-    request.send(function(result){
-    
-        if (successFunction){
-            successFunction(result);
-        }
-    }, function(message, transport) {
-        if (errorFunction) {errorFunction(message, transport);}
-    });
-}
-
-
-/**
-* A service action to GetControlEnabled
-* @method GetControlEnabled
-* @param {Function} successFunction The function that is executed when the action has completed successfully
-* @param {Function} errorFunction The function that is executed when the action has cause an error
-*/
-CpProxyLinnCoUkCloud1.prototype.GetControlEnabled = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("GetControlEnabled", this.url, this.domain, this.type, this.version);     
-    request.send(function(result){
-        result["Enabled"] = ohnet.soaprequest.readBoolParameter(result["Enabled"]); 
     
         if (successFunction){
             successFunction(result);

@@ -16,12 +16,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, bool aAssociated);
         void BeginSetAssociated(byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, bool aAssociated, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetAssociated(IntPtr aAsyncHandle);
-        void SyncSetControlEnabled(bool aEnabled);
-        void BeginSetControlEnabled(bool aEnabled, CpProxy.CallbackAsyncComplete aCallback);
-        void EndSetControlEnabled(IntPtr aAsyncHandle);
-        void SyncGetControlEnabled(out bool aEnabled);
-        void BeginGetControlEnabled(CpProxy.CallbackAsyncComplete aCallback);
-        void EndGetControlEnabled(IntPtr aAsyncHandle, out bool aEnabled);
         void SyncGetConnected(out bool aConnected);
         void BeginGetConnected(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetConnected(IntPtr aAsyncHandle, out bool aConnected);
@@ -30,8 +24,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void EndGetPublicKey(IntPtr aAsyncHandle, out String aPublicKey);
         void SetPropertyAssociationStatusChanged(System.Action aAssociationStatusChanged);
         String PropertyAssociationStatus();
-        void SetPropertyControlEnabledChanged(System.Action aControlEnabledChanged);
-        bool PropertyControlEnabled();
         void SetPropertyConnectedChanged(System.Action aConnectedChanged);
         bool PropertyConnected();
         void SetPropertyPublicKeyChanged(System.Action aPublicKeyChanged);
@@ -68,39 +60,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
             iService.EndSetAssociated(aAsyncHandle);
-        }
-    };
-
-    internal class SyncSetControlEnabledLinnCoUkCloud1 : SyncProxyAction
-    {
-        private CpProxyLinnCoUkCloud1 iService;
-
-        public SyncSetControlEnabledLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
-        {
-            iService = aProxy;
-        }
-        protected override void CompleteRequest(IntPtr aAsyncHandle)
-        {
-            iService.EndSetControlEnabled(aAsyncHandle);
-        }
-    };
-
-    internal class SyncGetControlEnabledLinnCoUkCloud1 : SyncProxyAction
-    {
-        private CpProxyLinnCoUkCloud1 iService;
-        private bool iEnabled;
-
-        public SyncGetControlEnabledLinnCoUkCloud1(CpProxyLinnCoUkCloud1 aProxy)
-        {
-            iService = aProxy;
-        }
-        public bool Enabled()
-        {
-            return iEnabled;
-        }
-        protected override void CompleteRequest(IntPtr aAsyncHandle)
-        {
-            iService.EndGetControlEnabled(aAsyncHandle, out iEnabled);
         }
     };
 
@@ -149,16 +108,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
     {
         private OpenHome.Net.Core.Action iActionGetChallengeResponse;
         private OpenHome.Net.Core.Action iActionSetAssociated;
-        private OpenHome.Net.Core.Action iActionSetControlEnabled;
-        private OpenHome.Net.Core.Action iActionGetControlEnabled;
         private OpenHome.Net.Core.Action iActionGetConnected;
         private OpenHome.Net.Core.Action iActionGetPublicKey;
         private PropertyString iAssociationStatus;
-        private PropertyBool iControlEnabled;
         private PropertyBool iConnected;
         private PropertyString iPublicKey;
         private System.Action iAssociationStatusChanged;
-        private System.Action iControlEnabledChanged;
         private System.Action iConnectedChanged;
         private System.Action iPublicKeyChanged;
         private Mutex iPropertyLock;
@@ -190,14 +145,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterBool("Associated");
             iActionSetAssociated.AddInputParameter(param);
 
-            iActionSetControlEnabled = new OpenHome.Net.Core.Action("SetControlEnabled");
-            param = new ParameterBool("Enabled");
-            iActionSetControlEnabled.AddInputParameter(param);
-
-            iActionGetControlEnabled = new OpenHome.Net.Core.Action("GetControlEnabled");
-            param = new ParameterBool("Enabled");
-            iActionGetControlEnabled.AddOutputParameter(param);
-
             iActionGetConnected = new OpenHome.Net.Core.Action("GetConnected");
             param = new ParameterBool("Connected");
             iActionGetConnected.AddOutputParameter(param);
@@ -208,8 +155,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
 
             iAssociationStatus = new PropertyString("AssociationStatus", AssociationStatusPropertyChanged);
             AddProperty(iAssociationStatus);
-            iControlEnabled = new PropertyBool("ControlEnabled", ControlEnabledPropertyChanged);
-            AddProperty(iControlEnabled);
             iConnected = new PropertyBool("Connected", ConnectedPropertyChanged);
             AddProperty(iConnected);
             iPublicKey = new PropertyString("PublicKey", PublicKeyPropertyChanged);
@@ -324,101 +269,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
             {
                 throw new ProxyError(code, desc);
             }
-        }
-
-        /// <summary>
-        /// Invoke the action synchronously
-        /// </summary>
-        /// <remarks>Blocks until the action has been processed
-        /// on the device and sets any output arguments</remarks>
-        /// <param name="aEnabled"></param>
-        public void SyncSetControlEnabled(bool aEnabled)
-        {
-            SyncSetControlEnabledLinnCoUkCloud1 sync = new SyncSetControlEnabledLinnCoUkCloud1(this);
-            BeginSetControlEnabled(aEnabled, sync.AsyncComplete());
-            sync.Wait();
-            sync.ReportError();
-        }
-
-        /// <summary>
-        /// Invoke the action asynchronously
-        /// </summary>
-        /// <remarks>Returns immediately and will run the client-specified callback when the action
-        /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndSetControlEnabled().</remarks>
-        /// <param name="aEnabled"></param>
-        /// <param name="aCallback">Delegate to run when the action completes.
-        /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetControlEnabled(bool aEnabled, CallbackAsyncComplete aCallback)
-        {
-            Invocation invocation = iService.Invocation(iActionSetControlEnabled, aCallback);
-            int inIndex = 0;
-            invocation.AddInput(new ArgumentBool((ParameterBool)iActionSetControlEnabled.InputParameter(inIndex++), aEnabled));
-            iService.InvokeAction(invocation);
-        }
-
-        /// <summary>
-        /// Retrieve the output arguments from an asynchronously invoked action.
-        /// </summary>
-        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
-        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        public void EndSetControlEnabled(IntPtr aAsyncHandle)
-        {
-            uint code;
-            string desc;
-            if (Invocation.Error(aAsyncHandle, out code, out desc))
-            {
-                throw new ProxyError(code, desc);
-            }
-        }
-
-        /// <summary>
-        /// Invoke the action synchronously
-        /// </summary>
-        /// <remarks>Blocks until the action has been processed
-        /// on the device and sets any output arguments</remarks>
-        /// <param name="aEnabled"></param>
-        public void SyncGetControlEnabled(out bool aEnabled)
-        {
-            SyncGetControlEnabledLinnCoUkCloud1 sync = new SyncGetControlEnabledLinnCoUkCloud1(this);
-            BeginGetControlEnabled(sync.AsyncComplete());
-            sync.Wait();
-            sync.ReportError();
-            aEnabled = sync.Enabled();
-        }
-
-        /// <summary>
-        /// Invoke the action asynchronously
-        /// </summary>
-        /// <remarks>Returns immediately and will run the client-specified callback when the action
-        /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndGetControlEnabled().</remarks>
-        /// <param name="aCallback">Delegate to run when the action completes.
-        /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginGetControlEnabled(CallbackAsyncComplete aCallback)
-        {
-            Invocation invocation = iService.Invocation(iActionGetControlEnabled, aCallback);
-            int outIndex = 0;
-            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionGetControlEnabled.OutputParameter(outIndex++)));
-            iService.InvokeAction(invocation);
-        }
-
-        /// <summary>
-        /// Retrieve the output arguments from an asynchronously invoked action.
-        /// </summary>
-        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
-        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        /// <param name="aEnabled"></param>
-        public void EndGetControlEnabled(IntPtr aAsyncHandle, out bool aEnabled)
-        {
-            uint code;
-            string desc;
-            if (Invocation.Error(aAsyncHandle, out code, out desc))
-            {
-                throw new ProxyError(code, desc);
-            }
-            uint index = 0;
-            aEnabled = Invocation.OutputBool(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -542,28 +392,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Set a delegate to be run when the ControlEnabled state variable changes.
-        /// </summary>
-        /// <remarks>Callbacks may be run in different threads but callbacks for a
-        /// CpProxyLinnCoUkCloud1 instance will not overlap.</remarks>
-        /// <param name="aControlEnabledChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyControlEnabledChanged(System.Action aControlEnabledChanged)
-        {
-            lock (iPropertyLock)
-            {
-                iControlEnabledChanged = aControlEnabledChanged;
-            }
-        }
-
-        private void ControlEnabledPropertyChanged()
-        {
-            lock (iPropertyLock)
-            {
-                ReportEvent(iControlEnabledChanged);
-            }
-        }
-
-        /// <summary>
         /// Set a delegate to be run when the Connected state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
@@ -630,28 +458,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the ControlEnabled property.
-        /// </summary>
-        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
-        /// called and a first eventing callback received more recently than any call
-        /// to Unsubscribe().</remarks>
-        /// <returns>Value of the ControlEnabled property</returns>
-        public bool PropertyControlEnabled()
-        {
-            PropertyReadLock();
-            bool val;
-            try
-            {
-                val = iControlEnabled.Value();
-            }
-            finally
-            {
-                PropertyReadUnlock();
-            }
-            return val;
-        }
-
-        /// <summary>
         /// Query the value of the Connected property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
@@ -709,12 +515,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             iActionGetChallengeResponse.Dispose();
             iActionSetAssociated.Dispose();
-            iActionSetControlEnabled.Dispose();
-            iActionGetControlEnabled.Dispose();
             iActionGetConnected.Dispose();
             iActionGetPublicKey.Dispose();
             iAssociationStatus.Dispose();
-            iControlEnabled.Dispose();
             iConnected.Dispose();
             iPublicKey.Dispose();
         }

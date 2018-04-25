@@ -40,20 +40,6 @@ public:
      */
     void GetPropertyAssociationStatus(Brhz& aValue);
     /**
-     * Set the value of the ControlEnabled property
-     *
-     * Can only be called if EnablePropertyControlEnabled has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    TBool SetPropertyControlEnabled(TBool aValue);
-    /**
-     * Get a copy of the value of the ControlEnabled property
-     *
-     * Can only be called if EnablePropertyControlEnabled has previously been called.
-     */
-    void GetPropertyControlEnabled(TBool& aValue);
-    /**
      * Set the value of the Connected property
      *
      * Can only be called if EnablePropertyConnected has previously been called.
@@ -99,10 +85,6 @@ protected:
      */
     void EnablePropertyAssociationStatus();
     /**
-     * Enable the ControlEnabled property.
-     */
-    void EnablePropertyControlEnabled();
-    /**
      * Enable the Connected property.
      */
     void EnablePropertyConnected();
@@ -122,18 +104,6 @@ protected:
      * SetAssociated must be overridden if this is called.
      */
     void EnableActionSetAssociated();
-    /**
-     * Signal that the action SetControlEnabled is supported.
-     * The action's availability will be published in the device's service.xml.
-     * SetControlEnabled must be overridden if this is called.
-     */
-    void EnableActionSetControlEnabled();
-    /**
-     * Signal that the action GetControlEnabled is supported.
-     * The action's availability will be published in the device's service.xml.
-     * GetControlEnabled must be overridden if this is called.
-     */
-    void EnableActionGetControlEnabled();
     /**
      * Signal that the action GetConnected is supported.
      * The action's availability will be published in the device's service.xml.
@@ -164,22 +134,6 @@ private:
      */
     virtual void SetAssociated(IDvInvocation& aInvocation, const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated);
     /**
-     * SetControlEnabled action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * SetControlEnabled action for the owning device.
-     * Must be implemented iff EnableActionSetControlEnabled was called.
-     */
-    virtual void SetControlEnabled(IDvInvocation& aInvocation, TBool aEnabled);
-    /**
-     * GetControlEnabled action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * GetControlEnabled action for the owning device.
-     * Must be implemented iff EnableActionGetControlEnabled was called.
-     */
-    virtual void GetControlEnabled(IDvInvocation& aInvocation, IDvInvocationResponseBool& aEnabled);
-    /**
      * GetConnected action.
      *
      * Will be called when the device stack receives an invocation of the
@@ -200,13 +154,10 @@ private:
     void Construct();
     void DoGetChallengeResponse(IDviInvocation& aInvocation);
     void DoSetAssociated(IDviInvocation& aInvocation);
-    void DoSetControlEnabled(IDviInvocation& aInvocation);
-    void DoGetControlEnabled(IDviInvocation& aInvocation);
     void DoGetConnected(IDviInvocation& aInvocation);
     void DoGetPublicKey(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyAssociationStatus;
-    PropertyBool* iPropertyControlEnabled;
     PropertyBool* iPropertyConnected;
     PropertyString* iPropertyPublicKey;
 };

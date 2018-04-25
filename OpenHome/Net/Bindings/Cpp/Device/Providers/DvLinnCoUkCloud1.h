@@ -42,20 +42,6 @@ public:
      */
     void GetPropertyAssociationStatus(std::string& aValue);
     /**
-     * Set the value of the ControlEnabled property
-     *
-     * Can only be called if EnablePropertyControlEnabled has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    bool SetPropertyControlEnabled(bool aValue);
-    /**
-     * Get a copy of the value of the ControlEnabled property
-     *
-     * Can only be called if EnablePropertyControlEnabled has previously been called.
-     */
-    void GetPropertyControlEnabled(bool& aValue);
-    /**
      * Set the value of the Connected property
      *
      * Can only be called if EnablePropertyConnected has previously been called.
@@ -95,10 +81,6 @@ protected:
      */
     void EnablePropertyAssociationStatus();
     /**
-     * Enable the ControlEnabled property.
-     */
-    void EnablePropertyControlEnabled();
-    /**
      * Enable the Connected property.
      */
     void EnablePropertyConnected();
@@ -118,18 +100,6 @@ protected:
      * SetAssociated must be overridden if this is called.
      */
     void EnableActionSetAssociated();
-    /**
-     * Signal that the action SetControlEnabled is supported.
-     * The action's availability will be published in the device's service.xml.
-     * SetControlEnabled must be overridden if this is called.
-     */
-    void EnableActionSetControlEnabled();
-    /**
-     * Signal that the action GetControlEnabled is supported.
-     * The action's availability will be published in the device's service.xml.
-     * GetControlEnabled must be overridden if this is called.
-     */
-    void EnableActionGetControlEnabled();
     /**
      * Signal that the action GetConnected is supported.
      * The action's availability will be published in the device's service.xml.
@@ -160,22 +130,6 @@ private:
      */
     virtual void SetAssociated(IDvInvocationStd& aInvocation, const std::string& aAesKeyRsaEncrypted, const std::string& aInitVectorRsaEncrypted, const std::string& aTokenAesEncrypted, bool aAssociated);
     /**
-     * SetControlEnabled action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * SetControlEnabled action for the owning device.
-     * Must be implemented iff EnableActionSetControlEnabled was called.
-     */
-    virtual void SetControlEnabled(IDvInvocationStd& aInvocation, bool aEnabled);
-    /**
-     * GetControlEnabled action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * GetControlEnabled action for the owning device.
-     * Must be implemented iff EnableActionGetControlEnabled was called.
-     */
-    virtual void GetControlEnabled(IDvInvocationStd& aInvocation, bool& aEnabled);
-    /**
      * GetConnected action.
      *
      * Will be called when the device stack receives an invocation of the
@@ -195,13 +149,10 @@ private:
     DvProviderLinnCoUkCloud1Cpp();
     void DoGetChallengeResponse(IDviInvocation& aInvocation);
     void DoSetAssociated(IDviInvocation& aInvocation);
-    void DoSetControlEnabled(IDviInvocation& aInvocation);
-    void DoGetControlEnabled(IDviInvocation& aInvocation);
     void DoGetConnected(IDviInvocation& aInvocation);
     void DoGetPublicKey(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyAssociationStatus;
-    PropertyBool* iPropertyControlEnabled;
     PropertyBool* iPropertyConnected;
     PropertyString* iPropertyPublicKey;
 };

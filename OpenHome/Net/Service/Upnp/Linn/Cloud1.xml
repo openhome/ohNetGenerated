@@ -46,26 +46,6 @@
       </argumentList>
     </action>
     <action>
-      <name>SetControlEnabled</name>
-      <argumentList>
-        <argument>
-          <name>Enabled</name>
-          <direction>in</direction>
-          <relatedStateVariable>ControlEnabled</relatedStateVariable>
-        </argument>
-      </argumentList>
-    </action>
-    <action>
-      <name>GetControlEnabled</name>
-      <argumentList>
-        <argument>
-          <name>Enabled</name>
-          <direction>out</direction>
-          <relatedStateVariable>ControlEnabled</relatedStateVariable>
-        </argument>
-      </argumentList>
-    </action>
-    <action>
       <name>GetConnected</name>
       <argumentList>
         <argument>
@@ -95,10 +75,6 @@
         <allowedValue>NotAssociated</allowedValue>
         <allowedValue>Unconfigured</allowedValue>
       </allowedValueList>
-    </stateVariable>
-    <stateVariable sendEvents="yes">
-      <name>ControlEnabled</name>
-      <dataType>boolean</dataType>
     </stateVariable>
     <stateVariable sendEvents="yes">
       <name>Connected</name>

@@ -133,78 +133,6 @@ DllExport int32_t STDCALL CpProxyLinnCoUkCloud1EndSetAssociated(THandle aHandle,
  * on the device and sets any output arguments.
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aEnabled
- *
- * @return  0 if the function succeeded; non-zero if it failed.  State of output
- *          arguments is not guaranteed in the case of failure
- */
-DllExport int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetControlEnabled(THandle aHandle, uint32_t aEnabled);
-/**
- * Invoke the action asynchronously.
- * Returns immediately and will run the client-specified callback when the action
- * later completes.  Any output arguments can then be retrieved by calling
- * EndGetProtocolInfo().
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aEnabled
- * @param[in]  aCallback Callback to run when the action completes.
- *                       This is guaranteed to be run but may indicate an error
- * @param[in]  aPtr      Data to be passed to the callback
- */
-DllExport void STDCALL CpProxyLinnCoUkCloud1BeginSetControlEnabled(THandle aHandle, uint32_t aEnabled, OhNetCallbackAsync aCallback, void* aPtr);
-/**
- * Retrieve the output arguments from an asynchronously invoked action.
- * This may only be called from the callback set in the above Begin function.
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
- *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
- *          arguments is not guaranteed in the case of failure
- */
-DllExport int32_t STDCALL CpProxyLinnCoUkCloud1EndSetControlEnabled(THandle aHandle, OhNetHandleAsync aAsync);
-
-/**
- * Invoke the action synchronously.  Blocks until the action has been processed
- * on the device and sets any output arguments.
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[out] aEnabled
- *
- * @return  0 if the function succeeded; non-zero if it failed.  State of output
- *          arguments is not guaranteed in the case of failure
- */
-DllExport int32_t STDCALL CpProxyLinnCoUkCloud1SyncGetControlEnabled(THandle aHandle, uint32_t* aEnabled);
-/**
- * Invoke the action asynchronously.
- * Returns immediately and will run the client-specified callback when the action
- * later completes.  Any output arguments can then be retrieved by calling
- * EndGetProtocolInfo().
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aCallback Callback to run when the action completes.
- *                       This is guaranteed to be run but may indicate an error
- * @param[in]  aPtr      Data to be passed to the callback
- */
-DllExport void STDCALL CpProxyLinnCoUkCloud1BeginGetControlEnabled(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
-/**
- * Retrieve the output arguments from an asynchronously invoked action.
- * This may only be called from the callback set in the above Begin function.
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
- * @param[out] aEnabled
- *
- * @return  0 if the function succedded; non-zero if it failed.  State of output
- *          arguments is not guaranteed in the case of failure
- */
-DllExport int32_t STDCALL CpProxyLinnCoUkCloud1EndGetControlEnabled(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aEnabled);
-
-/**
- * Invoke the action synchronously.  Blocks until the action has been processed
- * on the device and sets any output arguments.
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
  * @param[out] aConnected
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
@@ -283,17 +211,6 @@ DllExport int32_t STDCALL CpProxyLinnCoUkCloud1EndGetPublicKey(THandle aHandle, 
  */
 DllExport void STDCALL CpProxyLinnCoUkCloud1SetPropertyAssociationStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 /**
- * Set a callback to be run when the ControlEnabled state variable changes.
- *
- * Callbacks may be run in different threads but callbacks for a
- * CpProxyLinnCoUkCloud1 instance will not overlap.
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[in]  aCallback The callback to run when the state variable changes
- * @param[in]  aPtr      Data to be passed to the callback
- */
-DllExport void STDCALL CpProxyLinnCoUkCloud1SetPropertyControlEnabledChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
-/**
  * Set a callback to be run when the Connected state variable changes.
  *
  * Callbacks may be run in different threads but callbacks for a
@@ -328,18 +245,6 @@ DllExport void STDCALL CpProxyLinnCoUkCloud1SetPropertyPublicKeyChanged(THandle 
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkCloud1PropertyAssociationStatus(THandle aHandle, char** aAssociationStatus);
-/**
- * Query the value of the ControlEnabled property.
- *
- * This function is threadsafe and can only be called after the first callback
- * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
- *
- * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkCloud1Create
- * @param[out] aControlEnabled
- * @return  0 if the function succeeded; non-zero if it failed.  State of output
- *          arguments is not guaranteed in the case of failure
- */
-DllExport int32_t STDCALL CpProxyLinnCoUkCloud1PropertyControlEnabled(THandle aHandle, uint32_t* aControlEnabled);
 /**
  * Query the value of the Connected property.
  *
