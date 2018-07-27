@@ -24,15 +24,21 @@ class ICpProxyAvOpenhomeOrgPins1Cpp : public ICpProxy
 {
 public:
     virtual ~ICpProxyAvOpenhomeOrgPins1Cpp() {}
-    virtual void SyncGetDeviceAccountMax(uint32_t& aDeviceMax, uint32_t& aAccountMax) = 0;
-    virtual void BeginGetDeviceAccountMax(FunctorAsync& aFunctor) = 0;
-    virtual void EndGetDeviceAccountMax(IAsync& aAsync, uint32_t& aDeviceMax, uint32_t& aAccountMax) = 0;
+    virtual void SyncGetDeviceMax(uint32_t& aDeviceMax) = 0;
+    virtual void BeginGetDeviceMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetDeviceMax(IAsync& aAsync, uint32_t& aDeviceMax) = 0;
+    virtual void SyncGetAccountMax(uint32_t& aAccountMax) = 0;
+    virtual void BeginGetAccountMax(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetAccountMax(IAsync& aAsync, uint32_t& aAccountMax) = 0;
     virtual void SyncGetModes(std::string& aModes) = 0;
     virtual void BeginGetModes(FunctorAsync& aFunctor) = 0;
     virtual void EndGetModes(IAsync& aAsync, std::string& aModes) = 0;
     virtual void SyncGetIdArray(std::string& aIdArray) = 0;
     virtual void BeginGetIdArray(FunctorAsync& aFunctor) = 0;
     virtual void EndGetIdArray(IAsync& aAsync, std::string& aIdArray) = 0;
+    virtual void SyncGetCloudConnected(bool& aCloudConnected) = 0;
+    virtual void BeginGetCloudConnected(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetCloudConnected(IAsync& aAsync, bool& aCloudConnected) = 0;
     virtual void SyncReadList(const std::string& aIds, std::string& aList) = 0;
     virtual void BeginReadList(const std::string& aIds, FunctorAsync& aFunctor) = 0;
     virtual void EndReadList(IAsync& aAsync, std::string& aList) = 0;
@@ -42,6 +48,9 @@ public:
     virtual void SyncInvokeIndex(uint32_t aIndex) = 0;
     virtual void BeginInvokeIndex(uint32_t aIndex, FunctorAsync& aFunctor) = 0;
     virtual void EndInvokeIndex(IAsync& aAsync) = 0;
+    virtual void SyncInvokeUri(const std::string& aMode, const std::string& aType, const std::string& aUri, bool aShuffle) = 0;
+    virtual void BeginInvokeUri(const std::string& aMode, const std::string& aType, const std::string& aUri, bool aShuffle, FunctorAsync& aFunctor) = 0;
+    virtual void EndInvokeUri(IAsync& aAsync) = 0;
     virtual void SyncSetDevice(uint32_t aIndex, const std::string& aMode, const std::string& aType, const std::string& aUri, const std::string& aTitle, const std::string& aDescription, const std::string& aArtworkUri, bool aShuffle) = 0;
     virtual void BeginSetDevice(uint32_t aIndex, const std::string& aMode, const std::string& aType, const std::string& aUri, const std::string& aTitle, const std::string& aDescription, const std::string& aArtworkUri, bool aShuffle, FunctorAsync& aFunctor) = 0;
     virtual void EndSetDevice(IAsync& aAsync) = 0;
@@ -62,6 +71,8 @@ public:
     virtual void PropertyModes(std::string& aModes) const = 0;
     virtual void SetPropertyIdArrayChanged(Functor& aIdArrayChanged) = 0;
     virtual void PropertyIdArray(std::string& aIdArray) const = 0;
+    virtual void SetPropertyCloudConnectedChanged(Functor& aCloudConnectedChanged) = 0;
+    virtual void PropertyCloudConnected(bool& aCloudConnected) const = 0;
 };
 
 /**
@@ -94,28 +105,52 @@ public:
      * on the device and sets any output arguments.
      *
      * @param[out] aDeviceMax
-     * @param[out] aAccountMax
      */
-    void SyncGetDeviceAccountMax(uint32_t& aDeviceMax, uint32_t& aAccountMax);
+    void SyncGetDeviceMax(uint32_t& aDeviceMax);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndGetDeviceAccountMax().
+     * EndGetDeviceMax().
      *
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginGetDeviceAccountMax(FunctorAsync& aFunctor);
+    void BeginGetDeviceMax(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      * @param[out] aDeviceMax
+     */
+    void EndGetDeviceMax(IAsync& aAsync, uint32_t& aDeviceMax);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
      * @param[out] aAccountMax
      */
-    void EndGetDeviceAccountMax(IAsync& aAsync, uint32_t& aDeviceMax, uint32_t& aAccountMax);
+    void SyncGetAccountMax(uint32_t& aAccountMax);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetAccountMax().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetAccountMax(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aAccountMax
+     */
+    void EndGetAccountMax(IAsync& aAsync, uint32_t& aAccountMax);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -168,6 +203,32 @@ public:
      * @param[out] aIdArray
      */
     void EndGetIdArray(IAsync& aAsync, std::string& aIdArray);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aCloudConnected
+     */
+    void SyncGetCloudConnected(bool& aCloudConnected);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetCloudConnected().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetCloudConnected(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aCloudConnected
+     */
+    void EndGetCloudConnected(IAsync& aAsync, bool& aCloudConnected);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -248,6 +309,38 @@ public:
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
     void EndInvokeIndex(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aMode
+     * @param[in]  aType
+     * @param[in]  aUri
+     * @param[in]  aShuffle
+     */
+    void SyncInvokeUri(const std::string& aMode, const std::string& aType, const std::string& aUri, bool aShuffle);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndInvokeUri().
+     *
+     * @param[in] aMode
+     * @param[in] aType
+     * @param[in] aUri
+     * @param[in] aShuffle
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginInvokeUri(const std::string& aMode, const std::string& aType, const std::string& aUri, bool aShuffle, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndInvokeUri(IAsync& aAsync);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -419,6 +512,15 @@ public:
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
     void SetPropertyIdArrayChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the CloudConnected state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgPins1Cpp instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyCloudConnectedChanged(Functor& aFunctor);
 
     /**
      * Query the value of the DeviceMax property.
@@ -461,6 +563,16 @@ public:
      */
     void PropertyIdArray(std::string& aIdArray) const;
     /**
+     * Query the value of the CloudConnected property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aCloudConnected
+     */
+    void PropertyCloudConnected(bool& aCloudConnected) const;
+    /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
     */
     void Subscribe();
@@ -498,13 +610,17 @@ private:
     void AccountMaxPropertyChanged();
     void ModesPropertyChanged();
     void IdArrayPropertyChanged();
+    void CloudConnectedPropertyChanged();
 private:
-    Action* iActionGetDeviceAccountMax;
+    Action* iActionGetDeviceMax;
+    Action* iActionGetAccountMax;
     Action* iActionGetModes;
     Action* iActionGetIdArray;
+    Action* iActionGetCloudConnected;
     Action* iActionReadList;
     Action* iActionInvokeId;
     Action* iActionInvokeIndex;
+    Action* iActionInvokeUri;
     Action* iActionSetDevice;
     Action* iActionSetAccount;
     Action* iActionClear;
@@ -513,10 +629,12 @@ private:
     PropertyUint* iAccountMax;
     PropertyString* iModes;
     PropertyString* iIdArray;
+    PropertyBool* iCloudConnected;
     Functor iDeviceMaxChanged;
     Functor iAccountMaxChanged;
     Functor iModesChanged;
     Functor iIdArrayChanged;
+    Functor iCloudConnectedChanged;
 };
 
 } // namespace Net

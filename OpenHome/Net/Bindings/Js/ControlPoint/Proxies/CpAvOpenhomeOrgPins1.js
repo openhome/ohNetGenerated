@@ -22,8 +22,9 @@ var CpProxyAvOpenhomeOrgPins1 = function(udn){
     this.serviceProperties["AccountMax"] = new ohnet.serviceproperty("AccountMax","int");
     this.serviceProperties["Modes"] = new ohnet.serviceproperty("Modes","string");
     this.serviceProperties["IdArray"] = new ohnet.serviceproperty("IdArray","string");
+    this.serviceProperties["CloudConnected"] = new ohnet.serviceproperty("CloudConnected","bool");
 
-                            
+                                  
 }
 
 
@@ -99,18 +100,50 @@ CpProxyAvOpenhomeOrgPins1.prototype.IdArray_Changed = function (stateChangedFunc
         stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
     });
 }
+    
+
+/**
+* Adds a listener to handle "CloudConnected" property change events
+* @method CloudConnected_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyAvOpenhomeOrgPins1.prototype.CloudConnected_Changed = function (stateChangedFunction) {
+    this.serviceProperties.CloudConnected.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readBoolParameter(state)); 
+    });
+}
 
 
 /**
-* A service action to GetDeviceAccountMax
-* @method GetDeviceAccountMax
+* A service action to GetDeviceMax
+* @method GetDeviceMax
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyAvOpenhomeOrgPins1.prototype.GetDeviceAccountMax = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("GetDeviceAccountMax", this.url, this.domain, this.type, this.version);     
+CpProxyAvOpenhomeOrgPins1.prototype.GetDeviceMax = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetDeviceMax", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
         result["DeviceMax"] = ohnet.soaprequest.readIntParameter(result["DeviceMax"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to GetAccountMax
+* @method GetAccountMax
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgPins1.prototype.GetAccountMax = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetAccountMax", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
         result["AccountMax"] = ohnet.soaprequest.readIntParameter(result["AccountMax"]); 
     
         if (successFunction){
@@ -152,6 +185,26 @@ CpProxyAvOpenhomeOrgPins1.prototype.GetIdArray = function(successFunction, error
     var request = new ohnet.soaprequest("GetIdArray", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
         result["IdArray"] = ohnet.soaprequest.readStringParameter(result["IdArray"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to GetCloudConnected
+* @method GetCloudConnected
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgPins1.prototype.GetCloudConnected = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetCloudConnected", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["CloudConnected"] = ohnet.soaprequest.readBoolParameter(result["CloudConnected"]); 
     
         if (successFunction){
             successFunction(result);
@@ -215,6 +268,33 @@ CpProxyAvOpenhomeOrgPins1.prototype.InvokeId = function(Id, successFunction, err
 CpProxyAvOpenhomeOrgPins1.prototype.InvokeIndex = function(Index, successFunction, errorFunction){ 
     var request = new ohnet.soaprequest("InvokeIndex", this.url, this.domain, this.type, this.version);     
     request.writeIntParameter("Index", Index);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to InvokeUri
+* @method InvokeUri
+* @param {String} Mode An action parameter
+* @param {String} Type An action parameter
+* @param {String} Uri An action parameter
+* @param {Boolean} Shuffle An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyAvOpenhomeOrgPins1.prototype.InvokeUri = function(Mode, Type, Uri, Shuffle, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("InvokeUri", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("Mode", Mode);
+    request.writeStringParameter("Type", Type);
+    request.writeStringParameter("Uri", Uri);
+    request.writeBoolParameter("Shuffle", Shuffle);
     request.send(function(result){
     
         if (successFunction){

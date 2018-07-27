@@ -10,15 +10,21 @@ namespace OpenHome.Net.ControlPoint.Proxies
 {
     public interface ICpProxyAvOpenhomeOrgPins1 : ICpProxy, IDisposable
     {
-        void SyncGetDeviceAccountMax(out uint aDeviceMax, out uint aAccountMax);
-        void BeginGetDeviceAccountMax(CpProxy.CallbackAsyncComplete aCallback);
-        void EndGetDeviceAccountMax(IntPtr aAsyncHandle, out uint aDeviceMax, out uint aAccountMax);
+        void SyncGetDeviceMax(out uint aDeviceMax);
+        void BeginGetDeviceMax(CpProxy.CallbackAsyncComplete aCallback);
+        void EndGetDeviceMax(IntPtr aAsyncHandle, out uint aDeviceMax);
+        void SyncGetAccountMax(out uint aAccountMax);
+        void BeginGetAccountMax(CpProxy.CallbackAsyncComplete aCallback);
+        void EndGetAccountMax(IntPtr aAsyncHandle, out uint aAccountMax);
         void SyncGetModes(out String aModes);
         void BeginGetModes(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetModes(IntPtr aAsyncHandle, out String aModes);
         void SyncGetIdArray(out String aIdArray);
         void BeginGetIdArray(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetIdArray(IntPtr aAsyncHandle, out String aIdArray);
+        void SyncGetCloudConnected(out bool aCloudConnected);
+        void BeginGetCloudConnected(CpProxy.CallbackAsyncComplete aCallback);
+        void EndGetCloudConnected(IntPtr aAsyncHandle, out bool aCloudConnected);
         void SyncReadList(String aIds, out String aList);
         void BeginReadList(String aIds, CpProxy.CallbackAsyncComplete aCallback);
         void EndReadList(IntPtr aAsyncHandle, out String aList);
@@ -28,6 +34,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncInvokeIndex(uint aIndex);
         void BeginInvokeIndex(uint aIndex, CpProxy.CallbackAsyncComplete aCallback);
         void EndInvokeIndex(IntPtr aAsyncHandle);
+        void SyncInvokeUri(String aMode, String aType, String aUri, bool aShuffle);
+        void BeginInvokeUri(String aMode, String aType, String aUri, bool aShuffle, CpProxy.CallbackAsyncComplete aCallback);
+        void EndInvokeUri(IntPtr aAsyncHandle);
         void SyncSetDevice(uint aIndex, String aMode, String aType, String aUri, String aTitle, String aDescription, String aArtworkUri, bool aShuffle);
         void BeginSetDevice(uint aIndex, String aMode, String aType, String aUri, String aTitle, String aDescription, String aArtworkUri, bool aShuffle, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetDevice(IntPtr aAsyncHandle);
@@ -48,15 +57,16 @@ namespace OpenHome.Net.ControlPoint.Proxies
         String PropertyModes();
         void SetPropertyIdArrayChanged(System.Action aIdArrayChanged);
         String PropertyIdArray();
+        void SetPropertyCloudConnectedChanged(System.Action aCloudConnectedChanged);
+        bool PropertyCloudConnected();
     }
 
-    internal class SyncGetDeviceAccountMaxAvOpenhomeOrgPins1 : SyncProxyAction
+    internal class SyncGetDeviceMaxAvOpenhomeOrgPins1 : SyncProxyAction
     {
         private CpProxyAvOpenhomeOrgPins1 iService;
         private uint iDeviceMax;
-        private uint iAccountMax;
 
-        public SyncGetDeviceAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+        public SyncGetDeviceMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
         {
             iService = aProxy;
         }
@@ -64,13 +74,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
         {
             return iDeviceMax;
         }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndGetDeviceMax(aAsyncHandle, out iDeviceMax);
+        }
+    };
+
+    internal class SyncGetAccountMaxAvOpenhomeOrgPins1 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgPins1 iService;
+        private uint iAccountMax;
+
+        public SyncGetAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+        {
+            iService = aProxy;
+        }
         public uint AccountMax()
         {
             return iAccountMax;
         }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndGetDeviceAccountMax(aAsyncHandle, out iDeviceMax, out iAccountMax);
+            iService.EndGetAccountMax(aAsyncHandle, out iAccountMax);
         }
     };
 
@@ -109,6 +134,25 @@ namespace OpenHome.Net.ControlPoint.Proxies
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
             iService.EndGetIdArray(aAsyncHandle, out iIdArray);
+        }
+    };
+
+    internal class SyncGetCloudConnectedAvOpenhomeOrgPins1 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgPins1 iService;
+        private bool iCloudConnected;
+
+        public SyncGetCloudConnectedAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+        {
+            iService = aProxy;
+        }
+        public bool CloudConnected()
+        {
+            return iCloudConnected;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndGetCloudConnected(aAsyncHandle, out iCloudConnected);
         }
     };
 
@@ -156,6 +200,20 @@ namespace OpenHome.Net.ControlPoint.Proxies
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
             iService.EndInvokeIndex(aAsyncHandle);
+        }
+    };
+
+    internal class SyncInvokeUriAvOpenhomeOrgPins1 : SyncProxyAction
+    {
+        private CpProxyAvOpenhomeOrgPins1 iService;
+
+        public SyncInvokeUriAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndInvokeUri(aAsyncHandle);
         }
     };
 
@@ -220,12 +278,15 @@ namespace OpenHome.Net.ControlPoint.Proxies
     /// </summary>
     public class CpProxyAvOpenhomeOrgPins1 : CpProxy, IDisposable, ICpProxyAvOpenhomeOrgPins1
     {
-        private OpenHome.Net.Core.Action iActionGetDeviceAccountMax;
+        private OpenHome.Net.Core.Action iActionGetDeviceMax;
+        private OpenHome.Net.Core.Action iActionGetAccountMax;
         private OpenHome.Net.Core.Action iActionGetModes;
         private OpenHome.Net.Core.Action iActionGetIdArray;
+        private OpenHome.Net.Core.Action iActionGetCloudConnected;
         private OpenHome.Net.Core.Action iActionReadList;
         private OpenHome.Net.Core.Action iActionInvokeId;
         private OpenHome.Net.Core.Action iActionInvokeIndex;
+        private OpenHome.Net.Core.Action iActionInvokeUri;
         private OpenHome.Net.Core.Action iActionSetDevice;
         private OpenHome.Net.Core.Action iActionSetAccount;
         private OpenHome.Net.Core.Action iActionClear;
@@ -234,10 +295,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private PropertyUint iAccountMax;
         private PropertyString iModes;
         private PropertyString iIdArray;
+        private PropertyBool iCloudConnected;
         private System.Action iDeviceMaxChanged;
         private System.Action iAccountMaxChanged;
         private System.Action iModesChanged;
         private System.Action iIdArrayChanged;
+        private System.Action iCloudConnectedChanged;
         private Mutex iPropertyLock;
 
         /// <summary>
@@ -251,11 +314,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
             OpenHome.Net.Core.Parameter param;
             List<String> allowedValues = new List<String>();
 
-            iActionGetDeviceAccountMax = new OpenHome.Net.Core.Action("GetDeviceAccountMax");
+            iActionGetDeviceMax = new OpenHome.Net.Core.Action("GetDeviceMax");
             param = new ParameterUint("DeviceMax");
-            iActionGetDeviceAccountMax.AddOutputParameter(param);
+            iActionGetDeviceMax.AddOutputParameter(param);
+
+            iActionGetAccountMax = new OpenHome.Net.Core.Action("GetAccountMax");
             param = new ParameterUint("AccountMax");
-            iActionGetDeviceAccountMax.AddOutputParameter(param);
+            iActionGetAccountMax.AddOutputParameter(param);
 
             iActionGetModes = new OpenHome.Net.Core.Action("GetModes");
             param = new ParameterString("Modes", allowedValues);
@@ -264,6 +329,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionGetIdArray = new OpenHome.Net.Core.Action("GetIdArray");
             param = new ParameterString("IdArray", allowedValues);
             iActionGetIdArray.AddOutputParameter(param);
+
+            iActionGetCloudConnected = new OpenHome.Net.Core.Action("GetCloudConnected");
+            param = new ParameterBool("CloudConnected");
+            iActionGetCloudConnected.AddOutputParameter(param);
 
             iActionReadList = new OpenHome.Net.Core.Action("ReadList");
             param = new ParameterString("Ids", allowedValues);
@@ -278,6 +347,16 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionInvokeIndex = new OpenHome.Net.Core.Action("InvokeIndex");
             param = new ParameterUint("Index");
             iActionInvokeIndex.AddInputParameter(param);
+
+            iActionInvokeUri = new OpenHome.Net.Core.Action("InvokeUri");
+            param = new ParameterString("Mode", allowedValues);
+            iActionInvokeUri.AddInputParameter(param);
+            param = new ParameterString("Type", allowedValues);
+            iActionInvokeUri.AddInputParameter(param);
+            param = new ParameterString("Uri", allowedValues);
+            iActionInvokeUri.AddInputParameter(param);
+            param = new ParameterBool("Shuffle");
+            iActionInvokeUri.AddInputParameter(param);
 
             iActionSetDevice = new OpenHome.Net.Core.Action("SetDevice");
             param = new ParameterUint("Index");
@@ -333,6 +412,8 @@ namespace OpenHome.Net.ControlPoint.Proxies
             AddProperty(iModes);
             iIdArray = new PropertyString("IdArray", IdArrayPropertyChanged);
             AddProperty(iIdArray);
+            iCloudConnected = new PropertyBool("CloudConnected", CloudConnectedPropertyChanged);
+            AddProperty(iCloudConnected);
             
             iPropertyLock = new Mutex();
         }
@@ -343,15 +424,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
         /// <param name="aDeviceMax"></param>
-        /// <param name="aAccountMax"></param>
-        public void SyncGetDeviceAccountMax(out uint aDeviceMax, out uint aAccountMax)
+        public void SyncGetDeviceMax(out uint aDeviceMax)
         {
-            SyncGetDeviceAccountMaxAvOpenhomeOrgPins1 sync = new SyncGetDeviceAccountMaxAvOpenhomeOrgPins1(this);
-            BeginGetDeviceAccountMax(sync.AsyncComplete());
+            SyncGetDeviceMaxAvOpenhomeOrgPins1 sync = new SyncGetDeviceMaxAvOpenhomeOrgPins1(this);
+            BeginGetDeviceMax(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
             aDeviceMax = sync.DeviceMax();
-            aAccountMax = sync.AccountMax();
         }
 
         /// <summary>
@@ -359,15 +438,14 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndGetDeviceAccountMax().</remarks>
+        /// EndGetDeviceMax().</remarks>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginGetDeviceAccountMax(CallbackAsyncComplete aCallback)
+        public void BeginGetDeviceMax(CallbackAsyncComplete aCallback)
         {
-            Invocation invocation = iService.Invocation(iActionGetDeviceAccountMax, aCallback);
+            Invocation invocation = iService.Invocation(iActionGetDeviceMax, aCallback);
             int outIndex = 0;
-            invocation.AddOutput(new ArgumentUint((ParameterUint)iActionGetDeviceAccountMax.OutputParameter(outIndex++)));
-            invocation.AddOutput(new ArgumentUint((ParameterUint)iActionGetDeviceAccountMax.OutputParameter(outIndex++)));
+            invocation.AddOutput(new ArgumentUint((ParameterUint)iActionGetDeviceMax.OutputParameter(outIndex++)));
             iService.InvokeAction(invocation);
         }
 
@@ -377,8 +455,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
         /// <param name="aDeviceMax"></param>
-        /// <param name="aAccountMax"></param>
-        public void EndGetDeviceAccountMax(IntPtr aAsyncHandle, out uint aDeviceMax, out uint aAccountMax)
+        public void EndGetDeviceMax(IntPtr aAsyncHandle, out uint aDeviceMax)
         {
             uint code;
             string desc;
@@ -388,6 +465,54 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             uint index = 0;
             aDeviceMax = Invocation.OutputUint(aAsyncHandle, index++);
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aAccountMax"></param>
+        public void SyncGetAccountMax(out uint aAccountMax)
+        {
+            SyncGetAccountMaxAvOpenhomeOrgPins1 sync = new SyncGetAccountMaxAvOpenhomeOrgPins1(this);
+            BeginGetAccountMax(sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aAccountMax = sync.AccountMax();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndGetAccountMax().</remarks>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginGetAccountMax(CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionGetAccountMax, aCallback);
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentUint((ParameterUint)iActionGetAccountMax.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aAccountMax"></param>
+        public void EndGetAccountMax(IntPtr aAsyncHandle, out uint aAccountMax)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
             aAccountMax = Invocation.OutputUint(aAsyncHandle, index++);
         }
 
@@ -487,6 +612,55 @@ namespace OpenHome.Net.ControlPoint.Proxies
             }
             uint index = 0;
             aIdArray = Invocation.OutputString(aAsyncHandle, index++);
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aCloudConnected"></param>
+        public void SyncGetCloudConnected(out bool aCloudConnected)
+        {
+            SyncGetCloudConnectedAvOpenhomeOrgPins1 sync = new SyncGetCloudConnectedAvOpenhomeOrgPins1(this);
+            BeginGetCloudConnected(sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+            aCloudConnected = sync.CloudConnected();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndGetCloudConnected().</remarks>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginGetCloudConnected(CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionGetCloudConnected, aCallback);
+            int outIndex = 0;
+            invocation.AddOutput(new ArgumentBool((ParameterBool)iActionGetCloudConnected.OutputParameter(outIndex++)));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        /// <param name="aCloudConnected"></param>
+        public void EndGetCloudConnected(IntPtr aAsyncHandle, out bool aCloudConnected)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+            uint index = 0;
+            aCloudConnected = Invocation.OutputBool(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -625,6 +799,61 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
         public void EndInvokeIndex(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aMode"></param>
+        /// <param name="aType"></param>
+        /// <param name="aUri"></param>
+        /// <param name="aShuffle"></param>
+        public void SyncInvokeUri(String aMode, String aType, String aUri, bool aShuffle)
+        {
+            SyncInvokeUriAvOpenhomeOrgPins1 sync = new SyncInvokeUriAvOpenhomeOrgPins1(this);
+            BeginInvokeUri(aMode, aType, aUri, aShuffle, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndInvokeUri().</remarks>
+        /// <param name="aMode"></param>
+        /// <param name="aType"></param>
+        /// <param name="aUri"></param>
+        /// <param name="aShuffle"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginInvokeUri(String aMode, String aType, String aUri, bool aShuffle, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionInvokeUri, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentString((ParameterString)iActionInvokeUri.InputParameter(inIndex++), aMode));
+            invocation.AddInput(new ArgumentString((ParameterString)iActionInvokeUri.InputParameter(inIndex++), aType));
+            invocation.AddInput(new ArgumentString((ParameterString)iActionInvokeUri.InputParameter(inIndex++), aUri));
+            invocation.AddInput(new ArgumentBool((ParameterBool)iActionInvokeUri.InputParameter(inIndex++), aShuffle));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndInvokeUri(IntPtr aAsyncHandle)
         {
             uint code;
             string desc;
@@ -952,6 +1181,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Set a delegate to be run when the CloudConnected state variable changes.
+        /// </summary>
+        /// <remarks>Callbacks may be run in different threads but callbacks for a
+        /// CpProxyAvOpenhomeOrgPins1 instance will not overlap.</remarks>
+        /// <param name="aCloudConnectedChanged">The delegate to run when the state variable changes</param>
+        public void SetPropertyCloudConnectedChanged(System.Action aCloudConnectedChanged)
+        {
+            lock (iPropertyLock)
+            {
+                iCloudConnectedChanged = aCloudConnectedChanged;
+            }
+        }
+
+        private void CloudConnectedPropertyChanged()
+        {
+            lock (iPropertyLock)
+            {
+                ReportEvent(iCloudConnectedChanged);
+            }
+        }
+
+        /// <summary>
         /// Query the value of the DeviceMax property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
@@ -1040,6 +1291,28 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Query the value of the CloudConnected property.
+        /// </summary>
+        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
+        /// called and a first eventing callback received more recently than any call
+        /// to Unsubscribe().</remarks>
+        /// <returns>Value of the CloudConnected property</returns>
+        public bool PropertyCloudConnected()
+        {
+            PropertyReadLock();
+            bool val;
+            try
+            {
+                val = iCloudConnected.Value();
+            }
+            finally
+            {
+                PropertyReadUnlock();
+            }
+            return val;
+        }
+
+        /// <summary>
         /// Must be called for each class instance.  Must be called before Core.Library.Close().
         /// </summary>
         public void Dispose()
@@ -1051,12 +1324,15 @@ namespace OpenHome.Net.ControlPoint.Proxies
                 DisposeProxy();
                 iHandle = IntPtr.Zero;
             }
-            iActionGetDeviceAccountMax.Dispose();
+            iActionGetDeviceMax.Dispose();
+            iActionGetAccountMax.Dispose();
             iActionGetModes.Dispose();
             iActionGetIdArray.Dispose();
+            iActionGetCloudConnected.Dispose();
             iActionReadList.Dispose();
             iActionInvokeId.Dispose();
             iActionInvokeIndex.Dispose();
+            iActionInvokeUri.Dispose();
             iActionSetDevice.Dispose();
             iActionSetAccount.Dispose();
             iActionClear.Dispose();
@@ -1065,6 +1341,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iAccountMax.Dispose();
             iModes.Dispose();
             iIdArray.Dispose();
+            iCloudConnected.Dispose();
         }
     }
 }

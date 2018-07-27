@@ -10,14 +10,23 @@
 namespace OpenHome {
 namespace Net {
 
-class SyncGetDeviceAccountMaxAvOpenhomeOrgPins1 : public SyncProxyAction
+class SyncGetDeviceMaxAvOpenhomeOrgPins1 : public SyncProxyAction
 {
 public:
-    SyncGetDeviceAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TUint& aDeviceMax, TUint& aAccountMax);
+    SyncGetDeviceMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TUint& aDeviceMax);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgPins1& iService;
     TUint& iDeviceMax;
+};
+
+class SyncGetAccountMaxAvOpenhomeOrgPins1 : public SyncProxyAction
+{
+public:
+    SyncGetAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TUint& aAccountMax);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgPins1& iService;
     TUint& iAccountMax;
 };
 
@@ -39,6 +48,16 @@ public:
 private:
     CpProxyAvOpenhomeOrgPins1& iService;
     Brh& iIdArray;
+};
+
+class SyncGetCloudConnectedAvOpenhomeOrgPins1 : public SyncProxyAction
+{
+public:
+    SyncGetCloudConnectedAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TBool& aCloudConnected);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgPins1& iService;
+    TBool& iCloudConnected;
 };
 
 class SyncReadListAvOpenhomeOrgPins1 : public SyncProxyAction
@@ -64,6 +83,15 @@ class SyncInvokeIndexAvOpenhomeOrgPins1 : public SyncProxyAction
 {
 public:
     SyncInvokeIndexAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyAvOpenhomeOrgPins1& iService;
+};
+
+class SyncInvokeUriAvOpenhomeOrgPins1 : public SyncProxyAction
+{
+public:
+    SyncInvokeUriAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
 private:
     CpProxyAvOpenhomeOrgPins1& iService;
@@ -113,18 +141,30 @@ using namespace OpenHome;
 using namespace OpenHome::Net;
 
 
-// SyncGetDeviceAccountMaxAvOpenhomeOrgPins1
+// SyncGetDeviceMaxAvOpenhomeOrgPins1
 
-SyncGetDeviceAccountMaxAvOpenhomeOrgPins1::SyncGetDeviceAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TUint& aDeviceMax, TUint& aAccountMax)
+SyncGetDeviceMaxAvOpenhomeOrgPins1::SyncGetDeviceMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TUint& aDeviceMax)
     : iService(aProxy)
     , iDeviceMax(aDeviceMax)
+{
+}
+
+void SyncGetDeviceMaxAvOpenhomeOrgPins1::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetDeviceMax(aAsync, iDeviceMax);
+}
+
+// SyncGetAccountMaxAvOpenhomeOrgPins1
+
+SyncGetAccountMaxAvOpenhomeOrgPins1::SyncGetAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TUint& aAccountMax)
+    : iService(aProxy)
     , iAccountMax(aAccountMax)
 {
 }
 
-void SyncGetDeviceAccountMaxAvOpenhomeOrgPins1::CompleteRequest(IAsync& aAsync)
+void SyncGetAccountMaxAvOpenhomeOrgPins1::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndGetDeviceAccountMax(aAsync, iDeviceMax, iAccountMax);
+    iService.EndGetAccountMax(aAsync, iAccountMax);
 }
 
 // SyncGetModesAvOpenhomeOrgPins1
@@ -151,6 +191,19 @@ SyncGetIdArrayAvOpenhomeOrgPins1::SyncGetIdArrayAvOpenhomeOrgPins1(CpProxyAvOpen
 void SyncGetIdArrayAvOpenhomeOrgPins1::CompleteRequest(IAsync& aAsync)
 {
     iService.EndGetIdArray(aAsync, iIdArray);
+}
+
+// SyncGetCloudConnectedAvOpenhomeOrgPins1
+
+SyncGetCloudConnectedAvOpenhomeOrgPins1::SyncGetCloudConnectedAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy, TBool& aCloudConnected)
+    : iService(aProxy)
+    , iCloudConnected(aCloudConnected)
+{
+}
+
+void SyncGetCloudConnectedAvOpenhomeOrgPins1::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetCloudConnected(aAsync, iCloudConnected);
 }
 
 // SyncReadListAvOpenhomeOrgPins1
@@ -188,6 +241,18 @@ SyncInvokeIndexAvOpenhomeOrgPins1::SyncInvokeIndexAvOpenhomeOrgPins1(CpProxyAvOp
 void SyncInvokeIndexAvOpenhomeOrgPins1::CompleteRequest(IAsync& aAsync)
 {
     iService.EndInvokeIndex(aAsync);
+}
+
+// SyncInvokeUriAvOpenhomeOrgPins1
+
+SyncInvokeUriAvOpenhomeOrgPins1::SyncInvokeUriAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncInvokeUriAvOpenhomeOrgPins1::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndInvokeUri(aAsync);
 }
 
 // SyncSetDeviceAvOpenhomeOrgPins1
@@ -246,11 +311,13 @@ CpProxyAvOpenhomeOrgPins1::CpProxyAvOpenhomeOrgPins1(CpDevice& aDevice)
 {
     OpenHome::Net::Parameter* param;
 
-    iActionGetDeviceAccountMax = new Action("GetDeviceAccountMax");
+    iActionGetDeviceMax = new Action("GetDeviceMax");
     param = new OpenHome::Net::ParameterUint("DeviceMax");
-    iActionGetDeviceAccountMax->AddOutputParameter(param);
+    iActionGetDeviceMax->AddOutputParameter(param);
+
+    iActionGetAccountMax = new Action("GetAccountMax");
     param = new OpenHome::Net::ParameterUint("AccountMax");
-    iActionGetDeviceAccountMax->AddOutputParameter(param);
+    iActionGetAccountMax->AddOutputParameter(param);
 
     iActionGetModes = new Action("GetModes");
     param = new OpenHome::Net::ParameterString("Modes");
@@ -259,6 +326,10 @@ CpProxyAvOpenhomeOrgPins1::CpProxyAvOpenhomeOrgPins1(CpDevice& aDevice)
     iActionGetIdArray = new Action("GetIdArray");
     param = new OpenHome::Net::ParameterString("IdArray");
     iActionGetIdArray->AddOutputParameter(param);
+
+    iActionGetCloudConnected = new Action("GetCloudConnected");
+    param = new OpenHome::Net::ParameterBool("CloudConnected");
+    iActionGetCloudConnected->AddOutputParameter(param);
 
     iActionReadList = new Action("ReadList");
     param = new OpenHome::Net::ParameterString("Ids");
@@ -273,6 +344,16 @@ CpProxyAvOpenhomeOrgPins1::CpProxyAvOpenhomeOrgPins1(CpDevice& aDevice)
     iActionInvokeIndex = new Action("InvokeIndex");
     param = new OpenHome::Net::ParameterUint("Index");
     iActionInvokeIndex->AddInputParameter(param);
+
+    iActionInvokeUri = new Action("InvokeUri");
+    param = new OpenHome::Net::ParameterString("Mode");
+    iActionInvokeUri->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("Type");
+    iActionInvokeUri->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("Uri");
+    iActionInvokeUri->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterBool("Shuffle");
+    iActionInvokeUri->AddInputParameter(param);
 
     iActionSetDevice = new Action("SetDevice");
     param = new OpenHome::Net::ParameterUint("Index");
@@ -333,45 +414,50 @@ CpProxyAvOpenhomeOrgPins1::CpProxyAvOpenhomeOrgPins1(CpDevice& aDevice)
     functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPins1::IdArrayPropertyChanged);
     iIdArray = new PropertyString("IdArray", functor);
     AddProperty(iIdArray);
+    functor = MakeFunctor(*this, &CpProxyAvOpenhomeOrgPins1::CloudConnectedPropertyChanged);
+    iCloudConnected = new PropertyBool("CloudConnected", functor);
+    AddProperty(iCloudConnected);
 }
 
 CpProxyAvOpenhomeOrgPins1::~CpProxyAvOpenhomeOrgPins1()
 {
     DestroyService();
-    delete iActionGetDeviceAccountMax;
+    delete iActionGetDeviceMax;
+    delete iActionGetAccountMax;
     delete iActionGetModes;
     delete iActionGetIdArray;
+    delete iActionGetCloudConnected;
     delete iActionReadList;
     delete iActionInvokeId;
     delete iActionInvokeIndex;
+    delete iActionInvokeUri;
     delete iActionSetDevice;
     delete iActionSetAccount;
     delete iActionClear;
     delete iActionSwap;
 }
 
-void CpProxyAvOpenhomeOrgPins1::SyncGetDeviceAccountMax(TUint& aDeviceMax, TUint& aAccountMax)
+void CpProxyAvOpenhomeOrgPins1::SyncGetDeviceMax(TUint& aDeviceMax)
 {
-    SyncGetDeviceAccountMaxAvOpenhomeOrgPins1 sync(*this, aDeviceMax, aAccountMax);
-    BeginGetDeviceAccountMax(sync.Functor());
+    SyncGetDeviceMaxAvOpenhomeOrgPins1 sync(*this, aDeviceMax);
+    BeginGetDeviceMax(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyAvOpenhomeOrgPins1::BeginGetDeviceAccountMax(FunctorAsync& aFunctor)
+void CpProxyAvOpenhomeOrgPins1::BeginGetDeviceMax(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetDeviceAccountMax, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetDeviceMax, aFunctor);
     TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionGetDeviceAccountMax->OutputParameters();
-    invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
+    const Action::VectorParameters& outParams = iActionGetDeviceMax->OutputParameters();
     invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyAvOpenhomeOrgPins1::EndGetDeviceAccountMax(IAsync& aAsync, TUint& aDeviceMax, TUint& aAccountMax)
+void CpProxyAvOpenhomeOrgPins1::EndGetDeviceMax(IAsync& aAsync, TUint& aDeviceMax)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("GetDeviceAccountMax"));
+    ASSERT(invocation.Action().Name() == Brn("GetDeviceMax"));
 
     Error::ELevel level;
     TUint code;
@@ -381,6 +467,37 @@ void CpProxyAvOpenhomeOrgPins1::EndGetDeviceAccountMax(IAsync& aAsync, TUint& aD
     }
     TUint index = 0;
     aDeviceMax = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
+}
+
+void CpProxyAvOpenhomeOrgPins1::SyncGetAccountMax(TUint& aAccountMax)
+{
+    SyncGetAccountMaxAvOpenhomeOrgPins1 sync(*this, aAccountMax);
+    BeginGetAccountMax(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgPins1::BeginGetAccountMax(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetAccountMax, aFunctor);
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetAccountMax->OutputParameters();
+    invocation->AddOutput(new ArgumentUint(*outParams[outIndex++]));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgPins1::EndGetAccountMax(IAsync& aAsync, TUint& aAccountMax)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetAccountMax"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
     aAccountMax = ((ArgumentUint*)invocation.OutputArguments()[index++])->Value();
 }
 
@@ -446,6 +563,38 @@ void CpProxyAvOpenhomeOrgPins1::EndGetIdArray(IAsync& aAsync, Brh& aIdArray)
     }
     TUint index = 0;
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aIdArray);
+}
+
+void CpProxyAvOpenhomeOrgPins1::SyncGetCloudConnected(TBool& aCloudConnected)
+{
+    SyncGetCloudConnectedAvOpenhomeOrgPins1 sync(*this, aCloudConnected);
+    BeginGetCloudConnected(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgPins1::BeginGetCloudConnected(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetCloudConnected, aFunctor);
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetCloudConnected->OutputParameters();
+    invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgPins1::EndGetCloudConnected(IAsync& aAsync, TBool& aCloudConnected)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetCloudConnected"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    aCloudConnected = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
 }
 
 void CpProxyAvOpenhomeOrgPins1::SyncReadList(const Brx& aIds, Brh& aList)
@@ -534,6 +683,39 @@ void CpProxyAvOpenhomeOrgPins1::EndInvokeIndex(IAsync& aAsync)
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
     ASSERT(invocation.Action().Name() == Brn("InvokeIndex"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
+void CpProxyAvOpenhomeOrgPins1::SyncInvokeUri(const Brx& aMode, const Brx& aType, const Brx& aUri, TBool aShuffle)
+{
+    SyncInvokeUriAvOpenhomeOrgPins1 sync(*this);
+    BeginInvokeUri(aMode, aType, aUri, aShuffle, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyAvOpenhomeOrgPins1::BeginInvokeUri(const Brx& aMode, const Brx& aType, const Brx& aUri, TBool aShuffle, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionInvokeUri, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionInvokeUri->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aMode));
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aType));
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aUri));
+    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aShuffle));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyAvOpenhomeOrgPins1::EndInvokeUri(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("InvokeUri"));
 
     Error::ELevel level;
     TUint code;
@@ -706,6 +888,13 @@ void CpProxyAvOpenhomeOrgPins1::SetPropertyIdArrayChanged(Functor& aFunctor)
     iCpProxy.GetLock().Signal();
 }
 
+void CpProxyAvOpenhomeOrgPins1::SetPropertyCloudConnectedChanged(Functor& aFunctor)
+{
+    iCpProxy.GetLock().Wait();
+    iCloudConnectedChanged = aFunctor;
+    iCpProxy.GetLock().Signal();
+}
+
 void CpProxyAvOpenhomeOrgPins1::PropertyDeviceMax(TUint& aDeviceMax) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
@@ -742,6 +931,15 @@ void CpProxyAvOpenhomeOrgPins1::PropertyIdArray(Brhz& aIdArray) const
     aIdArray.Set(iIdArray->Value());
 }
 
+void CpProxyAvOpenhomeOrgPins1::PropertyCloudConnected(TBool& aCloudConnected) const
+{
+    AutoMutex a(iCpProxy.PropertyReadLock());
+    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
+        THROW(ProxyNotSubscribed);
+    }
+    aCloudConnected = iCloudConnected->Value();
+}
+
 void CpProxyAvOpenhomeOrgPins1::DeviceMaxPropertyChanged()
 {
     ReportEvent(iDeviceMaxChanged);
@@ -760,6 +958,11 @@ void CpProxyAvOpenhomeOrgPins1::ModesPropertyChanged()
 void CpProxyAvOpenhomeOrgPins1::IdArrayPropertyChanged()
 {
     ReportEvent(iIdArrayChanged);
+}
+
+void CpProxyAvOpenhomeOrgPins1::CloudConnectedPropertyChanged()
+{
+    ReportEvent(iCloudConnectedChanged);
 }
 
 

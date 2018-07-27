@@ -10,15 +10,21 @@ import org.openhome.net.core.*;
     
 interface ICpProxyAvOpenhomeOrgPins1 extends ICpProxy
 {
-    public GetDeviceAccountMax syncGetDeviceAccountMax();
-    public void beginGetDeviceAccountMax(ICpProxyListener aCallback);
-    public GetDeviceAccountMax endGetDeviceAccountMax(long aAsyncHandle);
+    public long syncGetDeviceMax();
+    public void beginGetDeviceMax(ICpProxyListener aCallback);
+    public long endGetDeviceMax(long aAsyncHandle);
+    public long syncGetAccountMax();
+    public void beginGetAccountMax(ICpProxyListener aCallback);
+    public long endGetAccountMax(long aAsyncHandle);
     public String syncGetModes();
     public void beginGetModes(ICpProxyListener aCallback);
     public String endGetModes(long aAsyncHandle);
     public String syncGetIdArray();
     public void beginGetIdArray(ICpProxyListener aCallback);
     public String endGetIdArray(long aAsyncHandle);
+    public boolean syncGetCloudConnected();
+    public void beginGetCloudConnected(ICpProxyListener aCallback);
+    public boolean endGetCloudConnected(long aAsyncHandle);
     public String syncReadList(String aIds);
     public void beginReadList(String aIds, ICpProxyListener aCallback);
     public String endReadList(long aAsyncHandle);
@@ -28,6 +34,9 @@ interface ICpProxyAvOpenhomeOrgPins1 extends ICpProxy
     public void syncInvokeIndex(long aIndex);
     public void beginInvokeIndex(long aIndex, ICpProxyListener aCallback);
     public void endInvokeIndex(long aAsyncHandle);
+    public void syncInvokeUri(String aMode, String aType, String aUri, boolean aShuffle);
+    public void beginInvokeUri(String aMode, String aType, String aUri, boolean aShuffle, ICpProxyListener aCallback);
+    public void endInvokeUri(long aAsyncHandle);
     public void syncSetDevice(long aIndex, String aMode, String aType, String aUri, String aTitle, String aDescription, String aArtworkUri, boolean aShuffle);
     public void beginSetDevice(long aIndex, String aMode, String aType, String aUri, String aTitle, String aDescription, String aArtworkUri, boolean aShuffle, ICpProxyListener aCallback);
     public void endSetDevice(long aAsyncHandle);
@@ -48,15 +57,16 @@ interface ICpProxyAvOpenhomeOrgPins1 extends ICpProxy
     public String getPropertyModes();
     public void setPropertyIdArrayChanged(IPropertyChangeListener aIdArrayChanged);
     public String getPropertyIdArray();
+    public void setPropertyCloudConnectedChanged(IPropertyChangeListener aCloudConnectedChanged);
+    public boolean getPropertyCloudConnected();
 }
 
-class SyncGetDeviceAccountMaxAvOpenhomeOrgPins1 extends SyncProxyAction
+class SyncGetDeviceMaxAvOpenhomeOrgPins1 extends SyncProxyAction
 {
     private CpProxyAvOpenhomeOrgPins1 iService;
     private long iDeviceMax;
-    private long iAccountMax;
 
-    public SyncGetDeviceAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+    public SyncGetDeviceMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
     {
         iService = aProxy;
     }
@@ -64,16 +74,32 @@ class SyncGetDeviceAccountMaxAvOpenhomeOrgPins1 extends SyncProxyAction
     {
         return iDeviceMax;
     }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        long result = iService.endGetDeviceMax(aAsyncHandle);
+        
+        iDeviceMax = result;
+    }
+}
+
+class SyncGetAccountMaxAvOpenhomeOrgPins1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgPins1 iService;
+    private long iAccountMax;
+
+    public SyncGetAccountMaxAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+    {
+        iService = aProxy;
+    }
     public long getAccountMax()
     {
         return iAccountMax;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        GetDeviceAccountMax result = iService.endGetDeviceAccountMax(aAsyncHandle);
+        long result = iService.endGetAccountMax(aAsyncHandle);
         
-        iDeviceMax = result.getDeviceMax();
-        iAccountMax = result.getAccountMax();
+        iAccountMax = result;
     }
 }
 
@@ -116,6 +142,27 @@ class SyncGetIdArrayAvOpenhomeOrgPins1 extends SyncProxyAction
         String result = iService.endGetIdArray(aAsyncHandle);
         
         iIdArray = result;
+    }
+}
+
+class SyncGetCloudConnectedAvOpenhomeOrgPins1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgPins1 iService;
+    private boolean iCloudConnected;
+
+    public SyncGetCloudConnectedAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+    {
+        iService = aProxy;
+    }
+    public boolean getCloudConnected()
+    {
+        return iCloudConnected;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        boolean result = iService.endGetCloudConnected(aAsyncHandle);
+        
+        iCloudConnected = result;
     }
 }
 
@@ -166,6 +213,21 @@ class SyncInvokeIndexAvOpenhomeOrgPins1 extends SyncProxyAction
     protected void completeRequest(long aAsyncHandle)
     {
         iService.endInvokeIndex(aAsyncHandle);
+        
+    }
+}
+
+class SyncInvokeUriAvOpenhomeOrgPins1 extends SyncProxyAction
+{
+    private CpProxyAvOpenhomeOrgPins1 iService;
+
+    public SyncInvokeUriAvOpenhomeOrgPins1(CpProxyAvOpenhomeOrgPins1 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endInvokeUri(aAsyncHandle);
         
     }
 }
@@ -236,35 +298,15 @@ class SyncSwapAvOpenhomeOrgPins1 extends SyncProxyAction
 public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpenhomeOrgPins1
 {
 
-    public class GetDeviceAccountMax
-    {
-        private long iDeviceMax;
-        private long iAccountMax;
-
-        public GetDeviceAccountMax(
-            long aDeviceMax,
-            long aAccountMax
-        )
-        {
-            iDeviceMax = aDeviceMax;
-            iAccountMax = aAccountMax;
-        }
-        public long getDeviceMax()
-        {
-            return iDeviceMax;
-        }
-        public long getAccountMax()
-        {
-            return iAccountMax;
-        }
-    }
-
-    private Action iActionGetDeviceAccountMax;
+    private Action iActionGetDeviceMax;
+    private Action iActionGetAccountMax;
     private Action iActionGetModes;
     private Action iActionGetIdArray;
+    private Action iActionGetCloudConnected;
     private Action iActionReadList;
     private Action iActionInvokeId;
     private Action iActionInvokeIndex;
+    private Action iActionInvokeUri;
     private Action iActionSetDevice;
     private Action iActionSetAccount;
     private Action iActionClear;
@@ -273,10 +315,12 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
     private PropertyUint iAccountMax;
     private PropertyString iModes;
     private PropertyString iIdArray;
+    private PropertyBool iCloudConnected;
     private IPropertyChangeListener iDeviceMaxChanged;
     private IPropertyChangeListener iAccountMaxChanged;
     private IPropertyChangeListener iModesChanged;
     private IPropertyChangeListener iIdArrayChanged;
+    private IPropertyChangeListener iCloudConnectedChanged;
     private Object iPropertyLock;
 
     /**
@@ -292,11 +336,13 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
         Parameter param;
         List<String> allowedValues = new LinkedList<String>();
 
-        iActionGetDeviceAccountMax = new Action("GetDeviceAccountMax");
+        iActionGetDeviceMax = new Action("GetDeviceMax");
         param = new ParameterUint("DeviceMax");
-        iActionGetDeviceAccountMax.addOutputParameter(param);
+        iActionGetDeviceMax.addOutputParameter(param);
+
+        iActionGetAccountMax = new Action("GetAccountMax");
         param = new ParameterUint("AccountMax");
-        iActionGetDeviceAccountMax.addOutputParameter(param);
+        iActionGetAccountMax.addOutputParameter(param);
 
         iActionGetModes = new Action("GetModes");
         param = new ParameterString("Modes", allowedValues);
@@ -305,6 +351,10 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
         iActionGetIdArray = new Action("GetIdArray");
         param = new ParameterString("IdArray", allowedValues);
         iActionGetIdArray.addOutputParameter(param);
+
+        iActionGetCloudConnected = new Action("GetCloudConnected");
+        param = new ParameterBool("CloudConnected");
+        iActionGetCloudConnected.addOutputParameter(param);
 
         iActionReadList = new Action("ReadList");
         param = new ParameterString("Ids", allowedValues);
@@ -319,6 +369,16 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
         iActionInvokeIndex = new Action("InvokeIndex");
         param = new ParameterUint("Index");
         iActionInvokeIndex.addInputParameter(param);
+
+        iActionInvokeUri = new Action("InvokeUri");
+        param = new ParameterString("Mode", allowedValues);
+        iActionInvokeUri.addInputParameter(param);
+        param = new ParameterString("Type", allowedValues);
+        iActionInvokeUri.addInputParameter(param);
+        param = new ParameterString("Uri", allowedValues);
+        iActionInvokeUri.addInputParameter(param);
+        param = new ParameterBool("Shuffle");
+        iActionInvokeUri.addInputParameter(param);
 
         iActionSetDevice = new Action("SetDevice");
         param = new ParameterUint("Index");
@@ -402,6 +462,15 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
             }
         );
         addProperty(iIdArray);
+        iCloudConnectedChanged = new PropertyChangeListener();
+        iCloudConnected = new PropertyBool("CloudConnected",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    cloudConnectedPropertyChanged();
+                }
+            }
+        );
+        addProperty(iCloudConnected);
         iPropertyLock = new Object();
     }
     /**
@@ -411,47 +480,43 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
      *
      * @return the result of the invoked action.
      */
-    public GetDeviceAccountMax syncGetDeviceAccountMax()
+    public long syncGetDeviceMax()
     {
-        SyncGetDeviceAccountMaxAvOpenhomeOrgPins1 sync = new SyncGetDeviceAccountMaxAvOpenhomeOrgPins1(this);
-        beginGetDeviceAccountMax(sync.getListener());
+        SyncGetDeviceMaxAvOpenhomeOrgPins1 sync = new SyncGetDeviceMaxAvOpenhomeOrgPins1(this);
+        beginGetDeviceMax(sync.getListener());
         sync.waitToComplete();
         sync.reportError();
 
-        return new GetDeviceAccountMax(
-            sync.getDeviceMax(),
-            sync.getAccountMax()
-        );
+        return sync.getDeviceMax();
     }
     
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endGetDeviceAccountMax}.
+     * calling {@link #endGetDeviceMax}.
      * 
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginGetDeviceAccountMax(ICpProxyListener aCallback)
+    public void beginGetDeviceMax(ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionGetDeviceAccountMax, aCallback);
+        Invocation invocation = iService.getInvocation(iActionGetDeviceMax, aCallback);
         int outIndex = 0;
-        invocation.addOutput(new ArgumentUint((ParameterUint)iActionGetDeviceAccountMax.getOutputParameter(outIndex++)));
-        invocation.addOutput(new ArgumentUint((ParameterUint)iActionGetDeviceAccountMax.getOutputParameter(outIndex++)));
+        invocation.addOutput(new ArgumentUint((ParameterUint)iActionGetDeviceMax.getOutputParameter(outIndex++)));
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginGetDeviceAccountMax} method.
+     * {@link #beginGetDeviceMax} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginGetDeviceAccountMax} method.
+     *          {@link #beginGetDeviceMax} method.
      * @return the result of the previously invoked action.
      */
-    public GetDeviceAccountMax endGetDeviceAccountMax(long aAsyncHandle)
+    public long endGetDeviceMax(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -460,11 +525,62 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
         }
         int index = 0;
         long deviceMax = Invocation.getOutputUint(aAsyncHandle, index++);
+        return deviceMax;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
+    public long syncGetAccountMax()
+    {
+        SyncGetAccountMaxAvOpenhomeOrgPins1 sync = new SyncGetAccountMaxAvOpenhomeOrgPins1(this);
+        beginGetAccountMax(sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getAccountMax();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endGetAccountMax}.
+     * 
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginGetAccountMax(ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionGetAccountMax, aCallback);
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentUint((ParameterUint)iActionGetAccountMax.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginGetAccountMax} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginGetAccountMax} method.
+     * @return the result of the previously invoked action.
+     */
+    public long endGetAccountMax(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
         long accountMax = Invocation.getOutputUint(aAsyncHandle, index++);
-        return new GetDeviceAccountMax(
-            deviceMax,
-            accountMax
-        );
+        return accountMax;
     }
         
     /**
@@ -575,6 +691,61 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
         int index = 0;
         String idArray = Invocation.getOutputString(aAsyncHandle, index++);
         return idArray;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
+    public boolean syncGetCloudConnected()
+    {
+        SyncGetCloudConnectedAvOpenhomeOrgPins1 sync = new SyncGetCloudConnectedAvOpenhomeOrgPins1(this);
+        beginGetCloudConnected(sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getCloudConnected();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endGetCloudConnected}.
+     * 
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginGetCloudConnected(ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionGetCloudConnected, aCallback);
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentBool((ParameterBool)iActionGetCloudConnected.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginGetCloudConnected} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginGetCloudConnected} method.
+     * @return the result of the previously invoked action.
+     */
+    public boolean endGetCloudConnected(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        boolean cloudConnected = Invocation.getOutputBool(aAsyncHandle, index++);
+        return cloudConnected;
     }
         
     /**
@@ -723,6 +894,60 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
      *          {@link #beginInvokeIndex} method.
      */
     public void endInvokeIndex(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncInvokeUri(String aMode, String aType, String aUri, boolean aShuffle)
+    {
+        SyncInvokeUriAvOpenhomeOrgPins1 sync = new SyncInvokeUriAvOpenhomeOrgPins1(this);
+        beginInvokeUri(aMode, aType, aUri, aShuffle, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endInvokeUri}.
+     * 
+     * @param aMode
+     * @param aType
+     * @param aUri
+     * @param aShuffle
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginInvokeUri(String aMode, String aType, String aUri, boolean aShuffle, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionInvokeUri, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionInvokeUri.getInputParameter(inIndex++), aMode));
+        invocation.addInput(new ArgumentString((ParameterString)iActionInvokeUri.getInputParameter(inIndex++), aType));
+        invocation.addInput(new ArgumentString((ParameterString)iActionInvokeUri.getInputParameter(inIndex++), aUri));
+        invocation.addInput(new ArgumentBool((ParameterBool)iActionInvokeUri.getInputParameter(inIndex++), aShuffle));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginInvokeUri} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginInvokeUri} method.
+     */
+    public void endInvokeUri(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -1045,6 +1270,29 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
             reportEvent(iIdArrayChanged);
         }
     }
+    /**
+     * Set a delegate to be run when the CloudConnected state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyAvOpenhomeOrgPins1 instance will not overlap.
+     *
+     * @param aCloudConnectedChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyCloudConnectedChanged(IPropertyChangeListener aCloudConnectedChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iCloudConnectedChanged = aCloudConnectedChanged;
+        }
+    }
+
+    private void cloudConnectedPropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iCloudConnectedChanged);
+        }
+    }
 
     /**
      * Query the value of the DeviceMax property.
@@ -1111,6 +1359,22 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
     }
     
     /**
+     * Query the value of the CloudConnected property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the CloudConnected property.
+     */
+    public boolean getPropertyCloudConnected()
+    {
+        propertyReadLock();
+        boolean val = iCloudConnected.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
      * Dispose of this control point proxy.
      * Must be called for each class instance.
      * Must be called before <tt>Library.close()</tt>.
@@ -1125,12 +1389,15 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
             }
             disposeProxy();
             iHandle = 0;
-            iActionGetDeviceAccountMax.destroy();
+            iActionGetDeviceMax.destroy();
+            iActionGetAccountMax.destroy();
             iActionGetModes.destroy();
             iActionGetIdArray.destroy();
+            iActionGetCloudConnected.destroy();
             iActionReadList.destroy();
             iActionInvokeId.destroy();
             iActionInvokeIndex.destroy();
+            iActionInvokeUri.destroy();
             iActionSetDevice.destroy();
             iActionSetAccount.destroy();
             iActionClear.destroy();
@@ -1139,6 +1406,7 @@ public class CpProxyAvOpenhomeOrgPins1 extends CpProxy implements ICpProxyAvOpen
             iAccountMax.destroy();
             iModes.destroy();
             iIdArray.destroy();
+            iCloudConnected.destroy();
         }
     }
 }

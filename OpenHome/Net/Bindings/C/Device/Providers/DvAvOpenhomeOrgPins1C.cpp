@@ -26,44 +26,59 @@ public:
     void GetPropertyModes(Brhz& aValue);
     TBool SetPropertyIdArray(const Brx& aValue);
     void GetPropertyIdArray(Brhz& aValue);
+    TBool SetPropertyCloudConnected(TBool aValue);
+    void GetPropertyCloudConnected(TBool& aValue);
     void EnablePropertyDeviceMax();
     void EnablePropertyAccountMax();
     void EnablePropertyModes();
     void EnablePropertyIdArray();
-    void EnableActionGetDeviceAccountMax(CallbackPins1GetDeviceAccountMax aCallback, void* aPtr);
+    void EnablePropertyCloudConnected();
+    void EnableActionGetDeviceMax(CallbackPins1GetDeviceMax aCallback, void* aPtr);
+    void EnableActionGetAccountMax(CallbackPins1GetAccountMax aCallback, void* aPtr);
     void EnableActionGetModes(CallbackPins1GetModes aCallback, void* aPtr);
     void EnableActionGetIdArray(CallbackPins1GetIdArray aCallback, void* aPtr);
+    void EnableActionGetCloudConnected(CallbackPins1GetCloudConnected aCallback, void* aPtr);
     void EnableActionReadList(CallbackPins1ReadList aCallback, void* aPtr);
     void EnableActionInvokeId(CallbackPins1InvokeId aCallback, void* aPtr);
     void EnableActionInvokeIndex(CallbackPins1InvokeIndex aCallback, void* aPtr);
+    void EnableActionInvokeUri(CallbackPins1InvokeUri aCallback, void* aPtr);
     void EnableActionSetDevice(CallbackPins1SetDevice aCallback, void* aPtr);
     void EnableActionSetAccount(CallbackPins1SetAccount aCallback, void* aPtr);
     void EnableActionClear(CallbackPins1Clear aCallback, void* aPtr);
     void EnableActionSwap(CallbackPins1Swap aCallback, void* aPtr);
 private:
-    void DoGetDeviceAccountMax(IDviInvocation& aInvocation);
+    void DoGetDeviceMax(IDviInvocation& aInvocation);
+    void DoGetAccountMax(IDviInvocation& aInvocation);
     void DoGetModes(IDviInvocation& aInvocation);
     void DoGetIdArray(IDviInvocation& aInvocation);
+    void DoGetCloudConnected(IDviInvocation& aInvocation);
     void DoReadList(IDviInvocation& aInvocation);
     void DoInvokeId(IDviInvocation& aInvocation);
     void DoInvokeIndex(IDviInvocation& aInvocation);
+    void DoInvokeUri(IDviInvocation& aInvocation);
     void DoSetDevice(IDviInvocation& aInvocation);
     void DoSetAccount(IDviInvocation& aInvocation);
     void DoClear(IDviInvocation& aInvocation);
     void DoSwap(IDviInvocation& aInvocation);
 private:
-    CallbackPins1GetDeviceAccountMax iCallbackGetDeviceAccountMax;
-    void* iPtrGetDeviceAccountMax;
+    CallbackPins1GetDeviceMax iCallbackGetDeviceMax;
+    void* iPtrGetDeviceMax;
+    CallbackPins1GetAccountMax iCallbackGetAccountMax;
+    void* iPtrGetAccountMax;
     CallbackPins1GetModes iCallbackGetModes;
     void* iPtrGetModes;
     CallbackPins1GetIdArray iCallbackGetIdArray;
     void* iPtrGetIdArray;
+    CallbackPins1GetCloudConnected iCallbackGetCloudConnected;
+    void* iPtrGetCloudConnected;
     CallbackPins1ReadList iCallbackReadList;
     void* iPtrReadList;
     CallbackPins1InvokeId iCallbackInvokeId;
     void* iPtrInvokeId;
     CallbackPins1InvokeIndex iCallbackInvokeIndex;
     void* iPtrInvokeIndex;
+    CallbackPins1InvokeUri iCallbackInvokeUri;
+    void* iPtrInvokeUri;
     CallbackPins1SetDevice iCallbackSetDevice;
     void* iPtrSetDevice;
     CallbackPins1SetAccount iCallbackSetAccount;
@@ -76,6 +91,7 @@ private:
     PropertyUint* iPropertyAccountMax;
     PropertyString* iPropertyModes;
     PropertyString* iPropertyIdArray;
+    PropertyBool* iPropertyCloudConnected;
 };
 
 DvProviderAvOpenhomeOrgPins1C::DvProviderAvOpenhomeOrgPins1C(DvDeviceC aDevice)
@@ -85,6 +101,7 @@ DvProviderAvOpenhomeOrgPins1C::DvProviderAvOpenhomeOrgPins1C(DvDeviceC aDevice)
     iPropertyAccountMax = NULL;
     iPropertyModes = NULL;
     iPropertyIdArray = NULL;
+    iPropertyCloudConnected = NULL;
 }
 
 TBool DvProviderAvOpenhomeOrgPins1C::SetPropertyDeviceMax(TUint aValue)
@@ -135,6 +152,18 @@ void DvProviderAvOpenhomeOrgPins1C::GetPropertyIdArray(Brhz& aValue)
     aValue.Set(iPropertyIdArray->Value());
 }
 
+TBool DvProviderAvOpenhomeOrgPins1C::SetPropertyCloudConnected(TBool aValue)
+{
+    ASSERT(iPropertyCloudConnected != NULL);
+    return SetPropertyBool(*iPropertyCloudConnected, aValue);
+}
+
+void DvProviderAvOpenhomeOrgPins1C::GetPropertyCloudConnected(TBool& aValue)
+{
+    ASSERT(iPropertyCloudConnected != NULL);
+    aValue = iPropertyCloudConnected->Value();
+}
+
 void DvProviderAvOpenhomeOrgPins1C::EnablePropertyDeviceMax()
 {
     iPropertyDeviceMax = new PropertyUint(new ParameterUint("DeviceMax"));
@@ -159,14 +188,29 @@ void DvProviderAvOpenhomeOrgPins1C::EnablePropertyIdArray()
     iService->AddProperty(iPropertyIdArray); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgPins1C::EnableActionGetDeviceAccountMax(CallbackPins1GetDeviceAccountMax aCallback, void* aPtr)
+void DvProviderAvOpenhomeOrgPins1C::EnablePropertyCloudConnected()
 {
-    iCallbackGetDeviceAccountMax = aCallback;
-    iPtrGetDeviceAccountMax = aPtr;
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetDeviceAccountMax");
+    iPropertyCloudConnected = new PropertyBool(new ParameterBool("CloudConnected"));
+    iService->AddProperty(iPropertyCloudConnected); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgPins1C::EnableActionGetDeviceMax(CallbackPins1GetDeviceMax aCallback, void* aPtr)
+{
+    iCallbackGetDeviceMax = aCallback;
+    iPtrGetDeviceMax = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetDeviceMax");
     action->AddOutputParameter(new ParameterRelated("DeviceMax", *iPropertyDeviceMax));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1C::DoGetDeviceMax);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgPins1C::EnableActionGetAccountMax(CallbackPins1GetAccountMax aCallback, void* aPtr)
+{
+    iCallbackGetAccountMax = aCallback;
+    iPtrGetAccountMax = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetAccountMax");
     action->AddOutputParameter(new ParameterRelated("AccountMax", *iPropertyAccountMax));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1C::DoGetDeviceAccountMax);
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1C::DoGetAccountMax);
     iService->AddAction(action, functor);
 }
 
@@ -187,6 +231,16 @@ void DvProviderAvOpenhomeOrgPins1C::EnableActionGetIdArray(CallbackPins1GetIdArr
     OpenHome::Net::Action* action = new OpenHome::Net::Action("GetIdArray");
     action->AddOutputParameter(new ParameterRelated("IdArray", *iPropertyIdArray));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1C::DoGetIdArray);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgPins1C::EnableActionGetCloudConnected(CallbackPins1GetCloudConnected aCallback, void* aPtr)
+{
+    iCallbackGetCloudConnected = aCallback;
+    iPtrGetCloudConnected = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetCloudConnected");
+    action->AddOutputParameter(new ParameterRelated("CloudConnected", *iPropertyCloudConnected));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1C::DoGetCloudConnected);
     iService->AddAction(action, functor);
 }
 
@@ -218,6 +272,19 @@ void DvProviderAvOpenhomeOrgPins1C::EnableActionInvokeIndex(CallbackPins1InvokeI
     OpenHome::Net::Action* action = new OpenHome::Net::Action("InvokeIndex");
     action->AddInputParameter(new ParameterUint("Index"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1C::DoInvokeIndex);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgPins1C::EnableActionInvokeUri(CallbackPins1InvokeUri aCallback, void* aPtr)
+{
+    iCallbackInvokeUri = aCallback;
+    iPtrInvokeUri = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("InvokeUri");
+    action->AddInputParameter(new ParameterString("Mode"));
+    action->AddInputParameter(new ParameterString("Type"));
+    action->AddInputParameter(new ParameterString("Uri"));
+    action->AddInputParameter(new ParameterBool("Shuffle"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1C::DoInvokeUri);
     iService->AddAction(action, functor);
 }
 
@@ -276,7 +343,7 @@ void DvProviderAvOpenhomeOrgPins1C::EnableActionSwap(CallbackPins1Swap aCallback
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgPins1C::DoGetDeviceAccountMax(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgPins1C::DoGetDeviceMax(IDviInvocation& aInvocation)
 {
     DvInvocationCPrivate invocationWrapper(aInvocation);
     IDvInvocationC* invocationC;
@@ -286,16 +353,34 @@ void DvProviderAvOpenhomeOrgPins1C::DoGetDeviceAccountMax(IDviInvocation& aInvoc
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     uint32_t DeviceMax;
-    uint32_t AccountMax;
-    ASSERT(iCallbackGetDeviceAccountMax != NULL);
-    if (0 != iCallbackGetDeviceAccountMax(iPtrGetDeviceAccountMax, invocationC, invocationCPtr, &DeviceMax, &AccountMax)) {
+    ASSERT(iCallbackGetDeviceMax != NULL);
+    if (0 != iCallbackGetDeviceMax(iPtrGetDeviceMax, invocationC, invocationCPtr, &DeviceMax)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
     DviInvocationResponseUint respDeviceMax(aInvocation, "DeviceMax");
-    DviInvocationResponseUint respAccountMax(aInvocation, "AccountMax");
     invocation.StartResponse();
     respDeviceMax.Write(DeviceMax);
+    invocation.EndResponse();
+}
+
+void DvProviderAvOpenhomeOrgPins1C::DoGetAccountMax(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    uint32_t AccountMax;
+    ASSERT(iCallbackGetAccountMax != NULL);
+    if (0 != iCallbackGetAccountMax(iPtrGetAccountMax, invocationC, invocationCPtr, &AccountMax)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    DviInvocationResponseUint respAccountMax(aInvocation, "AccountMax");
+    invocation.StartResponse();
     respAccountMax.Write(AccountMax);
     invocation.EndResponse();
 }
@@ -345,6 +430,27 @@ void DvProviderAvOpenhomeOrgPins1C::DoGetIdArray(IDviInvocation& aInvocation)
     OhNetFreeExternal(IdArray);
     respIdArray.Write(bufIdArray);
     respIdArray.WriteFlush();
+    invocation.EndResponse();
+}
+
+void DvProviderAvOpenhomeOrgPins1C::DoGetCloudConnected(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    uint32_t CloudConnected;
+    ASSERT(iCallbackGetCloudConnected != NULL);
+    if (0 != iCallbackGetCloudConnected(iPtrGetCloudConnected, invocationC, invocationCPtr, &CloudConnected)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    DviInvocationResponseBool respCloudConnected(aInvocation, "CloudConnected");
+    invocation.StartResponse();
+    respCloudConnected.Write((CloudConnected!=0));
     invocation.EndResponse();
 }
 
@@ -405,6 +511,31 @@ void DvProviderAvOpenhomeOrgPins1C::DoInvokeIndex(IDviInvocation& aInvocation)
     DviInvocation invocation(aInvocation);
     ASSERT(iCallbackInvokeIndex != NULL);
     if (0 != iCallbackInvokeIndex(iPtrInvokeIndex, invocationC, invocationCPtr, Index)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    invocation.StartResponse();
+    invocation.EndResponse();
+}
+
+void DvProviderAvOpenhomeOrgPins1C::DoInvokeUri(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    Brhz Mode;
+    aInvocation.InvocationReadString("Mode", Mode);
+    Brhz Type;
+    aInvocation.InvocationReadString("Type", Type);
+    Brhz Uri;
+    aInvocation.InvocationReadString("Uri", Uri);
+    TBool Shuffle = aInvocation.InvocationReadBool("Shuffle");
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    ASSERT(iCallbackInvokeUri != NULL);
+    if (0 != iCallbackInvokeUri(iPtrInvokeUri, invocationC, invocationCPtr, (const char*)Mode.Ptr(), (const char*)Type.Ptr(), (const char*)Uri.Ptr(), Shuffle)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
@@ -527,9 +658,14 @@ void STDCALL DvProviderAvOpenhomeOrgPins1Destroy(THandle aProvider)
     delete reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider);
 }
 
-void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetDeviceAccountMax(THandle aProvider, CallbackPins1GetDeviceAccountMax aCallback, void* aPtr)
+void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetDeviceMax(THandle aProvider, CallbackPins1GetDeviceMax aCallback, void* aPtr)
 {
-    reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnableActionGetDeviceAccountMax(aCallback, aPtr);
+    reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnableActionGetDeviceMax(aCallback, aPtr);
+}
+
+void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetAccountMax(THandle aProvider, CallbackPins1GetAccountMax aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnableActionGetAccountMax(aCallback, aPtr);
 }
 
 void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetModes(THandle aProvider, CallbackPins1GetModes aCallback, void* aPtr)
@@ -540,6 +676,11 @@ void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetModes(THandle aProvider,
 void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetIdArray(THandle aProvider, CallbackPins1GetIdArray aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnableActionGetIdArray(aCallback, aPtr);
+}
+
+void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetCloudConnected(THandle aProvider, CallbackPins1GetCloudConnected aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnableActionGetCloudConnected(aCallback, aPtr);
 }
 
 void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionReadList(THandle aProvider, CallbackPins1ReadList aCallback, void* aPtr)
@@ -555,6 +696,11 @@ void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionInvokeId(THandle aProvider,
 void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionInvokeIndex(THandle aProvider, CallbackPins1InvokeIndex aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnableActionInvokeIndex(aCallback, aPtr);
+}
+
+void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionInvokeUri(THandle aProvider, CallbackPins1InvokeUri aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnableActionInvokeUri(aCallback, aPtr);
 }
 
 void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionSetDevice(THandle aProvider, CallbackPins1SetDevice aCallback, void* aPtr)
@@ -631,6 +777,19 @@ void STDCALL DvProviderAvOpenhomeOrgPins1GetPropertyIdArray(THandle aProvider, c
     *aValue = (char*)buf.Transfer();
 }
 
+int32_t STDCALL DvProviderAvOpenhomeOrgPins1SetPropertyCloudConnected(THandle aProvider, uint32_t aValue, uint32_t* aChanged)
+{
+    *aChanged = (reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->SetPropertyCloudConnected((aValue!=0))? 1 : 0);
+    return 0;
+}
+
+void STDCALL DvProviderAvOpenhomeOrgPins1GetPropertyCloudConnected(THandle aProvider, uint32_t* aValue)
+{
+    TBool val;
+    reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->GetPropertyCloudConnected(val);
+    *aValue = (val? 1 : 0);
+}
+
 void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyDeviceMax(THandle aProvider)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnablePropertyDeviceMax();
@@ -649,5 +808,10 @@ void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyModes(THandle aProvider)
 void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyIdArray(THandle aProvider)
 {
     reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnablePropertyIdArray();
+}
+
+void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyCloudConnected(THandle aProvider)
+{
+    reinterpret_cast<DvProviderAvOpenhomeOrgPins1C*>(aProvider)->EnablePropertyCloudConnected();
 }
 

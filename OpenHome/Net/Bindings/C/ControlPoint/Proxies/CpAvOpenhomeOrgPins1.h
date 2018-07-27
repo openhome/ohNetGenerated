@@ -48,12 +48,11 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPins1Destroy(THandle aHandle);
  *
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
  * @param[out] aDeviceMax
- * @param[out] aAccountMax
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1SyncGetDeviceAccountMax(THandle aHandle, uint32_t* aDeviceMax, uint32_t* aAccountMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1SyncGetDeviceMax(THandle aHandle, uint32_t* aDeviceMax);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -65,7 +64,7 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1SyncGetDeviceAccountMax(THand
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginGetDeviceAccountMax(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginGetDeviceMax(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
@@ -73,12 +72,47 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginGetDeviceAccountMax(THandle
  * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
  * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
  * @param[out] aDeviceMax
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1EndGetDeviceMax(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aDeviceMax);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[out] aAccountMax
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1SyncGetAccountMax(THandle aHandle, uint32_t* aAccountMax);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginGetAccountMax(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
  * @param[out] aAccountMax
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1EndGetDeviceAccountMax(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aDeviceMax, uint32_t* aAccountMax);
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1EndGetAccountMax(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aAccountMax);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -151,6 +185,42 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginGetIdArray(THandle aHandle,
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1EndGetIdArray(THandle aHandle, OhNetHandleAsync aAsync, char** aIdArray);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[out] aCloudConnected
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1SyncGetCloudConnected(THandle aHandle, uint32_t* aCloudConnected);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginGetCloudConnected(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ * @param[out] aCloudConnected
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1EndGetCloudConnected(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aCloudConnected);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -261,6 +331,48 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginInvokeIndex(THandle aHandle
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1EndInvokeIndex(THandle aHandle, OhNetHandleAsync aAsync);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aMode
+ * @param[in]  aType
+ * @param[in]  aUri
+ * @param[in]  aShuffle
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1SyncInvokeUri(THandle aHandle, const char* aMode, const char* aType, const char* aUri, uint32_t aShuffle);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aMode
+ * @param[in]  aType
+ * @param[in]  aUri
+ * @param[in]  aShuffle
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyAvOpenhomeOrgPins1BeginInvokeUri(THandle aHandle, const char* aMode, const char* aType, const char* aUri, uint32_t aShuffle, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1EndInvokeUri(THandle aHandle, OhNetHandleAsync aAsync);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -479,6 +591,17 @@ DllExport void STDCALL CpProxyAvOpenhomeOrgPins1SetPropertyModesChanged(THandle 
  * @param[in]  aPtr      Data to be passed to the callback
  */
 DllExport void STDCALL CpProxyAvOpenhomeOrgPins1SetPropertyIdArrayChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
+/**
+ * Set a callback to be run when the CloudConnected state variable changes.
+ *
+ * Callbacks may be run in different threads but callbacks for a
+ * CpProxyAvOpenhomeOrgPins1 instance will not overlap.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[in]  aCallback The callback to run when the state variable changes
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyAvOpenhomeOrgPins1SetPropertyCloudConnectedChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 
 /**
  * Query the value of the DeviceMax property.
@@ -528,6 +651,18 @@ DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1PropertyModes(THandle aHandle
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1PropertyIdArray(THandle aHandle, char** aIdArray);
+/**
+ * Query the value of the CloudConnected property.
+ *
+ * This function is threadsafe and can only be called after the first callback
+ * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyAvOpenhomeOrgPins1Create
+ * @param[out] aCloudConnected
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyAvOpenhomeOrgPins1PropertyCloudConnected(THandle aHandle, uint32_t* aCloudConnected);
 
 /* @} */
 
