@@ -32,17 +32,22 @@ public:
     virtual void SyncGetUpdateFeedParams(Brh& aTopic, Brh& aChannel) = 0;
     virtual void BeginGetUpdateFeedParams(FunctorAsync& aFunctor) = 0;
     virtual void EndGetUpdateFeedParams(IAsync& aAsync, Brh& aTopic, Brh& aChannel) = 0;
-    virtual void SyncGetUpdateStatus(Brh& aUpdateStatus) = 0;
-    virtual void BeginGetUpdateStatus(FunctorAsync& aFunctor) = 0;
-    virtual void EndGetUpdateStatus(IAsync& aAsync, Brh& aUpdateStatus) = 0;
+    virtual void SyncGetSoftwareStatus(Brh& aSoftwareStatus) = 0;
+    virtual void BeginGetSoftwareStatus(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetSoftwareStatus(IAsync& aAsync, Brh& aSoftwareStatus) = 0;
+    virtual void SyncGetExecutorStatus(Brh& aExecutorStatus) = 0;
+    virtual void BeginGetExecutorStatus(FunctorAsync& aFunctor) = 0;
+    virtual void EndGetExecutorStatus(IAsync& aAsync, Brh& aExecutorStatus) = 0;
     virtual void SyncApply() = 0;
     virtual void BeginApply(FunctorAsync& aFunctor) = 0;
     virtual void EndApply(IAsync& aAsync) = 0;
     virtual void SyncRestore() = 0;
     virtual void BeginRestore(FunctorAsync& aFunctor) = 0;
     virtual void EndRestore(IAsync& aAsync) = 0;
-    virtual void SetPropertyUpdateStatusChanged(Functor& aUpdateStatusChanged) = 0;
-    virtual void PropertyUpdateStatus(Brhz& aUpdateStatus) const = 0;
+    virtual void SetPropertySoftwareStatusChanged(Functor& aSoftwareStatusChanged) = 0;
+    virtual void PropertySoftwareStatus(Brhz& aSoftwareStatus) const = 0;
+    virtual void SetPropertyExecutorStatusChanged(Functor& aExecutorStatusChanged) = 0;
+    virtual void PropertyExecutorStatus(Brhz& aExecutorStatus) const = 0;
     virtual void SetPropertyUpdateTopicChanged(Functor& aUpdateTopicChanged) = 0;
     virtual void PropertyUpdateTopic(Brhz& aUpdateTopic) const = 0;
     virtual void SetPropertyUpdateChannelChanged(Functor& aUpdateChannelChanged) = 0;
@@ -160,27 +165,53 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      *
-     * @param[out] aUpdateStatus
+     * @param[out] aSoftwareStatus
      */
-    void SyncGetUpdateStatus(Brh& aUpdateStatus);
+    void SyncGetSoftwareStatus(Brh& aSoftwareStatus);
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndGetUpdateStatus().
+     * EndGetSoftwareStatus().
      *
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginGetUpdateStatus(FunctorAsync& aFunctor);
+    void BeginGetSoftwareStatus(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     * @param[out] aUpdateStatus
+     * @param[out] aSoftwareStatus
      */
-    void EndGetUpdateStatus(IAsync& aAsync, Brh& aUpdateStatus);
+    void EndGetSoftwareStatus(IAsync& aAsync, Brh& aSoftwareStatus);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[out] aExecutorStatus
+     */
+    void SyncGetExecutorStatus(Brh& aExecutorStatus);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndGetExecutorStatus().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginGetExecutorStatus(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     * @param[out] aExecutorStatus
+     */
+    void EndGetExecutorStatus(IAsync& aAsync, Brh& aExecutorStatus);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -229,14 +260,23 @@ public:
     void EndRestore(IAsync& aAsync);
 
     /**
-     * Set a callback to be run when the UpdateStatus state variable changes.
+     * Set a callback to be run when the SoftwareStatus state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyLinnCoUkUpdate1 instance will not overlap.
      *
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
-    void SetPropertyUpdateStatusChanged(Functor& aFunctor);
+    void SetPropertySoftwareStatusChanged(Functor& aFunctor);
+    /**
+     * Set a callback to be run when the ExecutorStatus state variable changes.
+     *
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyLinnCoUkUpdate1 instance will not overlap.
+     *
+     * @param[in]  aFunctor  The callback to run when the state variable changes
+     */
+    void SetPropertyExecutorStatusChanged(Functor& aFunctor);
     /**
      * Set a callback to be run when the UpdateTopic state variable changes.
      *
@@ -257,15 +297,25 @@ public:
     void SetPropertyUpdateChannelChanged(Functor& aFunctor);
 
     /**
-     * Query the value of the UpdateStatus property.
+     * Query the value of the SoftwareStatus property.
      *
      * This function is threadsafe and can only be called if Subscribe() has been
      * called and a first eventing callback received more recently than any call
      * to Unsubscribe().
      *
-     * @param[out] aUpdateStatus
+     * @param[out] aSoftwareStatus
      */
-    void PropertyUpdateStatus(Brhz& aUpdateStatus) const;
+    void PropertySoftwareStatus(Brhz& aSoftwareStatus) const;
+    /**
+     * Query the value of the ExecutorStatus property.
+     *
+     * This function is threadsafe and can only be called if Subscribe() has been
+     * called and a first eventing callback received more recently than any call
+     * to Unsubscribe().
+     *
+     * @param[out] aExecutorStatus
+     */
+    void PropertyExecutorStatus(Brhz& aExecutorStatus) const;
     /**
      * Query the value of the UpdateTopic property.
      *
@@ -320,20 +370,24 @@ public:
     TUint Version() const;
 private:
     CpProxy iCpProxy;
-    void UpdateStatusPropertyChanged();
+    void SoftwareStatusPropertyChanged();
+    void ExecutorStatusPropertyChanged();
     void UpdateTopicPropertyChanged();
     void UpdateChannelPropertyChanged();
 private:
     Action* iActionPushManifest;
     Action* iActionSetUpdateFeedParams;
     Action* iActionGetUpdateFeedParams;
-    Action* iActionGetUpdateStatus;
+    Action* iActionGetSoftwareStatus;
+    Action* iActionGetExecutorStatus;
     Action* iActionApply;
     Action* iActionRestore;
-    PropertyString* iUpdateStatus;
+    PropertyString* iSoftwareStatus;
+    PropertyString* iExecutorStatus;
     PropertyString* iUpdateTopic;
     PropertyString* iUpdateChannel;
-    Functor iUpdateStatusChanged;
+    Functor iSoftwareStatusChanged;
+    Functor iExecutorStatusChanged;
     Functor iUpdateTopicChanged;
     Functor iUpdateChannelChanged;
 };

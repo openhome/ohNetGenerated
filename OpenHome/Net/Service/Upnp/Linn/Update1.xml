@@ -46,12 +46,22 @@
       </argumentList>
     </action>
     <action>
-      <name>GetUpdateStatus</name>
+      <name>GetSoftwareStatus</name>
       <argumentList>
         <argument>
-          <name>UpdateStatus</name>
+          <name>SoftwareStatus</name>
           <direction>out</direction>
-          <relatedStateVariable>UpdateStatus</relatedStateVariable>
+          <relatedStateVariable>SoftwareStatus</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>GetExecutorStatus</name>
+      <argumentList>
+        <argument>
+          <name>ExecutorStatus</name>
+          <direction>out</direction>
+          <relatedStateVariable>ExecutorStatus</relatedStateVariable>
         </argument>
       </argumentList>
     </action>
@@ -64,7 +74,11 @@
   </actionList>
   <serviceStateTable>
     <stateVariable sendEvents="yes">
-      <name>UpdateStatus</name>
+      <name>SoftwareStatus</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="yes">
+      <name>ExecutorStatus</name>
       <dataType>string</dataType>
     </stateVariable>
     <stateVariable sendEvents="yes">

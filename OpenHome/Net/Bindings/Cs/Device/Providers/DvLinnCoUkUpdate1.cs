@@ -10,17 +10,30 @@ namespace OpenHome.Net.Device.Providers
     {
 
         /// <summary>
-        /// Set the value of the UpdateStatus property
+        /// Set the value of the SoftwareStatus property
         /// </summary>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyUpdateStatus(string aValue);
+        bool SetPropertySoftwareStatus(string aValue);
 
         /// <summary>
-        /// Get a copy of the value of the UpdateStatus property
+        /// Get a copy of the value of the SoftwareStatus property
         /// </summary>
-        /// <returns>Value of the UpdateStatus property.</param>
-        string PropertyUpdateStatus();
+        /// <returns>Value of the SoftwareStatus property.</param>
+        string PropertySoftwareStatus();
+
+        /// <summary>
+        /// Set the value of the ExecutorStatus property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyExecutorStatus(string aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the ExecutorStatus property
+        /// </summary>
+        /// <returns>Value of the ExecutorStatus property.</param>
+        string PropertyExecutorStatus();
 
         /// <summary>
         /// Set the value of the UpdateTopic property
@@ -58,10 +71,12 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegatePushManifest;
         private ActionDelegate iDelegateSetUpdateFeedParams;
         private ActionDelegate iDelegateGetUpdateFeedParams;
-        private ActionDelegate iDelegateGetUpdateStatus;
+        private ActionDelegate iDelegateGetSoftwareStatus;
+        private ActionDelegate iDelegateGetExecutorStatus;
         private ActionDelegate iDelegateApply;
         private ActionDelegate iDelegateRestore;
-        private PropertyString iPropertyUpdateStatus;
+        private PropertyString iPropertySoftwareStatus;
+        private PropertyString iPropertyExecutorStatus;
         private PropertyString iPropertyUpdateTopic;
         private PropertyString iPropertyUpdateChannel;
 
@@ -76,13 +91,23 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Enable the UpdateStatus property.
+        /// Enable the SoftwareStatus property.
         /// </summary>
-        public void EnablePropertyUpdateStatus()
+        public void EnablePropertySoftwareStatus()
         {
             List<String> allowedValues = new List<String>();
-            iPropertyUpdateStatus = new PropertyString(new ParameterString("UpdateStatus", allowedValues));
-            AddProperty(iPropertyUpdateStatus);
+            iPropertySoftwareStatus = new PropertyString(new ParameterString("SoftwareStatus", allowedValues));
+            AddProperty(iPropertySoftwareStatus);
+        }
+
+        /// <summary>
+        /// Enable the ExecutorStatus property.
+        /// </summary>
+        public void EnablePropertyExecutorStatus()
+        {
+            List<String> allowedValues = new List<String>();
+            iPropertyExecutorStatus = new PropertyString(new ParameterString("ExecutorStatus", allowedValues));
+            AddProperty(iPropertyExecutorStatus);
         }
 
         /// <summary>
@@ -111,28 +136,53 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Set the value of the UpdateStatus property
+        /// Set the value of the SoftwareStatus property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyUpdateStatus has previously been called.</remarks>
+        /// <remarks>Can only be called if EnablePropertySoftwareStatus has previously been called.</remarks>
         /// <param name="aValue">New value for the property</param>
         /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyUpdateStatus(string aValue)
+        public bool SetPropertySoftwareStatus(string aValue)
         {
-            if (iPropertyUpdateStatus == null)
+            if (iPropertySoftwareStatus == null)
                 throw new PropertyDisabledError();
-            return SetPropertyString(iPropertyUpdateStatus, aValue);
+            return SetPropertyString(iPropertySoftwareStatus, aValue);
         }
 
         /// <summary>
-        /// Get a copy of the value of the UpdateStatus property
+        /// Get a copy of the value of the SoftwareStatus property
         /// </summary>
-        /// <remarks>Can only be called if EnablePropertyUpdateStatus has previously been called.</remarks>
-        /// <returns>Value of the UpdateStatus property.</returns>
-        public string PropertyUpdateStatus()
+        /// <remarks>Can only be called if EnablePropertySoftwareStatus has previously been called.</remarks>
+        /// <returns>Value of the SoftwareStatus property.</returns>
+        public string PropertySoftwareStatus()
         {
-            if (iPropertyUpdateStatus == null)
+            if (iPropertySoftwareStatus == null)
                 throw new PropertyDisabledError();
-            return iPropertyUpdateStatus.Value();
+            return iPropertySoftwareStatus.Value();
+        }
+
+        /// <summary>
+        /// Set the value of the ExecutorStatus property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyExecutorStatus has previously been called.</remarks>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        public bool SetPropertyExecutorStatus(string aValue)
+        {
+            if (iPropertyExecutorStatus == null)
+                throw new PropertyDisabledError();
+            return SetPropertyString(iPropertyExecutorStatus, aValue);
+        }
+
+        /// <summary>
+        /// Get a copy of the value of the ExecutorStatus property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyExecutorStatus has previously been called.</remarks>
+        /// <returns>Value of the ExecutorStatus property.</returns>
+        public string PropertyExecutorStatus()
+        {
+            if (iPropertyExecutorStatus == null)
+                throw new PropertyDisabledError();
+            return iPropertyExecutorStatus.Value();
         }
 
         /// <summary>
@@ -228,16 +278,29 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action GetUpdateStatus is supported.
+        /// Signal that the action GetSoftwareStatus is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// GetUpdateStatus must be overridden if this is called.</remarks>
-        protected void EnableActionGetUpdateStatus()
+        /// GetSoftwareStatus must be overridden if this is called.</remarks>
+        protected void EnableActionGetSoftwareStatus()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetUpdateStatus");
-            action.AddOutputParameter(new ParameterRelated("UpdateStatus", iPropertyUpdateStatus));
-            iDelegateGetUpdateStatus = new ActionDelegate(DoGetUpdateStatus);
-            EnableAction(action, iDelegateGetUpdateStatus, GCHandle.ToIntPtr(iGch));
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetSoftwareStatus");
+            action.AddOutputParameter(new ParameterRelated("SoftwareStatus", iPropertySoftwareStatus));
+            iDelegateGetSoftwareStatus = new ActionDelegate(DoGetSoftwareStatus);
+            EnableAction(action, iDelegateGetSoftwareStatus, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action GetExecutorStatus is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// GetExecutorStatus must be overridden if this is called.</remarks>
+        protected void EnableActionGetExecutorStatus()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetExecutorStatus");
+            action.AddOutputParameter(new ParameterRelated("ExecutorStatus", iPropertyExecutorStatus));
+            iDelegateGetExecutorStatus = new ActionDelegate(DoGetExecutorStatus);
+            EnableAction(action, iDelegateGetExecutorStatus, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -309,15 +372,29 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// GetUpdateStatus action.
+        /// GetSoftwareStatus action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// GetUpdateStatus action for the owning device.
+        /// GetSoftwareStatus action for the owning device.
         ///
-        /// Must be implemented iff EnableActionGetUpdateStatus was called.</remarks>
+        /// Must be implemented iff EnableActionGetSoftwareStatus was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aUpdateStatus"></param>
-        protected virtual void GetUpdateStatus(IDvInvocation aInvocation, out string aUpdateStatus)
+        /// <param name="aSoftwareStatus"></param>
+        protected virtual void GetSoftwareStatus(IDvInvocation aInvocation, out string aSoftwareStatus)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// GetExecutorStatus action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// GetExecutorStatus action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionGetExecutorStatus was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aExecutorStatus"></param>
+        protected virtual void GetExecutorStatus(IDvInvocation aInvocation, out string aExecutorStatus)
         {
             throw (new ActionDisabledError());
         }
@@ -490,38 +567,38 @@ namespace OpenHome.Net.Device.Providers
             return 0;
         }
 
-        private static int DoGetUpdateStatus(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoGetSoftwareStatus(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderLinnCoUkUpdate1 self = (DvProviderLinnCoUkUpdate1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
-            string updateStatus;
+            string softwareStatus;
             try
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.GetUpdateStatus(invocation, out updateStatus);
+                self.GetSoftwareStatus(invocation, out softwareStatus);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "GetUpdateStatus");
+                invocation.ReportActionError(e, "GetSoftwareStatus");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetUpdateStatus" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetSoftwareStatus" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetUpdateStatus" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetSoftwareStatus" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
             try
             {
                 invocation.WriteStart();
-                invocation.WriteString("UpdateStatus", updateStatus);
+                invocation.WriteString("SoftwareStatus", softwareStatus);
                 invocation.WriteEnd();
             }
             catch (ActionError)
@@ -530,7 +607,53 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetUpdateStatus" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetSoftwareStatus" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoGetExecutorStatus(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkUpdate1 self = (DvProviderLinnCoUkUpdate1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string executorStatus;
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.GetExecutorStatus(invocation, out executorStatus);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "GetExecutorStatus");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetExecutorStatus" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetExecutorStatus" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteString("ExecutorStatus", executorStatus);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetExecutorStatus" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

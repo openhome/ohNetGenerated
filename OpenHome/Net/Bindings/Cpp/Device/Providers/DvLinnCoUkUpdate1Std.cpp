@@ -9,17 +9,31 @@
 using namespace OpenHome;
 using namespace OpenHome::Net;
 
-bool DvProviderLinnCoUkUpdate1Cpp::SetPropertyUpdateStatus(const std::string& aValue)
+bool DvProviderLinnCoUkUpdate1Cpp::SetPropertySoftwareStatus(const std::string& aValue)
 {
-    ASSERT(iPropertyUpdateStatus != NULL);
+    ASSERT(iPropertySoftwareStatus != NULL);
     Brn buf((const TByte*)aValue.c_str(), (TUint)aValue.length());
-    return SetPropertyString(*iPropertyUpdateStatus, buf);
+    return SetPropertyString(*iPropertySoftwareStatus, buf);
 }
 
-void DvProviderLinnCoUkUpdate1Cpp::GetPropertyUpdateStatus(std::string& aValue)
+void DvProviderLinnCoUkUpdate1Cpp::GetPropertySoftwareStatus(std::string& aValue)
 {
-    ASSERT(iPropertyUpdateStatus != NULL);
-    const Brx& val = iPropertyUpdateStatus->Value();
+    ASSERT(iPropertySoftwareStatus != NULL);
+    const Brx& val = iPropertySoftwareStatus->Value();
+    aValue.assign((const char*)val.Ptr(), val.Bytes());
+}
+
+bool DvProviderLinnCoUkUpdate1Cpp::SetPropertyExecutorStatus(const std::string& aValue)
+{
+    ASSERT(iPropertyExecutorStatus != NULL);
+    Brn buf((const TByte*)aValue.c_str(), (TUint)aValue.length());
+    return SetPropertyString(*iPropertyExecutorStatus, buf);
+}
+
+void DvProviderLinnCoUkUpdate1Cpp::GetPropertyExecutorStatus(std::string& aValue)
+{
+    ASSERT(iPropertyExecutorStatus != NULL);
+    const Brx& val = iPropertyExecutorStatus->Value();
     aValue.assign((const char*)val.Ptr(), val.Bytes());
 }
 
@@ -54,15 +68,22 @@ void DvProviderLinnCoUkUpdate1Cpp::GetPropertyUpdateChannel(std::string& aValue)
 DvProviderLinnCoUkUpdate1Cpp::DvProviderLinnCoUkUpdate1Cpp(DvDeviceStd& aDevice)
     : DvProvider(aDevice.Device(), "linn.co.uk", "Update", 1)
 {
-    iPropertyUpdateStatus = NULL;
+    iPropertySoftwareStatus = NULL;
+    iPropertyExecutorStatus = NULL;
     iPropertyUpdateTopic = NULL;
     iPropertyUpdateChannel = NULL;
 }
 
-void DvProviderLinnCoUkUpdate1Cpp::EnablePropertyUpdateStatus()
+void DvProviderLinnCoUkUpdate1Cpp::EnablePropertySoftwareStatus()
 {
-    iPropertyUpdateStatus = new PropertyString(new ParameterString("UpdateStatus"));
-    iService->AddProperty(iPropertyUpdateStatus); // passes ownership
+    iPropertySoftwareStatus = new PropertyString(new ParameterString("SoftwareStatus"));
+    iService->AddProperty(iPropertySoftwareStatus); // passes ownership
+}
+
+void DvProviderLinnCoUkUpdate1Cpp::EnablePropertyExecutorStatus()
+{
+    iPropertyExecutorStatus = new PropertyString(new ParameterString("ExecutorStatus"));
+    iService->AddProperty(iPropertyExecutorStatus); // passes ownership
 }
 
 void DvProviderLinnCoUkUpdate1Cpp::EnablePropertyUpdateTopic()
@@ -111,11 +132,19 @@ void DvProviderLinnCoUkUpdate1Cpp::EnableActionGetUpdateFeedParams()
     iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkUpdate1Cpp::EnableActionGetUpdateStatus()
+void DvProviderLinnCoUkUpdate1Cpp::EnableActionGetSoftwareStatus()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetUpdateStatus");
-    action->AddOutputParameter(new ParameterRelated("UpdateStatus", *iPropertyUpdateStatus));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1Cpp::DoGetUpdateStatus);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetSoftwareStatus");
+    action->AddOutputParameter(new ParameterRelated("SoftwareStatus", *iPropertySoftwareStatus));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1Cpp::DoGetSoftwareStatus);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderLinnCoUkUpdate1Cpp::EnableActionGetExecutorStatus()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetExecutorStatus");
+    action->AddOutputParameter(new ParameterRelated("ExecutorStatus", *iPropertyExecutorStatus));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1Cpp::DoGetExecutorStatus);
     iService->AddAction(action, functor);
 }
 
@@ -182,18 +211,33 @@ void DvProviderLinnCoUkUpdate1Cpp::DoGetUpdateFeedParams(IDviInvocation& aInvoca
     aInvocation.InvocationWriteEnd();
 }
 
-void DvProviderLinnCoUkUpdate1Cpp::DoGetUpdateStatus(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkUpdate1Cpp::DoGetSoftwareStatus(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
-    std::string respUpdateStatus;
+    std::string respSoftwareStatus;
     DvInvocationStd invocation(aInvocation);
-    GetUpdateStatus(invocation, respUpdateStatus);
+    GetSoftwareStatus(invocation, respSoftwareStatus);
     aInvocation.InvocationWriteStart();
-    DviInvocationResponseString respWriterUpdateStatus(aInvocation, "UpdateStatus");
-    Brn buf_UpdateStatus((const TByte*)respUpdateStatus.c_str(), (TUint)respUpdateStatus.length());
-    respWriterUpdateStatus.Write(buf_UpdateStatus);
-    aInvocation.InvocationWriteStringEnd("UpdateStatus");
+    DviInvocationResponseString respWriterSoftwareStatus(aInvocation, "SoftwareStatus");
+    Brn buf_SoftwareStatus((const TByte*)respSoftwareStatus.c_str(), (TUint)respSoftwareStatus.length());
+    respWriterSoftwareStatus.Write(buf_SoftwareStatus);
+    aInvocation.InvocationWriteStringEnd("SoftwareStatus");
+    aInvocation.InvocationWriteEnd();
+}
+
+void DvProviderLinnCoUkUpdate1Cpp::DoGetExecutorStatus(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    std::string respExecutorStatus;
+    DvInvocationStd invocation(aInvocation);
+    GetExecutorStatus(invocation, respExecutorStatus);
+    aInvocation.InvocationWriteStart();
+    DviInvocationResponseString respWriterExecutorStatus(aInvocation, "ExecutorStatus");
+    Brn buf_ExecutorStatus((const TByte*)respExecutorStatus.c_str(), (TUint)respExecutorStatus.length());
+    respWriterExecutorStatus.Write(buf_ExecutorStatus);
+    aInvocation.InvocationWriteStringEnd("ExecutorStatus");
     aInvocation.InvocationWriteEnd();
 }
 
@@ -232,7 +276,12 @@ void DvProviderLinnCoUkUpdate1Cpp::GetUpdateFeedParams(IDvInvocationStd& /*aInvo
     ASSERTS();
 }
 
-void DvProviderLinnCoUkUpdate1Cpp::GetUpdateStatus(IDvInvocationStd& /*aInvocation*/, std::string& /*aUpdateStatus*/)
+void DvProviderLinnCoUkUpdate1Cpp::GetSoftwareStatus(IDvInvocationStd& /*aInvocation*/, std::string& /*aSoftwareStatus*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkUpdate1Cpp::GetExecutorStatus(IDvInvocationStd& /*aInvocation*/, std::string& /*aExecutorStatus*/)
 {
     ASSERTS();
 }

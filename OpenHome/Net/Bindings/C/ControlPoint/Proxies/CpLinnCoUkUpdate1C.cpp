@@ -35,9 +35,13 @@ public:
     void BeginGetUpdateFeedParams(FunctorAsync& aFunctor);
     void EndGetUpdateFeedParams(IAsync& aAsync, Brh& aTopic, Brh& aChannel);
 
-    void SyncGetUpdateStatus(Brh& aUpdateStatus);
-    void BeginGetUpdateStatus(FunctorAsync& aFunctor);
-    void EndGetUpdateStatus(IAsync& aAsync, Brh& aUpdateStatus);
+    void SyncGetSoftwareStatus(Brh& aSoftwareStatus);
+    void BeginGetSoftwareStatus(FunctorAsync& aFunctor);
+    void EndGetSoftwareStatus(IAsync& aAsync, Brh& aSoftwareStatus);
+
+    void SyncGetExecutorStatus(Brh& aExecutorStatus);
+    void BeginGetExecutorStatus(FunctorAsync& aFunctor);
+    void EndGetExecutorStatus(IAsync& aAsync, Brh& aExecutorStatus);
 
     void SyncApply();
     void BeginApply(FunctorAsync& aFunctor);
@@ -47,15 +51,18 @@ public:
     void BeginRestore(FunctorAsync& aFunctor);
     void EndRestore(IAsync& aAsync);
 
-    void SetPropertyUpdateStatusChanged(Functor& aFunctor);
+    void SetPropertySoftwareStatusChanged(Functor& aFunctor);
+    void SetPropertyExecutorStatusChanged(Functor& aFunctor);
     void SetPropertyUpdateTopicChanged(Functor& aFunctor);
     void SetPropertyUpdateChannelChanged(Functor& aFunctor);
 
-    void PropertyUpdateStatus(Brhz& aUpdateStatus) const;
+    void PropertySoftwareStatus(Brhz& aSoftwareStatus) const;
+    void PropertyExecutorStatus(Brhz& aExecutorStatus) const;
     void PropertyUpdateTopic(Brhz& aUpdateTopic) const;
     void PropertyUpdateChannel(Brhz& aUpdateChannel) const;
 private:
-    void UpdateStatusPropertyChanged();
+    void SoftwareStatusPropertyChanged();
+    void ExecutorStatusPropertyChanged();
     void UpdateTopicPropertyChanged();
     void UpdateChannelPropertyChanged();
 private:
@@ -63,13 +70,16 @@ private:
     Action* iActionPushManifest;
     Action* iActionSetUpdateFeedParams;
     Action* iActionGetUpdateFeedParams;
-    Action* iActionGetUpdateStatus;
+    Action* iActionGetSoftwareStatus;
+    Action* iActionGetExecutorStatus;
     Action* iActionApply;
     Action* iActionRestore;
-    PropertyString* iUpdateStatus;
+    PropertyString* iSoftwareStatus;
+    PropertyString* iExecutorStatus;
     PropertyString* iUpdateTopic;
     PropertyString* iUpdateChannel;
-    Functor iUpdateStatusChanged;
+    Functor iSoftwareStatusChanged;
+    Functor iExecutorStatusChanged;
     Functor iUpdateTopicChanged;
     Functor iUpdateChannelChanged;
 };
@@ -142,26 +152,49 @@ void SyncGetUpdateFeedParamsLinnCoUkUpdate1C::CompleteRequest(IAsync& aAsync)
 }
 
 
-class SyncGetUpdateStatusLinnCoUkUpdate1C : public SyncProxyAction
+class SyncGetSoftwareStatusLinnCoUkUpdate1C : public SyncProxyAction
 {
 public:
-    SyncGetUpdateStatusLinnCoUkUpdate1C(CpProxyLinnCoUkUpdate1C& aProxy, Brh& aUpdateStatus);
+    SyncGetSoftwareStatusLinnCoUkUpdate1C(CpProxyLinnCoUkUpdate1C& aProxy, Brh& aSoftwareStatus);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetUpdateStatusLinnCoUkUpdate1C() {};
+    virtual ~SyncGetSoftwareStatusLinnCoUkUpdate1C() {};
 private:
     CpProxyLinnCoUkUpdate1C& iService;
-    Brh& iUpdateStatus;
+    Brh& iSoftwareStatus;
 };
 
-SyncGetUpdateStatusLinnCoUkUpdate1C::SyncGetUpdateStatusLinnCoUkUpdate1C(CpProxyLinnCoUkUpdate1C& aProxy, Brh& aUpdateStatus)
+SyncGetSoftwareStatusLinnCoUkUpdate1C::SyncGetSoftwareStatusLinnCoUkUpdate1C(CpProxyLinnCoUkUpdate1C& aProxy, Brh& aSoftwareStatus)
     : iService(aProxy)
-    , iUpdateStatus(aUpdateStatus)
+    , iSoftwareStatus(aSoftwareStatus)
 {
 }
 
-void SyncGetUpdateStatusLinnCoUkUpdate1C::CompleteRequest(IAsync& aAsync)
+void SyncGetSoftwareStatusLinnCoUkUpdate1C::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndGetUpdateStatus(aAsync, iUpdateStatus);
+    iService.EndGetSoftwareStatus(aAsync, iSoftwareStatus);
+}
+
+
+class SyncGetExecutorStatusLinnCoUkUpdate1C : public SyncProxyAction
+{
+public:
+    SyncGetExecutorStatusLinnCoUkUpdate1C(CpProxyLinnCoUkUpdate1C& aProxy, Brh& aExecutorStatus);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncGetExecutorStatusLinnCoUkUpdate1C() {};
+private:
+    CpProxyLinnCoUkUpdate1C& iService;
+    Brh& iExecutorStatus;
+};
+
+SyncGetExecutorStatusLinnCoUkUpdate1C::SyncGetExecutorStatusLinnCoUkUpdate1C(CpProxyLinnCoUkUpdate1C& aProxy, Brh& aExecutorStatus)
+    : iService(aProxy)
+    , iExecutorStatus(aExecutorStatus)
+{
+}
+
+void SyncGetExecutorStatusLinnCoUkUpdate1C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndGetExecutorStatus(aAsync, iExecutorStatus);
 }
 
 
@@ -244,18 +277,25 @@ CpProxyLinnCoUkUpdate1C::CpProxyLinnCoUkUpdate1C(CpDeviceC aDevice)
     iActionGetUpdateFeedParams->AddOutputParameter(param);
     delete[] allowedValues;
 
-    iActionGetUpdateStatus = new Action("GetUpdateStatus");
-    param = new OpenHome::Net::ParameterString("UpdateStatus");
-    iActionGetUpdateStatus->AddOutputParameter(param);
+    iActionGetSoftwareStatus = new Action("GetSoftwareStatus");
+    param = new OpenHome::Net::ParameterString("SoftwareStatus");
+    iActionGetSoftwareStatus->AddOutputParameter(param);
+
+    iActionGetExecutorStatus = new Action("GetExecutorStatus");
+    param = new OpenHome::Net::ParameterString("ExecutorStatus");
+    iActionGetExecutorStatus->AddOutputParameter(param);
 
     iActionApply = new Action("Apply");
 
     iActionRestore = new Action("Restore");
 
     Functor functor;
-    functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1C::UpdateStatusPropertyChanged);
-    iUpdateStatus = new PropertyString("UpdateStatus", functor);
-    AddProperty(iUpdateStatus);
+    functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1C::SoftwareStatusPropertyChanged);
+    iSoftwareStatus = new PropertyString("SoftwareStatus", functor);
+    AddProperty(iSoftwareStatus);
+    functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1C::ExecutorStatusPropertyChanged);
+    iExecutorStatus = new PropertyString("ExecutorStatus", functor);
+    AddProperty(iExecutorStatus);
     functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1C::UpdateTopicPropertyChanged);
     iUpdateTopic = new PropertyString("UpdateTopic", functor);
     AddProperty(iUpdateTopic);
@@ -270,7 +310,8 @@ CpProxyLinnCoUkUpdate1C::~CpProxyLinnCoUkUpdate1C()
     delete iActionPushManifest;
     delete iActionSetUpdateFeedParams;
     delete iActionGetUpdateFeedParams;
-    delete iActionGetUpdateStatus;
+    delete iActionGetSoftwareStatus;
+    delete iActionGetExecutorStatus;
     delete iActionApply;
     delete iActionRestore;
 }
@@ -370,27 +411,27 @@ void CpProxyLinnCoUkUpdate1C::EndGetUpdateFeedParams(IAsync& aAsync, Brh& aTopic
     ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aChannel);
 }
 
-void CpProxyLinnCoUkUpdate1C::SyncGetUpdateStatus(Brh& aUpdateStatus)
+void CpProxyLinnCoUkUpdate1C::SyncGetSoftwareStatus(Brh& aSoftwareStatus)
 {
-    SyncGetUpdateStatusLinnCoUkUpdate1C sync(*this, aUpdateStatus);
-    BeginGetUpdateStatus(sync.Functor());
+    SyncGetSoftwareStatusLinnCoUkUpdate1C sync(*this, aSoftwareStatus);
+    BeginGetSoftwareStatus(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyLinnCoUkUpdate1C::BeginGetUpdateStatus(FunctorAsync& aFunctor)
+void CpProxyLinnCoUkUpdate1C::BeginGetSoftwareStatus(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = Service()->Invocation(*iActionGetUpdateStatus, aFunctor);
+    Invocation* invocation = Service()->Invocation(*iActionGetSoftwareStatus, aFunctor);
     TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionGetUpdateStatus->OutputParameters();
+    const Action::VectorParameters& outParams = iActionGetSoftwareStatus->OutputParameters();
     invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
     Invocable().InvokeAction(*invocation);
 }
 
-void CpProxyLinnCoUkUpdate1C::EndGetUpdateStatus(IAsync& aAsync, Brh& aUpdateStatus)
+void CpProxyLinnCoUkUpdate1C::EndGetSoftwareStatus(IAsync& aAsync, Brh& aSoftwareStatus)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("GetUpdateStatus"));
+    ASSERT(invocation.Action().Name() == Brn("GetSoftwareStatus"));
 
     Error::ELevel level;
     TUint code;
@@ -399,7 +440,39 @@ void CpProxyLinnCoUkUpdate1C::EndGetUpdateStatus(IAsync& aAsync, Brh& aUpdateSta
         THROW_PROXYERROR(level, code);
     }
     TUint index = 0;
-    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aUpdateStatus);
+    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aSoftwareStatus);
+}
+
+void CpProxyLinnCoUkUpdate1C::SyncGetExecutorStatus(Brh& aExecutorStatus)
+{
+    SyncGetExecutorStatusLinnCoUkUpdate1C sync(*this, aExecutorStatus);
+    BeginGetExecutorStatus(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkUpdate1C::BeginGetExecutorStatus(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionGetExecutorStatus, aFunctor);
+    TUint outIndex = 0;
+    const Action::VectorParameters& outParams = iActionGetExecutorStatus->OutputParameters();
+    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkUpdate1C::EndGetExecutorStatus(IAsync& aAsync, Brh& aExecutorStatus)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("GetExecutorStatus"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+    TUint index = 0;
+    ((ArgumentString*)invocation.OutputArguments()[index++])->TransferTo(aExecutorStatus);
 }
 
 void CpProxyLinnCoUkUpdate1C::SyncApply()
@@ -456,10 +529,17 @@ void CpProxyLinnCoUkUpdate1C::EndRestore(IAsync& aAsync)
     }
 }
 
-void CpProxyLinnCoUkUpdate1C::SetPropertyUpdateStatusChanged(Functor& aFunctor)
+void CpProxyLinnCoUkUpdate1C::SetPropertySoftwareStatusChanged(Functor& aFunctor)
 {
     iLock.Wait();
-    iUpdateStatusChanged = aFunctor;
+    iSoftwareStatusChanged = aFunctor;
+    iLock.Signal();
+}
+
+void CpProxyLinnCoUkUpdate1C::SetPropertyExecutorStatusChanged(Functor& aFunctor)
+{
+    iLock.Wait();
+    iExecutorStatusChanged = aFunctor;
     iLock.Signal();
 }
 
@@ -477,11 +557,18 @@ void CpProxyLinnCoUkUpdate1C::SetPropertyUpdateChannelChanged(Functor& aFunctor)
     iLock.Signal();
 }
 
-void CpProxyLinnCoUkUpdate1C::PropertyUpdateStatus(Brhz& aUpdateStatus) const
+void CpProxyLinnCoUkUpdate1C::PropertySoftwareStatus(Brhz& aSoftwareStatus) const
 {
     AutoMutex a(GetPropertyReadLock());
     CheckSubscribed();
-    aUpdateStatus.Set(iUpdateStatus->Value());
+    aSoftwareStatus.Set(iSoftwareStatus->Value());
+}
+
+void CpProxyLinnCoUkUpdate1C::PropertyExecutorStatus(Brhz& aExecutorStatus) const
+{
+    AutoMutex a(GetPropertyReadLock());
+    CheckSubscribed();
+    aExecutorStatus.Set(iExecutorStatus->Value());
 }
 
 void CpProxyLinnCoUkUpdate1C::PropertyUpdateTopic(Brhz& aUpdateTopic) const
@@ -498,9 +585,14 @@ void CpProxyLinnCoUkUpdate1C::PropertyUpdateChannel(Brhz& aUpdateChannel) const
     aUpdateChannel.Set(iUpdateChannel->Value());
 }
 
-void CpProxyLinnCoUkUpdate1C::UpdateStatusPropertyChanged()
+void CpProxyLinnCoUkUpdate1C::SoftwareStatusPropertyChanged()
 {
-    ReportEvent(iUpdateStatusChanged);
+    ReportEvent(iSoftwareStatusChanged);
+}
+
+void CpProxyLinnCoUkUpdate1C::ExecutorStatusPropertyChanged()
+{
+    ReportEvent(iExecutorStatusChanged);
 }
 
 void CpProxyLinnCoUkUpdate1C::UpdateTopicPropertyChanged()
@@ -657,43 +749,87 @@ int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetUpdateFeedParams(THandle aHandle, Oh
     return err;
 }
 
-int32_t STDCALL CpProxyLinnCoUkUpdate1SyncGetUpdateStatus(THandle aHandle, char** aUpdateStatus)
+int32_t STDCALL CpProxyLinnCoUkUpdate1SyncGetSoftwareStatus(THandle aHandle, char** aSoftwareStatus)
 {
     CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    Brh buf_aUpdateStatus;
+    Brh buf_aSoftwareStatus;
     int32_t err = 0;
     try {
-        proxyC->SyncGetUpdateStatus(buf_aUpdateStatus);
-        *aUpdateStatus = buf_aUpdateStatus.Extract();
+        proxyC->SyncGetSoftwareStatus(buf_aSoftwareStatus);
+        *aSoftwareStatus = buf_aSoftwareStatus.Extract();
     }
     catch (ProxyError& ) {
         err = -1;
-        *aUpdateStatus = NULL;
+        *aSoftwareStatus = NULL;
     }
     return err;
 }
 
-void STDCALL CpProxyLinnCoUkUpdate1BeginGetUpdateStatus(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr)
+void STDCALL CpProxyLinnCoUkUpdate1BeginGetSoftwareStatus(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr)
 {
     CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
     ASSERT(proxyC != NULL);
     FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginGetUpdateStatus(functor);
+    proxyC->BeginGetSoftwareStatus(functor);
 }
 
-int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetUpdateStatus(THandle aHandle, OhNetHandleAsync aAsync, char** aUpdateStatus)
+int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetSoftwareStatus(THandle aHandle, OhNetHandleAsync aAsync, char** aSoftwareStatus)
 {
     int32_t err = 0;
     CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
     ASSERT(proxyC != NULL);
     IAsync* async = reinterpret_cast<IAsync*>(aAsync);
     ASSERT(async != NULL);
-    Brh buf_aUpdateStatus;
-    *aUpdateStatus = NULL;
+    Brh buf_aSoftwareStatus;
+    *aSoftwareStatus = NULL;
     try {
-        proxyC->EndGetUpdateStatus(*async, buf_aUpdateStatus);
-        *aUpdateStatus = buf_aUpdateStatus.Extract();
+        proxyC->EndGetSoftwareStatus(*async, buf_aSoftwareStatus);
+        *aSoftwareStatus = buf_aSoftwareStatus.Extract();
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
+int32_t STDCALL CpProxyLinnCoUkUpdate1SyncGetExecutorStatus(THandle aHandle, char** aExecutorStatus)
+{
+    CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aExecutorStatus;
+    int32_t err = 0;
+    try {
+        proxyC->SyncGetExecutorStatus(buf_aExecutorStatus);
+        *aExecutorStatus = buf_aExecutorStatus.Extract();
+    }
+    catch (ProxyError& ) {
+        err = -1;
+        *aExecutorStatus = NULL;
+    }
+    return err;
+}
+
+void STDCALL CpProxyLinnCoUkUpdate1BeginGetExecutorStatus(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginGetExecutorStatus(functor);
+}
+
+int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetExecutorStatus(THandle aHandle, OhNetHandleAsync aAsync, char** aExecutorStatus)
+{
+    int32_t err = 0;
+    CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    Brh buf_aExecutorStatus;
+    *aExecutorStatus = NULL;
+    try {
+        proxyC->EndGetExecutorStatus(*async, buf_aExecutorStatus);
+        *aExecutorStatus = buf_aExecutorStatus.Extract();
     }
     catch(...) {
         err = -1;
@@ -777,12 +913,20 @@ int32_t STDCALL CpProxyLinnCoUkUpdate1EndRestore(THandle aHandle, OhNetHandleAsy
     return err;
 }
 
-void STDCALL CpProxyLinnCoUkUpdate1SetPropertyUpdateStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
+void STDCALL CpProxyLinnCoUkUpdate1SetPropertySoftwareStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
 {
     CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
     ASSERT(proxyC != NULL);
     Functor functor = MakeFunctor(aPtr, aCallback);
-    proxyC->SetPropertyUpdateStatusChanged(functor);
+    proxyC->SetPropertySoftwareStatusChanged(functor);
+}
+
+void STDCALL CpProxyLinnCoUkUpdate1SetPropertyExecutorStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
+{
+    CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Functor functor = MakeFunctor(aPtr, aCallback);
+    proxyC->SetPropertyExecutorStatusChanged(functor);
 }
 
 void STDCALL CpProxyLinnCoUkUpdate1SetPropertyUpdateTopicChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
@@ -801,18 +945,33 @@ void STDCALL CpProxyLinnCoUkUpdate1SetPropertyUpdateChannelChanged(THandle aHand
     proxyC->SetPropertyUpdateChannelChanged(functor);
 }
 
-int32_t STDCALL CpProxyLinnCoUkUpdate1PropertyUpdateStatus(THandle aHandle, char** aUpdateStatus)
+int32_t STDCALL CpProxyLinnCoUkUpdate1PropertySoftwareStatus(THandle aHandle, char** aSoftwareStatus)
 {
     CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
     ASSERT(proxyC != NULL);
-    Brhz buf_aUpdateStatus;
+    Brhz buf_aSoftwareStatus;
     try {
-        proxyC->PropertyUpdateStatus(buf_aUpdateStatus);
+        proxyC->PropertySoftwareStatus(buf_aSoftwareStatus);
     }
     catch (ProxyNotSubscribed&) {
         return -1;
     }
-    *aUpdateStatus = buf_aUpdateStatus.Transfer();
+    *aSoftwareStatus = buf_aSoftwareStatus.Transfer();
+    return 0;
+}
+
+int32_t STDCALL CpProxyLinnCoUkUpdate1PropertyExecutorStatus(THandle aHandle, char** aExecutorStatus)
+{
+    CpProxyLinnCoUkUpdate1C* proxyC = reinterpret_cast<CpProxyLinnCoUkUpdate1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brhz buf_aExecutorStatus;
+    try {
+        proxyC->PropertyExecutorStatus(buf_aExecutorStatus);
+    }
+    catch (ProxyNotSubscribed&) {
+        return -1;
+    }
+    *aExecutorStatus = buf_aExecutorStatus.Transfer();
     return 0;
 }
 

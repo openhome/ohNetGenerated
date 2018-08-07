@@ -18,26 +18,31 @@ class DvProviderLinnCoUkUpdate1C : public DvProvider
 {
 public:
     DvProviderLinnCoUkUpdate1C(DvDeviceC aDevice);
-    TBool SetPropertyUpdateStatus(const Brx& aValue);
-    void GetPropertyUpdateStatus(Brhz& aValue);
+    TBool SetPropertySoftwareStatus(const Brx& aValue);
+    void GetPropertySoftwareStatus(Brhz& aValue);
+    TBool SetPropertyExecutorStatus(const Brx& aValue);
+    void GetPropertyExecutorStatus(Brhz& aValue);
     TBool SetPropertyUpdateTopic(const Brx& aValue);
     void GetPropertyUpdateTopic(Brhz& aValue);
     TBool SetPropertyUpdateChannel(const Brx& aValue);
     void GetPropertyUpdateChannel(Brhz& aValue);
-    void EnablePropertyUpdateStatus();
+    void EnablePropertySoftwareStatus();
+    void EnablePropertyExecutorStatus();
     void EnablePropertyUpdateTopic();
     void EnablePropertyUpdateChannel();
     void EnableActionPushManifest(CallbackUpdate1PushManifest aCallback, void* aPtr);
     void EnableActionSetUpdateFeedParams(CallbackUpdate1SetUpdateFeedParams aCallback, void* aPtr);
     void EnableActionGetUpdateFeedParams(CallbackUpdate1GetUpdateFeedParams aCallback, void* aPtr);
-    void EnableActionGetUpdateStatus(CallbackUpdate1GetUpdateStatus aCallback, void* aPtr);
+    void EnableActionGetSoftwareStatus(CallbackUpdate1GetSoftwareStatus aCallback, void* aPtr);
+    void EnableActionGetExecutorStatus(CallbackUpdate1GetExecutorStatus aCallback, void* aPtr);
     void EnableActionApply(CallbackUpdate1Apply aCallback, void* aPtr);
     void EnableActionRestore(CallbackUpdate1Restore aCallback, void* aPtr);
 private:
     void DoPushManifest(IDviInvocation& aInvocation);
     void DoSetUpdateFeedParams(IDviInvocation& aInvocation);
     void DoGetUpdateFeedParams(IDviInvocation& aInvocation);
-    void DoGetUpdateStatus(IDviInvocation& aInvocation);
+    void DoGetSoftwareStatus(IDviInvocation& aInvocation);
+    void DoGetExecutorStatus(IDviInvocation& aInvocation);
     void DoApply(IDviInvocation& aInvocation);
     void DoRestore(IDviInvocation& aInvocation);
 private:
@@ -47,13 +52,16 @@ private:
     void* iPtrSetUpdateFeedParams;
     CallbackUpdate1GetUpdateFeedParams iCallbackGetUpdateFeedParams;
     void* iPtrGetUpdateFeedParams;
-    CallbackUpdate1GetUpdateStatus iCallbackGetUpdateStatus;
-    void* iPtrGetUpdateStatus;
+    CallbackUpdate1GetSoftwareStatus iCallbackGetSoftwareStatus;
+    void* iPtrGetSoftwareStatus;
+    CallbackUpdate1GetExecutorStatus iCallbackGetExecutorStatus;
+    void* iPtrGetExecutorStatus;
     CallbackUpdate1Apply iCallbackApply;
     void* iPtrApply;
     CallbackUpdate1Restore iCallbackRestore;
     void* iPtrRestore;
-    PropertyString* iPropertyUpdateStatus;
+    PropertyString* iPropertySoftwareStatus;
+    PropertyString* iPropertyExecutorStatus;
     PropertyString* iPropertyUpdateTopic;
     PropertyString* iPropertyUpdateChannel;
 };
@@ -61,21 +69,34 @@ private:
 DvProviderLinnCoUkUpdate1C::DvProviderLinnCoUkUpdate1C(DvDeviceC aDevice)
     : DvProvider(DviDeviceC::DeviceFromHandle(aDevice)->Device(), "linn.co.uk", "Update", 1)
 {
-    iPropertyUpdateStatus = NULL;
+    iPropertySoftwareStatus = NULL;
+    iPropertyExecutorStatus = NULL;
     iPropertyUpdateTopic = NULL;
     iPropertyUpdateChannel = NULL;
 }
 
-TBool DvProviderLinnCoUkUpdate1C::SetPropertyUpdateStatus(const Brx& aValue)
+TBool DvProviderLinnCoUkUpdate1C::SetPropertySoftwareStatus(const Brx& aValue)
 {
-    ASSERT(iPropertyUpdateStatus != NULL);
-    return SetPropertyString(*iPropertyUpdateStatus, aValue);
+    ASSERT(iPropertySoftwareStatus != NULL);
+    return SetPropertyString(*iPropertySoftwareStatus, aValue);
 }
 
-void DvProviderLinnCoUkUpdate1C::GetPropertyUpdateStatus(Brhz& aValue)
+void DvProviderLinnCoUkUpdate1C::GetPropertySoftwareStatus(Brhz& aValue)
 {
-    ASSERT(iPropertyUpdateStatus != NULL);
-    aValue.Set(iPropertyUpdateStatus->Value());
+    ASSERT(iPropertySoftwareStatus != NULL);
+    aValue.Set(iPropertySoftwareStatus->Value());
+}
+
+TBool DvProviderLinnCoUkUpdate1C::SetPropertyExecutorStatus(const Brx& aValue)
+{
+    ASSERT(iPropertyExecutorStatus != NULL);
+    return SetPropertyString(*iPropertyExecutorStatus, aValue);
+}
+
+void DvProviderLinnCoUkUpdate1C::GetPropertyExecutorStatus(Brhz& aValue)
+{
+    ASSERT(iPropertyExecutorStatus != NULL);
+    aValue.Set(iPropertyExecutorStatus->Value());
 }
 
 TBool DvProviderLinnCoUkUpdate1C::SetPropertyUpdateTopic(const Brx& aValue)
@@ -102,10 +123,16 @@ void DvProviderLinnCoUkUpdate1C::GetPropertyUpdateChannel(Brhz& aValue)
     aValue.Set(iPropertyUpdateChannel->Value());
 }
 
-void DvProviderLinnCoUkUpdate1C::EnablePropertyUpdateStatus()
+void DvProviderLinnCoUkUpdate1C::EnablePropertySoftwareStatus()
 {
-    iPropertyUpdateStatus = new PropertyString(new ParameterString("UpdateStatus"));
-    iService->AddProperty(iPropertyUpdateStatus); // passes ownership
+    iPropertySoftwareStatus = new PropertyString(new ParameterString("SoftwareStatus"));
+    iService->AddProperty(iPropertySoftwareStatus); // passes ownership
+}
+
+void DvProviderLinnCoUkUpdate1C::EnablePropertyExecutorStatus()
+{
+    iPropertyExecutorStatus = new PropertyString(new ParameterString("ExecutorStatus"));
+    iService->AddProperty(iPropertyExecutorStatus); // passes ownership
 }
 
 void DvProviderLinnCoUkUpdate1C::EnablePropertyUpdateTopic()
@@ -160,13 +187,23 @@ void DvProviderLinnCoUkUpdate1C::EnableActionGetUpdateFeedParams(CallbackUpdate1
     iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkUpdate1C::EnableActionGetUpdateStatus(CallbackUpdate1GetUpdateStatus aCallback, void* aPtr)
+void DvProviderLinnCoUkUpdate1C::EnableActionGetSoftwareStatus(CallbackUpdate1GetSoftwareStatus aCallback, void* aPtr)
 {
-    iCallbackGetUpdateStatus = aCallback;
-    iPtrGetUpdateStatus = aPtr;
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetUpdateStatus");
-    action->AddOutputParameter(new ParameterRelated("UpdateStatus", *iPropertyUpdateStatus));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1C::DoGetUpdateStatus);
+    iCallbackGetSoftwareStatus = aCallback;
+    iPtrGetSoftwareStatus = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetSoftwareStatus");
+    action->AddOutputParameter(new ParameterRelated("SoftwareStatus", *iPropertySoftwareStatus));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1C::DoGetSoftwareStatus);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderLinnCoUkUpdate1C::EnableActionGetExecutorStatus(CallbackUpdate1GetExecutorStatus aCallback, void* aPtr)
+{
+    iCallbackGetExecutorStatus = aCallback;
+    iPtrGetExecutorStatus = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetExecutorStatus");
+    action->AddOutputParameter(new ParameterRelated("ExecutorStatus", *iPropertyExecutorStatus));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1C::DoGetExecutorStatus);
     iService->AddAction(action, functor);
 }
 
@@ -260,7 +297,7 @@ void DvProviderLinnCoUkUpdate1C::DoGetUpdateFeedParams(IDviInvocation& aInvocati
     invocation.EndResponse();
 }
 
-void DvProviderLinnCoUkUpdate1C::DoGetUpdateStatus(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkUpdate1C::DoGetSoftwareStatus(IDviInvocation& aInvocation)
 {
     DvInvocationCPrivate invocationWrapper(aInvocation);
     IDvInvocationC* invocationC;
@@ -269,18 +306,42 @@ void DvProviderLinnCoUkUpdate1C::DoGetUpdateStatus(IDviInvocation& aInvocation)
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    char* UpdateStatus;
-    ASSERT(iCallbackGetUpdateStatus != NULL);
-    if (0 != iCallbackGetUpdateStatus(iPtrGetUpdateStatus, invocationC, invocationCPtr, &UpdateStatus)) {
+    char* SoftwareStatus;
+    ASSERT(iCallbackGetSoftwareStatus != NULL);
+    if (0 != iCallbackGetSoftwareStatus(iPtrGetSoftwareStatus, invocationC, invocationCPtr, &SoftwareStatus)) {
         invocation.Error(502, Brn("Action failed"));
         return;
     }
-    DviInvocationResponseString respUpdateStatus(aInvocation, "UpdateStatus");
+    DviInvocationResponseString respSoftwareStatus(aInvocation, "SoftwareStatus");
     invocation.StartResponse();
-    Brhz bufUpdateStatus((const TChar*)UpdateStatus);
-    OhNetFreeExternal(UpdateStatus);
-    respUpdateStatus.Write(bufUpdateStatus);
-    respUpdateStatus.WriteFlush();
+    Brhz bufSoftwareStatus((const TChar*)SoftwareStatus);
+    OhNetFreeExternal(SoftwareStatus);
+    respSoftwareStatus.Write(bufSoftwareStatus);
+    respSoftwareStatus.WriteFlush();
+    invocation.EndResponse();
+}
+
+void DvProviderLinnCoUkUpdate1C::DoGetExecutorStatus(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    char* ExecutorStatus;
+    ASSERT(iCallbackGetExecutorStatus != NULL);
+    if (0 != iCallbackGetExecutorStatus(iPtrGetExecutorStatus, invocationC, invocationCPtr, &ExecutorStatus)) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    DviInvocationResponseString respExecutorStatus(aInvocation, "ExecutorStatus");
+    invocation.StartResponse();
+    Brhz bufExecutorStatus((const TChar*)ExecutorStatus);
+    OhNetFreeExternal(ExecutorStatus);
+    respExecutorStatus.Write(bufExecutorStatus);
+    respExecutorStatus.WriteFlush();
     invocation.EndResponse();
 }
 
@@ -347,9 +408,14 @@ void STDCALL DvProviderLinnCoUkUpdate1EnableActionGetUpdateFeedParams(THandle aP
     reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnableActionGetUpdateFeedParams(aCallback, aPtr);
 }
 
-void STDCALL DvProviderLinnCoUkUpdate1EnableActionGetUpdateStatus(THandle aProvider, CallbackUpdate1GetUpdateStatus aCallback, void* aPtr)
+void STDCALL DvProviderLinnCoUkUpdate1EnableActionGetSoftwareStatus(THandle aProvider, CallbackUpdate1GetSoftwareStatus aCallback, void* aPtr)
 {
-    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnableActionGetUpdateStatus(aCallback, aPtr);
+    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnableActionGetSoftwareStatus(aCallback, aPtr);
+}
+
+void STDCALL DvProviderLinnCoUkUpdate1EnableActionGetExecutorStatus(THandle aProvider, CallbackUpdate1GetExecutorStatus aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnableActionGetExecutorStatus(aCallback, aPtr);
 }
 
 void STDCALL DvProviderLinnCoUkUpdate1EnableActionApply(THandle aProvider, CallbackUpdate1Apply aCallback, void* aPtr)
@@ -362,17 +428,31 @@ void STDCALL DvProviderLinnCoUkUpdate1EnableActionRestore(THandle aProvider, Cal
     reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnableActionRestore(aCallback, aPtr);
 }
 
-int32_t STDCALL DvProviderLinnCoUkUpdate1SetPropertyUpdateStatus(THandle aProvider, const char* aValue, uint32_t* aChanged)
+int32_t STDCALL DvProviderLinnCoUkUpdate1SetPropertySoftwareStatus(THandle aProvider, const char* aValue, uint32_t* aChanged)
 {
     Brhz buf(aValue);
-    *aChanged = (reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->SetPropertyUpdateStatus(buf)? 1 : 0);
+    *aChanged = (reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->SetPropertySoftwareStatus(buf)? 1 : 0);
     return 0;
 }
 
-void STDCALL DvProviderLinnCoUkUpdate1GetPropertyUpdateStatus(THandle aProvider, char** aValue)
+void STDCALL DvProviderLinnCoUkUpdate1GetPropertySoftwareStatus(THandle aProvider, char** aValue)
 {
     Brhz buf;
-    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->GetPropertyUpdateStatus(buf);
+    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->GetPropertySoftwareStatus(buf);
+    *aValue = (char*)buf.Transfer();
+}
+
+int32_t STDCALL DvProviderLinnCoUkUpdate1SetPropertyExecutorStatus(THandle aProvider, const char* aValue, uint32_t* aChanged)
+{
+    Brhz buf(aValue);
+    *aChanged = (reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->SetPropertyExecutorStatus(buf)? 1 : 0);
+    return 0;
+}
+
+void STDCALL DvProviderLinnCoUkUpdate1GetPropertyExecutorStatus(THandle aProvider, char** aValue)
+{
+    Brhz buf;
+    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->GetPropertyExecutorStatus(buf);
     *aValue = (char*)buf.Transfer();
 }
 
@@ -404,9 +484,14 @@ void STDCALL DvProviderLinnCoUkUpdate1GetPropertyUpdateChannel(THandle aProvider
     *aValue = (char*)buf.Transfer();
 }
 
-void STDCALL DvProviderLinnCoUkUpdate1EnablePropertyUpdateStatus(THandle aProvider)
+void STDCALL DvProviderLinnCoUkUpdate1EnablePropertySoftwareStatus(THandle aProvider)
 {
-    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnablePropertyUpdateStatus();
+    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnablePropertySoftwareStatus();
+}
+
+void STDCALL DvProviderLinnCoUkUpdate1EnablePropertyExecutorStatus(THandle aProvider)
+{
+    reinterpret_cast<DvProviderLinnCoUkUpdate1C*>(aProvider)->EnablePropertyExecutorStatus();
 }
 
 void STDCALL DvProviderLinnCoUkUpdate1EnablePropertyUpdateTopic(THandle aProvider)

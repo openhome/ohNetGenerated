@@ -18,11 +18,12 @@ var CpProxyLinnCoUkUpdate1 = function(udn){
     
     // Collection of service properties
     this.serviceProperties = {};
-    this.serviceProperties["UpdateStatus"] = new ohnet.serviceproperty("UpdateStatus","string");
+    this.serviceProperties["SoftwareStatus"] = new ohnet.serviceproperty("SoftwareStatus","string");
+    this.serviceProperties["ExecutorStatus"] = new ohnet.serviceproperty("ExecutorStatus","string");
     this.serviceProperties["UpdateTopic"] = new ohnet.serviceproperty("UpdateTopic","string");
     this.serviceProperties["UpdateChannel"] = new ohnet.serviceproperty("UpdateChannel","string");
 
-                        
+                              
     this.UpdateChannelAllowedValues = [];
     this.UpdateChannelAllowedValues.push("release");
     this.UpdateChannelAllowedValues.push("beta");
@@ -55,12 +56,25 @@ CpProxyLinnCoUkUpdate1.prototype.unsubscribe = function () {
     
 
 /**
-* Adds a listener to handle "UpdateStatus" property change events
-* @method UpdateStatus_Changed
+* Adds a listener to handle "SoftwareStatus" property change events
+* @method SoftwareStatus_Changed
 * @param {Function} stateChangedFunction The handler for state changes
 */
-CpProxyLinnCoUkUpdate1.prototype.UpdateStatus_Changed = function (stateChangedFunction) {
-    this.serviceProperties.UpdateStatus.addListener(function (state) 
+CpProxyLinnCoUkUpdate1.prototype.SoftwareStatus_Changed = function (stateChangedFunction) {
+    this.serviceProperties.SoftwareStatus.addListener(function (state) 
+    { 
+        stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
+    });
+}
+    
+
+/**
+* Adds a listener to handle "ExecutorStatus" property change events
+* @method ExecutorStatus_Changed
+* @param {Function} stateChangedFunction The handler for state changes
+*/
+CpProxyLinnCoUkUpdate1.prototype.ExecutorStatus_Changed = function (stateChangedFunction) {
+    this.serviceProperties.ExecutorStatus.addListener(function (state) 
     { 
         stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
     });
@@ -159,15 +173,35 @@ CpProxyLinnCoUkUpdate1.prototype.GetUpdateFeedParams = function(successFunction,
 
 
 /**
-* A service action to GetUpdateStatus
-* @method GetUpdateStatus
+* A service action to GetSoftwareStatus
+* @method GetSoftwareStatus
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyLinnCoUkUpdate1.prototype.GetUpdateStatus = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("GetUpdateStatus", this.url, this.domain, this.type, this.version);     
+CpProxyLinnCoUkUpdate1.prototype.GetSoftwareStatus = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetSoftwareStatus", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
-        result["UpdateStatus"] = ohnet.soaprequest.readStringParameter(result["UpdateStatus"]); 
+        result["SoftwareStatus"] = ohnet.soaprequest.readStringParameter(result["SoftwareStatus"]); 
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to GetExecutorStatus
+* @method GetExecutorStatus
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkUpdate1.prototype.GetExecutorStatus = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("GetExecutorStatus", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+        result["ExecutorStatus"] = ohnet.soaprequest.readStringParameter(result["ExecutorStatus"]); 
     
         if (successFunction){
             successFunction(result);

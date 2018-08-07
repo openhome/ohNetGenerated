@@ -159,12 +159,12 @@ DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetUpdateFeedParams(THandle a
  * on the device and sets any output arguments.
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
- * @param[out] aUpdateStatus
+ * @param[out] aSoftwareStatus
  *
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1SyncGetUpdateStatus(THandle aHandle, char** aUpdateStatus);
+DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1SyncGetSoftwareStatus(THandle aHandle, char** aSoftwareStatus);
 /**
  * Invoke the action asynchronously.
  * Returns immediately and will run the client-specified callback when the action
@@ -176,19 +176,55 @@ DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1SyncGetUpdateStatus(THandle aHan
  *                       This is guaranteed to be run but may indicate an error
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyLinnCoUkUpdate1BeginGetUpdateStatus(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
+DllExport void STDCALL CpProxyLinnCoUkUpdate1BeginGetSoftwareStatus(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
 /**
  * Retrieve the output arguments from an asynchronously invoked action.
  * This may only be called from the callback set in the above Begin function.
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
  * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
- * @param[out] aUpdateStatus
+ * @param[out] aSoftwareStatus
  *
  * @return  0 if the function succedded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetUpdateStatus(THandle aHandle, OhNetHandleAsync aAsync, char** aUpdateStatus);
+DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetSoftwareStatus(THandle aHandle, OhNetHandleAsync aAsync, char** aSoftwareStatus);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
+ * @param[out] aExecutorStatus
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1SyncGetExecutorStatus(THandle aHandle, char** aExecutorStatus);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyLinnCoUkUpdate1BeginGetExecutorStatus(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ * @param[out] aExecutorStatus
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1EndGetExecutorStatus(THandle aHandle, OhNetHandleAsync aAsync, char** aExecutorStatus);
 
 /**
  * Invoke the action synchronously.  Blocks until the action has been processed
@@ -258,7 +294,7 @@ DllExport void STDCALL CpProxyLinnCoUkUpdate1BeginRestore(THandle aHandle, OhNet
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1EndRestore(THandle aHandle, OhNetHandleAsync aAsync);
 /**
- * Set a callback to be run when the UpdateStatus state variable changes.
+ * Set a callback to be run when the SoftwareStatus state variable changes.
  *
  * Callbacks may be run in different threads but callbacks for a
  * CpProxyLinnCoUkUpdate1 instance will not overlap.
@@ -267,7 +303,18 @@ DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1EndRestore(THandle aHandle, OhNe
  * @param[in]  aCallback The callback to run when the state variable changes
  * @param[in]  aPtr      Data to be passed to the callback
  */
-DllExport void STDCALL CpProxyLinnCoUkUpdate1SetPropertyUpdateStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
+DllExport void STDCALL CpProxyLinnCoUkUpdate1SetPropertySoftwareStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
+/**
+ * Set a callback to be run when the ExecutorStatus state variable changes.
+ *
+ * Callbacks may be run in different threads but callbacks for a
+ * CpProxyLinnCoUkUpdate1 instance will not overlap.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
+ * @param[in]  aCallback The callback to run when the state variable changes
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyLinnCoUkUpdate1SetPropertyExecutorStatusChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 /**
  * Set a callback to be run when the UpdateTopic state variable changes.
  *
@@ -292,17 +339,29 @@ DllExport void STDCALL CpProxyLinnCoUkUpdate1SetPropertyUpdateTopicChanged(THand
 DllExport void STDCALL CpProxyLinnCoUkUpdate1SetPropertyUpdateChannelChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr);
 
 /**
- * Query the value of the UpdateStatus property.
+ * Query the value of the SoftwareStatus property.
  *
  * This function is threadsafe and can only be called after the first callback
  * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
  *
  * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
- * @param[out] aUpdateStatus
+ * @param[out] aSoftwareStatus
  * @return  0 if the function succeeded; non-zero if it failed.  State of output
  *          arguments is not guaranteed in the case of failure
  */
-DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1PropertyUpdateStatus(THandle aHandle, char** aUpdateStatus);
+DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1PropertySoftwareStatus(THandle aHandle, char** aSoftwareStatus);
+/**
+ * Query the value of the ExecutorStatus property.
+ *
+ * This function is threadsafe and can only be called after the first callback
+ * following a call to CpProxyCSubscribe() and before CpProxyCUnsubscribe().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkUpdate1Create
+ * @param[out] aExecutorStatus
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyLinnCoUkUpdate1PropertyExecutorStatus(THandle aHandle, char** aExecutorStatus);
 /**
  * Query the value of the UpdateTopic property.
  *

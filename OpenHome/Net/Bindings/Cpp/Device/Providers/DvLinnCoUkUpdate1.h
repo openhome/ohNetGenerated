@@ -28,19 +28,33 @@ class DvProviderLinnCoUkUpdate1Cpp : public DvProvider
 public:
     virtual ~DvProviderLinnCoUkUpdate1Cpp() {}
     /**
-     * Set the value of the UpdateStatus property
+     * Set the value of the SoftwareStatus property
      *
-     * Can only be called if EnablePropertyUpdateStatus has previously been called.
+     * Can only be called if EnablePropertySoftwareStatus has previously been called.
      *
      * @return  true if the value has been updated; false if aValue was the same as the previous value
      */
-    bool SetPropertyUpdateStatus(const std::string& aValue);
+    bool SetPropertySoftwareStatus(const std::string& aValue);
     /**
-     * Get a copy of the value of the UpdateStatus property
+     * Get a copy of the value of the SoftwareStatus property
      *
-     * Can only be called if EnablePropertyUpdateStatus has previously been called.
+     * Can only be called if EnablePropertySoftwareStatus has previously been called.
      */
-    void GetPropertyUpdateStatus(std::string& aValue);
+    void GetPropertySoftwareStatus(std::string& aValue);
+    /**
+     * Set the value of the ExecutorStatus property
+     *
+     * Can only be called if EnablePropertyExecutorStatus has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    bool SetPropertyExecutorStatus(const std::string& aValue);
+    /**
+     * Get a copy of the value of the ExecutorStatus property
+     *
+     * Can only be called if EnablePropertyExecutorStatus has previously been called.
+     */
+    void GetPropertyExecutorStatus(std::string& aValue);
     /**
      * Set the value of the UpdateTopic property
      *
@@ -77,9 +91,13 @@ protected:
      */
     DvProviderLinnCoUkUpdate1Cpp(DvDeviceStd& aDevice);
     /**
-     * Enable the UpdateStatus property.
+     * Enable the SoftwareStatus property.
      */
-    void EnablePropertyUpdateStatus();
+    void EnablePropertySoftwareStatus();
+    /**
+     * Enable the ExecutorStatus property.
+     */
+    void EnablePropertyExecutorStatus();
     /**
      * Enable the UpdateTopic property.
      */
@@ -107,11 +125,17 @@ protected:
      */
     void EnableActionGetUpdateFeedParams();
     /**
-     * Signal that the action GetUpdateStatus is supported.
+     * Signal that the action GetSoftwareStatus is supported.
      * The action's availability will be published in the device's service.xml.
-     * GetUpdateStatus must be overridden if this is called.
+     * GetSoftwareStatus must be overridden if this is called.
      */
-    void EnableActionGetUpdateStatus();
+    void EnableActionGetSoftwareStatus();
+    /**
+     * Signal that the action GetExecutorStatus is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetExecutorStatus must be overridden if this is called.
+     */
+    void EnableActionGetExecutorStatus();
     /**
      * Signal that the action Apply is supported.
      * The action's availability will be published in the device's service.xml.
@@ -150,13 +174,21 @@ private:
      */
     virtual void GetUpdateFeedParams(IDvInvocationStd& aInvocation, std::string& aTopic, std::string& aChannel);
     /**
-     * GetUpdateStatus action.
+     * GetSoftwareStatus action.
      *
      * Will be called when the device stack receives an invocation of the
-     * GetUpdateStatus action for the owning device.
-     * Must be implemented iff EnableActionGetUpdateStatus was called.
+     * GetSoftwareStatus action for the owning device.
+     * Must be implemented iff EnableActionGetSoftwareStatus was called.
      */
-    virtual void GetUpdateStatus(IDvInvocationStd& aInvocation, std::string& aUpdateStatus);
+    virtual void GetSoftwareStatus(IDvInvocationStd& aInvocation, std::string& aSoftwareStatus);
+    /**
+     * GetExecutorStatus action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetExecutorStatus action for the owning device.
+     * Must be implemented iff EnableActionGetExecutorStatus was called.
+     */
+    virtual void GetExecutorStatus(IDvInvocationStd& aInvocation, std::string& aExecutorStatus);
     /**
      * Apply action.
      *
@@ -178,11 +210,13 @@ private:
     void DoPushManifest(IDviInvocation& aInvocation);
     void DoSetUpdateFeedParams(IDviInvocation& aInvocation);
     void DoGetUpdateFeedParams(IDviInvocation& aInvocation);
-    void DoGetUpdateStatus(IDviInvocation& aInvocation);
+    void DoGetSoftwareStatus(IDviInvocation& aInvocation);
+    void DoGetExecutorStatus(IDviInvocation& aInvocation);
     void DoApply(IDviInvocation& aInvocation);
     void DoRestore(IDviInvocation& aInvocation);
 private:
-    PropertyString* iPropertyUpdateStatus;
+    PropertyString* iPropertySoftwareStatus;
+    PropertyString* iPropertyExecutorStatus;
     PropertyString* iPropertyUpdateTopic;
     PropertyString* iPropertyUpdateChannel;
 };

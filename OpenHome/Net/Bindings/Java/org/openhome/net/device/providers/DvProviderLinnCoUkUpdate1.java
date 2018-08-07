@@ -10,20 +10,36 @@ interface IDvProviderLinnCoUkUpdate1
 {
 
     /**
-     * Set the value of the UpdateStatus property
+     * Set the value of the SoftwareStatus property
      *
      * @param aValue    new value for the property.
      * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
      *
      */
-    public boolean setPropertyUpdateStatus(String aValue);
+    public boolean setPropertySoftwareStatus(String aValue);
 
     /**
-     * Get a copy of the value of the UpdateStatus property
+     * Get a copy of the value of the SoftwareStatus property
      *
-     * @return value of the UpdateStatus property.
+     * @return value of the SoftwareStatus property.
      */
-    public String getPropertyUpdateStatus();
+    public String getPropertySoftwareStatus();
+
+    /**
+     * Set the value of the ExecutorStatus property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyExecutorStatus(String aValue);
+
+    /**
+     * Get a copy of the value of the ExecutorStatus property
+     *
+     * @return value of the ExecutorStatus property.
+     */
+    public String getPropertyExecutorStatus();
 
     /**
      * Set the value of the UpdateTopic property
@@ -91,10 +107,12 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     private IDvInvocationListener iDelegatePushManifest;
     private IDvInvocationListener iDelegateSetUpdateFeedParams;
     private IDvInvocationListener iDelegateGetUpdateFeedParams;
-    private IDvInvocationListener iDelegateGetUpdateStatus;
+    private IDvInvocationListener iDelegateGetSoftwareStatus;
+    private IDvInvocationListener iDelegateGetExecutorStatus;
     private IDvInvocationListener iDelegateApply;
     private IDvInvocationListener iDelegateRestore;
-    private PropertyString iPropertyUpdateStatus;
+    private PropertyString iPropertySoftwareStatus;
+    private PropertyString iPropertyExecutorStatus;
     private PropertyString iPropertyUpdateTopic;
     private PropertyString iPropertyUpdateChannel;
 
@@ -109,13 +127,23 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     }
 
     /**
-     * Enable the UpdateStatus property.
+     * Enable the SoftwareStatus property.
      */
-    public void enablePropertyUpdateStatus()
+    public void enablePropertySoftwareStatus()
     {
         List<String> allowedValues = new LinkedList<String>();
-        iPropertyUpdateStatus = new PropertyString(new ParameterString("UpdateStatus", allowedValues));
-        addProperty(iPropertyUpdateStatus);
+        iPropertySoftwareStatus = new PropertyString(new ParameterString("SoftwareStatus", allowedValues));
+        addProperty(iPropertySoftwareStatus);
+    }
+
+    /**
+     * Enable the ExecutorStatus property.
+     */
+    public void enablePropertyExecutorStatus()
+    {
+        List<String> allowedValues = new LinkedList<String>();
+        iPropertyExecutorStatus = new PropertyString(new ParameterString("ExecutorStatus", allowedValues));
+        addProperty(iPropertyExecutorStatus);
     }
 
     /**
@@ -144,25 +172,47 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     }
 
     /**
-     * Set the value of the UpdateStatus property
+     * Set the value of the SoftwareStatus property
      *
      * @param aValue    new value for the property.
      * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
      * if <tt>aValue</tt> was the same as the previous value.
      */
-    public boolean setPropertyUpdateStatus(String aValue)
+    public boolean setPropertySoftwareStatus(String aValue)
     {
-        return setPropertyString(iPropertyUpdateStatus, aValue);
+        return setPropertyString(iPropertySoftwareStatus, aValue);
     }
 
     /**
-     * Get a copy of the value of the UpdateStatus property
+     * Get a copy of the value of the SoftwareStatus property
      *
-     * @return  value of the UpdateStatus property.
+     * @return  value of the SoftwareStatus property.
      */
-    public String getPropertyUpdateStatus()
+    public String getPropertySoftwareStatus()
     {
-        return iPropertyUpdateStatus.getValue();
+        return iPropertySoftwareStatus.getValue();
+    }
+
+    /**
+     * Set the value of the ExecutorStatus property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyExecutorStatus(String aValue)
+    {
+        return setPropertyString(iPropertyExecutorStatus, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the ExecutorStatus property
+     *
+     * @return  value of the ExecutorStatus property.
+     */
+    public String getPropertyExecutorStatus()
+    {
+        return iPropertyExecutorStatus.getValue();
     }
 
     /**
@@ -254,17 +304,31 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     }
 
     /**
-     * Signal that the action GetUpdateStatus is supported.
+     * Signal that the action GetSoftwareStatus is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * GetUpdateStatus must be overridden if this is called.
+     * GetSoftwareStatus must be overridden if this is called.
      */      
-    protected void enableActionGetUpdateStatus()
+    protected void enableActionGetSoftwareStatus()
     {
-        Action action = new Action("GetUpdateStatus");
-        action.addOutputParameter(new ParameterRelated("UpdateStatus", iPropertyUpdateStatus));
-        iDelegateGetUpdateStatus = new DoGetUpdateStatus();
-        enableAction(action, iDelegateGetUpdateStatus);
+        Action action = new Action("GetSoftwareStatus");
+        action.addOutputParameter(new ParameterRelated("SoftwareStatus", iPropertySoftwareStatus));
+        iDelegateGetSoftwareStatus = new DoGetSoftwareStatus();
+        enableAction(action, iDelegateGetSoftwareStatus);
+    }
+
+    /**
+     * Signal that the action GetExecutorStatus is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * GetExecutorStatus must be overridden if this is called.
+     */      
+    protected void enableActionGetExecutorStatus()
+    {
+        Action action = new Action("GetExecutorStatus");
+        action.addOutputParameter(new ParameterRelated("ExecutorStatus", iPropertyExecutorStatus));
+        iDelegateGetExecutorStatus = new DoGetExecutorStatus();
+        enableAction(action, iDelegateGetExecutorStatus);
     }
 
     /**
@@ -342,16 +406,31 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     }
 
     /**
-     * GetUpdateStatus action.
+     * GetSoftwareStatus action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * GetUpdateStatus action for the owning device.
+     * GetSoftwareStatus action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionGetUpdateStatus} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionGetSoftwareStatus} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected String getUpdateStatus(IDvInvocation aInvocation)
+    protected String getSoftwareStatus(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * GetExecutorStatus action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * GetExecutorStatus action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionGetExecutorStatus} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected String getExecutorStatus(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -554,21 +633,21 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
         }
     }
 
-    private class DoGetUpdateStatus implements IDvInvocationListener
+    private class DoGetSoftwareStatus implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
-            String updateStatus;
+            String softwareStatus;
             try
             {
                 invocation.readStart();
                 invocation.readEnd();
-                 updateStatus = getUpdateStatus(invocation);
+                 softwareStatus = getSoftwareStatus(invocation);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "GetUpdateStatus");
+                invocation.reportActionError(ae, "GetSoftwareStatus");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -586,7 +665,55 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
             try
             {
                 invocation.writeStart();
-                invocation.writeString("UpdateStatus", updateStatus);
+                invocation.writeString("SoftwareStatus", softwareStatus);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoGetExecutorStatus implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String executorStatus;
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                 executorStatus = getExecutorStatus(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "GetExecutorStatus");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeString("ExecutorStatus", executorStatus);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

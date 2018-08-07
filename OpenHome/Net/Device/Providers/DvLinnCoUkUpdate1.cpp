@@ -8,16 +8,28 @@
 using namespace OpenHome;
 using namespace OpenHome::Net;
 
-TBool DvProviderLinnCoUkUpdate1::SetPropertyUpdateStatus(const Brx& aValue)
+TBool DvProviderLinnCoUkUpdate1::SetPropertySoftwareStatus(const Brx& aValue)
 {
-    ASSERT(iPropertyUpdateStatus != NULL);
-    return SetPropertyString(*iPropertyUpdateStatus, aValue);
+    ASSERT(iPropertySoftwareStatus != NULL);
+    return SetPropertyString(*iPropertySoftwareStatus, aValue);
 }
 
-void DvProviderLinnCoUkUpdate1::GetPropertyUpdateStatus(Brhz& aValue)
+void DvProviderLinnCoUkUpdate1::GetPropertySoftwareStatus(Brhz& aValue)
 {
-    ASSERT(iPropertyUpdateStatus != NULL);
-    aValue.Set(iPropertyUpdateStatus->Value());
+    ASSERT(iPropertySoftwareStatus != NULL);
+    aValue.Set(iPropertySoftwareStatus->Value());
+}
+
+TBool DvProviderLinnCoUkUpdate1::SetPropertyExecutorStatus(const Brx& aValue)
+{
+    ASSERT(iPropertyExecutorStatus != NULL);
+    return SetPropertyString(*iPropertyExecutorStatus, aValue);
+}
+
+void DvProviderLinnCoUkUpdate1::GetPropertyExecutorStatus(Brhz& aValue)
+{
+    ASSERT(iPropertyExecutorStatus != NULL);
+    aValue.Set(iPropertyExecutorStatus->Value());
 }
 
 TBool DvProviderLinnCoUkUpdate1::SetPropertyUpdateTopic(const Brx& aValue)
@@ -58,15 +70,22 @@ DvProviderLinnCoUkUpdate1::DvProviderLinnCoUkUpdate1(DviDevice& aDevice)
 
 void DvProviderLinnCoUkUpdate1::Construct()
 {
-    iPropertyUpdateStatus = NULL;
+    iPropertySoftwareStatus = NULL;
+    iPropertyExecutorStatus = NULL;
     iPropertyUpdateTopic = NULL;
     iPropertyUpdateChannel = NULL;
 }
 
-void DvProviderLinnCoUkUpdate1::EnablePropertyUpdateStatus()
+void DvProviderLinnCoUkUpdate1::EnablePropertySoftwareStatus()
 {
-    iPropertyUpdateStatus = new PropertyString(new ParameterString("UpdateStatus"));
-    iService->AddProperty(iPropertyUpdateStatus); // passes ownership
+    iPropertySoftwareStatus = new PropertyString(new ParameterString("SoftwareStatus"));
+    iService->AddProperty(iPropertySoftwareStatus); // passes ownership
+}
+
+void DvProviderLinnCoUkUpdate1::EnablePropertyExecutorStatus()
+{
+    iPropertyExecutorStatus = new PropertyString(new ParameterString("ExecutorStatus"));
+    iService->AddProperty(iPropertyExecutorStatus); // passes ownership
 }
 
 void DvProviderLinnCoUkUpdate1::EnablePropertyUpdateTopic()
@@ -115,11 +134,19 @@ void DvProviderLinnCoUkUpdate1::EnableActionGetUpdateFeedParams()
     iService->AddAction(action, functor);
 }
 
-void DvProviderLinnCoUkUpdate1::EnableActionGetUpdateStatus()
+void DvProviderLinnCoUkUpdate1::EnableActionGetSoftwareStatus()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetUpdateStatus");
-    action->AddOutputParameter(new ParameterRelated("UpdateStatus", *iPropertyUpdateStatus));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1::DoGetUpdateStatus);
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetSoftwareStatus");
+    action->AddOutputParameter(new ParameterRelated("SoftwareStatus", *iPropertySoftwareStatus));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1::DoGetSoftwareStatus);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderLinnCoUkUpdate1::EnableActionGetExecutorStatus()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetExecutorStatus");
+    action->AddOutputParameter(new ParameterRelated("ExecutorStatus", *iPropertyExecutorStatus));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkUpdate1::DoGetExecutorStatus);
     iService->AddAction(action, functor);
 }
 
@@ -169,13 +196,22 @@ void DvProviderLinnCoUkUpdate1::DoGetUpdateFeedParams(IDviInvocation& aInvocatio
     GetUpdateFeedParams(invocation, respTopic, respChannel);
 }
 
-void DvProviderLinnCoUkUpdate1::DoGetUpdateStatus(IDviInvocation& aInvocation)
+void DvProviderLinnCoUkUpdate1::DoGetSoftwareStatus(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
-    DviInvocationResponseString respUpdateStatus(aInvocation, "UpdateStatus");
-    GetUpdateStatus(invocation, respUpdateStatus);
+    DviInvocationResponseString respSoftwareStatus(aInvocation, "SoftwareStatus");
+    GetSoftwareStatus(invocation, respSoftwareStatus);
+}
+
+void DvProviderLinnCoUkUpdate1::DoGetExecutorStatus(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    DviInvocationResponseString respExecutorStatus(aInvocation, "ExecutorStatus");
+    GetExecutorStatus(invocation, respExecutorStatus);
 }
 
 void DvProviderLinnCoUkUpdate1::DoApply(IDviInvocation& aInvocation)
@@ -209,7 +245,12 @@ void DvProviderLinnCoUkUpdate1::GetUpdateFeedParams(IDvInvocation& /*aResponse*/
     ASSERTS();
 }
 
-void DvProviderLinnCoUkUpdate1::GetUpdateStatus(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aUpdateStatus*/)
+void DvProviderLinnCoUkUpdate1::GetSoftwareStatus(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aSoftwareStatus*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkUpdate1::GetExecutorStatus(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aExecutorStatus*/)
 {
     ASSERTS();
 }

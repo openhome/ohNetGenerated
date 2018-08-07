@@ -19,17 +19,22 @@ interface ICpProxyLinnCoUkUpdate1 extends ICpProxy
     public GetUpdateFeedParams syncGetUpdateFeedParams();
     public void beginGetUpdateFeedParams(ICpProxyListener aCallback);
     public GetUpdateFeedParams endGetUpdateFeedParams(long aAsyncHandle);
-    public String syncGetUpdateStatus();
-    public void beginGetUpdateStatus(ICpProxyListener aCallback);
-    public String endGetUpdateStatus(long aAsyncHandle);
+    public String syncGetSoftwareStatus();
+    public void beginGetSoftwareStatus(ICpProxyListener aCallback);
+    public String endGetSoftwareStatus(long aAsyncHandle);
+    public String syncGetExecutorStatus();
+    public void beginGetExecutorStatus(ICpProxyListener aCallback);
+    public String endGetExecutorStatus(long aAsyncHandle);
     public void syncApply();
     public void beginApply(ICpProxyListener aCallback);
     public void endApply(long aAsyncHandle);
     public void syncRestore();
     public void beginRestore(ICpProxyListener aCallback);
     public void endRestore(long aAsyncHandle);
-    public void setPropertyUpdateStatusChanged(IPropertyChangeListener aUpdateStatusChanged);
-    public String getPropertyUpdateStatus();
+    public void setPropertySoftwareStatusChanged(IPropertyChangeListener aSoftwareStatusChanged);
+    public String getPropertySoftwareStatus();
+    public void setPropertyExecutorStatusChanged(IPropertyChangeListener aExecutorStatusChanged);
+    public String getPropertyExecutorStatus();
     public void setPropertyUpdateTopicChanged(IPropertyChangeListener aUpdateTopicChanged);
     public String getPropertyUpdateTopic();
     public void setPropertyUpdateChannelChanged(IPropertyChangeListener aUpdateChannelChanged);
@@ -93,24 +98,45 @@ class SyncGetUpdateFeedParamsLinnCoUkUpdate1 extends SyncProxyAction
     }
 }
 
-class SyncGetUpdateStatusLinnCoUkUpdate1 extends SyncProxyAction
+class SyncGetSoftwareStatusLinnCoUkUpdate1 extends SyncProxyAction
 {
     private CpProxyLinnCoUkUpdate1 iService;
-    private String iUpdateStatus;
+    private String iSoftwareStatus;
 
-    public SyncGetUpdateStatusLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
+    public SyncGetSoftwareStatusLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
     {
         iService = aProxy;
     }
-    public String getUpdateStatus()
+    public String getSoftwareStatus()
     {
-        return iUpdateStatus;
+        return iSoftwareStatus;
     }
     protected void completeRequest(long aAsyncHandle)
     {
-        String result = iService.endGetUpdateStatus(aAsyncHandle);
+        String result = iService.endGetSoftwareStatus(aAsyncHandle);
         
-        iUpdateStatus = result;
+        iSoftwareStatus = result;
+    }
+}
+
+class SyncGetExecutorStatusLinnCoUkUpdate1 extends SyncProxyAction
+{
+    private CpProxyLinnCoUkUpdate1 iService;
+    private String iExecutorStatus;
+
+    public SyncGetExecutorStatusLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
+    {
+        iService = aProxy;
+    }
+    public String getExecutorStatus()
+    {
+        return iExecutorStatus;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        String result = iService.endGetExecutorStatus(aAsyncHandle);
+        
+        iExecutorStatus = result;
     }
 }
 
@@ -176,13 +202,16 @@ public class CpProxyLinnCoUkUpdate1 extends CpProxy implements ICpProxyLinnCoUkU
     private Action iActionPushManifest;
     private Action iActionSetUpdateFeedParams;
     private Action iActionGetUpdateFeedParams;
-    private Action iActionGetUpdateStatus;
+    private Action iActionGetSoftwareStatus;
+    private Action iActionGetExecutorStatus;
     private Action iActionApply;
     private Action iActionRestore;
-    private PropertyString iUpdateStatus;
+    private PropertyString iSoftwareStatus;
+    private PropertyString iExecutorStatus;
     private PropertyString iUpdateTopic;
     private PropertyString iUpdateChannel;
-    private IPropertyChangeListener iUpdateStatusChanged;
+    private IPropertyChangeListener iSoftwareStatusChanged;
+    private IPropertyChangeListener iExecutorStatusChanged;
     private IPropertyChangeListener iUpdateTopicChanged;
     private IPropertyChangeListener iUpdateChannelChanged;
     private Object iPropertyLock;
@@ -226,23 +255,36 @@ public class CpProxyLinnCoUkUpdate1 extends CpProxy implements ICpProxyLinnCoUkU
         iActionGetUpdateFeedParams.addOutputParameter(param);
         allowedValues.clear();
 
-        iActionGetUpdateStatus = new Action("GetUpdateStatus");
-        param = new ParameterString("UpdateStatus", allowedValues);
-        iActionGetUpdateStatus.addOutputParameter(param);
+        iActionGetSoftwareStatus = new Action("GetSoftwareStatus");
+        param = new ParameterString("SoftwareStatus", allowedValues);
+        iActionGetSoftwareStatus.addOutputParameter(param);
+
+        iActionGetExecutorStatus = new Action("GetExecutorStatus");
+        param = new ParameterString("ExecutorStatus", allowedValues);
+        iActionGetExecutorStatus.addOutputParameter(param);
 
         iActionApply = new Action("Apply");
 
         iActionRestore = new Action("Restore");
 
-        iUpdateStatusChanged = new PropertyChangeListener();
-        iUpdateStatus = new PropertyString("UpdateStatus",
+        iSoftwareStatusChanged = new PropertyChangeListener();
+        iSoftwareStatus = new PropertyString("SoftwareStatus",
             new PropertyChangeListener() {
                 public void notifyChange() {
-                    updateStatusPropertyChanged();
+                    softwareStatusPropertyChanged();
                 }
             }
         );
-        addProperty(iUpdateStatus);
+        addProperty(iSoftwareStatus);
+        iExecutorStatusChanged = new PropertyChangeListener();
+        iExecutorStatus = new PropertyString("ExecutorStatus",
+            new PropertyChangeListener() {
+                public void notifyChange() {
+                    executorStatusPropertyChanged();
+                }
+            }
+        );
+        addProperty(iExecutorStatus);
         iUpdateTopicChanged = new PropertyChangeListener();
         iUpdateTopic = new PropertyString("UpdateTopic",
             new PropertyChangeListener() {
@@ -431,43 +473,43 @@ public class CpProxyLinnCoUkUpdate1 extends CpProxy implements ICpProxyLinnCoUkU
      *
      * @return the result of the invoked action.
      */
-    public String syncGetUpdateStatus()
+    public String syncGetSoftwareStatus()
     {
-        SyncGetUpdateStatusLinnCoUkUpdate1 sync = new SyncGetUpdateStatusLinnCoUkUpdate1(this);
-        beginGetUpdateStatus(sync.getListener());
+        SyncGetSoftwareStatusLinnCoUkUpdate1 sync = new SyncGetSoftwareStatusLinnCoUkUpdate1(this);
+        beginGetSoftwareStatus(sync.getListener());
         sync.waitToComplete();
         sync.reportError();
 
-        return sync.getUpdateStatus();
+        return sync.getSoftwareStatus();
     }
     
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the
      * action later completes.  Any output arguments can then be retrieved by
-     * calling {@link #endGetUpdateStatus}.
+     * calling {@link #endGetSoftwareStatus}.
      * 
      * @param aCallback listener to call back when action completes.
      *                  This is guaranteed to be run but may indicate an error.
      */
-    public void beginGetUpdateStatus(ICpProxyListener aCallback)
+    public void beginGetSoftwareStatus(ICpProxyListener aCallback)
     {
-        Invocation invocation = iService.getInvocation(iActionGetUpdateStatus, aCallback);
+        Invocation invocation = iService.getInvocation(iActionGetSoftwareStatus, aCallback);
         int outIndex = 0;
-        invocation.addOutput(new ArgumentString((ParameterString)iActionGetUpdateStatus.getOutputParameter(outIndex++)));
+        invocation.addOutput(new ArgumentString((ParameterString)iActionGetSoftwareStatus.getOutputParameter(outIndex++)));
         iService.invokeAction(invocation);
     }
 
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the
-     * {@link #beginGetUpdateStatus} method.
+     * {@link #beginGetSoftwareStatus} method.
      *
      * @param aAsyncHandle  argument passed to the delegate set in the
-     *          {@link #beginGetUpdateStatus} method.
+     *          {@link #beginGetSoftwareStatus} method.
      * @return the result of the previously invoked action.
      */
-    public String endGetUpdateStatus(long aAsyncHandle)
+    public String endGetSoftwareStatus(long aAsyncHandle)
     {
         ProxyError errObj = Invocation.error(aAsyncHandle);
         if (errObj != null)
@@ -475,8 +517,63 @@ public class CpProxyLinnCoUkUpdate1 extends CpProxy implements ICpProxyLinnCoUkU
             throw errObj;
         }
         int index = 0;
-        String updateStatus = Invocation.getOutputString(aAsyncHandle, index++);
-        return updateStatus;
+        String softwareStatus = Invocation.getOutputString(aAsyncHandle, index++);
+        return softwareStatus;
+    }
+        
+    /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     *
+     * @return the result of the invoked action.
+     */
+    public String syncGetExecutorStatus()
+    {
+        SyncGetExecutorStatusLinnCoUkUpdate1 sync = new SyncGetExecutorStatusLinnCoUkUpdate1(this);
+        beginGetExecutorStatus(sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+
+        return sync.getExecutorStatus();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endGetExecutorStatus}.
+     * 
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginGetExecutorStatus(ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionGetExecutorStatus, aCallback);
+        int outIndex = 0;
+        invocation.addOutput(new ArgumentString((ParameterString)iActionGetExecutorStatus.getOutputParameter(outIndex++)));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginGetExecutorStatus} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginGetExecutorStatus} method.
+     * @return the result of the previously invoked action.
+     */
+    public String endGetExecutorStatus(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+        int index = 0;
+        String executorStatus = Invocation.getOutputString(aAsyncHandle, index++);
+        return executorStatus;
     }
         
     /**
@@ -570,26 +667,49 @@ public class CpProxyLinnCoUkUpdate1 extends CpProxy implements ICpProxyLinnCoUkU
     }
         
     /**
-     * Set a delegate to be run when the UpdateStatus state variable changes.
+     * Set a delegate to be run when the SoftwareStatus state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyLinnCoUkUpdate1 instance will not overlap.
      *
-     * @param aUpdateStatusChanged   the listener to call back when the state
+     * @param aSoftwareStatusChanged   the listener to call back when the state
      *          variable changes.
      */
-    public void setPropertyUpdateStatusChanged(IPropertyChangeListener aUpdateStatusChanged)
+    public void setPropertySoftwareStatusChanged(IPropertyChangeListener aSoftwareStatusChanged)
     {
         synchronized (iPropertyLock)
         {
-            iUpdateStatusChanged = aUpdateStatusChanged;
+            iSoftwareStatusChanged = aSoftwareStatusChanged;
         }
     }
 
-    private void updateStatusPropertyChanged()
+    private void softwareStatusPropertyChanged()
     {
         synchronized (iPropertyLock)
         {
-            reportEvent(iUpdateStatusChanged);
+            reportEvent(iSoftwareStatusChanged);
+        }
+    }
+    /**
+     * Set a delegate to be run when the ExecutorStatus state variable changes.
+     * Callbacks may be run in different threads but callbacks for a
+     * CpProxyLinnCoUkUpdate1 instance will not overlap.
+     *
+     * @param aExecutorStatusChanged   the listener to call back when the state
+     *          variable changes.
+     */
+    public void setPropertyExecutorStatusChanged(IPropertyChangeListener aExecutorStatusChanged)
+    {
+        synchronized (iPropertyLock)
+        {
+            iExecutorStatusChanged = aExecutorStatusChanged;
+        }
+    }
+
+    private void executorStatusPropertyChanged()
+    {
+        synchronized (iPropertyLock)
+        {
+            reportEvent(iExecutorStatusChanged);
         }
     }
     /**
@@ -640,17 +760,33 @@ public class CpProxyLinnCoUkUpdate1 extends CpProxy implements ICpProxyLinnCoUkU
     }
 
     /**
-     * Query the value of the UpdateStatus property.
+     * Query the value of the SoftwareStatus property.
      * This function is thread-safe and can only be called if {@link 
      * #subscribe} has been called and a first eventing callback received
      * more recently than any call to {@link #unsubscribe}.
      *
-     * @return  value of the UpdateStatus property.
+     * @return  value of the SoftwareStatus property.
      */
-    public String getPropertyUpdateStatus()
+    public String getPropertySoftwareStatus()
     {
         propertyReadLock();
-        String val = iUpdateStatus.getValue();
+        String val = iSoftwareStatus.getValue();
+        propertyReadUnlock();
+        return val;
+    }
+    
+    /**
+     * Query the value of the ExecutorStatus property.
+     * This function is thread-safe and can only be called if {@link 
+     * #subscribe} has been called and a first eventing callback received
+     * more recently than any call to {@link #unsubscribe}.
+     *
+     * @return  value of the ExecutorStatus property.
+     */
+    public String getPropertyExecutorStatus()
+    {
+        propertyReadLock();
+        String val = iExecutorStatus.getValue();
         propertyReadUnlock();
         return val;
     }
@@ -705,10 +841,12 @@ public class CpProxyLinnCoUkUpdate1 extends CpProxy implements ICpProxyLinnCoUkU
             iActionPushManifest.destroy();
             iActionSetUpdateFeedParams.destroy();
             iActionGetUpdateFeedParams.destroy();
-            iActionGetUpdateStatus.destroy();
+            iActionGetSoftwareStatus.destroy();
+            iActionGetExecutorStatus.destroy();
             iActionApply.destroy();
             iActionRestore.destroy();
-            iUpdateStatus.destroy();
+            iSoftwareStatus.destroy();
+            iExecutorStatus.destroy();
             iUpdateTopic.destroy();
             iUpdateChannel.destroy();
         }
