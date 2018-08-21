@@ -122,6 +122,13 @@
     <publisher>OpenHome</publisher>
     <dcpdir></dcpdir>
     <domain>av.openhome.org</domain>
+    <type>Exakt</type>
+    <version>4</version>
+  </service>
+  <service>
+    <publisher>OpenHome</publisher>
+    <dcpdir></dcpdir>
+    <domain>av.openhome.org</domain>
     <type>Info</type>
     <version>1</version>
   </service>
@@ -325,7 +332,7 @@
     <publisher>Linn</publisher>
     <dcpdir></dcpdir>
     <domain>linn.co.uk</domain>
-    <type>Exakt</type>
+    <type>Exakt2</type>
     <version>1</version>
   </service>
 </servicelist>
