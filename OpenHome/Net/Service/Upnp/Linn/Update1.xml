@@ -16,36 +16,6 @@
       </argumentList>
     </action>
     <action>
-      <name>SetUpdateFeedParams</name>
-      <argumentList>
-        <argument>
-          <name>Topic</name>
-          <direction>in</direction>
-          <relatedStateVariable>UpdateTopic</relatedStateVariable>
-        </argument>
-        <argument>
-          <name>Channel</name>
-          <direction>in</direction>
-          <relatedStateVariable>UpdateChannel</relatedStateVariable>
-        </argument>
-      </argumentList>
-    </action>
-    <action>
-      <name>GetUpdateFeedParams</name>
-      <argumentList>
-        <argument>
-          <name>Topic</name>
-          <direction>out</direction>
-          <relatedStateVariable>UpdateTopic</relatedStateVariable>
-        </argument>
-        <argument>
-          <name>Channel</name>
-          <direction>out</direction>
-          <relatedStateVariable>UpdateChannel</relatedStateVariable>
-        </argument>
-      </argumentList>
-    </action>
-    <action>
       <name>GetSoftwareStatus</name>
       <argumentList>
         <argument>
@@ -69,7 +39,10 @@
       <name>Apply</name>
     </action>
     <action>
-      <name>Restore</name>
+      <name>Recover</name>
+    </action>
+    <action>
+      <name>CheckNow</name>
     </action>
   </actionList>
   <serviceStateTable>
@@ -79,20 +52,6 @@
     </stateVariable>
     <stateVariable sendEvents="yes">
       <name>ExecutorStatus</name>
-      <dataType>string</dataType>
-    </stateVariable>
-    <stateVariable sendEvents="yes">
-      <name>UpdateTopic</name>
-      <dataType>string</dataType>
-    </stateVariable>
-    <stateVariable sendEvents="yes">
-      <name>UpdateChannel</name>
-      <allowedValueList>
-        <allowedValue>release</allowedValue>
-        <allowedValue>beta</allowedValue>
-        <allowedValue>development</allowedValue>
-        <allowedValue>nightly</allowedValue>
-      </allowedValueList>
       <dataType>string</dataType>
     </stateVariable>
     <stateVariable sendEvents="no">
