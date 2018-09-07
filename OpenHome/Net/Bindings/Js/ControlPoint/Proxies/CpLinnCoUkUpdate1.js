@@ -20,16 +20,8 @@ var CpProxyLinnCoUkUpdate1 = function(udn){
     this.serviceProperties = {};
     this.serviceProperties["SoftwareStatus"] = new ohnet.serviceproperty("SoftwareStatus","string");
     this.serviceProperties["ExecutorStatus"] = new ohnet.serviceproperty("ExecutorStatus","string");
-    this.serviceProperties["UpdateTopic"] = new ohnet.serviceproperty("UpdateTopic","string");
-    this.serviceProperties["UpdateChannel"] = new ohnet.serviceproperty("UpdateChannel","string");
 
-                              
-    this.UpdateChannelAllowedValues = [];
-    this.UpdateChannelAllowedValues.push("release");
-    this.UpdateChannelAllowedValues.push("beta");
-    this.UpdateChannelAllowedValues.push("development");
-    this.UpdateChannelAllowedValues.push("nightly");
-
+                
 }
 
 
@@ -79,32 +71,6 @@ CpProxyLinnCoUkUpdate1.prototype.ExecutorStatus_Changed = function (stateChanged
         stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
     });
 }
-    
-
-/**
-* Adds a listener to handle "UpdateTopic" property change events
-* @method UpdateTopic_Changed
-* @param {Function} stateChangedFunction The handler for state changes
-*/
-CpProxyLinnCoUkUpdate1.prototype.UpdateTopic_Changed = function (stateChangedFunction) {
-    this.serviceProperties.UpdateTopic.addListener(function (state) 
-    { 
-        stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
-    });
-}
-    
-
-/**
-* Adds a listener to handle "UpdateChannel" property change events
-* @method UpdateChannel_Changed
-* @param {Function} stateChangedFunction The handler for state changes
-*/
-CpProxyLinnCoUkUpdate1.prototype.UpdateChannel_Changed = function (stateChangedFunction) {
-    this.serviceProperties.UpdateChannel.addListener(function (state) 
-    { 
-        stateChangedFunction(ohnet.soaprequest.readStringParameter(state)); 
-    });
-}
 
 
 /**
@@ -118,50 +84,6 @@ CpProxyLinnCoUkUpdate1.prototype.PushManifest = function(Uri, successFunction, e
     var request = new ohnet.soaprequest("PushManifest", this.url, this.domain, this.type, this.version);     
     request.writeStringParameter("Uri", Uri);
     request.send(function(result){
-    
-        if (successFunction){
-            successFunction(result);
-        }
-    }, function(message, transport) {
-        if (errorFunction) {errorFunction(message, transport);}
-    });
-}
-
-
-/**
-* A service action to SetUpdateFeedParams
-* @method SetUpdateFeedParams
-* @param {String} Topic An action parameter
-* @param {String} Channel An action parameter
-* @param {Function} successFunction The function that is executed when the action has completed successfully
-* @param {Function} errorFunction The function that is executed when the action has cause an error
-*/
-CpProxyLinnCoUkUpdate1.prototype.SetUpdateFeedParams = function(Topic, Channel, successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("SetUpdateFeedParams", this.url, this.domain, this.type, this.version);     
-    request.writeStringParameter("Topic", Topic);
-    request.writeStringParameter("Channel", Channel);
-    request.send(function(result){
-    
-        if (successFunction){
-            successFunction(result);
-        }
-    }, function(message, transport) {
-        if (errorFunction) {errorFunction(message, transport);}
-    });
-}
-
-
-/**
-* A service action to GetUpdateFeedParams
-* @method GetUpdateFeedParams
-* @param {Function} successFunction The function that is executed when the action has completed successfully
-* @param {Function} errorFunction The function that is executed when the action has cause an error
-*/
-CpProxyLinnCoUkUpdate1.prototype.GetUpdateFeedParams = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("GetUpdateFeedParams", this.url, this.domain, this.type, this.version);     
-    request.send(function(result){
-        result["Topic"] = ohnet.soaprequest.readStringParameter(result["Topic"]); 
-        result["Channel"] = ohnet.soaprequest.readStringParameter(result["Channel"]); 
     
         if (successFunction){
             successFunction(result);
@@ -232,13 +154,32 @@ CpProxyLinnCoUkUpdate1.prototype.Apply = function(successFunction, errorFunction
 
 
 /**
-* A service action to Restore
-* @method Restore
+* A service action to Recover
+* @method Recover
 * @param {Function} successFunction The function that is executed when the action has completed successfully
 * @param {Function} errorFunction The function that is executed when the action has cause an error
 */
-CpProxyLinnCoUkUpdate1.prototype.Restore = function(successFunction, errorFunction){ 
-    var request = new ohnet.soaprequest("Restore", this.url, this.domain, this.type, this.version);     
+CpProxyLinnCoUkUpdate1.prototype.Recover = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("Recover", this.url, this.domain, this.type, this.version);     
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
+/**
+* A service action to CheckNow
+* @method CheckNow
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkUpdate1.prototype.CheckNow = function(successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("CheckNow", this.url, this.domain, this.type, this.version);     
     request.send(function(result){
     
         if (successFunction){

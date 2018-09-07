@@ -55,34 +55,6 @@ public:
      * Can only be called if EnablePropertyExecutorStatus has previously been called.
      */
     void GetPropertyExecutorStatus(std::string& aValue);
-    /**
-     * Set the value of the UpdateTopic property
-     *
-     * Can only be called if EnablePropertyUpdateTopic has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    bool SetPropertyUpdateTopic(const std::string& aValue);
-    /**
-     * Get a copy of the value of the UpdateTopic property
-     *
-     * Can only be called if EnablePropertyUpdateTopic has previously been called.
-     */
-    void GetPropertyUpdateTopic(std::string& aValue);
-    /**
-     * Set the value of the UpdateChannel property
-     *
-     * Can only be called if EnablePropertyUpdateChannel has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    bool SetPropertyUpdateChannel(const std::string& aValue);
-    /**
-     * Get a copy of the value of the UpdateChannel property
-     *
-     * Can only be called if EnablePropertyUpdateChannel has previously been called.
-     */
-    void GetPropertyUpdateChannel(std::string& aValue);
 protected:
     /**
      * Constructor
@@ -99,31 +71,11 @@ protected:
      */
     void EnablePropertyExecutorStatus();
     /**
-     * Enable the UpdateTopic property.
-     */
-    void EnablePropertyUpdateTopic();
-    /**
-     * Enable the UpdateChannel property.
-     */
-    void EnablePropertyUpdateChannel();
-    /**
      * Signal that the action PushManifest is supported.
      * The action's availability will be published in the device's service.xml.
      * PushManifest must be overridden if this is called.
      */
     void EnableActionPushManifest();
-    /**
-     * Signal that the action SetUpdateFeedParams is supported.
-     * The action's availability will be published in the device's service.xml.
-     * SetUpdateFeedParams must be overridden if this is called.
-     */
-    void EnableActionSetUpdateFeedParams();
-    /**
-     * Signal that the action GetUpdateFeedParams is supported.
-     * The action's availability will be published in the device's service.xml.
-     * GetUpdateFeedParams must be overridden if this is called.
-     */
-    void EnableActionGetUpdateFeedParams();
     /**
      * Signal that the action GetSoftwareStatus is supported.
      * The action's availability will be published in the device's service.xml.
@@ -143,11 +95,17 @@ protected:
      */
     void EnableActionApply();
     /**
-     * Signal that the action Restore is supported.
+     * Signal that the action Recover is supported.
      * The action's availability will be published in the device's service.xml.
-     * Restore must be overridden if this is called.
+     * Recover must be overridden if this is called.
      */
-    void EnableActionRestore();
+    void EnableActionRecover();
+    /**
+     * Signal that the action CheckNow is supported.
+     * The action's availability will be published in the device's service.xml.
+     * CheckNow must be overridden if this is called.
+     */
+    void EnableActionCheckNow();
 private:
     /**
      * PushManifest action.
@@ -157,22 +115,6 @@ private:
      * Must be implemented iff EnableActionPushManifest was called.
      */
     virtual void PushManifest(IDvInvocationStd& aInvocation, const std::string& aUri);
-    /**
-     * SetUpdateFeedParams action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * SetUpdateFeedParams action for the owning device.
-     * Must be implemented iff EnableActionSetUpdateFeedParams was called.
-     */
-    virtual void SetUpdateFeedParams(IDvInvocationStd& aInvocation, const std::string& aTopic, const std::string& aChannel);
-    /**
-     * GetUpdateFeedParams action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * GetUpdateFeedParams action for the owning device.
-     * Must be implemented iff EnableActionGetUpdateFeedParams was called.
-     */
-    virtual void GetUpdateFeedParams(IDvInvocationStd& aInvocation, std::string& aTopic, std::string& aChannel);
     /**
      * GetSoftwareStatus action.
      *
@@ -198,27 +140,32 @@ private:
      */
     virtual void Apply(IDvInvocationStd& aInvocation);
     /**
-     * Restore action.
+     * Recover action.
      *
      * Will be called when the device stack receives an invocation of the
-     * Restore action for the owning device.
-     * Must be implemented iff EnableActionRestore was called.
+     * Recover action for the owning device.
+     * Must be implemented iff EnableActionRecover was called.
      */
-    virtual void Restore(IDvInvocationStd& aInvocation);
+    virtual void Recover(IDvInvocationStd& aInvocation);
+    /**
+     * CheckNow action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * CheckNow action for the owning device.
+     * Must be implemented iff EnableActionCheckNow was called.
+     */
+    virtual void CheckNow(IDvInvocationStd& aInvocation);
 private:
     DvProviderLinnCoUkUpdate1Cpp();
     void DoPushManifest(IDviInvocation& aInvocation);
-    void DoSetUpdateFeedParams(IDviInvocation& aInvocation);
-    void DoGetUpdateFeedParams(IDviInvocation& aInvocation);
     void DoGetSoftwareStatus(IDviInvocation& aInvocation);
     void DoGetExecutorStatus(IDviInvocation& aInvocation);
     void DoApply(IDviInvocation& aInvocation);
-    void DoRestore(IDviInvocation& aInvocation);
+    void DoRecover(IDviInvocation& aInvocation);
+    void DoCheckNow(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertySoftwareStatus;
     PropertyString* iPropertyExecutorStatus;
-    PropertyString* iPropertyUpdateTopic;
-    PropertyString* iPropertyUpdateChannel;
 };
 
 } // namespace Net

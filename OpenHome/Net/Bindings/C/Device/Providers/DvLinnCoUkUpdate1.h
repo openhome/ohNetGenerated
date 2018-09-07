@@ -32,32 +32,6 @@ extern "C" {
  */
 typedef int32_t (STDCALL *CallbackUpdate1PushManifest)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aUri);
 /**
- * Callback which runs when the SetUpdateFeedParams action is invoked
- *
- * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkUpdate1EnableActionSetUpdateFeedParams
- * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
- *                            and other queries.
- * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[in]  aTopic
- * @param[in]  aChannel
- *
- * @return  0 if the action succeeded; non-zero if the action failed
- */
-typedef int32_t (STDCALL *CallbackUpdate1SetUpdateFeedParams)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aTopic, const char* aChannel);
-/**
- * Callback which runs when the GetUpdateFeedParams action is invoked
- *
- * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkUpdate1EnableActionGetUpdateFeedParams
- * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
- *                            and other queries.
- * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
- * @param[out] aTopic
- * @param[out] aChannel
- *
- * @return  0 if the action succeeded; non-zero if the action failed
- */
-typedef int32_t (STDCALL *CallbackUpdate1GetUpdateFeedParams)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, char** aTopic, char** aChannel);
-/**
  * Callback which runs when the GetSoftwareStatus action is invoked
  *
  * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkUpdate1EnableActionGetSoftwareStatus
@@ -93,16 +67,27 @@ typedef int32_t (STDCALL *CallbackUpdate1GetExecutorStatus)(void* aPtr, IDvInvoc
  */
 typedef int32_t (STDCALL *CallbackUpdate1Apply)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 /**
- * Callback which runs when the Restore action is invoked
+ * Callback which runs when the Recover action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkUpdate1EnableActionRestore
+ * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkUpdate1EnableActionRecover
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackUpdate1Restore)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
+typedef int32_t (STDCALL *CallbackUpdate1Recover)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
+/**
+ * Callback which runs when the CheckNow action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderLinnCoUkUpdate1EnableActionCheckNow
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackUpdate1CheckNow)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr);
 
 /**
  * Provider constructor
@@ -128,14 +113,6 @@ DllExport void STDCALL DvProviderLinnCoUkUpdate1EnablePropertySoftwareStatus(THa
  * Enable the ExecutorStatus property.
  */
 DllExport void STDCALL DvProviderLinnCoUkUpdate1EnablePropertyExecutorStatus(THandle aProvider);
-/**
- * Enable the UpdateTopic property.
- */
-DllExport void STDCALL DvProviderLinnCoUkUpdate1EnablePropertyUpdateTopic(THandle aProvider);
-/**
- * Enable the UpdateChannel property.
- */
-DllExport void STDCALL DvProviderLinnCoUkUpdate1EnablePropertyUpdateChannel(THandle aProvider);
 
 /**
  * Register a callback for the action PushManifest
@@ -148,28 +125,6 @@ DllExport void STDCALL DvProviderLinnCoUkUpdate1EnablePropertyUpdateChannel(THan
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
 DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionPushManifest(THandle aProvider, CallbackUpdate1PushManifest aCallback, void* aPtr);
-/**
- * Register a callback for the action SetUpdateFeedParams
- *
- * If this is called, the action's availability will be published in the device's service.xml.
- * If this is not called, any attempt to invoke the action on a control point will fail.
- *
- * @param[in] aProvider  Handle returned by DvProviderLinnCoUkUpdate1Create
- * @param[in] aCallback  Callback which will be run when the action is invoked
- * @param[in] aPtr       Client-specified data which will be passed to the callback
- */
-DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionSetUpdateFeedParams(THandle aProvider, CallbackUpdate1SetUpdateFeedParams aCallback, void* aPtr);
-/**
- * Register a callback for the action GetUpdateFeedParams
- *
- * If this is called, the action's availability will be published in the device's service.xml.
- * If this is not called, any attempt to invoke the action on a control point will fail.
- *
- * @param[in] aProvider  Handle returned by DvProviderLinnCoUkUpdate1Create
- * @param[in] aCallback  Callback which will be run when the action is invoked
- * @param[in] aPtr       Client-specified data which will be passed to the callback
- */
-DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionGetUpdateFeedParams(THandle aProvider, CallbackUpdate1GetUpdateFeedParams aCallback, void* aPtr);
 /**
  * Register a callback for the action GetSoftwareStatus
  *
@@ -204,7 +159,7 @@ DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionGetExecutorStatus(TH
  */
 DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionApply(THandle aProvider, CallbackUpdate1Apply aCallback, void* aPtr);
 /**
- * Register a callback for the action Restore
+ * Register a callback for the action Recover
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -213,7 +168,18 @@ DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionApply(THandle aProvi
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionRestore(THandle aProvider, CallbackUpdate1Restore aCallback, void* aPtr);
+DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionRecover(THandle aProvider, CallbackUpdate1Recover aCallback, void* aPtr);
+/**
+ * Register a callback for the action CheckNow
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderLinnCoUkUpdate1Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderLinnCoUkUpdate1EnableActionCheckNow(THandle aProvider, CallbackUpdate1CheckNow aCallback, void* aPtr);
 
 /**
  * Set the value of the SoftwareStatus property
@@ -259,50 +225,6 @@ DllExport int32_t STDCALL DvProviderLinnCoUkUpdate1SetPropertyExecutorStatus(THa
  * @param[out] aValue     Value for the property.  Caller is responsible for freeing this.
  */
 DllExport void STDCALL DvProviderLinnCoUkUpdate1GetPropertyExecutorStatus(THandle aProvider, char** aValue);
-/**
- * Set the value of the UpdateTopic property
- *
- * Can only be called if DvProviderLinnCoUkUpdate1EnablePropertyUpdateTopic has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderLinnCoUkUpdate1Create
- * @param[in]  aValue     New value for the property (will be copied)
- * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
- *
- * @return  0 if the property was successfully set; non-zero if there was an error (including
- *          an attempt to set a property to a value not in its allowed range/set)
- */
-DllExport int32_t STDCALL DvProviderLinnCoUkUpdate1SetPropertyUpdateTopic(THandle aProvider, const char* aValue, uint32_t* aChanged);
-/**
- * Get a copy of the value of the UpdateTopic property
- *
- * Can only be called if DvProviderLinnCoUkUpdate1EnablePropertyUpdateTopic has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderLinnCoUkUpdate1Create
- * @param[out] aValue     Value for the property.  Caller is responsible for freeing this.
- */
-DllExport void STDCALL DvProviderLinnCoUkUpdate1GetPropertyUpdateTopic(THandle aProvider, char** aValue);
-/**
- * Set the value of the UpdateChannel property
- *
- * Can only be called if DvProviderLinnCoUkUpdate1EnablePropertyUpdateChannel has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderLinnCoUkUpdate1Create
- * @param[in]  aValue     New value for the property (will be copied)
- * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
- *
- * @return  0 if the property was successfully set; non-zero if there was an error (including
- *          an attempt to set a property to a value not in its allowed range/set)
- */
-DllExport int32_t STDCALL DvProviderLinnCoUkUpdate1SetPropertyUpdateChannel(THandle aProvider, const char* aValue, uint32_t* aChanged);
-/**
- * Get a copy of the value of the UpdateChannel property
- *
- * Can only be called if DvProviderLinnCoUkUpdate1EnablePropertyUpdateChannel has previously been called.
- *
- * @param[in]  aProvider  Handle returned by DvProviderLinnCoUkUpdate1Create
- * @param[out] aValue     Value for the property.  Caller is responsible for freeing this.
- */
-DllExport void STDCALL DvProviderLinnCoUkUpdate1GetPropertyUpdateChannel(THandle aProvider, char** aValue);
 
 /* @} */
 

@@ -40,38 +40,6 @@ interface IDvProviderLinnCoUkUpdate1
      * @return value of the ExecutorStatus property.
      */
     public String getPropertyExecutorStatus();
-
-    /**
-     * Set the value of the UpdateTopic property
-     *
-     * @param aValue    new value for the property.
-     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
-     *
-     */
-    public boolean setPropertyUpdateTopic(String aValue);
-
-    /**
-     * Get a copy of the value of the UpdateTopic property
-     *
-     * @return value of the UpdateTopic property.
-     */
-    public String getPropertyUpdateTopic();
-
-    /**
-     * Set the value of the UpdateChannel property
-     *
-     * @param aValue    new value for the property.
-     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
-     *
-     */
-    public boolean setPropertyUpdateChannel(String aValue);
-
-    /**
-     * Get a copy of the value of the UpdateChannel property
-     *
-     * @return value of the UpdateChannel property.
-     */
-    public String getPropertyUpdateChannel();
         
 }
 
@@ -81,40 +49,14 @@ interface IDvProviderLinnCoUkUpdate1
 public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProviderLinnCoUkUpdate1
 {
 
-    public class GetUpdateFeedParams
-    {
-        private String iTopic;
-        private String iChannel;
-
-        public GetUpdateFeedParams(
-            String aTopic,
-            String aChannel
-        )
-        {
-            iTopic = aTopic;
-            iChannel = aChannel;
-        }
-        public String getTopic()
-        {
-            return iTopic;
-        }
-        public String getChannel()
-        {
-            return iChannel;
-        }
-    }
-
     private IDvInvocationListener iDelegatePushManifest;
-    private IDvInvocationListener iDelegateSetUpdateFeedParams;
-    private IDvInvocationListener iDelegateGetUpdateFeedParams;
     private IDvInvocationListener iDelegateGetSoftwareStatus;
     private IDvInvocationListener iDelegateGetExecutorStatus;
     private IDvInvocationListener iDelegateApply;
-    private IDvInvocationListener iDelegateRestore;
+    private IDvInvocationListener iDelegateRecover;
+    private IDvInvocationListener iDelegateCheckNow;
     private PropertyString iPropertySoftwareStatus;
     private PropertyString iPropertyExecutorStatus;
-    private PropertyString iPropertyUpdateTopic;
-    private PropertyString iPropertyUpdateChannel;
 
     /**
      * Constructor
@@ -144,31 +86,6 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
         List<String> allowedValues = new LinkedList<String>();
         iPropertyExecutorStatus = new PropertyString(new ParameterString("ExecutorStatus", allowedValues));
         addProperty(iPropertyExecutorStatus);
-    }
-
-    /**
-     * Enable the UpdateTopic property.
-     */
-    public void enablePropertyUpdateTopic()
-    {
-        List<String> allowedValues = new LinkedList<String>();
-        iPropertyUpdateTopic = new PropertyString(new ParameterString("UpdateTopic", allowedValues));
-        addProperty(iPropertyUpdateTopic);
-    }
-
-    /**
-     * Enable the UpdateChannel property.
-     */
-    public void enablePropertyUpdateChannel()
-    {
-        List<String> allowedValues = new LinkedList<String>();
-        allowedValues.add("release");
-        allowedValues.add("beta");
-        allowedValues.add("development");
-        allowedValues.add("nightly");
-        iPropertyUpdateChannel = new PropertyString(new ParameterString("UpdateChannel", allowedValues));
-        addProperty(iPropertyUpdateChannel);
-            allowedValues.clear();
     }
 
     /**
@@ -216,50 +133,6 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     }
 
     /**
-     * Set the value of the UpdateTopic property
-     *
-     * @param aValue    new value for the property.
-     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
-     * if <tt>aValue</tt> was the same as the previous value.
-     */
-    public boolean setPropertyUpdateTopic(String aValue)
-    {
-        return setPropertyString(iPropertyUpdateTopic, aValue);
-    }
-
-    /**
-     * Get a copy of the value of the UpdateTopic property
-     *
-     * @return  value of the UpdateTopic property.
-     */
-    public String getPropertyUpdateTopic()
-    {
-        return iPropertyUpdateTopic.getValue();
-    }
-
-    /**
-     * Set the value of the UpdateChannel property
-     *
-     * @param aValue    new value for the property.
-     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
-     * if <tt>aValue</tt> was the same as the previous value.
-     */
-    public boolean setPropertyUpdateChannel(String aValue)
-    {
-        return setPropertyString(iPropertyUpdateChannel, aValue);
-    }
-
-    /**
-     * Get a copy of the value of the UpdateChannel property
-     *
-     * @return  value of the UpdateChannel property.
-     */
-    public String getPropertyUpdateChannel()
-    {
-        return iPropertyUpdateChannel.getValue();
-    }
-
-    /**
      * Signal that the action PushManifest is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
@@ -271,36 +144,6 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
         action.addInputParameter(new ParameterString("Uri", allowedValues));
         iDelegatePushManifest = new DoPushManifest();
         enableAction(action, iDelegatePushManifest);
-    }
-
-    /**
-     * Signal that the action SetUpdateFeedParams is supported.
-     *
-     * <p>The action's availability will be published in the device's service.xml.
-     * SetUpdateFeedParams must be overridden if this is called.
-     */      
-    protected void enableActionSetUpdateFeedParams()
-    {
-        Action action = new Action("SetUpdateFeedParams");
-        action.addInputParameter(new ParameterRelated("Topic", iPropertyUpdateTopic));
-        action.addInputParameter(new ParameterRelated("Channel", iPropertyUpdateChannel));
-        iDelegateSetUpdateFeedParams = new DoSetUpdateFeedParams();
-        enableAction(action, iDelegateSetUpdateFeedParams);
-    }
-
-    /**
-     * Signal that the action GetUpdateFeedParams is supported.
-     *
-     * <p>The action's availability will be published in the device's service.xml.
-     * GetUpdateFeedParams must be overridden if this is called.
-     */      
-    protected void enableActionGetUpdateFeedParams()
-    {
-        Action action = new Action("GetUpdateFeedParams");
-        action.addOutputParameter(new ParameterRelated("Topic", iPropertyUpdateTopic));
-        action.addOutputParameter(new ParameterRelated("Channel", iPropertyUpdateChannel));
-        iDelegateGetUpdateFeedParams = new DoGetUpdateFeedParams();
-        enableAction(action, iDelegateGetUpdateFeedParams);
     }
 
     /**
@@ -345,16 +188,29 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     }
 
     /**
-     * Signal that the action Restore is supported.
+     * Signal that the action Recover is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * Restore must be overridden if this is called.
+     * Recover must be overridden if this is called.
      */      
-    protected void enableActionRestore()
+    protected void enableActionRecover()
     {
-        Action action = new Action("Restore");
-        iDelegateRestore = new DoRestore();
-        enableAction(action, iDelegateRestore);
+        Action action = new Action("Recover");
+        iDelegateRecover = new DoRecover();
+        enableAction(action, iDelegateRecover);
+    }
+
+    /**
+     * Signal that the action CheckNow is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * CheckNow must be overridden if this is called.
+     */      
+    protected void enableActionCheckNow()
+    {
+        Action action = new Action("CheckNow");
+        iDelegateCheckNow = new DoCheckNow();
+        enableAction(action, iDelegateCheckNow);
     }
 
     /**
@@ -369,38 +225,6 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
      * @param aUri
      */
     protected void pushManifest(IDvInvocation aInvocation, String aUri)
-    {
-        throw (new ActionDisabledError());
-    }
-
-    /**
-     * SetUpdateFeedParams action.
-     *
-     * <p>Will be called when the device stack receives an invocation of the
-     * SetUpdateFeedParams action for the owning device.
-     *
-     * <p>Must be implemented iff {@link #enableActionSetUpdateFeedParams} was called.</remarks>
-     *
-     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     * @param aTopic
-     * @param aChannel
-     */
-    protected void setUpdateFeedParams(IDvInvocation aInvocation, String aTopic, String aChannel)
-    {
-        throw (new ActionDisabledError());
-    }
-
-    /**
-     * GetUpdateFeedParams action.
-     *
-     * <p>Will be called when the device stack receives an invocation of the
-     * GetUpdateFeedParams action for the owning device.
-     *
-     * <p>Must be implemented iff {@link #enableActionGetUpdateFeedParams} was called.</remarks>
-     *
-     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     */
-    protected GetUpdateFeedParams getUpdateFeedParams(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -451,16 +275,31 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
     }
 
     /**
-     * Restore action.
+     * Recover action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * Restore action for the owning device.
+     * Recover action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionRestore} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionRecover} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected void restore(IDvInvocation aInvocation)
+    protected void recover(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * CheckNow action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * CheckNow action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionCheckNow} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected void checkNow(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -515,109 +354,6 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
             try
             {
                 invocation.writeStart();
-                invocation.writeEnd();
-            }
-            catch (ActionError ae)
-            {
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("ERROR: unexpected exception: " + e.getMessage());
-                System.out.println("       Only ActionError can be thrown by action response writer");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class DoSetUpdateFeedParams implements IDvInvocationListener
-    {
-        public void actionInvoked(long aInvocation)
-        {
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            String topic;
-            String channel;
-            try
-            {
-                invocation.readStart();
-                topic = invocation.readString("Topic");
-                channel = invocation.readString("Channel");
-                invocation.readEnd();
-                setUpdateFeedParams(invocation, topic, channel);
-            }
-            catch (ActionError ae)
-            {
-                invocation.reportActionError(ae, "SetUpdateFeedParams");
-                return;
-            }
-            catch (PropertyUpdateError pue)
-            {
-                invocation.reportError(501, "Invalid XML");
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("WARNING: unexpected exception: " + e.getMessage());
-                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
-                e.printStackTrace();
-                return;
-            }
-            try
-            {
-                invocation.writeStart();
-                invocation.writeEnd();
-            }
-            catch (ActionError ae)
-            {
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("ERROR: unexpected exception: " + e.getMessage());
-                System.out.println("       Only ActionError can be thrown by action response writer");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class DoGetUpdateFeedParams implements IDvInvocationListener
-    {
-        public void actionInvoked(long aInvocation)
-        {
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            String topic;
-            String channel;
-            try
-            {
-                invocation.readStart();
-                invocation.readEnd();
-
-            GetUpdateFeedParams outArgs = getUpdateFeedParams(invocation);
-            topic = outArgs.getTopic();
-            channel = outArgs.getChannel();
-            }
-            catch (ActionError ae)
-            {
-                invocation.reportActionError(ae, "GetUpdateFeedParams");
-                return;
-            }
-            catch (PropertyUpdateError pue)
-            {
-                invocation.reportError(501, "Invalid XML");
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("WARNING: unexpected exception: " + e.getMessage());
-                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
-                e.printStackTrace();
-                return;
-            }
-            try
-            {
-                invocation.writeStart();
-                invocation.writeString("Topic", topic);
-                invocation.writeString("Channel", channel);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -775,7 +511,7 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
         }
     }
 
-    private class DoRestore implements IDvInvocationListener
+    private class DoRecover implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
@@ -784,11 +520,57 @@ public class DvProviderLinnCoUkUpdate1 extends DvProvider implements IDvProvider
             {
                 invocation.readStart();
                 invocation.readEnd();
-                restore(invocation);
+                recover(invocation);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "Restore");
+                invocation.reportActionError(ae, "Recover");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoCheckNow implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                checkNow(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "CheckNow");
                 return;
             }
             catch (PropertyUpdateError pue)

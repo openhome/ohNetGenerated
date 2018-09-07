@@ -27,12 +27,6 @@ public:
     virtual void SyncPushManifest(const std::string& aUri) = 0;
     virtual void BeginPushManifest(const std::string& aUri, FunctorAsync& aFunctor) = 0;
     virtual void EndPushManifest(IAsync& aAsync) = 0;
-    virtual void SyncSetUpdateFeedParams(const std::string& aTopic, const std::string& aChannel) = 0;
-    virtual void BeginSetUpdateFeedParams(const std::string& aTopic, const std::string& aChannel, FunctorAsync& aFunctor) = 0;
-    virtual void EndSetUpdateFeedParams(IAsync& aAsync) = 0;
-    virtual void SyncGetUpdateFeedParams(std::string& aTopic, std::string& aChannel) = 0;
-    virtual void BeginGetUpdateFeedParams(FunctorAsync& aFunctor) = 0;
-    virtual void EndGetUpdateFeedParams(IAsync& aAsync, std::string& aTopic, std::string& aChannel) = 0;
     virtual void SyncGetSoftwareStatus(std::string& aSoftwareStatus) = 0;
     virtual void BeginGetSoftwareStatus(FunctorAsync& aFunctor) = 0;
     virtual void EndGetSoftwareStatus(IAsync& aAsync, std::string& aSoftwareStatus) = 0;
@@ -42,17 +36,16 @@ public:
     virtual void SyncApply() = 0;
     virtual void BeginApply(FunctorAsync& aFunctor) = 0;
     virtual void EndApply(IAsync& aAsync) = 0;
-    virtual void SyncRestore() = 0;
-    virtual void BeginRestore(FunctorAsync& aFunctor) = 0;
-    virtual void EndRestore(IAsync& aAsync) = 0;
+    virtual void SyncRecover() = 0;
+    virtual void BeginRecover(FunctorAsync& aFunctor) = 0;
+    virtual void EndRecover(IAsync& aAsync) = 0;
+    virtual void SyncCheckNow() = 0;
+    virtual void BeginCheckNow(FunctorAsync& aFunctor) = 0;
+    virtual void EndCheckNow(IAsync& aAsync) = 0;
     virtual void SetPropertySoftwareStatusChanged(Functor& aSoftwareStatusChanged) = 0;
     virtual void PropertySoftwareStatus(std::string& aSoftwareStatus) const = 0;
     virtual void SetPropertyExecutorStatusChanged(Functor& aExecutorStatusChanged) = 0;
     virtual void PropertyExecutorStatus(std::string& aExecutorStatus) const = 0;
-    virtual void SetPropertyUpdateTopicChanged(Functor& aUpdateTopicChanged) = 0;
-    virtual void PropertyUpdateTopic(std::string& aUpdateTopic) const = 0;
-    virtual void SetPropertyUpdateChannelChanged(Functor& aUpdateChannelChanged) = 0;
-    virtual void PropertyUpdateChannel(std::string& aUpdateChannel) const = 0;
 };
 
 /**
@@ -105,62 +98,6 @@ public:
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
     void EndPushManifest(IAsync& aAsync);
-
-    /**
-     * Invoke the action synchronously.  Blocks until the action has been processed
-     * on the device and sets any output arguments.
-     *
-     * @param[in]  aTopic
-     * @param[in]  aChannel
-     */
-    void SyncSetUpdateFeedParams(const std::string& aTopic, const std::string& aChannel);
-    /**
-     * Invoke the action asynchronously.
-     * Returns immediately and will run the client-specified callback when the action
-     * later completes.  Any output arguments can then be retrieved by calling
-     * EndSetUpdateFeedParams().
-     *
-     * @param[in] aTopic
-     * @param[in] aChannel
-     * @param[in] aFunctor   Callback to run when the action completes.
-     *                       This is guaranteed to be run but may indicate an error
-     */
-    void BeginSetUpdateFeedParams(const std::string& aTopic, const std::string& aChannel, FunctorAsync& aFunctor);
-    /**
-     * Retrieve the output arguments from an asynchronously invoked action.
-     * This may only be called from the callback set in the above Begin function.
-     *
-     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     */
-    void EndSetUpdateFeedParams(IAsync& aAsync);
-
-    /**
-     * Invoke the action synchronously.  Blocks until the action has been processed
-     * on the device and sets any output arguments.
-     *
-     * @param[out] aTopic
-     * @param[out] aChannel
-     */
-    void SyncGetUpdateFeedParams(std::string& aTopic, std::string& aChannel);
-    /**
-     * Invoke the action asynchronously.
-     * Returns immediately and will run the client-specified callback when the action
-     * later completes.  Any output arguments can then be retrieved by calling
-     * EndGetUpdateFeedParams().
-     *
-     * @param[in] aFunctor   Callback to run when the action completes.
-     *                       This is guaranteed to be run but may indicate an error
-     */
-    void BeginGetUpdateFeedParams(FunctorAsync& aFunctor);
-    /**
-     * Retrieve the output arguments from an asynchronously invoked action.
-     * This may only be called from the callback set in the above Begin function.
-     *
-     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
-     * @param[out] aTopic
-     * @param[out] aChannel
-     */
-    void EndGetUpdateFeedParams(IAsync& aAsync, std::string& aTopic, std::string& aChannel);
 
     /**
      * Invoke the action synchronously.  Blocks until the action has been processed
@@ -241,24 +178,47 @@ public:
      * Invoke the action synchronously.  Blocks until the action has been processed
      * on the device and sets any output arguments.
      */
-    void SyncRestore();
+    void SyncRecover();
     /**
      * Invoke the action asynchronously.
      * Returns immediately and will run the client-specified callback when the action
      * later completes.  Any output arguments can then be retrieved by calling
-     * EndRestore().
+     * EndRecover().
      *
      * @param[in] aFunctor   Callback to run when the action completes.
      *                       This is guaranteed to be run but may indicate an error
      */
-    void BeginRestore(FunctorAsync& aFunctor);
+    void BeginRecover(FunctorAsync& aFunctor);
     /**
      * Retrieve the output arguments from an asynchronously invoked action.
      * This may only be called from the callback set in the above Begin function.
      *
      * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
      */
-    void EndRestore(IAsync& aAsync);
+    void EndRecover(IAsync& aAsync);
+
+    /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     */
+    void SyncCheckNow();
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndCheckNow().
+     *
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginCheckNow(FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndCheckNow(IAsync& aAsync);
 
     /**
      * Set a callback to be run when the SoftwareStatus state variable changes.
@@ -278,24 +238,6 @@ public:
      * @param[in]  aFunctor  The callback to run when the state variable changes
      */
     void SetPropertyExecutorStatusChanged(Functor& aFunctor);
-    /**
-     * Set a callback to be run when the UpdateTopic state variable changes.
-     *
-     * Callbacks may be run in different threads but callbacks for a
-     * CpProxyLinnCoUkUpdate1Cpp instance will not overlap.
-     *
-     * @param[in]  aFunctor  The callback to run when the state variable changes
-     */
-    void SetPropertyUpdateTopicChanged(Functor& aFunctor);
-    /**
-     * Set a callback to be run when the UpdateChannel state variable changes.
-     *
-     * Callbacks may be run in different threads but callbacks for a
-     * CpProxyLinnCoUkUpdate1Cpp instance will not overlap.
-     *
-     * @param[in]  aFunctor  The callback to run when the state variable changes
-     */
-    void SetPropertyUpdateChannelChanged(Functor& aFunctor);
 
     /**
      * Query the value of the SoftwareStatus property.
@@ -317,26 +259,6 @@ public:
      * @param[out] aExecutorStatus
      */
     void PropertyExecutorStatus(std::string& aExecutorStatus) const;
-    /**
-     * Query the value of the UpdateTopic property.
-     *
-     * This function is threadsafe and can only be called if Subscribe() has been
-     * called and a first eventing callback received more recently than any call
-     * to Unsubscribe().
-     *
-     * @param[out] aUpdateTopic
-     */
-    void PropertyUpdateTopic(std::string& aUpdateTopic) const;
-    /**
-     * Query the value of the UpdateChannel property.
-     *
-     * This function is threadsafe and can only be called if Subscribe() has been
-     * called and a first eventing callback received more recently than any call
-     * to Unsubscribe().
-     *
-     * @param[out] aUpdateChannel
-     */
-    void PropertyUpdateChannel(std::string& aUpdateChannel) const;
     /**
     * This function exposes the Subscribe() function of the iCpProxy member variable
     */
@@ -373,24 +295,17 @@ private:
     CpProxy iCpProxy;
     void SoftwareStatusPropertyChanged();
     void ExecutorStatusPropertyChanged();
-    void UpdateTopicPropertyChanged();
-    void UpdateChannelPropertyChanged();
 private:
     Action* iActionPushManifest;
-    Action* iActionSetUpdateFeedParams;
-    Action* iActionGetUpdateFeedParams;
     Action* iActionGetSoftwareStatus;
     Action* iActionGetExecutorStatus;
     Action* iActionApply;
-    Action* iActionRestore;
+    Action* iActionRecover;
+    Action* iActionCheckNow;
     PropertyString* iSoftwareStatus;
     PropertyString* iExecutorStatus;
-    PropertyString* iUpdateTopic;
-    PropertyString* iUpdateChannel;
     Functor iSoftwareStatusChanged;
     Functor iExecutorStatusChanged;
-    Functor iUpdateTopicChanged;
-    Functor iUpdateChannelChanged;
 };
 
 } // namespace Net

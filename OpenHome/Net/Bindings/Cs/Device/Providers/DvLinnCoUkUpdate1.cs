@@ -34,32 +34,6 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <returns>Value of the ExecutorStatus property.</param>
         string PropertyExecutorStatus();
-
-        /// <summary>
-        /// Set the value of the UpdateTopic property
-        /// </summary>
-        /// <param name="aValue">New value for the property</param>
-        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyUpdateTopic(string aValue);
-
-        /// <summary>
-        /// Get a copy of the value of the UpdateTopic property
-        /// </summary>
-        /// <returns>Value of the UpdateTopic property.</param>
-        string PropertyUpdateTopic();
-
-        /// <summary>
-        /// Set the value of the UpdateChannel property
-        /// </summary>
-        /// <param name="aValue">New value for the property</param>
-        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        bool SetPropertyUpdateChannel(string aValue);
-
-        /// <summary>
-        /// Get a copy of the value of the UpdateChannel property
-        /// </summary>
-        /// <returns>Value of the UpdateChannel property.</param>
-        string PropertyUpdateChannel();
         
     }
     /// <summary>
@@ -69,16 +43,13 @@ namespace OpenHome.Net.Device.Providers
     {
         private GCHandle iGch;
         private ActionDelegate iDelegatePushManifest;
-        private ActionDelegate iDelegateSetUpdateFeedParams;
-        private ActionDelegate iDelegateGetUpdateFeedParams;
         private ActionDelegate iDelegateGetSoftwareStatus;
         private ActionDelegate iDelegateGetExecutorStatus;
         private ActionDelegate iDelegateApply;
-        private ActionDelegate iDelegateRestore;
+        private ActionDelegate iDelegateRecover;
+        private ActionDelegate iDelegateCheckNow;
         private PropertyString iPropertySoftwareStatus;
         private PropertyString iPropertyExecutorStatus;
-        private PropertyString iPropertyUpdateTopic;
-        private PropertyString iPropertyUpdateChannel;
 
         /// <summary>
         /// Constructor
@@ -108,31 +79,6 @@ namespace OpenHome.Net.Device.Providers
             List<String> allowedValues = new List<String>();
             iPropertyExecutorStatus = new PropertyString(new ParameterString("ExecutorStatus", allowedValues));
             AddProperty(iPropertyExecutorStatus);
-        }
-
-        /// <summary>
-        /// Enable the UpdateTopic property.
-        /// </summary>
-        public void EnablePropertyUpdateTopic()
-        {
-            List<String> allowedValues = new List<String>();
-            iPropertyUpdateTopic = new PropertyString(new ParameterString("UpdateTopic", allowedValues));
-            AddProperty(iPropertyUpdateTopic);
-        }
-
-        /// <summary>
-        /// Enable the UpdateChannel property.
-        /// </summary>
-        public void EnablePropertyUpdateChannel()
-        {
-            List<String> allowedValues = new List<String>();
-            allowedValues.Add("release");
-            allowedValues.Add("beta");
-            allowedValues.Add("development");
-            allowedValues.Add("nightly");
-            iPropertyUpdateChannel = new PropertyString(new ParameterString("UpdateChannel", allowedValues));
-            AddProperty(iPropertyUpdateChannel);
-            allowedValues.Clear();
         }
 
         /// <summary>
@@ -186,56 +132,6 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Set the value of the UpdateTopic property
-        /// </summary>
-        /// <remarks>Can only be called if EnablePropertyUpdateTopic has previously been called.</remarks>
-        /// <param name="aValue">New value for the property</param>
-        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyUpdateTopic(string aValue)
-        {
-            if (iPropertyUpdateTopic == null)
-                throw new PropertyDisabledError();
-            return SetPropertyString(iPropertyUpdateTopic, aValue);
-        }
-
-        /// <summary>
-        /// Get a copy of the value of the UpdateTopic property
-        /// </summary>
-        /// <remarks>Can only be called if EnablePropertyUpdateTopic has previously been called.</remarks>
-        /// <returns>Value of the UpdateTopic property.</returns>
-        public string PropertyUpdateTopic()
-        {
-            if (iPropertyUpdateTopic == null)
-                throw new PropertyDisabledError();
-            return iPropertyUpdateTopic.Value();
-        }
-
-        /// <summary>
-        /// Set the value of the UpdateChannel property
-        /// </summary>
-        /// <remarks>Can only be called if EnablePropertyUpdateChannel has previously been called.</remarks>
-        /// <param name="aValue">New value for the property</param>
-        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
-        public bool SetPropertyUpdateChannel(string aValue)
-        {
-            if (iPropertyUpdateChannel == null)
-                throw new PropertyDisabledError();
-            return SetPropertyString(iPropertyUpdateChannel, aValue);
-        }
-
-        /// <summary>
-        /// Get a copy of the value of the UpdateChannel property
-        /// </summary>
-        /// <remarks>Can only be called if EnablePropertyUpdateChannel has previously been called.</remarks>
-        /// <returns>Value of the UpdateChannel property.</returns>
-        public string PropertyUpdateChannel()
-        {
-            if (iPropertyUpdateChannel == null)
-                throw new PropertyDisabledError();
-            return iPropertyUpdateChannel.Value();
-        }
-
-        /// <summary>
         /// Signal that the action PushManifest is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
@@ -247,34 +143,6 @@ namespace OpenHome.Net.Device.Providers
             action.AddInputParameter(new ParameterString("Uri", allowedValues));
             iDelegatePushManifest = new ActionDelegate(DoPushManifest);
             EnableAction(action, iDelegatePushManifest, GCHandle.ToIntPtr(iGch));
-        }
-
-        /// <summary>
-        /// Signal that the action SetUpdateFeedParams is supported.
-        /// </summary>
-        /// <remarks>The action's availability will be published in the device's service.xml.
-        /// SetUpdateFeedParams must be overridden if this is called.</remarks>
-        protected void EnableActionSetUpdateFeedParams()
-        {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetUpdateFeedParams");
-            action.AddInputParameter(new ParameterRelated("Topic", iPropertyUpdateTopic));
-            action.AddInputParameter(new ParameterRelated("Channel", iPropertyUpdateChannel));
-            iDelegateSetUpdateFeedParams = new ActionDelegate(DoSetUpdateFeedParams);
-            EnableAction(action, iDelegateSetUpdateFeedParams, GCHandle.ToIntPtr(iGch));
-        }
-
-        /// <summary>
-        /// Signal that the action GetUpdateFeedParams is supported.
-        /// </summary>
-        /// <remarks>The action's availability will be published in the device's service.xml.
-        /// GetUpdateFeedParams must be overridden if this is called.</remarks>
-        protected void EnableActionGetUpdateFeedParams()
-        {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetUpdateFeedParams");
-            action.AddOutputParameter(new ParameterRelated("Topic", iPropertyUpdateTopic));
-            action.AddOutputParameter(new ParameterRelated("Channel", iPropertyUpdateChannel));
-            iDelegateGetUpdateFeedParams = new ActionDelegate(DoGetUpdateFeedParams);
-            EnableAction(action, iDelegateGetUpdateFeedParams, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -316,15 +184,27 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action Restore is supported.
+        /// Signal that the action Recover is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// Restore must be overridden if this is called.</remarks>
-        protected void EnableActionRestore()
+        /// Recover must be overridden if this is called.</remarks>
+        protected void EnableActionRecover()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Restore");
-            iDelegateRestore = new ActionDelegate(DoRestore);
-            EnableAction(action, iDelegateRestore, GCHandle.ToIntPtr(iGch));
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("Recover");
+            iDelegateRecover = new ActionDelegate(DoRecover);
+            EnableAction(action, iDelegateRecover, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action CheckNow is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// CheckNow must be overridden if this is called.</remarks>
+        protected void EnableActionCheckNow()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("CheckNow");
+            iDelegateCheckNow = new ActionDelegate(DoCheckNow);
+            EnableAction(action, iDelegateCheckNow, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -337,36 +217,6 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aUri"></param>
         protected virtual void PushManifest(IDvInvocation aInvocation, string aUri)
-        {
-            throw (new ActionDisabledError());
-        }
-
-        /// <summary>
-        /// SetUpdateFeedParams action.
-        /// </summary>
-        /// <remarks>Will be called when the device stack receives an invocation of the
-        /// SetUpdateFeedParams action for the owning device.
-        ///
-        /// Must be implemented iff EnableActionSetUpdateFeedParams was called.</remarks>
-        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aTopic"></param>
-        /// <param name="aChannel"></param>
-        protected virtual void SetUpdateFeedParams(IDvInvocation aInvocation, string aTopic, string aChannel)
-        {
-            throw (new ActionDisabledError());
-        }
-
-        /// <summary>
-        /// GetUpdateFeedParams action.
-        /// </summary>
-        /// <remarks>Will be called when the device stack receives an invocation of the
-        /// GetUpdateFeedParams action for the owning device.
-        ///
-        /// Must be implemented iff EnableActionGetUpdateFeedParams was called.</remarks>
-        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        /// <param name="aTopic"></param>
-        /// <param name="aChannel"></param>
-        protected virtual void GetUpdateFeedParams(IDvInvocation aInvocation, out string aTopic, out string aChannel)
         {
             throw (new ActionDisabledError());
         }
@@ -413,14 +263,27 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Restore action.
+        /// Recover action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// Restore action for the owning device.
+        /// Recover action for the owning device.
         ///
-        /// Must be implemented iff EnableActionRestore was called.</remarks>
+        /// Must be implemented iff EnableActionRecover was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
-        protected virtual void Restore(IDvInvocation aInvocation)
+        protected virtual void Recover(IDvInvocation aInvocation)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// CheckNow action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// CheckNow action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionCheckNow was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        protected virtual void CheckNow(IDvInvocation aInvocation)
         {
             throw (new ActionDisabledError());
         }
@@ -466,102 +329,6 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "PushManifest" });
-                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
-            }
-            return 0;
-        }
-
-        private static int DoSetUpdateFeedParams(IntPtr aPtr, IntPtr aInvocation)
-        {
-            GCHandle gch = GCHandle.FromIntPtr(aPtr);
-            DvProviderLinnCoUkUpdate1 self = (DvProviderLinnCoUkUpdate1)gch.Target;
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            string topic;
-            string channel;
-            try
-            {
-                invocation.ReadStart();
-                topic = invocation.ReadString("Topic");
-                channel = invocation.ReadString("Channel");
-                invocation.ReadEnd();
-                self.SetUpdateFeedParams(invocation, topic, channel);
-            }
-            catch (ActionError e)
-            {
-                invocation.ReportActionError(e, "SetUpdateFeedParams");
-                return -1;
-            }
-            catch (PropertyUpdateError)
-            {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetUpdateFeedParams" }));
-                return -1;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetUpdateFeedParams" });
-                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
-                return -1;
-            }
-            try
-            {
-                invocation.WriteStart();
-                invocation.WriteEnd();
-            }
-            catch (ActionError)
-            {
-                return -1;
-            }
-            catch (System.Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetUpdateFeedParams" });
-                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
-            }
-            return 0;
-        }
-
-        private static int DoGetUpdateFeedParams(IntPtr aPtr, IntPtr aInvocation)
-        {
-            GCHandle gch = GCHandle.FromIntPtr(aPtr);
-            DvProviderLinnCoUkUpdate1 self = (DvProviderLinnCoUkUpdate1)gch.Target;
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            string topic;
-            string channel;
-            try
-            {
-                invocation.ReadStart();
-                invocation.ReadEnd();
-                self.GetUpdateFeedParams(invocation, out topic, out channel);
-            }
-            catch (ActionError e)
-            {
-                invocation.ReportActionError(e, "GetUpdateFeedParams");
-                return -1;
-            }
-            catch (PropertyUpdateError)
-            {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetUpdateFeedParams" }));
-                return -1;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetUpdateFeedParams" });
-                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
-                return -1;
-            }
-            try
-            {
-                invocation.WriteStart();
-                invocation.WriteString("Topic", topic);
-                invocation.WriteString("Channel", channel);
-                invocation.WriteEnd();
-            }
-            catch (ActionError)
-            {
-                return -1;
-            }
-            catch (System.Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetUpdateFeedParams" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
@@ -703,7 +470,7 @@ namespace OpenHome.Net.Device.Providers
             return 0;
         }
 
-        private static int DoRestore(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoRecover(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderLinnCoUkUpdate1 self = (DvProviderLinnCoUkUpdate1)gch.Target;
@@ -712,21 +479,21 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.Restore(invocation);
+                self.Recover(invocation);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "Restore");
+                invocation.ReportActionError(e, "Recover");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Restore" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "Recover" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Restore" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Recover" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -741,7 +508,51 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Restore" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "Recover" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoCheckNow(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkUpdate1 self = (DvProviderLinnCoUkUpdate1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.CheckNow(invocation);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "CheckNow");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "CheckNow" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "CheckNow" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "CheckNow" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

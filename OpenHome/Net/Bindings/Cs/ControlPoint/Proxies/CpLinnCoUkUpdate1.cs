@@ -13,12 +13,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncPushManifest(String aUri);
         void BeginPushManifest(String aUri, CpProxy.CallbackAsyncComplete aCallback);
         void EndPushManifest(IntPtr aAsyncHandle);
-        void SyncSetUpdateFeedParams(String aTopic, String aChannel);
-        void BeginSetUpdateFeedParams(String aTopic, String aChannel, CpProxy.CallbackAsyncComplete aCallback);
-        void EndSetUpdateFeedParams(IntPtr aAsyncHandle);
-        void SyncGetUpdateFeedParams(out String aTopic, out String aChannel);
-        void BeginGetUpdateFeedParams(CpProxy.CallbackAsyncComplete aCallback);
-        void EndGetUpdateFeedParams(IntPtr aAsyncHandle, out String aTopic, out String aChannel);
         void SyncGetSoftwareStatus(out String aSoftwareStatus);
         void BeginGetSoftwareStatus(CpProxy.CallbackAsyncComplete aCallback);
         void EndGetSoftwareStatus(IntPtr aAsyncHandle, out String aSoftwareStatus);
@@ -28,17 +22,16 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncApply();
         void BeginApply(CpProxy.CallbackAsyncComplete aCallback);
         void EndApply(IntPtr aAsyncHandle);
-        void SyncRestore();
-        void BeginRestore(CpProxy.CallbackAsyncComplete aCallback);
-        void EndRestore(IntPtr aAsyncHandle);
+        void SyncRecover();
+        void BeginRecover(CpProxy.CallbackAsyncComplete aCallback);
+        void EndRecover(IntPtr aAsyncHandle);
+        void SyncCheckNow();
+        void BeginCheckNow(CpProxy.CallbackAsyncComplete aCallback);
+        void EndCheckNow(IntPtr aAsyncHandle);
         void SetPropertySoftwareStatusChanged(System.Action aSoftwareStatusChanged);
         String PropertySoftwareStatus();
         void SetPropertyExecutorStatusChanged(System.Action aExecutorStatusChanged);
         String PropertyExecutorStatus();
-        void SetPropertyUpdateTopicChanged(System.Action aUpdateTopicChanged);
-        String PropertyUpdateTopic();
-        void SetPropertyUpdateChannelChanged(System.Action aUpdateChannelChanged);
-        String PropertyUpdateChannel();
     }
 
     internal class SyncPushManifestLinnCoUkUpdate1 : SyncProxyAction
@@ -52,44 +45,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
             iService.EndPushManifest(aAsyncHandle);
-        }
-    };
-
-    internal class SyncSetUpdateFeedParamsLinnCoUkUpdate1 : SyncProxyAction
-    {
-        private CpProxyLinnCoUkUpdate1 iService;
-
-        public SyncSetUpdateFeedParamsLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
-        {
-            iService = aProxy;
-        }
-        protected override void CompleteRequest(IntPtr aAsyncHandle)
-        {
-            iService.EndSetUpdateFeedParams(aAsyncHandle);
-        }
-    };
-
-    internal class SyncGetUpdateFeedParamsLinnCoUkUpdate1 : SyncProxyAction
-    {
-        private CpProxyLinnCoUkUpdate1 iService;
-        private String iTopic;
-        private String iChannel;
-
-        public SyncGetUpdateFeedParamsLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
-        {
-            iService = aProxy;
-        }
-        public String Topic()
-        {
-            return iTopic;
-        }
-        public String Channel()
-        {
-            return iChannel;
-        }
-        protected override void CompleteRequest(IntPtr aAsyncHandle)
-        {
-            iService.EndGetUpdateFeedParams(aAsyncHandle, out iTopic, out iChannel);
         }
     };
 
@@ -145,17 +100,31 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
-    internal class SyncRestoreLinnCoUkUpdate1 : SyncProxyAction
+    internal class SyncRecoverLinnCoUkUpdate1 : SyncProxyAction
     {
         private CpProxyLinnCoUkUpdate1 iService;
 
-        public SyncRestoreLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
+        public SyncRecoverLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
         {
             iService = aProxy;
         }
         protected override void CompleteRequest(IntPtr aAsyncHandle)
         {
-            iService.EndRestore(aAsyncHandle);
+            iService.EndRecover(aAsyncHandle);
+        }
+    };
+
+    internal class SyncCheckNowLinnCoUkUpdate1 : SyncProxyAction
+    {
+        private CpProxyLinnCoUkUpdate1 iService;
+
+        public SyncCheckNowLinnCoUkUpdate1(CpProxyLinnCoUkUpdate1 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndCheckNow(aAsyncHandle);
         }
     };
 
@@ -165,20 +134,15 @@ namespace OpenHome.Net.ControlPoint.Proxies
     public class CpProxyLinnCoUkUpdate1 : CpProxy, IDisposable, ICpProxyLinnCoUkUpdate1
     {
         private OpenHome.Net.Core.Action iActionPushManifest;
-        private OpenHome.Net.Core.Action iActionSetUpdateFeedParams;
-        private OpenHome.Net.Core.Action iActionGetUpdateFeedParams;
         private OpenHome.Net.Core.Action iActionGetSoftwareStatus;
         private OpenHome.Net.Core.Action iActionGetExecutorStatus;
         private OpenHome.Net.Core.Action iActionApply;
-        private OpenHome.Net.Core.Action iActionRestore;
+        private OpenHome.Net.Core.Action iActionRecover;
+        private OpenHome.Net.Core.Action iActionCheckNow;
         private PropertyString iSoftwareStatus;
         private PropertyString iExecutorStatus;
-        private PropertyString iUpdateTopic;
-        private PropertyString iUpdateChannel;
         private System.Action iSoftwareStatusChanged;
         private System.Action iExecutorStatusChanged;
-        private System.Action iUpdateTopicChanged;
-        private System.Action iUpdateChannelChanged;
         private Mutex iPropertyLock;
 
         /// <summary>
@@ -196,28 +160,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
             param = new ParameterString("Uri", allowedValues);
             iActionPushManifest.AddInputParameter(param);
 
-            iActionSetUpdateFeedParams = new OpenHome.Net.Core.Action("SetUpdateFeedParams");
-            param = new ParameterString("Topic", allowedValues);
-            iActionSetUpdateFeedParams.AddInputParameter(param);
-            allowedValues.Add("release");
-            allowedValues.Add("beta");
-            allowedValues.Add("development");
-            allowedValues.Add("nightly");
-            param = new ParameterString("Channel", allowedValues);
-            iActionSetUpdateFeedParams.AddInputParameter(param);
-            allowedValues.Clear();
-
-            iActionGetUpdateFeedParams = new OpenHome.Net.Core.Action("GetUpdateFeedParams");
-            param = new ParameterString("Topic", allowedValues);
-            iActionGetUpdateFeedParams.AddOutputParameter(param);
-            allowedValues.Add("release");
-            allowedValues.Add("beta");
-            allowedValues.Add("development");
-            allowedValues.Add("nightly");
-            param = new ParameterString("Channel", allowedValues);
-            iActionGetUpdateFeedParams.AddOutputParameter(param);
-            allowedValues.Clear();
-
             iActionGetSoftwareStatus = new OpenHome.Net.Core.Action("GetSoftwareStatus");
             param = new ParameterString("SoftwareStatus", allowedValues);
             iActionGetSoftwareStatus.AddOutputParameter(param);
@@ -228,16 +170,14 @@ namespace OpenHome.Net.ControlPoint.Proxies
 
             iActionApply = new OpenHome.Net.Core.Action("Apply");
 
-            iActionRestore = new OpenHome.Net.Core.Action("Restore");
+            iActionRecover = new OpenHome.Net.Core.Action("Recover");
+
+            iActionCheckNow = new OpenHome.Net.Core.Action("CheckNow");
 
             iSoftwareStatus = new PropertyString("SoftwareStatus", SoftwareStatusPropertyChanged);
             AddProperty(iSoftwareStatus);
             iExecutorStatus = new PropertyString("ExecutorStatus", ExecutorStatusPropertyChanged);
             AddProperty(iExecutorStatus);
-            iUpdateTopic = new PropertyString("UpdateTopic", UpdateTopicPropertyChanged);
-            AddProperty(iUpdateTopic);
-            iUpdateChannel = new PropertyString("UpdateChannel", UpdateChannelPropertyChanged);
-            AddProperty(iUpdateChannel);
             
             iPropertyLock = new Mutex();
         }
@@ -286,109 +226,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
             {
                 throw new ProxyError(code, desc);
             }
-        }
-
-        /// <summary>
-        /// Invoke the action synchronously
-        /// </summary>
-        /// <remarks>Blocks until the action has been processed
-        /// on the device and sets any output arguments</remarks>
-        /// <param name="aTopic"></param>
-        /// <param name="aChannel"></param>
-        public void SyncSetUpdateFeedParams(String aTopic, String aChannel)
-        {
-            SyncSetUpdateFeedParamsLinnCoUkUpdate1 sync = new SyncSetUpdateFeedParamsLinnCoUkUpdate1(this);
-            BeginSetUpdateFeedParams(aTopic, aChannel, sync.AsyncComplete());
-            sync.Wait();
-            sync.ReportError();
-        }
-
-        /// <summary>
-        /// Invoke the action asynchronously
-        /// </summary>
-        /// <remarks>Returns immediately and will run the client-specified callback when the action
-        /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndSetUpdateFeedParams().</remarks>
-        /// <param name="aTopic"></param>
-        /// <param name="aChannel"></param>
-        /// <param name="aCallback">Delegate to run when the action completes.
-        /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginSetUpdateFeedParams(String aTopic, String aChannel, CallbackAsyncComplete aCallback)
-        {
-            Invocation invocation = iService.Invocation(iActionSetUpdateFeedParams, aCallback);
-            int inIndex = 0;
-            invocation.AddInput(new ArgumentString((ParameterString)iActionSetUpdateFeedParams.InputParameter(inIndex++), aTopic));
-            invocation.AddInput(new ArgumentString((ParameterString)iActionSetUpdateFeedParams.InputParameter(inIndex++), aChannel));
-            iService.InvokeAction(invocation);
-        }
-
-        /// <summary>
-        /// Retrieve the output arguments from an asynchronously invoked action.
-        /// </summary>
-        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
-        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        public void EndSetUpdateFeedParams(IntPtr aAsyncHandle)
-        {
-            uint code;
-            string desc;
-            if (Invocation.Error(aAsyncHandle, out code, out desc))
-            {
-                throw new ProxyError(code, desc);
-            }
-        }
-
-        /// <summary>
-        /// Invoke the action synchronously
-        /// </summary>
-        /// <remarks>Blocks until the action has been processed
-        /// on the device and sets any output arguments</remarks>
-        /// <param name="aTopic"></param>
-        /// <param name="aChannel"></param>
-        public void SyncGetUpdateFeedParams(out String aTopic, out String aChannel)
-        {
-            SyncGetUpdateFeedParamsLinnCoUkUpdate1 sync = new SyncGetUpdateFeedParamsLinnCoUkUpdate1(this);
-            BeginGetUpdateFeedParams(sync.AsyncComplete());
-            sync.Wait();
-            sync.ReportError();
-            aTopic = sync.Topic();
-            aChannel = sync.Channel();
-        }
-
-        /// <summary>
-        /// Invoke the action asynchronously
-        /// </summary>
-        /// <remarks>Returns immediately and will run the client-specified callback when the action
-        /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndGetUpdateFeedParams().</remarks>
-        /// <param name="aCallback">Delegate to run when the action completes.
-        /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginGetUpdateFeedParams(CallbackAsyncComplete aCallback)
-        {
-            Invocation invocation = iService.Invocation(iActionGetUpdateFeedParams, aCallback);
-            int outIndex = 0;
-            invocation.AddOutput(new ArgumentString((ParameterString)iActionGetUpdateFeedParams.OutputParameter(outIndex++)));
-            invocation.AddOutput(new ArgumentString((ParameterString)iActionGetUpdateFeedParams.OutputParameter(outIndex++)));
-            iService.InvokeAction(invocation);
-        }
-
-        /// <summary>
-        /// Retrieve the output arguments from an asynchronously invoked action.
-        /// </summary>
-        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
-        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        /// <param name="aTopic"></param>
-        /// <param name="aChannel"></param>
-        public void EndGetUpdateFeedParams(IntPtr aAsyncHandle, out String aTopic, out String aChannel)
-        {
-            uint code;
-            string desc;
-            if (Invocation.Error(aAsyncHandle, out code, out desc))
-            {
-                throw new ProxyError(code, desc);
-            }
-            uint index = 0;
-            aTopic = Invocation.OutputString(aAsyncHandle, index++);
-            aChannel = Invocation.OutputString(aAsyncHandle, index++);
         }
 
         /// <summary>
@@ -536,10 +373,10 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Blocks until the action has been processed
         /// on the device and sets any output arguments</remarks>
-        public void SyncRestore()
+        public void SyncRecover()
         {
-            SyncRestoreLinnCoUkUpdate1 sync = new SyncRestoreLinnCoUkUpdate1(this);
-            BeginRestore(sync.AsyncComplete());
+            SyncRecoverLinnCoUkUpdate1 sync = new SyncRecoverLinnCoUkUpdate1(this);
+            BeginRecover(sync.AsyncComplete());
             sync.Wait();
             sync.ReportError();
         }
@@ -549,12 +386,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>Returns immediately and will run the client-specified callback when the action
         /// later completes.  Any output arguments can then be retrieved by calling
-        /// EndRestore().</remarks>
+        /// EndRecover().</remarks>
         /// <param name="aCallback">Delegate to run when the action completes.
         /// This is guaranteed to be run but may indicate an error</param>
-        public void BeginRestore(CallbackAsyncComplete aCallback)
+        public void BeginRecover(CallbackAsyncComplete aCallback)
         {
-            Invocation invocation = iService.Invocation(iActionRestore, aCallback);
+            Invocation invocation = iService.Invocation(iActionRecover, aCallback);
             iService.InvokeAction(invocation);
         }
 
@@ -563,7 +400,49 @@ namespace OpenHome.Net.ControlPoint.Proxies
         /// </summary>
         /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
         /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
-        public void EndRestore(IntPtr aAsyncHandle)
+        public void EndRecover(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        public void SyncCheckNow()
+        {
+            SyncCheckNowLinnCoUkUpdate1 sync = new SyncCheckNowLinnCoUkUpdate1(this);
+            BeginCheckNow(sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndCheckNow().</remarks>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginCheckNow(CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionCheckNow, aCallback);
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndCheckNow(IntPtr aAsyncHandle)
         {
             uint code;
             string desc;
@@ -618,50 +497,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Set a delegate to be run when the UpdateTopic state variable changes.
-        /// </summary>
-        /// <remarks>Callbacks may be run in different threads but callbacks for a
-        /// CpProxyLinnCoUkUpdate1 instance will not overlap.</remarks>
-        /// <param name="aUpdateTopicChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyUpdateTopicChanged(System.Action aUpdateTopicChanged)
-        {
-            lock (iPropertyLock)
-            {
-                iUpdateTopicChanged = aUpdateTopicChanged;
-            }
-        }
-
-        private void UpdateTopicPropertyChanged()
-        {
-            lock (iPropertyLock)
-            {
-                ReportEvent(iUpdateTopicChanged);
-            }
-        }
-
-        /// <summary>
-        /// Set a delegate to be run when the UpdateChannel state variable changes.
-        /// </summary>
-        /// <remarks>Callbacks may be run in different threads but callbacks for a
-        /// CpProxyLinnCoUkUpdate1 instance will not overlap.</remarks>
-        /// <param name="aUpdateChannelChanged">The delegate to run when the state variable changes</param>
-        public void SetPropertyUpdateChannelChanged(System.Action aUpdateChannelChanged)
-        {
-            lock (iPropertyLock)
-            {
-                iUpdateChannelChanged = aUpdateChannelChanged;
-            }
-        }
-
-        private void UpdateChannelPropertyChanged()
-        {
-            lock (iPropertyLock)
-            {
-                ReportEvent(iUpdateChannelChanged);
-            }
-        }
-
-        /// <summary>
         /// Query the value of the SoftwareStatus property.
         /// </summary>
         /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
@@ -706,50 +541,6 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
-        /// Query the value of the UpdateTopic property.
-        /// </summary>
-        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
-        /// called and a first eventing callback received more recently than any call
-        /// to Unsubscribe().</remarks>
-        /// <returns>Value of the UpdateTopic property</returns>
-        public String PropertyUpdateTopic()
-        {
-            PropertyReadLock();
-            String val;
-            try
-            {
-                val = iUpdateTopic.Value();
-            }
-            finally
-            {
-                PropertyReadUnlock();
-            }
-            return val;
-        }
-
-        /// <summary>
-        /// Query the value of the UpdateChannel property.
-        /// </summary>
-        /// <remarks>This function is threadsafe and can only be called if Subscribe() has been
-        /// called and a first eventing callback received more recently than any call
-        /// to Unsubscribe().</remarks>
-        /// <returns>Value of the UpdateChannel property</returns>
-        public String PropertyUpdateChannel()
-        {
-            PropertyReadLock();
-            String val;
-            try
-            {
-                val = iUpdateChannel.Value();
-            }
-            finally
-            {
-                PropertyReadUnlock();
-            }
-            return val;
-        }
-
-        /// <summary>
         /// Must be called for each class instance.  Must be called before Core.Library.Close().
         /// </summary>
         public void Dispose()
@@ -762,16 +553,13 @@ namespace OpenHome.Net.ControlPoint.Proxies
                 iHandle = IntPtr.Zero;
             }
             iActionPushManifest.Dispose();
-            iActionSetUpdateFeedParams.Dispose();
-            iActionGetUpdateFeedParams.Dispose();
             iActionGetSoftwareStatus.Dispose();
             iActionGetExecutorStatus.Dispose();
             iActionApply.Dispose();
-            iActionRestore.Dispose();
+            iActionRecover.Dispose();
+            iActionCheckNow.Dispose();
             iSoftwareStatus.Dispose();
             iExecutorStatus.Dispose();
-            iUpdateTopic.Dispose();
-            iUpdateChannel.Dispose();
         }
     }
 }

@@ -53,34 +53,6 @@ public:
      * Can only be called if EnablePropertyExecutorStatus has previously been called.
      */
     void GetPropertyExecutorStatus(Brhz& aValue);
-    /**
-     * Set the value of the UpdateTopic property
-     *
-     * Can only be called if EnablePropertyUpdateTopic has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    TBool SetPropertyUpdateTopic(const Brx& aValue);
-    /**
-     * Get a copy of the value of the UpdateTopic property
-     *
-     * Can only be called if EnablePropertyUpdateTopic has previously been called.
-     */
-    void GetPropertyUpdateTopic(Brhz& aValue);
-    /**
-     * Set the value of the UpdateChannel property
-     *
-     * Can only be called if EnablePropertyUpdateChannel has previously been called.
-     *
-     * @return  true if the value has been updated; false if aValue was the same as the previous value
-     */
-    TBool SetPropertyUpdateChannel(const Brx& aValue);
-    /**
-     * Get a copy of the value of the UpdateChannel property
-     *
-     * Can only be called if EnablePropertyUpdateChannel has previously been called.
-     */
-    void GetPropertyUpdateChannel(Brhz& aValue);
 protected:
     /**
      * Constructor
@@ -103,31 +75,11 @@ protected:
      */
     void EnablePropertyExecutorStatus();
     /**
-     * Enable the UpdateTopic property.
-     */
-    void EnablePropertyUpdateTopic();
-    /**
-     * Enable the UpdateChannel property.
-     */
-    void EnablePropertyUpdateChannel();
-    /**
      * Signal that the action PushManifest is supported.
      * The action's availability will be published in the device's service.xml.
      * PushManifest must be overridden if this is called.
      */
     void EnableActionPushManifest();
-    /**
-     * Signal that the action SetUpdateFeedParams is supported.
-     * The action's availability will be published in the device's service.xml.
-     * SetUpdateFeedParams must be overridden if this is called.
-     */
-    void EnableActionSetUpdateFeedParams();
-    /**
-     * Signal that the action GetUpdateFeedParams is supported.
-     * The action's availability will be published in the device's service.xml.
-     * GetUpdateFeedParams must be overridden if this is called.
-     */
-    void EnableActionGetUpdateFeedParams();
     /**
      * Signal that the action GetSoftwareStatus is supported.
      * The action's availability will be published in the device's service.xml.
@@ -147,11 +99,17 @@ protected:
      */
     void EnableActionApply();
     /**
-     * Signal that the action Restore is supported.
+     * Signal that the action Recover is supported.
      * The action's availability will be published in the device's service.xml.
-     * Restore must be overridden if this is called.
+     * Recover must be overridden if this is called.
      */
-    void EnableActionRestore();
+    void EnableActionRecover();
+    /**
+     * Signal that the action CheckNow is supported.
+     * The action's availability will be published in the device's service.xml.
+     * CheckNow must be overridden if this is called.
+     */
+    void EnableActionCheckNow();
 private:
     /**
      * PushManifest action.
@@ -161,22 +119,6 @@ private:
      * Must be implemented iff EnableActionPushManifest was called.
      */
     virtual void PushManifest(IDvInvocation& aInvocation, const Brx& aUri);
-    /**
-     * SetUpdateFeedParams action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * SetUpdateFeedParams action for the owning device.
-     * Must be implemented iff EnableActionSetUpdateFeedParams was called.
-     */
-    virtual void SetUpdateFeedParams(IDvInvocation& aInvocation, const Brx& aTopic, const Brx& aChannel);
-    /**
-     * GetUpdateFeedParams action.
-     *
-     * Will be called when the device stack receives an invocation of the
-     * GetUpdateFeedParams action for the owning device.
-     * Must be implemented iff EnableActionGetUpdateFeedParams was called.
-     */
-    virtual void GetUpdateFeedParams(IDvInvocation& aInvocation, IDvInvocationResponseString& aTopic, IDvInvocationResponseString& aChannel);
     /**
      * GetSoftwareStatus action.
      *
@@ -202,28 +144,33 @@ private:
      */
     virtual void Apply(IDvInvocation& aInvocation);
     /**
-     * Restore action.
+     * Recover action.
      *
      * Will be called when the device stack receives an invocation of the
-     * Restore action for the owning device.
-     * Must be implemented iff EnableActionRestore was called.
+     * Recover action for the owning device.
+     * Must be implemented iff EnableActionRecover was called.
      */
-    virtual void Restore(IDvInvocation& aInvocation);
+    virtual void Recover(IDvInvocation& aInvocation);
+    /**
+     * CheckNow action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * CheckNow action for the owning device.
+     * Must be implemented iff EnableActionCheckNow was called.
+     */
+    virtual void CheckNow(IDvInvocation& aInvocation);
 private:
     DvProviderLinnCoUkUpdate1();
     void Construct();
     void DoPushManifest(IDviInvocation& aInvocation);
-    void DoSetUpdateFeedParams(IDviInvocation& aInvocation);
-    void DoGetUpdateFeedParams(IDviInvocation& aInvocation);
     void DoGetSoftwareStatus(IDviInvocation& aInvocation);
     void DoGetExecutorStatus(IDviInvocation& aInvocation);
     void DoApply(IDviInvocation& aInvocation);
-    void DoRestore(IDviInvocation& aInvocation);
+    void DoRecover(IDviInvocation& aInvocation);
+    void DoCheckNow(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertySoftwareStatus;
     PropertyString* iPropertyExecutorStatus;
-    PropertyString* iPropertyUpdateTopic;
-    PropertyString* iPropertyUpdateChannel;
 };
 
 } // namespace Net

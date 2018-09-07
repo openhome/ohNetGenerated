@@ -34,52 +34,6 @@ void SyncPushManifestLinnCoUkUpdate1Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
-class SyncSetUpdateFeedParamsLinnCoUkUpdate1Cpp : public SyncProxyAction
-{
-public:
-    SyncSetUpdateFeedParamsLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetUpdateFeedParamsLinnCoUkUpdate1Cpp() {}
-private:
-    CpProxyLinnCoUkUpdate1Cpp& iService;
-};
-
-SyncSetUpdateFeedParamsLinnCoUkUpdate1Cpp::SyncSetUpdateFeedParamsLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy)
-    : iService(aProxy)
-{
-}
-
-void SyncSetUpdateFeedParamsLinnCoUkUpdate1Cpp::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndSetUpdateFeedParams(aAsync);
-}
-
-
-class SyncGetUpdateFeedParamsLinnCoUkUpdate1Cpp : public SyncProxyAction
-{
-public:
-    SyncGetUpdateFeedParamsLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy, std::string& aTopic, std::string& aChannel);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetUpdateFeedParamsLinnCoUkUpdate1Cpp() {}
-private:
-    CpProxyLinnCoUkUpdate1Cpp& iService;
-    std::string& iTopic;
-    std::string& iChannel;
-};
-
-SyncGetUpdateFeedParamsLinnCoUkUpdate1Cpp::SyncGetUpdateFeedParamsLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy, std::string& aTopic, std::string& aChannel)
-    : iService(aProxy)
-    , iTopic(aTopic)
-    , iChannel(aChannel)
-{
-}
-
-void SyncGetUpdateFeedParamsLinnCoUkUpdate1Cpp::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndGetUpdateFeedParams(aAsync, iTopic, iChannel);
-}
-
-
 class SyncGetSoftwareStatusLinnCoUkUpdate1Cpp : public SyncProxyAction
 {
 public:
@@ -147,24 +101,45 @@ void SyncApplyLinnCoUkUpdate1Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
-class SyncRestoreLinnCoUkUpdate1Cpp : public SyncProxyAction
+class SyncRecoverLinnCoUkUpdate1Cpp : public SyncProxyAction
 {
 public:
-    SyncRestoreLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy);
+    SyncRecoverLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy);
     virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncRestoreLinnCoUkUpdate1Cpp() {}
+    virtual ~SyncRecoverLinnCoUkUpdate1Cpp() {}
 private:
     CpProxyLinnCoUkUpdate1Cpp& iService;
 };
 
-SyncRestoreLinnCoUkUpdate1Cpp::SyncRestoreLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy)
+SyncRecoverLinnCoUkUpdate1Cpp::SyncRecoverLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy)
     : iService(aProxy)
 {
 }
 
-void SyncRestoreLinnCoUkUpdate1Cpp::CompleteRequest(IAsync& aAsync)
+void SyncRecoverLinnCoUkUpdate1Cpp::CompleteRequest(IAsync& aAsync)
 {
-    iService.EndRestore(aAsync);
+    iService.EndRecover(aAsync);
+}
+
+
+class SyncCheckNowLinnCoUkUpdate1Cpp : public SyncProxyAction
+{
+public:
+    SyncCheckNowLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncCheckNowLinnCoUkUpdate1Cpp() {}
+private:
+    CpProxyLinnCoUkUpdate1Cpp& iService;
+};
+
+SyncCheckNowLinnCoUkUpdate1Cpp::SyncCheckNowLinnCoUkUpdate1Cpp(CpProxyLinnCoUkUpdate1Cpp& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncCheckNowLinnCoUkUpdate1Cpp::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndCheckNow(aAsync);
 }
 
 
@@ -172,38 +147,10 @@ CpProxyLinnCoUkUpdate1Cpp::CpProxyLinnCoUkUpdate1Cpp(CpDeviceCpp& aDevice)
     : iCpProxy("linn-co-uk", "Update", 1, aDevice.Device())
 {
     OpenHome::Net::Parameter* param;
-    TChar** allowedValues;
-    TUint index;
 
     iActionPushManifest = new Action("PushManifest");
     param = new OpenHome::Net::ParameterString("Uri");
     iActionPushManifest->AddInputParameter(param);
-
-    iActionSetUpdateFeedParams = new Action("SetUpdateFeedParams");
-    param = new OpenHome::Net::ParameterString("Topic");
-    iActionSetUpdateFeedParams->AddInputParameter(param);
-    index = 0;
-    allowedValues = new TChar*[4];
-    allowedValues[index++] = (TChar*)"release";
-    allowedValues[index++] = (TChar*)"beta";
-    allowedValues[index++] = (TChar*)"development";
-    allowedValues[index++] = (TChar*)"nightly";
-    param = new OpenHome::Net::ParameterString("Channel", allowedValues, 4);
-    iActionSetUpdateFeedParams->AddInputParameter(param);
-    delete[] allowedValues;
-
-    iActionGetUpdateFeedParams = new Action("GetUpdateFeedParams");
-    param = new OpenHome::Net::ParameterString("Topic");
-    iActionGetUpdateFeedParams->AddOutputParameter(param);
-    index = 0;
-    allowedValues = new TChar*[4];
-    allowedValues[index++] = (TChar*)"release";
-    allowedValues[index++] = (TChar*)"beta";
-    allowedValues[index++] = (TChar*)"development";
-    allowedValues[index++] = (TChar*)"nightly";
-    param = new OpenHome::Net::ParameterString("Channel", allowedValues, 4);
-    iActionGetUpdateFeedParams->AddOutputParameter(param);
-    delete[] allowedValues;
 
     iActionGetSoftwareStatus = new Action("GetSoftwareStatus");
     param = new OpenHome::Net::ParameterString("SoftwareStatus");
@@ -215,7 +162,9 @@ CpProxyLinnCoUkUpdate1Cpp::CpProxyLinnCoUkUpdate1Cpp(CpDeviceCpp& aDevice)
 
     iActionApply = new Action("Apply");
 
-    iActionRestore = new Action("Restore");
+    iActionRecover = new Action("Recover");
+
+    iActionCheckNow = new Action("CheckNow");
 
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1Cpp::SoftwareStatusPropertyChanged);
@@ -224,24 +173,17 @@ CpProxyLinnCoUkUpdate1Cpp::CpProxyLinnCoUkUpdate1Cpp(CpDeviceCpp& aDevice)
     functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1Cpp::ExecutorStatusPropertyChanged);
     iExecutorStatus = new PropertyString("ExecutorStatus", functor);
     AddProperty(iExecutorStatus);
-    functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1Cpp::UpdateTopicPropertyChanged);
-    iUpdateTopic = new PropertyString("UpdateTopic", functor);
-    AddProperty(iUpdateTopic);
-    functor = MakeFunctor(*this, &CpProxyLinnCoUkUpdate1Cpp::UpdateChannelPropertyChanged);
-    iUpdateChannel = new PropertyString("UpdateChannel", functor);
-    AddProperty(iUpdateChannel);
 }
 
 CpProxyLinnCoUkUpdate1Cpp::~CpProxyLinnCoUkUpdate1Cpp()
 {
     DestroyService();
     delete iActionPushManifest;
-    delete iActionSetUpdateFeedParams;
-    delete iActionGetUpdateFeedParams;
     delete iActionGetSoftwareStatus;
     delete iActionGetExecutorStatus;
     delete iActionApply;
-    delete iActionRestore;
+    delete iActionRecover;
+    delete iActionCheckNow;
 }
 
 void CpProxyLinnCoUkUpdate1Cpp::SyncPushManifest(const std::string& aUri)
@@ -274,83 +216,6 @@ void CpProxyLinnCoUkUpdate1Cpp::EndPushManifest(IAsync& aAsync)
     const TChar* ignore;
     if (invocation.Error(level, code, ignore)) {
         THROW_PROXYERROR(level, code);
-    }
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::SyncSetUpdateFeedParams(const std::string& aTopic, const std::string& aChannel)
-{
-    SyncSetUpdateFeedParamsLinnCoUkUpdate1Cpp sync(*this);
-    BeginSetUpdateFeedParams(aTopic, aChannel, sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::BeginSetUpdateFeedParams(const std::string& aTopic, const std::string& aChannel, FunctorAsync& aFunctor)
-{
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetUpdateFeedParams, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSetUpdateFeedParams->InputParameters();
-    {
-        Brn buf((const TByte*)aTopic.c_str(), (TUint)aTopic.length());
-        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
-    }
-    {
-        Brn buf((const TByte*)aChannel.c_str(), (TUint)aChannel.length());
-        invocation->AddInput(new ArgumentString(*inParams[inIndex++], buf));
-    }
-    iCpProxy.GetInvocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::EndSetUpdateFeedParams(IAsync& aAsync)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SetUpdateFeedParams"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::SyncGetUpdateFeedParams(std::string& aTopic, std::string& aChannel)
-{
-    SyncGetUpdateFeedParamsLinnCoUkUpdate1Cpp sync(*this, aTopic, aChannel);
-    BeginGetUpdateFeedParams(sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::BeginGetUpdateFeedParams(FunctorAsync& aFunctor)
-{
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetUpdateFeedParams, aFunctor);
-    TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionGetUpdateFeedParams->OutputParameters();
-    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    invocation->AddOutput(new ArgumentString(*outParams[outIndex++]));
-    iCpProxy.GetInvocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::EndGetUpdateFeedParams(IAsync& aAsync, std::string& aTopic, std::string& aChannel)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("GetUpdateFeedParams"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-    TUint index = 0;
-    {
-        const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
-        aTopic.assign((const char*)val.Ptr(), val.Bytes());
-    }
-    {
-        const Brx& val = ((ArgumentString*)invocation.OutputArguments()[index++])->Value();
-        aChannel.assign((const char*)val.Ptr(), val.Bytes());
     }
 }
 
@@ -451,24 +316,51 @@ void CpProxyLinnCoUkUpdate1Cpp::EndApply(IAsync& aAsync)
     }
 }
 
-void CpProxyLinnCoUkUpdate1Cpp::SyncRestore()
+void CpProxyLinnCoUkUpdate1Cpp::SyncRecover()
 {
-    SyncRestoreLinnCoUkUpdate1Cpp sync(*this);
-    BeginRestore(sync.Functor());
+    SyncRecoverLinnCoUkUpdate1Cpp sync(*this);
+    BeginRecover(sync.Functor());
     sync.Wait();
 }
 
-void CpProxyLinnCoUkUpdate1Cpp::BeginRestore(FunctorAsync& aFunctor)
+void CpProxyLinnCoUkUpdate1Cpp::BeginRecover(FunctorAsync& aFunctor)
 {
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRestore, aFunctor);
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionRecover, aFunctor);
     iCpProxy.GetInvocable().InvokeAction(*invocation);
 }
 
-void CpProxyLinnCoUkUpdate1Cpp::EndRestore(IAsync& aAsync)
+void CpProxyLinnCoUkUpdate1Cpp::EndRecover(IAsync& aAsync)
 {
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("Restore"));
+    ASSERT(invocation.Action().Name() == Brn("Recover"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
+void CpProxyLinnCoUkUpdate1Cpp::SyncCheckNow()
+{
+    SyncCheckNowLinnCoUkUpdate1Cpp sync(*this);
+    BeginCheckNow(sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkUpdate1Cpp::BeginCheckNow(FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionCheckNow, aFunctor);
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkUpdate1Cpp::EndCheckNow(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("CheckNow"));
 
     Error::ELevel level;
     TUint code;
@@ -492,20 +384,6 @@ void CpProxyLinnCoUkUpdate1Cpp::SetPropertyExecutorStatusChanged(Functor& aFunct
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyLinnCoUkUpdate1Cpp::SetPropertyUpdateTopicChanged(Functor& aFunctor)
-{
-    iCpProxy.GetLock().Wait();
-    iUpdateTopicChanged = aFunctor;
-    iCpProxy.GetLock().Signal();
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::SetPropertyUpdateChannelChanged(Functor& aFunctor)
-{
-    iCpProxy.GetLock().Wait();
-    iUpdateChannelChanged = aFunctor;
-    iCpProxy.GetLock().Signal();
-}
-
 void CpProxyLinnCoUkUpdate1Cpp::PropertySoftwareStatus(std::string& aSoftwareStatus) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
@@ -526,26 +404,6 @@ void CpProxyLinnCoUkUpdate1Cpp::PropertyExecutorStatus(std::string& aExecutorSta
     aExecutorStatus.assign((const char*)val.Ptr(), val.Bytes());
 }
 
-void CpProxyLinnCoUkUpdate1Cpp::PropertyUpdateTopic(std::string& aUpdateTopic) const
-{
-    AutoMutex a(iCpProxy.PropertyReadLock());
-    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
-        THROW(ProxyNotSubscribed);
-    }
-    const Brx& val = iUpdateTopic->Value();
-    aUpdateTopic.assign((const char*)val.Ptr(), val.Bytes());
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::PropertyUpdateChannel(std::string& aUpdateChannel) const
-{
-    AutoMutex a(iCpProxy.PropertyReadLock());
-    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
-        THROW(ProxyNotSubscribed);
-    }
-    const Brx& val = iUpdateChannel->Value();
-    aUpdateChannel.assign((const char*)val.Ptr(), val.Bytes());
-}
-
 void CpProxyLinnCoUkUpdate1Cpp::SoftwareStatusPropertyChanged()
 {
     ReportEvent(iSoftwareStatusChanged);
@@ -554,16 +412,6 @@ void CpProxyLinnCoUkUpdate1Cpp::SoftwareStatusPropertyChanged()
 void CpProxyLinnCoUkUpdate1Cpp::ExecutorStatusPropertyChanged()
 {
     ReportEvent(iExecutorStatusChanged);
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::UpdateTopicPropertyChanged()
-{
-    ReportEvent(iUpdateTopicChanged);
-}
-
-void CpProxyLinnCoUkUpdate1Cpp::UpdateChannelPropertyChanged()
-{
-    ReportEvent(iUpdateChannelChanged);
 }
 
 void CpProxyLinnCoUkUpdate1Cpp::Subscribe()
