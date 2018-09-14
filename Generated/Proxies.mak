@@ -151,6 +151,9 @@ objects_proxies = \
                   $(objdir)CpLinnCoUkExakt21.$(objext) \
                   $(objdir)CpLinnCoUkExakt21C.$(objext) \
                   $(objdir)CpLinnCoUkExakt21Std.$(objext) \
+                  $(objdir)CpLinnCoUkZoneReceiver1.$(objext) \
+                  $(objdir)CpLinnCoUkZoneReceiver1C.$(objext) \
+                  $(objdir)CpLinnCoUkZoneReceiver1Std.$(objext) \
 
 # Service proxies have well controlled dependencies so we can document a more limited set of headers
 headers_proxy = $(inc_build)/OpenHome/Buffer.h \
@@ -215,6 +218,7 @@ proxy_dotnet_assemblies = \
         CpLinnCoUkConfiguration1.net.dll \
         CpLinnCoUkLipSync1.net.dll \
         CpLinnCoUkExakt21.net.dll \
+        CpLinnCoUkZoneReceiver1.net.dll \
 
 proxy_dotnet_assemblies_with_path = \
         $(objdir)CpUpnpOrgAVTransport1.net.dll \
@@ -266,6 +270,7 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpLinnCoUkConfiguration1.net.dll \
         $(objdir)CpLinnCoUkLipSync1.net.dll \
         $(objdir)CpLinnCoUkExakt21.net.dll \
+        $(objdir)CpLinnCoUkZoneReceiver1.net.dll \
 
 proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport1.class \
@@ -317,6 +322,7 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkConfiguration1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt21.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZoneReceiver1.class \
 
 
 proxies : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_proxies)
@@ -615,6 +621,12 @@ $(objdir)CpLinnCoUkExakt21C.$(objext) : $(proxyC)CpLinnCoUkExakt21C.cpp $(header
 	$(compiler)CpLinnCoUkExakt21C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkExakt21C.cpp
 $(objdir)CpLinnCoUkExakt21Std.$(objext) : $(proxyCppStd)CpLinnCoUkExakt21Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkExakt21.h
 	$(compiler)CpLinnCoUkExakt21Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkExakt21Std.cpp
+$(objdir)CpLinnCoUkZoneReceiver1.$(objext) : $(proxyCppCore)CpLinnCoUkZoneReceiver1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkZoneReceiver1.h
+	$(compiler)CpLinnCoUkZoneReceiver1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkZoneReceiver1.cpp
+$(objdir)CpLinnCoUkZoneReceiver1C.$(objext) : $(proxyC)CpLinnCoUkZoneReceiver1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkZoneReceiver1.h
+	$(compiler)CpLinnCoUkZoneReceiver1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkZoneReceiver1C.cpp
+$(objdir)CpLinnCoUkZoneReceiver1Std.$(objext) : $(proxyCppStd)CpLinnCoUkZoneReceiver1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkZoneReceiver1.h
+	$(compiler)CpLinnCoUkZoneReceiver1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkZoneReceiver1Std.cpp
 
 # Proxy assemblies for .NET:
 
@@ -865,6 +877,11 @@ $(objdir)CpLinnCoUkExakt21.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoU
         /out:$(objdir)CpLinnCoUkExakt21.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpLinnCoUkExakt21.cs
+$(objdir)CpLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkZoneReceiver1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpLinnCoUkZoneReceiver1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpLinnCoUkZoneReceiver1.cs
 
 # Proxy classes for Java:
 
@@ -968,5 +985,7 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class : $
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkLipSync1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt21.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkExakt21.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkExakt21.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZoneReceiver1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkZoneReceiver1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkZoneReceiver1.java
 
 

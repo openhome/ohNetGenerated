@@ -151,6 +151,9 @@ objects_devices = \
                   $(objdir)DvLinnCoUkExakt21.$(objext) \
                   $(objdir)DvLinnCoUkExakt21Std.$(objext) \
                   $(objdir)DvLinnCoUkExakt21C.$(objext) \
+                  $(objdir)DvLinnCoUkZoneReceiver1.$(objext) \
+                  $(objdir)DvLinnCoUkZoneReceiver1Std.$(objext) \
+                  $(objdir)DvLinnCoUkZoneReceiver1C.$(objext) \
 
 # Devices have well controlled dependencies so we can document a more limited set of headers
 headers_device = $(inc_build)/OpenHome/Types.h \
@@ -209,6 +212,7 @@ device_dotnet_assemblies = \
         DvLinnCoUkConfiguration1.net.dll \
         DvLinnCoUkLipSync1.net.dll \
         DvLinnCoUkExakt21.net.dll \
+        DvLinnCoUkZoneReceiver1.net.dll \
 
 device_dotnet_assemblies_with_path = \
         $(objdir)DvUpnpOrgAVTransport1.net.dll \
@@ -260,6 +264,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvLinnCoUkConfiguration1.net.dll \
         $(objdir)DvLinnCoUkLipSync1.net.dll \
         $(objdir)DvLinnCoUkExakt21.net.dll \
+        $(objdir)DvLinnCoUkZoneReceiver1.net.dll \
 
 device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderUpnpOrgAVTransport1.class \
@@ -311,6 +316,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkConfiguration1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkLipSync1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExakt21.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkZoneReceiver1.class \
 
 devices : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_devices)
 	$(ar)$(libprefix)ohNetGeneratedDevices.$(libext) $(objects_devices)
@@ -608,6 +614,12 @@ $(objdir)DvLinnCoUkExakt21Std.$(objext) : $(deviceCppStd)DvLinnCoUkExakt21Std.cp
 	$(compiler)DvLinnCoUkExakt21Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkExakt21Std.cpp
 $(objdir)DvLinnCoUkExakt21C.$(objext) : $(deviceC)DvLinnCoUkExakt21C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkExakt21.h
 	$(compiler)DvLinnCoUkExakt21C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkExakt21C.cpp
+$(objdir)DvLinnCoUkZoneReceiver1.$(objext) : $(deviceCppCore)DvLinnCoUkZoneReceiver1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkZoneReceiver1.h
+	$(compiler)DvLinnCoUkZoneReceiver1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkZoneReceiver1.cpp
+$(objdir)DvLinnCoUkZoneReceiver1Std.$(objext) : $(deviceCppStd)DvLinnCoUkZoneReceiver1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkZoneReceiver1.h
+	$(compiler)DvLinnCoUkZoneReceiver1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkZoneReceiver1Std.cpp
+$(objdir)DvLinnCoUkZoneReceiver1C.$(objext) : $(deviceC)DvLinnCoUkZoneReceiver1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkZoneReceiver1.h
+	$(compiler)DvLinnCoUkZoneReceiver1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkZoneReceiver1C.cpp
 
 
 # Device assemblies for .NET:
@@ -859,6 +871,11 @@ $(objdir)DvLinnCoUkExakt21.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCo
         /out:$(objdir)DvLinnCoUkExakt21.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvLinnCoUkExakt21.cs
+$(objdir)DvLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkZoneReceiver1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)DvLinnCoUkZoneReceiver1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkZoneReceiver1.cs
 
 # Device classes for Java:
 
@@ -962,5 +979,7 @@ $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkLipSync1.class : $(
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkLipSync1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExakt21.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkExakt21.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkExakt21.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkZoneReceiver1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkZoneReceiver1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkZoneReceiver1.java
 
 
