@@ -46,7 +46,7 @@ class JenkinsBuild():
 
         parser = OptionParser()
         parser.add_option("-p", "--platform", dest="platform",
-            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Windows10-x86, Linux-ARM, Linux-armhf, Linux-ppc32, Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-arm64, iOs-x86, Qnap-x86")
+            help="Linux-x86, Linux-x64, Windows-x86, Windows-x64, Windows10-x86, Linux-ARM, Linux-armhf, Linux-ppc32, 'Linux-rpi', 'Mac-x64, Mac-x86, Core-ppc32, Core-armv5, Core-armv6, iOs-armv7, iOs-arm64, iOs-x86, Qnap-x86")
         parser.add_option("-r", "--publish",
           action="store_true", dest="release", default=False,
           help="publish release")
@@ -84,6 +84,7 @@ class JenkinsBuild():
             'Mac-x86': { 'os': 'macos', 'arch': 'x86', 'publish': True, 'system': 'Mac', 'make_target': ''},  # New Jenkins label, matches downstream builds
             'Linux-ARM': { 'os': 'linux', 'arch': 'armel', 'publish': True, 'system': 'Linux', 'make_target': ''},
             'Linux-armhf': { 'os': 'linux', 'arch': 'armhf', 'publish': True, 'system': 'Linux'},
+            'Linux-rpi': { 'os': 'linux', 'arch': 'armhf', 'publish': True, 'system': 'Linux'},
             'iOs-ARM': { 'os': 'iOs', 'arch': 'armv7', 'publish': True, 'system': 'iOs', 'make_target': ''},  # Old Jenkins label
             'iOs-x86': { 'os': 'iOs', 'arch': 'x86', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-x86=1'},
             'iOs-armv7': { 'os': 'iOs', 'arch': 'armv7', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-armv7=1'},
