@@ -23,18 +23,6 @@ void DvProviderLinnCoUkCloud1Cpp::GetPropertyAssociationStatus(std::string& aVal
     aValue.assign((const char*)val.Ptr(), val.Bytes());
 }
 
-bool DvProviderLinnCoUkCloud1Cpp::SetPropertyControlEnabled(bool aValue)
-{
-    ASSERT(iPropertyControlEnabled != NULL);
-    return SetPropertyBool(*iPropertyControlEnabled, aValue);
-}
-
-void DvProviderLinnCoUkCloud1Cpp::GetPropertyControlEnabled(bool& aValue)
-{
-    ASSERT(iPropertyControlEnabled != NULL);
-    aValue = iPropertyControlEnabled->Value();
-}
-
 bool DvProviderLinnCoUkCloud1Cpp::SetPropertyConnected(bool aValue)
 {
     ASSERT(iPropertyConnected != NULL);
@@ -65,7 +53,6 @@ DvProviderLinnCoUkCloud1Cpp::DvProviderLinnCoUkCloud1Cpp(DvDeviceStd& aDevice)
     : DvProvider(aDevice.Device(), "linn.co.uk", "Cloud", 1)
 {
     iPropertyAssociationStatus = NULL;
-    iPropertyControlEnabled = NULL;
     iPropertyConnected = NULL;
     iPropertyPublicKey = NULL;
 }
@@ -81,12 +68,6 @@ void DvProviderLinnCoUkCloud1Cpp::EnablePropertyAssociationStatus()
     iPropertyAssociationStatus = new PropertyString(new ParameterString("AssociationStatus", allowedValues, 3));
     delete[] allowedValues;
     iService->AddProperty(iPropertyAssociationStatus); // passes ownership
-}
-
-void DvProviderLinnCoUkCloud1Cpp::EnablePropertyControlEnabled()
-{
-    iPropertyControlEnabled = new PropertyBool(new ParameterBool("ControlEnabled"));
-    iService->AddProperty(iPropertyControlEnabled); // passes ownership
 }
 
 void DvProviderLinnCoUkCloud1Cpp::EnablePropertyConnected()
@@ -118,22 +99,6 @@ void DvProviderLinnCoUkCloud1Cpp::EnableActionSetAssociated()
     action->AddInputParameter(new ParameterBinary("TokenAesEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoSetAssociated);
-    iService->AddAction(action, functor);
-}
-
-void DvProviderLinnCoUkCloud1Cpp::EnableActionSetControlEnabled()
-{
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetControlEnabled");
-    action->AddInputParameter(new ParameterRelated("Enabled", *iPropertyControlEnabled));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoSetControlEnabled);
-    iService->AddAction(action, functor);
-}
-
-void DvProviderLinnCoUkCloud1Cpp::EnableActionGetControlEnabled()
-{
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetControlEnabled");
-    action->AddOutputParameter(new ParameterRelated("Enabled", *iPropertyControlEnabled));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1Cpp::DoGetControlEnabled);
     iService->AddAction(action, functor);
 }
 
@@ -191,30 +156,6 @@ void DvProviderLinnCoUkCloud1Cpp::DoSetAssociated(IDviInvocation& aInvocation)
     aInvocation.InvocationWriteEnd();
 }
 
-void DvProviderLinnCoUkCloud1Cpp::DoSetControlEnabled(IDviInvocation& aInvocation)
-{
-    aInvocation.InvocationReadStart();
-    bool Enabled = aInvocation.InvocationReadBool("Enabled");
-    aInvocation.InvocationReadEnd();
-    DvInvocationStd invocation(aInvocation);
-    SetControlEnabled(invocation, Enabled);
-    aInvocation.InvocationWriteStart();
-    aInvocation.InvocationWriteEnd();
-}
-
-void DvProviderLinnCoUkCloud1Cpp::DoGetControlEnabled(IDviInvocation& aInvocation)
-{
-    aInvocation.InvocationReadStart();
-    aInvocation.InvocationReadEnd();
-    bool respEnabled;
-    DvInvocationStd invocation(aInvocation);
-    GetControlEnabled(invocation, respEnabled);
-    aInvocation.InvocationWriteStart();
-    DviInvocationResponseBool respWriterEnabled(aInvocation, "Enabled");
-    respWriterEnabled.Write(respEnabled);
-    aInvocation.InvocationWriteEnd();
-}
-
 void DvProviderLinnCoUkCloud1Cpp::DoGetConnected(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -249,16 +190,6 @@ void DvProviderLinnCoUkCloud1Cpp::GetChallengeResponse(IDvInvocationStd& /*aInvo
 }
 
 void DvProviderLinnCoUkCloud1Cpp::SetAssociated(IDvInvocationStd& /*aInvocation*/, const std::string& /*aAesKeyRsaEncrypted*/, const std::string& /*aInitVectorRsaEncrypted*/, const std::string& /*aTokenAesEncrypted*/, bool /*aAssociated*/)
-{
-    ASSERTS();
-}
-
-void DvProviderLinnCoUkCloud1Cpp::SetControlEnabled(IDvInvocationStd& /*aInvocation*/, bool /*aEnabled*/)
-{
-    ASSERTS();
-}
-
-void DvProviderLinnCoUkCloud1Cpp::GetControlEnabled(IDvInvocationStd& /*aInvocation*/, bool& /*aEnabled*/)
 {
     ASSERTS();
 }

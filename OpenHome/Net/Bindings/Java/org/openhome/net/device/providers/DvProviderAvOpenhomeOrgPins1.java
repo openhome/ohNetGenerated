@@ -72,6 +72,22 @@ interface IDvProviderAvOpenhomeOrgPins1
      * @return value of the IdArray property.
      */
     public String getPropertyIdArray();
+
+    /**
+     * Set the value of the CloudConnected property
+     *
+     * @param aValue    new value for the property.
+     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
+     *
+     */
+    public boolean setPropertyCloudConnected(boolean aValue);
+
+    /**
+     * Get a copy of the value of the CloudConnected property
+     *
+     * @return value of the CloudConnected property.
+     */
+    public boolean getPropertyCloudConnected();
         
 }
 
@@ -81,35 +97,15 @@ interface IDvProviderAvOpenhomeOrgPins1
 public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProviderAvOpenhomeOrgPins1
 {
 
-    public class GetDeviceAccountMax
-    {
-        private long iDeviceMax;
-        private long iAccountMax;
-
-        public GetDeviceAccountMax(
-            long aDeviceMax,
-            long aAccountMax
-        )
-        {
-            iDeviceMax = aDeviceMax;
-            iAccountMax = aAccountMax;
-        }
-        public long getDeviceMax()
-        {
-            return iDeviceMax;
-        }
-        public long getAccountMax()
-        {
-            return iAccountMax;
-        }
-    }
-
-    private IDvInvocationListener iDelegateGetDeviceAccountMax;
+    private IDvInvocationListener iDelegateGetDeviceMax;
+    private IDvInvocationListener iDelegateGetAccountMax;
     private IDvInvocationListener iDelegateGetModes;
     private IDvInvocationListener iDelegateGetIdArray;
+    private IDvInvocationListener iDelegateGetCloudConnected;
     private IDvInvocationListener iDelegateReadList;
     private IDvInvocationListener iDelegateInvokeId;
     private IDvInvocationListener iDelegateInvokeIndex;
+    private IDvInvocationListener iDelegateInvokeUri;
     private IDvInvocationListener iDelegateSetDevice;
     private IDvInvocationListener iDelegateSetAccount;
     private IDvInvocationListener iDelegateClear;
@@ -118,6 +114,7 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
     private PropertyUint iPropertyAccountMax;
     private PropertyString iPropertyModes;
     private PropertyString iPropertyIdArray;
+    private PropertyBool iPropertyCloudConnected;
 
     /**
      * Constructor
@@ -165,6 +162,15 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
         List<String> allowedValues = new LinkedList<String>();
         iPropertyIdArray = new PropertyString(new ParameterString("IdArray", allowedValues));
         addProperty(iPropertyIdArray);
+    }
+
+    /**
+     * Enable the CloudConnected property.
+     */
+    public void enablePropertyCloudConnected()
+    {
+        iPropertyCloudConnected = new PropertyBool(new ParameterBool("CloudConnected"));
+        addProperty(iPropertyCloudConnected);
     }
 
     /**
@@ -256,18 +262,53 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
     }
 
     /**
-     * Signal that the action GetDeviceAccountMax is supported.
+     * Set the value of the CloudConnected property
+     *
+     * @param aValue    new value for the property.
+     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
+     * if <tt>aValue</tt> was the same as the previous value.
+     */
+    public boolean setPropertyCloudConnected(boolean aValue)
+    {
+        return setPropertyBool(iPropertyCloudConnected, aValue);
+    }
+
+    /**
+     * Get a copy of the value of the CloudConnected property
+     *
+     * @return  value of the CloudConnected property.
+     */
+    public boolean getPropertyCloudConnected()
+    {
+        return iPropertyCloudConnected.getValue();
+    }
+
+    /**
+     * Signal that the action GetDeviceMax is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
-     * GetDeviceAccountMax must be overridden if this is called.
+     * GetDeviceMax must be overridden if this is called.
      */      
-    protected void enableActionGetDeviceAccountMax()
+    protected void enableActionGetDeviceMax()
     {
-        Action action = new Action("GetDeviceAccountMax");
+        Action action = new Action("GetDeviceMax");
         action.addOutputParameter(new ParameterRelated("DeviceMax", iPropertyDeviceMax));
+        iDelegateGetDeviceMax = new DoGetDeviceMax();
+        enableAction(action, iDelegateGetDeviceMax);
+    }
+
+    /**
+     * Signal that the action GetAccountMax is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * GetAccountMax must be overridden if this is called.
+     */      
+    protected void enableActionGetAccountMax()
+    {
+        Action action = new Action("GetAccountMax");
         action.addOutputParameter(new ParameterRelated("AccountMax", iPropertyAccountMax));
-        iDelegateGetDeviceAccountMax = new DoGetDeviceAccountMax();
-        enableAction(action, iDelegateGetDeviceAccountMax);
+        iDelegateGetAccountMax = new DoGetAccountMax();
+        enableAction(action, iDelegateGetAccountMax);
     }
 
     /**
@@ -296,6 +337,20 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
         action.addOutputParameter(new ParameterRelated("IdArray", iPropertyIdArray));
         iDelegateGetIdArray = new DoGetIdArray();
         enableAction(action, iDelegateGetIdArray);
+    }
+
+    /**
+     * Signal that the action GetCloudConnected is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * GetCloudConnected must be overridden if this is called.
+     */      
+    protected void enableActionGetCloudConnected()
+    {
+        Action action = new Action("GetCloudConnected");
+        action.addOutputParameter(new ParameterRelated("CloudConnected", iPropertyCloudConnected));
+        iDelegateGetCloudConnected = new DoGetCloudConnected();
+        enableAction(action, iDelegateGetCloudConnected);
     }
 
     /**
@@ -339,6 +394,23 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
         action.addInputParameter(new ParameterUint("Index"));
         iDelegateInvokeIndex = new DoInvokeIndex();
         enableAction(action, iDelegateInvokeIndex);
+    }
+
+    /**
+     * Signal that the action InvokeUri is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * InvokeUri must be overridden if this is called.
+     */      
+    protected void enableActionInvokeUri()
+    {
+        Action action = new Action("InvokeUri");        List<String> allowedValues = new LinkedList<String>();
+        action.addInputParameter(new ParameterString("Mode", allowedValues));
+        action.addInputParameter(new ParameterString("Type", allowedValues));
+        action.addInputParameter(new ParameterString("Uri", allowedValues));
+        action.addInputParameter(new ParameterBool("Shuffle"));
+        iDelegateInvokeUri = new DoInvokeUri();
+        enableAction(action, iDelegateInvokeUri);
     }
 
     /**
@@ -413,16 +485,31 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
     }
 
     /**
-     * GetDeviceAccountMax action.
+     * GetDeviceMax action.
      *
      * <p>Will be called when the device stack receives an invocation of the
-     * GetDeviceAccountMax action for the owning device.
+     * GetDeviceMax action for the owning device.
      *
-     * <p>Must be implemented iff {@link #enableActionGetDeviceAccountMax} was called.</remarks>
+     * <p>Must be implemented iff {@link #enableActionGetDeviceMax} was called.</remarks>
      *
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
-    protected GetDeviceAccountMax getDeviceAccountMax(IDvInvocation aInvocation)
+    protected long getDeviceMax(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * GetAccountMax action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * GetAccountMax action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionGetAccountMax} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected long getAccountMax(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -453,6 +540,21 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
      * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
      */
     protected String getIdArray(IDvInvocation aInvocation)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * GetCloudConnected action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * GetCloudConnected action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionGetCloudConnected} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     */
+    protected boolean getCloudConnected(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -501,6 +603,25 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
      * @param aIndex
      */
     protected void invokeIndex(IDvInvocation aInvocation, long aIndex)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * InvokeUri action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * InvokeUri action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionInvokeUri} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aMode
+     * @param aType
+     * @param aUri
+     * @param aShuffle
+     */
+    protected void invokeUri(IDvInvocation aInvocation, String aMode, String aType, String aUri, boolean aShuffle)
     {
         throw (new ActionDisabledError());
     }
@@ -601,25 +722,21 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
     }
 
 
-    private class DoGetDeviceAccountMax implements IDvInvocationListener
+    private class DoGetDeviceMax implements IDvInvocationListener
     {
         public void actionInvoked(long aInvocation)
         {
             DvInvocation invocation = new DvInvocation(aInvocation);
             long deviceMax;
-            long accountMax;
             try
             {
                 invocation.readStart();
                 invocation.readEnd();
-
-            GetDeviceAccountMax outArgs = getDeviceAccountMax(invocation);
-            deviceMax = outArgs.getDeviceMax();
-            accountMax = outArgs.getAccountMax();
+                 deviceMax = getDeviceMax(invocation);
             }
             catch (ActionError ae)
             {
-                invocation.reportActionError(ae, "GetDeviceAccountMax");
+                invocation.reportActionError(ae, "GetDeviceMax");
                 return;
             }
             catch (PropertyUpdateError pue)
@@ -638,6 +755,53 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
             {
                 invocation.writeStart();
                 invocation.writeUint("DeviceMax", deviceMax);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoGetAccountMax implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            long accountMax;
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                 accountMax = getAccountMax(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "GetAccountMax");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
                 invocation.writeUint("AccountMax", accountMax);
                 invocation.writeEnd();
             }
@@ -735,6 +899,54 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
             {
                 invocation.writeStart();
                 invocation.writeString("IdArray", idArray);
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoGetCloudConnected implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            boolean cloudConnected;
+            try
+            {
+                invocation.readStart();
+                invocation.readEnd();
+                 cloudConnected = getCloudConnected(invocation);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "GetCloudConnected");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeBool("CloudConnected", cloudConnected);
                 invocation.writeEnd();
             }
             catch (ActionError ae)
@@ -864,6 +1076,60 @@ public class DvProviderAvOpenhomeOrgPins1 extends DvProvider implements IDvProvi
             catch (ActionError ae)
             {
                 invocation.reportActionError(ae, "InvokeIndex");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoInvokeUri implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String mode;
+            String type;
+            String uri;
+            boolean shuffle;
+            try
+            {
+                invocation.readStart();
+                mode = invocation.readString("Mode");
+                type = invocation.readString("Type");
+                uri = invocation.readString("Uri");
+                shuffle = invocation.readBool("Shuffle");
+                invocation.readEnd();
+                invokeUri(invocation, mode, type, uri, shuffle);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "InvokeUri");
                 return;
             }
             catch (PropertyUpdateError pue)

@@ -20,18 +20,6 @@ void DvProviderLinnCoUkCloud1::GetPropertyAssociationStatus(Brhz& aValue)
     aValue.Set(iPropertyAssociationStatus->Value());
 }
 
-TBool DvProviderLinnCoUkCloud1::SetPropertyControlEnabled(TBool aValue)
-{
-    ASSERT(iPropertyControlEnabled != NULL);
-    return SetPropertyBool(*iPropertyControlEnabled, aValue);
-}
-
-void DvProviderLinnCoUkCloud1::GetPropertyControlEnabled(TBool& aValue)
-{
-    ASSERT(iPropertyControlEnabled != NULL);
-    aValue = iPropertyControlEnabled->Value();
-}
-
 TBool DvProviderLinnCoUkCloud1::SetPropertyConnected(TBool aValue)
 {
     ASSERT(iPropertyConnected != NULL);
@@ -71,7 +59,6 @@ DvProviderLinnCoUkCloud1::DvProviderLinnCoUkCloud1(DviDevice& aDevice)
 void DvProviderLinnCoUkCloud1::Construct()
 {
     iPropertyAssociationStatus = NULL;
-    iPropertyControlEnabled = NULL;
     iPropertyConnected = NULL;
     iPropertyPublicKey = NULL;
 }
@@ -87,12 +74,6 @@ void DvProviderLinnCoUkCloud1::EnablePropertyAssociationStatus()
     iPropertyAssociationStatus = new PropertyString(new ParameterString("AssociationStatus", allowedValues, 3));
     delete[] allowedValues;
     iService->AddProperty(iPropertyAssociationStatus); // passes ownership
-}
-
-void DvProviderLinnCoUkCloud1::EnablePropertyControlEnabled()
-{
-    iPropertyControlEnabled = new PropertyBool(new ParameterBool("ControlEnabled"));
-    iService->AddProperty(iPropertyControlEnabled); // passes ownership
 }
 
 void DvProviderLinnCoUkCloud1::EnablePropertyConnected()
@@ -124,22 +105,6 @@ void DvProviderLinnCoUkCloud1::EnableActionSetAssociated()
     action->AddInputParameter(new ParameterBinary("TokenAesEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoSetAssociated);
-    iService->AddAction(action, functor);
-}
-
-void DvProviderLinnCoUkCloud1::EnableActionSetControlEnabled()
-{
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetControlEnabled");
-    action->AddInputParameter(new ParameterRelated("Enabled", *iPropertyControlEnabled));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoSetControlEnabled);
-    iService->AddAction(action, functor);
-}
-
-void DvProviderLinnCoUkCloud1::EnableActionGetControlEnabled()
-{
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetControlEnabled");
-    action->AddOutputParameter(new ParameterRelated("Enabled", *iPropertyControlEnabled));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1::DoGetControlEnabled);
     iService->AddAction(action, functor);
 }
 
@@ -185,24 +150,6 @@ void DvProviderLinnCoUkCloud1::DoSetAssociated(IDviInvocation& aInvocation)
     SetAssociated(invocation, AesKeyRsaEncrypted, InitVectorRsaEncrypted, TokenAesEncrypted, Associated);
 }
 
-void DvProviderLinnCoUkCloud1::DoSetControlEnabled(IDviInvocation& aInvocation)
-{
-    aInvocation.InvocationReadStart();
-    TBool Enabled = aInvocation.InvocationReadBool("Enabled");
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    SetControlEnabled(invocation, Enabled);
-}
-
-void DvProviderLinnCoUkCloud1::DoGetControlEnabled(IDviInvocation& aInvocation)
-{
-    aInvocation.InvocationReadStart();
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    DviInvocationResponseBool respEnabled(aInvocation, "Enabled");
-    GetControlEnabled(invocation, respEnabled);
-}
-
 void DvProviderLinnCoUkCloud1::DoGetConnected(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -227,16 +174,6 @@ void DvProviderLinnCoUkCloud1::GetChallengeResponse(IDvInvocation& /*aResponse*/
 }
 
 void DvProviderLinnCoUkCloud1::SetAssociated(IDvInvocation& /*aResponse*/, const Brx& /*aAesKeyRsaEncrypted*/, const Brx& /*aInitVectorRsaEncrypted*/, const Brx& /*aTokenAesEncrypted*/, TBool /*aAssociated*/)
-{
-    ASSERTS();
-}
-
-void DvProviderLinnCoUkCloud1::SetControlEnabled(IDvInvocation& /*aResponse*/, TBool /*aEnabled*/)
-{
-    ASSERTS();
-}
-
-void DvProviderLinnCoUkCloud1::GetControlEnabled(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aEnabled*/)
 {
     ASSERTS();
 }

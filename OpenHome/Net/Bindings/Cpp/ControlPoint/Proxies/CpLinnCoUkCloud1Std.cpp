@@ -57,50 +57,6 @@ void SyncSetAssociatedLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
 }
 
 
-class SyncSetControlEnabledLinnCoUkCloud1Cpp : public SyncProxyAction
-{
-public:
-    SyncSetControlEnabledLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetControlEnabledLinnCoUkCloud1Cpp() {}
-private:
-    CpProxyLinnCoUkCloud1Cpp& iService;
-};
-
-SyncSetControlEnabledLinnCoUkCloud1Cpp::SyncSetControlEnabledLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy)
-    : iService(aProxy)
-{
-}
-
-void SyncSetControlEnabledLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndSetControlEnabled(aAsync);
-}
-
-
-class SyncGetControlEnabledLinnCoUkCloud1Cpp : public SyncProxyAction
-{
-public:
-    SyncGetControlEnabledLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, bool& aEnabled);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetControlEnabledLinnCoUkCloud1Cpp() {}
-private:
-    CpProxyLinnCoUkCloud1Cpp& iService;
-    bool& iEnabled;
-};
-
-SyncGetControlEnabledLinnCoUkCloud1Cpp::SyncGetControlEnabledLinnCoUkCloud1Cpp(CpProxyLinnCoUkCloud1Cpp& aProxy, bool& aEnabled)
-    : iService(aProxy)
-    , iEnabled(aEnabled)
-{
-}
-
-void SyncGetControlEnabledLinnCoUkCloud1Cpp::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndGetControlEnabled(aAsync, iEnabled);
-}
-
-
 class SyncGetConnectedLinnCoUkCloud1Cpp : public SyncProxyAction
 {
 public:
@@ -168,14 +124,6 @@ CpProxyLinnCoUkCloud1Cpp::CpProxyLinnCoUkCloud1Cpp(CpDeviceCpp& aDevice)
     param = new OpenHome::Net::ParameterBool("Associated");
     iActionSetAssociated->AddInputParameter(param);
 
-    iActionSetControlEnabled = new Action("SetControlEnabled");
-    param = new OpenHome::Net::ParameterBool("Enabled");
-    iActionSetControlEnabled->AddInputParameter(param);
-
-    iActionGetControlEnabled = new Action("GetControlEnabled");
-    param = new OpenHome::Net::ParameterBool("Enabled");
-    iActionGetControlEnabled->AddOutputParameter(param);
-
     iActionGetConnected = new Action("GetConnected");
     param = new OpenHome::Net::ParameterBool("Connected");
     iActionGetConnected->AddOutputParameter(param);
@@ -188,9 +136,6 @@ CpProxyLinnCoUkCloud1Cpp::CpProxyLinnCoUkCloud1Cpp(CpDeviceCpp& aDevice)
     functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1Cpp::AssociationStatusPropertyChanged);
     iAssociationStatus = new PropertyString("AssociationStatus", functor);
     AddProperty(iAssociationStatus);
-    functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1Cpp::ControlEnabledPropertyChanged);
-    iControlEnabled = new PropertyBool("ControlEnabled", functor);
-    AddProperty(iControlEnabled);
     functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1Cpp::ConnectedPropertyChanged);
     iConnected = new PropertyBool("Connected", functor);
     AddProperty(iConnected);
@@ -204,8 +149,6 @@ CpProxyLinnCoUkCloud1Cpp::~CpProxyLinnCoUkCloud1Cpp()
     DestroyService();
     delete iActionGetChallengeResponse;
     delete iActionSetAssociated;
-    delete iActionSetControlEnabled;
-    delete iActionGetControlEnabled;
     delete iActionGetConnected;
     delete iActionGetPublicKey;
 }
@@ -293,68 +236,6 @@ void CpProxyLinnCoUkCloud1Cpp::EndSetAssociated(IAsync& aAsync)
     }
 }
 
-void CpProxyLinnCoUkCloud1Cpp::SyncSetControlEnabled(bool aEnabled)
-{
-    SyncSetControlEnabledLinnCoUkCloud1Cpp sync(*this);
-    BeginSetControlEnabled(aEnabled, sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkCloud1Cpp::BeginSetControlEnabled(bool aEnabled, FunctorAsync& aFunctor)
-{
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetControlEnabled, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSetControlEnabled->InputParameters();
-    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aEnabled));
-    iCpProxy.GetInvocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkCloud1Cpp::EndSetControlEnabled(IAsync& aAsync)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SetControlEnabled"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-}
-
-void CpProxyLinnCoUkCloud1Cpp::SyncGetControlEnabled(bool& aEnabled)
-{
-    SyncGetControlEnabledLinnCoUkCloud1Cpp sync(*this, aEnabled);
-    BeginGetControlEnabled(sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkCloud1Cpp::BeginGetControlEnabled(FunctorAsync& aFunctor)
-{
-    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionGetControlEnabled, aFunctor);
-    TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionGetControlEnabled->OutputParameters();
-    invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    iCpProxy.GetInvocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkCloud1Cpp::EndGetControlEnabled(IAsync& aAsync, bool& aEnabled)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("GetControlEnabled"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-    TUint index = 0;
-    aEnabled = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
-}
-
 void CpProxyLinnCoUkCloud1Cpp::SyncGetConnected(bool& aConnected)
 {
     SyncGetConnectedLinnCoUkCloud1Cpp sync(*this, aConnected);
@@ -429,13 +310,6 @@ void CpProxyLinnCoUkCloud1Cpp::SetPropertyAssociationStatusChanged(Functor& aFun
     iCpProxy.GetLock().Signal();
 }
 
-void CpProxyLinnCoUkCloud1Cpp::SetPropertyControlEnabledChanged(Functor& aFunctor)
-{
-    iCpProxy.GetLock().Wait();
-    iControlEnabledChanged = aFunctor;
-    iCpProxy.GetLock().Signal();
-}
-
 void CpProxyLinnCoUkCloud1Cpp::SetPropertyConnectedChanged(Functor& aFunctor)
 {
     iCpProxy.GetLock().Wait();
@@ -460,15 +334,6 @@ void CpProxyLinnCoUkCloud1Cpp::PropertyAssociationStatus(std::string& aAssociati
     aAssociationStatus.assign((const char*)val.Ptr(), val.Bytes());
 }
 
-void CpProxyLinnCoUkCloud1Cpp::PropertyControlEnabled(bool& aControlEnabled) const
-{
-    AutoMutex a(iCpProxy.PropertyReadLock());
-    if (iCpProxy.GetSubscriptionStatus() != CpProxy::eSubscribed) {
-        THROW(ProxyNotSubscribed);
-    }
-    aControlEnabled = iControlEnabled->Value();
-}
-
 void CpProxyLinnCoUkCloud1Cpp::PropertyConnected(bool& aConnected) const
 {
     AutoMutex a(iCpProxy.PropertyReadLock());
@@ -491,11 +356,6 @@ void CpProxyLinnCoUkCloud1Cpp::PropertyPublicKey(std::string& aPublicKey) const
 void CpProxyLinnCoUkCloud1Cpp::AssociationStatusPropertyChanged()
 {
     ReportEvent(iAssociationStatusChanged);
-}
-
-void CpProxyLinnCoUkCloud1Cpp::ControlEnabledPropertyChanged()
-{
-    ReportEvent(iControlEnabledChanged);
 }
 
 void CpProxyLinnCoUkCloud1Cpp::ConnectedPropertyChanged()

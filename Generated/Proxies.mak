@@ -43,6 +43,9 @@ objects_proxies = \
                   $(objdir)CpUpnpOrgDimming1.$(objext) \
                   $(objdir)CpUpnpOrgDimming1C.$(objext) \
                   $(objdir)CpUpnpOrgDimming1Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgConfigApp1.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgConfigApp1C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgConfigApp1Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgCredentials1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgCredentials1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgCredentials1Std.$(objext) \
@@ -55,6 +58,9 @@ objects_proxies = \
                   $(objdir)CpAvOpenhomeOrgExakt3.$(objext) \
                   $(objdir)CpAvOpenhomeOrgExakt3C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgExakt3Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgExakt4.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgExakt4C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgExakt4Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgInfo1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgInfo1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgInfo1Std.$(objext) \
@@ -133,15 +139,21 @@ objects_proxies = \
                   $(objdir)CpLinnCoUkCloud1.$(objext) \
                   $(objdir)CpLinnCoUkCloud1C.$(objext) \
                   $(objdir)CpLinnCoUkCloud1Std.$(objext) \
+                  $(objdir)CpLinnCoUkUpdate1.$(objext) \
+                  $(objdir)CpLinnCoUkUpdate1C.$(objext) \
+                  $(objdir)CpLinnCoUkUpdate1Std.$(objext) \
                   $(objdir)CpLinnCoUkConfiguration1.$(objext) \
                   $(objdir)CpLinnCoUkConfiguration1C.$(objext) \
                   $(objdir)CpLinnCoUkConfiguration1Std.$(objext) \
                   $(objdir)CpLinnCoUkLipSync1.$(objext) \
                   $(objdir)CpLinnCoUkLipSync1C.$(objext) \
                   $(objdir)CpLinnCoUkLipSync1Std.$(objext) \
-                  $(objdir)CpLinnCoUkExakt1.$(objext) \
-                  $(objdir)CpLinnCoUkExakt1C.$(objext) \
-                  $(objdir)CpLinnCoUkExakt1Std.$(objext) \
+                  $(objdir)CpLinnCoUkExakt21.$(objext) \
+                  $(objdir)CpLinnCoUkExakt21C.$(objext) \
+                  $(objdir)CpLinnCoUkExakt21Std.$(objext) \
+                  $(objdir)CpLinnCoUkZoneReceiver1.$(objext) \
+                  $(objdir)CpLinnCoUkZoneReceiver1C.$(objext) \
+                  $(objdir)CpLinnCoUkZoneReceiver1Std.$(objext) \
 
 # Service proxies have well controlled dependencies so we can document a more limited set of headers
 headers_proxy = $(inc_build)/OpenHome/Buffer.h \
@@ -170,10 +182,12 @@ proxy_dotnet_assemblies = \
         CpUpnpOrgScheduledRecording2.net.dll \
         CpUpnpOrgSwitchPower1.net.dll \
         CpUpnpOrgDimming1.net.dll \
+        CpAvOpenhomeOrgConfigApp1.net.dll \
         CpAvOpenhomeOrgCredentials1.net.dll \
         CpAvOpenhomeOrgExakt1.net.dll \
         CpAvOpenhomeOrgExakt2.net.dll \
         CpAvOpenhomeOrgExakt3.net.dll \
+        CpAvOpenhomeOrgExakt4.net.dll \
         CpAvOpenhomeOrgInfo1.net.dll \
         CpAvOpenhomeOrgTime1.net.dll \
         CpAvOpenhomeOrgPlaylist1.net.dll \
@@ -200,9 +214,11 @@ proxy_dotnet_assemblies = \
         CpLinnCoUkPrivacy1.net.dll \
         CpLinnCoUkExaktInputs1.net.dll \
         CpLinnCoUkCloud1.net.dll \
+        CpLinnCoUkUpdate1.net.dll \
         CpLinnCoUkConfiguration1.net.dll \
         CpLinnCoUkLipSync1.net.dll \
-        CpLinnCoUkExakt1.net.dll \
+        CpLinnCoUkExakt21.net.dll \
+        CpLinnCoUkZoneReceiver1.net.dll \
 
 proxy_dotnet_assemblies_with_path = \
         $(objdir)CpUpnpOrgAVTransport1.net.dll \
@@ -218,10 +234,12 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpUpnpOrgScheduledRecording2.net.dll \
         $(objdir)CpUpnpOrgSwitchPower1.net.dll \
         $(objdir)CpUpnpOrgDimming1.net.dll \
+        $(objdir)CpAvOpenhomeOrgConfigApp1.net.dll \
         $(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
         $(objdir)CpAvOpenhomeOrgExakt1.net.dll \
         $(objdir)CpAvOpenhomeOrgExakt2.net.dll \
         $(objdir)CpAvOpenhomeOrgExakt3.net.dll \
+        $(objdir)CpAvOpenhomeOrgExakt4.net.dll \
         $(objdir)CpAvOpenhomeOrgInfo1.net.dll \
         $(objdir)CpAvOpenhomeOrgTime1.net.dll \
         $(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
@@ -248,9 +266,11 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpLinnCoUkPrivacy1.net.dll \
         $(objdir)CpLinnCoUkExaktInputs1.net.dll \
         $(objdir)CpLinnCoUkCloud1.net.dll \
+        $(objdir)CpLinnCoUkUpdate1.net.dll \
         $(objdir)CpLinnCoUkConfiguration1.net.dll \
         $(objdir)CpLinnCoUkLipSync1.net.dll \
-        $(objdir)CpLinnCoUkExakt1.net.dll \
+        $(objdir)CpLinnCoUkExakt21.net.dll \
+        $(objdir)CpLinnCoUkZoneReceiver1.net.dll \
 
 proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport1.class \
@@ -266,10 +286,12 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgScheduledRecording2.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgSwitchPower1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgDimming1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgConfigApp1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgCredentials1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt2.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt3.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt4.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgInfo1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTime1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylist1.class \
@@ -296,9 +318,11 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkCloud1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkConfiguration1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt1.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt21.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZoneReceiver1.class \
 
 
 proxies : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_proxies)
@@ -381,6 +405,12 @@ $(objdir)CpUpnpOrgDimming1C.$(objext) : $(proxyC)CpUpnpOrgDimming1C.cpp $(header
 	$(compiler)CpUpnpOrgDimming1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpUpnpOrgDimming1C.cpp
 $(objdir)CpUpnpOrgDimming1Std.$(objext) : $(proxyCppStd)CpUpnpOrgDimming1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpUpnpOrgDimming1.h
 	$(compiler)CpUpnpOrgDimming1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpUpnpOrgDimming1Std.cpp
+$(objdir)CpAvOpenhomeOrgConfigApp1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgConfigApp1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgConfigApp1.h
+	$(compiler)CpAvOpenhomeOrgConfigApp1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgConfigApp1.cpp
+$(objdir)CpAvOpenhomeOrgConfigApp1C.$(objext) : $(proxyC)CpAvOpenhomeOrgConfigApp1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgConfigApp1.h
+	$(compiler)CpAvOpenhomeOrgConfigApp1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgConfigApp1C.cpp
+$(objdir)CpAvOpenhomeOrgConfigApp1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgConfigApp1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgConfigApp1.h
+	$(compiler)CpAvOpenhomeOrgConfigApp1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgConfigApp1Std.cpp
 $(objdir)CpAvOpenhomeOrgCredentials1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgCredentials1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgCredentials1.h
 	$(compiler)CpAvOpenhomeOrgCredentials1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgCredentials1.cpp
 $(objdir)CpAvOpenhomeOrgCredentials1C.$(objext) : $(proxyC)CpAvOpenhomeOrgCredentials1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgCredentials1.h
@@ -405,6 +435,12 @@ $(objdir)CpAvOpenhomeOrgExakt3C.$(objext) : $(proxyC)CpAvOpenhomeOrgExakt3C.cpp 
 	$(compiler)CpAvOpenhomeOrgExakt3C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgExakt3C.cpp
 $(objdir)CpAvOpenhomeOrgExakt3Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgExakt3Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgExakt3.h
 	$(compiler)CpAvOpenhomeOrgExakt3Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgExakt3Std.cpp
+$(objdir)CpAvOpenhomeOrgExakt4.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgExakt4.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgExakt4.h
+	$(compiler)CpAvOpenhomeOrgExakt4.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgExakt4.cpp
+$(objdir)CpAvOpenhomeOrgExakt4C.$(objext) : $(proxyC)CpAvOpenhomeOrgExakt4C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgExakt4.h
+	$(compiler)CpAvOpenhomeOrgExakt4C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgExakt4C.cpp
+$(objdir)CpAvOpenhomeOrgExakt4Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgExakt4Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgExakt4.h
+	$(compiler)CpAvOpenhomeOrgExakt4Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgExakt4Std.cpp
 $(objdir)CpAvOpenhomeOrgInfo1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgInfo1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgInfo1.h
 	$(compiler)CpAvOpenhomeOrgInfo1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgInfo1.cpp
 $(objdir)CpAvOpenhomeOrgInfo1C.$(objext) : $(proxyC)CpAvOpenhomeOrgInfo1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgInfo1.h
@@ -561,6 +597,12 @@ $(objdir)CpLinnCoUkCloud1C.$(objext) : $(proxyC)CpLinnCoUkCloud1C.cpp $(headers_
 	$(compiler)CpLinnCoUkCloud1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkCloud1C.cpp
 $(objdir)CpLinnCoUkCloud1Std.$(objext) : $(proxyCppStd)CpLinnCoUkCloud1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkCloud1.h
 	$(compiler)CpLinnCoUkCloud1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkCloud1Std.cpp
+$(objdir)CpLinnCoUkUpdate1.$(objext) : $(proxyCppCore)CpLinnCoUkUpdate1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkUpdate1.h
+	$(compiler)CpLinnCoUkUpdate1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkUpdate1.cpp
+$(objdir)CpLinnCoUkUpdate1C.$(objext) : $(proxyC)CpLinnCoUkUpdate1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkUpdate1.h
+	$(compiler)CpLinnCoUkUpdate1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkUpdate1C.cpp
+$(objdir)CpLinnCoUkUpdate1Std.$(objext) : $(proxyCppStd)CpLinnCoUkUpdate1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkUpdate1.h
+	$(compiler)CpLinnCoUkUpdate1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkUpdate1Std.cpp
 $(objdir)CpLinnCoUkConfiguration1.$(objext) : $(proxyCppCore)CpLinnCoUkConfiguration1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkConfiguration1.h
 	$(compiler)CpLinnCoUkConfiguration1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkConfiguration1.cpp
 $(objdir)CpLinnCoUkConfiguration1C.$(objext) : $(proxyC)CpLinnCoUkConfiguration1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkConfiguration1.h
@@ -573,12 +615,18 @@ $(objdir)CpLinnCoUkLipSync1C.$(objext) : $(proxyC)CpLinnCoUkLipSync1C.cpp $(head
 	$(compiler)CpLinnCoUkLipSync1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkLipSync1C.cpp
 $(objdir)CpLinnCoUkLipSync1Std.$(objext) : $(proxyCppStd)CpLinnCoUkLipSync1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkLipSync1.h
 	$(compiler)CpLinnCoUkLipSync1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkLipSync1Std.cpp
-$(objdir)CpLinnCoUkExakt1.$(objext) : $(proxyCppCore)CpLinnCoUkExakt1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkExakt1.h
-	$(compiler)CpLinnCoUkExakt1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkExakt1.cpp
-$(objdir)CpLinnCoUkExakt1C.$(objext) : $(proxyC)CpLinnCoUkExakt1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkExakt1.h
-	$(compiler)CpLinnCoUkExakt1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkExakt1C.cpp
-$(objdir)CpLinnCoUkExakt1Std.$(objext) : $(proxyCppStd)CpLinnCoUkExakt1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkExakt1.h
-	$(compiler)CpLinnCoUkExakt1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkExakt1Std.cpp
+$(objdir)CpLinnCoUkExakt21.$(objext) : $(proxyCppCore)CpLinnCoUkExakt21.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkExakt21.h
+	$(compiler)CpLinnCoUkExakt21.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkExakt21.cpp
+$(objdir)CpLinnCoUkExakt21C.$(objext) : $(proxyC)CpLinnCoUkExakt21C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkExakt21.h
+	$(compiler)CpLinnCoUkExakt21C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkExakt21C.cpp
+$(objdir)CpLinnCoUkExakt21Std.$(objext) : $(proxyCppStd)CpLinnCoUkExakt21Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkExakt21.h
+	$(compiler)CpLinnCoUkExakt21Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkExakt21Std.cpp
+$(objdir)CpLinnCoUkZoneReceiver1.$(objext) : $(proxyCppCore)CpLinnCoUkZoneReceiver1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkZoneReceiver1.h
+	$(compiler)CpLinnCoUkZoneReceiver1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkZoneReceiver1.cpp
+$(objdir)CpLinnCoUkZoneReceiver1C.$(objext) : $(proxyC)CpLinnCoUkZoneReceiver1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkZoneReceiver1.h
+	$(compiler)CpLinnCoUkZoneReceiver1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkZoneReceiver1C.cpp
+$(objdir)CpLinnCoUkZoneReceiver1Std.$(objext) : $(proxyCppStd)CpLinnCoUkZoneReceiver1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkZoneReceiver1.h
+	$(compiler)CpLinnCoUkZoneReceiver1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkZoneReceiver1Std.cpp
 
 # Proxy assemblies for .NET:
 
@@ -649,6 +697,11 @@ $(objdir)CpUpnpOrgDimming1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrg
         /out:$(objdir)CpUpnpOrgDimming1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpUpnpOrgDimming1.cs
+$(objdir)CpAvOpenhomeOrgConfigApp1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgConfigApp1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs
 $(objdir)CpAvOpenhomeOrgCredentials1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
@@ -669,6 +722,11 @@ $(objdir)CpAvOpenhomeOrgExakt3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvO
         /out:$(objdir)CpAvOpenhomeOrgExakt3.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgExakt3.cs
+$(objdir)CpAvOpenhomeOrgExakt4.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt4.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgExakt4.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgExakt4.cs
 $(objdir)CpAvOpenhomeOrgInfo1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgInfo1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgInfo1.net.dll \
@@ -799,6 +857,11 @@ $(objdir)CpLinnCoUkCloud1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUk
         /out:$(objdir)CpLinnCoUkCloud1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpLinnCoUkCloud1.cs
+$(objdir)CpLinnCoUkUpdate1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpLinnCoUkUpdate1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpLinnCoUkUpdate1.cs
 $(objdir)CpLinnCoUkConfiguration1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkConfiguration1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)CpLinnCoUkConfiguration1.net.dll \
@@ -809,11 +872,16 @@ $(objdir)CpLinnCoUkLipSync1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCo
         /out:$(objdir)CpLinnCoUkLipSync1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpLinnCoUkLipSync1.cs
-$(objdir)CpLinnCoUkExakt1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExakt1.cs
+$(objdir)CpLinnCoUkExakt21.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExakt21.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkExakt1.net.dll \
+        /out:$(objdir)CpLinnCoUkExakt21.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkExakt1.cs
+        $(proxyCs)CpLinnCoUkExakt21.cs
+$(objdir)CpLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkZoneReceiver1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpLinnCoUkZoneReceiver1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpLinnCoUkZoneReceiver1.cs
 
 # Proxy classes for Java:
 
@@ -845,6 +913,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgSwitchPower1.class 
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyUpnpOrgSwitchPower1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgDimming1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyUpnpOrgDimming1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyUpnpOrgDimming1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgConfigApp1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgConfigApp1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgConfigApp1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgCredentials1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgCredentials1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgCredentials1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgExakt1.java
@@ -853,6 +923,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt2.class 
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgExakt2.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt3.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgExakt3.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgExakt3.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt4.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgExakt4.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgExakt4.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgInfo1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgInfo1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgInfo1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTime1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgTime1.java
@@ -905,11 +977,15 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkExaktInputs1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkCloud1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkCloud1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkCloud1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkUpdate1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkUpdate1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkConfiguration1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkConfiguration1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkConfiguration1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkLipSync1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkLipSync1.java
-$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkExakt1.java
-	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkExakt1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt21.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkExakt21.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkExakt21.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZoneReceiver1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkZoneReceiver1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkZoneReceiver1.java
 
 

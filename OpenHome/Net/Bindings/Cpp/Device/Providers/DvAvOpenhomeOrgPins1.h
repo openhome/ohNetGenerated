@@ -83,6 +83,20 @@ public:
      * Can only be called if EnablePropertyIdArray has previously been called.
      */
     void GetPropertyIdArray(std::string& aValue);
+    /**
+     * Set the value of the CloudConnected property
+     *
+     * Can only be called if EnablePropertyCloudConnected has previously been called.
+     *
+     * @return  true if the value has been updated; false if aValue was the same as the previous value
+     */
+    bool SetPropertyCloudConnected(bool aValue);
+    /**
+     * Get a copy of the value of the CloudConnected property
+     *
+     * Can only be called if EnablePropertyCloudConnected has previously been called.
+     */
+    void GetPropertyCloudConnected(bool& aValue);
 protected:
     /**
      * Constructor
@@ -107,11 +121,21 @@ protected:
      */
     void EnablePropertyIdArray();
     /**
-     * Signal that the action GetDeviceAccountMax is supported.
-     * The action's availability will be published in the device's service.xml.
-     * GetDeviceAccountMax must be overridden if this is called.
+     * Enable the CloudConnected property.
      */
-    void EnableActionGetDeviceAccountMax();
+    void EnablePropertyCloudConnected();
+    /**
+     * Signal that the action GetDeviceMax is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetDeviceMax must be overridden if this is called.
+     */
+    void EnableActionGetDeviceMax();
+    /**
+     * Signal that the action GetAccountMax is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetAccountMax must be overridden if this is called.
+     */
+    void EnableActionGetAccountMax();
     /**
      * Signal that the action GetModes is supported.
      * The action's availability will be published in the device's service.xml.
@@ -124,6 +148,12 @@ protected:
      * GetIdArray must be overridden if this is called.
      */
     void EnableActionGetIdArray();
+    /**
+     * Signal that the action GetCloudConnected is supported.
+     * The action's availability will be published in the device's service.xml.
+     * GetCloudConnected must be overridden if this is called.
+     */
+    void EnableActionGetCloudConnected();
     /**
      * Signal that the action ReadList is supported.
      * The action's availability will be published in the device's service.xml.
@@ -142,6 +172,12 @@ protected:
      * InvokeIndex must be overridden if this is called.
      */
     void EnableActionInvokeIndex();
+    /**
+     * Signal that the action InvokeUri is supported.
+     * The action's availability will be published in the device's service.xml.
+     * InvokeUri must be overridden if this is called.
+     */
+    void EnableActionInvokeUri();
     /**
      * Signal that the action SetDevice is supported.
      * The action's availability will be published in the device's service.xml.
@@ -168,13 +204,21 @@ protected:
     void EnableActionSwap();
 private:
     /**
-     * GetDeviceAccountMax action.
+     * GetDeviceMax action.
      *
      * Will be called when the device stack receives an invocation of the
-     * GetDeviceAccountMax action for the owning device.
-     * Must be implemented iff EnableActionGetDeviceAccountMax was called.
+     * GetDeviceMax action for the owning device.
+     * Must be implemented iff EnableActionGetDeviceMax was called.
      */
-    virtual void GetDeviceAccountMax(IDvInvocationStd& aInvocation, uint32_t& aDeviceMax, uint32_t& aAccountMax);
+    virtual void GetDeviceMax(IDvInvocationStd& aInvocation, uint32_t& aDeviceMax);
+    /**
+     * GetAccountMax action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetAccountMax action for the owning device.
+     * Must be implemented iff EnableActionGetAccountMax was called.
+     */
+    virtual void GetAccountMax(IDvInvocationStd& aInvocation, uint32_t& aAccountMax);
     /**
      * GetModes action.
      *
@@ -191,6 +235,14 @@ private:
      * Must be implemented iff EnableActionGetIdArray was called.
      */
     virtual void GetIdArray(IDvInvocationStd& aInvocation, std::string& aIdArray);
+    /**
+     * GetCloudConnected action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * GetCloudConnected action for the owning device.
+     * Must be implemented iff EnableActionGetCloudConnected was called.
+     */
+    virtual void GetCloudConnected(IDvInvocationStd& aInvocation, bool& aCloudConnected);
     /**
      * ReadList action.
      *
@@ -215,6 +267,14 @@ private:
      * Must be implemented iff EnableActionInvokeIndex was called.
      */
     virtual void InvokeIndex(IDvInvocationStd& aInvocation, uint32_t aIndex);
+    /**
+     * InvokeUri action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * InvokeUri action for the owning device.
+     * Must be implemented iff EnableActionInvokeUri was called.
+     */
+    virtual void InvokeUri(IDvInvocationStd& aInvocation, const std::string& aMode, const std::string& aType, const std::string& aUri, bool aShuffle);
     /**
      * SetDevice action.
      *
@@ -249,12 +309,15 @@ private:
     virtual void Swap(IDvInvocationStd& aInvocation, uint32_t aIndex1, uint32_t aIndex2);
 private:
     DvProviderAvOpenhomeOrgPins1Cpp();
-    void DoGetDeviceAccountMax(IDviInvocation& aInvocation);
+    void DoGetDeviceMax(IDviInvocation& aInvocation);
+    void DoGetAccountMax(IDviInvocation& aInvocation);
     void DoGetModes(IDviInvocation& aInvocation);
     void DoGetIdArray(IDviInvocation& aInvocation);
+    void DoGetCloudConnected(IDviInvocation& aInvocation);
     void DoReadList(IDviInvocation& aInvocation);
     void DoInvokeId(IDviInvocation& aInvocation);
     void DoInvokeIndex(IDviInvocation& aInvocation);
+    void DoInvokeUri(IDviInvocation& aInvocation);
     void DoSetDevice(IDviInvocation& aInvocation);
     void DoSetAccount(IDviInvocation& aInvocation);
     void DoClear(IDviInvocation& aInvocation);
@@ -264,6 +327,7 @@ private:
     PropertyUint* iPropertyAccountMax;
     PropertyString* iPropertyModes;
     PropertyString* iPropertyIdArray;
+    PropertyBool* iPropertyCloudConnected;
 };
 
 } // namespace Net

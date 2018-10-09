@@ -20,27 +20,20 @@ public:
     DvProviderLinnCoUkCloud1C(DvDeviceC aDevice);
     TBool SetPropertyAssociationStatus(const Brx& aValue);
     void GetPropertyAssociationStatus(Brhz& aValue);
-    TBool SetPropertyControlEnabled(TBool aValue);
-    void GetPropertyControlEnabled(TBool& aValue);
     TBool SetPropertyConnected(TBool aValue);
     void GetPropertyConnected(TBool& aValue);
     TBool SetPropertyPublicKey(const Brx& aValue);
     void GetPropertyPublicKey(Brhz& aValue);
     void EnablePropertyAssociationStatus();
-    void EnablePropertyControlEnabled();
     void EnablePropertyConnected();
     void EnablePropertyPublicKey();
     void EnableActionGetChallengeResponse(CallbackCloud1GetChallengeResponse aCallback, void* aPtr);
     void EnableActionSetAssociated(CallbackCloud1SetAssociated aCallback, void* aPtr);
-    void EnableActionSetControlEnabled(CallbackCloud1SetControlEnabled aCallback, void* aPtr);
-    void EnableActionGetControlEnabled(CallbackCloud1GetControlEnabled aCallback, void* aPtr);
     void EnableActionGetConnected(CallbackCloud1GetConnected aCallback, void* aPtr);
     void EnableActionGetPublicKey(CallbackCloud1GetPublicKey aCallback, void* aPtr);
 private:
     void DoGetChallengeResponse(IDviInvocation& aInvocation);
     void DoSetAssociated(IDviInvocation& aInvocation);
-    void DoSetControlEnabled(IDviInvocation& aInvocation);
-    void DoGetControlEnabled(IDviInvocation& aInvocation);
     void DoGetConnected(IDviInvocation& aInvocation);
     void DoGetPublicKey(IDviInvocation& aInvocation);
 private:
@@ -48,16 +41,11 @@ private:
     void* iPtrGetChallengeResponse;
     CallbackCloud1SetAssociated iCallbackSetAssociated;
     void* iPtrSetAssociated;
-    CallbackCloud1SetControlEnabled iCallbackSetControlEnabled;
-    void* iPtrSetControlEnabled;
-    CallbackCloud1GetControlEnabled iCallbackGetControlEnabled;
-    void* iPtrGetControlEnabled;
     CallbackCloud1GetConnected iCallbackGetConnected;
     void* iPtrGetConnected;
     CallbackCloud1GetPublicKey iCallbackGetPublicKey;
     void* iPtrGetPublicKey;
     PropertyString* iPropertyAssociationStatus;
-    PropertyBool* iPropertyControlEnabled;
     PropertyBool* iPropertyConnected;
     PropertyString* iPropertyPublicKey;
 };
@@ -66,7 +54,6 @@ DvProviderLinnCoUkCloud1C::DvProviderLinnCoUkCloud1C(DvDeviceC aDevice)
     : DvProvider(DviDeviceC::DeviceFromHandle(aDevice)->Device(), "linn.co.uk", "Cloud", 1)
 {
     iPropertyAssociationStatus = NULL;
-    iPropertyControlEnabled = NULL;
     iPropertyConnected = NULL;
     iPropertyPublicKey = NULL;
 }
@@ -81,18 +68,6 @@ void DvProviderLinnCoUkCloud1C::GetPropertyAssociationStatus(Brhz& aValue)
 {
     ASSERT(iPropertyAssociationStatus != NULL);
     aValue.Set(iPropertyAssociationStatus->Value());
-}
-
-TBool DvProviderLinnCoUkCloud1C::SetPropertyControlEnabled(TBool aValue)
-{
-    ASSERT(iPropertyControlEnabled != NULL);
-    return SetPropertyBool(*iPropertyControlEnabled, aValue);
-}
-
-void DvProviderLinnCoUkCloud1C::GetPropertyControlEnabled(TBool& aValue)
-{
-    ASSERT(iPropertyControlEnabled != NULL);
-    aValue = iPropertyControlEnabled->Value();
 }
 
 TBool DvProviderLinnCoUkCloud1C::SetPropertyConnected(TBool aValue)
@@ -132,12 +107,6 @@ void DvProviderLinnCoUkCloud1C::EnablePropertyAssociationStatus()
     iService->AddProperty(iPropertyAssociationStatus); // passes ownership
 }
 
-void DvProviderLinnCoUkCloud1C::EnablePropertyControlEnabled()
-{
-    iPropertyControlEnabled = new PropertyBool(new ParameterBool("ControlEnabled"));
-    iService->AddProperty(iPropertyControlEnabled); // passes ownership
-}
-
 void DvProviderLinnCoUkCloud1C::EnablePropertyConnected()
 {
     iPropertyConnected = new PropertyBool(new ParameterBool("Connected"));
@@ -171,26 +140,6 @@ void DvProviderLinnCoUkCloud1C::EnableActionSetAssociated(CallbackCloud1SetAssoc
     action->AddInputParameter(new ParameterBinary("TokenAesEncrypted"));
     action->AddInputParameter(new ParameterBool("Associated"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1C::DoSetAssociated);
-    iService->AddAction(action, functor);
-}
-
-void DvProviderLinnCoUkCloud1C::EnableActionSetControlEnabled(CallbackCloud1SetControlEnabled aCallback, void* aPtr)
-{
-    iCallbackSetControlEnabled = aCallback;
-    iPtrSetControlEnabled = aPtr;
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetControlEnabled");
-    action->AddInputParameter(new ParameterRelated("Enabled", *iPropertyControlEnabled));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1C::DoSetControlEnabled);
-    iService->AddAction(action, functor);
-}
-
-void DvProviderLinnCoUkCloud1C::EnableActionGetControlEnabled(CallbackCloud1GetControlEnabled aCallback, void* aPtr)
-{
-    iCallbackGetControlEnabled = aCallback;
-    iPtrGetControlEnabled = aPtr;
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetControlEnabled");
-    action->AddOutputParameter(new ParameterRelated("Enabled", *iPropertyControlEnabled));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkCloud1C::DoGetControlEnabled);
     iService->AddAction(action, functor);
 }
 
@@ -265,46 +214,6 @@ void DvProviderLinnCoUkCloud1C::DoSetAssociated(IDviInvocation& aInvocation)
     invocation.EndResponse();
 }
 
-void DvProviderLinnCoUkCloud1C::DoSetControlEnabled(IDviInvocation& aInvocation)
-{
-    DvInvocationCPrivate invocationWrapper(aInvocation);
-    IDvInvocationC* invocationC;
-    void* invocationCPtr;
-    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
-    aInvocation.InvocationReadStart();
-    TBool Enabled = aInvocation.InvocationReadBool("Enabled");
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    ASSERT(iCallbackSetControlEnabled != NULL);
-    if (0 != iCallbackSetControlEnabled(iPtrSetControlEnabled, invocationC, invocationCPtr, Enabled)) {
-        invocation.Error(502, Brn("Action failed"));
-        return;
-    }
-    invocation.StartResponse();
-    invocation.EndResponse();
-}
-
-void DvProviderLinnCoUkCloud1C::DoGetControlEnabled(IDviInvocation& aInvocation)
-{
-    DvInvocationCPrivate invocationWrapper(aInvocation);
-    IDvInvocationC* invocationC;
-    void* invocationCPtr;
-    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
-    aInvocation.InvocationReadStart();
-    aInvocation.InvocationReadEnd();
-    DviInvocation invocation(aInvocation);
-    uint32_t Enabled;
-    ASSERT(iCallbackGetControlEnabled != NULL);
-    if (0 != iCallbackGetControlEnabled(iPtrGetControlEnabled, invocationC, invocationCPtr, &Enabled)) {
-        invocation.Error(502, Brn("Action failed"));
-        return;
-    }
-    DviInvocationResponseBool respEnabled(aInvocation, "Enabled");
-    invocation.StartResponse();
-    respEnabled.Write((Enabled!=0));
-    invocation.EndResponse();
-}
-
 void DvProviderLinnCoUkCloud1C::DoGetConnected(IDviInvocation& aInvocation)
 {
     DvInvocationCPrivate invocationWrapper(aInvocation);
@@ -372,16 +281,6 @@ void STDCALL DvProviderLinnCoUkCloud1EnableActionSetAssociated(THandle aProvider
     reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->EnableActionSetAssociated(aCallback, aPtr);
 }
 
-void STDCALL DvProviderLinnCoUkCloud1EnableActionSetControlEnabled(THandle aProvider, CallbackCloud1SetControlEnabled aCallback, void* aPtr)
-{
-    reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->EnableActionSetControlEnabled(aCallback, aPtr);
-}
-
-void STDCALL DvProviderLinnCoUkCloud1EnableActionGetControlEnabled(THandle aProvider, CallbackCloud1GetControlEnabled aCallback, void* aPtr)
-{
-    reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->EnableActionGetControlEnabled(aCallback, aPtr);
-}
-
 void STDCALL DvProviderLinnCoUkCloud1EnableActionGetConnected(THandle aProvider, CallbackCloud1GetConnected aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->EnableActionGetConnected(aCallback, aPtr);
@@ -404,19 +303,6 @@ void STDCALL DvProviderLinnCoUkCloud1GetPropertyAssociationStatus(THandle aProvi
     Brhz buf;
     reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->GetPropertyAssociationStatus(buf);
     *aValue = (char*)buf.Transfer();
-}
-
-int32_t STDCALL DvProviderLinnCoUkCloud1SetPropertyControlEnabled(THandle aProvider, uint32_t aValue, uint32_t* aChanged)
-{
-    *aChanged = (reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->SetPropertyControlEnabled((aValue!=0))? 1 : 0);
-    return 0;
-}
-
-void STDCALL DvProviderLinnCoUkCloud1GetPropertyControlEnabled(THandle aProvider, uint32_t* aValue)
-{
-    TBool val;
-    reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->GetPropertyControlEnabled(val);
-    *aValue = (val? 1 : 0);
 }
 
 int32_t STDCALL DvProviderLinnCoUkCloud1SetPropertyConnected(THandle aProvider, uint32_t aValue, uint32_t* aChanged)
@@ -449,11 +335,6 @@ void STDCALL DvProviderLinnCoUkCloud1GetPropertyPublicKey(THandle aProvider, cha
 void STDCALL DvProviderLinnCoUkCloud1EnablePropertyAssociationStatus(THandle aProvider)
 {
     reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->EnablePropertyAssociationStatus();
-}
-
-void STDCALL DvProviderLinnCoUkCloud1EnablePropertyControlEnabled(THandle aProvider)
-{
-    reinterpret_cast<DvProviderLinnCoUkCloud1C*>(aProvider)->EnablePropertyControlEnabled();
 }
 
 void STDCALL DvProviderLinnCoUkCloud1EnablePropertyConnected(THandle aProvider)

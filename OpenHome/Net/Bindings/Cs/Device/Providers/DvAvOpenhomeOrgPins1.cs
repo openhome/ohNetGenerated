@@ -60,6 +60,19 @@ namespace OpenHome.Net.Device.Providers
         /// </summary>
         /// <returns>Value of the IdArray property.</param>
         string PropertyIdArray();
+
+        /// <summary>
+        /// Set the value of the CloudConnected property
+        /// </summary>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        bool SetPropertyCloudConnected(bool aValue);
+
+        /// <summary>
+        /// Get a copy of the value of the CloudConnected property
+        /// </summary>
+        /// <returns>Value of the CloudConnected property.</param>
+        bool PropertyCloudConnected();
         
     }
     /// <summary>
@@ -68,12 +81,15 @@ namespace OpenHome.Net.Device.Providers
     public class DvProviderAvOpenhomeOrgPins1 : DvProvider, IDisposable, IDvProviderAvOpenhomeOrgPins1
     {
         private GCHandle iGch;
-        private ActionDelegate iDelegateGetDeviceAccountMax;
+        private ActionDelegate iDelegateGetDeviceMax;
+        private ActionDelegate iDelegateGetAccountMax;
         private ActionDelegate iDelegateGetModes;
         private ActionDelegate iDelegateGetIdArray;
+        private ActionDelegate iDelegateGetCloudConnected;
         private ActionDelegate iDelegateReadList;
         private ActionDelegate iDelegateInvokeId;
         private ActionDelegate iDelegateInvokeIndex;
+        private ActionDelegate iDelegateInvokeUri;
         private ActionDelegate iDelegateSetDevice;
         private ActionDelegate iDelegateSetAccount;
         private ActionDelegate iDelegateClear;
@@ -82,6 +98,7 @@ namespace OpenHome.Net.Device.Providers
         private PropertyUint iPropertyAccountMax;
         private PropertyString iPropertyModes;
         private PropertyString iPropertyIdArray;
+        private PropertyBool iPropertyCloudConnected;
 
         /// <summary>
         /// Constructor
@@ -129,6 +146,15 @@ namespace OpenHome.Net.Device.Providers
             List<String> allowedValues = new List<String>();
             iPropertyIdArray = new PropertyString(new ParameterString("IdArray", allowedValues));
             AddProperty(iPropertyIdArray);
+        }
+
+        /// <summary>
+        /// Enable the CloudConnected property.
+        /// </summary>
+        public void EnablePropertyCloudConnected()
+        {
+            iPropertyCloudConnected = new PropertyBool(new ParameterBool("CloudConnected"));
+            AddProperty(iPropertyCloudConnected);
         }
 
         /// <summary>
@@ -232,17 +258,54 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// Signal that the action GetDeviceAccountMax is supported.
+        /// Set the value of the CloudConnected property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyCloudConnected has previously been called.</remarks>
+        /// <param name="aValue">New value for the property</param>
+        /// <returns>true if the value has been updated; false if aValue was the same as the previous value</returns>
+        public bool SetPropertyCloudConnected(bool aValue)
+        {
+            if (iPropertyCloudConnected == null)
+                throw new PropertyDisabledError();
+            return SetPropertyBool(iPropertyCloudConnected, aValue);
+        }
+
+        /// <summary>
+        /// Get a copy of the value of the CloudConnected property
+        /// </summary>
+        /// <remarks>Can only be called if EnablePropertyCloudConnected has previously been called.</remarks>
+        /// <returns>Value of the CloudConnected property.</returns>
+        public bool PropertyCloudConnected()
+        {
+            if (iPropertyCloudConnected == null)
+                throw new PropertyDisabledError();
+            return iPropertyCloudConnected.Value();
+        }
+
+        /// <summary>
+        /// Signal that the action GetDeviceMax is supported.
         /// </summary>
         /// <remarks>The action's availability will be published in the device's service.xml.
-        /// GetDeviceAccountMax must be overridden if this is called.</remarks>
-        protected void EnableActionGetDeviceAccountMax()
+        /// GetDeviceMax must be overridden if this is called.</remarks>
+        protected void EnableActionGetDeviceMax()
         {
-            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetDeviceAccountMax");
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetDeviceMax");
             action.AddOutputParameter(new ParameterRelated("DeviceMax", iPropertyDeviceMax));
+            iDelegateGetDeviceMax = new ActionDelegate(DoGetDeviceMax);
+            EnableAction(action, iDelegateGetDeviceMax, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action GetAccountMax is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// GetAccountMax must be overridden if this is called.</remarks>
+        protected void EnableActionGetAccountMax()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetAccountMax");
             action.AddOutputParameter(new ParameterRelated("AccountMax", iPropertyAccountMax));
-            iDelegateGetDeviceAccountMax = new ActionDelegate(DoGetDeviceAccountMax);
-            EnableAction(action, iDelegateGetDeviceAccountMax, GCHandle.ToIntPtr(iGch));
+            iDelegateGetAccountMax = new ActionDelegate(DoGetAccountMax);
+            EnableAction(action, iDelegateGetAccountMax, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -269,6 +332,19 @@ namespace OpenHome.Net.Device.Providers
             action.AddOutputParameter(new ParameterRelated("IdArray", iPropertyIdArray));
             iDelegateGetIdArray = new ActionDelegate(DoGetIdArray);
             EnableAction(action, iDelegateGetIdArray, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action GetCloudConnected is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// GetCloudConnected must be overridden if this is called.</remarks>
+        protected void EnableActionGetCloudConnected()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("GetCloudConnected");
+            action.AddOutputParameter(new ParameterRelated("CloudConnected", iPropertyCloudConnected));
+            iDelegateGetCloudConnected = new ActionDelegate(DoGetCloudConnected);
+            EnableAction(action, iDelegateGetCloudConnected, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -310,6 +386,23 @@ namespace OpenHome.Net.Device.Providers
             action.AddInputParameter(new ParameterUint("Index"));
             iDelegateInvokeIndex = new ActionDelegate(DoInvokeIndex);
             EnableAction(action, iDelegateInvokeIndex, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
+        /// Signal that the action InvokeUri is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// InvokeUri must be overridden if this is called.</remarks>
+        protected void EnableActionInvokeUri()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("InvokeUri");
+            List<String> allowedValues = new List<String>();
+            action.AddInputParameter(new ParameterString("Mode", allowedValues));
+            action.AddInputParameter(new ParameterString("Type", allowedValues));
+            action.AddInputParameter(new ParameterString("Uri", allowedValues));
+            action.AddInputParameter(new ParameterBool("Shuffle"));
+            iDelegateInvokeUri = new ActionDelegate(DoInvokeUri);
+            EnableAction(action, iDelegateInvokeUri, GCHandle.ToIntPtr(iGch));
         }
 
         /// <summary>
@@ -382,16 +475,29 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
-        /// GetDeviceAccountMax action.
+        /// GetDeviceMax action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
-        /// GetDeviceAccountMax action for the owning device.
+        /// GetDeviceMax action for the owning device.
         ///
-        /// Must be implemented iff EnableActionGetDeviceAccountMax was called.</remarks>
+        /// Must be implemented iff EnableActionGetDeviceMax was called.</remarks>
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aDeviceMax"></param>
+        protected virtual void GetDeviceMax(IDvInvocation aInvocation, out uint aDeviceMax)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// GetAccountMax action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// GetAccountMax action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionGetAccountMax was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aAccountMax"></param>
-        protected virtual void GetDeviceAccountMax(IDvInvocation aInvocation, out uint aDeviceMax, out uint aAccountMax)
+        protected virtual void GetAccountMax(IDvInvocation aInvocation, out uint aAccountMax)
         {
             throw (new ActionDisabledError());
         }
@@ -420,6 +526,20 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aIdArray"></param>
         protected virtual void GetIdArray(IDvInvocation aInvocation, out string aIdArray)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// GetCloudConnected action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// GetCloudConnected action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionGetCloudConnected was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aCloudConnected"></param>
+        protected virtual void GetCloudConnected(IDvInvocation aInvocation, out bool aCloudConnected)
         {
             throw (new ActionDisabledError());
         }
@@ -463,6 +583,23 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aIndex"></param>
         protected virtual void InvokeIndex(IDvInvocation aInvocation, uint aIndex)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// InvokeUri action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// InvokeUri action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionInvokeUri was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aMode"></param>
+        /// <param name="aType"></param>
+        /// <param name="aUri"></param>
+        /// <param name="aShuffle"></param>
+        protected virtual void InvokeUri(IDvInvocation aInvocation, string aMode, string aType, string aUri, bool aShuffle)
         {
             throw (new ActionDisabledError());
         }
@@ -538,32 +675,31 @@ namespace OpenHome.Net.Device.Providers
             throw (new ActionDisabledError());
         }
 
-        private static int DoGetDeviceAccountMax(IntPtr aPtr, IntPtr aInvocation)
+        private static int DoGetDeviceMax(IntPtr aPtr, IntPtr aInvocation)
         {
             GCHandle gch = GCHandle.FromIntPtr(aPtr);
             DvProviderAvOpenhomeOrgPins1 self = (DvProviderAvOpenhomeOrgPins1)gch.Target;
             DvInvocation invocation = new DvInvocation(aInvocation);
             uint deviceMax;
-            uint accountMax;
             try
             {
                 invocation.ReadStart();
                 invocation.ReadEnd();
-                self.GetDeviceAccountMax(invocation, out deviceMax, out accountMax);
+                self.GetDeviceMax(invocation, out deviceMax);
             }
             catch (ActionError e)
             {
-                invocation.ReportActionError(e, "GetDeviceAccountMax");
+                invocation.ReportActionError(e, "GetDeviceMax");
                 return -1;
             }
             catch (PropertyUpdateError)
             {
-                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetDeviceAccountMax" }));
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetDeviceMax" }));
                 return -1;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetDeviceAccountMax" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetDeviceMax" });
                 System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
                 return -1;
             }
@@ -571,6 +707,51 @@ namespace OpenHome.Net.Device.Providers
             {
                 invocation.WriteStart();
                 invocation.WriteUint("DeviceMax", deviceMax);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetDeviceMax" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoGetAccountMax(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderAvOpenhomeOrgPins1 self = (DvProviderAvOpenhomeOrgPins1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            uint accountMax;
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.GetAccountMax(invocation, out accountMax);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "GetAccountMax");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetAccountMax" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetAccountMax" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
                 invocation.WriteUint("AccountMax", accountMax);
                 invocation.WriteEnd();
             }
@@ -580,7 +761,7 @@ namespace OpenHome.Net.Device.Providers
             }
             catch (System.Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetDeviceAccountMax" });
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetAccountMax" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
@@ -673,6 +854,52 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetIdArray" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoGetCloudConnected(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderAvOpenhomeOrgPins1 self = (DvProviderAvOpenhomeOrgPins1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            bool cloudConnected;
+            try
+            {
+                invocation.ReadStart();
+                invocation.ReadEnd();
+                self.GetCloudConnected(invocation, out cloudConnected);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "GetCloudConnected");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "GetCloudConnected" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetCloudConnected" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteBool("CloudConnected", cloudConnected);
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "GetCloudConnected" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;
@@ -813,6 +1040,58 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "InvokeIndex" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoInvokeUri(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderAvOpenhomeOrgPins1 self = (DvProviderAvOpenhomeOrgPins1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string mode;
+            string type;
+            string uri;
+            bool shuffle;
+            try
+            {
+                invocation.ReadStart();
+                mode = invocation.ReadString("Mode");
+                type = invocation.ReadString("Type");
+                uri = invocation.ReadString("Uri");
+                shuffle = invocation.ReadBool("Shuffle");
+                invocation.ReadEnd();
+                self.InvokeUri(invocation, mode, type, uri, shuffle);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "InvokeUri");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "InvokeUri" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "InvokeUri" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "InvokeUri" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

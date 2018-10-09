@@ -31,14 +31,6 @@ public:
     void BeginSetAssociated(const Brx& aAesKeyRsaEncrypted, const Brx& aInitVectorRsaEncrypted, const Brx& aTokenAesEncrypted, TBool aAssociated, FunctorAsync& aFunctor);
     void EndSetAssociated(IAsync& aAsync);
 
-    void SyncSetControlEnabled(TBool aEnabled);
-    void BeginSetControlEnabled(TBool aEnabled, FunctorAsync& aFunctor);
-    void EndSetControlEnabled(IAsync& aAsync);
-
-    void SyncGetControlEnabled(TBool& aEnabled);
-    void BeginGetControlEnabled(FunctorAsync& aFunctor);
-    void EndGetControlEnabled(IAsync& aAsync, TBool& aEnabled);
-
     void SyncGetConnected(TBool& aConnected);
     void BeginGetConnected(FunctorAsync& aFunctor);
     void EndGetConnected(IAsync& aAsync, TBool& aConnected);
@@ -48,33 +40,26 @@ public:
     void EndGetPublicKey(IAsync& aAsync, Brh& aPublicKey);
 
     void SetPropertyAssociationStatusChanged(Functor& aFunctor);
-    void SetPropertyControlEnabledChanged(Functor& aFunctor);
     void SetPropertyConnectedChanged(Functor& aFunctor);
     void SetPropertyPublicKeyChanged(Functor& aFunctor);
 
     void PropertyAssociationStatus(Brhz& aAssociationStatus) const;
-    void PropertyControlEnabled(TBool& aControlEnabled) const;
     void PropertyConnected(TBool& aConnected) const;
     void PropertyPublicKey(Brhz& aPublicKey) const;
 private:
     void AssociationStatusPropertyChanged();
-    void ControlEnabledPropertyChanged();
     void ConnectedPropertyChanged();
     void PublicKeyPropertyChanged();
 private:
     Mutex iLock;
     Action* iActionGetChallengeResponse;
     Action* iActionSetAssociated;
-    Action* iActionSetControlEnabled;
-    Action* iActionGetControlEnabled;
     Action* iActionGetConnected;
     Action* iActionGetPublicKey;
     PropertyString* iAssociationStatus;
-    PropertyBool* iControlEnabled;
     PropertyBool* iConnected;
     PropertyString* iPublicKey;
     Functor iAssociationStatusChanged;
-    Functor iControlEnabledChanged;
     Functor iConnectedChanged;
     Functor iPublicKeyChanged;
 };
@@ -121,50 +106,6 @@ SyncSetAssociatedLinnCoUkCloud1C::SyncSetAssociatedLinnCoUkCloud1C(CpProxyLinnCo
 void SyncSetAssociatedLinnCoUkCloud1C::CompleteRequest(IAsync& aAsync)
 {
     iService.EndSetAssociated(aAsync);
-}
-
-
-class SyncSetControlEnabledLinnCoUkCloud1C : public SyncProxyAction
-{
-public:
-    SyncSetControlEnabledLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncSetControlEnabledLinnCoUkCloud1C() {};
-private:
-    CpProxyLinnCoUkCloud1C& iService;
-};
-
-SyncSetControlEnabledLinnCoUkCloud1C::SyncSetControlEnabledLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy)
-    : iService(aProxy)
-{
-}
-
-void SyncSetControlEnabledLinnCoUkCloud1C::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndSetControlEnabled(aAsync);
-}
-
-
-class SyncGetControlEnabledLinnCoUkCloud1C : public SyncProxyAction
-{
-public:
-    SyncGetControlEnabledLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy, TBool& aEnabled);
-    virtual void CompleteRequest(IAsync& aAsync);
-    virtual ~SyncGetControlEnabledLinnCoUkCloud1C() {};
-private:
-    CpProxyLinnCoUkCloud1C& iService;
-    TBool& iEnabled;
-};
-
-SyncGetControlEnabledLinnCoUkCloud1C::SyncGetControlEnabledLinnCoUkCloud1C(CpProxyLinnCoUkCloud1C& aProxy, TBool& aEnabled)
-    : iService(aProxy)
-    , iEnabled(aEnabled)
-{
-}
-
-void SyncGetControlEnabledLinnCoUkCloud1C::CompleteRequest(IAsync& aAsync)
-{
-    iService.EndGetControlEnabled(aAsync, iEnabled);
 }
 
 
@@ -235,14 +176,6 @@ CpProxyLinnCoUkCloud1C::CpProxyLinnCoUkCloud1C(CpDeviceC aDevice)
     param = new OpenHome::Net::ParameterBool("Associated");
     iActionSetAssociated->AddInputParameter(param);
 
-    iActionSetControlEnabled = new Action("SetControlEnabled");
-    param = new OpenHome::Net::ParameterBool("Enabled");
-    iActionSetControlEnabled->AddInputParameter(param);
-
-    iActionGetControlEnabled = new Action("GetControlEnabled");
-    param = new OpenHome::Net::ParameterBool("Enabled");
-    iActionGetControlEnabled->AddOutputParameter(param);
-
     iActionGetConnected = new Action("GetConnected");
     param = new OpenHome::Net::ParameterBool("Connected");
     iActionGetConnected->AddOutputParameter(param);
@@ -255,9 +188,6 @@ CpProxyLinnCoUkCloud1C::CpProxyLinnCoUkCloud1C(CpDeviceC aDevice)
     functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1C::AssociationStatusPropertyChanged);
     iAssociationStatus = new PropertyString("AssociationStatus", functor);
     AddProperty(iAssociationStatus);
-    functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1C::ControlEnabledPropertyChanged);
-    iControlEnabled = new PropertyBool("ControlEnabled", functor);
-    AddProperty(iControlEnabled);
     functor = MakeFunctor(*this, &CpProxyLinnCoUkCloud1C::ConnectedPropertyChanged);
     iConnected = new PropertyBool("Connected", functor);
     AddProperty(iConnected);
@@ -271,8 +201,6 @@ CpProxyLinnCoUkCloud1C::~CpProxyLinnCoUkCloud1C()
     DestroyService();
     delete iActionGetChallengeResponse;
     delete iActionSetAssociated;
-    delete iActionSetControlEnabled;
-    delete iActionGetControlEnabled;
     delete iActionGetConnected;
     delete iActionGetPublicKey;
 }
@@ -343,68 +271,6 @@ void CpProxyLinnCoUkCloud1C::EndSetAssociated(IAsync& aAsync)
     if (invocation.Error(level, code, ignore)) {
         THROW_PROXYERROR(level, code);
     }
-}
-
-void CpProxyLinnCoUkCloud1C::SyncSetControlEnabled(TBool aEnabled)
-{
-    SyncSetControlEnabledLinnCoUkCloud1C sync(*this);
-    BeginSetControlEnabled(aEnabled, sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkCloud1C::BeginSetControlEnabled(TBool aEnabled, FunctorAsync& aFunctor)
-{
-    Invocation* invocation = Service()->Invocation(*iActionSetControlEnabled, aFunctor);
-    TUint inIndex = 0;
-    const Action::VectorParameters& inParams = iActionSetControlEnabled->InputParameters();
-    invocation->AddInput(new ArgumentBool(*inParams[inIndex++], aEnabled));
-    Invocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkCloud1C::EndSetControlEnabled(IAsync& aAsync)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("SetControlEnabled"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-}
-
-void CpProxyLinnCoUkCloud1C::SyncGetControlEnabled(TBool& aEnabled)
-{
-    SyncGetControlEnabledLinnCoUkCloud1C sync(*this, aEnabled);
-    BeginGetControlEnabled(sync.Functor());
-    sync.Wait();
-}
-
-void CpProxyLinnCoUkCloud1C::BeginGetControlEnabled(FunctorAsync& aFunctor)
-{
-    Invocation* invocation = Service()->Invocation(*iActionGetControlEnabled, aFunctor);
-    TUint outIndex = 0;
-    const Action::VectorParameters& outParams = iActionGetControlEnabled->OutputParameters();
-    invocation->AddOutput(new ArgumentBool(*outParams[outIndex++]));
-    Invocable().InvokeAction(*invocation);
-}
-
-void CpProxyLinnCoUkCloud1C::EndGetControlEnabled(IAsync& aAsync, TBool& aEnabled)
-{
-    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
-    Invocation& invocation = (Invocation&)aAsync;
-    ASSERT(invocation.Action().Name() == Brn("GetControlEnabled"));
-
-    Error::ELevel level;
-    TUint code;
-    const TChar* ignore;
-    if (invocation.Error(level, code, ignore)) {
-        THROW_PROXYERROR(level, code);
-    }
-    TUint index = 0;
-    aEnabled = ((ArgumentBool*)invocation.OutputArguments()[index++])->Value();
 }
 
 void CpProxyLinnCoUkCloud1C::SyncGetConnected(TBool& aConnected)
@@ -478,13 +344,6 @@ void CpProxyLinnCoUkCloud1C::SetPropertyAssociationStatusChanged(Functor& aFunct
     iLock.Signal();
 }
 
-void CpProxyLinnCoUkCloud1C::SetPropertyControlEnabledChanged(Functor& aFunctor)
-{
-    iLock.Wait();
-    iControlEnabledChanged = aFunctor;
-    iLock.Signal();
-}
-
 void CpProxyLinnCoUkCloud1C::SetPropertyConnectedChanged(Functor& aFunctor)
 {
     iLock.Wait();
@@ -506,13 +365,6 @@ void CpProxyLinnCoUkCloud1C::PropertyAssociationStatus(Brhz& aAssociationStatus)
     aAssociationStatus.Set(iAssociationStatus->Value());
 }
 
-void CpProxyLinnCoUkCloud1C::PropertyControlEnabled(TBool& aControlEnabled) const
-{
-    AutoMutex a(GetPropertyReadLock());
-    CheckSubscribed();
-    aControlEnabled = iControlEnabled->Value();
-}
-
 void CpProxyLinnCoUkCloud1C::PropertyConnected(TBool& aConnected) const
 {
     AutoMutex a(GetPropertyReadLock());
@@ -530,11 +382,6 @@ void CpProxyLinnCoUkCloud1C::PropertyPublicKey(Brhz& aPublicKey) const
 void CpProxyLinnCoUkCloud1C::AssociationStatusPropertyChanged()
 {
     ReportEvent(iAssociationStatusChanged);
-}
-
-void CpProxyLinnCoUkCloud1C::ControlEnabledPropertyChanged()
-{
-    ReportEvent(iControlEnabledChanged);
 }
 
 void CpProxyLinnCoUkCloud1C::ConnectedPropertyChanged()
@@ -655,87 +502,6 @@ int32_t STDCALL CpProxyLinnCoUkCloud1EndSetAssociated(THandle aHandle, OhNetHand
     return err;
 }
 
-int32_t STDCALL CpProxyLinnCoUkCloud1SyncSetControlEnabled(THandle aHandle, uint32_t aEnabled)
-{
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    int32_t err = 0;
-    try {
-        proxyC->SyncSetControlEnabled((aEnabled==0? false : true));
-    }
-    catch (ProxyError& ) {
-        err = -1;
-    }
-    return err;
-}
-
-void STDCALL CpProxyLinnCoUkCloud1BeginSetControlEnabled(THandle aHandle, uint32_t aEnabled, OhNetCallbackAsync aCallback, void* aPtr)
-{
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginSetControlEnabled((aEnabled==0? false : true), functor);
-}
-
-int32_t STDCALL CpProxyLinnCoUkCloud1EndSetControlEnabled(THandle aHandle, OhNetHandleAsync aAsync)
-{
-    int32_t err = 0;
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
-    ASSERT(async != NULL);
-    try {
-        proxyC->EndSetControlEnabled(*async);
-    }
-    catch(...) {
-        err = -1;
-    }
-    return err;
-}
-
-int32_t STDCALL CpProxyLinnCoUkCloud1SyncGetControlEnabled(THandle aHandle, uint32_t* aEnabled)
-{
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    TBool Enabled;
-    int32_t err = 0;
-    try {
-        proxyC->SyncGetControlEnabled(Enabled);
-        *aEnabled = Enabled? 1 : 0;
-    }
-    catch (ProxyError& ) {
-        err = -1;
-        *aEnabled = false;
-    }
-    return err;
-}
-
-void STDCALL CpProxyLinnCoUkCloud1BeginGetControlEnabled(THandle aHandle, OhNetCallbackAsync aCallback, void* aPtr)
-{
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
-    proxyC->BeginGetControlEnabled(functor);
-}
-
-int32_t STDCALL CpProxyLinnCoUkCloud1EndGetControlEnabled(THandle aHandle, OhNetHandleAsync aAsync, uint32_t* aEnabled)
-{
-    int32_t err = 0;
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
-    ASSERT(async != NULL);
-    TBool Enabled;
-    try {
-        proxyC->EndGetControlEnabled(*async, Enabled);
-        *aEnabled = Enabled? 1 : 0;
-    }
-    catch(...) {
-        err = -1;
-    }
-    return err;
-}
-
 int32_t STDCALL CpProxyLinnCoUkCloud1SyncGetConnected(THandle aHandle, uint32_t* aConnected)
 {
     CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
@@ -831,14 +597,6 @@ void STDCALL CpProxyLinnCoUkCloud1SetPropertyAssociationStatusChanged(THandle aH
     proxyC->SetPropertyAssociationStatusChanged(functor);
 }
 
-void STDCALL CpProxyLinnCoUkCloud1SetPropertyControlEnabledChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
-{
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    Functor functor = MakeFunctor(aPtr, aCallback);
-    proxyC->SetPropertyControlEnabledChanged(functor);
-}
-
 void STDCALL CpProxyLinnCoUkCloud1SetPropertyConnectedChanged(THandle aHandle, OhNetCallback aCallback, void* aPtr)
 {
     CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
@@ -867,21 +625,6 @@ int32_t STDCALL CpProxyLinnCoUkCloud1PropertyAssociationStatus(THandle aHandle, 
         return -1;
     }
     *aAssociationStatus = buf_aAssociationStatus.Transfer();
-    return 0;
-}
-
-int32_t STDCALL CpProxyLinnCoUkCloud1PropertyControlEnabled(THandle aHandle, uint32_t* aControlEnabled)
-{
-    CpProxyLinnCoUkCloud1C* proxyC = reinterpret_cast<CpProxyLinnCoUkCloud1C*>(aHandle);
-    ASSERT(proxyC != NULL);
-    TBool ControlEnabled;
-    try {
-        proxyC->PropertyControlEnabled(ControlEnabled);
-    }
-    catch (ProxyNotSubscribed&) {
-        return -1;
-    }
-    *aControlEnabled = ControlEnabled? 1 : 0;
     return 0;
 }
 

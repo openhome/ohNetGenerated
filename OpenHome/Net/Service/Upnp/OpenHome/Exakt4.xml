@@ -36,32 +36,57 @@
         </action>
 
         <action>
-            <name>SettingsAvailable</name>
+            <name>ConnectionStatus</name>
             <argumentList>
                 <argument>
-                    <name>SettingsAvailable</name>
+                    <name>ConnectionStatus</name>
                     <direction>out</direction>
-                    <relatedStateVariable>SettingsAvailable</relatedStateVariable>
+                    <relatedStateVariable>ConnectionStatus</relatedStateVariable>
                 </argument>
             </argumentList>
         </action>
 
         <action>
-            <name>SettingsChangedCount</name>
+            <name>Set</name>
             <argumentList>
                 <argument>
-                    <name>SettingsChangedCount</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>SettingsChangedCount</relatedStateVariable>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>BankId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uint</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>FileUri</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uri</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Mute</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Bool</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Persist</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Bool</relatedStateVariable>
                 </argument>
             </argumentList>
         </action>
 
         <action>
-            <name>Update</name>
+            <name>Reprogram</name>
             <argumentList>
                 <argument>
-                    <name>ManifestUri</name>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>FileUri</name>
                     <direction>in</direction>
                     <relatedStateVariable>A_ARG_TYPE_Uri</relatedStateVariable>
                 </argument>
@@ -69,48 +94,17 @@
         </action>
 
         <action>
-            <name>UpdateBlocking</name>
+            <name>ReprogramFallback</name>
             <argumentList>
                 <argument>
-                    <name>ManifestUri</name>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>FileUri</name>
                     <direction>in</direction>
                     <relatedStateVariable>A_ARG_TYPE_Uri</relatedStateVariable>
-                </argument>
-            </argumentList>
-        </action>
-
-        <action>
-            <name>GetUpdateStatus</name>
-            <argumentList>
-                <argument>
-                    <name>UpdateStatus</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>UpdateStatus</relatedStateVariable>
-                </argument>
-                <argument>
-                    <name>UpdateTotalPercentage</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>UpdateTotalPercentage</relatedStateVariable>
-                </argument>
-                <argument>
-                    <name>UpdateTotalJobs</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>UpdateTotalJobs</relatedStateVariable>
-                </argument>
-                <argument>
-                    <name>UpdateJob</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>UpdateJob</relatedStateVariable>
-                </argument>
-                <argument>
-                    <name>UpdateJobPercentage</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>UpdateJobPercentage</relatedStateVariable>
-                </argument>
-                <argument>
-                    <name>UpdateJobDescription</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>UpdateJobDescription</relatedStateVariable>
                 </argument>
             </argumentList>
         </action>
@@ -170,55 +164,20 @@
             </argumentList>
         </action>
 
-        <!--
         <action>
-            <name>GetFeed</name>
+            <name>GetIntegratedDevicesPresent</name>
             <argumentList>
                 <argument>
-                    <name>Feed</name>
+                    <name>IntegratedDevicesPresent</name>
                     <direction>out</direction>
-                    <relatedStateVariable>Feed</relatedStateVariable>
+                    <relatedStateVariable>IntegratedDevicesPresent</relatedStateVariable>
                 </argument>
             </argumentList>
         </action>
 
         <action>
-            <name>SetFeed</name>
-            <argumentList>
-                <argument>
-                    <name>Feed</name>
-                    <direction>in</direction>
-                    <relatedStateVariable>Feed</relatedStateVariable>
-                </argument>
-            </argumentList>
+            <name>BootIntegratedDevicesToFallback</name>
         </action>
-
-        <action>
-            <name>GetAutoUpdate</name>
-            <argumentList>
-                <argument>
-                    <name>AutoUpdate</name>
-                    <direction>out</direction>
-                    <relatedStateVariable>AutoUpdate</relatedStateVariable>
-                </argument>
-            </argumentList>
-        </action>
-
-        <action>
-            <name>SetAutoUpdate</name>
-            <argumentList>
-                <argument>
-                    <name>AutoUpdate</name>
-                    <direction>in</direction>
-                    <relatedStateVariable>AutoUpdate</relatedStateVariable>
-                </argument>
-            </argumentList>
-        </action>
-
-        <action>
-            <name>ApplyUpdate</name>
-        </action>
-        -->
 
     </actionList>
 
@@ -228,35 +187,7 @@
             <dataType>string</dataType>
         </stateVariable>
         <stateVariable sendEvents="yes">
-            <name>SettingsAvailable</name>
-            <dataType>boolean</dataType>
-        </stateVariable>
-        <stateVariable sendEvents="yes">
-            <name>SettingsChangedCount</name>
-            <dataType>ui4</dataType>
-        </stateVariable>
-        <stateVariable sendEvents="yes">
-            <name>UpdateStatus</name>
-            <dataType>string</dataType>
-        </stateVariable>
-        <stateVariable sendEvents="yes">
-            <name>UpdateTotalPercentage</name>
-            <dataType>ui4</dataType>
-        </stateVariable>
-        <stateVariable sendEvents="yes">
-            <name>UpdateTotalJobs</name>
-            <dataType>ui4</dataType>
-        </stateVariable>
-        <stateVariable sendEvents="yes">
-            <name>UpdateJob</name>
-            <dataType>ui4</dataType>
-        </stateVariable>
-        <stateVariable sendEvents="yes">
-            <name>UpdateJobPercentage</name>
-            <dataType>ui4</dataType>
-        </stateVariable>
-        <stateVariable sendEvents="yes">
-            <name>UpdateJobDescription</name>
+            <name>ConnectionStatus</name>
             <dataType>string</dataType>
         </stateVariable>
         <stateVariable sendEvents="yes">
@@ -269,18 +200,12 @@
         </stateVariable>
         <stateVariable sendEvents="yes">
             <name>Version</name>
-            <dataType>ui4</dataType>
-        </stateVariable>
-        <!-->
-        <stateVariable sendEvents="yes">
-            <name>Feed</name>
-            <dataType>uri</dataType>
+            <dataType>string</dataType>
         </stateVariable>
         <stateVariable sendEvents="yes">
-            <name>AutoUpdate</name>
+            <name>IntegratedDevicesPresent</name>
             <dataType>boolean</dataType>
         </stateVariable>
-        -->
         <stateVariable sendEvents="no">
             <name>A_ARG_TYPE_String</name>
             <dataType>string</dataType>

@@ -26,22 +26,6 @@ interface IDvProviderLinnCoUkCloud1
     public String getPropertyAssociationStatus();
 
     /**
-     * Set the value of the ControlEnabled property
-     *
-     * @param aValue    new value for the property.
-     * @return      <tt>true</tt> if the value has been updated; <tt>false</tt> if <tt>aValue</tt> was the same as the previous value.
-     *
-     */
-    public boolean setPropertyControlEnabled(boolean aValue);
-
-    /**
-     * Get a copy of the value of the ControlEnabled property
-     *
-     * @return value of the ControlEnabled property.
-     */
-    public boolean getPropertyControlEnabled();
-
-    /**
      * Set the value of the Connected property
      *
      * @param aValue    new value for the property.
@@ -83,12 +67,9 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
 
     private IDvInvocationListener iDelegateGetChallengeResponse;
     private IDvInvocationListener iDelegateSetAssociated;
-    private IDvInvocationListener iDelegateSetControlEnabled;
-    private IDvInvocationListener iDelegateGetControlEnabled;
     private IDvInvocationListener iDelegateGetConnected;
     private IDvInvocationListener iDelegateGetPublicKey;
     private PropertyString iPropertyAssociationStatus;
-    private PropertyBool iPropertyControlEnabled;
     private PropertyBool iPropertyConnected;
     private PropertyString iPropertyPublicKey;
 
@@ -114,15 +95,6 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
         iPropertyAssociationStatus = new PropertyString(new ParameterString("AssociationStatus", allowedValues));
         addProperty(iPropertyAssociationStatus);
             allowedValues.clear();
-    }
-
-    /**
-     * Enable the ControlEnabled property.
-     */
-    public void enablePropertyControlEnabled()
-    {
-        iPropertyControlEnabled = new PropertyBool(new ParameterBool("ControlEnabled"));
-        addProperty(iPropertyControlEnabled);
     }
 
     /**
@@ -164,28 +136,6 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
     public String getPropertyAssociationStatus()
     {
         return iPropertyAssociationStatus.getValue();
-    }
-
-    /**
-     * Set the value of the ControlEnabled property
-     *
-     * @param aValue    new value for the property.
-     * @return <tt>true</tt> if the value has been updated; <tt>false</tt>
-     * if <tt>aValue</tt> was the same as the previous value.
-     */
-    public boolean setPropertyControlEnabled(boolean aValue)
-    {
-        return setPropertyBool(iPropertyControlEnabled, aValue);
-    }
-
-    /**
-     * Get a copy of the value of the ControlEnabled property
-     *
-     * @return  value of the ControlEnabled property.
-     */
-    public boolean getPropertyControlEnabled()
-    {
-        return iPropertyControlEnabled.getValue();
     }
 
     /**
@@ -265,34 +215,6 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
     }
 
     /**
-     * Signal that the action SetControlEnabled is supported.
-     *
-     * <p>The action's availability will be published in the device's service.xml.
-     * SetControlEnabled must be overridden if this is called.
-     */      
-    protected void enableActionSetControlEnabled()
-    {
-        Action action = new Action("SetControlEnabled");
-        action.addInputParameter(new ParameterRelated("Enabled", iPropertyControlEnabled));
-        iDelegateSetControlEnabled = new DoSetControlEnabled();
-        enableAction(action, iDelegateSetControlEnabled);
-    }
-
-    /**
-     * Signal that the action GetControlEnabled is supported.
-     *
-     * <p>The action's availability will be published in the device's service.xml.
-     * GetControlEnabled must be overridden if this is called.
-     */      
-    protected void enableActionGetControlEnabled()
-    {
-        Action action = new Action("GetControlEnabled");
-        action.addOutputParameter(new ParameterRelated("Enabled", iPropertyControlEnabled));
-        iDelegateGetControlEnabled = new DoGetControlEnabled();
-        enableAction(action, iDelegateGetControlEnabled);
-    }
-
-    /**
      * Signal that the action GetConnected is supported.
      *
      * <p>The action's availability will be published in the device's service.xml.
@@ -351,37 +273,6 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
      * @param aAssociated
      */
     protected void setAssociated(IDvInvocation aInvocation, byte[] aAesKeyRsaEncrypted, byte[] aInitVectorRsaEncrypted, byte[] aTokenAesEncrypted, boolean aAssociated)
-    {
-        throw (new ActionDisabledError());
-    }
-
-    /**
-     * SetControlEnabled action.
-     *
-     * <p>Will be called when the device stack receives an invocation of the
-     * SetControlEnabled action for the owning device.
-     *
-     * <p>Must be implemented iff {@link #enableActionSetControlEnabled} was called.</remarks>
-     *
-     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     * @param aEnabled
-     */
-    protected void setControlEnabled(IDvInvocation aInvocation, boolean aEnabled)
-    {
-        throw (new ActionDisabledError());
-    }
-
-    /**
-     * GetControlEnabled action.
-     *
-     * <p>Will be called when the device stack receives an invocation of the
-     * GetControlEnabled action for the owning device.
-     *
-     * <p>Must be implemented iff {@link #enableActionGetControlEnabled} was called.</remarks>
-     *
-     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
-     */
-    protected boolean getControlEnabled(IDvInvocation aInvocation)
     {
         throw (new ActionDisabledError());
     }
@@ -522,102 +413,6 @@ public class DvProviderLinnCoUkCloud1 extends DvProvider implements IDvProviderL
             try
             {
                 invocation.writeStart();
-                invocation.writeEnd();
-            }
-            catch (ActionError ae)
-            {
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("ERROR: unexpected exception: " + e.getMessage());
-                System.out.println("       Only ActionError can be thrown by action response writer");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class DoSetControlEnabled implements IDvInvocationListener
-    {
-        public void actionInvoked(long aInvocation)
-        {
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean enabled;
-            try
-            {
-                invocation.readStart();
-                enabled = invocation.readBool("Enabled");
-                invocation.readEnd();
-                setControlEnabled(invocation, enabled);
-            }
-            catch (ActionError ae)
-            {
-                invocation.reportActionError(ae, "SetControlEnabled");
-                return;
-            }
-            catch (PropertyUpdateError pue)
-            {
-                invocation.reportError(501, "Invalid XML");
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("WARNING: unexpected exception: " + e.getMessage());
-                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
-                e.printStackTrace();
-                return;
-            }
-            try
-            {
-                invocation.writeStart();
-                invocation.writeEnd();
-            }
-            catch (ActionError ae)
-            {
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("ERROR: unexpected exception: " + e.getMessage());
-                System.out.println("       Only ActionError can be thrown by action response writer");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class DoGetControlEnabled implements IDvInvocationListener
-    {
-        public void actionInvoked(long aInvocation)
-        {
-            DvInvocation invocation = new DvInvocation(aInvocation);
-            boolean enabled;
-            try
-            {
-                invocation.readStart();
-                invocation.readEnd();
-                 enabled = getControlEnabled(invocation);
-            }
-            catch (ActionError ae)
-            {
-                invocation.reportActionError(ae, "GetControlEnabled");
-                return;
-            }
-            catch (PropertyUpdateError pue)
-            {
-                invocation.reportError(501, "Invalid XML");
-                return;
-            }
-            catch (Exception e)
-            {
-                System.out.println("WARNING: unexpected exception: " + e.getMessage());
-                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
-                e.printStackTrace();
-                return;
-            }
-            try
-            {
-                invocation.writeStart();
-                invocation.writeBool("Enabled", enabled);
                 invocation.writeEnd();
             }
             catch (ActionError ae)

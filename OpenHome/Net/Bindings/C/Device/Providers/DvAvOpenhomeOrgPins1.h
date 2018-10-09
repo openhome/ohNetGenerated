@@ -20,18 +20,29 @@ extern "C" {
  */
 
 /**
- * Callback which runs when the GetDeviceAccountMax action is invoked
+ * Callback which runs when the GetDeviceMax action is invoked
  *
- * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgPins1EnableActionGetDeviceAccountMax
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgPins1EnableActionGetDeviceMax
  * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
  *                            and other queries.
  * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[out] aDeviceMax
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackPins1GetDeviceMax)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aDeviceMax);
+/**
+ * Callback which runs when the GetAccountMax action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgPins1EnableActionGetAccountMax
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
  * @param[out] aAccountMax
  *
  * @return  0 if the action succeeded; non-zero if the action failed
  */
-typedef int32_t (STDCALL *CallbackPins1GetDeviceAccountMax)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aDeviceMax, uint32_t* aAccountMax);
+typedef int32_t (STDCALL *CallbackPins1GetAccountMax)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aAccountMax);
 /**
  * Callback which runs when the GetModes action is invoked
  *
@@ -56,6 +67,18 @@ typedef int32_t (STDCALL *CallbackPins1GetModes)(void* aPtr, IDvInvocationC* aIn
  * @return  0 if the action succeeded; non-zero if the action failed
  */
 typedef int32_t (STDCALL *CallbackPins1GetIdArray)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, char** aIdArray);
+/**
+ * Callback which runs when the GetCloudConnected action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgPins1EnableActionGetCloudConnected
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ * @param[out] aCloudConnected
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackPins1GetCloudConnected)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t* aCloudConnected);
 /**
  * Callback which runs when the ReadList action is invoked
  *
@@ -93,6 +116,21 @@ typedef int32_t (STDCALL *CallbackPins1InvokeId)(void* aPtr, IDvInvocationC* aIn
  * @return  0 if the action succeeded; non-zero if the action failed
  */
 typedef int32_t (STDCALL *CallbackPins1InvokeIndex)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, uint32_t aIndex);
+/**
+ * Callback which runs when the InvokeUri action is invoked
+ *
+ * @param[in]  aPtr           Opaque data passed to DvProviderAvOpenhomeOrgPins1EnableActionInvokeUri
+ * @param[in]  aInvocation    Table of function pointers allowing access to the version of the service being used
+ *                            and other queries.
+ * @param[in] aInvocationPtr  aPtr argument to all functions contained in aInvocation.
+ * @param[in]  aMode
+ * @param[in]  aType
+ * @param[in]  aUri
+ * @param[in]  aShuffle
+ *
+ * @return  0 if the action succeeded; non-zero if the action failed
+ */
+typedef int32_t (STDCALL *CallbackPins1InvokeUri)(void* aPtr, IDvInvocationC* aInvocation, void* aInvocationPtr, const char* aMode, const char* aType, const char* aUri, uint32_t aShuffle);
 /**
  * Callback which runs when the SetDevice action is invoked
  *
@@ -189,9 +227,13 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyModes(THandle a
  * Enable the IdArray property.
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyIdArray(THandle aProvider);
+/**
+ * Enable the CloudConnected property.
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyCloudConnected(THandle aProvider);
 
 /**
- * Register a callback for the action GetDeviceAccountMax
+ * Register a callback for the action GetDeviceMax
  *
  * If this is called, the action's availability will be published in the device's service.xml.
  * If this is not called, any attempt to invoke the action on a control point will fail.
@@ -200,7 +242,18 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnablePropertyIdArray(THandle
  * @param[in] aCallback  Callback which will be run when the action is invoked
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
-DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetDeviceAccountMax(THandle aProvider, CallbackPins1GetDeviceAccountMax aCallback, void* aPtr);
+DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetDeviceMax(THandle aProvider, CallbackPins1GetDeviceMax aCallback, void* aPtr);
+/**
+ * Register a callback for the action GetAccountMax
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderAvOpenhomeOrgPins1Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetAccountMax(THandle aProvider, CallbackPins1GetAccountMax aCallback, void* aPtr);
 /**
  * Register a callback for the action GetModes
  *
@@ -223,6 +276,17 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetModes(THandle 
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetIdArray(THandle aProvider, CallbackPins1GetIdArray aCallback, void* aPtr);
+/**
+ * Register a callback for the action GetCloudConnected
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderAvOpenhomeOrgPins1Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionGetCloudConnected(THandle aProvider, CallbackPins1GetCloudConnected aCallback, void* aPtr);
 /**
  * Register a callback for the action ReadList
  *
@@ -256,6 +320,17 @@ DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionInvokeId(THandle 
  * @param[in] aPtr       Client-specified data which will be passed to the callback
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionInvokeIndex(THandle aProvider, CallbackPins1InvokeIndex aCallback, void* aPtr);
+/**
+ * Register a callback for the action InvokeUri
+ *
+ * If this is called, the action's availability will be published in the device's service.xml.
+ * If this is not called, any attempt to invoke the action on a control point will fail.
+ *
+ * @param[in] aProvider  Handle returned by DvProviderAvOpenhomeOrgPins1Create
+ * @param[in] aCallback  Callback which will be run when the action is invoked
+ * @param[in] aPtr       Client-specified data which will be passed to the callback
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgPins1EnableActionInvokeUri(THandle aProvider, CallbackPins1InvokeUri aCallback, void* aPtr);
 /**
  * Register a callback for the action SetDevice
  *
@@ -389,6 +464,28 @@ DllExport int32_t STDCALL DvProviderAvOpenhomeOrgPins1SetPropertyIdArray(THandle
  * @param[out] aValue     Value for the property.  Caller is responsible for freeing this.
  */
 DllExport void STDCALL DvProviderAvOpenhomeOrgPins1GetPropertyIdArray(THandle aProvider, char** aValue);
+/**
+ * Set the value of the CloudConnected property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgPins1EnablePropertyCloudConnected has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgPins1Create
+ * @param[in]  aValue     New value for the property
+ * @param[out] aChanged   1 if the value has been updated; 0 if it was the same as the previous value
+ *
+ * @return  0 if the property was successfully set; non-zero if there was an error (including
+ *          an attempt to set a property to a value not in its allowed range/set)
+ */
+DllExport int32_t STDCALL DvProviderAvOpenhomeOrgPins1SetPropertyCloudConnected(THandle aProvider, uint32_t aValue, uint32_t* aChanged);
+/**
+ * Get a copy of the value of the CloudConnected property
+ *
+ * Can only be called if DvProviderAvOpenhomeOrgPins1EnablePropertyCloudConnected has previously been called.
+ *
+ * @param[in]  aProvider  Handle returned by DvProviderAvOpenhomeOrgPins1Create
+ * @param[out] aValue     Value for the property
+ */
+DllExport void STDCALL DvProviderAvOpenhomeOrgPins1GetPropertyCloudConnected(THandle aProvider, uint32_t* aValue);
 
 /* @} */
 

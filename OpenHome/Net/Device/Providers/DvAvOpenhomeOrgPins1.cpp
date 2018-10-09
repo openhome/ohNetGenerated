@@ -56,6 +56,18 @@ void DvProviderAvOpenhomeOrgPins1::GetPropertyIdArray(Brhz& aValue)
     aValue.Set(iPropertyIdArray->Value());
 }
 
+TBool DvProviderAvOpenhomeOrgPins1::SetPropertyCloudConnected(TBool aValue)
+{
+    ASSERT(iPropertyCloudConnected != NULL);
+    return SetPropertyBool(*iPropertyCloudConnected, aValue);
+}
+
+void DvProviderAvOpenhomeOrgPins1::GetPropertyCloudConnected(TBool& aValue)
+{
+    ASSERT(iPropertyCloudConnected != NULL);
+    aValue = iPropertyCloudConnected->Value();
+}
+
 DvProviderAvOpenhomeOrgPins1::DvProviderAvOpenhomeOrgPins1(DvDevice& aDevice)
     : DvProvider(aDevice.Device(), "av.openhome.org", "Pins", 1)
 {
@@ -74,6 +86,7 @@ void DvProviderAvOpenhomeOrgPins1::Construct()
     iPropertyAccountMax = NULL;
     iPropertyModes = NULL;
     iPropertyIdArray = NULL;
+    iPropertyCloudConnected = NULL;
 }
 
 void DvProviderAvOpenhomeOrgPins1::EnablePropertyDeviceMax()
@@ -100,12 +113,25 @@ void DvProviderAvOpenhomeOrgPins1::EnablePropertyIdArray()
     iService->AddProperty(iPropertyIdArray); // passes ownership
 }
 
-void DvProviderAvOpenhomeOrgPins1::EnableActionGetDeviceAccountMax()
+void DvProviderAvOpenhomeOrgPins1::EnablePropertyCloudConnected()
 {
-    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetDeviceAccountMax");
+    iPropertyCloudConnected = new PropertyBool(new ParameterBool("CloudConnected"));
+    iService->AddProperty(iPropertyCloudConnected); // passes ownership
+}
+
+void DvProviderAvOpenhomeOrgPins1::EnableActionGetDeviceMax()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetDeviceMax");
     action->AddOutputParameter(new ParameterRelated("DeviceMax", *iPropertyDeviceMax));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1::DoGetDeviceMax);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgPins1::EnableActionGetAccountMax()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetAccountMax");
     action->AddOutputParameter(new ParameterRelated("AccountMax", *iPropertyAccountMax));
-    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1::DoGetDeviceAccountMax);
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1::DoGetAccountMax);
     iService->AddAction(action, functor);
 }
 
@@ -122,6 +148,14 @@ void DvProviderAvOpenhomeOrgPins1::EnableActionGetIdArray()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("GetIdArray");
     action->AddOutputParameter(new ParameterRelated("IdArray", *iPropertyIdArray));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1::DoGetIdArray);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgPins1::EnableActionGetCloudConnected()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("GetCloudConnected");
+    action->AddOutputParameter(new ParameterRelated("CloudConnected", *iPropertyCloudConnected));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1::DoGetCloudConnected);
     iService->AddAction(action, functor);
 }
 
@@ -147,6 +181,17 @@ void DvProviderAvOpenhomeOrgPins1::EnableActionInvokeIndex()
     OpenHome::Net::Action* action = new OpenHome::Net::Action("InvokeIndex");
     action->AddInputParameter(new ParameterUint("Index"));
     FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1::DoInvokeIndex);
+    iService->AddAction(action, functor);
+}
+
+void DvProviderAvOpenhomeOrgPins1::EnableActionInvokeUri()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("InvokeUri");
+    action->AddInputParameter(new ParameterString("Mode"));
+    action->AddInputParameter(new ParameterString("Type"));
+    action->AddInputParameter(new ParameterString("Uri"));
+    action->AddInputParameter(new ParameterBool("Shuffle"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderAvOpenhomeOrgPins1::DoInvokeUri);
     iService->AddAction(action, functor);
 }
 
@@ -197,14 +242,22 @@ void DvProviderAvOpenhomeOrgPins1::EnableActionSwap()
     iService->AddAction(action, functor);
 }
 
-void DvProviderAvOpenhomeOrgPins1::DoGetDeviceAccountMax(IDviInvocation& aInvocation)
+void DvProviderAvOpenhomeOrgPins1::DoGetDeviceMax(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     DviInvocationResponseUint respDeviceMax(aInvocation, "DeviceMax");
+    GetDeviceMax(invocation, respDeviceMax);
+}
+
+void DvProviderAvOpenhomeOrgPins1::DoGetAccountMax(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
     DviInvocationResponseUint respAccountMax(aInvocation, "AccountMax");
-    GetDeviceAccountMax(invocation, respDeviceMax, respAccountMax);
+    GetAccountMax(invocation, respAccountMax);
 }
 
 void DvProviderAvOpenhomeOrgPins1::DoGetModes(IDviInvocation& aInvocation)
@@ -223,6 +276,15 @@ void DvProviderAvOpenhomeOrgPins1::DoGetIdArray(IDviInvocation& aInvocation)
     DviInvocation invocation(aInvocation);
     DviInvocationResponseString respIdArray(aInvocation, "IdArray");
     GetIdArray(invocation, respIdArray);
+}
+
+void DvProviderAvOpenhomeOrgPins1::DoGetCloudConnected(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    DviInvocationResponseBool respCloudConnected(aInvocation, "CloudConnected");
+    GetCloudConnected(invocation, respCloudConnected);
 }
 
 void DvProviderAvOpenhomeOrgPins1::DoReadList(IDviInvocation& aInvocation)
@@ -252,6 +314,21 @@ void DvProviderAvOpenhomeOrgPins1::DoInvokeIndex(IDviInvocation& aInvocation)
     aInvocation.InvocationReadEnd();
     DviInvocation invocation(aInvocation);
     InvokeIndex(invocation, Index);
+}
+
+void DvProviderAvOpenhomeOrgPins1::DoInvokeUri(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz Mode;
+    aInvocation.InvocationReadString("Mode", Mode);
+    Brhz Type;
+    aInvocation.InvocationReadString("Type", Type);
+    Brhz Uri;
+    aInvocation.InvocationReadString("Uri", Uri);
+    TBool Shuffle = aInvocation.InvocationReadBool("Shuffle");
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    InvokeUri(invocation, Mode, Type, Uri, Shuffle);
 }
 
 void DvProviderAvOpenhomeOrgPins1::DoSetDevice(IDviInvocation& aInvocation)
@@ -317,7 +394,12 @@ void DvProviderAvOpenhomeOrgPins1::DoSwap(IDviInvocation& aInvocation)
     Swap(invocation, Index1, Index2);
 }
 
-void DvProviderAvOpenhomeOrgPins1::GetDeviceAccountMax(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aDeviceMax*/, IDvInvocationResponseUint& /*aAccountMax*/)
+void DvProviderAvOpenhomeOrgPins1::GetDeviceMax(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aDeviceMax*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgPins1::GetAccountMax(IDvInvocation& /*aResponse*/, IDvInvocationResponseUint& /*aAccountMax*/)
 {
     ASSERTS();
 }
@@ -328,6 +410,11 @@ void DvProviderAvOpenhomeOrgPins1::GetModes(IDvInvocation& /*aResponse*/, IDvInv
 }
 
 void DvProviderAvOpenhomeOrgPins1::GetIdArray(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aIdArray*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgPins1::GetCloudConnected(IDvInvocation& /*aResponse*/, IDvInvocationResponseBool& /*aCloudConnected*/)
 {
     ASSERTS();
 }
@@ -343,6 +430,11 @@ void DvProviderAvOpenhomeOrgPins1::InvokeId(IDvInvocation& /*aResponse*/, TUint 
 }
 
 void DvProviderAvOpenhomeOrgPins1::InvokeIndex(IDvInvocation& /*aResponse*/, TUint /*aIndex*/)
+{
+    ASSERTS();
+}
+
+void DvProviderAvOpenhomeOrgPins1::InvokeUri(IDvInvocation& /*aResponse*/, const Brx& /*aMode*/, const Brx& /*aType*/, const Brx& /*aUri*/, TBool /*aShuffle*/)
 {
     ASSERTS();
 }

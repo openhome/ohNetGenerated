@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+
+    <actionList>
+
+        <action>
+            <name>GetDeviceList</name>
+            <argumentList>
+                <argument>
+                    <name>List</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>DeviceList</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetDeviceSettings</name>
+            <argumentList>
+                <argument>
+                    <name>DeviceId</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Settings</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetSettingsAvailable</name>
+            <argumentList>
+                <argument>
+                    <name>SettingsAvailable</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>SettingsAvailable</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetSettingsChangedSeq</name>
+            <argumentList>
+                <argument>
+                    <name>SettingsChangedSeq</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>SettingsChangedSeq</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>Update</name>
+            <argumentList>
+                <argument>
+                    <name>Manifest</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>UpdateBlocking</name>
+            <argumentList>
+                <argument>
+                    <name>Manifest</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetUpdateStatus</name>
+            <argumentList>
+                <argument>
+                    <name>UpdateStatus</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>UpdateStatus</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetChannelMap</name>
+            <argumentList>
+                <argument>
+                    <name>ChannelMap</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>ChannelMap</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetAudioChannels</name>
+            <argumentList>
+                <argument>
+                    <name>AudioChannels</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>AudioChannels</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetVersion</name>
+            <argumentList>
+                <argument>
+                    <name>Version</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>Version</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>ApplyUpdate</name>
+        </action>
+
+        <action>
+            <name>PlayTestTrack</name>
+            <argumentList>
+                <argument>
+                    <name>ChannelMap</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Uri</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_Uri</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Metadata</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>ClearTestTrack</name>
+        </action>
+
+        <action>
+            <name>GetIntegratedDevicesPresent</name>
+            <argumentList>
+                <argument>
+                    <name>IntegratedDevicesPresent</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>IntegratedDevicesPresent</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>BootIntegratedDevicesToFallback</name>
+        </action>
+
+    </actionList>
+
+    <serviceStateTable>
+        <stateVariable sendEvents="yes">
+            <name>DeviceList</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>SettingsAvailable</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>SettingsChangedSeq</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>UpdateStatus</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>ChannelMap</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>AudioChannels</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>Version</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>IntegratedDevicesPresent</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_String</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_Uint</name>
+            <dataType>ui4</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_Bool</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_Uri</name>
+            <dataType>uri</dataType>
+        </stateVariable>
+    </serviceStateTable>
+
+</scpd>
