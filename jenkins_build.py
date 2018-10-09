@@ -84,7 +84,7 @@ class JenkinsBuild():
             'Mac-x86': { 'os': 'macos', 'arch': 'x86', 'publish': True, 'system': 'Mac', 'make_target': ''},  # New Jenkins label, matches downstream builds
             'Linux-ARM': { 'os': 'linux', 'arch': 'armel', 'publish': True, 'system': 'Linux', 'make_target': ''},
             'Linux-armhf': { 'os': 'linux', 'arch': 'armhf', 'publish': True, 'system': 'Linux'},
-            'Linux-rpi': { 'os': 'linux', 'arch': 'armhf', 'publish': True, 'system': 'Linux'},
+            'Linux-rpi': { 'os': 'linux', 'arch': 'rpi', 'publish': True, 'system': 'Linux'},
             'iOs-ARM': { 'os': 'iOs', 'arch': 'armv7', 'publish': True, 'system': 'iOs', 'make_target': ''},  # Old Jenkins label
             'iOs-x86': { 'os': 'iOs', 'arch': 'x86', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-x86=1'},
             'iOs-armv7': { 'os': 'iOs', 'arch': 'armv7', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-armv7=1'},
@@ -117,7 +117,7 @@ class JenkinsBuild():
             os.environ['CS_PLATFORM'] = 'x64'
         if os_platform == 'linux' and arch == 'armel':
             os.environ['CROSS_COMPILE'] = '/usr/local/arm-2011.09/bin/arm-none-linux-gnueabi-'
-        if os_platform == 'linux' and arch == 'armhf':
+        if os_platform == 'linux' and arch in['armhf', 'rpi']:
             os.environ['CROSS_COMPILE'] = '/opt/gcc-linaro-5.3.1-2016.05-i686_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-'
         if os_platform == 'Core' and arch == 'ppc32':
             os.environ['CROSS_COMPILE'] = '/opt/rtems-4.11/bin/powerpc-rtems4.11-'
