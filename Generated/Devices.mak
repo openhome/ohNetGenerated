@@ -142,6 +142,9 @@ objects_devices = \
                   $(objdir)DvLinnCoUkUpdate1.$(objext) \
                   $(objdir)DvLinnCoUkUpdate1Std.$(objext) \
                   $(objdir)DvLinnCoUkUpdate1C.$(objext) \
+                  $(objdir)DvLinnCoUkUpdate2.$(objext) \
+                  $(objdir)DvLinnCoUkUpdate2Std.$(objext) \
+                  $(objdir)DvLinnCoUkUpdate2C.$(objext) \
                   $(objdir)DvLinnCoUkConfiguration1.$(objext) \
                   $(objdir)DvLinnCoUkConfiguration1Std.$(objext) \
                   $(objdir)DvLinnCoUkConfiguration1C.$(objext) \
@@ -209,6 +212,7 @@ device_dotnet_assemblies = \
         DvLinnCoUkExaktInputs1.net.dll \
         DvLinnCoUkCloud1.net.dll \
         DvLinnCoUkUpdate1.net.dll \
+        DvLinnCoUkUpdate2.net.dll \
         DvLinnCoUkConfiguration1.net.dll \
         DvLinnCoUkLipSync1.net.dll \
         DvLinnCoUkExakt21.net.dll \
@@ -261,6 +265,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvLinnCoUkExaktInputs1.net.dll \
         $(objdir)DvLinnCoUkCloud1.net.dll \
         $(objdir)DvLinnCoUkUpdate1.net.dll \
+        $(objdir)DvLinnCoUkUpdate2.net.dll \
         $(objdir)DvLinnCoUkConfiguration1.net.dll \
         $(objdir)DvLinnCoUkLipSync1.net.dll \
         $(objdir)DvLinnCoUkExakt21.net.dll \
@@ -313,6 +318,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkConfiguration1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkLipSync1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExakt21.class \
@@ -596,6 +602,12 @@ $(objdir)DvLinnCoUkUpdate1Std.$(objext) : $(deviceCppStd)DvLinnCoUkUpdate1Std.cp
 	$(compiler)DvLinnCoUkUpdate1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkUpdate1Std.cpp
 $(objdir)DvLinnCoUkUpdate1C.$(objext) : $(deviceC)DvLinnCoUkUpdate1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkUpdate1.h
 	$(compiler)DvLinnCoUkUpdate1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkUpdate1C.cpp
+$(objdir)DvLinnCoUkUpdate2.$(objext) : $(deviceCppCore)DvLinnCoUkUpdate2.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkUpdate2.h
+	$(compiler)DvLinnCoUkUpdate2.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkUpdate2.cpp
+$(objdir)DvLinnCoUkUpdate2Std.$(objext) : $(deviceCppStd)DvLinnCoUkUpdate2Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkUpdate2.h
+	$(compiler)DvLinnCoUkUpdate2Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkUpdate2Std.cpp
+$(objdir)DvLinnCoUkUpdate2C.$(objext) : $(deviceC)DvLinnCoUkUpdate2C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkUpdate2.h
+	$(compiler)DvLinnCoUkUpdate2C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkUpdate2C.cpp
 $(objdir)DvLinnCoUkConfiguration1.$(objext) : $(deviceCppCore)DvLinnCoUkConfiguration1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkConfiguration1.h
 	$(compiler)DvLinnCoUkConfiguration1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkConfiguration1.cpp
 $(objdir)DvLinnCoUkConfiguration1Std.$(objext) : $(deviceCppStd)DvLinnCoUkConfiguration1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkConfiguration1.h
@@ -856,6 +868,11 @@ $(objdir)DvLinnCoUkUpdate1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCo
         /out:$(objdir)DvLinnCoUkUpdate1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvLinnCoUkUpdate1.cs
+$(objdir)DvLinnCoUkUpdate2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkUpdate2.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)DvLinnCoUkUpdate2.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkUpdate2.cs
 $(objdir)DvLinnCoUkConfiguration1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkConfiguration1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)DvLinnCoUkConfiguration1.net.dll \
@@ -973,6 +990,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud1.class : $(oh
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkCloud1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkUpdate1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkUpdate1.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkUpdate2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkUpdate2.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkConfiguration1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkConfiguration1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkConfiguration1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkLipSync1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkLipSync1.java
