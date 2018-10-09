@@ -78,6 +78,9 @@ else
     endif
     ifeq ($(gcc_machine),arm-linux-gnueabihf)
       detected_openhome_architecture = armhf
+			ifeq ($openhome_architecture),rpi)
+				detected_openhome_architecture = rpi
+			endif
     endif
     ifneq (,$(findstring i686,$(gcc_machine)))
       detected_openhome_architecture = x86
@@ -165,7 +168,7 @@ ifeq ($(platform),IntelMac)
 		openhome_architecture = x64
 	else
 		platform_cflags = -DPLATFORM_MACOSX_GNU -m32 -mmacosx-version-min=10.7
-		platform_linkflags = -m32 -framework CoreFoundation -framework SystemConfiguration		
+		platform_linkflags = -m32 -framework CoreFoundation -framework SystemConfiguration
 		osbuilddir = Mac-x86
 		openhome_architecture = x86
 	endif
@@ -295,7 +298,7 @@ else
 	dllext = so
 endif
 exeext = elf
-linkoutput = -o 
+linkoutput = -o
 dllprefix = lib
 ifeq ($(MACHINE), Darwin)
 	link_dll = $(version_specific_library_path) clang++ -pthread  $(platform_linkflags) -shared -stdlib=libc++
@@ -434,4 +437,3 @@ bundle-after-build: $(build_targets)
 bundle:
 	$(mkdir) $(bundle_build)
 	python bundle_binaries.py --system $(openhome_system) --architecture $(openhome_architecture) --configuration $(openhome_configuration)
-
