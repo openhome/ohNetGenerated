@@ -78,9 +78,6 @@ else
     endif
     ifeq ($(gcc_machine),arm-linux-gnueabihf)
       detected_openhome_architecture = armhf
-			ifeq ($openhome_architecture),rpi)
-				detected_openhome_architecture = rpi
-			endif
     endif
     ifneq (,$(findstring i686,$(gcc_machine)))
       detected_openhome_architecture = x86
@@ -437,3 +434,4 @@ bundle-after-build: $(build_targets)
 bundle:
 	$(mkdir) $(bundle_build)
 	python bundle_binaries.py --system $(openhome_system) --architecture $(openhome_architecture) --configuration $(openhome_configuration)
+	
