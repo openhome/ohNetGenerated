@@ -78,6 +78,9 @@ else
     endif
     ifeq ($(gcc_machine),arm-linux-gnueabihf)
       detected_openhome_architecture = armhf
+      ifneq (,$(findstring raspbian,$(CROSS_COMPILE)))
+        detected_openhome_architecture = rpi
+      endif
     endif
     ifneq (,$(findstring i686,$(gcc_machine)))
       detected_openhome_architecture = x86
