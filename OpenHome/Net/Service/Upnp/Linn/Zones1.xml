@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <actionList>
+    <action>
+      <name>GetInputs</name>
+      <argumentList>
+        <argument>
+          <name>Inputs</name>
+          <direction>out</direction>
+          <relatedStateVariable>Inputs</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>GetOutputs</name>
+      <argumentList>
+        <argument>
+          <name>Outputs</name>
+          <direction>out</direction>
+          <relatedStateVariable>Outputs</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>GetMappings</name>
+      <argumentList>
+        <argument>
+          <name>Mappings</name>
+          <direction>out</direction>
+          <relatedStateVariable>Mappings</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>SetMappings</name>
+      <argumentList>
+        <argument>
+          <name>Mappings</name>
+          <direction>in</direction>
+          <relatedStateVariable>Mappings</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+  </actionList>
+  <serviceStateTable>
+    <stateVariable sendEvents="yes">
+      <name>Inputs</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="yes">
+      <name>Outputs</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="yes">
+      <name>Mappings</name>
+      <dataType>string</dataType>
+    </stateVariable>
+  </serviceStateTable>
+</scpd>
+
