@@ -85,6 +85,9 @@ objects_proxies = \
                   $(objdir)CpAvOpenhomeOrgProduct2.$(objext) \
                   $(objdir)CpAvOpenhomeOrgProduct2C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgProduct2Std.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgProduct3.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgProduct3C.$(objext) \
+                  $(objdir)CpAvOpenhomeOrgProduct3Std.$(objext) \
                   $(objdir)CpAvOpenhomeOrgTransport1.$(objext) \
                   $(objdir)CpAvOpenhomeOrgTransport1C.$(objext) \
                   $(objdir)CpAvOpenhomeOrgTransport1Std.$(objext) \
@@ -202,6 +205,7 @@ proxy_dotnet_assemblies = \
         CpAvOpenhomeOrgVolume3.net.dll \
         CpAvOpenhomeOrgProduct1.net.dll \
         CpAvOpenhomeOrgProduct2.net.dll \
+        CpAvOpenhomeOrgProduct3.net.dll \
         CpAvOpenhomeOrgTransport1.net.dll \
         CpAvOpenhomeOrgRadio1.net.dll \
         CpAvOpenhomeOrgReceiver1.net.dll \
@@ -256,6 +260,7 @@ proxy_dotnet_assemblies_with_path = \
         $(objdir)CpAvOpenhomeOrgVolume3.net.dll \
         $(objdir)CpAvOpenhomeOrgProduct1.net.dll \
         $(objdir)CpAvOpenhomeOrgProduct2.net.dll \
+        $(objdir)CpAvOpenhomeOrgProduct3.net.dll \
         $(objdir)CpAvOpenhomeOrgTransport1.net.dll \
         $(objdir)CpAvOpenhomeOrgRadio1.net.dll \
         $(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
@@ -310,6 +315,7 @@ proxy_java_classes_with_path = \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume3.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct2.class \
+        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct3.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTransport1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgRadio1.class \
         $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgReceiver1.class \
@@ -501,6 +507,12 @@ $(objdir)CpAvOpenhomeOrgProduct2C.$(objext) : $(proxyC)CpAvOpenhomeOrgProduct2C.
 	$(compiler)CpAvOpenhomeOrgProduct2C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgProduct2C.cpp
 $(objdir)CpAvOpenhomeOrgProduct2Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgProduct2Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgProduct2.h
 	$(compiler)CpAvOpenhomeOrgProduct2Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgProduct2Std.cpp
+$(objdir)CpAvOpenhomeOrgProduct3.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgProduct3.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgProduct3.h
+	$(compiler)CpAvOpenhomeOrgProduct3.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgProduct3.cpp
+$(objdir)CpAvOpenhomeOrgProduct3C.$(objext) : $(proxyC)CpAvOpenhomeOrgProduct3C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgProduct3.h
+	$(compiler)CpAvOpenhomeOrgProduct3C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgProduct3C.cpp
+$(objdir)CpAvOpenhomeOrgProduct3Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgProduct3Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgProduct3.h
+	$(compiler)CpAvOpenhomeOrgProduct3Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgProduct3Std.cpp
 $(objdir)CpAvOpenhomeOrgTransport1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgTransport1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgTransport1.h
 	$(compiler)CpAvOpenhomeOrgTransport1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgTransport1.cpp
 $(objdir)CpAvOpenhomeOrgTransport1C.$(objext) : $(proxyC)CpAvOpenhomeOrgTransport1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgTransport1.h
@@ -791,6 +803,11 @@ $(objdir)CpAvOpenhomeOrgProduct2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpA
         /out:$(objdir)CpAvOpenhomeOrgProduct2.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpAvOpenhomeOrgProduct2.cs
+$(objdir)CpAvOpenhomeOrgProduct3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct3.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpAvOpenhomeOrgProduct3.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgProduct3.cs
 $(objdir)CpAvOpenhomeOrgTransport1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgTransport1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)CpAvOpenhomeOrgTransport1.net.dll \
@@ -975,6 +992,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct1.clas
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgProduct1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct2.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgProduct2.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgProduct2.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct3.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgProduct3.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgProduct3.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTransport1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgTransport1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgTransport1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgRadio1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgRadio1.java
