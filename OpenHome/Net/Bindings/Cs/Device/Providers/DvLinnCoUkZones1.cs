@@ -59,6 +59,7 @@ namespace OpenHome.Net.Device.Providers
         private ActionDelegate iDelegateGetOutputs;
         private ActionDelegate iDelegateGetMappings;
         private ActionDelegate iDelegateSetMappings;
+        private ActionDelegate iDelegateSetMapping;
         private PropertyString iPropertyInputs;
         private PropertyString iPropertyOutputs;
         private PropertyString iPropertyMappings;
@@ -231,6 +232,21 @@ namespace OpenHome.Net.Device.Providers
         }
 
         /// <summary>
+        /// Signal that the action SetMapping is supported.
+        /// </summary>
+        /// <remarks>The action's availability will be published in the device's service.xml.
+        /// SetMapping must be overridden if this is called.</remarks>
+        protected void EnableActionSetMapping()
+        {
+            OpenHome.Net.Core.Action action = new OpenHome.Net.Core.Action("SetMapping");
+            List<String> allowedValues = new List<String>();
+            action.AddInputParameter(new ParameterString("Output", allowedValues));
+            action.AddInputParameter(new ParameterString("Input", allowedValues));
+            iDelegateSetMapping = new ActionDelegate(DoSetMapping);
+            EnableAction(action, iDelegateSetMapping, GCHandle.ToIntPtr(iGch));
+        }
+
+        /// <summary>
         /// GetInputs action.
         /// </summary>
         /// <remarks>Will be called when the device stack receives an invocation of the
@@ -282,6 +298,21 @@ namespace OpenHome.Net.Device.Providers
         /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
         /// <param name="aMappings"></param>
         protected virtual void SetMappings(IDvInvocation aInvocation, string aMappings)
+        {
+            throw (new ActionDisabledError());
+        }
+
+        /// <summary>
+        /// SetMapping action.
+        /// </summary>
+        /// <remarks>Will be called when the device stack receives an invocation of the
+        /// SetMapping action for the owning device.
+        ///
+        /// Must be implemented iff EnableActionSetMapping was called.</remarks>
+        /// <param name="aInvocation">Interface allowing querying of aspects of this particular action invocation.</param>
+        /// <param name="aOutput"></param>
+        /// <param name="aInput"></param>
+        protected virtual void SetMapping(IDvInvocation aInvocation, string aOutput, string aInput)
         {
             throw (new ActionDisabledError());
         }
@@ -465,6 +496,54 @@ namespace OpenHome.Net.Device.Providers
             catch (System.Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetMappings" });
+                System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
+            }
+            return 0;
+        }
+
+        private static int DoSetMapping(IntPtr aPtr, IntPtr aInvocation)
+        {
+            GCHandle gch = GCHandle.FromIntPtr(aPtr);
+            DvProviderLinnCoUkZones1 self = (DvProviderLinnCoUkZones1)gch.Target;
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            string output;
+            string input;
+            try
+            {
+                invocation.ReadStart();
+                output = invocation.ReadString("Output");
+                input = invocation.ReadString("Input");
+                invocation.ReadEnd();
+                self.SetMapping(invocation, output, input);
+            }
+            catch (ActionError e)
+            {
+                invocation.ReportActionError(e, "SetMapping");
+                return -1;
+            }
+            catch (PropertyUpdateError)
+            {
+                invocation.ReportError(501, String.Format("Invalid value for property {0}", new object[] { "SetMapping" }));
+                return -1;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetMapping" });
+                System.Diagnostics.Debug.WriteLine("         Only ActionError or PropertyUpdateError should be thrown by actions");
+                return -1;
+            }
+            try
+            {
+                invocation.WriteStart();
+                invocation.WriteEnd();
+            }
+            catch (ActionError)
+            {
+                return -1;
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("WARNING: unexpected exception {0} thrown by {1}", new object[] { e, "SetMapping" });
                 System.Diagnostics.Debug.WriteLine("       Only ActionError can be thrown by action response writer");
             }
             return 0;

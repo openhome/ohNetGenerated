@@ -49,6 +49,15 @@ private:
     CpProxyLinnCoUkZones1& iService;
 };
 
+class SyncSetMappingLinnCoUkZones1 : public SyncProxyAction
+{
+public:
+    SyncSetMappingLinnCoUkZones1(CpProxyLinnCoUkZones1& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+private:
+    CpProxyLinnCoUkZones1& iService;
+};
+
 } // namespace Net
 } // namespace OpenHome
 
@@ -108,6 +117,18 @@ void SyncSetMappingsLinnCoUkZones1::CompleteRequest(IAsync& aAsync)
     iService.EndSetMappings(aAsync);
 }
 
+// SyncSetMappingLinnCoUkZones1
+
+SyncSetMappingLinnCoUkZones1::SyncSetMappingLinnCoUkZones1(CpProxyLinnCoUkZones1& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSetMappingLinnCoUkZones1::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSetMapping(aAsync);
+}
+
 
 // CpProxyLinnCoUkZones1
 
@@ -132,6 +153,12 @@ CpProxyLinnCoUkZones1::CpProxyLinnCoUkZones1(CpDevice& aDevice)
     param = new OpenHome::Net::ParameterString("Mappings");
     iActionSetMappings->AddInputParameter(param);
 
+    iActionSetMapping = new Action("SetMapping");
+    param = new OpenHome::Net::ParameterString("Output");
+    iActionSetMapping->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("Input");
+    iActionSetMapping->AddInputParameter(param);
+
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyLinnCoUkZones1::InputsPropertyChanged);
     iInputs = new PropertyString("Inputs", functor);
@@ -151,6 +178,7 @@ CpProxyLinnCoUkZones1::~CpProxyLinnCoUkZones1()
     delete iActionGetOutputs;
     delete iActionGetMappings;
     delete iActionSetMappings;
+    delete iActionSetMapping;
 }
 
 void CpProxyLinnCoUkZones1::SyncGetInputs(Brh& aInputs)
@@ -270,6 +298,37 @@ void CpProxyLinnCoUkZones1::EndSetMappings(IAsync& aAsync)
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
     ASSERT(invocation.Action().Name() == Brn("SetMappings"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
+void CpProxyLinnCoUkZones1::SyncSetMapping(const Brx& aOutput, const Brx& aInput)
+{
+    SyncSetMappingLinnCoUkZones1 sync(*this);
+    BeginSetMapping(aOutput, aInput, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkZones1::BeginSetMapping(const Brx& aOutput, const Brx& aInput, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = iCpProxy.GetService().Invocation(*iActionSetMapping, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSetMapping->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aOutput));
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aInput));
+    iCpProxy.GetInvocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkZones1::EndSetMapping(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SetMapping"));
 
     Error::ELevel level;
     TUint code;

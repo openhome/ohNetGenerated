@@ -22,6 +22,9 @@ interface ICpProxyLinnCoUkZones1 extends ICpProxy
     public void syncSetMappings(String aMappings);
     public void beginSetMappings(String aMappings, ICpProxyListener aCallback);
     public void endSetMappings(long aAsyncHandle);
+    public void syncSetMapping(String aOutput, String aInput);
+    public void beginSetMapping(String aOutput, String aInput, ICpProxyListener aCallback);
+    public void endSetMapping(long aAsyncHandle);
     public void setPropertyInputsChanged(IPropertyChangeListener aInputsChanged);
     public String getPropertyInputs();
     public void setPropertyOutputsChanged(IPropertyChangeListener aOutputsChanged);
@@ -108,6 +111,21 @@ class SyncSetMappingsLinnCoUkZones1 extends SyncProxyAction
     }
 }
 
+class SyncSetMappingLinnCoUkZones1 extends SyncProxyAction
+{
+    private CpProxyLinnCoUkZones1 iService;
+
+    public SyncSetMappingLinnCoUkZones1(CpProxyLinnCoUkZones1 aProxy)
+    {
+        iService = aProxy;
+    }
+    protected void completeRequest(long aAsyncHandle)
+    {
+        iService.endSetMapping(aAsyncHandle);
+        
+    }
+}
+
 /**
  * Proxy for the linn.co.uk:Zones:1 UPnP service
  */
@@ -118,6 +136,7 @@ public class CpProxyLinnCoUkZones1 extends CpProxy implements ICpProxyLinnCoUkZo
     private Action iActionGetOutputs;
     private Action iActionGetMappings;
     private Action iActionSetMappings;
+    private Action iActionSetMapping;
     private PropertyString iInputs;
     private PropertyString iOutputs;
     private PropertyString iMappings;
@@ -154,6 +173,12 @@ public class CpProxyLinnCoUkZones1 extends CpProxy implements ICpProxyLinnCoUkZo
         iActionSetMappings = new Action("SetMappings");
         param = new ParameterString("Mappings", allowedValues);
         iActionSetMappings.addInputParameter(param);
+
+        iActionSetMapping = new Action("SetMapping");
+        param = new ParameterString("Output", allowedValues);
+        iActionSetMapping.addInputParameter(param);
+        param = new ParameterString("Input", allowedValues);
+        iActionSetMapping.addInputParameter(param);
 
         iInputsChanged = new PropertyChangeListener();
         iInputs = new PropertyString("Inputs",
@@ -398,6 +423,56 @@ public class CpProxyLinnCoUkZones1 extends CpProxy implements ICpProxyLinnCoUkZo
     }
         
     /**
+     * Invoke the action synchronously.
+     * Blocks until the action has been processed on the device and sets any
+     * output arguments.
+     */
+    public void syncSetMapping(String aOutput, String aInput)
+    {
+        SyncSetMappingLinnCoUkZones1 sync = new SyncSetMappingLinnCoUkZones1(this);
+        beginSetMapping(aOutput, aInput, sync.getListener());
+        sync.waitToComplete();
+        sync.reportError();
+    }
+    
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the
+     * action later completes.  Any output arguments can then be retrieved by
+     * calling {@link #endSetMapping}.
+     * 
+     * @param aOutput
+     * @param aInput
+     * @param aCallback listener to call back when action completes.
+     *                  This is guaranteed to be run but may indicate an error.
+     */
+    public void beginSetMapping(String aOutput, String aInput, ICpProxyListener aCallback)
+    {
+        Invocation invocation = iService.getInvocation(iActionSetMapping, aCallback);
+        int inIndex = 0;
+        invocation.addInput(new ArgumentString((ParameterString)iActionSetMapping.getInputParameter(inIndex++), aOutput));
+        invocation.addInput(new ArgumentString((ParameterString)iActionSetMapping.getInputParameter(inIndex++), aInput));
+        iService.invokeAction(invocation);
+    }
+
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the
+     * {@link #beginSetMapping} method.
+     *
+     * @param aAsyncHandle  argument passed to the delegate set in the
+     *          {@link #beginSetMapping} method.
+     */
+    public void endSetMapping(long aAsyncHandle)
+    {
+        ProxyError errObj = Invocation.error(aAsyncHandle);
+        if (errObj != null)
+        {
+            throw errObj;
+        }
+    }
+        
+    /**
      * Set a delegate to be run when the Inputs state variable changes.
      * Callbacks may be run in different threads but callbacks for a
      * CpProxyLinnCoUkZones1 instance will not overlap.
@@ -534,6 +609,7 @@ public class CpProxyLinnCoUkZones1 extends CpProxy implements ICpProxyLinnCoUkZo
             iActionGetOutputs.destroy();
             iActionGetMappings.destroy();
             iActionSetMappings.destroy();
+            iActionSetMapping.destroy();
             iInputs.destroy();
             iOutputs.destroy();
             iMappings.destroy();

@@ -31,11 +31,13 @@ public:
     void EnableActionGetOutputs(CallbackZones1GetOutputs aCallback, void* aPtr);
     void EnableActionGetMappings(CallbackZones1GetMappings aCallback, void* aPtr);
     void EnableActionSetMappings(CallbackZones1SetMappings aCallback, void* aPtr);
+    void EnableActionSetMapping(CallbackZones1SetMapping aCallback, void* aPtr);
 private:
     void DoGetInputs(IDviInvocation& aInvocation);
     void DoGetOutputs(IDviInvocation& aInvocation);
     void DoGetMappings(IDviInvocation& aInvocation);
     void DoSetMappings(IDviInvocation& aInvocation);
+    void DoSetMapping(IDviInvocation& aInvocation);
 private:
     CallbackZones1GetInputs iCallbackGetInputs;
     void* iPtrGetInputs;
@@ -45,6 +47,8 @@ private:
     void* iPtrGetMappings;
     CallbackZones1SetMappings iCallbackSetMappings;
     void* iPtrSetMappings;
+    CallbackZones1SetMapping iCallbackSetMapping;
+    void* iPtrSetMapping;
     PropertyString* iPropertyInputs;
     PropertyString* iPropertyOutputs;
     PropertyString* iPropertyMappings;
@@ -152,6 +156,17 @@ void DvProviderLinnCoUkZones1C::EnableActionSetMappings(CallbackZones1SetMapping
     iService->AddAction(action, functor);
 }
 
+void DvProviderLinnCoUkZones1C::EnableActionSetMapping(CallbackZones1SetMapping aCallback, void* aPtr)
+{
+    iCallbackSetMapping = aCallback;
+    iPtrSetMapping = aPtr;
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetMapping");
+    action->AddInputParameter(new ParameterString("Output"));
+    action->AddInputParameter(new ParameterString("Input"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkZones1C::DoSetMapping);
+    iService->AddAction(action, functor);
+}
+
 void DvProviderLinnCoUkZones1C::DoGetInputs(IDviInvocation& aInvocation)
 {
     DvInvocationCPrivate invocationWrapper(aInvocation);
@@ -244,6 +259,28 @@ void DvProviderLinnCoUkZones1C::DoSetMappings(IDviInvocation& aInvocation)
     invocation.EndResponse();
 }
 
+void DvProviderLinnCoUkZones1C::DoSetMapping(IDviInvocation& aInvocation)
+{
+    DvInvocationCPrivate invocationWrapper(aInvocation);
+    IDvInvocationC* invocationC;
+    void* invocationCPtr;
+    invocationWrapper.GetInvocationC(&invocationC, &invocationCPtr);
+    aInvocation.InvocationReadStart();
+    Brhz Output;
+    aInvocation.InvocationReadString("Output", Output);
+    Brhz Input;
+    aInvocation.InvocationReadString("Input", Input);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    ASSERT(iCallbackSetMapping != NULL);
+    if (0 != iCallbackSetMapping(iPtrSetMapping, invocationC, invocationCPtr, (const char*)Output.Ptr(), (const char*)Input.Ptr())) {
+        invocation.Error(502, Brn("Action failed"));
+        return;
+    }
+    invocation.StartResponse();
+    invocation.EndResponse();
+}
+
 
 
 THandle STDCALL DvProviderLinnCoUkZones1Create(DvDeviceC aDevice)
@@ -274,6 +311,11 @@ void STDCALL DvProviderLinnCoUkZones1EnableActionGetMappings(THandle aProvider, 
 void STDCALL DvProviderLinnCoUkZones1EnableActionSetMappings(THandle aProvider, CallbackZones1SetMappings aCallback, void* aPtr)
 {
     reinterpret_cast<DvProviderLinnCoUkZones1C*>(aProvider)->EnableActionSetMappings(aCallback, aPtr);
+}
+
+void STDCALL DvProviderLinnCoUkZones1EnableActionSetMapping(THandle aProvider, CallbackZones1SetMapping aCallback, void* aPtr)
+{
+    reinterpret_cast<DvProviderLinnCoUkZones1C*>(aProvider)->EnableActionSetMapping(aCallback, aPtr);
 }
 
 int32_t STDCALL DvProviderLinnCoUkZones1SetPropertyInputs(THandle aProvider, const char* aValue, uint32_t* aChanged)

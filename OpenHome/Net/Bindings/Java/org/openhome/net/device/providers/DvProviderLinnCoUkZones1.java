@@ -69,6 +69,7 @@ public class DvProviderLinnCoUkZones1 extends DvProvider implements IDvProviderL
     private IDvInvocationListener iDelegateGetOutputs;
     private IDvInvocationListener iDelegateGetMappings;
     private IDvInvocationListener iDelegateSetMappings;
+    private IDvInvocationListener iDelegateSetMapping;
     private PropertyString iPropertyInputs;
     private PropertyString iPropertyOutputs;
     private PropertyString iPropertyMappings;
@@ -236,6 +237,21 @@ public class DvProviderLinnCoUkZones1 extends DvProvider implements IDvProviderL
     }
 
     /**
+     * Signal that the action SetMapping is supported.
+     *
+     * <p>The action's availability will be published in the device's service.xml.
+     * SetMapping must be overridden if this is called.
+     */      
+    protected void enableActionSetMapping()
+    {
+        Action action = new Action("SetMapping");        List<String> allowedValues = new LinkedList<String>();
+        action.addInputParameter(new ParameterString("Output", allowedValues));
+        action.addInputParameter(new ParameterString("Input", allowedValues));
+        iDelegateSetMapping = new DoSetMapping();
+        enableAction(action, iDelegateSetMapping);
+    }
+
+    /**
      * GetInputs action.
      *
      * <p>Will be called when the device stack receives an invocation of the
@@ -292,6 +308,23 @@ public class DvProviderLinnCoUkZones1 extends DvProvider implements IDvProviderL
      * @param aMappings
      */
     protected void setMappings(IDvInvocation aInvocation, String aMappings)
+    {
+        throw (new ActionDisabledError());
+    }
+
+    /**
+     * SetMapping action.
+     *
+     * <p>Will be called when the device stack receives an invocation of the
+     * SetMapping action for the owning device.
+     *
+     * <p>Must be implemented iff {@link #enableActionSetMapping} was called.</remarks>
+     *
+     * @param aInvocation   Interface allowing querying of aspects of this particular action invocation.</param>
+     * @param aOutput
+     * @param aInput
+     */
+    protected void setMapping(IDvInvocation aInvocation, String aOutput, String aInput)
     {
         throw (new ActionDisabledError());
     }
@@ -473,6 +506,56 @@ public class DvProviderLinnCoUkZones1 extends DvProvider implements IDvProviderL
             catch (ActionError ae)
             {
                 invocation.reportActionError(ae, "SetMappings");
+                return;
+            }
+            catch (PropertyUpdateError pue)
+            {
+                invocation.reportError(501, "Invalid XML");
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("WARNING: unexpected exception: " + e.getMessage());
+                System.out.println("         Only ActionError or PropertyUpdateError can be thrown by actions");
+                e.printStackTrace();
+                return;
+            }
+            try
+            {
+                invocation.writeStart();
+                invocation.writeEnd();
+            }
+            catch (ActionError ae)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ERROR: unexpected exception: " + e.getMessage());
+                System.out.println("       Only ActionError can be thrown by action response writer");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class DoSetMapping implements IDvInvocationListener
+    {
+        public void actionInvoked(long aInvocation)
+        {
+            DvInvocation invocation = new DvInvocation(aInvocation);
+            String output;
+            String input;
+            try
+            {
+                invocation.readStart();
+                output = invocation.readString("Output");
+                input = invocation.readString("Input");
+                invocation.readEnd();
+                setMapping(invocation, output, input);
+            }
+            catch (ActionError ae)
+            {
+                invocation.reportActionError(ae, "SetMapping");
                 return;
             }
             catch (PropertyUpdateError pue)

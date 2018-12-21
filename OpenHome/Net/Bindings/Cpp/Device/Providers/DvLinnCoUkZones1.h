@@ -112,6 +112,12 @@ protected:
      * SetMappings must be overridden if this is called.
      */
     void EnableActionSetMappings();
+    /**
+     * Signal that the action SetMapping is supported.
+     * The action's availability will be published in the device's service.xml.
+     * SetMapping must be overridden if this is called.
+     */
+    void EnableActionSetMapping();
 private:
     /**
      * GetInputs action.
@@ -145,12 +151,21 @@ private:
      * Must be implemented iff EnableActionSetMappings was called.
      */
     virtual void SetMappings(IDvInvocationStd& aInvocation, const std::string& aMappings);
+    /**
+     * SetMapping action.
+     *
+     * Will be called when the device stack receives an invocation of the
+     * SetMapping action for the owning device.
+     * Must be implemented iff EnableActionSetMapping was called.
+     */
+    virtual void SetMapping(IDvInvocationStd& aInvocation, const std::string& aOutput, const std::string& aInput);
 private:
     DvProviderLinnCoUkZones1Cpp();
     void DoGetInputs(IDviInvocation& aInvocation);
     void DoGetOutputs(IDviInvocation& aInvocation);
     void DoGetMappings(IDviInvocation& aInvocation);
     void DoSetMappings(IDviInvocation& aInvocation);
+    void DoSetMapping(IDviInvocation& aInvocation);
 private:
     PropertyString* iPropertyInputs;
     PropertyString* iPropertyOutputs;

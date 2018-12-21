@@ -45,6 +45,21 @@
         </argument>
       </argumentList>
     </action>
+    <action>
+      <name>SetMapping</name>
+      <argumentList>
+        <argument>
+          <name>Output</name>
+          <direction>in</direction>
+          <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Input</name>
+          <direction>in</direction>
+          <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
   </actionList>
   <serviceStateTable>
     <stateVariable sendEvents="yes">
@@ -59,6 +74,9 @@
       <name>Mappings</name>
       <dataType>string</dataType>
     </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>A_ARG_TYPE_String</name>
+      <dataType>string</dataType>
+    </stateVariable>
   </serviceStateTable>
 </scpd>
-

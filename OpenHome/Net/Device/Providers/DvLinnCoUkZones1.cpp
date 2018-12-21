@@ -113,6 +113,15 @@ void DvProviderLinnCoUkZones1::EnableActionSetMappings()
     iService->AddAction(action, functor);
 }
 
+void DvProviderLinnCoUkZones1::EnableActionSetMapping()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetMapping");
+    action->AddInputParameter(new ParameterString("Output"));
+    action->AddInputParameter(new ParameterString("Input"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkZones1::DoSetMapping);
+    iService->AddAction(action, functor);
+}
+
 void DvProviderLinnCoUkZones1::DoGetInputs(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -150,6 +159,18 @@ void DvProviderLinnCoUkZones1::DoSetMappings(IDviInvocation& aInvocation)
     SetMappings(invocation, Mappings);
 }
 
+void DvProviderLinnCoUkZones1::DoSetMapping(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz Output;
+    aInvocation.InvocationReadString("Output", Output);
+    Brhz Input;
+    aInvocation.InvocationReadString("Input", Input);
+    aInvocation.InvocationReadEnd();
+    DviInvocation invocation(aInvocation);
+    SetMapping(invocation, Output, Input);
+}
+
 void DvProviderLinnCoUkZones1::GetInputs(IDvInvocation& /*aResponse*/, IDvInvocationResponseString& /*aInputs*/)
 {
     ASSERTS();
@@ -166,6 +187,11 @@ void DvProviderLinnCoUkZones1::GetMappings(IDvInvocation& /*aResponse*/, IDvInvo
 }
 
 void DvProviderLinnCoUkZones1::SetMappings(IDvInvocation& /*aResponse*/, const Brx& /*aMappings*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkZones1::SetMapping(IDvInvocation& /*aResponse*/, const Brx& /*aOutput*/, const Brx& /*aInput*/)
 {
     ASSERTS();
 }

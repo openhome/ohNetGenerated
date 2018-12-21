@@ -22,6 +22,9 @@ namespace OpenHome.Net.ControlPoint.Proxies
         void SyncSetMappings(String aMappings);
         void BeginSetMappings(String aMappings, CpProxy.CallbackAsyncComplete aCallback);
         void EndSetMappings(IntPtr aAsyncHandle);
+        void SyncSetMapping(String aOutput, String aInput);
+        void BeginSetMapping(String aOutput, String aInput, CpProxy.CallbackAsyncComplete aCallback);
+        void EndSetMapping(IntPtr aAsyncHandle);
         void SetPropertyInputsChanged(System.Action aInputsChanged);
         String PropertyInputs();
         void SetPropertyOutputsChanged(System.Action aOutputsChanged);
@@ -101,6 +104,20 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
     };
 
+    internal class SyncSetMappingLinnCoUkZones1 : SyncProxyAction
+    {
+        private CpProxyLinnCoUkZones1 iService;
+
+        public SyncSetMappingLinnCoUkZones1(CpProxyLinnCoUkZones1 aProxy)
+        {
+            iService = aProxy;
+        }
+        protected override void CompleteRequest(IntPtr aAsyncHandle)
+        {
+            iService.EndSetMapping(aAsyncHandle);
+        }
+    };
+
     /// <summary>
     /// Proxy for the linn.co.uk:Zones:1 UPnP service
     /// </summary>
@@ -110,6 +127,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
         private OpenHome.Net.Core.Action iActionGetOutputs;
         private OpenHome.Net.Core.Action iActionGetMappings;
         private OpenHome.Net.Core.Action iActionSetMappings;
+        private OpenHome.Net.Core.Action iActionSetMapping;
         private PropertyString iInputs;
         private PropertyString iOutputs;
         private PropertyString iMappings;
@@ -144,6 +162,12 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionSetMappings = new OpenHome.Net.Core.Action("SetMappings");
             param = new ParameterString("Mappings", allowedValues);
             iActionSetMappings.AddInputParameter(param);
+
+            iActionSetMapping = new OpenHome.Net.Core.Action("SetMapping");
+            param = new ParameterString("Output", allowedValues);
+            iActionSetMapping.AddInputParameter(param);
+            param = new ParameterString("Input", allowedValues);
+            iActionSetMapping.AddInputParameter(param);
 
             iInputs = new PropertyString("Inputs", InputsPropertyChanged);
             AddProperty(iInputs);
@@ -349,6 +373,55 @@ namespace OpenHome.Net.ControlPoint.Proxies
         }
 
         /// <summary>
+        /// Invoke the action synchronously
+        /// </summary>
+        /// <remarks>Blocks until the action has been processed
+        /// on the device and sets any output arguments</remarks>
+        /// <param name="aOutput"></param>
+        /// <param name="aInput"></param>
+        public void SyncSetMapping(String aOutput, String aInput)
+        {
+            SyncSetMappingLinnCoUkZones1 sync = new SyncSetMappingLinnCoUkZones1(this);
+            BeginSetMapping(aOutput, aInput, sync.AsyncComplete());
+            sync.Wait();
+            sync.ReportError();
+        }
+
+        /// <summary>
+        /// Invoke the action asynchronously
+        /// </summary>
+        /// <remarks>Returns immediately and will run the client-specified callback when the action
+        /// later completes.  Any output arguments can then be retrieved by calling
+        /// EndSetMapping().</remarks>
+        /// <param name="aOutput"></param>
+        /// <param name="aInput"></param>
+        /// <param name="aCallback">Delegate to run when the action completes.
+        /// This is guaranteed to be run but may indicate an error</param>
+        public void BeginSetMapping(String aOutput, String aInput, CallbackAsyncComplete aCallback)
+        {
+            Invocation invocation = iService.Invocation(iActionSetMapping, aCallback);
+            int inIndex = 0;
+            invocation.AddInput(new ArgumentString((ParameterString)iActionSetMapping.InputParameter(inIndex++), aOutput));
+            invocation.AddInput(new ArgumentString((ParameterString)iActionSetMapping.InputParameter(inIndex++), aInput));
+            iService.InvokeAction(invocation);
+        }
+
+        /// <summary>
+        /// Retrieve the output arguments from an asynchronously invoked action.
+        /// </summary>
+        /// <remarks>This may only be called from the callback set in the above Begin function.</remarks>
+        /// <param name="aAsyncHandle">Argument passed to the delegate set in the above Begin function</param>
+        public void EndSetMapping(IntPtr aAsyncHandle)
+        {
+            uint code;
+            string desc;
+            if (Invocation.Error(aAsyncHandle, out code, out desc))
+            {
+                throw new ProxyError(code, desc);
+            }
+        }
+
+        /// <summary>
         /// Set a delegate to be run when the Inputs state variable changes.
         /// </summary>
         /// <remarks>Callbacks may be run in different threads but callbacks for a
@@ -496,6 +569,7 @@ namespace OpenHome.Net.ControlPoint.Proxies
             iActionGetOutputs.Dispose();
             iActionGetMappings.Dispose();
             iActionSetMappings.Dispose();
+            iActionSetMapping.Dispose();
             iInputs.Dispose();
             iOutputs.Dispose();
             iMappings.Dispose();

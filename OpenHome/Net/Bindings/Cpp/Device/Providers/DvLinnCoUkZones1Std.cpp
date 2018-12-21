@@ -109,6 +109,15 @@ void DvProviderLinnCoUkZones1Cpp::EnableActionSetMappings()
     iService->AddAction(action, functor);
 }
 
+void DvProviderLinnCoUkZones1Cpp::EnableActionSetMapping()
+{
+    OpenHome::Net::Action* action = new OpenHome::Net::Action("SetMapping");
+    action->AddInputParameter(new ParameterString("Output"));
+    action->AddInputParameter(new ParameterString("Input"));
+    FunctorDviInvocation functor = MakeFunctorDviInvocation(*this, &DvProviderLinnCoUkZones1Cpp::DoSetMapping);
+    iService->AddAction(action, functor);
+}
+
 void DvProviderLinnCoUkZones1Cpp::DoGetInputs(IDviInvocation& aInvocation)
 {
     aInvocation.InvocationReadStart();
@@ -167,6 +176,22 @@ void DvProviderLinnCoUkZones1Cpp::DoSetMappings(IDviInvocation& aInvocation)
     aInvocation.InvocationWriteEnd();
 }
 
+void DvProviderLinnCoUkZones1Cpp::DoSetMapping(IDviInvocation& aInvocation)
+{
+    aInvocation.InvocationReadStart();
+    Brhz buf_Output;
+    aInvocation.InvocationReadString("Output", buf_Output);
+    std::string Output((const char*)buf_Output.Ptr(), buf_Output.Bytes());
+    Brhz buf_Input;
+    aInvocation.InvocationReadString("Input", buf_Input);
+    std::string Input((const char*)buf_Input.Ptr(), buf_Input.Bytes());
+    aInvocation.InvocationReadEnd();
+    DvInvocationStd invocation(aInvocation);
+    SetMapping(invocation, Output, Input);
+    aInvocation.InvocationWriteStart();
+    aInvocation.InvocationWriteEnd();
+}
+
 void DvProviderLinnCoUkZones1Cpp::GetInputs(IDvInvocationStd& /*aInvocation*/, std::string& /*aInputs*/)
 {
     ASSERTS();
@@ -183,6 +208,11 @@ void DvProviderLinnCoUkZones1Cpp::GetMappings(IDvInvocationStd& /*aInvocation*/,
 }
 
 void DvProviderLinnCoUkZones1Cpp::SetMappings(IDvInvocationStd& /*aInvocation*/, const std::string& /*aMappings*/)
+{
+    ASSERTS();
+}
+
+void DvProviderLinnCoUkZones1Cpp::SetMapping(IDvInvocationStd& /*aInvocation*/, const std::string& /*aOutput*/, const std::string& /*aInput*/)
 {
     ASSERTS();
 }

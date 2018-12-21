@@ -168,4 +168,27 @@ CpProxyLinnCoUkZones1.prototype.SetMappings = function(Mappings, successFunction
 }
 
 
+/**
+* A service action to SetMapping
+* @method SetMapping
+* @param {String} Output An action parameter
+* @param {String} Input An action parameter
+* @param {Function} successFunction The function that is executed when the action has completed successfully
+* @param {Function} errorFunction The function that is executed when the action has cause an error
+*/
+CpProxyLinnCoUkZones1.prototype.SetMapping = function(Output, Input, successFunction, errorFunction){ 
+    var request = new ohnet.soaprequest("SetMapping", this.url, this.domain, this.type, this.version);     
+    request.writeStringParameter("Output", Output);
+    request.writeStringParameter("Input", Input);
+    request.send(function(result){
+    
+        if (successFunction){
+            successFunction(result);
+        }
+    }, function(message, transport) {
+        if (errorFunction) {errorFunction(message, transport);}
+    });
+}
+
+
 

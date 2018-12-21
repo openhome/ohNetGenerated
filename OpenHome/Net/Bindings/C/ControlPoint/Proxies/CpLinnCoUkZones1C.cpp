@@ -39,6 +39,10 @@ public:
     void BeginSetMappings(const Brx& aMappings, FunctorAsync& aFunctor);
     void EndSetMappings(IAsync& aAsync);
 
+    void SyncSetMapping(const Brx& aOutput, const Brx& aInput);
+    void BeginSetMapping(const Brx& aOutput, const Brx& aInput, FunctorAsync& aFunctor);
+    void EndSetMapping(IAsync& aAsync);
+
     void SetPropertyInputsChanged(Functor& aFunctor);
     void SetPropertyOutputsChanged(Functor& aFunctor);
     void SetPropertyMappingsChanged(Functor& aFunctor);
@@ -56,6 +60,7 @@ private:
     Action* iActionGetOutputs;
     Action* iActionGetMappings;
     Action* iActionSetMappings;
+    Action* iActionSetMapping;
     PropertyString* iInputs;
     PropertyString* iOutputs;
     PropertyString* iMappings;
@@ -154,6 +159,27 @@ void SyncSetMappingsLinnCoUkZones1C::CompleteRequest(IAsync& aAsync)
     iService.EndSetMappings(aAsync);
 }
 
+
+class SyncSetMappingLinnCoUkZones1C : public SyncProxyAction
+{
+public:
+    SyncSetMappingLinnCoUkZones1C(CpProxyLinnCoUkZones1C& aProxy);
+    virtual void CompleteRequest(IAsync& aAsync);
+    virtual ~SyncSetMappingLinnCoUkZones1C() {};
+private:
+    CpProxyLinnCoUkZones1C& iService;
+};
+
+SyncSetMappingLinnCoUkZones1C::SyncSetMappingLinnCoUkZones1C(CpProxyLinnCoUkZones1C& aProxy)
+    : iService(aProxy)
+{
+}
+
+void SyncSetMappingLinnCoUkZones1C::CompleteRequest(IAsync& aAsync)
+{
+    iService.EndSetMapping(aAsync);
+}
+
 CpProxyLinnCoUkZones1C::CpProxyLinnCoUkZones1C(CpDeviceC aDevice)
     : CpProxyC("linn-co-uk", "Zones", 1, *reinterpret_cast<CpiDevice*>(aDevice))
     , iLock("MPCS")
@@ -176,6 +202,12 @@ CpProxyLinnCoUkZones1C::CpProxyLinnCoUkZones1C(CpDeviceC aDevice)
     param = new OpenHome::Net::ParameterString("Mappings");
     iActionSetMappings->AddInputParameter(param);
 
+    iActionSetMapping = new Action("SetMapping");
+    param = new OpenHome::Net::ParameterString("Output");
+    iActionSetMapping->AddInputParameter(param);
+    param = new OpenHome::Net::ParameterString("Input");
+    iActionSetMapping->AddInputParameter(param);
+
     Functor functor;
     functor = MakeFunctor(*this, &CpProxyLinnCoUkZones1C::InputsPropertyChanged);
     iInputs = new PropertyString("Inputs", functor);
@@ -195,6 +227,7 @@ CpProxyLinnCoUkZones1C::~CpProxyLinnCoUkZones1C()
     delete iActionGetOutputs;
     delete iActionGetMappings;
     delete iActionSetMappings;
+    delete iActionSetMapping;
 }
 
 void CpProxyLinnCoUkZones1C::SyncGetInputs(Brh& aInputs)
@@ -314,6 +347,37 @@ void CpProxyLinnCoUkZones1C::EndSetMappings(IAsync& aAsync)
     ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
     Invocation& invocation = (Invocation&)aAsync;
     ASSERT(invocation.Action().Name() == Brn("SetMappings"));
+
+    Error::ELevel level;
+    TUint code;
+    const TChar* ignore;
+    if (invocation.Error(level, code, ignore)) {
+        THROW_PROXYERROR(level, code);
+    }
+}
+
+void CpProxyLinnCoUkZones1C::SyncSetMapping(const Brx& aOutput, const Brx& aInput)
+{
+    SyncSetMappingLinnCoUkZones1C sync(*this);
+    BeginSetMapping(aOutput, aInput, sync.Functor());
+    sync.Wait();
+}
+
+void CpProxyLinnCoUkZones1C::BeginSetMapping(const Brx& aOutput, const Brx& aInput, FunctorAsync& aFunctor)
+{
+    Invocation* invocation = Service()->Invocation(*iActionSetMapping, aFunctor);
+    TUint inIndex = 0;
+    const Action::VectorParameters& inParams = iActionSetMapping->InputParameters();
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aOutput));
+    invocation->AddInput(new ArgumentString(*inParams[inIndex++], aInput));
+    Invocable().InvokeAction(*invocation);
+}
+
+void CpProxyLinnCoUkZones1C::EndSetMapping(IAsync& aAsync)
+{
+    ASSERT(((Async&)aAsync).Type() == Async::eInvocation);
+    Invocation& invocation = (Invocation&)aAsync;
+    ASSERT(invocation.Action().Name() == Brn("SetMapping"));
 
     Error::ELevel level;
     TUint code;
@@ -557,6 +621,48 @@ int32_t STDCALL CpProxyLinnCoUkZones1EndSetMappings(THandle aHandle, OhNetHandle
     ASSERT(async != NULL);
     try {
         proxyC->EndSetMappings(*async);
+    }
+    catch(...) {
+        err = -1;
+    }
+    return err;
+}
+
+int32_t STDCALL CpProxyLinnCoUkZones1SyncSetMapping(THandle aHandle, const char* aOutput, const char* aInput)
+{
+    CpProxyLinnCoUkZones1C* proxyC = reinterpret_cast<CpProxyLinnCoUkZones1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aOutput(aOutput);
+    Brh buf_aInput(aInput);
+    int32_t err = 0;
+    try {
+        proxyC->SyncSetMapping(buf_aOutput, buf_aInput);
+    }
+    catch (ProxyError& ) {
+        err = -1;
+    }
+    return err;
+}
+
+void STDCALL CpProxyLinnCoUkZones1BeginSetMapping(THandle aHandle, const char* aOutput, const char* aInput, OhNetCallbackAsync aCallback, void* aPtr)
+{
+    CpProxyLinnCoUkZones1C* proxyC = reinterpret_cast<CpProxyLinnCoUkZones1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    Brh buf_aOutput(aOutput);
+    Brh buf_aInput(aInput);
+    FunctorAsync functor = MakeFunctorAsync(aPtr, (OhNetFunctorAsync)aCallback);
+    proxyC->BeginSetMapping(buf_aOutput, buf_aInput, functor);
+}
+
+int32_t STDCALL CpProxyLinnCoUkZones1EndSetMapping(THandle aHandle, OhNetHandleAsync aAsync)
+{
+    int32_t err = 0;
+    CpProxyLinnCoUkZones1C* proxyC = reinterpret_cast<CpProxyLinnCoUkZones1C*>(aHandle);
+    ASSERT(proxyC != NULL);
+    IAsync* async = reinterpret_cast<IAsync*>(aAsync);
+    ASSERT(async != NULL);
+    try {
+        proxyC->EndSetMapping(*async);
     }
     catch(...) {
         err = -1;

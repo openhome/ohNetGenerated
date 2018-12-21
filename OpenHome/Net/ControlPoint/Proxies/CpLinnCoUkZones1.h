@@ -35,6 +35,9 @@ public:
     virtual void SyncSetMappings(const Brx& aMappings) = 0;
     virtual void BeginSetMappings(const Brx& aMappings, FunctorAsync& aFunctor) = 0;
     virtual void EndSetMappings(IAsync& aAsync) = 0;
+    virtual void SyncSetMapping(const Brx& aOutput, const Brx& aInput) = 0;
+    virtual void BeginSetMapping(const Brx& aOutput, const Brx& aInput, FunctorAsync& aFunctor) = 0;
+    virtual void EndSetMapping(IAsync& aAsync) = 0;
     virtual void SetPropertyInputsChanged(Functor& aInputsChanged) = 0;
     virtual void PropertyInputs(Brhz& aInputs) const = 0;
     virtual void SetPropertyOutputsChanged(Functor& aOutputsChanged) = 0;
@@ -173,6 +176,34 @@ public:
     void EndSetMappings(IAsync& aAsync);
 
     /**
+     * Invoke the action synchronously.  Blocks until the action has been processed
+     * on the device and sets any output arguments.
+     *
+     * @param[in]  aOutput
+     * @param[in]  aInput
+     */
+    void SyncSetMapping(const Brx& aOutput, const Brx& aInput);
+    /**
+     * Invoke the action asynchronously.
+     * Returns immediately and will run the client-specified callback when the action
+     * later completes.  Any output arguments can then be retrieved by calling
+     * EndSetMapping().
+     *
+     * @param[in] aOutput
+     * @param[in] aInput
+     * @param[in] aFunctor   Callback to run when the action completes.
+     *                       This is guaranteed to be run but may indicate an error
+     */
+    void BeginSetMapping(const Brx& aOutput, const Brx& aInput, FunctorAsync& aFunctor);
+    /**
+     * Retrieve the output arguments from an asynchronously invoked action.
+     * This may only be called from the callback set in the above Begin function.
+     *
+     * @param[in]  aAsync  Argument passed to the callback set in the above Begin function
+     */
+    void EndSetMapping(IAsync& aAsync);
+
+    /**
      * Set a callback to be run when the Inputs state variable changes.
      *
      * Callbacks may be run in different threads but callbacks for a
@@ -272,6 +303,7 @@ private:
     Action* iActionGetOutputs;
     Action* iActionGetMappings;
     Action* iActionSetMappings;
+    Action* iActionSetMapping;
     PropertyString* iInputs;
     PropertyString* iOutputs;
     PropertyString* iMappings;

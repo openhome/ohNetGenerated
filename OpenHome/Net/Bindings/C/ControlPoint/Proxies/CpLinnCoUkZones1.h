@@ -185,6 +185,44 @@ DllExport void STDCALL CpProxyLinnCoUkZones1BeginSetMappings(THandle aHandle, co
  *          arguments is not guaranteed in the case of failure
  */
 DllExport int32_t STDCALL CpProxyLinnCoUkZones1EndSetMappings(THandle aHandle, OhNetHandleAsync aAsync);
+
+/**
+ * Invoke the action synchronously.  Blocks until the action has been processed
+ * on the device and sets any output arguments.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkZones1Create
+ * @param[in]  aOutput
+ * @param[in]  aInput
+ *
+ * @return  0 if the function succeeded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyLinnCoUkZones1SyncSetMapping(THandle aHandle, const char* aOutput, const char* aInput);
+/**
+ * Invoke the action asynchronously.
+ * Returns immediately and will run the client-specified callback when the action
+ * later completes.  Any output arguments can then be retrieved by calling
+ * EndGetProtocolInfo().
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkZones1Create
+ * @param[in]  aOutput
+ * @param[in]  aInput
+ * @param[in]  aCallback Callback to run when the action completes.
+ *                       This is guaranteed to be run but may indicate an error
+ * @param[in]  aPtr      Data to be passed to the callback
+ */
+DllExport void STDCALL CpProxyLinnCoUkZones1BeginSetMapping(THandle aHandle, const char* aOutput, const char* aInput, OhNetCallbackAsync aCallback, void* aPtr);
+/**
+ * Retrieve the output arguments from an asynchronously invoked action.
+ * This may only be called from the callback set in the above Begin function.
+ *
+ * @param[in]  aHandle   Handle returned by CpProxyLinnCoUkZones1Create
+ * @param[in]  aAsync    Argument passed to the callback set in the above Begin function
+ *
+ * @return  0 if the function succedded; non-zero if it failed.  State of output
+ *          arguments is not guaranteed in the case of failure
+ */
+DllExport int32_t STDCALL CpProxyLinnCoUkZones1EndSetMapping(THandle aHandle, OhNetHandleAsync aAsync);
 /**
  * Set a callback to be run when the Inputs state variable changes.
  *
