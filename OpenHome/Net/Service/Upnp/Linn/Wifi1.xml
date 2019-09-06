@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+
+    <actionList>
+
+        <action>
+            <name>ClearCredentials</name>
+        </action>
+
+        <action>
+            <name>GetAdapterInUse</name>
+            <argumentList>
+                <argument>
+                    <name>AdapterInUse</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>AdapterInUse</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetConfiguration</name>
+            <argumentList>
+                <argument>
+                    <name>Configuration</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>Configuration</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetNetworkInfo</name>
+            <argumentList>
+                <argument>
+                    <name>NetworkInfo</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>NetworkInfo</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetScanResults</name>
+            <argumentList>
+                <argument>
+                    <name>ScanResults</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>ScanResults</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetSignalInfo</name>
+            <argumentList>
+                <argument>
+                    <name>SignalInfo</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>SignalInfo</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>GetStatus</name>
+            <argumentList>
+                <argument>
+                    <name>Status</name>
+                    <direction>out</direction>
+                    <relatedStateVariable>Status</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+        <action>
+            <name>Scan</name>
+        </action>
+
+        <action>
+            <name>SetCredentials</name>
+            <argumentList>
+                <argument>
+                    <name>Ssid</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+                <argument>
+                    <name>Password</name>
+                    <direction>in</direction>
+                    <relatedStateVariable>A_ARG_TYPE_String</relatedStateVariable>
+                </argument>
+            </argumentList>
+        </action>
+
+    </actionList>
+
+    <serviceStateTable>
+        <stateVariable sendEvents="yes">
+            <name>AdapterInUse</name>
+            <dataType>boolean</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>Configuration</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>ScanResults</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="yes">
+            <name>Status</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>NetworkInfo</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>SignalInfo</name>
+            <dataType>string</dataType>
+        </stateVariable>
+        <stateVariable sendEvents="no">
+            <name>A_ARG_TYPE_String</name>
+            <dataType>string</dataType>
+        </stateVariable>
+    </serviceStateTable>
+
+</scpd>

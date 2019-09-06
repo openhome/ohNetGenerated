@@ -360,6 +360,13 @@
     <publisher>Linn</publisher>
     <dcpdir></dcpdir>
     <domain>linn.co.uk</domain>
+    <type>Wifi</type>
+    <version>1</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
     <type>ZoneReceiver</type>
     <version>1</version>
   </service>

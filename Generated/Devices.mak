@@ -157,6 +157,9 @@ objects_devices = \
                   $(objdir)DvLinnCoUkExakt21.$(objext) \
                   $(objdir)DvLinnCoUkExakt21Std.$(objext) \
                   $(objdir)DvLinnCoUkExakt21C.$(objext) \
+                  $(objdir)DvLinnCoUkWifi1.$(objext) \
+                  $(objdir)DvLinnCoUkWifi1Std.$(objext) \
+                  $(objdir)DvLinnCoUkWifi1C.$(objext) \
                   $(objdir)DvLinnCoUkZoneReceiver1.$(objext) \
                   $(objdir)DvLinnCoUkZoneReceiver1Std.$(objext) \
                   $(objdir)DvLinnCoUkZoneReceiver1C.$(objext) \
@@ -223,6 +226,7 @@ device_dotnet_assemblies = \
         DvLinnCoUkConfiguration1.net.dll \
         DvLinnCoUkLipSync1.net.dll \
         DvLinnCoUkExakt21.net.dll \
+        DvLinnCoUkWifi1.net.dll \
         DvLinnCoUkZoneReceiver1.net.dll \
         DvLinnCoUkZones1.net.dll \
 
@@ -278,6 +282,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvLinnCoUkConfiguration1.net.dll \
         $(objdir)DvLinnCoUkLipSync1.net.dll \
         $(objdir)DvLinnCoUkExakt21.net.dll \
+        $(objdir)DvLinnCoUkWifi1.net.dll \
         $(objdir)DvLinnCoUkZoneReceiver1.net.dll \
         $(objdir)DvLinnCoUkZones1.net.dll \
 
@@ -333,6 +338,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkConfiguration1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkLipSync1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExakt21.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkWifi1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkZoneReceiver1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkZones1.class \
 
@@ -644,6 +650,12 @@ $(objdir)DvLinnCoUkExakt21Std.$(objext) : $(deviceCppStd)DvLinnCoUkExakt21Std.cp
 	$(compiler)DvLinnCoUkExakt21Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkExakt21Std.cpp
 $(objdir)DvLinnCoUkExakt21C.$(objext) : $(deviceC)DvLinnCoUkExakt21C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkExakt21.h
 	$(compiler)DvLinnCoUkExakt21C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkExakt21C.cpp
+$(objdir)DvLinnCoUkWifi1.$(objext) : $(deviceCppCore)DvLinnCoUkWifi1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkWifi1.h
+	$(compiler)DvLinnCoUkWifi1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkWifi1.cpp
+$(objdir)DvLinnCoUkWifi1Std.$(objext) : $(deviceCppStd)DvLinnCoUkWifi1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkWifi1.h
+	$(compiler)DvLinnCoUkWifi1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkWifi1Std.cpp
+$(objdir)DvLinnCoUkWifi1C.$(objext) : $(deviceC)DvLinnCoUkWifi1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkWifi1.h
+	$(compiler)DvLinnCoUkWifi1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkWifi1C.cpp
 $(objdir)DvLinnCoUkZoneReceiver1.$(objext) : $(deviceCppCore)DvLinnCoUkZoneReceiver1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkZoneReceiver1.h
 	$(compiler)DvLinnCoUkZoneReceiver1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkZoneReceiver1.cpp
 $(objdir)DvLinnCoUkZoneReceiver1Std.$(objext) : $(deviceCppStd)DvLinnCoUkZoneReceiver1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkZoneReceiver1.h
@@ -917,6 +929,11 @@ $(objdir)DvLinnCoUkExakt21.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCo
         /out:$(objdir)DvLinnCoUkExakt21.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvLinnCoUkExakt21.cs
+$(objdir)DvLinnCoUkWifi1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkWifi1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)DvLinnCoUkWifi1.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkWifi1.cs
 $(objdir)DvLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkZoneReceiver1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)DvLinnCoUkZoneReceiver1.net.dll \
@@ -1034,6 +1051,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkLipSync1.class : $(
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkLipSync1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExakt21.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkExakt21.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkExakt21.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkWifi1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkWifi1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkWifi1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkZoneReceiver1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkZoneReceiver1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkZoneReceiver1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkZones1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkZones1.java
