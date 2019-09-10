@@ -31,6 +31,7 @@ MACHINE = $(shell uname -s)
 $(info CROSS_COMPILE: ${CROSS_COMPILE})
 $(info Machine reported by compiler is: ${gcc_machine})
 $(info Machine reported by uname is: ${MACHINE})
+$(info PLATFORM: ${PLATFORM})
 
 ifeq ($(MACHINE),Darwin)
   ifeq ($(iOs-armv7),1)
@@ -62,6 +63,14 @@ else ifeq ($(Android-anycpu), 1)
     platform = Android
     detected_openhome_system = Android
     detected_openhome_architecture = anycpu
+else ifneq (,$(findstring Linux-x86,${PLATFORM}))
+    ifneq (,$(findstring x86_64,$(gcc_machine)))
+        platform = Vanilla
+        detected_openhome_system = Linux
+        detected_openhome_architecture = x86
+        CFLAGS = -m32
+        LDFLAGS = -m32
+    endif
 else
   # At present, platform == Vanilla is used for Kirkwood, x86 and x64 Posix builds.
   platform ?= Vanilla
