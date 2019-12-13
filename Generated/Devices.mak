@@ -79,6 +79,9 @@ objects_devices = \
                   $(objdir)DvAvOpenhomeOrgVolume3.$(objext) \
                   $(objdir)DvAvOpenhomeOrgVolume3Std.$(objext) \
                   $(objdir)DvAvOpenhomeOrgVolume3C.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgVolume4.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgVolume4Std.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgVolume4C.$(objext) \
                   $(objdir)DvAvOpenhomeOrgProduct1.$(objext) \
                   $(objdir)DvAvOpenhomeOrgProduct1Std.$(objext) \
                   $(objdir)DvAvOpenhomeOrgProduct1C.$(objext) \
@@ -200,6 +203,7 @@ device_dotnet_assemblies = \
         DvAvOpenhomeOrgVolume1.net.dll \
         DvAvOpenhomeOrgVolume2.net.dll \
         DvAvOpenhomeOrgVolume3.net.dll \
+        DvAvOpenhomeOrgVolume4.net.dll \
         DvAvOpenhomeOrgProduct1.net.dll \
         DvAvOpenhomeOrgProduct2.net.dll \
         DvAvOpenhomeOrgProduct3.net.dll \
@@ -256,6 +260,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvAvOpenhomeOrgVolume1.net.dll \
         $(objdir)DvAvOpenhomeOrgVolume2.net.dll \
         $(objdir)DvAvOpenhomeOrgVolume3.net.dll \
+        $(objdir)DvAvOpenhomeOrgVolume4.net.dll \
         $(objdir)DvAvOpenhomeOrgProduct1.net.dll \
         $(objdir)DvAvOpenhomeOrgProduct2.net.dll \
         $(objdir)DvAvOpenhomeOrgProduct3.net.dll \
@@ -312,6 +317,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume3.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume4.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct3.class \
@@ -494,6 +500,12 @@ $(objdir)DvAvOpenhomeOrgVolume3Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgVol
 	$(compiler)DvAvOpenhomeOrgVolume3Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgVolume3Std.cpp
 $(objdir)DvAvOpenhomeOrgVolume3C.$(objext) : $(deviceC)DvAvOpenhomeOrgVolume3C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgVolume3.h
 	$(compiler)DvAvOpenhomeOrgVolume3C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgVolume3C.cpp
+$(objdir)DvAvOpenhomeOrgVolume4.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgVolume4.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgVolume4.h
+	$(compiler)DvAvOpenhomeOrgVolume4.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgVolume4.cpp
+$(objdir)DvAvOpenhomeOrgVolume4Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgVolume4Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgVolume4.h
+	$(compiler)DvAvOpenhomeOrgVolume4Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgVolume4Std.cpp
+$(objdir)DvAvOpenhomeOrgVolume4C.$(objext) : $(deviceC)DvAvOpenhomeOrgVolume4C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgVolume4.h
+	$(compiler)DvAvOpenhomeOrgVolume4C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgVolume4C.cpp
 $(objdir)DvAvOpenhomeOrgProduct1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgProduct1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgProduct1.h
 	$(compiler)DvAvOpenhomeOrgProduct1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgProduct1.cpp
 $(objdir)DvAvOpenhomeOrgProduct1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgProduct1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgProduct1.h
@@ -799,6 +811,11 @@ $(objdir)DvAvOpenhomeOrgVolume3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvA
         /out:$(objdir)DvAvOpenhomeOrgVolume3.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvAvOpenhomeOrgVolume3.cs
+$(objdir)DvAvOpenhomeOrgVolume4.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgVolume4.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)DvAvOpenhomeOrgVolume4.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvAvOpenhomeOrgVolume4.cs
 $(objdir)DvAvOpenhomeOrgProduct1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgProduct1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)DvAvOpenhomeOrgProduct1.net.dll \
@@ -999,6 +1016,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume2.class 
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgVolume2.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume3.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgVolume3.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgVolume3.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgVolume4.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgVolume4.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgVolume4.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgProduct1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgProduct1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgProduct2.java
