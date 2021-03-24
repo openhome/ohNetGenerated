@@ -1019,6 +1019,76 @@ $(objdir)CpLinnCoUkZones1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUk
         /reference:$(depDirCs)ohNet.net.dll \
         $(proxyCs)CpLinnCoUkZones1.cs
 
+# Single Proxy assembly (all OpenHome services)  for .NET:
+
+CpProxyDotNetOpenHomeAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesOpenHome.net.dll
+
+$(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
+                                    $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgTime1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgSender1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgSender2.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgPins1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+                                    $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+                                    $(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+                                    $(proxyCs)CpOpenhomeOrgTestLights1.cs \
+                                    $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpProxiesOpenHome.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+        $(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+        $(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+        $(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+        $(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+        $(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+        $(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+        $(proxyCs)CpAvOpenhomeOrgTime1.cs \
+        $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+        $(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+        $(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+        $(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+        $(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+        $(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+        $(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+        $(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+        $(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+        $(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+        $(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+        $(proxyCs)CpAvOpenhomeOrgSender1.cs \
+        $(proxyCs)CpAvOpenhomeOrgSender2.cs \
+        $(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+        $(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+        $(proxyCs)CpAvOpenhomeOrgPins1.cs \
+        $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+        $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+        $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+        $(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+        $(proxyCs)CpOpenhomeOrgTestLights1.cs \
+        $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+
 # Proxy classes for Java:
 
 CpProxyJavaClasses: $(proxy_java_classes_with_path)

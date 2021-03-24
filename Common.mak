@@ -34,6 +34,6 @@ Generated$(dirsep)Devices.mak : $(tt) OpenHome$(dirsep)Net$(dirsep)Service$(dirs
 
 native_targets = make_obj_dir copy_build_includes proxies devices
 
-CSharpAll : make_obj_dir CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
+CSharpAll : make_obj_dir CpProxyDotNetAssemblies DvDeviceDotNetAssemblies CpProxyDotNetOpenHomeAssembly
 
-all_targets = $(native_targets) CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
+all_targets = $(native_targets) CpProxyDotNetAssemblies DvDeviceDotNetAssemblies CpProxyDotNetOpenHomeAssembly

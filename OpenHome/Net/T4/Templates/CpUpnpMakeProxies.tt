@@ -76,6 +76,30 @@ $(objdir)Cp<#=FilePrefixTypeAndVersion(s)#>.net.dll: $(depDirCs)ohNet.net.dll $(
         $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs
 <# } #>
 
+# Single Proxy assembly (all OpenHome services)  for .NET:
+
+CpProxyDotNetOpenHomeAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesOpenHome.net.dll
+
+$(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
+<# foreach (Service s in u.iServices) #>
+<# { #>
+<#   if (s.iPublisher == "OpenHome") #>
+<#   { #>
+                                    $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
+<#   } #>
+<# } #>
+
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)CpProxiesOpenHome.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+<# foreach (Service s in u.iServices) #>
+<# { #>
+<#   if (s.iPublisher == "OpenHome") #>
+<#   { #>
+        $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
+<#   } #>
+<# } #>
+
 # Proxy classes for Java:
 
 CpProxyJavaClasses: $(proxy_java_classes_with_path)
