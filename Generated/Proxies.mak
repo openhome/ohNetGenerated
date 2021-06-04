@@ -4,373 +4,379 @@
 # to apply any updates
 
 objects_proxies = \
-                  $(objdir)CpUpnpOrgAVTransport1.$(objext) \
-                  $(objdir)CpUpnpOrgAVTransport1C.$(objext) \
-                  $(objdir)CpUpnpOrgAVTransport1Std.$(objext) \
-                  $(objdir)CpUpnpOrgAVTransport2.$(objext) \
-                  $(objdir)CpUpnpOrgAVTransport2C.$(objext) \
-                  $(objdir)CpUpnpOrgAVTransport2Std.$(objext) \
-                  $(objdir)CpUpnpOrgConnectionManager1.$(objext) \
-                  $(objdir)CpUpnpOrgConnectionManager1C.$(objext) \
-                  $(objdir)CpUpnpOrgConnectionManager1Std.$(objext) \
-                  $(objdir)CpUpnpOrgConnectionManager2.$(objext) \
-                  $(objdir)CpUpnpOrgConnectionManager2C.$(objext) \
-                  $(objdir)CpUpnpOrgConnectionManager2Std.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory1.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory1C.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory1Std.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory2.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory2C.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory2Std.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory3.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory3C.$(objext) \
-                  $(objdir)CpUpnpOrgContentDirectory3Std.$(objext) \
-                  $(objdir)CpUpnpOrgRenderingControl1.$(objext) \
-                  $(objdir)CpUpnpOrgRenderingControl1C.$(objext) \
-                  $(objdir)CpUpnpOrgRenderingControl1Std.$(objext) \
-                  $(objdir)CpUpnpOrgRenderingControl2.$(objext) \
-                  $(objdir)CpUpnpOrgRenderingControl2C.$(objext) \
-                  $(objdir)CpUpnpOrgRenderingControl2Std.$(objext) \
-                  $(objdir)CpUpnpOrgScheduledRecording1.$(objext) \
-                  $(objdir)CpUpnpOrgScheduledRecording1C.$(objext) \
-                  $(objdir)CpUpnpOrgScheduledRecording1Std.$(objext) \
-                  $(objdir)CpUpnpOrgScheduledRecording2.$(objext) \
-                  $(objdir)CpUpnpOrgScheduledRecording2C.$(objext) \
-                  $(objdir)CpUpnpOrgScheduledRecording2Std.$(objext) \
-                  $(objdir)CpUpnpOrgSwitchPower1.$(objext) \
-                  $(objdir)CpUpnpOrgSwitchPower1C.$(objext) \
-                  $(objdir)CpUpnpOrgSwitchPower1Std.$(objext) \
-                  $(objdir)CpUpnpOrgDimming1.$(objext) \
-                  $(objdir)CpUpnpOrgDimming1C.$(objext) \
-                  $(objdir)CpUpnpOrgDimming1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgConfigApp1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgConfigApp1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgConfigApp1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgCredentials1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgCredentials1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgCredentials1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt2.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt2C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt2Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt3.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt3C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt3Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt4.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt4C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgExakt4Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgInfo1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgInfo1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgInfo1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgTime1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgTime1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgTime1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPlaylist1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPlaylist1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPlaylist1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume2.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume2C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume2Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume3.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume3C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume3Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume4.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume4C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgVolume4Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct2.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct2C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct2Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct3.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct3C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgProduct3Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgTransport1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgTransport1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgTransport1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgRadio1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgRadio1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgRadio1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgReceiver1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgReceiver1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgReceiver1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgSender1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgSender1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgSender1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgSender2.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgSender2C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgSender2Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgDebug1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgDebug1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgDebug1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgDebug2.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgDebug2C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgDebug2Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPins1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPins1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPins1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPlaylistManager1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPlaylistManager1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgPlaylistManager1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgMediaServer1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgMediaServer1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgMediaServer1Std.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgNetworkMonitor1.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgNetworkMonitor1C.$(objext) \
-                  $(objdir)CpAvOpenhomeOrgNetworkMonitor1Std.$(objext) \
-                  $(objdir)CpOpenhomeOrgTestBasic1.$(objext) \
-                  $(objdir)CpOpenhomeOrgTestBasic1C.$(objext) \
-                  $(objdir)CpOpenhomeOrgTestBasic1Std.$(objext) \
-                  $(objdir)CpOpenhomeOrgTestLights1.$(objext) \
-                  $(objdir)CpOpenhomeOrgTestLights1C.$(objext) \
-                  $(objdir)CpOpenhomeOrgTestLights1Std.$(objext) \
-                  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.$(objext) \
-                  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) \
-                  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) \
-                  $(objdir)CpLinnCoUkFlash1.$(objext) \
-                  $(objdir)CpLinnCoUkFlash1C.$(objext) \
-                  $(objdir)CpLinnCoUkFlash1Std.$(objext) \
-                  $(objdir)CpLinnCoUkVolkano1.$(objext) \
-                  $(objdir)CpLinnCoUkVolkano1C.$(objext) \
-                  $(objdir)CpLinnCoUkVolkano1Std.$(objext) \
-                  $(objdir)CpLinnCoUkPrivacy1.$(objext) \
-                  $(objdir)CpLinnCoUkPrivacy1C.$(objext) \
-                  $(objdir)CpLinnCoUkPrivacy1Std.$(objext) \
-                  $(objdir)CpLinnCoUkExaktInputs1.$(objext) \
-                  $(objdir)CpLinnCoUkExaktInputs1C.$(objext) \
-                  $(objdir)CpLinnCoUkExaktInputs1Std.$(objext) \
-                  $(objdir)CpLinnCoUkCloud1.$(objext) \
-                  $(objdir)CpLinnCoUkCloud1C.$(objext) \
-                  $(objdir)CpLinnCoUkCloud1Std.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate1.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate1C.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate1Std.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate2.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate2C.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate2Std.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate3.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate3C.$(objext) \
-                  $(objdir)CpLinnCoUkUpdate3Std.$(objext) \
-                  $(objdir)CpLinnCoUkConfiguration1.$(objext) \
-                  $(objdir)CpLinnCoUkConfiguration1C.$(objext) \
-                  $(objdir)CpLinnCoUkConfiguration1Std.$(objext) \
-                  $(objdir)CpLinnCoUkLipSync1.$(objext) \
-                  $(objdir)CpLinnCoUkLipSync1C.$(objext) \
-                  $(objdir)CpLinnCoUkLipSync1Std.$(objext) \
-                  $(objdir)CpLinnCoUkExakt21.$(objext) \
-                  $(objdir)CpLinnCoUkExakt21C.$(objext) \
-                  $(objdir)CpLinnCoUkExakt21Std.$(objext) \
-                  $(objdir)CpLinnCoUkExakt22.$(objext) \
-                  $(objdir)CpLinnCoUkExakt22C.$(objext) \
-                  $(objdir)CpLinnCoUkExakt22Std.$(objext) \
-                  $(objdir)CpLinnCoUkWifi1.$(objext) \
-                  $(objdir)CpLinnCoUkWifi1C.$(objext) \
-                  $(objdir)CpLinnCoUkWifi1Std.$(objext) \
-                  $(objdir)CpLinnCoUkZoneReceiver1.$(objext) \
-                  $(objdir)CpLinnCoUkZoneReceiver1C.$(objext) \
-                  $(objdir)CpLinnCoUkZoneReceiver1Std.$(objext) \
-                  $(objdir)CpLinnCoUkZones1.$(objext) \
-                  $(objdir)CpLinnCoUkZones1C.$(objext) \
-                  $(objdir)CpLinnCoUkZones1Std.$(objext) \
+				  $(objdir)CpUpnpOrgAVTransport1.$(objext) \
+				  $(objdir)CpUpnpOrgAVTransport1C.$(objext) \
+				  $(objdir)CpUpnpOrgAVTransport1Std.$(objext) \
+				  $(objdir)CpUpnpOrgAVTransport2.$(objext) \
+				  $(objdir)CpUpnpOrgAVTransport2C.$(objext) \
+				  $(objdir)CpUpnpOrgAVTransport2Std.$(objext) \
+				  $(objdir)CpUpnpOrgConnectionManager1.$(objext) \
+				  $(objdir)CpUpnpOrgConnectionManager1C.$(objext) \
+				  $(objdir)CpUpnpOrgConnectionManager1Std.$(objext) \
+				  $(objdir)CpUpnpOrgConnectionManager2.$(objext) \
+				  $(objdir)CpUpnpOrgConnectionManager2C.$(objext) \
+				  $(objdir)CpUpnpOrgConnectionManager2Std.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory1.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory1C.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory1Std.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory2.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory2C.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory2Std.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory3.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory3C.$(objext) \
+				  $(objdir)CpUpnpOrgContentDirectory3Std.$(objext) \
+				  $(objdir)CpUpnpOrgRenderingControl1.$(objext) \
+				  $(objdir)CpUpnpOrgRenderingControl1C.$(objext) \
+				  $(objdir)CpUpnpOrgRenderingControl1Std.$(objext) \
+				  $(objdir)CpUpnpOrgRenderingControl2.$(objext) \
+				  $(objdir)CpUpnpOrgRenderingControl2C.$(objext) \
+				  $(objdir)CpUpnpOrgRenderingControl2Std.$(objext) \
+				  $(objdir)CpUpnpOrgScheduledRecording1.$(objext) \
+				  $(objdir)CpUpnpOrgScheduledRecording1C.$(objext) \
+				  $(objdir)CpUpnpOrgScheduledRecording1Std.$(objext) \
+				  $(objdir)CpUpnpOrgScheduledRecording2.$(objext) \
+				  $(objdir)CpUpnpOrgScheduledRecording2C.$(objext) \
+				  $(objdir)CpUpnpOrgScheduledRecording2Std.$(objext) \
+				  $(objdir)CpUpnpOrgSwitchPower1.$(objext) \
+				  $(objdir)CpUpnpOrgSwitchPower1C.$(objext) \
+				  $(objdir)CpUpnpOrgSwitchPower1Std.$(objext) \
+				  $(objdir)CpUpnpOrgDimming1.$(objext) \
+				  $(objdir)CpUpnpOrgDimming1C.$(objext) \
+				  $(objdir)CpUpnpOrgDimming1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgConfigApp1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgConfigApp1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgConfigApp1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgCredentials1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgCredentials1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgCredentials1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt2.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt2C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt2Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt3.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt3C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt3Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt4.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt4C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgExakt4Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgInfo1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgInfo1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgInfo1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgTime1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgTime1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgTime1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPlaylist1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPlaylist1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPlaylist1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume2.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume2C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume2Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume3.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume3C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume3Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume4.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume4C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgVolume4Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct2.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct2C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct2Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct3.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct3C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgProduct3Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgTransport1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgTransport1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgTransport1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgRadio1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgRadio1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgRadio1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgReceiver1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgReceiver1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgReceiver1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgSender1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgSender1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgSender1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgSender2.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgSender2C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgSender2Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgDebug1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgDebug1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgDebug1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgDebug2.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgDebug2C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgDebug2Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPins1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPins1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPins1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPlaylistManager1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPlaylistManager1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgPlaylistManager1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgMediaServer1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgMediaServer1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgMediaServer1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgNetworkMonitor1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgNetworkMonitor1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgNetworkMonitor1Std.$(objext) \
+				  $(objdir)CpOpenhomeOrgTestBasic1.$(objext) \
+				  $(objdir)CpOpenhomeOrgTestBasic1C.$(objext) \
+				  $(objdir)CpOpenhomeOrgTestBasic1Std.$(objext) \
+				  $(objdir)CpOpenhomeOrgTestLights1.$(objext) \
+				  $(objdir)CpOpenhomeOrgTestLights1C.$(objext) \
+				  $(objdir)CpOpenhomeOrgTestLights1Std.$(objext) \
+				  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.$(objext) \
+				  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) \
+				  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) \
+				  $(objdir)CpOpenhomeOrgOAuth1.$(objext) \
+				  $(objdir)CpOpenhomeOrgOAuth1C.$(objext) \
+				  $(objdir)CpOpenhomeOrgOAuth1Std.$(objext) \
+				  $(objdir)CpLinnCoUkFlash1.$(objext) \
+				  $(objdir)CpLinnCoUkFlash1C.$(objext) \
+				  $(objdir)CpLinnCoUkFlash1Std.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano1.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano1C.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano1Std.$(objext) \
+				  $(objdir)CpLinnCoUkPrivacy1.$(objext) \
+				  $(objdir)CpLinnCoUkPrivacy1C.$(objext) \
+				  $(objdir)CpLinnCoUkPrivacy1Std.$(objext) \
+				  $(objdir)CpLinnCoUkExaktInputs1.$(objext) \
+				  $(objdir)CpLinnCoUkExaktInputs1C.$(objext) \
+				  $(objdir)CpLinnCoUkExaktInputs1Std.$(objext) \
+				  $(objdir)CpLinnCoUkCloud1.$(objext) \
+				  $(objdir)CpLinnCoUkCloud1C.$(objext) \
+				  $(objdir)CpLinnCoUkCloud1Std.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate1.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate1C.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate1Std.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate2.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate2C.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate2Std.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate3.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate3C.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate3Std.$(objext) \
+				  $(objdir)CpLinnCoUkConfiguration1.$(objext) \
+				  $(objdir)CpLinnCoUkConfiguration1C.$(objext) \
+				  $(objdir)CpLinnCoUkConfiguration1Std.$(objext) \
+				  $(objdir)CpLinnCoUkLipSync1.$(objext) \
+				  $(objdir)CpLinnCoUkLipSync1C.$(objext) \
+				  $(objdir)CpLinnCoUkLipSync1Std.$(objext) \
+				  $(objdir)CpLinnCoUkExakt21.$(objext) \
+				  $(objdir)CpLinnCoUkExakt21C.$(objext) \
+				  $(objdir)CpLinnCoUkExakt21Std.$(objext) \
+				  $(objdir)CpLinnCoUkExakt22.$(objext) \
+				  $(objdir)CpLinnCoUkExakt22C.$(objext) \
+				  $(objdir)CpLinnCoUkExakt22Std.$(objext) \
+				  $(objdir)CpLinnCoUkWifi1.$(objext) \
+				  $(objdir)CpLinnCoUkWifi1C.$(objext) \
+				  $(objdir)CpLinnCoUkWifi1Std.$(objext) \
+				  $(objdir)CpLinnCoUkZoneReceiver1.$(objext) \
+				  $(objdir)CpLinnCoUkZoneReceiver1C.$(objext) \
+				  $(objdir)CpLinnCoUkZoneReceiver1Std.$(objext) \
+				  $(objdir)CpLinnCoUkZones1.$(objext) \
+				  $(objdir)CpLinnCoUkZones1C.$(objext) \
+				  $(objdir)CpLinnCoUkZones1Std.$(objext) \
 
 # Service proxies have well controlled dependencies so we can document a more limited set of headers
 headers_proxy = $(inc_build)/OpenHome/Buffer.h \
-                $(inc_build)/OpenHome/Buffer.inl \
-                $(inc_build)/OpenHome/Exception.h \
-                $(inc_build)/OpenHome/Functor.h \
-                $(inc_build)/OpenHome/Net/Core/FunctorAsync.h \
-                $(inc_build)/OpenHome/Types.h \
-                $(inc_build)/OpenHome/Net/Core/CpProxy.h \
-                $(inc_build)/OpenHome/Net/Private/CpiService.h \
-                $(inc_build)/OpenHome/Net/Private/Service.h \
-                $(inc_build)/OpenHome/Private/Thread.h \
-                $(inc_build)/OpenHome/Net/Private/AsyncPrivate.h
+				$(inc_build)/OpenHome/Buffer.inl \
+				$(inc_build)/OpenHome/Exception.h \
+				$(inc_build)/OpenHome/Functor.h \
+				$(inc_build)/OpenHome/Net/Core/FunctorAsync.h \
+				$(inc_build)/OpenHome/Types.h \
+				$(inc_build)/OpenHome/Net/Core/CpProxy.h \
+				$(inc_build)/OpenHome/Net/Private/CpiService.h \
+				$(inc_build)/OpenHome/Net/Private/Service.h \
+				$(inc_build)/OpenHome/Private/Thread.h \
+				$(inc_build)/OpenHome/Net/Private/AsyncPrivate.h
 
 proxy_dotnet_assemblies = \
-        CpUpnpOrgAVTransport1.net.dll \
-        CpUpnpOrgAVTransport2.net.dll \
-        CpUpnpOrgConnectionManager1.net.dll \
-        CpUpnpOrgConnectionManager2.net.dll \
-        CpUpnpOrgContentDirectory1.net.dll \
-        CpUpnpOrgContentDirectory2.net.dll \
-        CpUpnpOrgContentDirectory3.net.dll \
-        CpUpnpOrgRenderingControl1.net.dll \
-        CpUpnpOrgRenderingControl2.net.dll \
-        CpUpnpOrgScheduledRecording1.net.dll \
-        CpUpnpOrgScheduledRecording2.net.dll \
-        CpUpnpOrgSwitchPower1.net.dll \
-        CpUpnpOrgDimming1.net.dll \
-        CpAvOpenhomeOrgConfigApp1.net.dll \
-        CpAvOpenhomeOrgCredentials1.net.dll \
-        CpAvOpenhomeOrgExakt1.net.dll \
-        CpAvOpenhomeOrgExakt2.net.dll \
-        CpAvOpenhomeOrgExakt3.net.dll \
-        CpAvOpenhomeOrgExakt4.net.dll \
-        CpAvOpenhomeOrgInfo1.net.dll \
-        CpAvOpenhomeOrgTime1.net.dll \
-        CpAvOpenhomeOrgPlaylist1.net.dll \
-        CpAvOpenhomeOrgVolume1.net.dll \
-        CpAvOpenhomeOrgVolume2.net.dll \
-        CpAvOpenhomeOrgVolume3.net.dll \
-        CpAvOpenhomeOrgVolume4.net.dll \
-        CpAvOpenhomeOrgProduct1.net.dll \
-        CpAvOpenhomeOrgProduct2.net.dll \
-        CpAvOpenhomeOrgProduct3.net.dll \
-        CpAvOpenhomeOrgTransport1.net.dll \
-        CpAvOpenhomeOrgRadio1.net.dll \
-        CpAvOpenhomeOrgReceiver1.net.dll \
-        CpAvOpenhomeOrgSender1.net.dll \
-        CpAvOpenhomeOrgSender2.net.dll \
-        CpAvOpenhomeOrgDebug1.net.dll \
-        CpAvOpenhomeOrgDebug2.net.dll \
-        CpAvOpenhomeOrgPins1.net.dll \
-        CpAvOpenhomeOrgPlaylistManager1.net.dll \
-        CpAvOpenhomeOrgMediaServer1.net.dll \
-        CpAvOpenhomeOrgNetworkMonitor1.net.dll \
-        CpOpenhomeOrgTestBasic1.net.dll \
-        CpOpenhomeOrgTestLights1.net.dll \
-        CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-        CpLinnCoUkFlash1.net.dll \
-        CpLinnCoUkVolkano1.net.dll \
-        CpLinnCoUkPrivacy1.net.dll \
-        CpLinnCoUkExaktInputs1.net.dll \
-        CpLinnCoUkCloud1.net.dll \
-        CpLinnCoUkUpdate1.net.dll \
-        CpLinnCoUkUpdate2.net.dll \
-        CpLinnCoUkUpdate3.net.dll \
-        CpLinnCoUkConfiguration1.net.dll \
-        CpLinnCoUkLipSync1.net.dll \
-        CpLinnCoUkExakt21.net.dll \
-        CpLinnCoUkExakt22.net.dll \
-        CpLinnCoUkWifi1.net.dll \
-        CpLinnCoUkZoneReceiver1.net.dll \
-        CpLinnCoUkZones1.net.dll \
+		CpUpnpOrgAVTransport1.net.dll \
+		CpUpnpOrgAVTransport2.net.dll \
+		CpUpnpOrgConnectionManager1.net.dll \
+		CpUpnpOrgConnectionManager2.net.dll \
+		CpUpnpOrgContentDirectory1.net.dll \
+		CpUpnpOrgContentDirectory2.net.dll \
+		CpUpnpOrgContentDirectory3.net.dll \
+		CpUpnpOrgRenderingControl1.net.dll \
+		CpUpnpOrgRenderingControl2.net.dll \
+		CpUpnpOrgScheduledRecording1.net.dll \
+		CpUpnpOrgScheduledRecording2.net.dll \
+		CpUpnpOrgSwitchPower1.net.dll \
+		CpUpnpOrgDimming1.net.dll \
+		CpAvOpenhomeOrgConfigApp1.net.dll \
+		CpAvOpenhomeOrgCredentials1.net.dll \
+		CpAvOpenhomeOrgExakt1.net.dll \
+		CpAvOpenhomeOrgExakt2.net.dll \
+		CpAvOpenhomeOrgExakt3.net.dll \
+		CpAvOpenhomeOrgExakt4.net.dll \
+		CpAvOpenhomeOrgInfo1.net.dll \
+		CpAvOpenhomeOrgTime1.net.dll \
+		CpAvOpenhomeOrgPlaylist1.net.dll \
+		CpAvOpenhomeOrgVolume1.net.dll \
+		CpAvOpenhomeOrgVolume2.net.dll \
+		CpAvOpenhomeOrgVolume3.net.dll \
+		CpAvOpenhomeOrgVolume4.net.dll \
+		CpAvOpenhomeOrgProduct1.net.dll \
+		CpAvOpenhomeOrgProduct2.net.dll \
+		CpAvOpenhomeOrgProduct3.net.dll \
+		CpAvOpenhomeOrgTransport1.net.dll \
+		CpAvOpenhomeOrgRadio1.net.dll \
+		CpAvOpenhomeOrgReceiver1.net.dll \
+		CpAvOpenhomeOrgSender1.net.dll \
+		CpAvOpenhomeOrgSender2.net.dll \
+		CpAvOpenhomeOrgDebug1.net.dll \
+		CpAvOpenhomeOrgDebug2.net.dll \
+		CpAvOpenhomeOrgPins1.net.dll \
+		CpAvOpenhomeOrgPlaylistManager1.net.dll \
+		CpAvOpenhomeOrgMediaServer1.net.dll \
+		CpAvOpenhomeOrgNetworkMonitor1.net.dll \
+		CpOpenhomeOrgTestBasic1.net.dll \
+		CpOpenhomeOrgTestLights1.net.dll \
+		CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
+		CpOpenhomeOrgOAuth1.net.dll \
+		CpLinnCoUkFlash1.net.dll \
+		CpLinnCoUkVolkano1.net.dll \
+		CpLinnCoUkPrivacy1.net.dll \
+		CpLinnCoUkExaktInputs1.net.dll \
+		CpLinnCoUkCloud1.net.dll \
+		CpLinnCoUkUpdate1.net.dll \
+		CpLinnCoUkUpdate2.net.dll \
+		CpLinnCoUkUpdate3.net.dll \
+		CpLinnCoUkConfiguration1.net.dll \
+		CpLinnCoUkLipSync1.net.dll \
+		CpLinnCoUkExakt21.net.dll \
+		CpLinnCoUkExakt22.net.dll \
+		CpLinnCoUkWifi1.net.dll \
+		CpLinnCoUkZoneReceiver1.net.dll \
+		CpLinnCoUkZones1.net.dll \
 
 proxy_dotnet_assemblies_with_path = \
-        $(objdir)CpUpnpOrgAVTransport1.net.dll \
-        $(objdir)CpUpnpOrgAVTransport2.net.dll \
-        $(objdir)CpUpnpOrgConnectionManager1.net.dll \
-        $(objdir)CpUpnpOrgConnectionManager2.net.dll \
-        $(objdir)CpUpnpOrgContentDirectory1.net.dll \
-        $(objdir)CpUpnpOrgContentDirectory2.net.dll \
-        $(objdir)CpUpnpOrgContentDirectory3.net.dll \
-        $(objdir)CpUpnpOrgRenderingControl1.net.dll \
-        $(objdir)CpUpnpOrgRenderingControl2.net.dll \
-        $(objdir)CpUpnpOrgScheduledRecording1.net.dll \
-        $(objdir)CpUpnpOrgScheduledRecording2.net.dll \
-        $(objdir)CpUpnpOrgSwitchPower1.net.dll \
-        $(objdir)CpUpnpOrgDimming1.net.dll \
-        $(objdir)CpAvOpenhomeOrgConfigApp1.net.dll \
-        $(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
-        $(objdir)CpAvOpenhomeOrgExakt1.net.dll \
-        $(objdir)CpAvOpenhomeOrgExakt2.net.dll \
-        $(objdir)CpAvOpenhomeOrgExakt3.net.dll \
-        $(objdir)CpAvOpenhomeOrgExakt4.net.dll \
-        $(objdir)CpAvOpenhomeOrgInfo1.net.dll \
-        $(objdir)CpAvOpenhomeOrgTime1.net.dll \
-        $(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
-        $(objdir)CpAvOpenhomeOrgVolume1.net.dll \
-        $(objdir)CpAvOpenhomeOrgVolume2.net.dll \
-        $(objdir)CpAvOpenhomeOrgVolume3.net.dll \
-        $(objdir)CpAvOpenhomeOrgVolume4.net.dll \
-        $(objdir)CpAvOpenhomeOrgProduct1.net.dll \
-        $(objdir)CpAvOpenhomeOrgProduct2.net.dll \
-        $(objdir)CpAvOpenhomeOrgProduct3.net.dll \
-        $(objdir)CpAvOpenhomeOrgTransport1.net.dll \
-        $(objdir)CpAvOpenhomeOrgRadio1.net.dll \
-        $(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
-        $(objdir)CpAvOpenhomeOrgSender1.net.dll \
-        $(objdir)CpAvOpenhomeOrgSender2.net.dll \
-        $(objdir)CpAvOpenhomeOrgDebug1.net.dll \
-        $(objdir)CpAvOpenhomeOrgDebug2.net.dll \
-        $(objdir)CpAvOpenhomeOrgPins1.net.dll \
-        $(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
-        $(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
-        $(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
-        $(objdir)CpOpenhomeOrgTestBasic1.net.dll \
-        $(objdir)CpOpenhomeOrgTestLights1.net.dll \
-        $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-        $(objdir)CpLinnCoUkFlash1.net.dll \
-        $(objdir)CpLinnCoUkVolkano1.net.dll \
-        $(objdir)CpLinnCoUkPrivacy1.net.dll \
-        $(objdir)CpLinnCoUkExaktInputs1.net.dll \
-        $(objdir)CpLinnCoUkCloud1.net.dll \
-        $(objdir)CpLinnCoUkUpdate1.net.dll \
-        $(objdir)CpLinnCoUkUpdate2.net.dll \
-        $(objdir)CpLinnCoUkUpdate3.net.dll \
-        $(objdir)CpLinnCoUkConfiguration1.net.dll \
-        $(objdir)CpLinnCoUkLipSync1.net.dll \
-        $(objdir)CpLinnCoUkExakt21.net.dll \
-        $(objdir)CpLinnCoUkExakt22.net.dll \
-        $(objdir)CpLinnCoUkWifi1.net.dll \
-        $(objdir)CpLinnCoUkZoneReceiver1.net.dll \
-        $(objdir)CpLinnCoUkZones1.net.dll \
+		$(objdir)CpUpnpOrgAVTransport1.net.dll \
+		$(objdir)CpUpnpOrgAVTransport2.net.dll \
+		$(objdir)CpUpnpOrgConnectionManager1.net.dll \
+		$(objdir)CpUpnpOrgConnectionManager2.net.dll \
+		$(objdir)CpUpnpOrgContentDirectory1.net.dll \
+		$(objdir)CpUpnpOrgContentDirectory2.net.dll \
+		$(objdir)CpUpnpOrgContentDirectory3.net.dll \
+		$(objdir)CpUpnpOrgRenderingControl1.net.dll \
+		$(objdir)CpUpnpOrgRenderingControl2.net.dll \
+		$(objdir)CpUpnpOrgScheduledRecording1.net.dll \
+		$(objdir)CpUpnpOrgScheduledRecording2.net.dll \
+		$(objdir)CpUpnpOrgSwitchPower1.net.dll \
+		$(objdir)CpUpnpOrgDimming1.net.dll \
+		$(objdir)CpAvOpenhomeOrgConfigApp1.net.dll \
+		$(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
+		$(objdir)CpAvOpenhomeOrgExakt1.net.dll \
+		$(objdir)CpAvOpenhomeOrgExakt2.net.dll \
+		$(objdir)CpAvOpenhomeOrgExakt3.net.dll \
+		$(objdir)CpAvOpenhomeOrgExakt4.net.dll \
+		$(objdir)CpAvOpenhomeOrgInfo1.net.dll \
+		$(objdir)CpAvOpenhomeOrgTime1.net.dll \
+		$(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
+		$(objdir)CpAvOpenhomeOrgVolume1.net.dll \
+		$(objdir)CpAvOpenhomeOrgVolume2.net.dll \
+		$(objdir)CpAvOpenhomeOrgVolume3.net.dll \
+		$(objdir)CpAvOpenhomeOrgVolume4.net.dll \
+		$(objdir)CpAvOpenhomeOrgProduct1.net.dll \
+		$(objdir)CpAvOpenhomeOrgProduct2.net.dll \
+		$(objdir)CpAvOpenhomeOrgProduct3.net.dll \
+		$(objdir)CpAvOpenhomeOrgTransport1.net.dll \
+		$(objdir)CpAvOpenhomeOrgRadio1.net.dll \
+		$(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
+		$(objdir)CpAvOpenhomeOrgSender1.net.dll \
+		$(objdir)CpAvOpenhomeOrgSender2.net.dll \
+		$(objdir)CpAvOpenhomeOrgDebug1.net.dll \
+		$(objdir)CpAvOpenhomeOrgDebug2.net.dll \
+		$(objdir)CpAvOpenhomeOrgPins1.net.dll \
+		$(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
+		$(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
+		$(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
+		$(objdir)CpOpenhomeOrgTestBasic1.net.dll \
+		$(objdir)CpOpenhomeOrgTestLights1.net.dll \
+		$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
+		$(objdir)CpOpenhomeOrgOAuth1.net.dll \
+		$(objdir)CpLinnCoUkFlash1.net.dll \
+		$(objdir)CpLinnCoUkVolkano1.net.dll \
+		$(objdir)CpLinnCoUkPrivacy1.net.dll \
+		$(objdir)CpLinnCoUkExaktInputs1.net.dll \
+		$(objdir)CpLinnCoUkCloud1.net.dll \
+		$(objdir)CpLinnCoUkUpdate1.net.dll \
+		$(objdir)CpLinnCoUkUpdate2.net.dll \
+		$(objdir)CpLinnCoUkUpdate3.net.dll \
+		$(objdir)CpLinnCoUkConfiguration1.net.dll \
+		$(objdir)CpLinnCoUkLipSync1.net.dll \
+		$(objdir)CpLinnCoUkExakt21.net.dll \
+		$(objdir)CpLinnCoUkExakt22.net.dll \
+		$(objdir)CpLinnCoUkWifi1.net.dll \
+		$(objdir)CpLinnCoUkZoneReceiver1.net.dll \
+		$(objdir)CpLinnCoUkZones1.net.dll \
 
 proxy_java_classes_with_path = \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgConnectionManager1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgConnectionManager2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgContentDirectory1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgContentDirectory2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgContentDirectory3.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgRenderingControl1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgRenderingControl2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgScheduledRecording1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgScheduledRecording2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgSwitchPower1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgDimming1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgConfigApp1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgCredentials1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt3.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt4.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgInfo1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTime1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylist1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume3.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume4.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct3.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTransport1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgRadio1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgReceiver1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPins1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylistManager1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgMediaServer1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgNetworkMonitor1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestBasic1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestLights1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgSubscriptionLongPoll1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkCloud1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate2.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate3.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkConfiguration1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt21.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt22.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkWifi1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZoneReceiver1.class \
-        $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZones1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgAVTransport2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgConnectionManager1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgConnectionManager2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgContentDirectory1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgContentDirectory2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgContentDirectory3.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgRenderingControl1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgRenderingControl2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgScheduledRecording1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgScheduledRecording2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgSwitchPower1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyUpnpOrgDimming1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgConfigApp1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgCredentials1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt3.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgExakt4.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgInfo1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTime1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylist1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume3.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgVolume4.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgProduct3.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgTransport1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgRadio1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgReceiver1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgSender2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgDebug2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPins1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgPlaylistManager1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgMediaServer1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgNetworkMonitor1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestBasic1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestLights1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgSubscriptionLongPoll1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgOAuth1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkCloud1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate3.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkConfiguration1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt21.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt22.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkWifi1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZoneReceiver1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkZones1.class \
 
 
 proxies : make_obj_dir $(ohNetLibDir)$(libprefix)ohNetCore.$(libext) $(objects_proxies)
@@ -633,6 +639,12 @@ $(objdir)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) : $(proxyC)CpOpenhomeOrgS
 	$(compiler)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpOpenhomeOrgSubscriptionLongPoll1C.cpp
 $(objdir)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) : $(proxyCppStd)CpOpenhomeOrgSubscriptionLongPoll1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpOpenhomeOrgSubscriptionLongPoll1.h
 	$(compiler)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpOpenhomeOrgSubscriptionLongPoll1Std.cpp
+$(objdir)CpOpenhomeOrgOAuth1.$(objext) : $(proxyCppCore)CpOpenhomeOrgOAuth1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpOpenhomeOrgOAuth1.h
+	$(compiler)CpOpenhomeOrgOAuth1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpOpenhomeOrgOAuth1.cpp
+$(objdir)CpOpenhomeOrgOAuth1C.$(objext) : $(proxyC)CpOpenhomeOrgOAuth1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpOpenhomeOrgOAuth1.h
+	$(compiler)CpOpenhomeOrgOAuth1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpOpenhomeOrgOAuth1C.cpp
+$(objdir)CpOpenhomeOrgOAuth1Std.$(objext) : $(proxyCppStd)CpOpenhomeOrgOAuth1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpOpenhomeOrgOAuth1.h
+	$(compiler)CpOpenhomeOrgOAuth1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpOpenhomeOrgOAuth1Std.cpp
 $(objdir)CpLinnCoUkFlash1.$(objext) : $(proxyCppCore)CpLinnCoUkFlash1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkFlash1.h
 	$(compiler)CpLinnCoUkFlash1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkFlash1.cpp
 $(objdir)CpLinnCoUkFlash1C.$(objext) : $(proxyC)CpLinnCoUkFlash1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkFlash1.h
@@ -730,364 +742,545 @@ CpProxyDotNetAssemblies: $(proxy_dotnet_assemblies_with_path)
 
 $(objdir)CpUpnpOrgAVTransport1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgAVTransport1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgAVTransport1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgAVTransport1.cs
+		/out:$(objdir)CpUpnpOrgAVTransport1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgAVTransport1.cs
 $(objdir)CpUpnpOrgAVTransport2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgAVTransport2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgAVTransport2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgAVTransport2.cs
+		/out:$(objdir)CpUpnpOrgAVTransport2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgAVTransport2.cs
 $(objdir)CpUpnpOrgConnectionManager1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgConnectionManager1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgConnectionManager1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgConnectionManager1.cs
+		/out:$(objdir)CpUpnpOrgConnectionManager1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgConnectionManager1.cs
 $(objdir)CpUpnpOrgConnectionManager2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgConnectionManager2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgConnectionManager2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgConnectionManager2.cs
+		/out:$(objdir)CpUpnpOrgConnectionManager2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgConnectionManager2.cs
 $(objdir)CpUpnpOrgContentDirectory1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgContentDirectory1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgContentDirectory1.cs
+		/out:$(objdir)CpUpnpOrgContentDirectory1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgContentDirectory1.cs
 $(objdir)CpUpnpOrgContentDirectory2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgContentDirectory2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgContentDirectory2.cs
+		/out:$(objdir)CpUpnpOrgContentDirectory2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgContentDirectory2.cs
 $(objdir)CpUpnpOrgContentDirectory3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory3.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgContentDirectory3.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgContentDirectory3.cs
+		/out:$(objdir)CpUpnpOrgContentDirectory3.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgContentDirectory3.cs
 $(objdir)CpUpnpOrgRenderingControl1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgRenderingControl1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgRenderingControl1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgRenderingControl1.cs
+		/out:$(objdir)CpUpnpOrgRenderingControl1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgRenderingControl1.cs
 $(objdir)CpUpnpOrgRenderingControl2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgRenderingControl2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgRenderingControl2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgRenderingControl2.cs
+		/out:$(objdir)CpUpnpOrgRenderingControl2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgRenderingControl2.cs
 $(objdir)CpUpnpOrgScheduledRecording1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgScheduledRecording1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgScheduledRecording1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgScheduledRecording1.cs
+		/out:$(objdir)CpUpnpOrgScheduledRecording1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgScheduledRecording1.cs
 $(objdir)CpUpnpOrgScheduledRecording2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgScheduledRecording2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgScheduledRecording2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgScheduledRecording2.cs
+		/out:$(objdir)CpUpnpOrgScheduledRecording2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgScheduledRecording2.cs
 $(objdir)CpUpnpOrgSwitchPower1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgSwitchPower1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgSwitchPower1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgSwitchPower1.cs
+		/out:$(objdir)CpUpnpOrgSwitchPower1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgSwitchPower1.cs
 $(objdir)CpUpnpOrgDimming1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgDimming1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpUpnpOrgDimming1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpUpnpOrgDimming1.cs
+		/out:$(objdir)CpUpnpOrgDimming1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgDimming1.cs
 $(objdir)CpAvOpenhomeOrgConfigApp1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgConfigApp1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs
+		/out:$(objdir)CpAvOpenhomeOrgConfigApp1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs
 $(objdir)CpAvOpenhomeOrgCredentials1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
+		/out:$(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs
 $(objdir)CpAvOpenhomeOrgExakt1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgExakt1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgExakt1.cs
+		/out:$(objdir)CpAvOpenhomeOrgExakt1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgExakt1.cs
 $(objdir)CpAvOpenhomeOrgExakt2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgExakt2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgExakt2.cs
+		/out:$(objdir)CpAvOpenhomeOrgExakt2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgExakt2.cs
 $(objdir)CpAvOpenhomeOrgExakt3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt3.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgExakt3.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgExakt3.cs
+		/out:$(objdir)CpAvOpenhomeOrgExakt3.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgExakt3.cs
 $(objdir)CpAvOpenhomeOrgExakt4.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt4.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgExakt4.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgExakt4.cs
+		/out:$(objdir)CpAvOpenhomeOrgExakt4.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgExakt4.cs
 $(objdir)CpAvOpenhomeOrgInfo1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgInfo1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgInfo1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgInfo1.cs
+		/out:$(objdir)CpAvOpenhomeOrgInfo1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgInfo1.cs
 $(objdir)CpAvOpenhomeOrgTime1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgTime1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgTime1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgTime1.cs
+		/out:$(objdir)CpAvOpenhomeOrgTime1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgTime1.cs
 $(objdir)CpAvOpenhomeOrgPlaylist1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs
+		/out:$(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs
 $(objdir)CpAvOpenhomeOrgVolume1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgVolume1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgVolume1.cs
+		/out:$(objdir)CpAvOpenhomeOrgVolume1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgVolume1.cs
 $(objdir)CpAvOpenhomeOrgVolume2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgVolume2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgVolume2.cs
+		/out:$(objdir)CpAvOpenhomeOrgVolume2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgVolume2.cs
 $(objdir)CpAvOpenhomeOrgVolume3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume3.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgVolume3.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgVolume3.cs
+		/out:$(objdir)CpAvOpenhomeOrgVolume3.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgVolume3.cs
 $(objdir)CpAvOpenhomeOrgVolume4.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume4.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgVolume4.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgVolume4.cs
+		/out:$(objdir)CpAvOpenhomeOrgVolume4.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgVolume4.cs
 $(objdir)CpAvOpenhomeOrgProduct1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgProduct1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgProduct1.cs
+		/out:$(objdir)CpAvOpenhomeOrgProduct1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgProduct1.cs
 $(objdir)CpAvOpenhomeOrgProduct2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgProduct2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgProduct2.cs
+		/out:$(objdir)CpAvOpenhomeOrgProduct2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgProduct2.cs
 $(objdir)CpAvOpenhomeOrgProduct3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct3.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgProduct3.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgProduct3.cs
+		/out:$(objdir)CpAvOpenhomeOrgProduct3.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgProduct3.cs
 $(objdir)CpAvOpenhomeOrgTransport1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgTransport1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgTransport1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgTransport1.cs
+		/out:$(objdir)CpAvOpenhomeOrgTransport1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgTransport1.cs
 $(objdir)CpAvOpenhomeOrgRadio1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgRadio1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgRadio1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgRadio1.cs
+		/out:$(objdir)CpAvOpenhomeOrgRadio1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgRadio1.cs
 $(objdir)CpAvOpenhomeOrgReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgReceiver1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgReceiver1.cs
+		/out:$(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs
 $(objdir)CpAvOpenhomeOrgSender1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgSender1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgSender1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgSender1.cs
+		/out:$(objdir)CpAvOpenhomeOrgSender1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgSender1.cs
 $(objdir)CpAvOpenhomeOrgSender2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgSender2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgSender2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgSender2.cs
+		/out:$(objdir)CpAvOpenhomeOrgSender2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgSender2.cs
 $(objdir)CpAvOpenhomeOrgDebug1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgDebug1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgDebug1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgDebug1.cs
+		/out:$(objdir)CpAvOpenhomeOrgDebug1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgDebug1.cs
 $(objdir)CpAvOpenhomeOrgDebug2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgDebug2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgDebug2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgDebug2.cs
+		/out:$(objdir)CpAvOpenhomeOrgDebug2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgDebug2.cs
 $(objdir)CpAvOpenhomeOrgPins1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPins1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgPins1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgPins1.cs
+		/out:$(objdir)CpAvOpenhomeOrgPins1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgPins1.cs
 $(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
+		/out:$(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
 $(objdir)CpAvOpenhomeOrgMediaServer1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs
+		/out:$(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs
 $(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs
+		/out:$(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs
 $(objdir)CpOpenhomeOrgTestBasic1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgTestBasic1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpOpenhomeOrgTestBasic1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpOpenhomeOrgTestBasic1.cs
+		/out:$(objdir)CpOpenhomeOrgTestBasic1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpOpenhomeOrgTestBasic1.cs
 $(objdir)CpOpenhomeOrgTestLights1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgTestLights1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpOpenhomeOrgTestLights1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpOpenhomeOrgTestLights1.cs
+		/out:$(objdir)CpOpenhomeOrgTestLights1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpOpenhomeOrgTestLights1.cs
 $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
+		/out:$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
+$(objdir)CpOpenhomeOrgOAuth1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgOAuth1.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+		/out:$(objdir)CpOpenhomeOrgOAuth1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpOpenhomeOrgOAuth1.cs
 $(objdir)CpLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkFlash1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkFlash1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkFlash1.cs
+		/out:$(objdir)CpLinnCoUkFlash1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkFlash1.cs
 $(objdir)CpLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkVolkano1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkVolkano1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkVolkano1.cs
+		/out:$(objdir)CpLinnCoUkVolkano1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkVolkano1.cs
 $(objdir)CpLinnCoUkPrivacy1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkPrivacy1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkPrivacy1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkPrivacy1.cs
+		/out:$(objdir)CpLinnCoUkPrivacy1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkPrivacy1.cs
 $(objdir)CpLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExaktInputs1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkExaktInputs1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkExaktInputs1.cs
+		/out:$(objdir)CpLinnCoUkExaktInputs1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkExaktInputs1.cs
 $(objdir)CpLinnCoUkCloud1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkCloud1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkCloud1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkCloud1.cs
+		/out:$(objdir)CpLinnCoUkCloud1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkCloud1.cs
 $(objdir)CpLinnCoUkUpdate1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkUpdate1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkUpdate1.cs
+		/out:$(objdir)CpLinnCoUkUpdate1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkUpdate1.cs
 $(objdir)CpLinnCoUkUpdate2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate2.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkUpdate2.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkUpdate2.cs
+		/out:$(objdir)CpLinnCoUkUpdate2.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkUpdate2.cs
 $(objdir)CpLinnCoUkUpdate3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate3.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkUpdate3.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkUpdate3.cs
+		/out:$(objdir)CpLinnCoUkUpdate3.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkUpdate3.cs
 $(objdir)CpLinnCoUkConfiguration1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkConfiguration1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkConfiguration1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkConfiguration1.cs
+		/out:$(objdir)CpLinnCoUkConfiguration1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkConfiguration1.cs
 $(objdir)CpLinnCoUkLipSync1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkLipSync1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkLipSync1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkLipSync1.cs
+		/out:$(objdir)CpLinnCoUkLipSync1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkLipSync1.cs
 $(objdir)CpLinnCoUkExakt21.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExakt21.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkExakt21.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkExakt21.cs
+		/out:$(objdir)CpLinnCoUkExakt21.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkExakt21.cs
 $(objdir)CpLinnCoUkExakt22.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExakt22.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkExakt22.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkExakt22.cs
+		/out:$(objdir)CpLinnCoUkExakt22.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkExakt22.cs
 $(objdir)CpLinnCoUkWifi1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkWifi1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkWifi1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkWifi1.cs
+		/out:$(objdir)CpLinnCoUkWifi1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkWifi1.cs
 $(objdir)CpLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkZoneReceiver1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkZoneReceiver1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkZoneReceiver1.cs
+		/out:$(objdir)CpLinnCoUkZoneReceiver1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkZoneReceiver1.cs
 $(objdir)CpLinnCoUkZones1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkZones1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpLinnCoUkZones1.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpLinnCoUkZones1.cs
+		/out:$(objdir)CpLinnCoUkZones1.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkZones1.cs
 
 # Single Proxy assembly (all OpenHome services)  for .NET:
 
 CpProxyDotNetOpenHomeAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesOpenHome.net.dll
 
 $(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
-                                    $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgTime1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgSender1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgSender2.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgPins1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-                                    $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-                                    $(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-                                    $(proxyCs)CpOpenhomeOrgTestLights1.cs \
-                                    $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+									$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+									$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+									$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+									$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+									$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+									$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+									$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+									$(proxyCs)CpAvOpenhomeOrgTime1.cs \
+									$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+									$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+									$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+									$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+									$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+									$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+									$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+									$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+									$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+									$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+									$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+									$(proxyCs)CpAvOpenhomeOrgSender1.cs \
+									$(proxyCs)CpAvOpenhomeOrgSender2.cs \
+									$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+									$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+									$(proxyCs)CpAvOpenhomeOrgPins1.cs \
+									$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+									$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+									$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+									$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+									$(proxyCs)CpOpenhomeOrgTestLights1.cs \
+									$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+									$(proxyCs)CpOpenhomeOrgOAuth1.cs \
 
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)CpProxiesOpenHome.net.dll \
-        /reference:$(depDirCs)ohNet.net.dll \
-        $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-        $(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-        $(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-        $(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-        $(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-        $(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-        $(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-        $(proxyCs)CpAvOpenhomeOrgTime1.cs \
-        $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-        $(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-        $(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-        $(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-        $(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-        $(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-        $(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-        $(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-        $(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-        $(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-        $(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-        $(proxyCs)CpAvOpenhomeOrgSender1.cs \
-        $(proxyCs)CpAvOpenhomeOrgSender2.cs \
-        $(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-        $(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-        $(proxyCs)CpAvOpenhomeOrgPins1.cs \
-        $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-        $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-        $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-        $(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-        $(proxyCs)CpOpenhomeOrgTestLights1.cs \
-        $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+		/out:$(objdir)CpProxiesOpenHome.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
+		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+		$(proxyCs)CpOpenhomeOrgOAuth1.cs \
+
+
+# Single Proxy assembly (all Linn services)  for .NET:
+
+CpProxyDotNetLinnAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesLinn.net.dll
+
+$(objdir)CpProxiesLinn.net.dll: $(depDirCs)ohNet.net.dll \
+								$(proxyCs)CpLinnCoUkFlash1.cs \
+								$(proxyCs)CpLinnCoUkVolkano1.cs \
+								$(proxyCs)CpLinnCoUkPrivacy1.cs \
+								$(proxyCs)CpLinnCoUkExaktInputs1.cs \
+								$(proxyCs)CpLinnCoUkCloud1.cs \
+								$(proxyCs)CpLinnCoUkUpdate1.cs \
+								$(proxyCs)CpLinnCoUkUpdate2.cs \
+								$(proxyCs)CpLinnCoUkUpdate3.cs \
+								$(proxyCs)CpLinnCoUkConfiguration1.cs \
+								$(proxyCs)CpLinnCoUkLipSync1.cs \
+								$(proxyCs)CpLinnCoUkExakt21.cs \
+								$(proxyCs)CpLinnCoUkExakt22.cs \
+								$(proxyCs)CpLinnCoUkWifi1.cs \
+								$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
+								$(proxyCs)CpLinnCoUkZones1.cs \
+
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+	/out:$(objdir)CpProxiesLinn.net.dll \
+	/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpLinnCoUkFlash1.cs \
+		$(proxyCs)CpLinnCoUkVolkano1.cs \
+		$(proxyCs)CpLinnCoUkPrivacy1.cs \
+		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
+		$(proxyCs)CpLinnCoUkCloud1.cs \
+		$(proxyCs)CpLinnCoUkUpdate1.cs \
+		$(proxyCs)CpLinnCoUkUpdate2.cs \
+		$(proxyCs)CpLinnCoUkUpdate3.cs \
+		$(proxyCs)CpLinnCoUkConfiguration1.cs \
+		$(proxyCs)CpLinnCoUkLipSync1.cs \
+		$(proxyCs)CpLinnCoUkExakt21.cs \
+		$(proxyCs)CpLinnCoUkExakt22.cs \
+		$(proxyCs)CpLinnCoUkWifi1.cs \
+		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
+		$(proxyCs)CpLinnCoUkZones1.cs \
+
+
+
+# Single Proxy assembly (all services)  for .NET:
+
+CpProxyDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesAll.net.dll
+
+$(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll \
+								$(proxyCs)CpUpnpOrgAVTransport1.cs \
+								$(proxyCs)CpUpnpOrgAVTransport2.cs \
+								$(proxyCs)CpUpnpOrgConnectionManager1.cs \
+								$(proxyCs)CpUpnpOrgConnectionManager2.cs \
+								$(proxyCs)CpUpnpOrgContentDirectory1.cs \
+								$(proxyCs)CpUpnpOrgContentDirectory2.cs \
+								$(proxyCs)CpUpnpOrgContentDirectory3.cs \
+								$(proxyCs)CpUpnpOrgRenderingControl1.cs \
+								$(proxyCs)CpUpnpOrgRenderingControl2.cs \
+								$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
+								$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
+								$(proxyCs)CpUpnpOrgSwitchPower1.cs \
+								$(proxyCs)CpUpnpOrgDimming1.cs \
+								$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+								$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+								$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+								$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+								$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+								$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+								$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+								$(proxyCs)CpAvOpenhomeOrgTime1.cs \
+								$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+								$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+								$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+								$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+								$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+								$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+								$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+								$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+								$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+								$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+								$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+								$(proxyCs)CpAvOpenhomeOrgSender1.cs \
+								$(proxyCs)CpAvOpenhomeOrgSender2.cs \
+								$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+								$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+								$(proxyCs)CpAvOpenhomeOrgPins1.cs \
+								$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+								$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+								$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+								$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+								$(proxyCs)CpOpenhomeOrgTestLights1.cs \
+								$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+								$(proxyCs)CpOpenhomeOrgOAuth1.cs \
+								$(proxyCs)CpLinnCoUkFlash1.cs \
+								$(proxyCs)CpLinnCoUkVolkano1.cs \
+								$(proxyCs)CpLinnCoUkPrivacy1.cs \
+								$(proxyCs)CpLinnCoUkExaktInputs1.cs \
+								$(proxyCs)CpLinnCoUkCloud1.cs \
+								$(proxyCs)CpLinnCoUkUpdate1.cs \
+								$(proxyCs)CpLinnCoUkUpdate2.cs \
+								$(proxyCs)CpLinnCoUkUpdate3.cs \
+								$(proxyCs)CpLinnCoUkConfiguration1.cs \
+								$(proxyCs)CpLinnCoUkLipSync1.cs \
+								$(proxyCs)CpLinnCoUkExakt21.cs \
+								$(proxyCs)CpLinnCoUkExakt22.cs \
+								$(proxyCs)CpLinnCoUkWifi1.cs \
+								$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
+								$(proxyCs)CpLinnCoUkZones1.cs \
+
+		$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+		/out:$(objdir)CpProxiesAll.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(proxyCs)CpUpnpOrgAVTransport1.cs \
+		$(proxyCs)CpUpnpOrgAVTransport2.cs \
+		$(proxyCs)CpUpnpOrgConnectionManager1.cs \
+		$(proxyCs)CpUpnpOrgConnectionManager2.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory1.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory2.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory3.cs \
+		$(proxyCs)CpUpnpOrgRenderingControl1.cs \
+		$(proxyCs)CpUpnpOrgRenderingControl2.cs \
+		$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
+		$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
+		$(proxyCs)CpUpnpOrgSwitchPower1.cs \
+		$(proxyCs)CpUpnpOrgDimming1.cs \
+		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
+		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+		$(proxyCs)CpOpenhomeOrgOAuth1.cs \
+		$(proxyCs)CpLinnCoUkFlash1.cs \
+		$(proxyCs)CpLinnCoUkVolkano1.cs \
+		$(proxyCs)CpLinnCoUkPrivacy1.cs \
+		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
+		$(proxyCs)CpLinnCoUkCloud1.cs \
+		$(proxyCs)CpLinnCoUkUpdate1.cs \
+		$(proxyCs)CpLinnCoUkUpdate2.cs \
+		$(proxyCs)CpLinnCoUkUpdate3.cs \
+		$(proxyCs)CpLinnCoUkConfiguration1.cs \
+		$(proxyCs)CpLinnCoUkLipSync1.cs \
+		$(proxyCs)CpLinnCoUkExakt21.cs \
+		$(proxyCs)CpLinnCoUkExakt22.cs \
+		$(proxyCs)CpLinnCoUkWifi1.cs \
+		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
+		$(proxyCs)CpLinnCoUkZones1.cs \
+
+
+
 
 # Proxy classes for Java:
 
@@ -1179,6 +1372,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestLights1.cla
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgTestLights1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgSubscriptionLongPoll1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyOpenhomeOrgSubscriptionLongPoll1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgSubscriptionLongPoll1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgOAuth1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyOpenhomeOrgOAuth1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgOAuth1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkFlash1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkFlash1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkVolkano1.java
