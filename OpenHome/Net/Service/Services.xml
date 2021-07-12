@@ -303,7 +303,7 @@
   <service>
     <publisher>OpenHome</publisher>
     <dcpdir></dcpdir>
-    <domain>openhome.org</domain>
+    <domain>av.openhome.org</domain>
     <type>OAuth</type>
     <version>1</version>
   </service>

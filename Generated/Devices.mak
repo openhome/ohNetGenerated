@@ -133,9 +133,9 @@ objects_devices = \
                   $(objdir)DvOpenhomeOrgSubscriptionLongPoll1.$(objext) \
                   $(objdir)DvOpenhomeOrgSubscriptionLongPoll1Std.$(objext) \
                   $(objdir)DvOpenhomeOrgSubscriptionLongPoll1C.$(objext) \
-                  $(objdir)DvOpenhomeOrgOAuth1.$(objext) \
-                  $(objdir)DvOpenhomeOrgOAuth1Std.$(objext) \
-                  $(objdir)DvOpenhomeOrgOAuth1C.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgOAuth1.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgOAuth1Std.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgOAuth1C.$(objext) \
                   $(objdir)DvLinnCoUkFlash1.$(objext) \
                   $(objdir)DvLinnCoUkFlash1Std.$(objext) \
                   $(objdir)DvLinnCoUkFlash1C.$(objext) \
@@ -233,7 +233,7 @@ device_dotnet_assemblies = \
         DvOpenhomeOrgTestBasic1.net.dll \
         DvOpenhomeOrgTestLights1.net.dll \
         DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
-        DvOpenhomeOrgOAuth1.net.dll \
+        DvAvOpenhomeOrgOAuth1.net.dll \
         DvLinnCoUkFlash1.net.dll \
         DvLinnCoUkVolkano1.net.dll \
         DvLinnCoUkPrivacy1.net.dll \
@@ -294,7 +294,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvOpenhomeOrgTestBasic1.net.dll \
         $(objdir)DvOpenhomeOrgTestLights1.net.dll \
         $(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
-        $(objdir)DvOpenhomeOrgOAuth1.net.dll \
+        $(objdir)DvAvOpenhomeOrgOAuth1.net.dll \
         $(objdir)DvLinnCoUkFlash1.net.dll \
         $(objdir)DvLinnCoUkVolkano1.net.dll \
         $(objdir)DvLinnCoUkPrivacy1.net.dll \
@@ -355,7 +355,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgTestBasic1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgTestLights1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgSubscriptionLongPoll1.class \
-        $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgOAuth1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgOAuth1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkFlash1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class \
@@ -632,12 +632,12 @@ $(objdir)DvOpenhomeOrgSubscriptionLongPoll1Std.$(objext) : $(deviceCppStd)DvOpen
 	$(compiler)DvOpenhomeOrgSubscriptionLongPoll1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvOpenhomeOrgSubscriptionLongPoll1Std.cpp
 $(objdir)DvOpenhomeOrgSubscriptionLongPoll1C.$(objext) : $(deviceC)DvOpenhomeOrgSubscriptionLongPoll1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvOpenhomeOrgSubscriptionLongPoll1.h
 	$(compiler)DvOpenhomeOrgSubscriptionLongPoll1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvOpenhomeOrgSubscriptionLongPoll1C.cpp
-$(objdir)DvOpenhomeOrgOAuth1.$(objext) : $(deviceCppCore)DvOpenhomeOrgOAuth1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvOpenhomeOrgOAuth1.h
-	$(compiler)DvOpenhomeOrgOAuth1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvOpenhomeOrgOAuth1.cpp
-$(objdir)DvOpenhomeOrgOAuth1Std.$(objext) : $(deviceCppStd)DvOpenhomeOrgOAuth1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvOpenhomeOrgOAuth1.h
-	$(compiler)DvOpenhomeOrgOAuth1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvOpenhomeOrgOAuth1Std.cpp
-$(objdir)DvOpenhomeOrgOAuth1C.$(objext) : $(deviceC)DvOpenhomeOrgOAuth1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvOpenhomeOrgOAuth1.h
-	$(compiler)DvOpenhomeOrgOAuth1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvOpenhomeOrgOAuth1C.cpp
+$(objdir)DvAvOpenhomeOrgOAuth1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgOAuth1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgOAuth1.h
+	$(compiler)DvAvOpenhomeOrgOAuth1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgOAuth1.cpp
+$(objdir)DvAvOpenhomeOrgOAuth1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgOAuth1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgOAuth1.h
+	$(compiler)DvAvOpenhomeOrgOAuth1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgOAuth1Std.cpp
+$(objdir)DvAvOpenhomeOrgOAuth1C.$(objext) : $(deviceC)DvAvOpenhomeOrgOAuth1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgOAuth1.h
+	$(compiler)DvAvOpenhomeOrgOAuth1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgOAuth1C.cpp
 $(objdir)DvLinnCoUkFlash1.$(objext) : $(deviceCppCore)DvLinnCoUkFlash1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkFlash1.h
 	$(compiler)DvLinnCoUkFlash1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkFlash1.cpp
 $(objdir)DvLinnCoUkFlash1Std.$(objext) : $(deviceCppStd)DvLinnCoUkFlash1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkFlash1.h
@@ -949,11 +949,11 @@ $(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(
         /out:$(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs
-$(objdir)DvOpenhomeOrgOAuth1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvOpenhomeOrgOAuth1.cs
+$(objdir)DvAvOpenhomeOrgOAuth1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgOAuth1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-        /out:$(objdir)DvOpenhomeOrgOAuth1.net.dll \
+        /out:$(objdir)DvAvOpenhomeOrgOAuth1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
-        $(deviceCs)DvOpenhomeOrgOAuth1.cs
+        $(deviceCs)DvAvOpenhomeOrgOAuth1.cs
 $(objdir)DvLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkFlash1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)DvLinnCoUkFlash1.net.dll \
@@ -1120,8 +1120,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgTestLights1.clas
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderOpenhomeOrgTestLights1.java
 $(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgSubscriptionLongPoll1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderOpenhomeOrgSubscriptionLongPoll1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderOpenhomeOrgSubscriptionLongPoll1.java
-$(objdir)org/openhome/net/device/providers/DvProviderOpenhomeOrgOAuth1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderOpenhomeOrgOAuth1.java
-	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderOpenhomeOrgOAuth1.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgOAuth1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgOAuth1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgOAuth1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkFlash1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkFlash1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkFlash1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkVolkano1.java

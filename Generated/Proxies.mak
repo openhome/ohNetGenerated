@@ -133,9 +133,9 @@ objects_proxies = \
 				  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.$(objext) \
 				  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) \
 				  $(objdir)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) \
-				  $(objdir)CpOpenhomeOrgOAuth1.$(objext) \
-				  $(objdir)CpOpenhomeOrgOAuth1C.$(objext) \
-				  $(objdir)CpOpenhomeOrgOAuth1Std.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgOAuth1.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgOAuth1C.$(objext) \
+				  $(objdir)CpAvOpenhomeOrgOAuth1Std.$(objext) \
 				  $(objdir)CpLinnCoUkFlash1.$(objext) \
 				  $(objdir)CpLinnCoUkFlash1C.$(objext) \
 				  $(objdir)CpLinnCoUkFlash1Std.$(objext) \
@@ -239,7 +239,7 @@ proxy_dotnet_assemblies = \
 		CpOpenhomeOrgTestBasic1.net.dll \
 		CpOpenhomeOrgTestLights1.net.dll \
 		CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		CpOpenhomeOrgOAuth1.net.dll \
+		CpAvOpenhomeOrgOAuth1.net.dll \
 		CpLinnCoUkFlash1.net.dll \
 		CpLinnCoUkVolkano1.net.dll \
 		CpLinnCoUkPrivacy1.net.dll \
@@ -300,7 +300,7 @@ proxy_dotnet_assemblies_with_path = \
 		$(objdir)CpOpenhomeOrgTestBasic1.net.dll \
 		$(objdir)CpOpenhomeOrgTestLights1.net.dll \
 		$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		$(objdir)CpOpenhomeOrgOAuth1.net.dll \
+		$(objdir)CpAvOpenhomeOrgOAuth1.net.dll \
 		$(objdir)CpLinnCoUkFlash1.net.dll \
 		$(objdir)CpLinnCoUkVolkano1.net.dll \
 		$(objdir)CpLinnCoUkPrivacy1.net.dll \
@@ -361,7 +361,7 @@ proxy_java_classes_with_path = \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestBasic1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestLights1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgSubscriptionLongPoll1.class \
-		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgOAuth1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgOAuth1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class \
@@ -639,12 +639,12 @@ $(objdir)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) : $(proxyC)CpOpenhomeOrgS
 	$(compiler)CpOpenhomeOrgSubscriptionLongPoll1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpOpenhomeOrgSubscriptionLongPoll1C.cpp
 $(objdir)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) : $(proxyCppStd)CpOpenhomeOrgSubscriptionLongPoll1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpOpenhomeOrgSubscriptionLongPoll1.h
 	$(compiler)CpOpenhomeOrgSubscriptionLongPoll1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpOpenhomeOrgSubscriptionLongPoll1Std.cpp
-$(objdir)CpOpenhomeOrgOAuth1.$(objext) : $(proxyCppCore)CpOpenhomeOrgOAuth1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpOpenhomeOrgOAuth1.h
-	$(compiler)CpOpenhomeOrgOAuth1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpOpenhomeOrgOAuth1.cpp
-$(objdir)CpOpenhomeOrgOAuth1C.$(objext) : $(proxyC)CpOpenhomeOrgOAuth1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpOpenhomeOrgOAuth1.h
-	$(compiler)CpOpenhomeOrgOAuth1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpOpenhomeOrgOAuth1C.cpp
-$(objdir)CpOpenhomeOrgOAuth1Std.$(objext) : $(proxyCppStd)CpOpenhomeOrgOAuth1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpOpenhomeOrgOAuth1.h
-	$(compiler)CpOpenhomeOrgOAuth1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpOpenhomeOrgOAuth1Std.cpp
+$(objdir)CpAvOpenhomeOrgOAuth1.$(objext) : $(proxyCppCore)CpAvOpenhomeOrgOAuth1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpAvOpenhomeOrgOAuth1.h
+	$(compiler)CpAvOpenhomeOrgOAuth1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpAvOpenhomeOrgOAuth1.cpp
+$(objdir)CpAvOpenhomeOrgOAuth1C.$(objext) : $(proxyC)CpAvOpenhomeOrgOAuth1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpAvOpenhomeOrgOAuth1.h
+	$(compiler)CpAvOpenhomeOrgOAuth1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpAvOpenhomeOrgOAuth1C.cpp
+$(objdir)CpAvOpenhomeOrgOAuth1Std.$(objext) : $(proxyCppStd)CpAvOpenhomeOrgOAuth1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpAvOpenhomeOrgOAuth1.h
+	$(compiler)CpAvOpenhomeOrgOAuth1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpAvOpenhomeOrgOAuth1Std.cpp
 $(objdir)CpLinnCoUkFlash1.$(objext) : $(proxyCppCore)CpLinnCoUkFlash1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkFlash1.h
 	$(compiler)CpLinnCoUkFlash1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkFlash1.cpp
 $(objdir)CpLinnCoUkFlash1C.$(objext) : $(proxyC)CpLinnCoUkFlash1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkFlash1.h
@@ -955,11 +955,11 @@ $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(
 		/out:$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
 		/reference:$(depDirCs)ohNet.net.dll \
 		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
-$(objdir)CpOpenhomeOrgOAuth1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgOAuth1.cs
+$(objdir)CpAvOpenhomeOrgOAuth1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgOAuth1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpOpenhomeOrgOAuth1.net.dll \
+		/out:$(objdir)CpAvOpenhomeOrgOAuth1.net.dll \
 		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpOpenhomeOrgOAuth1.cs
+		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs
 $(objdir)CpLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkFlash1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
 		/out:$(objdir)CpLinnCoUkFlash1.net.dll \
@@ -1071,7 +1071,7 @@ $(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
 									$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
 									$(proxyCs)CpOpenhomeOrgTestLights1.cs \
 									$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-									$(proxyCs)CpOpenhomeOrgOAuth1.cs \
+									$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
 
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
 		/out:$(objdir)CpProxiesOpenHome.net.dll \
@@ -1106,7 +1106,7 @@ $(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
 		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
 		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
 		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(proxyCs)CpOpenhomeOrgOAuth1.cs \
+		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
 
 
 # Single Proxy assembly (all Linn services)  for .NET:
@@ -1199,7 +1199,7 @@ $(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll \
 								$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
 								$(proxyCs)CpOpenhomeOrgTestLights1.cs \
 								$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-								$(proxyCs)CpOpenhomeOrgOAuth1.cs \
+								$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
 								$(proxyCs)CpLinnCoUkFlash1.cs \
 								$(proxyCs)CpLinnCoUkVolkano1.cs \
 								$(proxyCs)CpLinnCoUkPrivacy1.cs \
@@ -1262,7 +1262,7 @@ $(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll \
 		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
 		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
 		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(proxyCs)CpOpenhomeOrgOAuth1.cs \
+		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
 		$(proxyCs)CpLinnCoUkFlash1.cs \
 		$(proxyCs)CpLinnCoUkVolkano1.cs \
 		$(proxyCs)CpLinnCoUkPrivacy1.cs \
@@ -1372,8 +1372,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgTestLights1.cla
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgTestLights1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgSubscriptionLongPoll1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyOpenhomeOrgSubscriptionLongPoll1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgSubscriptionLongPoll1.java
-$(objdir)org/openhome/net/controlpoint/proxies/CpProxyOpenhomeOrgOAuth1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyOpenhomeOrgOAuth1.java
-	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyOpenhomeOrgOAuth1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgOAuth1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyAvOpenhomeOrgOAuth1.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyAvOpenhomeOrgOAuth1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkFlash1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkFlash1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkVolkano1.java
