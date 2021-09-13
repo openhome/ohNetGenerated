@@ -220,6 +220,13 @@
     <publisher>OpenHome</publisher>
     <dcpdir></dcpdir>
     <domain>av.openhome.org</domain>
+    <type>Radio</type>
+    <version>2</version>
+  </service>
+  <service>
+    <publisher>OpenHome</publisher>
+    <dcpdir></dcpdir>
+    <domain>av.openhome.org</domain>
     <type>Receiver</type>
     <version>1</version>
   </service>
@@ -341,6 +348,13 @@
     <domain>linn.co.uk</domain>
     <type>Cloud</type>
     <version>1</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>Cloud</type>
+    <version>2</version>
   </service>
   <service>
     <publisher>Linn</publisher>

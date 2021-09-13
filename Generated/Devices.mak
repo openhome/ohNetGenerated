@@ -97,6 +97,9 @@ objects_devices = \
                   $(objdir)DvAvOpenhomeOrgRadio1.$(objext) \
                   $(objdir)DvAvOpenhomeOrgRadio1Std.$(objext) \
                   $(objdir)DvAvOpenhomeOrgRadio1C.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgRadio2.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgRadio2Std.$(objext) \
+                  $(objdir)DvAvOpenhomeOrgRadio2C.$(objext) \
                   $(objdir)DvAvOpenhomeOrgReceiver1.$(objext) \
                   $(objdir)DvAvOpenhomeOrgReceiver1Std.$(objext) \
                   $(objdir)DvAvOpenhomeOrgReceiver1C.$(objext) \
@@ -151,6 +154,9 @@ objects_devices = \
                   $(objdir)DvLinnCoUkCloud1.$(objext) \
                   $(objdir)DvLinnCoUkCloud1Std.$(objext) \
                   $(objdir)DvLinnCoUkCloud1C.$(objext) \
+                  $(objdir)DvLinnCoUkCloud2.$(objext) \
+                  $(objdir)DvLinnCoUkCloud2Std.$(objext) \
+                  $(objdir)DvLinnCoUkCloud2C.$(objext) \
                   $(objdir)DvLinnCoUkUpdate1.$(objext) \
                   $(objdir)DvLinnCoUkUpdate1Std.$(objext) \
                   $(objdir)DvLinnCoUkUpdate1C.$(objext) \
@@ -221,6 +227,7 @@ device_dotnet_assemblies = \
         DvAvOpenhomeOrgProduct3.net.dll \
         DvAvOpenhomeOrgTransport1.net.dll \
         DvAvOpenhomeOrgRadio1.net.dll \
+        DvAvOpenhomeOrgRadio2.net.dll \
         DvAvOpenhomeOrgReceiver1.net.dll \
         DvAvOpenhomeOrgSender1.net.dll \
         DvAvOpenhomeOrgSender2.net.dll \
@@ -239,6 +246,7 @@ device_dotnet_assemblies = \
         DvLinnCoUkPrivacy1.net.dll \
         DvLinnCoUkExaktInputs1.net.dll \
         DvLinnCoUkCloud1.net.dll \
+        DvLinnCoUkCloud2.net.dll \
         DvLinnCoUkUpdate1.net.dll \
         DvLinnCoUkUpdate2.net.dll \
         DvLinnCoUkUpdate3.net.dll \
@@ -282,6 +290,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvAvOpenhomeOrgProduct3.net.dll \
         $(objdir)DvAvOpenhomeOrgTransport1.net.dll \
         $(objdir)DvAvOpenhomeOrgRadio1.net.dll \
+        $(objdir)DvAvOpenhomeOrgRadio2.net.dll \
         $(objdir)DvAvOpenhomeOrgReceiver1.net.dll \
         $(objdir)DvAvOpenhomeOrgSender1.net.dll \
         $(objdir)DvAvOpenhomeOrgSender2.net.dll \
@@ -300,6 +309,7 @@ device_dotnet_assemblies_with_path = \
         $(objdir)DvLinnCoUkPrivacy1.net.dll \
         $(objdir)DvLinnCoUkExaktInputs1.net.dll \
         $(objdir)DvLinnCoUkCloud1.net.dll \
+        $(objdir)DvLinnCoUkCloud2.net.dll \
         $(objdir)DvLinnCoUkUpdate1.net.dll \
         $(objdir)DvLinnCoUkUpdate2.net.dll \
         $(objdir)DvLinnCoUkUpdate3.net.dll \
@@ -343,6 +353,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct3.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTransport1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgReceiver1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgSender1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgSender2.class \
@@ -361,6 +372,7 @@ device_java_classes_with_path = \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud1.class \
+        $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate1.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate2.class \
         $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate3.class \
@@ -560,6 +572,12 @@ $(objdir)DvAvOpenhomeOrgRadio1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgRadi
 	$(compiler)DvAvOpenhomeOrgRadio1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgRadio1Std.cpp
 $(objdir)DvAvOpenhomeOrgRadio1C.$(objext) : $(deviceC)DvAvOpenhomeOrgRadio1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgRadio1.h
 	$(compiler)DvAvOpenhomeOrgRadio1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgRadio1C.cpp
+$(objdir)DvAvOpenhomeOrgRadio2.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgRadio2.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgRadio2.h
+	$(compiler)DvAvOpenhomeOrgRadio2.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgRadio2.cpp
+$(objdir)DvAvOpenhomeOrgRadio2Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgRadio2Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgRadio2.h
+	$(compiler)DvAvOpenhomeOrgRadio2Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgRadio2Std.cpp
+$(objdir)DvAvOpenhomeOrgRadio2C.$(objext) : $(deviceC)DvAvOpenhomeOrgRadio2C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgRadio2.h
+	$(compiler)DvAvOpenhomeOrgRadio2C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgRadio2C.cpp
 $(objdir)DvAvOpenhomeOrgReceiver1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgReceiver1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgReceiver1.h
 	$(compiler)DvAvOpenhomeOrgReceiver1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgReceiver1.cpp
 $(objdir)DvAvOpenhomeOrgReceiver1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgReceiver1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgReceiver1.h
@@ -668,6 +686,12 @@ $(objdir)DvLinnCoUkCloud1Std.$(objext) : $(deviceCppStd)DvLinnCoUkCloud1Std.cpp 
 	$(compiler)DvLinnCoUkCloud1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkCloud1Std.cpp
 $(objdir)DvLinnCoUkCloud1C.$(objext) : $(deviceC)DvLinnCoUkCloud1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkCloud1.h
 	$(compiler)DvLinnCoUkCloud1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkCloud1C.cpp
+$(objdir)DvLinnCoUkCloud2.$(objext) : $(deviceCppCore)DvLinnCoUkCloud2.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkCloud2.h
+	$(compiler)DvLinnCoUkCloud2.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkCloud2.cpp
+$(objdir)DvLinnCoUkCloud2Std.$(objext) : $(deviceCppStd)DvLinnCoUkCloud2Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkCloud2.h
+	$(compiler)DvLinnCoUkCloud2Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkCloud2Std.cpp
+$(objdir)DvLinnCoUkCloud2C.$(objext) : $(deviceC)DvLinnCoUkCloud2C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkCloud2.h
+	$(compiler)DvLinnCoUkCloud2C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkCloud2C.cpp
 $(objdir)DvLinnCoUkUpdate1.$(objext) : $(deviceCppCore)DvLinnCoUkUpdate1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkUpdate1.h
 	$(compiler)DvLinnCoUkUpdate1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkUpdate1.cpp
 $(objdir)DvLinnCoUkUpdate1Std.$(objext) : $(deviceCppStd)DvLinnCoUkUpdate1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkUpdate1.h
@@ -889,6 +913,11 @@ $(objdir)DvAvOpenhomeOrgRadio1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAv
         /out:$(objdir)DvAvOpenhomeOrgRadio1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvAvOpenhomeOrgRadio1.cs
+$(objdir)DvAvOpenhomeOrgRadio2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgRadio2.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)DvAvOpenhomeOrgRadio2.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvAvOpenhomeOrgRadio2.cs
 $(objdir)DvAvOpenhomeOrgReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgReceiver1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)DvAvOpenhomeOrgReceiver1.net.dll \
@@ -979,6 +1008,11 @@ $(objdir)DvLinnCoUkCloud1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoU
         /out:$(objdir)DvLinnCoUkCloud1.net.dll \
         /reference:$(depDirCs)ohNet.net.dll \
         $(deviceCs)DvLinnCoUkCloud1.cs
+$(objdir)DvLinnCoUkCloud2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkCloud2.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+        /out:$(objdir)DvLinnCoUkCloud2.net.dll \
+        /reference:$(depDirCs)ohNet.net.dll \
+        $(deviceCs)DvLinnCoUkCloud2.cs
 $(objdir)DvLinnCoUkUpdate1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkUpdate1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
         /out:$(objdir)DvLinnCoUkUpdate1.net.dll \
@@ -1096,6 +1130,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTransport1.cla
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgTransport1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgRadio1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgRadio1.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgRadio2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgRadio2.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgReceiver1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgReceiver1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgReceiver1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgSender1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgSender1.java
@@ -1132,6 +1168,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class 
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkExaktInputs1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkCloud1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkCloud1.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkCloud2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkCloud2.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkUpdate1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkUpdate1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkUpdate2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkUpdate2.java
