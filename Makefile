@@ -34,26 +34,18 @@ $(info Machine reported by uname is: ${MACHINE})
 $(info PLATFORM: ${PLATFORM})
 
 ifeq ($(MACHINE),Darwin)
-  ifeq ($(iOs-armv7),1)
-    platform = iOS
-    detected_openhome_system = iOs
-    detected_openhome_architecture = armv7
-  else ifeq ($(iOs-arm64),1)
+  ifeq ($(iOs-arm64),1)
     platform = iOS
     detected_openhome_system = iOs
     detected_openhome_architecture = arm64
-  else ifeq ($(iOs-x86),1)
+  else ifeq ($(iOs-x64),1)
     platform = iOS
     detected_openhome_system = iOs
-    detected_openhome_architecture = x86
+    detected_openhome_architecture = x64
   else
     platform = IntelMac
     detected_openhome_system = Mac
-    ifeq ($(mac-64),1)
-      detected_openhome_architecture = x64
-    else
-      detected_openhome_architecture = x86
-    endif
+    detected_openhome_architecture = x64
   endif
 else ifneq (, $(findstring powerpc, $(gcc_machine)))
     platform = Linux-ppc32
@@ -144,15 +136,15 @@ ifeq ($(platform),iOS)
 	platform_prefix=iPhoneOS
 	platform_compiler=arm-apple-darwin10
 	platform_arch=$(detected_openhome_architecture)
-	ifeq ($(detected_openhome_architecture),x86)
+	ifeq ($(detected_openhome_architecture),x64)
 		platform_prefix=iPhoneSimulator
 		platform_compiler=i686-apple-darwin10
-		platform_arch=i386
+		platform_arch=x64
 	endif
 	devroot=/Applications/Xcode.app/Contents/Developer
 	toolroot=$(devroot)/Toolchains/XcodeDefault.xctoolchain/usr/bin
 	sdkroot=$(devroot)/Platforms/$(platform_prefix).platform/Developer/SDKs/$(platform_prefix).sdk
-	platform_cflags = -I$(sdkroot)/usr/include/ -miphoneos-version-min=2.2 -pipe -no-cpp-precomp -isysroot $(sdkroot) -DPLATFORM_MACOSX_GNU -DPLATFORM_IOS
+	platform_cflags = -I$(sdkroot)/usr/include/ -miphoneos-version-min=12.0 -pipe -no-cpp-precomp -isysroot $(sdkroot) -DPLATFORM_MACOSX_GNU -DPLATFORM_IOS
 	# TODO: Support armv6 for old devices
 	osbuilddir = $(platform)-$(detected_openhome_architecture)
 	objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
@@ -170,17 +162,10 @@ ifeq ($(platform),IntelMac)
 	# Darwin, not ARM -> Intel Mac
 	platform ?= IntelMac
 	linkopts_ohNet = -Wl,-install_name,@loader_path/libohNet.dylib
-	ifeq ($(mac-64),1)
-		platform_cflags = -DPLATFORM_MACOSX_GNU -arch x86_64 -mmacosx-version-min=10.7
-		platform_linkflags = -arch x86_64 -framework CoreFoundation -framework SystemConfiguration
-		osbuilddir = Mac-x64
-		openhome_architecture = x64
-	else
-		platform_cflags = -DPLATFORM_MACOSX_GNU -m32 -mmacosx-version-min=10.7
-		platform_linkflags = -m32 -framework CoreFoundation -framework SystemConfiguration
-		osbuilddir = Mac-x86
-		openhome_architecture = x86
-	endif
+	platform_cflags = -DPLATFORM_MACOSX_GNU -arch x86_64 -mmacosx-version-min=10.7
+	platform_linkflags = -arch x86_64 -framework CoreFoundation -framework SystemConfiguration
+	osbuilddir = Mac-x64
+	openhome_architecture = x64
 
 	objdir = Build/Obj/$(osbuilddir)/$(build_dir)/
 	compiler = clang -fPIC -stdlib=libc++ -o $(objdir)
