@@ -139,7 +139,7 @@ ifeq ($(platform),iOS)
 	ifeq ($(detected_openhome_architecture),x64)
 		platform_prefix=iPhoneSimulator
 		platform_compiler=i686-apple-darwin10
-		platform_arch=x64
+		platform_arch=x86_64
 	endif
 	devroot=/Applications/Xcode.app/Contents/Developer
 	toolroot=$(devroot)/Toolchains/XcodeDefault.xctoolchain/usr/bin

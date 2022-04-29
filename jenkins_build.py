@@ -84,7 +84,7 @@ class JenkinsBuild():
             'Linux-ARM': { 'os': 'linux', 'arch': 'armel', 'publish': True, 'system': 'Linux', 'make_target': ''},
             'Linux-armhf': { 'os': 'linux', 'arch': 'armhf', 'publish': True, 'system': 'Linux'},
             'Linux-rpi': { 'os': 'linux', 'arch': 'rpi', 'publish': True, 'system': 'Linux'},
-            'iOs-x64': { 'os': 'iOs', 'arch': 'x86_64', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-x64=1'},
+            'iOs-x64': { 'os': 'iOs', 'arch': 'x64', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-x64=1'},
             'iOs-armv7': { 'os': 'iOs', 'arch': 'armv7', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-armv7=1'},
             'iOs-arm64': { 'os': 'iOs', 'arch': 'arm64', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-arm64=1'},
             'Core-ppc32': { 'os': 'Core', 'arch': 'ppc32', 'publish': True, 'system': 'Core', 'make_target': ''},
