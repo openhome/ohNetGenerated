@@ -61,6 +61,9 @@ objects_devices = \
 				  $(objdir)DvAvOpenhomeOrgExakt4.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgExakt4Std.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgExakt4C.$(objext) \
+				  $(objdir)DvAvOpenhomeOrgExakt5.$(objext) \
+				  $(objdir)DvAvOpenhomeOrgExakt5Std.$(objext) \
+				  $(objdir)DvAvOpenhomeOrgExakt5C.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgInfo1.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgInfo1Std.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgInfo1C.$(objext) \
@@ -215,6 +218,7 @@ device_dotnet_assemblies = \
 		DvAvOpenhomeOrgExakt2.net.dll \
 		DvAvOpenhomeOrgExakt3.net.dll \
 		DvAvOpenhomeOrgExakt4.net.dll \
+		DvAvOpenhomeOrgExakt5.net.dll \
 		DvAvOpenhomeOrgInfo1.net.dll \
 		DvAvOpenhomeOrgTime1.net.dll \
 		DvAvOpenhomeOrgPlaylist1.net.dll \
@@ -278,6 +282,7 @@ device_dotnet_assemblies_with_path = \
 		$(objdir)DvAvOpenhomeOrgExakt2.net.dll \
 		$(objdir)DvAvOpenhomeOrgExakt3.net.dll \
 		$(objdir)DvAvOpenhomeOrgExakt4.net.dll \
+		$(objdir)DvAvOpenhomeOrgExakt5.net.dll \
 		$(objdir)DvAvOpenhomeOrgInfo1.net.dll \
 		$(objdir)DvAvOpenhomeOrgTime1.net.dll \
 		$(objdir)DvAvOpenhomeOrgPlaylist1.net.dll \
@@ -341,6 +346,7 @@ device_java_classes_with_path = \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt2.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt3.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt4.class \
+		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt5.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgInfo1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTime1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgPlaylist1.class \
@@ -500,6 +506,12 @@ $(objdir)DvAvOpenhomeOrgExakt4Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgExak
 	$(compiler)DvAvOpenhomeOrgExakt4Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgExakt4Std.cpp
 $(objdir)DvAvOpenhomeOrgExakt4C.$(objext) : $(deviceC)DvAvOpenhomeOrgExakt4C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgExakt4.h
 	$(compiler)DvAvOpenhomeOrgExakt4C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgExakt4C.cpp
+$(objdir)DvAvOpenhomeOrgExakt5.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgExakt5.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgExakt5.h
+	$(compiler)DvAvOpenhomeOrgExakt5.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgExakt5.cpp
+$(objdir)DvAvOpenhomeOrgExakt5Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgExakt5Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgExakt5.h
+	$(compiler)DvAvOpenhomeOrgExakt5Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgExakt5Std.cpp
+$(objdir)DvAvOpenhomeOrgExakt5C.$(objext) : $(deviceC)DvAvOpenhomeOrgExakt5C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgExakt5.h
+	$(compiler)DvAvOpenhomeOrgExakt5C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgExakt5C.cpp
 $(objdir)DvAvOpenhomeOrgInfo1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgInfo1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgInfo1.h
 	$(compiler)DvAvOpenhomeOrgInfo1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgInfo1.cpp
 $(objdir)DvAvOpenhomeOrgInfo1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgInfo1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgInfo1.h
@@ -853,6 +865,11 @@ $(objdir)DvAvOpenhomeOrgExakt4.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAv
 		/out:$(objdir)DvAvOpenhomeOrgExakt4.net.dll \
 		/reference:$(depDirCs)ohNet.net.dll \
 		$(deviceCs)DvAvOpenhomeOrgExakt4.cs
+$(objdir)DvAvOpenhomeOrgExakt5.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt5.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+		/out:$(objdir)DvAvOpenhomeOrgExakt5.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(deviceCs)DvAvOpenhomeOrgExakt5.cs
 $(objdir)DvAvOpenhomeOrgInfo1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgInfo1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
 		/out:$(objdir)DvAvOpenhomeOrgInfo1.net.dll \
@@ -1076,6 +1093,7 @@ $(objdir)DvProvidersOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
 								$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
 								$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
 								$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
+								$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
 								$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
 								$(deviceCs)DvAvOpenhomeOrgTime1.cs \
 								$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
@@ -1112,6 +1130,7 @@ $(objdir)DvProvidersOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
 		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
 		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
 		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
 		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
 		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
 		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
@@ -1207,6 +1226,7 @@ $(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll \
 								$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
 								$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
 								$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
+								$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
 								$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
 								$(deviceCs)DvAvOpenhomeOrgTime1.cs \
 								$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
@@ -1272,6 +1292,7 @@ $(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll \
 		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
 		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
 		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
 		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
 		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
 		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
@@ -1358,6 +1379,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt3.class :
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgExakt3.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt4.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgExakt4.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgExakt4.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgExakt5.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgExakt5.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgExakt5.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgInfo1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgInfo1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgInfo1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTime1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgTime1.java
