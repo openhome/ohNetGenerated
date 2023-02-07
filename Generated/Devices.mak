@@ -94,6 +94,9 @@ objects_devices = \
 				  $(objdir)DvAvOpenhomeOrgProduct3.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgProduct3Std.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgProduct3C.$(objext) \
+				  $(objdir)DvAvOpenhomeOrgProduct4.$(objext) \
+				  $(objdir)DvAvOpenhomeOrgProduct4Std.$(objext) \
+				  $(objdir)DvAvOpenhomeOrgProduct4C.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgTransport1.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgTransport1Std.$(objext) \
 				  $(objdir)DvAvOpenhomeOrgTransport1C.$(objext) \
@@ -229,6 +232,7 @@ device_dotnet_assemblies = \
 		DvAvOpenhomeOrgProduct1.net.dll \
 		DvAvOpenhomeOrgProduct2.net.dll \
 		DvAvOpenhomeOrgProduct3.net.dll \
+		DvAvOpenhomeOrgProduct4.net.dll \
 		DvAvOpenhomeOrgTransport1.net.dll \
 		DvAvOpenhomeOrgRadio1.net.dll \
 		DvAvOpenhomeOrgRadio2.net.dll \
@@ -293,6 +297,7 @@ device_dotnet_assemblies_with_path = \
 		$(objdir)DvAvOpenhomeOrgProduct1.net.dll \
 		$(objdir)DvAvOpenhomeOrgProduct2.net.dll \
 		$(objdir)DvAvOpenhomeOrgProduct3.net.dll \
+		$(objdir)DvAvOpenhomeOrgProduct4.net.dll \
 		$(objdir)DvAvOpenhomeOrgTransport1.net.dll \
 		$(objdir)DvAvOpenhomeOrgRadio1.net.dll \
 		$(objdir)DvAvOpenhomeOrgRadio2.net.dll \
@@ -357,6 +362,7 @@ device_java_classes_with_path = \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct2.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct3.class \
+		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct4.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTransport1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio2.class \
@@ -572,6 +578,12 @@ $(objdir)DvAvOpenhomeOrgProduct3Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgPr
 	$(compiler)DvAvOpenhomeOrgProduct3Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgProduct3Std.cpp
 $(objdir)DvAvOpenhomeOrgProduct3C.$(objext) : $(deviceC)DvAvOpenhomeOrgProduct3C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgProduct3.h
 	$(compiler)DvAvOpenhomeOrgProduct3C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgProduct3C.cpp
+$(objdir)DvAvOpenhomeOrgProduct4.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgProduct4.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgProduct4.h
+	$(compiler)DvAvOpenhomeOrgProduct4.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgProduct4.cpp
+$(objdir)DvAvOpenhomeOrgProduct4Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgProduct4Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgProduct4.h
+	$(compiler)DvAvOpenhomeOrgProduct4Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvAvOpenhomeOrgProduct4Std.cpp
+$(objdir)DvAvOpenhomeOrgProduct4C.$(objext) : $(deviceC)DvAvOpenhomeOrgProduct4C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvAvOpenhomeOrgProduct4.h
+	$(compiler)DvAvOpenhomeOrgProduct4C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvAvOpenhomeOrgProduct4C.cpp
 $(objdir)DvAvOpenhomeOrgTransport1.$(objext) : $(deviceCppCore)DvAvOpenhomeOrgTransport1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvAvOpenhomeOrgTransport1.h
 	$(compiler)DvAvOpenhomeOrgTransport1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvAvOpenhomeOrgTransport1.cpp
 $(objdir)DvAvOpenhomeOrgTransport1Std.$(objext) : $(deviceCppStd)DvAvOpenhomeOrgTransport1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvAvOpenhomeOrgTransport1.h
@@ -920,6 +932,11 @@ $(objdir)DvAvOpenhomeOrgProduct3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)Dv
 		/out:$(objdir)DvAvOpenhomeOrgProduct3.net.dll \
 		/reference:$(depDirCs)ohNet.net.dll \
 		$(deviceCs)DvAvOpenhomeOrgProduct3.cs
+$(objdir)DvAvOpenhomeOrgProduct4.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgProduct4.cs
+	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
+		/out:$(objdir)DvAvOpenhomeOrgProduct4.net.dll \
+		/reference:$(depDirCs)ohNet.net.dll \
+		$(deviceCs)DvAvOpenhomeOrgProduct4.cs
 $(objdir)DvAvOpenhomeOrgTransport1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgTransport1.cs
 	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
 		/out:$(objdir)DvAvOpenhomeOrgTransport1.net.dll \
@@ -1104,6 +1121,7 @@ $(objdir)DvProvidersOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
 								$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
 								$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
 								$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
+								$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
 								$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
 								$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
 								$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
@@ -1141,6 +1159,7 @@ $(objdir)DvProvidersOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
 		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
 		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
 		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
 		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
 		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
 		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
@@ -1237,6 +1256,7 @@ $(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll \
 								$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
 								$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
 								$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
+								$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
 								$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
 								$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
 								$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
@@ -1303,6 +1323,7 @@ $(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll \
 		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
 		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
 		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
 		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
 		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
 		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
@@ -1401,6 +1422,8 @@ $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct2.class
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgProduct2.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct3.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgProduct3.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgProduct3.java
+$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgProduct4.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgProduct4.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgProduct4.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgTransport1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgTransport1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderAvOpenhomeOrgTransport1.java
 $(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgRadio1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderAvOpenhomeOrgRadio1.java

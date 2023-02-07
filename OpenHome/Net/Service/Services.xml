@@ -213,6 +213,13 @@
     <publisher>OpenHome</publisher>
     <dcpdir></dcpdir>
     <domain>av.openhome.org</domain>
+    <type>Product</type>
+    <version>4</version>
+  </service>
+  <service>
+    <publisher>OpenHome</publisher>
+    <dcpdir></dcpdir>
+    <domain>av.openhome.org</domain>
     <type>Transport</type>
     <version>1</version>
   </service>
