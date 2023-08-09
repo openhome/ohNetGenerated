@@ -782,7 +782,7 @@ $(objdir)DvLinnCoUkZones1C.$(objext) : $(deviceC)DvLinnCoUkZones1C.cpp $(headers
 
 DvDeviceDotNetAssemblies: DvProviderDotNetAllAssembly
 
-DvProviderDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersAll.net.dll
+DvProviderDotNetAllAssembly: $(objdir)DvProvidersAll.net.dll
 
 $(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll $(device_dotnet_source)
 	$(dotnetsdk) build $(csShared)DvProvidersAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)

@@ -788,7 +788,7 @@ $(objdir)CpLinnCoUkZones1Std.$(objext) : $(proxyCppStd)CpLinnCoUkZones1Std.cpp $
 
 CpProxyDotNetAssemblies: CpProxyDotNetAllAssembly
 
-CpProxyDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesAll.net.dll
+CpProxyDotNetAllAssembly: $(objdir)CpProxiesAll.net.dll
 
 $(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll $(proxy_dotnet_source)
 	$(dotnetsdk) build $(csShared)CpProxiesAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
