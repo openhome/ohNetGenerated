@@ -39,3 +39,5 @@ Build/
 /Build/
 
 dependencies
+
+OpenHome/Net/Bindings/Cs/**/[Oo]bj/**

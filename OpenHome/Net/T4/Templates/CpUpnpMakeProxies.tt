@@ -70,10 +70,7 @@ CpProxyDotNetAssemblies: $(proxy_dotnet_assemblies_with_path)
 <# foreach (Service s in u.iServices) #>
 <# { #>
 $(objdir)Cp<#=FilePrefixTypeAndVersion(s)#>.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)Cp<#=FilePrefixTypeAndVersion(s)#>.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs
+	$(dotnetsdk) build $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 <# } #>
 
 # Single Proxy assembly (all OpenHome services)  for .NET:

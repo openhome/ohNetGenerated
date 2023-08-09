@@ -64,10 +64,7 @@ DvDeviceDotNetAssemblies: $(device_dotnet_assemblies_with_path)
 <# foreach (Service s in u.iServices) #>
 <# { #>
 $(objdir)Dv<#=FilePrefixTypeAndVersion(s)#>.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)Dv<#=FilePrefixTypeAndVersion(s)#>.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs
+	$(dotnetsdk) build $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 <# } #>
 
 

@@ -209,10 +209,12 @@ namespace OpenHome.Net
                     if (stack == ETargetStack.eCp)
                     {
                         templates.Add(new TemplateFile("CpUpnpCs.tt", ".cs"));
+                        templates.Add(new TemplateFile("CsUpnpCsproj.tt", ".csproj", "", "-a prefix:Cp"));
                     }
                     else
                     {
                         templates.Add(new TemplateFile("DvUpnpCs.tt", ".cs"));
+                        templates.Add(new TemplateFile("CsUpnpCsproj.tt", ".csproj", "", "-a prefix:Dv"));
                     }
                     break;
                 case ETargetLanguage.eJava:
