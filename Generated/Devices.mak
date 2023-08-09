@@ -201,70 +201,70 @@ headers_device = $(inc_build)/OpenHome/Types.h \
 				 $(inc_build)/OpenHome/Net/Private/Service.h \
 				 $(inc_build)/OpenHome/Net/Private/FunctorDviInvocation.h
 
-device_dotnet_assemblies = \
-		DvUpnpOrgAVTransport1.net.dll \
-		DvUpnpOrgAVTransport2.net.dll \
-		DvUpnpOrgConnectionManager1.net.dll \
-		DvUpnpOrgConnectionManager2.net.dll \
-		DvUpnpOrgContentDirectory1.net.dll \
-		DvUpnpOrgContentDirectory2.net.dll \
-		DvUpnpOrgContentDirectory3.net.dll \
-		DvUpnpOrgRenderingControl1.net.dll \
-		DvUpnpOrgRenderingControl2.net.dll \
-		DvUpnpOrgScheduledRecording1.net.dll \
-		DvUpnpOrgScheduledRecording2.net.dll \
-		DvUpnpOrgSwitchPower1.net.dll \
-		DvUpnpOrgDimming1.net.dll \
-		DvAvOpenhomeOrgConfigApp1.net.dll \
-		DvAvOpenhomeOrgCredentials1.net.dll \
-		DvAvOpenhomeOrgExakt1.net.dll \
-		DvAvOpenhomeOrgExakt2.net.dll \
-		DvAvOpenhomeOrgExakt3.net.dll \
-		DvAvOpenhomeOrgExakt4.net.dll \
-		DvAvOpenhomeOrgExakt5.net.dll \
-		DvAvOpenhomeOrgInfo1.net.dll \
-		DvAvOpenhomeOrgTime1.net.dll \
-		DvAvOpenhomeOrgPlaylist1.net.dll \
-		DvAvOpenhomeOrgVolume1.net.dll \
-		DvAvOpenhomeOrgVolume2.net.dll \
-		DvAvOpenhomeOrgVolume3.net.dll \
-		DvAvOpenhomeOrgVolume4.net.dll \
-		DvAvOpenhomeOrgProduct1.net.dll \
-		DvAvOpenhomeOrgProduct2.net.dll \
-		DvAvOpenhomeOrgProduct3.net.dll \
-		DvAvOpenhomeOrgProduct4.net.dll \
-		DvAvOpenhomeOrgTransport1.net.dll \
-		DvAvOpenhomeOrgRadio1.net.dll \
-		DvAvOpenhomeOrgRadio2.net.dll \
-		DvAvOpenhomeOrgReceiver1.net.dll \
-		DvAvOpenhomeOrgSender1.net.dll \
-		DvAvOpenhomeOrgSender2.net.dll \
-		DvAvOpenhomeOrgDebug1.net.dll \
-		DvAvOpenhomeOrgDebug2.net.dll \
-		DvAvOpenhomeOrgPins1.net.dll \
-		DvAvOpenhomeOrgPlaylistManager1.net.dll \
-		DvAvOpenhomeOrgMediaServer1.net.dll \
-		DvAvOpenhomeOrgNetworkMonitor1.net.dll \
-		DvOpenhomeOrgTestBasic1.net.dll \
-		DvOpenhomeOrgTestLights1.net.dll \
-		DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		DvAvOpenhomeOrgOAuth1.net.dll \
-		DvLinnCoUkFlash1.net.dll \
-		DvLinnCoUkVolkano1.net.dll \
-		DvLinnCoUkPrivacy1.net.dll \
-		DvLinnCoUkExaktInputs1.net.dll \
-		DvLinnCoUkCloud1.net.dll \
-		DvLinnCoUkCloud2.net.dll \
-		DvLinnCoUkUpdate1.net.dll \
-		DvLinnCoUkUpdate2.net.dll \
-		DvLinnCoUkUpdate3.net.dll \
-		DvLinnCoUkConfiguration1.net.dll \
-		DvLinnCoUkLipSync1.net.dll \
-		DvLinnCoUkExakt21.net.dll \
-		DvLinnCoUkExakt22.net.dll \
-		DvLinnCoUkWifi1.net.dll \
-		DvLinnCoUkZoneReceiver1.net.dll \
-		DvLinnCoUkZones1.net.dll \
+device_dotnet_source = \
+		$(deviceCs)DvUpnpOrgAVTransport1.cs \
+		$(deviceCs)DvUpnpOrgAVTransport2.cs \
+		$(deviceCs)DvUpnpOrgConnectionManager1.cs \
+		$(deviceCs)DvUpnpOrgConnectionManager2.cs \
+		$(deviceCs)DvUpnpOrgContentDirectory1.cs \
+		$(deviceCs)DvUpnpOrgContentDirectory2.cs \
+		$(deviceCs)DvUpnpOrgContentDirectory3.cs \
+		$(deviceCs)DvUpnpOrgRenderingControl1.cs \
+		$(deviceCs)DvUpnpOrgRenderingControl2.cs \
+		$(deviceCs)DvUpnpOrgScheduledRecording1.cs \
+		$(deviceCs)DvUpnpOrgScheduledRecording2.cs \
+		$(deviceCs)DvUpnpOrgSwitchPower1.cs \
+		$(deviceCs)DvUpnpOrgDimming1.cs \
+		$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
+		$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
+		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
+		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
+		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
+		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
+		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
+		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
+		$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
+		$(deviceCs)DvAvOpenhomeOrgSender1.cs \
+		$(deviceCs)DvAvOpenhomeOrgSender2.cs \
+		$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
+		$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
+		$(deviceCs)DvAvOpenhomeOrgPins1.cs \
+		$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
+		$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
+		$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
+		$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
+		$(deviceCs)DvOpenhomeOrgTestLights1.cs \
+		$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
+		$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
+		$(deviceCs)DvLinnCoUkFlash1.cs \
+		$(deviceCs)DvLinnCoUkVolkano1.cs \
+		$(deviceCs)DvLinnCoUkPrivacy1.cs \
+		$(deviceCs)DvLinnCoUkExaktInputs1.cs \
+		$(deviceCs)DvLinnCoUkCloud1.cs \
+		$(deviceCs)DvLinnCoUkCloud2.cs \
+		$(deviceCs)DvLinnCoUkUpdate1.cs \
+		$(deviceCs)DvLinnCoUkUpdate2.cs \
+		$(deviceCs)DvLinnCoUkUpdate3.cs \
+		$(deviceCs)DvLinnCoUkConfiguration1.cs \
+		$(deviceCs)DvLinnCoUkLipSync1.cs \
+		$(deviceCs)DvLinnCoUkExakt21.cs \
+		$(deviceCs)DvLinnCoUkExakt22.cs \
+		$(deviceCs)DvLinnCoUkWifi1.cs \
+		$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
+		$(deviceCs)DvLinnCoUkZones1.cs \
 
 device_dotnet_assemblies_with_path = \
 		$(objdir)DvUpnpOrgAVTransport1.net.dll \
@@ -780,7 +780,14 @@ $(objdir)DvLinnCoUkZones1C.$(objext) : $(deviceC)DvLinnCoUkZones1C.cpp $(headers
 
 # Device assemblies for .NET:
 
-DvDeviceDotNetAssemblies: $(device_dotnet_assemblies_with_path)
+DvDeviceDotNetAssemblies: DvProviderDotNetAllAssembly
+
+DvProviderDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersAll.net.dll
+
+$(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll $(device_dotnet_source)
+	$(dotnetsdk) build $(csShared)DvProvidersAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+
+# Rules for building each provider as an individual DLL but is currently unused
 
 $(objdir)DvUpnpOrgAVTransport1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgAVTransport1.cs
 	$(dotnetsdk) build $(proxyCs)CpUpnpOrgAVTransport1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
@@ -909,264 +916,6 @@ $(objdir)DvLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)Dv
 $(objdir)DvLinnCoUkZones1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkZones1.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkZones1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 
-
-# Single Provider assembly (all OpenHome services)  for .NET:
-
-DvProviderDotNetOpenHomeAssembly: $(device_dotnet_assemblies_with_path) $(objdir)DvProvidersOpenHome.net.dll
-
-$(objdir)DvProvidersOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
-								$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-								$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-								$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-								$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-								$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-								$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-								$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-								$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-								$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-								$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-								$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-								$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-								$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersOpenHome.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-		$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-		$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-		$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-		$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-		$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-		$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-		$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-		$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-
-
-# Single Provider assembly (all Linn services)  for .NET:
-
-DvProviderDotNetLinnAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersLinn.net.dll
-
-$(objdir)DvProvidersLinn.net.dll: $(depDirCs)ohNet.net.dll \
-								$(deviceCs)DvLinnCoUkFlash1.cs \
-								$(deviceCs)DvLinnCoUkVolkano1.cs \
-								$(deviceCs)DvLinnCoUkPrivacy1.cs \
-								$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-								$(deviceCs)DvLinnCoUkCloud1.cs \
-								$(deviceCs)DvLinnCoUkCloud2.cs \
-								$(deviceCs)DvLinnCoUkUpdate1.cs \
-								$(deviceCs)DvLinnCoUkUpdate2.cs \
-								$(deviceCs)DvLinnCoUkUpdate3.cs \
-								$(deviceCs)DvLinnCoUkConfiguration1.cs \
-								$(deviceCs)DvLinnCoUkLipSync1.cs \
-								$(deviceCs)DvLinnCoUkExakt21.cs \
-								$(deviceCs)DvLinnCoUkExakt22.cs \
-								$(deviceCs)DvLinnCoUkWifi1.cs \
-								$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-								$(deviceCs)DvLinnCoUkZones1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersLinn.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkFlash1.cs \
-		$(deviceCs)DvLinnCoUkVolkano1.cs \
-		$(deviceCs)DvLinnCoUkPrivacy1.cs \
-		$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-		$(deviceCs)DvLinnCoUkCloud1.cs \
-		$(deviceCs)DvLinnCoUkCloud2.cs \
-		$(deviceCs)DvLinnCoUkUpdate1.cs \
-		$(deviceCs)DvLinnCoUkUpdate2.cs \
-		$(deviceCs)DvLinnCoUkUpdate3.cs \
-		$(deviceCs)DvLinnCoUkConfiguration1.cs \
-		$(deviceCs)DvLinnCoUkLipSync1.cs \
-		$(deviceCs)DvLinnCoUkExakt21.cs \
-		$(deviceCs)DvLinnCoUkExakt22.cs \
-		$(deviceCs)DvLinnCoUkWifi1.cs \
-		$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-		$(deviceCs)DvLinnCoUkZones1.cs \
-
-
-# Single Provider assembly (all services)  for .NET:
-
-DvProviderDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersAll.net.dll
-
-$(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll \
-								$(deviceCs)DvUpnpOrgAVTransport1.cs \
-								$(deviceCs)DvUpnpOrgAVTransport2.cs \
-								$(deviceCs)DvUpnpOrgConnectionManager1.cs \
-								$(deviceCs)DvUpnpOrgConnectionManager2.cs \
-								$(deviceCs)DvUpnpOrgContentDirectory1.cs \
-								$(deviceCs)DvUpnpOrgContentDirectory2.cs \
-								$(deviceCs)DvUpnpOrgContentDirectory3.cs \
-								$(deviceCs)DvUpnpOrgRenderingControl1.cs \
-								$(deviceCs)DvUpnpOrgRenderingControl2.cs \
-								$(deviceCs)DvUpnpOrgScheduledRecording1.cs \
-								$(deviceCs)DvUpnpOrgScheduledRecording2.cs \
-								$(deviceCs)DvUpnpOrgSwitchPower1.cs \
-								$(deviceCs)DvUpnpOrgDimming1.cs \
-								$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-								$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-								$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-								$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-								$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-								$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-								$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-								$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-								$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-								$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-								$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-								$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-								$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-								$(deviceCs)DvLinnCoUkFlash1.cs \
-								$(deviceCs)DvLinnCoUkVolkano1.cs \
-								$(deviceCs)DvLinnCoUkPrivacy1.cs \
-								$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-								$(deviceCs)DvLinnCoUkCloud1.cs \
-								$(deviceCs)DvLinnCoUkCloud2.cs \
-								$(deviceCs)DvLinnCoUkUpdate1.cs \
-								$(deviceCs)DvLinnCoUkUpdate2.cs \
-								$(deviceCs)DvLinnCoUkUpdate3.cs \
-								$(deviceCs)DvLinnCoUkConfiguration1.cs \
-								$(deviceCs)DvLinnCoUkLipSync1.cs \
-								$(deviceCs)DvLinnCoUkExakt21.cs \
-								$(deviceCs)DvLinnCoUkExakt22.cs \
-								$(deviceCs)DvLinnCoUkWifi1.cs \
-								$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-								$(deviceCs)DvLinnCoUkZones1.cs \
-
-		$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersAll.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgAVTransport1.cs \
-		$(deviceCs)DvUpnpOrgAVTransport2.cs \
-		$(deviceCs)DvUpnpOrgConnectionManager1.cs \
-		$(deviceCs)DvUpnpOrgConnectionManager2.cs \
-		$(deviceCs)DvUpnpOrgContentDirectory1.cs \
-		$(deviceCs)DvUpnpOrgContentDirectory2.cs \
-		$(deviceCs)DvUpnpOrgContentDirectory3.cs \
-		$(deviceCs)DvUpnpOrgRenderingControl1.cs \
-		$(deviceCs)DvUpnpOrgRenderingControl2.cs \
-		$(deviceCs)DvUpnpOrgScheduledRecording1.cs \
-		$(deviceCs)DvUpnpOrgScheduledRecording2.cs \
-		$(deviceCs)DvUpnpOrgSwitchPower1.cs \
-		$(deviceCs)DvUpnpOrgDimming1.cs \
-		$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-		$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-		$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-		$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-		$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-		$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-		$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-		$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-		$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-		$(deviceCs)DvLinnCoUkFlash1.cs \
-		$(deviceCs)DvLinnCoUkVolkano1.cs \
-		$(deviceCs)DvLinnCoUkPrivacy1.cs \
-		$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-		$(deviceCs)DvLinnCoUkCloud1.cs \
-		$(deviceCs)DvLinnCoUkCloud2.cs \
-		$(deviceCs)DvLinnCoUkUpdate1.cs \
-		$(deviceCs)DvLinnCoUkUpdate2.cs \
-		$(deviceCs)DvLinnCoUkUpdate3.cs \
-		$(deviceCs)DvLinnCoUkConfiguration1.cs \
-		$(deviceCs)DvLinnCoUkLipSync1.cs \
-		$(deviceCs)DvLinnCoUkExakt21.cs \
-		$(deviceCs)DvLinnCoUkExakt22.cs \
-		$(deviceCs)DvLinnCoUkWifi1.cs \
-		$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-		$(deviceCs)DvLinnCoUkZones1.cs \
 
 
 # Device classes for Java:

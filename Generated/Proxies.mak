@@ -207,70 +207,70 @@ headers_proxy = $(inc_build)/OpenHome/Buffer.h \
 				$(inc_build)/OpenHome/Private/Thread.h \
 				$(inc_build)/OpenHome/Net/Private/AsyncPrivate.h
 
-proxy_dotnet_assemblies = \
-		CpUpnpOrgAVTransport1.net.dll \
-		CpUpnpOrgAVTransport2.net.dll \
-		CpUpnpOrgConnectionManager1.net.dll \
-		CpUpnpOrgConnectionManager2.net.dll \
-		CpUpnpOrgContentDirectory1.net.dll \
-		CpUpnpOrgContentDirectory2.net.dll \
-		CpUpnpOrgContentDirectory3.net.dll \
-		CpUpnpOrgRenderingControl1.net.dll \
-		CpUpnpOrgRenderingControl2.net.dll \
-		CpUpnpOrgScheduledRecording1.net.dll \
-		CpUpnpOrgScheduledRecording2.net.dll \
-		CpUpnpOrgSwitchPower1.net.dll \
-		CpUpnpOrgDimming1.net.dll \
-		CpAvOpenhomeOrgConfigApp1.net.dll \
-		CpAvOpenhomeOrgCredentials1.net.dll \
-		CpAvOpenhomeOrgExakt1.net.dll \
-		CpAvOpenhomeOrgExakt2.net.dll \
-		CpAvOpenhomeOrgExakt3.net.dll \
-		CpAvOpenhomeOrgExakt4.net.dll \
-		CpAvOpenhomeOrgExakt5.net.dll \
-		CpAvOpenhomeOrgInfo1.net.dll \
-		CpAvOpenhomeOrgTime1.net.dll \
-		CpAvOpenhomeOrgPlaylist1.net.dll \
-		CpAvOpenhomeOrgVolume1.net.dll \
-		CpAvOpenhomeOrgVolume2.net.dll \
-		CpAvOpenhomeOrgVolume3.net.dll \
-		CpAvOpenhomeOrgVolume4.net.dll \
-		CpAvOpenhomeOrgProduct1.net.dll \
-		CpAvOpenhomeOrgProduct2.net.dll \
-		CpAvOpenhomeOrgProduct3.net.dll \
-		CpAvOpenhomeOrgProduct4.net.dll \
-		CpAvOpenhomeOrgTransport1.net.dll \
-		CpAvOpenhomeOrgRadio1.net.dll \
-		CpAvOpenhomeOrgRadio2.net.dll \
-		CpAvOpenhomeOrgReceiver1.net.dll \
-		CpAvOpenhomeOrgSender1.net.dll \
-		CpAvOpenhomeOrgSender2.net.dll \
-		CpAvOpenhomeOrgDebug1.net.dll \
-		CpAvOpenhomeOrgDebug2.net.dll \
-		CpAvOpenhomeOrgPins1.net.dll \
-		CpAvOpenhomeOrgPlaylistManager1.net.dll \
-		CpAvOpenhomeOrgMediaServer1.net.dll \
-		CpAvOpenhomeOrgNetworkMonitor1.net.dll \
-		CpOpenhomeOrgTestBasic1.net.dll \
-		CpOpenhomeOrgTestLights1.net.dll \
-		CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		CpAvOpenhomeOrgOAuth1.net.dll \
-		CpLinnCoUkFlash1.net.dll \
-		CpLinnCoUkVolkano1.net.dll \
-		CpLinnCoUkPrivacy1.net.dll \
-		CpLinnCoUkExaktInputs1.net.dll \
-		CpLinnCoUkCloud1.net.dll \
-		CpLinnCoUkCloud2.net.dll \
-		CpLinnCoUkUpdate1.net.dll \
-		CpLinnCoUkUpdate2.net.dll \
-		CpLinnCoUkUpdate3.net.dll \
-		CpLinnCoUkConfiguration1.net.dll \
-		CpLinnCoUkLipSync1.net.dll \
-		CpLinnCoUkExakt21.net.dll \
-		CpLinnCoUkExakt22.net.dll \
-		CpLinnCoUkWifi1.net.dll \
-		CpLinnCoUkZoneReceiver1.net.dll \
-		CpLinnCoUkZones1.net.dll \
+proxy_dotnet_source = \
+		$(proxyCs)CpUpnpOrgAVTransport1.cs \
+		$(proxyCs)CpUpnpOrgAVTransport2.cs \
+		$(proxyCs)CpUpnpOrgConnectionManager1.cs \
+		$(proxyCs)CpUpnpOrgConnectionManager2.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory1.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory2.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory3.cs \
+		$(proxyCs)CpUpnpOrgRenderingControl1.cs \
+		$(proxyCs)CpUpnpOrgRenderingControl2.cs \
+		$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
+		$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
+		$(proxyCs)CpUpnpOrgSwitchPower1.cs \
+		$(proxyCs)CpUpnpOrgDimming1.cs \
+		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
+		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
+		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+		$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
+		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
+		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
+		$(proxyCs)CpLinnCoUkFlash1.cs \
+		$(proxyCs)CpLinnCoUkVolkano1.cs \
+		$(proxyCs)CpLinnCoUkPrivacy1.cs \
+		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
+		$(proxyCs)CpLinnCoUkCloud1.cs \
+		$(proxyCs)CpLinnCoUkCloud2.cs \
+		$(proxyCs)CpLinnCoUkUpdate1.cs \
+		$(proxyCs)CpLinnCoUkUpdate2.cs \
+		$(proxyCs)CpLinnCoUkUpdate3.cs \
+		$(proxyCs)CpLinnCoUkConfiguration1.cs \
+		$(proxyCs)CpLinnCoUkLipSync1.cs \
+		$(proxyCs)CpLinnCoUkExakt21.cs \
+		$(proxyCs)CpLinnCoUkExakt22.cs \
+		$(proxyCs)CpLinnCoUkWifi1.cs \
+		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
+		$(proxyCs)CpLinnCoUkZones1.cs \
 
 proxy_dotnet_assemblies_with_path = \
 		$(objdir)CpUpnpOrgAVTransport1.net.dll \
@@ -786,7 +786,14 @@ $(objdir)CpLinnCoUkZones1Std.$(objext) : $(proxyCppStd)CpLinnCoUkZones1Std.cpp $
 
 # Proxy assemblies for .NET:
 
-CpProxyDotNetAssemblies: $(proxy_dotnet_assemblies_with_path)
+CpProxyDotNetAssemblies: CpProxyDotNetAllAssembly
+
+CpProxyDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesAll.net.dll
+
+$(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll $(proxy_dotnet_source)
+	$(dotnetsdk) build $(csShared)CpProxiesAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+
+# Rules for building each proxy as an individual DLL but is currently unused
 
 $(objdir)CpUpnpOrgAVTransport1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgAVTransport1.cs
 	$(dotnetsdk) build $(proxyCs)CpUpnpOrgAVTransport1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
@@ -914,267 +921,6 @@ $(objdir)CpLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpL
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkZoneReceiver1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkZones1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkZones1.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkZones1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
-
-# Single Proxy assembly (all OpenHome services)  for .NET:
-
-CpProxyDotNetOpenHomeAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesOpenHome.net.dll
-
-$(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
-									$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-									$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-									$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-									$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-									$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-									$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-									$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-									$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-									$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-									$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-									$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-									$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-									$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-									$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-									$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-									$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-									$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-									$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-									$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-									$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-									$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpProxiesOpenHome.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-
-
-# Single Proxy assembly (all Linn services)  for .NET:
-
-CpProxyDotNetLinnAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesLinn.net.dll
-
-$(objdir)CpProxiesLinn.net.dll: $(depDirCs)ohNet.net.dll \
-								$(proxyCs)CpLinnCoUkFlash1.cs \
-								$(proxyCs)CpLinnCoUkVolkano1.cs \
-								$(proxyCs)CpLinnCoUkPrivacy1.cs \
-								$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-								$(proxyCs)CpLinnCoUkCloud1.cs \
-								$(proxyCs)CpLinnCoUkCloud2.cs \
-								$(proxyCs)CpLinnCoUkUpdate1.cs \
-								$(proxyCs)CpLinnCoUkUpdate2.cs \
-								$(proxyCs)CpLinnCoUkUpdate3.cs \
-								$(proxyCs)CpLinnCoUkConfiguration1.cs \
-								$(proxyCs)CpLinnCoUkLipSync1.cs \
-								$(proxyCs)CpLinnCoUkExakt21.cs \
-								$(proxyCs)CpLinnCoUkExakt22.cs \
-								$(proxyCs)CpLinnCoUkWifi1.cs \
-								$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-								$(proxyCs)CpLinnCoUkZones1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-	/out:$(objdir)CpProxiesLinn.net.dll \
-	/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkFlash1.cs \
-		$(proxyCs)CpLinnCoUkVolkano1.cs \
-		$(proxyCs)CpLinnCoUkPrivacy1.cs \
-		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-		$(proxyCs)CpLinnCoUkCloud1.cs \
-		$(proxyCs)CpLinnCoUkCloud2.cs \
-		$(proxyCs)CpLinnCoUkUpdate1.cs \
-		$(proxyCs)CpLinnCoUkUpdate2.cs \
-		$(proxyCs)CpLinnCoUkUpdate3.cs \
-		$(proxyCs)CpLinnCoUkConfiguration1.cs \
-		$(proxyCs)CpLinnCoUkLipSync1.cs \
-		$(proxyCs)CpLinnCoUkExakt21.cs \
-		$(proxyCs)CpLinnCoUkExakt22.cs \
-		$(proxyCs)CpLinnCoUkWifi1.cs \
-		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-		$(proxyCs)CpLinnCoUkZones1.cs \
-
-
-
-# Single Proxy assembly (all services)  for .NET:
-
-CpProxyDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesAll.net.dll
-
-$(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll \
-								$(proxyCs)CpUpnpOrgAVTransport1.cs \
-								$(proxyCs)CpUpnpOrgAVTransport2.cs \
-								$(proxyCs)CpUpnpOrgConnectionManager1.cs \
-								$(proxyCs)CpUpnpOrgConnectionManager2.cs \
-								$(proxyCs)CpUpnpOrgContentDirectory1.cs \
-								$(proxyCs)CpUpnpOrgContentDirectory2.cs \
-								$(proxyCs)CpUpnpOrgContentDirectory3.cs \
-								$(proxyCs)CpUpnpOrgRenderingControl1.cs \
-								$(proxyCs)CpUpnpOrgRenderingControl2.cs \
-								$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
-								$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
-								$(proxyCs)CpUpnpOrgSwitchPower1.cs \
-								$(proxyCs)CpUpnpOrgDimming1.cs \
-								$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-								$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-								$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-								$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-								$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-								$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-								$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-								$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-								$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-								$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-								$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-								$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-								$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-								$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-								$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-								$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-								$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-								$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-								$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-								$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-								$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-								$(proxyCs)CpLinnCoUkFlash1.cs \
-								$(proxyCs)CpLinnCoUkVolkano1.cs \
-								$(proxyCs)CpLinnCoUkPrivacy1.cs \
-								$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-								$(proxyCs)CpLinnCoUkCloud1.cs \
-								$(proxyCs)CpLinnCoUkCloud2.cs \
-								$(proxyCs)CpLinnCoUkUpdate1.cs \
-								$(proxyCs)CpLinnCoUkUpdate2.cs \
-								$(proxyCs)CpLinnCoUkUpdate3.cs \
-								$(proxyCs)CpLinnCoUkConfiguration1.cs \
-								$(proxyCs)CpLinnCoUkLipSync1.cs \
-								$(proxyCs)CpLinnCoUkExakt21.cs \
-								$(proxyCs)CpLinnCoUkExakt22.cs \
-								$(proxyCs)CpLinnCoUkWifi1.cs \
-								$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-								$(proxyCs)CpLinnCoUkZones1.cs \
-
-		$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpProxiesAll.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgAVTransport1.cs \
-		$(proxyCs)CpUpnpOrgAVTransport2.cs \
-		$(proxyCs)CpUpnpOrgConnectionManager1.cs \
-		$(proxyCs)CpUpnpOrgConnectionManager2.cs \
-		$(proxyCs)CpUpnpOrgContentDirectory1.cs \
-		$(proxyCs)CpUpnpOrgContentDirectory2.cs \
-		$(proxyCs)CpUpnpOrgContentDirectory3.cs \
-		$(proxyCs)CpUpnpOrgRenderingControl1.cs \
-		$(proxyCs)CpUpnpOrgRenderingControl2.cs \
-		$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
-		$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
-		$(proxyCs)CpUpnpOrgSwitchPower1.cs \
-		$(proxyCs)CpUpnpOrgDimming1.cs \
-		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-		$(proxyCs)CpLinnCoUkFlash1.cs \
-		$(proxyCs)CpLinnCoUkVolkano1.cs \
-		$(proxyCs)CpLinnCoUkPrivacy1.cs \
-		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-		$(proxyCs)CpLinnCoUkCloud1.cs \
-		$(proxyCs)CpLinnCoUkCloud2.cs \
-		$(proxyCs)CpLinnCoUkUpdate1.cs \
-		$(proxyCs)CpLinnCoUkUpdate2.cs \
-		$(proxyCs)CpLinnCoUkUpdate3.cs \
-		$(proxyCs)CpLinnCoUkConfiguration1.cs \
-		$(proxyCs)CpLinnCoUkLipSync1.cs \
-		$(proxyCs)CpLinnCoUkExakt21.cs \
-		$(proxyCs)CpLinnCoUkExakt22.cs \
-		$(proxyCs)CpLinnCoUkWifi1.cs \
-		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-		$(proxyCs)CpLinnCoUkZones1.cs \
-
-
 
 
 # Proxy classes for Java:
