@@ -56,9 +56,7 @@
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks);net6.0-ios</TargetFrameworks>
 
         <EnableDefaultItems>False</EnableDefaultItems>
- 
-        <!-- NOTE: This needs to be the same output path as the ohNet.net csproj as some versions of the .NET SDK can't handle nested projects -->
-        <IntermediateOutputPath>../../obj</IntermediateOutputPath>
+
     </PropertyGroup>
 
     <ItemGroup>

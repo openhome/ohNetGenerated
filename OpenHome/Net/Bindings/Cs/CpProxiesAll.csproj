@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <AssemblyName>CpProxiesAll.Net</AssemblyName>    
+
+        <TargetFrameworks>net6.0</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(TargetFrameworks);net6.0-ios</TargetFrameworks>
+
+        <EnableDefaultItems>False</EnableDefaultItems>
+        
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="ControlPoint/Proxies/*.cs" />
+        <Reference Include="$(MSBuildProjectDirectory)/../../../../$(ohNetDepDir)ohNet.net.dll" />
+    </ItemGroup>
+
+</Project>
