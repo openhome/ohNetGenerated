@@ -57,6 +57,7 @@
 
         <EnableDefaultItems>False</EnableDefaultItems>
 
+        <Platform>AnyCPU</Platform>
     </PropertyGroup>
 
     <ItemGroup>
