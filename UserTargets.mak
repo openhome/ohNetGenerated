@@ -10,15 +10,6 @@ clean :
 	$(rmdir) $(bundle_build)
 	$(rmdir) Build/Docs
 
-	$(rmdir) OpenHome/Net/Bindings/Cs/bin
-	$(rmdir) OpenHome/Net/Bindings/Cs/obj
-
-	$(rmdir) OpenHome/Net/Bindings/Cs/ControlPoint/Proxies/bin
-	$(rmdir) OpenHome/Net/Bindings/Cs/ControlPoint/Proxies/obj
-
-	$(rmdir) OpenHome/Net/Bindings/Cs/Device/Providers/bin
-	$(rmdir) OpenHome/Net/Bindings/Cs/Device/Providers/obj
-
 mostlyclean : clean clean-t4
 	$(rmdir) Generated
 

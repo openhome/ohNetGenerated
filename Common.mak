@@ -10,8 +10,6 @@ deviceC = OpenHome$(dirsep)Net$(dirsep)Bindings$(dirsep)C$(dirsep)Device$(dirsep
 deviceCs = OpenHome$(dirsep)Net$(dirsep)Bindings$(dirsep)Cs$(dirsep)Device$(dirsep)Providers$(dirsep)
 deviceJava = OpenHome$(dirsep)Net$(dirsep)Bindings$(dirsep)Java$(dirsep)org$(dirsep)openhome$(dirsep)net$(dirsep)device$(dirsep)providers$(dirsep)
 
-csShared = OpenHome$(dirsep)Net$(dirsep)Bindings$(dirsep)Cs$(dirsep)
-
 depDirCs = dependencies$(dirsep)$(depsPlatform)$(dirsep)ohNet-$(depsPlatform)-Release$(dirsep)lib$(dirsep)
 ohNetLibDir = dependencies$(dirsep)$(depsPlatform)$(dirsep)ohNet-$(depsPlatform)-Release$(dirsep)lib$(dirsep)
 
@@ -36,6 +34,6 @@ Generated$(dirsep)Devices.mak : $(tt) OpenHome$(dirsep)Net$(dirsep)Service$(dirs
 
 native_targets = make_obj_dir copy_build_includes proxies devices
 
-CSharpAll : make_obj_dir CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
+CSharpAll : make_obj_dir CpProxyDotNetAssemblies DvDeviceDotNetAssemblies CpProxyDotNetOpenHomeAssembly CpProxyDotNetLinnAssembly CpProxyDotNetAllAssembly DvProviderDotNetOpenHomeAssembly DvProviderDotNetLinnAssembly DvProviderDotNetAllAssembly
 
-all_targets = $(native_targets) CpProxyDotNetAssemblies DvDeviceDotNetAssemblies
+all_targets = $(native_targets) CpProxyDotNetAssemblies DvDeviceDotNetAssemblies CpProxyDotNetOpenHomeAssembly CpProxyDotNetLinnAssembly CpProxyDotNetAllAssembly DvProviderDotNetOpenHomeAssembly DvProviderDotNetLinnAssembly DvProviderDotNetAllAssembly
