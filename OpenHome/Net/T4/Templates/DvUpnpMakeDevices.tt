@@ -26,10 +26,10 @@ headers_device = $(inc_build)/OpenHome/Types.h \
 				 $(inc_build)/OpenHome/Net/Private/Service.h \
 				 $(inc_build)/OpenHome/Net/Private/FunctorDviInvocation.h
 
-device_dotnet_assemblies = \
+device_dotnet_source = \
 <#  foreach (Service s in u.iServices) #>
 <#  { #>
-		Dv<#=FilePrefixTypeAndVersion(s)#>.net.dll \
+		$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs \
 <#  } #>
 
 device_dotnet_assemblies_with_path = \
@@ -59,85 +59,21 @@ $(objdir)Dv<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>C.$(objext) : $(deviceC)
 
 # Device assemblies for .NET:
 
-DvDeviceDotNetAssemblies: $(device_dotnet_assemblies_with_path)
+DvDeviceDotNetAssemblies: DvProviderDotNetAllAssembly
+
+DvProviderDotNetAllAssembly: $(objdir)DvProvidersAll.net.dll
+
+$(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll $(device_dotnet_source)
+	$(dotnetsdk) build $(csShared)DvProvidersAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+
+# Rules for building each provider as an individual DLL but is currently unused
 
 <# foreach (Service s in u.iServices) #>
 <# { #>
 $(objdir)Dv<#=FilePrefixTypeAndVersion(s)#>.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)Dv<#=FilePrefixTypeAndVersion(s)#>.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs
+	$(dotnetsdk) build $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 <# } #>
 
-
-# Single Provider assembly (all OpenHome services)  for .NET:
-
-DvProviderDotNetOpenHomeAssembly: $(device_dotnet_assemblies_with_path) $(objdir)DvProvidersOpenHome.net.dll
-
-$(objdir)DvProvidersOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "OpenHome") #>
-<#   { #>
-								$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersOpenHome.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "OpenHome") #>
-<#   { #>
-		$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-
-# Single Provider assembly (all Linn services)  for .NET:
-
-DvProviderDotNetLinnAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersLinn.net.dll
-
-$(objdir)DvProvidersLinn.net.dll: $(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "Linn") #>
-<#   { #>
-								$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersLinn.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "Linn") #>
-<#   { #>
-		$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-
-# Single Provider assembly (all services)  for .NET:
-
-DvProviderDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersAll.net.dll
-
-$(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-								$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs \
-<# } #>
-
-		$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersAll.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-		$(deviceCs)Dv<#=FilePrefixTypeAndVersion(s)#>.cs \
-<# } #>
 
 
 # Device classes for Java:

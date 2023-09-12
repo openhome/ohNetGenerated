@@ -201,70 +201,70 @@ headers_device = $(inc_build)/OpenHome/Types.h \
 				 $(inc_build)/OpenHome/Net/Private/Service.h \
 				 $(inc_build)/OpenHome/Net/Private/FunctorDviInvocation.h
 
-device_dotnet_assemblies = \
-		DvUpnpOrgAVTransport1.net.dll \
-		DvUpnpOrgAVTransport2.net.dll \
-		DvUpnpOrgConnectionManager1.net.dll \
-		DvUpnpOrgConnectionManager2.net.dll \
-		DvUpnpOrgContentDirectory1.net.dll \
-		DvUpnpOrgContentDirectory2.net.dll \
-		DvUpnpOrgContentDirectory3.net.dll \
-		DvUpnpOrgRenderingControl1.net.dll \
-		DvUpnpOrgRenderingControl2.net.dll \
-		DvUpnpOrgScheduledRecording1.net.dll \
-		DvUpnpOrgScheduledRecording2.net.dll \
-		DvUpnpOrgSwitchPower1.net.dll \
-		DvUpnpOrgDimming1.net.dll \
-		DvAvOpenhomeOrgConfigApp1.net.dll \
-		DvAvOpenhomeOrgCredentials1.net.dll \
-		DvAvOpenhomeOrgExakt1.net.dll \
-		DvAvOpenhomeOrgExakt2.net.dll \
-		DvAvOpenhomeOrgExakt3.net.dll \
-		DvAvOpenhomeOrgExakt4.net.dll \
-		DvAvOpenhomeOrgExakt5.net.dll \
-		DvAvOpenhomeOrgInfo1.net.dll \
-		DvAvOpenhomeOrgTime1.net.dll \
-		DvAvOpenhomeOrgPlaylist1.net.dll \
-		DvAvOpenhomeOrgVolume1.net.dll \
-		DvAvOpenhomeOrgVolume2.net.dll \
-		DvAvOpenhomeOrgVolume3.net.dll \
-		DvAvOpenhomeOrgVolume4.net.dll \
-		DvAvOpenhomeOrgProduct1.net.dll \
-		DvAvOpenhomeOrgProduct2.net.dll \
-		DvAvOpenhomeOrgProduct3.net.dll \
-		DvAvOpenhomeOrgProduct4.net.dll \
-		DvAvOpenhomeOrgTransport1.net.dll \
-		DvAvOpenhomeOrgRadio1.net.dll \
-		DvAvOpenhomeOrgRadio2.net.dll \
-		DvAvOpenhomeOrgReceiver1.net.dll \
-		DvAvOpenhomeOrgSender1.net.dll \
-		DvAvOpenhomeOrgSender2.net.dll \
-		DvAvOpenhomeOrgDebug1.net.dll \
-		DvAvOpenhomeOrgDebug2.net.dll \
-		DvAvOpenhomeOrgPins1.net.dll \
-		DvAvOpenhomeOrgPlaylistManager1.net.dll \
-		DvAvOpenhomeOrgMediaServer1.net.dll \
-		DvAvOpenhomeOrgNetworkMonitor1.net.dll \
-		DvOpenhomeOrgTestBasic1.net.dll \
-		DvOpenhomeOrgTestLights1.net.dll \
-		DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		DvAvOpenhomeOrgOAuth1.net.dll \
-		DvLinnCoUkFlash1.net.dll \
-		DvLinnCoUkVolkano1.net.dll \
-		DvLinnCoUkPrivacy1.net.dll \
-		DvLinnCoUkExaktInputs1.net.dll \
-		DvLinnCoUkCloud1.net.dll \
-		DvLinnCoUkCloud2.net.dll \
-		DvLinnCoUkUpdate1.net.dll \
-		DvLinnCoUkUpdate2.net.dll \
-		DvLinnCoUkUpdate3.net.dll \
-		DvLinnCoUkConfiguration1.net.dll \
-		DvLinnCoUkLipSync1.net.dll \
-		DvLinnCoUkExakt21.net.dll \
-		DvLinnCoUkExakt22.net.dll \
-		DvLinnCoUkWifi1.net.dll \
-		DvLinnCoUkZoneReceiver1.net.dll \
-		DvLinnCoUkZones1.net.dll \
+device_dotnet_source = \
+		$(deviceCs)DvUpnpOrgAVTransport1.cs \
+		$(deviceCs)DvUpnpOrgAVTransport2.cs \
+		$(deviceCs)DvUpnpOrgConnectionManager1.cs \
+		$(deviceCs)DvUpnpOrgConnectionManager2.cs \
+		$(deviceCs)DvUpnpOrgContentDirectory1.cs \
+		$(deviceCs)DvUpnpOrgContentDirectory2.cs \
+		$(deviceCs)DvUpnpOrgContentDirectory3.cs \
+		$(deviceCs)DvUpnpOrgRenderingControl1.cs \
+		$(deviceCs)DvUpnpOrgRenderingControl2.cs \
+		$(deviceCs)DvUpnpOrgScheduledRecording1.cs \
+		$(deviceCs)DvUpnpOrgScheduledRecording2.cs \
+		$(deviceCs)DvUpnpOrgSwitchPower1.cs \
+		$(deviceCs)DvUpnpOrgDimming1.cs \
+		$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
+		$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
+		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
+		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
+		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
+		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
+		$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
+		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
+		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
+		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
+		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
+		$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
+		$(deviceCs)DvAvOpenhomeOrgSender1.cs \
+		$(deviceCs)DvAvOpenhomeOrgSender2.cs \
+		$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
+		$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
+		$(deviceCs)DvAvOpenhomeOrgPins1.cs \
+		$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
+		$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
+		$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
+		$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
+		$(deviceCs)DvOpenhomeOrgTestLights1.cs \
+		$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
+		$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
+		$(deviceCs)DvLinnCoUkFlash1.cs \
+		$(deviceCs)DvLinnCoUkVolkano1.cs \
+		$(deviceCs)DvLinnCoUkPrivacy1.cs \
+		$(deviceCs)DvLinnCoUkExaktInputs1.cs \
+		$(deviceCs)DvLinnCoUkCloud1.cs \
+		$(deviceCs)DvLinnCoUkCloud2.cs \
+		$(deviceCs)DvLinnCoUkUpdate1.cs \
+		$(deviceCs)DvLinnCoUkUpdate2.cs \
+		$(deviceCs)DvLinnCoUkUpdate3.cs \
+		$(deviceCs)DvLinnCoUkConfiguration1.cs \
+		$(deviceCs)DvLinnCoUkLipSync1.cs \
+		$(deviceCs)DvLinnCoUkExakt21.cs \
+		$(deviceCs)DvLinnCoUkExakt22.cs \
+		$(deviceCs)DvLinnCoUkWifi1.cs \
+		$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
+		$(deviceCs)DvLinnCoUkZones1.cs \
 
 device_dotnet_assemblies_with_path = \
 		$(objdir)DvUpnpOrgAVTransport1.net.dll \
@@ -780,582 +780,142 @@ $(objdir)DvLinnCoUkZones1C.$(objext) : $(deviceC)DvLinnCoUkZones1C.cpp $(headers
 
 # Device assemblies for .NET:
 
-DvDeviceDotNetAssemblies: $(device_dotnet_assemblies_with_path)
+DvDeviceDotNetAssemblies: DvProviderDotNetAllAssembly
+
+DvProviderDotNetAllAssembly: $(objdir)DvProvidersAll.net.dll
+
+$(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll $(device_dotnet_source)
+	$(dotnetsdk) build $(csShared)DvProvidersAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+
+# Rules for building each provider as an individual DLL but is currently unused
 
 $(objdir)DvUpnpOrgAVTransport1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgAVTransport1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgAVTransport1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgAVTransport1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgAVTransport1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgAVTransport2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgAVTransport2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgAVTransport2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgAVTransport2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgAVTransport2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgConnectionManager1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgConnectionManager1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgConnectionManager1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgConnectionManager1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgConnectionManager1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgConnectionManager2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgConnectionManager2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgConnectionManager2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgConnectionManager2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgConnectionManager2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgContentDirectory1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgContentDirectory1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgContentDirectory1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgContentDirectory1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgContentDirectory1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgContentDirectory2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgContentDirectory2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgContentDirectory2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgContentDirectory2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgContentDirectory2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgContentDirectory3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgContentDirectory3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgContentDirectory3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgContentDirectory3.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgContentDirectory3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgRenderingControl1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgRenderingControl1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgRenderingControl1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgRenderingControl1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgRenderingControl1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgRenderingControl2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgRenderingControl2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgRenderingControl2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgRenderingControl2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgRenderingControl2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgScheduledRecording1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgScheduledRecording1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgScheduledRecording1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgScheduledRecording1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgScheduledRecording1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgScheduledRecording2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgScheduledRecording2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgScheduledRecording2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgScheduledRecording2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgScheduledRecording2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgSwitchPower1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgSwitchPower1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgSwitchPower1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgSwitchPower1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgSwitchPower1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvUpnpOrgDimming1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvUpnpOrgDimming1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvUpnpOrgDimming1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgDimming1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgDimming1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgConfigApp1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgConfigApp1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgConfigApp1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgConfigApp1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgCredentials1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgCredentials1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgCredentials1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgCredentials1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgCredentials1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgExakt1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgExakt1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgExakt1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgExakt2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgExakt2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgExakt2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgExakt3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgExakt3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgExakt3.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgExakt4.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt4.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgExakt4.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgExakt4.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt4.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgExakt5.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgExakt5.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgExakt5.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgExakt5.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt5.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgInfo1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgInfo1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgInfo1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgInfo1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgInfo1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgTime1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgTime1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgTime1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgTime1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgTime1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgPlaylist1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgPlaylist1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgPlaylist1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgPlaylist1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgVolume1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgVolume1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgVolume1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgVolume1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgVolume2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgVolume2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgVolume2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgVolume2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgVolume3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgVolume3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgVolume3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgVolume3.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgVolume4.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgVolume4.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgVolume4.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgVolume4.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume4.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgProduct1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgProduct1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgProduct1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgProduct1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgProduct2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgProduct2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgProduct2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgProduct2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgProduct3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgProduct3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgProduct3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgProduct3.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgProduct4.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgProduct4.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgProduct4.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgProduct4.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct4.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgTransport1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgTransport1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgTransport1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgTransport1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgTransport1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgRadio1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgRadio1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgRadio1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgRadio1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgRadio1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgRadio2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgRadio2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgRadio2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgRadio2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgRadio2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgReceiver1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgReceiver1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgReceiver1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgReceiver1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgSender1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgSender1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgSender1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgSender1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgSender1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgSender2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgSender2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgSender2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgSender2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgSender2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgDebug1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgDebug1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgDebug1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgDebug1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgDebug1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgDebug2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgDebug2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgDebug2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgDebug2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgDebug2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgPins1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgPins1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgPins1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgPins1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgPins1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgPlaylistManager1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgPlaylistManager1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgMediaServer1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgMediaServer1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgMediaServer1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgMediaServer1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgNetworkMonitor1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgNetworkMonitor1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvOpenhomeOrgTestBasic1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvOpenhomeOrgTestBasic1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvOpenhomeOrgTestBasic1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvOpenhomeOrgTestBasic1.cs
+	$(dotnetsdk) build $(proxyCs)CpOpenhomeOrgTestBasic1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvOpenhomeOrgTestLights1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvOpenhomeOrgTestLights1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvOpenhomeOrgTestLights1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvOpenhomeOrgTestLights1.cs
+	$(dotnetsdk) build $(proxyCs)CpOpenhomeOrgTestLights1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs
+	$(dotnetsdk) build $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvAvOpenhomeOrgOAuth1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvAvOpenhomeOrgOAuth1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvAvOpenhomeOrgOAuth1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgOAuth1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgOAuth1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkFlash1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkFlash1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkFlash1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkFlash1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkVolkano1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkVolkano1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkVolkano1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkPrivacy1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkPrivacy1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkPrivacy1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkPrivacy1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkPrivacy1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkExaktInputs1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkExaktInputs1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkExaktInputs1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkExaktInputs1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkCloud1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkCloud1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkCloud1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkCloud1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkCloud1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkCloud2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkCloud2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkCloud2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkCloud2.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkCloud2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkUpdate1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkUpdate1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkUpdate1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkUpdate1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkUpdate2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkUpdate2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkUpdate2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkUpdate2.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkUpdate3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkUpdate3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkUpdate3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkUpdate3.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkConfiguration1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkConfiguration1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkConfiguration1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkConfiguration1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkConfiguration1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkLipSync1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkLipSync1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkLipSync1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkLipSync1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkLipSync1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkExakt21.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkExakt21.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkExakt21.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkExakt21.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkExakt21.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkExakt22.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkExakt22.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkExakt22.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkExakt22.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkExakt22.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkWifi1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkWifi1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkWifi1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkWifi1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkWifi1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkZoneReceiver1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkZoneReceiver1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkZoneReceiver1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkZoneReceiver1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkZones1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkZones1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvLinnCoUkZones1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkZones1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkZones1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 
-
-# Single Provider assembly (all OpenHome services)  for .NET:
-
-DvProviderDotNetOpenHomeAssembly: $(device_dotnet_assemblies_with_path) $(objdir)DvProvidersOpenHome.net.dll
-
-$(objdir)DvProvidersOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
-								$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-								$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-								$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-								$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-								$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-								$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-								$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-								$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-								$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-								$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-								$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-								$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-								$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersOpenHome.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-		$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-		$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-		$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-		$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-		$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-		$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-		$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-		$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-
-
-# Single Provider assembly (all Linn services)  for .NET:
-
-DvProviderDotNetLinnAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersLinn.net.dll
-
-$(objdir)DvProvidersLinn.net.dll: $(depDirCs)ohNet.net.dll \
-								$(deviceCs)DvLinnCoUkFlash1.cs \
-								$(deviceCs)DvLinnCoUkVolkano1.cs \
-								$(deviceCs)DvLinnCoUkPrivacy1.cs \
-								$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-								$(deviceCs)DvLinnCoUkCloud1.cs \
-								$(deviceCs)DvLinnCoUkCloud2.cs \
-								$(deviceCs)DvLinnCoUkUpdate1.cs \
-								$(deviceCs)DvLinnCoUkUpdate2.cs \
-								$(deviceCs)DvLinnCoUkUpdate3.cs \
-								$(deviceCs)DvLinnCoUkConfiguration1.cs \
-								$(deviceCs)DvLinnCoUkLipSync1.cs \
-								$(deviceCs)DvLinnCoUkExakt21.cs \
-								$(deviceCs)DvLinnCoUkExakt22.cs \
-								$(deviceCs)DvLinnCoUkWifi1.cs \
-								$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-								$(deviceCs)DvLinnCoUkZones1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersLinn.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvLinnCoUkFlash1.cs \
-		$(deviceCs)DvLinnCoUkVolkano1.cs \
-		$(deviceCs)DvLinnCoUkPrivacy1.cs \
-		$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-		$(deviceCs)DvLinnCoUkCloud1.cs \
-		$(deviceCs)DvLinnCoUkCloud2.cs \
-		$(deviceCs)DvLinnCoUkUpdate1.cs \
-		$(deviceCs)DvLinnCoUkUpdate2.cs \
-		$(deviceCs)DvLinnCoUkUpdate3.cs \
-		$(deviceCs)DvLinnCoUkConfiguration1.cs \
-		$(deviceCs)DvLinnCoUkLipSync1.cs \
-		$(deviceCs)DvLinnCoUkExakt21.cs \
-		$(deviceCs)DvLinnCoUkExakt22.cs \
-		$(deviceCs)DvLinnCoUkWifi1.cs \
-		$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-		$(deviceCs)DvLinnCoUkZones1.cs \
-
-
-# Single Provider assembly (all services)  for .NET:
-
-DvProviderDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)DvProvidersAll.net.dll
-
-$(objdir)DvProvidersAll.net.dll: $(depDirCs)ohNet.net.dll \
-								$(deviceCs)DvUpnpOrgAVTransport1.cs \
-								$(deviceCs)DvUpnpOrgAVTransport2.cs \
-								$(deviceCs)DvUpnpOrgConnectionManager1.cs \
-								$(deviceCs)DvUpnpOrgConnectionManager2.cs \
-								$(deviceCs)DvUpnpOrgContentDirectory1.cs \
-								$(deviceCs)DvUpnpOrgContentDirectory2.cs \
-								$(deviceCs)DvUpnpOrgContentDirectory3.cs \
-								$(deviceCs)DvUpnpOrgRenderingControl1.cs \
-								$(deviceCs)DvUpnpOrgRenderingControl2.cs \
-								$(deviceCs)DvUpnpOrgScheduledRecording1.cs \
-								$(deviceCs)DvUpnpOrgScheduledRecording2.cs \
-								$(deviceCs)DvUpnpOrgSwitchPower1.cs \
-								$(deviceCs)DvUpnpOrgDimming1.cs \
-								$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-								$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-								$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-								$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-								$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-								$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-								$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-								$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-								$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-								$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-								$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-								$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-								$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-								$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-								$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-								$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-								$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-								$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-								$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-								$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-								$(deviceCs)DvLinnCoUkFlash1.cs \
-								$(deviceCs)DvLinnCoUkVolkano1.cs \
-								$(deviceCs)DvLinnCoUkPrivacy1.cs \
-								$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-								$(deviceCs)DvLinnCoUkCloud1.cs \
-								$(deviceCs)DvLinnCoUkCloud2.cs \
-								$(deviceCs)DvLinnCoUkUpdate1.cs \
-								$(deviceCs)DvLinnCoUkUpdate2.cs \
-								$(deviceCs)DvLinnCoUkUpdate3.cs \
-								$(deviceCs)DvLinnCoUkConfiguration1.cs \
-								$(deviceCs)DvLinnCoUkLipSync1.cs \
-								$(deviceCs)DvLinnCoUkExakt21.cs \
-								$(deviceCs)DvLinnCoUkExakt22.cs \
-								$(deviceCs)DvLinnCoUkWifi1.cs \
-								$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-								$(deviceCs)DvLinnCoUkZones1.cs \
-
-		$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)DvProvidersAll.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(deviceCs)DvUpnpOrgAVTransport1.cs \
-		$(deviceCs)DvUpnpOrgAVTransport2.cs \
-		$(deviceCs)DvUpnpOrgConnectionManager1.cs \
-		$(deviceCs)DvUpnpOrgConnectionManager2.cs \
-		$(deviceCs)DvUpnpOrgContentDirectory1.cs \
-		$(deviceCs)DvUpnpOrgContentDirectory2.cs \
-		$(deviceCs)DvUpnpOrgContentDirectory3.cs \
-		$(deviceCs)DvUpnpOrgRenderingControl1.cs \
-		$(deviceCs)DvUpnpOrgRenderingControl2.cs \
-		$(deviceCs)DvUpnpOrgScheduledRecording1.cs \
-		$(deviceCs)DvUpnpOrgScheduledRecording2.cs \
-		$(deviceCs)DvUpnpOrgSwitchPower1.cs \
-		$(deviceCs)DvUpnpOrgDimming1.cs \
-		$(deviceCs)DvAvOpenhomeOrgConfigApp1.cs \
-		$(deviceCs)DvAvOpenhomeOrgCredentials1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt1.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt2.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt3.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt4.cs \
-		$(deviceCs)DvAvOpenhomeOrgExakt5.cs \
-		$(deviceCs)DvAvOpenhomeOrgInfo1.cs \
-		$(deviceCs)DvAvOpenhomeOrgTime1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylist1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume1.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume2.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume3.cs \
-		$(deviceCs)DvAvOpenhomeOrgVolume4.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct1.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct2.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct3.cs \
-		$(deviceCs)DvAvOpenhomeOrgProduct4.cs \
-		$(deviceCs)DvAvOpenhomeOrgTransport1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio1.cs \
-		$(deviceCs)DvAvOpenhomeOrgRadio2.cs \
-		$(deviceCs)DvAvOpenhomeOrgReceiver1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender1.cs \
-		$(deviceCs)DvAvOpenhomeOrgSender2.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug1.cs \
-		$(deviceCs)DvAvOpenhomeOrgDebug2.cs \
-		$(deviceCs)DvAvOpenhomeOrgPins1.cs \
-		$(deviceCs)DvAvOpenhomeOrgPlaylistManager1.cs \
-		$(deviceCs)DvAvOpenhomeOrgMediaServer1.cs \
-		$(deviceCs)DvAvOpenhomeOrgNetworkMonitor1.cs \
-		$(deviceCs)DvOpenhomeOrgTestBasic1.cs \
-		$(deviceCs)DvOpenhomeOrgTestLights1.cs \
-		$(deviceCs)DvOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(deviceCs)DvAvOpenhomeOrgOAuth1.cs \
-		$(deviceCs)DvLinnCoUkFlash1.cs \
-		$(deviceCs)DvLinnCoUkVolkano1.cs \
-		$(deviceCs)DvLinnCoUkPrivacy1.cs \
-		$(deviceCs)DvLinnCoUkExaktInputs1.cs \
-		$(deviceCs)DvLinnCoUkCloud1.cs \
-		$(deviceCs)DvLinnCoUkCloud2.cs \
-		$(deviceCs)DvLinnCoUkUpdate1.cs \
-		$(deviceCs)DvLinnCoUkUpdate2.cs \
-		$(deviceCs)DvLinnCoUkUpdate3.cs \
-		$(deviceCs)DvLinnCoUkConfiguration1.cs \
-		$(deviceCs)DvLinnCoUkLipSync1.cs \
-		$(deviceCs)DvLinnCoUkExakt21.cs \
-		$(deviceCs)DvLinnCoUkExakt22.cs \
-		$(deviceCs)DvLinnCoUkWifi1.cs \
-		$(deviceCs)DvLinnCoUkZoneReceiver1.cs \
-		$(deviceCs)DvLinnCoUkZones1.cs \
 
 
 # Device classes for Java:
