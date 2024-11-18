@@ -35,7 +35,7 @@ else:
             credsFile = urlopen('http://core.linn.co.uk/aws-credentials' )
             creds = credsFile.read()
             with open(awsCreds, 'wt') as f:
-                f.write(creds)
+                f.write(creds.decode("utf-8"))
 
 
 class JenkinsBuild():
