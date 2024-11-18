@@ -78,7 +78,6 @@ class JenkinsBuild():
             'Linux-ppc32': { 'os': 'linux', 'arch': 'ppc32', 'publish': True, 'system': 'Linux', 'make_target': ''},
             'Windows-x86': { 'os': 'windows', 'arch': 'x86', 'publish': True, 'system': 'Windows', 'make_target': ''},
             'Windows-x64': { 'os': 'windows', 'arch': 'x64', 'publish': True, 'system': 'Windows', 'make_target': ''},
-            'Windows10-x86': { 'os': 'windows', 'arch': 'x86', 'publish': True, 'system': 'Windows10', 'make_target': ''},
             'Macos-x64': { 'os': 'macos', 'arch': 'x86', 'publish': False, 'system': 'Mac', 'make_target': ''},  # Old Jenkins label
             'Mac-x64': { 'os': 'macos', 'arch': 'x64', 'publish': True, 'system': 'Mac', 'make_target': 'mac-64=1'},  # New Jenkins label, matches downstream builds
             'Linux-ARM': { 'os': 'linux', 'arch': 'armel', 'publish': True, 'system': 'Linux', 'make_target': ''},
@@ -101,15 +100,11 @@ class JenkinsBuild():
         system = self.platform['system']
         args = []
 
-        if system == 'Windows10':
-            args.append('C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat')
-            args.append('amd64_x86')
-            args.append('store')
-        elif os_platform == 'windows' and arch == 'x86':
-            args.append('C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\VC\\Auxiliary\\Build\\vcvarsall.bat')
+        if os_platform == 'windows' and arch == 'x86':
+            args.append('C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Auxiliary\\Build\\vcvarsall.bat')
             args.append('x86')
         elif os_platform == 'windows' and arch == 'x64':
-            args.append('C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\VC\\Auxiliary\\Build\\vcvarsall.bat')
+            args.append('C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\VC\\Auxiliary\\Build\\vcvarsall.bat')
             args.append('amd64')
             os.environ['CS_PLATFORM'] = 'x64'
         if os_platform == 'linux' and arch == 'armel':
