@@ -69,7 +69,7 @@ class JenkinsBuild():
         else:
             self.options.release = '0'
 
-        print "options for build are release:%s on platform %s" % (self.options.release, self.options.platform)
+        print("options for build are release:%s on platform %s" % (self.options.release, self.options.platform))
 
     def get_platform(self):
         platforms = {
@@ -185,10 +185,10 @@ class JenkinsBuild():
         args.append('--platform=' + self.platform['system'] + '-' + arch)
         if debug:
             args.append('--debug')
-        print "do_build: fetch dependencies with cmd %s" % (args,)
+        print("do_build: fetch dependencies with cmd %s" % (args,))
         ret = subprocess.check_call(args)
         if ret != 0:
-            print ret
+            print(ret)
             sys.exit(10)
 
         args = []
@@ -211,10 +211,10 @@ class JenkinsBuild():
         args.extend(self.make_args)
         if debug:
             args.append('debug=1')
-        print "do_build: build with cmd %s" % (args,)
+        print("do_build: build with cmd %s" % (args,))
         ret = subprocess.check_call(args)
         if ret != 0:
-            print ret
+            print(ret)
             sys.exit(10)
 
     def do_release(self):
@@ -243,7 +243,7 @@ class JenkinsBuild():
             build.extend(self.make_args)
             ret = subprocess.check_call(build)
             if ret != 0:
-                print ret
+                print(ret)
                 sys.exit(10)
 
             build = []
@@ -257,11 +257,11 @@ class JenkinsBuild():
             build.append('openhome_system=' + openhome_system)
             build.append('openhome_architecture=' + openhome_architecture)
             build.append('openhome_configuration=' + openhome_configuration)
-            print "doing release with bundle %s" % (build,)
+            print("doing release with bundle %s" % (build,))
 
             ret = subprocess.check_call(build)
             if ret != 0:
-                print ret
+                print(ret)
                 sys.exit(10)
 
             native_bundle_name = os.path.join('Build/Bundles', "ohNetGenerated-%s-%s-%s.tar.gz" % (openhome_system, openhome_architecture, openhome_configuration))
