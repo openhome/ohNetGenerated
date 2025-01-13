@@ -207,70 +207,70 @@ headers_proxy = $(inc_build)/OpenHome/Buffer.h \
 				$(inc_build)/OpenHome/Private/Thread.h \
 				$(inc_build)/OpenHome/Net/Private/AsyncPrivate.h
 
-proxy_dotnet_assemblies = \
-		CpUpnpOrgAVTransport1.net.dll \
-		CpUpnpOrgAVTransport2.net.dll \
-		CpUpnpOrgConnectionManager1.net.dll \
-		CpUpnpOrgConnectionManager2.net.dll \
-		CpUpnpOrgContentDirectory1.net.dll \
-		CpUpnpOrgContentDirectory2.net.dll \
-		CpUpnpOrgContentDirectory3.net.dll \
-		CpUpnpOrgRenderingControl1.net.dll \
-		CpUpnpOrgRenderingControl2.net.dll \
-		CpUpnpOrgScheduledRecording1.net.dll \
-		CpUpnpOrgScheduledRecording2.net.dll \
-		CpUpnpOrgSwitchPower1.net.dll \
-		CpUpnpOrgDimming1.net.dll \
-		CpAvOpenhomeOrgConfigApp1.net.dll \
-		CpAvOpenhomeOrgCredentials1.net.dll \
-		CpAvOpenhomeOrgExakt1.net.dll \
-		CpAvOpenhomeOrgExakt2.net.dll \
-		CpAvOpenhomeOrgExakt3.net.dll \
-		CpAvOpenhomeOrgExakt4.net.dll \
-		CpAvOpenhomeOrgExakt5.net.dll \
-		CpAvOpenhomeOrgInfo1.net.dll \
-		CpAvOpenhomeOrgTime1.net.dll \
-		CpAvOpenhomeOrgPlaylist1.net.dll \
-		CpAvOpenhomeOrgVolume1.net.dll \
-		CpAvOpenhomeOrgVolume2.net.dll \
-		CpAvOpenhomeOrgVolume3.net.dll \
-		CpAvOpenhomeOrgVolume4.net.dll \
-		CpAvOpenhomeOrgProduct1.net.dll \
-		CpAvOpenhomeOrgProduct2.net.dll \
-		CpAvOpenhomeOrgProduct3.net.dll \
-		CpAvOpenhomeOrgProduct4.net.dll \
-		CpAvOpenhomeOrgTransport1.net.dll \
-		CpAvOpenhomeOrgRadio1.net.dll \
-		CpAvOpenhomeOrgRadio2.net.dll \
-		CpAvOpenhomeOrgReceiver1.net.dll \
-		CpAvOpenhomeOrgSender1.net.dll \
-		CpAvOpenhomeOrgSender2.net.dll \
-		CpAvOpenhomeOrgDebug1.net.dll \
-		CpAvOpenhomeOrgDebug2.net.dll \
-		CpAvOpenhomeOrgPins1.net.dll \
-		CpAvOpenhomeOrgPlaylistManager1.net.dll \
-		CpAvOpenhomeOrgMediaServer1.net.dll \
-		CpAvOpenhomeOrgNetworkMonitor1.net.dll \
-		CpOpenhomeOrgTestBasic1.net.dll \
-		CpOpenhomeOrgTestLights1.net.dll \
-		CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		CpAvOpenhomeOrgOAuth1.net.dll \
-		CpLinnCoUkFlash1.net.dll \
-		CpLinnCoUkVolkano1.net.dll \
-		CpLinnCoUkPrivacy1.net.dll \
-		CpLinnCoUkExaktInputs1.net.dll \
-		CpLinnCoUkCloud1.net.dll \
-		CpLinnCoUkCloud2.net.dll \
-		CpLinnCoUkUpdate1.net.dll \
-		CpLinnCoUkUpdate2.net.dll \
-		CpLinnCoUkUpdate3.net.dll \
-		CpLinnCoUkConfiguration1.net.dll \
-		CpLinnCoUkLipSync1.net.dll \
-		CpLinnCoUkExakt21.net.dll \
-		CpLinnCoUkExakt22.net.dll \
-		CpLinnCoUkWifi1.net.dll \
-		CpLinnCoUkZoneReceiver1.net.dll \
-		CpLinnCoUkZones1.net.dll \
+proxy_dotnet_source = \
+		$(proxyCs)CpUpnpOrgAVTransport1.cs \
+		$(proxyCs)CpUpnpOrgAVTransport2.cs \
+		$(proxyCs)CpUpnpOrgConnectionManager1.cs \
+		$(proxyCs)CpUpnpOrgConnectionManager2.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory1.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory2.cs \
+		$(proxyCs)CpUpnpOrgContentDirectory3.cs \
+		$(proxyCs)CpUpnpOrgRenderingControl1.cs \
+		$(proxyCs)CpUpnpOrgRenderingControl2.cs \
+		$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
+		$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
+		$(proxyCs)CpUpnpOrgSwitchPower1.cs \
+		$(proxyCs)CpUpnpOrgDimming1.cs \
+		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
+		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
+		$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
+		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
+		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
+		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
+		$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
+		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
+		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
+		$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
+		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
+		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
+		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
+		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
+		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
+		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
+		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
+		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
+		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
+		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
+		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
+		$(proxyCs)CpLinnCoUkFlash1.cs \
+		$(proxyCs)CpLinnCoUkVolkano1.cs \
+		$(proxyCs)CpLinnCoUkPrivacy1.cs \
+		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
+		$(proxyCs)CpLinnCoUkCloud1.cs \
+		$(proxyCs)CpLinnCoUkCloud2.cs \
+		$(proxyCs)CpLinnCoUkUpdate1.cs \
+		$(proxyCs)CpLinnCoUkUpdate2.cs \
+		$(proxyCs)CpLinnCoUkUpdate3.cs \
+		$(proxyCs)CpLinnCoUkConfiguration1.cs \
+		$(proxyCs)CpLinnCoUkLipSync1.cs \
+		$(proxyCs)CpLinnCoUkExakt21.cs \
+		$(proxyCs)CpLinnCoUkExakt22.cs \
+		$(proxyCs)CpLinnCoUkWifi1.cs \
+		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
+		$(proxyCs)CpLinnCoUkZones1.cs \
 
 proxy_dotnet_assemblies_with_path = \
 		$(objdir)CpUpnpOrgAVTransport1.net.dll \
@@ -786,584 +786,141 @@ $(objdir)CpLinnCoUkZones1Std.$(objext) : $(proxyCppStd)CpLinnCoUkZones1Std.cpp $
 
 # Proxy assemblies for .NET:
 
-CpProxyDotNetAssemblies: $(proxy_dotnet_assemblies_with_path)
+CpProxyDotNetAssemblies: CpProxyDotNetAllAssembly
+
+CpProxyDotNetAllAssembly: $(objdir)CpProxiesAll.net.dll
+
+$(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll $(proxy_dotnet_source)
+	$(dotnetsdk) build $(csShared)CpProxiesAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+
+# Rules for building each proxy as an individual DLL but is currently unused
 
 $(objdir)CpUpnpOrgAVTransport1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgAVTransport1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgAVTransport1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgAVTransport1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgAVTransport1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgAVTransport2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgAVTransport2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgAVTransport2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgAVTransport2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgAVTransport2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgConnectionManager1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgConnectionManager1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgConnectionManager1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgConnectionManager1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgConnectionManager1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgConnectionManager2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgConnectionManager2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgConnectionManager2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgConnectionManager2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgConnectionManager2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgContentDirectory1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgContentDirectory1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgContentDirectory1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgContentDirectory1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgContentDirectory2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgContentDirectory2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgContentDirectory2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgContentDirectory2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgContentDirectory3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgContentDirectory3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgContentDirectory3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgContentDirectory3.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgContentDirectory3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgRenderingControl1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgRenderingControl1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgRenderingControl1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgRenderingControl1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgRenderingControl1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgRenderingControl2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgRenderingControl2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgRenderingControl2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgRenderingControl2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgRenderingControl2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgScheduledRecording1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgScheduledRecording1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgScheduledRecording1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgScheduledRecording1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgScheduledRecording1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgScheduledRecording2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgScheduledRecording2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgScheduledRecording2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgScheduledRecording2.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgScheduledRecording2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgSwitchPower1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgSwitchPower1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgSwitchPower1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgSwitchPower1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgSwitchPower1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpUpnpOrgDimming1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpUpnpOrgDimming1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpUpnpOrgDimming1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgDimming1.cs
+	$(dotnetsdk) build $(proxyCs)CpUpnpOrgDimming1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgConfigApp1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgConfigApp1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgConfigApp1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgConfigApp1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgCredentials1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgCredentials1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgCredentials1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgCredentials1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgExakt1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgExakt1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgExakt1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgExakt2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgExakt2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgExakt2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgExakt3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgExakt3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgExakt3.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgExakt4.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt4.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgExakt4.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgExakt4.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt4.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgExakt5.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgExakt5.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgExakt5.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgExakt5.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgExakt5.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgInfo1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgInfo1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgInfo1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgInfo1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgInfo1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgTime1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgTime1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgTime1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgTime1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgTime1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgPlaylist1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPlaylist1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgPlaylist1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgPlaylist1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgVolume1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgVolume1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgVolume1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgVolume2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgVolume2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgVolume2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgVolume3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgVolume3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgVolume3.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgVolume4.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgVolume4.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgVolume4.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgVolume4.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgVolume4.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgProduct1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgProduct1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgProduct1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgProduct2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgProduct2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgProduct2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgProduct3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgProduct3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgProduct3.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgProduct4.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgProduct4.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgProduct4.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgProduct4.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgProduct4.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgTransport1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgTransport1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgTransport1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgTransport1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgTransport1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgRadio1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgRadio1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgRadio1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgRadio1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgRadio1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgRadio2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgRadio2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgRadio2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgRadio2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgRadio2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgReceiver1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgReceiver1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgReceiver1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgSender1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgSender1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgSender1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgSender1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgSender1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgSender2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgSender2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgSender2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgSender2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgSender2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgDebug1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgDebug1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgDebug1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgDebug1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgDebug1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgDebug2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgDebug2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgDebug2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgDebug2.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgDebug2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgPins1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPins1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgPins1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgPins1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgPins1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgPlaylistManager1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgPlaylistManager1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgMediaServer1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgMediaServer1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgMediaServer1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgMediaServer1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgNetworkMonitor1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpOpenhomeOrgTestBasic1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgTestBasic1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpOpenhomeOrgTestBasic1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpOpenhomeOrgTestBasic1.cs
+	$(dotnetsdk) build $(proxyCs)CpOpenhomeOrgTestBasic1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpOpenhomeOrgTestLights1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgTestLights1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpOpenhomeOrgTestLights1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpOpenhomeOrgTestLights1.cs
+	$(dotnetsdk) build $(proxyCs)CpOpenhomeOrgTestLights1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpOpenhomeOrgSubscriptionLongPoll1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs
+	$(dotnetsdk) build $(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpAvOpenhomeOrgOAuth1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpAvOpenhomeOrgOAuth1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpAvOpenhomeOrgOAuth1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs
+	$(dotnetsdk) build $(proxyCs)CpAvOpenhomeOrgOAuth1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkFlash1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkFlash1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkFlash1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkFlash1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkVolkano1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkVolkano1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkVolkano1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkPrivacy1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkPrivacy1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkPrivacy1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkPrivacy1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkPrivacy1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExaktInputs1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkExaktInputs1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkExaktInputs1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkExaktInputs1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkCloud1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkCloud1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkCloud1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkCloud1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkCloud1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkCloud2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkCloud2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkCloud2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkCloud2.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkCloud2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkUpdate1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkUpdate1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkUpdate1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkUpdate2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate2.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkUpdate2.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkUpdate2.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkUpdate3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate3.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkUpdate3.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkUpdate3.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkConfiguration1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkConfiguration1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkConfiguration1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkConfiguration1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkConfiguration1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkLipSync1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkLipSync1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkLipSync1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkLipSync1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkLipSync1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkExakt21.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExakt21.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkExakt21.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkExakt21.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkExakt21.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkExakt22.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExakt22.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkExakt22.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkExakt22.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkExakt22.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkWifi1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkWifi1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkWifi1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkWifi1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkWifi1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkZoneReceiver1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkZoneReceiver1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkZoneReceiver1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkZoneReceiver1.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkZoneReceiver1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkZones1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkZones1.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpLinnCoUkZones1.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkZones1.cs
-
-# Single Proxy assembly (all OpenHome services)  for .NET:
-
-CpProxyDotNetOpenHomeAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesOpenHome.net.dll
-
-$(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
-									$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-									$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-									$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-									$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-									$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-									$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-									$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-									$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-									$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-									$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-									$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-									$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-									$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-									$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-									$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-									$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-									$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-									$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-									$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-									$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-									$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-									$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-									$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-									$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpProxiesOpenHome.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-
-
-# Single Proxy assembly (all Linn services)  for .NET:
-
-CpProxyDotNetLinnAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesLinn.net.dll
-
-$(objdir)CpProxiesLinn.net.dll: $(depDirCs)ohNet.net.dll \
-								$(proxyCs)CpLinnCoUkFlash1.cs \
-								$(proxyCs)CpLinnCoUkVolkano1.cs \
-								$(proxyCs)CpLinnCoUkPrivacy1.cs \
-								$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-								$(proxyCs)CpLinnCoUkCloud1.cs \
-								$(proxyCs)CpLinnCoUkCloud2.cs \
-								$(proxyCs)CpLinnCoUkUpdate1.cs \
-								$(proxyCs)CpLinnCoUkUpdate2.cs \
-								$(proxyCs)CpLinnCoUkUpdate3.cs \
-								$(proxyCs)CpLinnCoUkConfiguration1.cs \
-								$(proxyCs)CpLinnCoUkLipSync1.cs \
-								$(proxyCs)CpLinnCoUkExakt21.cs \
-								$(proxyCs)CpLinnCoUkExakt22.cs \
-								$(proxyCs)CpLinnCoUkWifi1.cs \
-								$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-								$(proxyCs)CpLinnCoUkZones1.cs \
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-	/out:$(objdir)CpProxiesLinn.net.dll \
-	/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpLinnCoUkFlash1.cs \
-		$(proxyCs)CpLinnCoUkVolkano1.cs \
-		$(proxyCs)CpLinnCoUkPrivacy1.cs \
-		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-		$(proxyCs)CpLinnCoUkCloud1.cs \
-		$(proxyCs)CpLinnCoUkCloud2.cs \
-		$(proxyCs)CpLinnCoUkUpdate1.cs \
-		$(proxyCs)CpLinnCoUkUpdate2.cs \
-		$(proxyCs)CpLinnCoUkUpdate3.cs \
-		$(proxyCs)CpLinnCoUkConfiguration1.cs \
-		$(proxyCs)CpLinnCoUkLipSync1.cs \
-		$(proxyCs)CpLinnCoUkExakt21.cs \
-		$(proxyCs)CpLinnCoUkExakt22.cs \
-		$(proxyCs)CpLinnCoUkWifi1.cs \
-		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-		$(proxyCs)CpLinnCoUkZones1.cs \
-
-
-
-# Single Proxy assembly (all services)  for .NET:
-
-CpProxyDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesAll.net.dll
-
-$(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll \
-								$(proxyCs)CpUpnpOrgAVTransport1.cs \
-								$(proxyCs)CpUpnpOrgAVTransport2.cs \
-								$(proxyCs)CpUpnpOrgConnectionManager1.cs \
-								$(proxyCs)CpUpnpOrgConnectionManager2.cs \
-								$(proxyCs)CpUpnpOrgContentDirectory1.cs \
-								$(proxyCs)CpUpnpOrgContentDirectory2.cs \
-								$(proxyCs)CpUpnpOrgContentDirectory3.cs \
-								$(proxyCs)CpUpnpOrgRenderingControl1.cs \
-								$(proxyCs)CpUpnpOrgRenderingControl2.cs \
-								$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
-								$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
-								$(proxyCs)CpUpnpOrgSwitchPower1.cs \
-								$(proxyCs)CpUpnpOrgDimming1.cs \
-								$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-								$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-								$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-								$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-								$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-								$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-								$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-								$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-								$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-								$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-								$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-								$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-								$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-								$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-								$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-								$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-								$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-								$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-								$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-								$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-								$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-								$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-								$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-								$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-								$(proxyCs)CpLinnCoUkFlash1.cs \
-								$(proxyCs)CpLinnCoUkVolkano1.cs \
-								$(proxyCs)CpLinnCoUkPrivacy1.cs \
-								$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-								$(proxyCs)CpLinnCoUkCloud1.cs \
-								$(proxyCs)CpLinnCoUkCloud2.cs \
-								$(proxyCs)CpLinnCoUkUpdate1.cs \
-								$(proxyCs)CpLinnCoUkUpdate2.cs \
-								$(proxyCs)CpLinnCoUkUpdate3.cs \
-								$(proxyCs)CpLinnCoUkConfiguration1.cs \
-								$(proxyCs)CpLinnCoUkLipSync1.cs \
-								$(proxyCs)CpLinnCoUkExakt21.cs \
-								$(proxyCs)CpLinnCoUkExakt22.cs \
-								$(proxyCs)CpLinnCoUkWifi1.cs \
-								$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-								$(proxyCs)CpLinnCoUkZones1.cs \
-
-		$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpProxiesAll.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)CpUpnpOrgAVTransport1.cs \
-		$(proxyCs)CpUpnpOrgAVTransport2.cs \
-		$(proxyCs)CpUpnpOrgConnectionManager1.cs \
-		$(proxyCs)CpUpnpOrgConnectionManager2.cs \
-		$(proxyCs)CpUpnpOrgContentDirectory1.cs \
-		$(proxyCs)CpUpnpOrgContentDirectory2.cs \
-		$(proxyCs)CpUpnpOrgContentDirectory3.cs \
-		$(proxyCs)CpUpnpOrgRenderingControl1.cs \
-		$(proxyCs)CpUpnpOrgRenderingControl2.cs \
-		$(proxyCs)CpUpnpOrgScheduledRecording1.cs \
-		$(proxyCs)CpUpnpOrgScheduledRecording2.cs \
-		$(proxyCs)CpUpnpOrgSwitchPower1.cs \
-		$(proxyCs)CpUpnpOrgDimming1.cs \
-		$(proxyCs)CpAvOpenhomeOrgConfigApp1.cs \
-		$(proxyCs)CpAvOpenhomeOrgCredentials1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt1.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt2.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt3.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt4.cs \
-		$(proxyCs)CpAvOpenhomeOrgExakt5.cs \
-		$(proxyCs)CpAvOpenhomeOrgInfo1.cs \
-		$(proxyCs)CpAvOpenhomeOrgTime1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylist1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume1.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume2.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume3.cs \
-		$(proxyCs)CpAvOpenhomeOrgVolume4.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct1.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct2.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct3.cs \
-		$(proxyCs)CpAvOpenhomeOrgProduct4.cs \
-		$(proxyCs)CpAvOpenhomeOrgTransport1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio1.cs \
-		$(proxyCs)CpAvOpenhomeOrgRadio2.cs \
-		$(proxyCs)CpAvOpenhomeOrgReceiver1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender1.cs \
-		$(proxyCs)CpAvOpenhomeOrgSender2.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug1.cs \
-		$(proxyCs)CpAvOpenhomeOrgDebug2.cs \
-		$(proxyCs)CpAvOpenhomeOrgPins1.cs \
-		$(proxyCs)CpAvOpenhomeOrgPlaylistManager1.cs \
-		$(proxyCs)CpAvOpenhomeOrgMediaServer1.cs \
-		$(proxyCs)CpAvOpenhomeOrgNetworkMonitor1.cs \
-		$(proxyCs)CpOpenhomeOrgTestBasic1.cs \
-		$(proxyCs)CpOpenhomeOrgTestLights1.cs \
-		$(proxyCs)CpOpenhomeOrgSubscriptionLongPoll1.cs \
-		$(proxyCs)CpAvOpenhomeOrgOAuth1.cs \
-		$(proxyCs)CpLinnCoUkFlash1.cs \
-		$(proxyCs)CpLinnCoUkVolkano1.cs \
-		$(proxyCs)CpLinnCoUkPrivacy1.cs \
-		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
-		$(proxyCs)CpLinnCoUkCloud1.cs \
-		$(proxyCs)CpLinnCoUkCloud2.cs \
-		$(proxyCs)CpLinnCoUkUpdate1.cs \
-		$(proxyCs)CpLinnCoUkUpdate2.cs \
-		$(proxyCs)CpLinnCoUkUpdate3.cs \
-		$(proxyCs)CpLinnCoUkConfiguration1.cs \
-		$(proxyCs)CpLinnCoUkLipSync1.cs \
-		$(proxyCs)CpLinnCoUkExakt21.cs \
-		$(proxyCs)CpLinnCoUkExakt22.cs \
-		$(proxyCs)CpLinnCoUkWifi1.cs \
-		$(proxyCs)CpLinnCoUkZoneReceiver1.cs \
-		$(proxyCs)CpLinnCoUkZones1.cs \
-
-
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkZones1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 
 
 # Proxy classes for Java:

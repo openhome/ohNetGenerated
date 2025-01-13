@@ -32,10 +32,10 @@ headers_proxy = $(inc_build)/OpenHome/Buffer.h \
 				$(inc_build)/OpenHome/Private/Thread.h \
 				$(inc_build)/OpenHome/Net/Private/AsyncPrivate.h
 
-proxy_dotnet_assemblies = \
+proxy_dotnet_source = \
 <#  foreach (Service s in u.iServices) #>
 <#  { #>
-		Cp<#=FilePrefixTypeAndVersion(s)#>.net.dll \
+		$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
 <#  } #>
 
 proxy_dotnet_assemblies_with_path = \
@@ -65,87 +65,20 @@ $(objdir)Cp<#=FilePrefix(s)#><#=s.iType#><#=s.iVersion#>Std.$(objext) : $(proxyC
 
 # Proxy assemblies for .NET:
 
-CpProxyDotNetAssemblies: $(proxy_dotnet_assemblies_with_path)
+CpProxyDotNetAssemblies: CpProxyDotNetAllAssembly
+
+CpProxyDotNetAllAssembly: $(objdir)CpProxiesAll.net.dll
+
+$(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll $(proxy_dotnet_source)
+	$(dotnetsdk) build $(csShared)CpProxiesAll.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+
+# Rules for building each proxy as an individual DLL but is currently unused
 
 <# foreach (Service s in u.iServices) #>
 <# { #>
 $(objdir)Cp<#=FilePrefixTypeAndVersion(s)#>.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)Cp<#=FilePrefixTypeAndVersion(s)#>.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-		$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs
+	$(dotnetsdk) build $(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 <# } #>
-
-# Single Proxy assembly (all OpenHome services)  for .NET:
-
-CpProxyDotNetOpenHomeAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesOpenHome.net.dll
-
-$(objdir)CpProxiesOpenHome.net.dll: $(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "OpenHome") #>
-<#   { #>
-									$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpProxiesOpenHome.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "OpenHome") #>
-<#   { #>
-		$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-
-# Single Proxy assembly (all Linn services)  for .NET:
-
-CpProxyDotNetLinnAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesLinn.net.dll
-
-$(objdir)CpProxiesLinn.net.dll: $(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "Linn") #>
-<#   { #>
-								$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-	$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-	/out:$(objdir)CpProxiesLinn.net.dll \
-	/reference:$(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-<#   if (s.iPublisher == "Linn") #>
-<#   { #>
-		$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
-<#   } #>
-<# } #>
-
-
-
-# Single Proxy assembly (all services)  for .NET:
-
-CpProxyDotNetAllAssembly: $(proxy_dotnet_assemblies_with_path) $(objdir)CpProxiesAll.net.dll
-
-$(objdir)CpProxiesAll.net.dll: $(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-								$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
-<# } #>
-
-		$(csharp) $(debug_csharp) $(csharpdefines) /t:library \
-		/out:$(objdir)CpProxiesAll.net.dll \
-		/reference:$(depDirCs)ohNet.net.dll \
-<# foreach (Service s in u.iServices) #>
-<# { #>
-		$(proxyCs)Cp<#=FilePrefixTypeAndVersion(s)#>.cs \
-<# } #>
-
-
 
 
 # Proxy classes for Java:

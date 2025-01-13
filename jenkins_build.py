@@ -84,7 +84,6 @@ class JenkinsBuild():
             'Linux-armhf': { 'os': 'linux', 'arch': 'armhf', 'publish': True, 'system': 'Linux'},
             'Linux-rpi': { 'os': 'linux', 'arch': 'rpi', 'publish': True, 'system': 'Linux'},
             'iOs-x64': { 'os': 'iOs', 'arch': 'x64', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-x64=1'},
-            'iOs-armv7': { 'os': 'iOs', 'arch': 'armv7', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-armv7=1'},
             'iOs-arm64': { 'os': 'iOs', 'arch': 'arm64', 'publish': True, 'system': 'iOs', 'make_target': 'iOs-arm64=1'},
             'Core-ppc32': { 'os': 'Core', 'arch': 'ppc32', 'publish': True, 'system': 'Core', 'make_target': ''},
             'Core-armv5': { 'os': 'Core', 'arch': 'armv5', 'publish': True, 'system': 'Core', 'make_target': ''},
@@ -120,6 +119,38 @@ class JenkinsBuild():
             os.environ['CROSS_COMPILE'] = '/opt/rtems-4.11/bin/arm-rtemseabi4.11-'
 
         self.platform_args = args
+
+    def install_dotnet(self):
+        os_platform = self.platform['os']
+        arch = self.platform['arch']
+
+        dotnet_install_cmd = []
+        
+        pre_installed_platforms = [
+            'windows',
+            'macos',
+            'iOs',
+            'Windows81',
+            'Windows10',
+        ]
+
+        if os_platform in pre_installed_platforms:
+            print ('dotent SDK should be preinstalled on for this platform ')
+            return
+
+        dotnet_install_cmd.append('./dotnet-install.sh')
+        dotnet_install_cmd.append('--channel')
+        dotnet_install_cmd.append('LTS')
+
+        print( 'running install_dotnet with %s' % (dotnet_install_cmd,))
+
+        ret = subprocess.check_call(dotnet_install_cmd)
+        if ret != 0:
+            print('Failed to install dotnet: %s' % ret)
+            sys.exit(10)
+
+        #NOTE: The script doesn't set up any PATH entries for dotnet. No point setting them here as the env isn't
+        #      provided to the makefile so we configure the paths there
 
     def set_make_args(self):
         arch = self.platform['arch']
@@ -234,8 +265,10 @@ class JenkinsBuild():
                 os.remove(native_dest)
             os.rename(native_bundle_name, native_dest)
 
-            # Add a version to AnyPlatform on Windows-x86 only (arbitrarily chosen platform)
-            if openhome_system == 'Windows' and openhome_architecture == 'x86':
+            # Add a version to AnyPlatform on Linux-x86 only. Previously this was Windows, but the dotnet SDK has a bug in which the platform
+            # property is ignored and will only build for the arch of the dotnet install it's currently running. We need 'Any CPU' binaries so
+            # they are translated into the various arches for mobile platforms. 
+            if openhome_system == 'Linux' and openhome_architecture == 'x86':
                 native_bundle_name = os.path.join('Build/Bundles', "ohNetGenerated-AnyPlatform-%s.tar.gz" % (openhome_configuration))
                 native_dest = os.path.join('Build/Bundles', "ohNetGenerated-%s-AnyPlatform-%s.tar.gz" % (version, openhome_configuration))
                 if os.path.exists(native_dest):
@@ -270,6 +303,7 @@ def main():
     Build = JenkinsBuild()
     Build.get_options()
     Build.get_platform()
+    Build.install_dotnet()
     Build.set_platform_args()
     Build.set_make_args()
     Build.do_build(False)  # release build
