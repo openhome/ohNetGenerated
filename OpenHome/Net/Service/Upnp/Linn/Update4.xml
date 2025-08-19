@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scpd xmlns="urn:schemas-upnp-org:service-1-0">
   <specVersion>
-    <major>2</major>
+    <major>1</major>
     <minor>0</minor>
   </specVersion>
   <actionList>
@@ -87,7 +87,30 @@
       </argumentList>
     </action>
     <action>
+      <name>RecoverKeepStore</name>
+    </action>
+    <action>
+      <name>RecoverKeepStore2</name>
+      <argumentList>
+        <argument>
+          <name>Id</name>
+          <direction>out</direction>
+          <relatedStateVariable>A_ARG_TYPE_TUint</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
       <name>CheckNow</name>
+    </action>
+    <action>
+      <name>GetRecoverSupported</name>
+      <argumentList>
+        <argument>
+          <name>RecoverSupported</name>
+          <direction>out</direction>
+          <relatedStateVariable>RecoverSupported</relatedStateVariable>
+        </argument>
+      </argumentList>
     </action>
   </actionList>
   <serviceStateTable>
@@ -103,13 +126,21 @@
       <name>JobStatus</name>
       <dataType>string</dataType>
     </stateVariable>
+    <stateVariable sendEvents="yes">
+      <name>RecoverSupported</name>
+      <dataType>boolean</dataType>
+    </stateVariable>
     <stateVariable sendEvents="no">
       <name>A_ARG_TYPE_String</name>
       <dataType>string</dataType>
     </stateVariable>
     <stateVariable sendEvents="no">
-        <name>A_ARG_TYPE_TUint</name>
-        <dataType>ui4</dataType>
+      <name>A_ARG_TYPE_TUint</name>
+      <dataType>ui4</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>A_ARG_TYPE_Bool</name>
+      <dataType>boolean</dataType>
     </stateVariable>
   </serviceStateTable>
 </scpd>

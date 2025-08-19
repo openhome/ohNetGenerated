@@ -402,6 +402,13 @@
     <publisher>Linn</publisher>
     <dcpdir></dcpdir>
     <domain>linn.co.uk</domain>
+    <type>Update</type>
+    <version>4</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
     <type>Configuration</type>
     <version>1</version>
   </service>

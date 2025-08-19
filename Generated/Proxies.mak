@@ -175,6 +175,9 @@ objects_proxies = \
 				  $(objdir)CpLinnCoUkUpdate3.$(objext) \
 				  $(objdir)CpLinnCoUkUpdate3C.$(objext) \
 				  $(objdir)CpLinnCoUkUpdate3Std.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate4.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate4C.$(objext) \
+				  $(objdir)CpLinnCoUkUpdate4Std.$(objext) \
 				  $(objdir)CpLinnCoUkConfiguration1.$(objext) \
 				  $(objdir)CpLinnCoUkConfiguration1C.$(objext) \
 				  $(objdir)CpLinnCoUkConfiguration1Std.$(objext) \
@@ -268,6 +271,7 @@ proxy_dotnet_source = \
 		$(proxyCs)CpLinnCoUkUpdate1.cs \
 		$(proxyCs)CpLinnCoUkUpdate2.cs \
 		$(proxyCs)CpLinnCoUkUpdate3.cs \
+		$(proxyCs)CpLinnCoUkUpdate4.cs \
 		$(proxyCs)CpLinnCoUkConfiguration1.cs \
 		$(proxyCs)CpLinnCoUkLipSync1.cs \
 		$(proxyCs)CpLinnCoUkExakt21.cs \
@@ -334,6 +338,7 @@ proxy_dotnet_assemblies_with_path = \
 		$(objdir)CpLinnCoUkUpdate1.net.dll \
 		$(objdir)CpLinnCoUkUpdate2.net.dll \
 		$(objdir)CpLinnCoUkUpdate3.net.dll \
+		$(objdir)CpLinnCoUkUpdate4.net.dll \
 		$(objdir)CpLinnCoUkConfiguration1.net.dll \
 		$(objdir)CpLinnCoUkLipSync1.net.dll \
 		$(objdir)CpLinnCoUkExakt21.net.dll \
@@ -400,6 +405,7 @@ proxy_java_classes_with_path = \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate2.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate3.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate4.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkConfiguration1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExakt21.class \
@@ -753,6 +759,12 @@ $(objdir)CpLinnCoUkUpdate3C.$(objext) : $(proxyC)CpLinnCoUkUpdate3C.cpp $(header
 	$(compiler)CpLinnCoUkUpdate3C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkUpdate3C.cpp
 $(objdir)CpLinnCoUkUpdate3Std.$(objext) : $(proxyCppStd)CpLinnCoUkUpdate3Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkUpdate3.h
 	$(compiler)CpLinnCoUkUpdate3Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkUpdate3Std.cpp
+$(objdir)CpLinnCoUkUpdate4.$(objext) : $(proxyCppCore)CpLinnCoUkUpdate4.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkUpdate4.h
+	$(compiler)CpLinnCoUkUpdate4.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkUpdate4.cpp
+$(objdir)CpLinnCoUkUpdate4C.$(objext) : $(proxyC)CpLinnCoUkUpdate4C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkUpdate4.h
+	$(compiler)CpLinnCoUkUpdate4C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkUpdate4C.cpp
+$(objdir)CpLinnCoUkUpdate4Std.$(objext) : $(proxyCppStd)CpLinnCoUkUpdate4Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkUpdate4.h
+	$(compiler)CpLinnCoUkUpdate4Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkUpdate4Std.cpp
 $(objdir)CpLinnCoUkConfiguration1.$(objext) : $(proxyCppCore)CpLinnCoUkConfiguration1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkConfiguration1.h
 	$(compiler)CpLinnCoUkConfiguration1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkConfiguration1.cpp
 $(objdir)CpLinnCoUkConfiguration1C.$(objext) : $(proxyC)CpLinnCoUkConfiguration1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkConfiguration1.h
@@ -921,6 +933,8 @@ $(objdir)CpLinnCoUkUpdate2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoU
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkUpdate3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate3.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+$(objdir)CpLinnCoUkUpdate4.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkUpdate4.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkUpdate4.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkConfiguration1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkConfiguration1.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkConfiguration1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkLipSync1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkLipSync1.cs
@@ -1055,6 +1069,8 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate2.class : $(
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkUpdate2.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate3.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkUpdate3.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkUpdate3.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkUpdate4.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkUpdate4.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkUpdate4.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkConfiguration1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkConfiguration1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkConfiguration1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkLipSync1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkLipSync1.java
