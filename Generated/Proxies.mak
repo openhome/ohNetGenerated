@@ -154,6 +154,12 @@ objects_proxies = \
 				  $(objdir)CpLinnCoUkVolkano1.$(objext) \
 				  $(objdir)CpLinnCoUkVolkano1C.$(objext) \
 				  $(objdir)CpLinnCoUkVolkano1Std.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano2.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano2C.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano2Std.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano3.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano3C.$(objext) \
+				  $(objdir)CpLinnCoUkVolkano3Std.$(objext) \
 				  $(objdir)CpLinnCoUkPrivacy1.$(objext) \
 				  $(objdir)CpLinnCoUkPrivacy1C.$(objext) \
 				  $(objdir)CpLinnCoUkPrivacy1Std.$(objext) \
@@ -264,6 +270,8 @@ proxy_dotnet_source = \
 		$(proxyCs)CpAvOpenhomeOrgReaction1.cs \
 		$(proxyCs)CpLinnCoUkFlash1.cs \
 		$(proxyCs)CpLinnCoUkVolkano1.cs \
+		$(proxyCs)CpLinnCoUkVolkano2.cs \
+		$(proxyCs)CpLinnCoUkVolkano3.cs \
 		$(proxyCs)CpLinnCoUkPrivacy1.cs \
 		$(proxyCs)CpLinnCoUkExaktInputs1.cs \
 		$(proxyCs)CpLinnCoUkCloud1.cs \
@@ -331,6 +339,8 @@ proxy_dotnet_assemblies_with_path = \
 		$(objdir)CpAvOpenhomeOrgReaction1.net.dll \
 		$(objdir)CpLinnCoUkFlash1.net.dll \
 		$(objdir)CpLinnCoUkVolkano1.net.dll \
+		$(objdir)CpLinnCoUkVolkano2.net.dll \
+		$(objdir)CpLinnCoUkVolkano3.net.dll \
 		$(objdir)CpLinnCoUkPrivacy1.net.dll \
 		$(objdir)CpLinnCoUkExaktInputs1.net.dll \
 		$(objdir)CpLinnCoUkCloud1.net.dll \
@@ -398,6 +408,8 @@ proxy_java_classes_with_path = \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyAvOpenhomeOrgReaction1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano2.class \
+		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano3.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class \
 		$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkCloud1.class \
@@ -717,6 +729,18 @@ $(objdir)CpLinnCoUkVolkano1C.$(objext) : $(proxyC)CpLinnCoUkVolkano1C.cpp $(head
 	$(compiler)CpLinnCoUkVolkano1C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkVolkano1C.cpp
 $(objdir)CpLinnCoUkVolkano1Std.$(objext) : $(proxyCppStd)CpLinnCoUkVolkano1Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkVolkano1.h
 	$(compiler)CpLinnCoUkVolkano1Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkVolkano1Std.cpp
+$(objdir)CpLinnCoUkVolkano2.$(objext) : $(proxyCppCore)CpLinnCoUkVolkano2.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkVolkano2.h
+	$(compiler)CpLinnCoUkVolkano2.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkVolkano2.cpp
+$(objdir)CpLinnCoUkVolkano2C.$(objext) : $(proxyC)CpLinnCoUkVolkano2C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkVolkano2.h
+	$(compiler)CpLinnCoUkVolkano2C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkVolkano2C.cpp
+$(objdir)CpLinnCoUkVolkano2Std.$(objext) : $(proxyCppStd)CpLinnCoUkVolkano2Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkVolkano2.h
+	$(compiler)CpLinnCoUkVolkano2Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkVolkano2Std.cpp
+$(objdir)CpLinnCoUkVolkano3.$(objext) : $(proxyCppCore)CpLinnCoUkVolkano3.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkVolkano3.h
+	$(compiler)CpLinnCoUkVolkano3.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkVolkano3.cpp
+$(objdir)CpLinnCoUkVolkano3C.$(objext) : $(proxyC)CpLinnCoUkVolkano3C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkVolkano3.h
+	$(compiler)CpLinnCoUkVolkano3C.$(objext) -c $(cppflags) $(includes) $(proxyC)CpLinnCoUkVolkano3C.cpp
+$(objdir)CpLinnCoUkVolkano3Std.$(objext) : $(proxyCppStd)CpLinnCoUkVolkano3Std.cpp $(headers_proxy) OpenHome/Net/Bindings/Cpp/ControlPoint/Proxies/CpLinnCoUkVolkano3.h
+	$(compiler)CpLinnCoUkVolkano3Std.$(objext) -c $(cppflags) $(includes) $(proxyCppStd)CpLinnCoUkVolkano3Std.cpp
 $(objdir)CpLinnCoUkPrivacy1.$(objext) : $(proxyCppCore)CpLinnCoUkPrivacy1.cpp $(headers_proxy) OpenHome/Net/ControlPoint/Proxies/CpLinnCoUkPrivacy1.h
 	$(compiler)CpLinnCoUkPrivacy1.$(objext) -c $(cppflags) $(includes) $(proxyCppCore)CpLinnCoUkPrivacy1.cpp
 $(objdir)CpLinnCoUkPrivacy1C.$(objext) : $(proxyC)CpLinnCoUkPrivacy1C.cpp $(headers_proxy) OpenHome/Net/Bindings/C/ControlPoint/Proxies/CpLinnCoUkPrivacy1.h
@@ -919,6 +943,10 @@ $(objdir)CpLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUk
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkFlash1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkVolkano1.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+$(objdir)CpLinnCoUkVolkano2.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkVolkano2.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+$(objdir)CpLinnCoUkVolkano3.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkVolkano3.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkPrivacy1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkPrivacy1.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkPrivacy1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)CpLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(proxyCs)CpLinnCoUkExaktInputs1.cs
@@ -1055,6 +1083,10 @@ $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkFlash1.class : $(o
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkFlash1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkVolkano1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkVolkano1.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano2.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkVolkano2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkVolkano2.java
+$(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkVolkano3.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkVolkano3.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkVolkano3.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkPrivacy1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkPrivacy1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(proxyJava)CpProxyLinnCoUkPrivacy1.java
 $(objdir)org/openhome/net/controlpoint/proxies/CpProxyLinnCoUkExaktInputs1.class : $(ohNetLibDir)ohnet.jar $(proxyJava)CpProxyLinnCoUkExaktInputs1.java

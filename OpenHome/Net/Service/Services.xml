@@ -353,6 +353,20 @@
     <publisher>Linn</publisher>
     <dcpdir></dcpdir>
     <domain>linn.co.uk</domain>
+    <type>Volkano</type>
+    <version>2</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
+    <type>Volkano</type>
+    <version>3</version>
+  </service>
+  <service>
+    <publisher>Linn</publisher>
+    <dcpdir></dcpdir>
+    <domain>linn.co.uk</domain>
     <type>Privacy</type>
     <version>1</version>
   </service>

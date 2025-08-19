@@ -154,6 +154,12 @@ objects_devices = \
 				  $(objdir)DvLinnCoUkVolkano1.$(objext) \
 				  $(objdir)DvLinnCoUkVolkano1Std.$(objext) \
 				  $(objdir)DvLinnCoUkVolkano1C.$(objext) \
+				  $(objdir)DvLinnCoUkVolkano2.$(objext) \
+				  $(objdir)DvLinnCoUkVolkano2Std.$(objext) \
+				  $(objdir)DvLinnCoUkVolkano2C.$(objext) \
+				  $(objdir)DvLinnCoUkVolkano3.$(objext) \
+				  $(objdir)DvLinnCoUkVolkano3Std.$(objext) \
+				  $(objdir)DvLinnCoUkVolkano3C.$(objext) \
 				  $(objdir)DvLinnCoUkPrivacy1.$(objext) \
 				  $(objdir)DvLinnCoUkPrivacy1Std.$(objext) \
 				  $(objdir)DvLinnCoUkPrivacy1C.$(objext) \
@@ -258,6 +264,8 @@ device_dotnet_source = \
 		$(deviceCs)DvAvOpenhomeOrgReaction1.cs \
 		$(deviceCs)DvLinnCoUkFlash1.cs \
 		$(deviceCs)DvLinnCoUkVolkano1.cs \
+		$(deviceCs)DvLinnCoUkVolkano2.cs \
+		$(deviceCs)DvLinnCoUkVolkano3.cs \
 		$(deviceCs)DvLinnCoUkPrivacy1.cs \
 		$(deviceCs)DvLinnCoUkExaktInputs1.cs \
 		$(deviceCs)DvLinnCoUkCloud1.cs \
@@ -325,6 +333,8 @@ device_dotnet_assemblies_with_path = \
 		$(objdir)DvAvOpenhomeOrgReaction1.net.dll \
 		$(objdir)DvLinnCoUkFlash1.net.dll \
 		$(objdir)DvLinnCoUkVolkano1.net.dll \
+		$(objdir)DvLinnCoUkVolkano2.net.dll \
+		$(objdir)DvLinnCoUkVolkano3.net.dll \
 		$(objdir)DvLinnCoUkPrivacy1.net.dll \
 		$(objdir)DvLinnCoUkExaktInputs1.net.dll \
 		$(objdir)DvLinnCoUkCloud1.net.dll \
@@ -392,6 +402,8 @@ device_java_classes_with_path = \
 		$(objdir)org/openhome/net/device/providers/DvProviderAvOpenhomeOrgReaction1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkFlash1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class \
+		$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano2.class \
+		$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano3.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class \
 		$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkCloud1.class \
@@ -710,6 +722,18 @@ $(objdir)DvLinnCoUkVolkano1Std.$(objext) : $(deviceCppStd)DvLinnCoUkVolkano1Std.
 	$(compiler)DvLinnCoUkVolkano1Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkVolkano1Std.cpp
 $(objdir)DvLinnCoUkVolkano1C.$(objext) : $(deviceC)DvLinnCoUkVolkano1C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkVolkano1.h
 	$(compiler)DvLinnCoUkVolkano1C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkVolkano1C.cpp
+$(objdir)DvLinnCoUkVolkano2.$(objext) : $(deviceCppCore)DvLinnCoUkVolkano2.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkVolkano2.h
+	$(compiler)DvLinnCoUkVolkano2.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkVolkano2.cpp
+$(objdir)DvLinnCoUkVolkano2Std.$(objext) : $(deviceCppStd)DvLinnCoUkVolkano2Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkVolkano2.h
+	$(compiler)DvLinnCoUkVolkano2Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkVolkano2Std.cpp
+$(objdir)DvLinnCoUkVolkano2C.$(objext) : $(deviceC)DvLinnCoUkVolkano2C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkVolkano2.h
+	$(compiler)DvLinnCoUkVolkano2C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkVolkano2C.cpp
+$(objdir)DvLinnCoUkVolkano3.$(objext) : $(deviceCppCore)DvLinnCoUkVolkano3.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkVolkano3.h
+	$(compiler)DvLinnCoUkVolkano3.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkVolkano3.cpp
+$(objdir)DvLinnCoUkVolkano3Std.$(objext) : $(deviceCppStd)DvLinnCoUkVolkano3Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkVolkano3.h
+	$(compiler)DvLinnCoUkVolkano3Std.$(objext) -c $(cppflags) $(includes) $(deviceCppStd)DvLinnCoUkVolkano3Std.cpp
+$(objdir)DvLinnCoUkVolkano3C.$(objext) : $(deviceC)DvLinnCoUkVolkano3C.cpp $(headers_device) OpenHome/Net/Bindings/C/Device/Providers/DvLinnCoUkVolkano3.h
+	$(compiler)DvLinnCoUkVolkano3C.$(objext) -c $(cppflags) $(includes) $(deviceC)DvLinnCoUkVolkano3C.cpp
 $(objdir)DvLinnCoUkPrivacy1.$(objext) : $(deviceCppCore)DvLinnCoUkPrivacy1.cpp $(headers_device) OpenHome/Net/Device/Providers/DvLinnCoUkPrivacy1.h
 	$(compiler)DvLinnCoUkPrivacy1.$(objext) -c $(cppflags) $(includes) $(deviceCppCore)DvLinnCoUkPrivacy1.cpp
 $(objdir)DvLinnCoUkPrivacy1Std.$(objext) : $(deviceCppStd)DvLinnCoUkPrivacy1Std.cpp $(headers_device) OpenHome/Net/Bindings/Cpp/Device/Providers/DvLinnCoUkPrivacy1.h
@@ -913,6 +937,10 @@ $(objdir)DvLinnCoUkFlash1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoU
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkFlash1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkVolkano1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkVolkano1.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+$(objdir)DvLinnCoUkVolkano2.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkVolkano2.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano2.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
+$(objdir)DvLinnCoUkVolkano3.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkVolkano3.cs
+	$(dotnetsdk) build $(proxyCs)CpLinnCoUkVolkano3.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkPrivacy1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkPrivacy1.cs
 	$(dotnetsdk) build $(proxyCs)CpLinnCoUkPrivacy1.csproj --framework $(dotnetFramework) --output $(objdir) -p:ohNetDepDir=$(depDirCs)
 $(objdir)DvLinnCoUkExaktInputs1.net.dll: $(depDirCs)ohNet.net.dll $(deviceCs)DvLinnCoUkExaktInputs1.cs
@@ -1050,6 +1078,10 @@ $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkFlash1.class : $(oh
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkFlash1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkVolkano1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkVolkano1.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano2.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkVolkano2.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkVolkano2.java
+$(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkVolkano3.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkVolkano3.java
+	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkVolkano3.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkPrivacy1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkPrivacy1.java
 	$(javac) -classpath $(ohNetLibDir)ohnet.jar -d $(objdir) $(deviceJava)DvProviderLinnCoUkPrivacy1.java
 $(objdir)org/openhome/net/device/providers/DvProviderLinnCoUkExaktInputs1.class : $(ohNetLibDir)ohnet.jar $(deviceJava)DvProviderLinnCoUkExaktInputs1.java
