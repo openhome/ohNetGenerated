@@ -245,7 +245,7 @@ class JenkinsBuild():
             # Add a version to AnyPlatform on Linux-x86 only. Previously this was Windows, but the dotnet SDK has a bug in which the platform
             # property is ignored and will only build for the arch of the dotnet install it's currently running. We need 'Any CPU' binaries so
             # they are translated into the various arches for mobile platforms. 
-            if openhome_system == 'Linux' and openhome_architecture == 'x86':
+            if openhome_system == 'Linux' and openhome_architecture == 'x64':
                 native_bundle_name = os.path.join('Build/Bundles', "ohNetGenerated-AnyPlatform-%s.tar.gz" % (openhome_configuration))
                 native_dest = os.path.join('Build/Bundles', "ohNetGenerated-%s-AnyPlatform-%s.tar.gz" % (version, openhome_configuration))
                 if os.path.exists(native_dest):
