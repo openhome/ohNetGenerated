@@ -22,7 +22,7 @@ depsPlatform = Windows10-$(openhome_architecture)
 !endif
 
 dotnetsdk = dotnet
-dotnetFramework = net6.0
+dotnetFramework = net8.0
 !if "$(openhome_architecture)"=="x64"
 dotnetRuntime = win-x64
 !else
