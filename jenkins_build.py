@@ -8,36 +8,6 @@ from Helpers.remote import *
 import sys
 from os import path
 
-try:
-    import boto3
-    import boto3.s3.transfer
-except:
-    print('\nAWS fetch requires boto3 module')
-    print("Please install this using 'pip install boto3'\n")
-else:
-    # create AWS credentials file (if not already present)
-    home = None
-    if 'HOMEPATH' in os.environ and 'HOMEDRIVE' in os.environ:
-        home = os.path.join(os.environ['HOMEDRIVE'], os.environ['HOMEPATH'])
-    elif 'HOME' in os.environ:
-        home = os.environ['HOME']
-    if home:
-        awsCreds = os.path.join(home, '.aws', 'credentials')
-        if not os.path.exists(awsCreds):
-            if sys.version_info[0] == 2:
-                from urllib2 import urlopen
-            else:
-                from urllib.request import urlopen
-            try:
-                os.mkdir(os.path.join(home, '.aws'))
-            except:
-                pass
-            credsFile = urlopen('http://core.linn.co.uk/aws-credentials' )
-            creds = credsFile.read()
-            with open(awsCreds, 'wt') as f:
-                f.write(creds.decode("utf-8"))
-
-
 class JenkinsBuild():
     def get_options(self):
         env_platform = os.environ.get('PLATFORM')
