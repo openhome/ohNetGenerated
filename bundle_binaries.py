@@ -139,13 +139,12 @@ def main():
     if os.path.exists(bundle_path):
         os.remove(bundle_path)
 
-    tf = tarfile.open(bundle_path, 'w:gz')
-
-    if options.managed_only or options.system == 'Windows10':
-        recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_managed)
-    else:
-        recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_binary)
-        recursively_add_directory(tf, includedir, bundle_fileprefix + "/include/ohnet")
+    with tarfile.open(bundle_path, 'w:gz') as tf:
+        if options.managed_only or options.system == 'Windows10':
+            recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_managed)
+        else:
+            recursively_add_directory(tf, builddir, bundle_fileprefix + "/lib", exclude=exclude_non_binary)
+            recursively_add_directory(tf, includedir, bundle_fileprefix + "/include/ohnet")
 
 if __name__ == "__main__":
     main()
